@@ -1,0 +1,95 @@
+<?php
+
+/**
+ * @file
+ * Contains scitalk_media.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function scitalk_media_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the scitalk_media module.
+    case 'help.page.scitalk_media':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Basic media entity for storing SciTalk videos') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function scitalk_media_theme() {
+  //Add any other video theme display templates here as you need them.
+  return [
+    'scitalk_media_wowza' => [
+      'variables' => ['path' => NULL, 'source' => 'interimHD', 'html_id'=> '', 'width' => 350, 'height' => 250, 'file_url' => '', 'file_mime' => 'video/avi', 'attributes' => []]
+    ],
+  ];
+}
+
+
+/**
+ * Implements hook_entity_insert
+ * @param \Drupal\Core\Entity\EntityInterface $entity
+ */
+function scitalk_media_entity_insert(\Drupal\Core\Entity\EntityInterface $entity) {
+  $entity_type = $entity->getEntityTypeId();
+  
+  if($entity_type == 'media') {
+    $scitalk_plugin = scitalk_media_get_plugin_by_config($entity);
+    if($scitalk_plugin) $scitalk_plugin->entityInsert();
+  }
+}
+
+
+/**
+ * Implements hook_entity_update
+ * @param Drupal\Core\Entity\EntityInterface $entity
+ */
+function scitalk_media_entity_update(Drupal\Core\Entity\EntityInterface $entity) {
+  $entity_type = $entity->getEntityTypeId();
+  $scitalk_update_done = &drupal_static(__FUNCTION__);
+  if($entity_type == 'media' && (!isset($scitalk_update_done) && $scitalk_update_done != TRUE)) {  //avoids nesting issues due to our entity save routine firing
+    $scitalk_update_done = TRUE;
+    $scitalk_plugin = scitalk_media_get_plugin_by_config($entity);
+    if($scitalk_plugin) $scitalk_plugin->entityMetaDataUpdate();
+  }
+}
+
+
+function scitalk_media_get_plugin_by_config(\Drupal\Core\Entity\EntityInterface $entity) {
+  $scitalk_plugin = FALSE;
+  $entity_type = $entity->getEntityTypeId();
+  if($entity_type == 'media') {
+    $manager = \Drupal::service('plugin.manager.scitalk_media_types');
+    $plugins = $manager->getDefinitions();
+    $scitalk_plugin = NULL;
+    $source = $entity->bundle->entity->getSource();
+    $source_plugin_id = $source->getPluginId();
+    $configuration = $source->getConfiguration();
+    
+    foreach($plugins as $plugin => $plugin_config) {
+      if($plugin_config['media_type'] == $source_plugin_id &&
+        array_key_exists('scitalk_video_source', $configuration) &&
+        $plugin_config['media_source'] == $configuration['scitalk_video_source']) {
+          
+          $scitalk_plugin = $manager->createInstance($plugin, array($entity));
+          
+        }
+        elseif($plugin_config['media_type'] == $source_plugin_id) {
+          $scitalk_plugin = $manager->createInstance($plugin, array($entity));
+        }
+    }
+    
+  }
+  return $scitalk_plugin;
+}

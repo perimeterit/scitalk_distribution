@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - scitalk_base
+name: 'Collection Type'
+vid: collection_type
+description: 'Type of Collection'
+hierarchy: 0
+weight: 0

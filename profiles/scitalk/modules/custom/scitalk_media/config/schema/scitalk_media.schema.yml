@@ -1,0 +1,15 @@
+field.formatter.settings.which_thumb:
+  type: mapping
+  label: 'SciTalk Media Which Thumbnail'
+  mapping:
+    which_thumb:
+      type: string
+      label: 'Which Thumbnail'
+
+field.formatter.settings.which_style:
+  type: mapping
+  label: 'SciTalk Media Which Style'
+  mapping:
+    which_thumb:
+      type: string
+      label: 'Which Style'

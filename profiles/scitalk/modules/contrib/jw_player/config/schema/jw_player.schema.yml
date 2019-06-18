@@ -1,0 +1,124 @@
+jw_player.preset.*:
+  type: config_entity
+  label: 'Preset'
+  mapping:
+    id:
+      type: string
+      label: 'Machine-readable name'
+    label:
+      type: label
+      label: 'Label'
+    status:
+      type: boolean
+      label: 'Enabled status of the configuration entity'
+    description:
+      type: label
+      label: 'Description'
+    settings:
+      type: mapping
+      label: 'Settings'
+      mapping:
+        preset_source:
+          type:  label
+          label: 'Select your preset source.'
+        mode:
+          type:  label
+          label: 'Select your primary embed mode.'
+        stretching:
+          type: string
+          label: 'Stretching'
+        responsive:
+          type: boolean
+          label: 'Responsive'
+        aspectratio:
+          type: string
+          label: 'Aspect Ratio'
+        width:
+          type: integer
+          label: 'Width'
+        height:
+          type: integer
+          label: 'Height'
+        controlbar:
+          type: label
+          label: 'Controlbar Position'
+        skin:
+          type: label
+          label: 'Skin'
+        autostart:
+          type: boolean
+          label: 'Autostart'
+        mute:
+          type: boolean
+          label: 'Mute'
+        sharing:
+          type: boolean
+          label: 'Sharing'
+        sharing_heading:
+          type: string
+          label: 'Sharing heading'
+        sharing_sites:
+          type: mapping
+          label: 'Sharing sites'
+          mapping:
+            sites:
+              type: sequence
+              label: 'Sites'
+              sequence:
+                type: mapping
+                label: 'Sharing sites configuration'
+                mapping:
+                  enabled:
+                    type: boolean
+                    label: 'Enabled'
+                  weight:
+                    type: integer
+                    label: 'Weight'
+        advertising:
+          type: mapping
+          label: 'Advertising'
+          mapping:
+            client:
+              type: label
+              label: 'Client'
+            tag:
+              type: string
+              label: 'Pre Tag'
+            tag_post:
+              type: string
+              label: 'Post Tag'
+            skipoffset:
+              type: integer
+              label: 'Skip offset'
+            skipmessage:
+              type: string
+              label: 'Skip message'
+            skiptext:
+              type: string
+              label: 'Skip text'
+
+field.formatter.settings.jwplayer_formatter:
+  type: mapping
+  mapping:
+    jwplayer_preset:
+      type: label
+      label: 'Select preset'
+    preview_image_field:
+      type: label
+      label: 'Preview image source'
+    preview_image_style:
+      type: label
+      label: 'Preview image style'
+
+jw_player.settings:
+  type: config_object
+  mapping:
+    cloud_player_library_url:
+      type: string
+      label: 'Cloud-Hosted Account Token'
+    jw_player_key:
+      type: string
+      label: 'Self-Hosted Player License Key'
+    jw_player_version:
+      type: integer
+      label: 'Jw player version'

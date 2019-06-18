@@ -1,0 +1,99 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.speaker_profile.field_sp_display_name
+    - field.field.node.speaker_profile.field_sp_external_id
+    - field.field.node.speaker_profile.field_sp_first_name
+    - field.field.node.speaker_profile.field_sp_last_name
+    - field.field.node.speaker_profile.field_sp_linked_user
+    - field.field.node.speaker_profile.field_sp_profile_thumbnail
+    - field.field.node.speaker_profile.field_sp_speaker_profile
+    - field.field.node.speaker_profile.field_sp_web_profile_url
+    - image.style.scitalk_profile_thumbnail
+    - node.type.speaker_profile
+  module:
+    - image
+    - link
+    - text
+    - user
+id: node.speaker_profile.default
+targetEntityType: node
+bundle: speaker_profile
+mode: default
+content:
+  field_sp_display_name:
+    weight: 108
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_sp_external_id:
+    weight: 115
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_sp_first_name:
+    weight: 109
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_sp_last_name:
+    weight: 110
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_sp_linked_user:
+    weight: 112
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_sp_profile_thumbnail:
+    weight: 114
+    label: above
+    settings:
+      image_style: scitalk_profile_thumbnail
+      image_link: content
+    third_party_settings: {  }
+    type: image
+    region: content
+  field_sp_speaker_profile:
+    weight: 113
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_sp_web_profile_url:
+    weight: 111
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  links:
+    weight: 100
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true

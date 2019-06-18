@@ -1,0 +1,172 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.talk.field_combination_example
+    - field.field.node.talk.field_scientific_area
+    - field.field.node.talk.field_talk_abstract
+    - field.field.node.talk.field_talk_attachments
+    - field.field.node.talk.field_talk_collection
+    - field.field.node.talk.field_talk_date
+    - field.field.node.talk.field_talk_keywords
+    - field.field.node.talk.field_talk_location
+    - field.field.node.talk.field_talk_number
+    - field.field.node.talk.field_talk_series
+    - field.field.node.talk.field_talk_source_event
+    - field.field.node.talk.field_talk_speaker_profile
+    - field.field.node.talk.field_talk_thumbnail
+    - field.field.node.talk.field_talk_type
+    - field.field.node.talk.field_talk_video
+    - field.field.node.talk.field_talk_viewable_online
+    - image.style.scitalk_thumbnail
+    - node.type.talk
+  enforced:
+    module:
+      - scitalk_base
+  module:
+    - datetime
+    - image
+    - link
+    - text
+    - user
+id: node.talk.default
+targetEntityType: node
+bundle: talk
+mode: default
+content:
+  field_combination_example:
+    weight: 11
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_scientific_area:
+    weight: 10
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_talk_abstract:
+    weight: 16
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_talk_collection:
+    weight: 17
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_talk_date:
+    weight: 2
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: event_date_time
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_talk_keywords:
+    weight: 14
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_talk_location:
+    weight: 18
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_talk_number:
+    type: string
+    weight: 1
+    region: content
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_talk_series:
+    weight: 19
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_talk_source_event:
+    weight: 5
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_talk_speaker_profile:
+    weight: 20
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_talk_thumbnail:
+    weight: 23
+    label: above
+    settings:
+      image_style: scitalk_thumbnail
+      image_link: content
+    third_party_settings: {  }
+    type: image
+    region: content
+  field_talk_type:
+    weight: 21
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_talk_video:
+    type: entity_reference_entity_view
+    weight: 22
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+  field_talk_viewable_online:
+    weight: 6
+    label: above
+    settings:
+      format: default
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings: {  }
+    type: boolean
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_talk_attachments: true
+  langcode: true

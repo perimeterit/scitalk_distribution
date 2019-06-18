@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - scitalk_base
+name: Series
+vid: series
+description: 'A series of Talks'
+hierarchy: 0
+weight: 0

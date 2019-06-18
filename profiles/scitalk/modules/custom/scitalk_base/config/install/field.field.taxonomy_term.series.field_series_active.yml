@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_series_active
+    - taxonomy.vocabulary.series
+id: taxonomy_term.series.field_series_active
+field_name: field_series_active
+entity_type: taxonomy_term
+bundle: series
+label: Active
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

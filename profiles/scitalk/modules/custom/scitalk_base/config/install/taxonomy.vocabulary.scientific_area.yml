@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - scitalk_base
+name: 'Scientific Area'
+vid: scientific_area
+description: 'The scientific area of a Talk'
+hierarchy: 0
+weight: 0

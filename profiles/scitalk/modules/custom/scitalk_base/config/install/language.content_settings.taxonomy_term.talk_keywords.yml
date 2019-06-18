@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.talk_keywords
+id: taxonomy_term.talk_keywords
+target_entity_type_id: taxonomy_term
+target_bundle: talk_keywords
+default_langcode: site_default
+language_alterable: false

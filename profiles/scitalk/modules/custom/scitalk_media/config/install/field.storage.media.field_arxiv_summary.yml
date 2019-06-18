@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+    - scitalk_media
+  enforced:
+    module:
+      - scitalk_media    
+id: media.field_arxiv_summary
+field_name: field_arxiv_summary
+entity_type: media
+type: string_long
+settings:
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

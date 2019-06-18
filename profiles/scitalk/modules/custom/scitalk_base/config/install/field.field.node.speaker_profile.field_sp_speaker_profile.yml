@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_sp_speaker_profile
+    - node.type.speaker_profile
+  module:
+    - text
+id: node.speaker_profile.field_sp_speaker_profile
+field_name: field_sp_speaker_profile
+entity_type: node
+bundle: speaker_profile
+label: 'Speaker Profile'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

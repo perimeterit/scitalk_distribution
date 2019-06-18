@@ -1,0 +1,10 @@
+scitalk_jw_js:
+  js:
+    js/scitalk_jw_js.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - jw_player/jwplayer
+    - jw_player/behaviors
+    - jw_player/preset
+    

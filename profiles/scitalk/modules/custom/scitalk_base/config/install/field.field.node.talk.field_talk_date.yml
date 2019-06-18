@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_talk_date
+    - node.type.talk
+  module:
+    - datetime
+id: node.talk.field_talk_date
+field_name: field_talk_date
+entity_type: node
+bundle: talk
+label: Date
+description: 'The date and time of the talk'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

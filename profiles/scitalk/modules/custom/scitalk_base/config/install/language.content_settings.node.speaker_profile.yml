@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.speaker_profile
+id: node.speaker_profile
+target_entity_type_id: node
+target_bundle: speaker_profile
+default_langcode: site_default
+language_alterable: false

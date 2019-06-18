@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_arxiv_published_date
+    - media.type.arxiv
+id: media.arxiv.field_arxiv_published_date
+field_name: field_arxiv_published_date
+entity_type: media
+bundle: arxiv
+label: 'ArXiv Published Date'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

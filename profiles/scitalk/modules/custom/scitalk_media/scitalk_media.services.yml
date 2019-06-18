@@ -1,0 +1,4 @@
+services:
+  plugin.manager.scitalk_media_types:
+    class: Drupal\scitalk_media\SciTalkMediaTypesPluginManager
+    arguments: ['@container.namespaces', '@cache.default', '@module_handler']

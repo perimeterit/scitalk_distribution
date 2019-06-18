@@ -1,0 +1,256 @@
+<?php
+
+use Drupal\node\Entity\Node;
+use Drupal\file\Entity;
+use Drupal\media\Entity\Media;
+//use Drupal\media_entity\Entity\Media;
+
+/**
+ * Implements hook_install().
+ */
+function scitalk_demo_install() {
+    scitalk_demo_create_demo_talks();
+}
+
+/**
+ * Implements hook_uninstall().
+ */
+function scitalk_demo_uninstall() {
+    $result = \Drupal::entityQuery("node")
+    ->condition('uuid', ['79a2c470-e2db-461b-bd82-6b89bd74b061','b2d7977f-4e3e-4190-8ff4-00474c567c2e', '6fa7e659-1a6e-4992-8193-0cc55ab79672','d26d9386-c47e-4c27-8a95-e4950d937f3d'], 'IN')
+    ->execute();
+
+    $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
+    $entities = $storage_handler->loadMultiple($result);
+
+    \Drupal::logger('scitalk_demo')->notice('<pre><code>DEMO entities to delete ' . print_r($entities, TRUE) . '</code></pre>');
+
+    //delete media type
+    $media_ids = [];
+    $file_ids = [];
+    if (!empty($entities))
+    {
+        foreach ($entities as $node) {
+            \Drupal::logger('scitalk_demo')->notice('NOD type is "%tid" and bunlde "%b"', array('%tid' => $node->getType(), '%b' => $node->bundle()));
+            if ($node->getType() == 'talk')
+            {
+                //videos in Talk are media references so get their target id
+                !empty($node->get('field_talk_video')->target_id) ? $media_ids[] = $node->get('field_talk_video')->target_id : null;
+            }
+            else if ($node->getType() == 'speaker_profile')
+            {
+                //speaker profiles thumbnails are images so get their fids
+                !empty($node->get('field_sp_profile_thumbnail')->target_id) ? $file_ids[] = $node->get('field_sp_profile_thumbnail')->target_id : null;
+            }
+        }
+
+        $storage_handler->delete($entities);
+    }
+
+    //for the media in Talks find the files to delete
+    if (!empty($media_ids))
+    {
+        \Drupal::logger('scitalk_demo')->notice('<pre><code>mediaIDS are ' . print_r($media_ids, TRUE) . '</code></pre>');
+         $media_result = \Drupal::entityQuery("media")
+        ->condition('vid', $media_ids, 'IN')
+        ->execute();
+
+        $media_storage = \Drupal::entityTypeManager()->getStorage("media");
+        $media_entities = $media_storage->loadMultiple($media_result);
+        if (!empty($media_entities))
+        {
+            foreach ($media_entities as $node) {
+                \Drupal::logger('scitalk_demo')->notice('media type is "%mtype"', array('%mtype' => $node->bundle()));
+                if ($node->bundle() == 'video')
+                {
+                    $file_ids[] = $node->get('field_media_video_file')->target_id;
+                }
+                else if ($node->bundle() == 'image')
+                {
+                    $file_ids[] = $node->get('field_media_image')->target_id;
+                }
+                
+            }
+
+            $media_storage->delete($media_entities);
+        }
+
+    }
+
+    //delete the file(s) created for this demo:
+    if (!empty($file_ids))
+    {
+        \Drupal::logger('scitalk_demo')->notice('<pre><code>DEMO MEDIA file IDS ' . print_r($file_ids, TRUE) . '</code></pre>');
+        $file_fids = \Drupal::entityQuery("file")
+        ->condition('fid', $file_ids, 'IN')
+        ->execute();
+
+        $files_storage = \Drupal::entityTypeManager()->getStorage("file");
+        $files = $files_storage->loadMultiple($file_fids);
+        foreach ($files as $file) {
+            $references = \Drupal::service('file.usage')->listUsage($file);
+            if (empty($references)) {
+              if (file_exists($file->getFileUri())) {
+                \Drupal::logger('file system')->notice('will delete this file "%path"', array('%path' => $file->getFileUri()));
+                $file->delete();
+              }
+              else {
+                \Drupal::logger('file system')->error('Could not delete Scitalk Demo file "%path" during garbage collection', array('%path' => $file->getFileUri()));
+              }
+            }
+            else {
+              \Drupal::logger('file system')->info('Did not delete temporary file "%path" during garbage collection because it is in use by the following modules: %modules.', array('%path' => $file->getFileUri(), '%modules' => implode(', ', array_keys($references))));
+            }
+        }
+
+    }
+    
+    drupal_set_message( "Deleted Scitalk Demo content!\n");
+}
+
+/*
+ *  create content for Talk
+ */
+function scitalk_demo_create_demo_talks() {
+    //create speaker profiles first
+    $speakers = scitalk_demo_create_demo_speaker_profiles();
+
+    $video = file_get_contents(__DIR__ . '/media/BigBuckBunny_320x180.mp4');
+    $file = file_save_data($video, 'public://BigBuckBunny_320x180.mp4', FILE_EXISTS_REPLACE);
+
+    //create a media entity for the video to attach to the node below
+    $image_media = Media::create([
+        'bundle' => 'video',
+        'uid' =>  \Drupal::currentUser()->id(),
+        'langcode' => \Drupal::languageManager()->getDefaultLanguage()->getId(),
+        'status' => 1,
+        'field_media_video_file' => [
+        'target_id' => $file->id(),
+        'alt' => t('Pythagoras'),
+        'title' => t('Pythagoras clip'),
+        ],
+    ]);
+
+    $image_media->save();
+
+    $tz = \Drupal::currentUser()->getTimezone();
+    $tomorrow = date('Y-m-d\TH:i:s', (time() + (1 * 24 * 60 * 60)) );
+    $after_tomorrow = date('Y-m-d\TH:i:s', (time() + (2 * 24 * 60 * 60)) );
+
+    $tomorrow_dt = new \Drupal\Core\Datetime\DrupalDateTime($tomorrow, $tz);
+    $tomorrow_dt->setTimezone(new \DateTimeZone("UTC"));
+    $tomorrow_ds = $tomorrow_dt->format("Y-m-d\TH:i:s");
+
+    $after_tomorrow_dt = new \Drupal\Core\Datetime\DrupalDateTime($tomorrow, $tz);
+    $after_tomorrow_dt->setTimezone(new \DateTimeZone("UTC"));
+    $after_tomorrow_ds = $after_tomorrow_dt->format("Y-m-d\TH:i:s");
+
+    $talks = [
+        [
+            "uuid" =>  "79a2c470-e2db-461b-bd82-6b89bd74b061",
+            "type"=> "talk",
+            "title"=> "Demo Talk 1",
+            "field_talk_abstract" => [
+                "value" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+                "format" => "basic_html"
+            ],
+            "field_talk_location" => "Conference Room",
+            "field_talk_video" => [
+                "target_id" => $image_media->id()
+            ],
+            "field_talk_speaker_profile" => [
+                "target_id" => $speakers[0]
+            ],
+            "field_talk_date" => $tomorrow_ds,
+            "status" =>  1
+        ],
+        [
+            "uuid" => "b2d7977f-4e3e-4190-8ff4-00474c567c2e",
+            "type"=> "talk",
+            "title"=> "Demo Talk 2",
+            "field_talk_abstract" => [
+                "value" => "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Massa tincidunt nunc pulvinar sapien et ligula ullamcorper. Id volutpat lacus laoreet non curabitur gravida. Dui id ornare arcu odio ut sem. Consectetur lorem donec massa sapien faucibus et molestie. Tincidunt nunc pulvinar sapien et ligula ullamcorper malesuada proin. Sit amet consectetur adipiscing elit ut aliquam purus sit. Tempor nec feugiat nisl pretium fusce id velit ut. Sagittis aliquam malesuada bibendum arcu vitae elementum curabitur vitae nunc. Velit egestas dui id ornare. Fermentum et sollicitudin ac orci phasellus egestas. Ultricies integer quis auctor elit sed vulputate. Sagittis id consectetur purus ut faucibus pulvinar elementum integer. Neque vitae tempus quam pellentesque nec. Vitae auctor eu augue ut lectus arcu bibendum at. Quis blandit turpis cursus in hac habitasse platea dictumst. Nibh tortor id aliquet lectus proin nibh.",
+                "format" => "basic_html"
+            ],
+            "field_talk_location" => "Main Room",
+            "field_talk_speaker_profile" => [
+                "target_id" => $speakers[1]
+            ],
+            "field_talk_date" => $after_tomorrow_ds,
+            "status" =>  1
+        ]
+
+    ];
+
+    foreach ($talks as $talk) {
+        $node = Node::create($talk);
+        $node->save();
+        drupal_set_message( "Created Talk: " . $node->getTitle() . "\n");
+    }
+
+}
+
+/*
+ *  create content for Speaker Profiles
+ */
+function scitalk_demo_create_demo_speaker_profiles() {
+    $pythagoras = file_get_contents(__DIR__ . '/media/Pythagoras.jpg');
+    $pythagoras_file = file_save_data($pythagoras, 'public://Pythagoras.jpg', FILE_EXISTS_REPLACE);
+
+    $plato = file_get_contents(__DIR__ . '/media/Plato.jpg');
+    $plato_file = file_save_data($plato, 'public://Plato.jpg', FILE_EXISTS_REPLACE);
+
+    $speakers = [
+        [
+            "uuid" =>  "6fa7e659-1a6e-4992-8193-0cc55ab79672",
+            "type"=> "speaker_profile",
+            "title"=> "Pythagoras",
+            "field_sp_speaker_profile" => [
+                "value" => "Pythagoras of Samos[a] (c. 570 – c. 495 BC)[b] was an ancient Ionian Greek philosopher and the eponymous founder of Pythagoreanism. His political and religious teachings were well known in Magna Graecia and influenced the philosophies of Plato, Aristotle, and, through them, Western philosophy. Knowledge of his life is clouded by legend, but he appears to have been the son of Mnesarchus, a seal engraver on the island of Samos. Modern scholars disagree regarding Pythagoras's education and influences, but they do agree that, around 530 BC, he travelled to Croton, where he founded a school in which initiates were sworn to secrecy and lived a communal, ascetic lifestyle. This lifestyle entailed a number of dietary prohibitions, traditionally said to have included vegetarianism, although modern scholars doubt that he ever advocated for complete vegetarianism.",
+                "format" => "basic_html"
+            ],
+            "field_sp_display_name" => "Pythagoras",
+            "field_sp_first_name" => "Pythagoras",
+            "field_sp_profile_thumbnail" => [
+                'target_id' => $pythagoras_file->id(),
+                "alt" => "Pythagoras"
+            ],
+            "field_sp_web_profile_url"=> [
+                "uri" => "https://en.wikipedia.org/wiki/Pythagoras",
+                "title" => "Pythagoras"
+            ],
+            "status" =>  1
+        ],
+        [
+            "uuid" => "d26d9386-c47e-4c27-8a95-e4950d937f3d",
+            "type"=> "speaker_profile",
+            "title"=> "Plato",
+            "field_sp_speaker_profile" => [
+                "value" => "Plato (/ˈpleɪtoʊ/; PLAY-toe[2] Greek: Πλάτων Plátōn, pronounced [plá.tɔːn] PLOT-own in Classical Attic; 428/427 or 424/423 – 348/347 BC) was an Athenian philosopher during the Classical period in Ancient Greece and the founder of the Academy, the first institution of higher learning in the Western world. He is widely considered the pivotal figure in the history of Ancient Greek and Western philosophy, along with his teacher, Socrates, and his most famous student, Aristotle.",
+                "format" => "basic_html"
+            ],
+            "field_sp_display_name" => "Plato",
+            "field_sp_first_name" => "Plato",
+            "field_sp_profile_thumbnail" => [
+                'target_id' => $plato_file->id(),
+                "alt" => "Plato"
+            ],
+            "field_sp_web_profile_url"=> [
+                "uri" => "https://en.wikipedia.org/wiki/Plato",
+                "title" => "Plato",
+                "options" => ["target" => "_blank"]
+            ],
+            "status" =>  1
+        ]    
+      ];
+    
+      $speaker_ids = [];
+      foreach ($speakers as $speaker) {
+        $node = Node::create($speaker);
+        $node->save();
+        $speaker_ids[] = $node->id();
+        drupal_set_message( "Created Speaker Profile: " . $node->getTitle() . "\n");
+      }
+
+      return $speaker_ids;
+}

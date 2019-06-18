@@ -1,0 +1,17 @@
+jwplayer:
+  js: {}
+
+behaviors:
+  js:
+    jw_player.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupalSettings
+    - jw_player/jplayer
+
+preset:
+  version: VERSION
+  js:
+    js/jw_player.preset.js: {}
+  dependencies:
+    - core/jquery

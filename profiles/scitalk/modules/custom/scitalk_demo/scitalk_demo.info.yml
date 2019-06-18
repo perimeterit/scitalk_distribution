@@ -1,0 +1,8 @@
+name: SciTalks Demo
+type: module
+description: Creates fake talks and speaker profiles
+core: 8.x
+package: SciTalk
+
+dependencies:
+ - scitalk:scitalk_base

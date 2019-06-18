@@ -1,0 +1,3 @@
+services:
+ scitalk_base.reference_id_generator:
+  class: Drupal\scitalk_base\ScitalkServices\ReferenceIDGenerator

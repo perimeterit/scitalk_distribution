@@ -1,0 +1,9 @@
+jw_player.settings_tab:
+  route_name: jw_player.admin
+  title: Settings
+  base_route: entity.jw_player.collection
+
+jw_player.list_tab:
+  route_name: entity.jw_player.collection
+  title: List
+  base_route: entity.jw_player.collection

@@ -1,0 +1,80 @@
+name: SciTalk
+type: profile
+description: 'The SciTalk Distribution'
+version: 1.0
+core: 8.x
+install:
+  - node
+  - history
+  - automated_cron
+  - big_pipe
+  - block
+  - block_content
+  - breakpoint
+  - ckeditor
+  - color
+  - comment
+  - config
+  - contact
+  - contextual
+  - datetime
+  - dblog
+  - dynamic_page_cache
+  - editor
+  - field
+  - field_ui
+  - file
+  - filter
+  - help
+  - image
+  - inline_form_errors
+  - jsonapi
+  - language
+  - link
+  - media
+  - media_library
+  - menu_link_content
+  - menu_ui
+  - options
+  - page_cache
+  - path
+  - quickedit
+  - rdf
+  - rest
+  - search
+  - serialization
+  - shortcut
+  - system
+  - taxonomy
+  - text
+  - toolbar
+  - tour
+  - update
+  - user
+  - views
+  - views_ui
+  - admin_toolbar
+  - admin_toolbar_tools
+  - backup_migrate
+  - consumers
+  - embed
+  - entity_embed
+  - inline_entity_form
+  - jsonapi_extras
+  - jw_player
+  - libraries
+  - module_filter
+  - restui
+  - search_api_db
+  - search_api
+  - search_api_solr
+  - simple_oauth
+  - simple_oauth_extras
+  - scitalk_base
+  - scitalk_media
+  - scitalk_video
+themes:
+  - bartik
+  - classy
+  - seven
+  - stable

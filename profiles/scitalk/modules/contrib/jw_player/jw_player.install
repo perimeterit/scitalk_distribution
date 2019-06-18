@@ -1,0 +1,86 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the JW Player module.
+ */
+
+use Drupal\jw_player\Entity\Jw_player;
+
+/**
+ * Implements hook_requirements().
+ */
+function jw_player_requirements($phase) {
+  $requirements = array();
+  if (\Drupal::moduleHandler()->moduleExists('libraries')) {
+    $directory = libraries_get_path('jwplayer');
+  };
+
+  // Check the existence of the JW Player Library.
+  if ($phase == 'runtime') {
+    $errors = array();
+
+    $config = \Drupal::config('jw_player.settings');
+    foreach (array('jwplayer.flash.swf', 'jwplayer.js', 'jwplayer.html5.js') as $file) {
+      // JW Player 7 doesn't have jwplayer.html5.js file anymore.
+      if ($file == 'jwplayer.html5.js' && $config->get('jw_player_version') != '6') {
+        continue;
+      }
+      if (!file_exists($directory . '/' . $file)) {
+        $errors[] = t('The file %file is not present in the directory %directory', array('%file' => $file, '%directory' => $directory));
+      }
+    }
+
+    $requirements['jw_player'] = array(
+      'title' => t('JW Player'),
+      'value' => !empty($errors) ? ['#markup' => \Drupal::theme()->render('item_list', array('items' => $errors)) . t('Please consult INSTALL.txt for installation instructions.')] : t('Installed correctly'),
+      'severity' => !empty($errors) ? REQUIREMENT_ERROR : REQUIREMENT_OK,
+    );
+  }
+
+  return $requirements;
+}
+
+/**
+ * Initialize settings.
+ */
+function jw_player_update_8001() {
+  $config = \Drupal::configFactory()->getEditable('jw_player.settings');
+  if ($config->get('account_token')) {
+    drupal_set_message(t('JW Player has changed its way to run cloud hosted players. Please update your configuration at /admin/config/media/jw_player/settings if you are using a cloud hosted player.'));
+    $config->clear('account_token');
+  }
+  $config->set('jw_player_version', 6);
+  drupal_set_message(t('JW Player version has been set to 6.'));
+  $config->save();
+}
+
+/**
+ * Set the jw player key if it already exists.
+ */
+function jw_player_update_8002() {
+  // The configuration variable license_key has been renamed to jw_player_key.
+  $config = \Drupal::configFactory()->getEditable('jw_player.settings');
+  // Ensure that the jw_player_key is taken from the license_key when updating
+  // if the jw_player_key was not already set.
+  if ($config->get('license_key') && !$config->get('jw_player_key')) {
+    $config->set('jw_player_key', $config->get('license_key'));
+    $config->clear('license_key');
+    $config->save();
+  }
+}
+
+/**
+ * Initialize autostart presets setting.
+ */
+function jw_player_update_8003() {
+  $presets = Jw_player::loadMultiple();
+  foreach ($presets as $preset) {
+    $settings = $preset->getSettings();
+    if (isset($settings['autoplay'])) {
+      $preset->settings['autostart'] = $settings['autoplay'];
+      unset($preset->settings['autoplay']);
+      $preset->save();
+    }
+  }
+}

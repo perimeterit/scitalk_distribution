@@ -1,0 +1,5 @@
+<div class="jwplayer-video">
+    <video id="{{ html_id }}" width="{{ width }}" height="{{ height }}" controls="controls" preload="none"{% if poster %} poster="{{ poster }}"{%  endif %}>
+        <source src="{{ file_url }}"{% if file_mime %} type="{{ file_mime }}" {% endif %}/>
+    </video>
+</div>

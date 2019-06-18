@@ -1,0 +1,93 @@
+<?php
+
+/**
+ * @file
+ * Contains pirsa_video.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function pirsa_video_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the pirsa_video module.
+    case 'help.page.pirsa_video':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides PIRSA video logic and glue functionality') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+
+/*
+ * pirsa_video_generate_pirsa_number Generates a PIRSA number for a video or a collection
+ * 
+ * @param $is_video   string    Determines if this is a video, series or a collection.  'video', 'series', 'collection' are valid values
+ * @param $year       INT       2 digit year
+ * @param $month      INT       2 digit month
+ * 
+ * @return            variant   Return NULL on failure, or a string on success
+ * 
+ * If you want to create a video PIRSA number, call pirsa_video_generate_pirsa_number('video'); //for current month and year
+ * If you want to create a series PIRSA number, call pirsa_video_generate_pirsa_number('series'); //no year and month
+ * If you want to create a collection PIRSA number, call pirsa_video_generate_pirsa_number('collection', 16); //for collection in 2016
+ * 
+ */
+function pirsa_video_generate_pirsa_number($type = 'video', $year = NULL, $month = NULL) {
+  
+  //LUIS:  For Drupal 8, convert the variable_gets/sets to:
+  
+  //$config = \Drupal::config('scitalk.settings');
+  //$config->get('pirsa_number_list');
+  //$config->set('pirsa_number_list', 'somevalue');
+  
+  
+  
+  
+  //year and month, if not passed in, we will assume that it's for the current year and current month
+  if($year === NULL) {
+    $year = date('y');
+  }
+  $year = substr($year, -2); //just chops it off at 2 to be sure
+  
+  if($month === NULL) {
+    $month = date('m');
+  }
+  $month = substr($month, -2); //just chops it off at 2 to be sure
+  $return_number = NULL;
+  switch($type) {
+    case 'video':
+      //array is in the form of [YY][mm][next incremental number]
+      $pirsa_list = variable_get('pirsa_number_list', array());
+      $last_number = $pirsa_list[$year][$month];
+      $last_number +=1;
+      $pirsa_list[$year][$month] = $last_number;
+      variable_set('pirsa_number_list', $pirsa_list);
+      $return_number = str_pad($year, 2, "0", STR_PAD_LEFT) . str_pad($month, 2, "0", STR_PAD_LEFT) . str_pad($last_number, 4, "0", STR_PAD_LEFT);
+      break;
+      
+    case 'series':
+      //return is in the form of SXXX where XXX is the next incremental number
+      $last_number = variable_get('series_number_list', 0);  //simple integer cached value
+      $last_number +=1;
+      variable_set('series_number_list', $last_number);
+      $return_number = 'S' . str_pad($last_number, 3, "0", STR_PAD_LEFT);
+      break;
+      
+    case 'collection':
+      //array is in the form of [YY][next incremental number]
+      $collection_list = variable_get('collection_number_list', array());
+      $last_number = $collection_list[$year];
+      $last_number +=1;
+      $collection_list[$year] = $last_number;
+      variable_set('collection_number_list', $collection_list);
+      $return_number = 'C' . str_pad($year, 2, "0", STR_PAD_LEFT) . str_pad($last_number, 3, "0", STR_PAD_LEFT);
+      break;
+  }
+  return $return_number;
+}

@@ -1,0 +1,67 @@
+<?php
+use \Drupal\Core\Field\BaseFieldDefinition;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\scitalk_base\ScitalkServices\ReferenceIDGeneratorInterface;
+
+
+/**
+ * Implements hook_entity_base_field_info
+ * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
+ * @return NULL[]
+ */
+function scitalk_base_entity_base_field_info(\Drupal\Core\Entity\EntityTypeInterface $entity_type) {
+  if ($entity_type->id() == 'node') {
+      $fields = array();
+      $fields['scitalk_bogus_field_type'] = BaseFieldDefinition::create('string')
+        ->setLabel(t('The text'))
+        ->setDescription(t('A text property added by scitalk.'))
+        ->setDefaultValue('test')
+        ->setInitialValue('tst')
+        ->setComputed(TRUE)
+        ->setClass('\\Drupal\\scitalk_base\\Plugin\FieldItemList\SciTalkEntityComputedText');
+      return $fields;
+    }
+}
+
+/*
+ * Implements hook_ENTITY_TYPE_presave()
+ */
+function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->getType() == 'talk') {
+    //when creating a new Talk, if there is no talk number in the entity yet, then create one and assign it to the field.
+    if ($entity->isNew()) {
+      $entity_talk_number = $entity->field_talk_number->value ?? '';
+      if (empty($entity_talk_number)) {
+          $idGenerator = \Drupal::service('scitalk_base.reference_id_generator');
+
+          $year =  date('y');
+          $month = date('m');
+          $year = substr($year, -2); //just chops it off at 2 to be sure
+          $month = substr($month, -2);
+
+          //call service to generate talk id:
+          $talk_num = $idGenerator->generateReferenceId($entity, $year, $month);
+          //add it to the entity:
+          $entity->set('field_talk_number', $talk_num);
+      }
+    }
+  }
+}
+
+
+/*
+ * Implements hook_ENTITY_TYPE_presave()
+ */
+function scitalk_base_taxonomy_term_presave(Drupal\taxonomy\Entity\Term $taxonomy) {
+   //collection and series have collection_number so check for those two terms and create a collection number for them if none exists
+  if (in_array( $taxonomy->getVocabularyId() , ['collection', 'series'])) {
+    if ($taxonomy->isNew()) {
+        $input_coll_number = $taxonomy->get('field_collection_number')->value ?? '';   //$taxonomy->get('field_collection_number')->getValue();
+        if (empty($input_coll_number)) {
+          $idGenerator = \Drupal::service('scitalk_base.reference_id_generator');
+          $collection_number = $idGenerator->generateReferenceId($taxonomy);
+          $taxonomy->set('field_collection_number', $collection_number);
+        }
+    }
+  }
+}

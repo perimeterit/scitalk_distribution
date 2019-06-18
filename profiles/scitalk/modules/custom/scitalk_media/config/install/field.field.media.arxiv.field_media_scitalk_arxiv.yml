@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_media_scitalk_arxiv
+    - media.type.arxiv
+id: media.arxiv.field_media_scitalk_arxiv
+field_name: field_media_scitalk_arxiv
+entity_type: media
+bundle: arxiv
+label: 'ArXiv ID'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

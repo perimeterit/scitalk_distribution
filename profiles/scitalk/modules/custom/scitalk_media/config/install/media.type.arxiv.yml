@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - scitalk_media
+id: arxiv
+label: ArXiv
+description: 'An ArXiv piece of media for which SciTalk will attempt to fetch ArXiv information for'
+source: scitalk_arxiv
+queue_thumbnail_downloads: true
+new_revision: false
+source_configuration:
+  source_field: field_media_scitalk_arxiv
+  generate_thumbnails: true
+field_map: {  }

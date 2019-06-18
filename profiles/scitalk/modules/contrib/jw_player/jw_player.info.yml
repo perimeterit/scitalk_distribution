@@ -1,0 +1,14 @@
+name: JW Player
+type: module
+description:  Adds a theme function which allows theme developers to use the JW Player
+# core: 8.x
+configure: jw_player.admin
+dependencies:
+ - file
+ - libraries
+
+# Information added by Drupal.org packaging script on 2018-01-30
+version: '8.x-1.0-beta5'
+core: '8.x'
+project: 'jw_player'
+datestamp: 1517308999

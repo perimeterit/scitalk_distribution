@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - scitalk_base
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+name: Talk
+type: talk
+description: 'The videos stored and shared on the site.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

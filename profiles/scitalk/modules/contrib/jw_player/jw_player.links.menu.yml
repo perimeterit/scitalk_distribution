@@ -1,0 +1,5 @@
+entity.jw_player.collection:
+  title: 'JW Player presets'
+  description: 'Administer JW Player presets.'
+  parent: system.admin_config_media
+  route_name: entity.jw_player.collection

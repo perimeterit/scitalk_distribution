@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_collection_public_viewable
+    - taxonomy.vocabulary.collection
+id: taxonomy_term.collection.field_collection_public_viewable
+field_name: field_collection_public_viewable
+entity_type: taxonomy_term
+bundle: collection
+label: 'Public Viewable'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Yes'
+  off_label: 'No'
+field_type: boolean

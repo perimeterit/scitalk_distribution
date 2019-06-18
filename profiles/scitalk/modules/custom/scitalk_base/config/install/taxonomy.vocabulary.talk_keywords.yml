@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - scitalk_base
+name: 'Talk Keywords'
+vid: talk_keywords
+description: ''
+hierarchy: 0
+weight: 0

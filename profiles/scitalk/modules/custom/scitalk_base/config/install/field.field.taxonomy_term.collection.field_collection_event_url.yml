@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_collection_event_url
+    - taxonomy.vocabulary.collection
+  module:
+    - link
+id: taxonomy_term.collection.field_collection_event_url
+field_name: field_collection_event_url
+entity_type: taxonomy_term
+bundle: collection
+label: 'Source Event URL'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link
