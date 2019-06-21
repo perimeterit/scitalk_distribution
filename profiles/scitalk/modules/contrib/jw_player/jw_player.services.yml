@@ -1,6 +1,0 @@
-services:
-  jw_player.settings_cache_tag:
-        class: Drupal\jw_player\EventSubscriber\JwPlayerSettingsCacheTag
-        arguments: ['@cache_tags.invalidator']
-        tags:
-          - { name: event_subscriber }

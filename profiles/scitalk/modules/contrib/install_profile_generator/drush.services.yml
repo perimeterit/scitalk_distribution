@@ -1,6 +1,0 @@
-services:
-  install_profile_generator.commands:
-    class: \Drupal\install_profile_generator\Commands\InstallProfileGeneratorCommands
-    arguments: ['@install_profile_generator.validator']
-    tags:
-      - { name: drush.command }

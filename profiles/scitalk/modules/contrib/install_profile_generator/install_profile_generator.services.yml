@@ -1,5 +1,0 @@
-services:
-  install_profile_generator.validator:
-    class: Drupal\install_profile_generator\Services\Validator
-    arguments: ['@app.root', '@module_handler', '@theme_handler', '@transliteration', '%install_profile%']
-

@@ -1,5 +1,0 @@
-jw_preset_add_local_action:
-  route_name: jw_player.preset_add
-  title: 'Add new preset'
-  appears_on:
-    - entity.jw_player.collection
