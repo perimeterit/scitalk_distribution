@@ -3,3 +3,5 @@ type: module
 description: Entity for storing SciTalk related media (Videos and ArXiv)
 core: 8.x
 package: SciTalk
+dependencies:
+ - jw_player:jw_player
