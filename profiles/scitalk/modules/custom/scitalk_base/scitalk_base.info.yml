@@ -10,3 +10,4 @@ dependencies:
  - path:path
  - text:text
  - scitalk_media:scitalk_media
+ - jw_player:jw_player
