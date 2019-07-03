@@ -23,7 +23,30 @@ function scitalk_base_entity_base_field_info(\Drupal\Core\Entity\EntityTypeInter
     }
 }
 
-/*
+/**
+ * Implements hook_entity_bundle_field_info_alter
+ */
+function scitalk_base_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type, $bundle) {
+  //add Unique constraints for fied field_talk_number in Talks and field_collection_number in taxonomies Series and Collection
+  if ($bundle == 'talk') {
+    if (isset($fields['field_talk_number'])) {
+      // Use the ID as defined in the annotation of the constraint definition
+      $fields['field_talk_number']->addConstraint('UniqueTalkNumber', []);
+    }
+  }
+  else if ($bundle == 'collection') {
+    if (isset($fields['field_collection_number'])) {
+      $fields['field_collection_number']->addConstraint('UniqueCollectionNumber');
+    }
+  }
+  else if ($bundle == 'series') {
+    if (isset($fields['field_collection_number'])) {
+      $fields['field_collection_number']->addConstraint('UniqueSeriesNumber');
+    }
+  }
+}
+
+/**
  * Implements hook_ENTITY_TYPE_presave()
  */
 function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) {
@@ -49,7 +72,7 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
 }
 
 
-/*
+/**
  * Implements hook_ENTITY_TYPE_presave()
  */
 function scitalk_base_taxonomy_term_presave(Drupal\taxonomy\Entity\Term $taxonomy) {
