@@ -3,3 +3,9 @@ type: module
 description: PIRSA base module, API for Talks and Media
 core: 8.x
 package: SciTalk
+dependencies:
+  - image:image
+  - path:path
+  - text:text
+  - scitalk_media:scitalk_media
+  - jw_player:jw_player
