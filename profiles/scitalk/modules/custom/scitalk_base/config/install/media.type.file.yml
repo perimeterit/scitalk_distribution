@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies: 
+  enforced:
+    module:
+      - scitalk_base
 id: file
 label: File
 description: 'Use local files for reusable media.'

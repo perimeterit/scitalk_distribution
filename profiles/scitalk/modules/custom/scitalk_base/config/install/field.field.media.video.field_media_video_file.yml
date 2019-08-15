@@ -2,6 +2,9 @@ uuid: 9e348fbe-427f-4bd7-a7ea-e3b9a2e9bc40
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - scitalk_base
   config:
     - field.storage.media.field_media_video_file
     - media.type.video

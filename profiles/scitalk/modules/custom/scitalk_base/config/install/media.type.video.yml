@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies: 
+  enforced:
+    module:
+      - scitalk_base
 id: video
 label: Video
 description: 'A locally hosted video file.'

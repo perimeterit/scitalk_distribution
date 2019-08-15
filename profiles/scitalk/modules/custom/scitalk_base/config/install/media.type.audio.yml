@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies: 
+  enforced:
+    module:
+      - scitalk_base
 id: audio
 label: Audio
 description: 'A locally hosted audio file.'

@@ -2,6 +2,9 @@ uuid: ddbbe0be-698c-460e-9abf-23fb6b91ad5b
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - scitalk_base
   module:
     - file
     - media

@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies: 
+  enforced:
+    module:
+      - scitalk_base
 id: image
 label: Image
 description: 'Use local images for reusable media.'

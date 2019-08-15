@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies: 
+  enforced:
+    module:
+      - scitalk_base
 id: remote_video
 label: 'Remote video'
 description: 'A remotely hosted video from YouTube or Vimeo.'
