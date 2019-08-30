@@ -4,9 +4,12 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.speaker_profile.field_sp_display_name
+    - field.field.node.speaker_profile.field_sp_external_id
     - field.field.node.speaker_profile.field_sp_first_name
     - field.field.node.speaker_profile.field_sp_last_name
     - field.field.node.speaker_profile.field_sp_linked_user
+    - field.field.node.speaker_profile.field_sp_profile_thumbnail
+    - field.field.node.speaker_profile.field_sp_speaker_profile
     - field.field.node.speaker_profile.field_sp_web_profile_url
     - node.type.speaker_profile
   module:
@@ -23,8 +26,11 @@ content:
     region: content
 hidden:
   field_sp_display_name: true
+  field_sp_external_id: true
   field_sp_first_name: true
   field_sp_last_name: true
   field_sp_linked_user: true
+  field_sp_profile_thumbnail: true
+  field_sp_speaker_profile: true
   field_sp_web_profile_url: true
   langcode: true

@@ -5,10 +5,12 @@ dependencies:
     - field.field.node.speaker_profile.field_sp_display_name
     - field.field.node.speaker_profile.field_sp_external_id
     - field.field.node.speaker_profile.field_sp_first_name
+    - field.field.node.speaker_profile.field_sp_institution_name
     - field.field.node.speaker_profile.field_sp_last_name
     - field.field.node.speaker_profile.field_sp_linked_user
     - field.field.node.speaker_profile.field_sp_profile_thumbnail
     - field.field.node.speaker_profile.field_sp_speaker_profile
+    - field.field.node.speaker_profile.field_sp_username
     - field.field.node.speaker_profile.field_sp_web_profile_url
     - image.style.thumbnail
     - node.type.speaker_profile
@@ -52,6 +54,14 @@ content:
     third_party_settings: {  }
     type: string_textfield
     region: content
+  field_sp_institution_name:
+    weight: 136
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
   field_sp_last_name:
     weight: 130
     settings:
@@ -84,6 +94,14 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textarea
+    region: content
+  field_sp_username:
+    weight: 137
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
     region: content
   field_sp_web_profile_url:
     weight: 131
