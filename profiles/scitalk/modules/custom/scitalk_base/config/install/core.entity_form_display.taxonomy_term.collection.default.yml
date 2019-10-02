@@ -5,6 +5,7 @@ dependencies:
     - field.field.taxonomy_term.collection.field_collection_end_date
     - field.field.taxonomy_term.collection.field_collection_event_url
     - field.field.taxonomy_term.collection.field_collection_number
+    - field.field.taxonomy_term.collection.field_collection_organizers
     - field.field.taxonomy_term.collection.field_collection_public_viewable
     - field.field.taxonomy_term.collection.field_collection_short_desc
     - field.field.taxonomy_term.collection.field_collection_start_date
@@ -49,6 +50,15 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
+  field_collection_organizers:
+    weight: 14
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
     region: content
   field_collection_public_viewable:
     weight: 13
