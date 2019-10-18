@@ -1,0 +1,7 @@
+scitalk_base.settings:
+  path: '/admin/config/scitalk_base'
+  defaults:
+    _form: '\Drupal\scitalk_base\Form\ScitalkBaseConfigForm'
+    _title: 'SciTalk Configuration'
+  requirements:
+    _permission: 'administer site configuration'

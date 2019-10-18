@@ -1,3 +1,6 @@
 services:
  scitalk_base.reference_id_generator:
   class: Drupal\scitalk_base\ScitalkServices\ReferenceIDGenerator
+
+ scitalk_base.datacite_dois:
+  class: Drupal\scitalk_base\ScitalkServices\DataCiteDOI 

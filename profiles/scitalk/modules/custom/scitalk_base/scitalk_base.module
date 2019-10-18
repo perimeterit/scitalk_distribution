@@ -51,6 +51,9 @@ function scitalk_base_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
  */
 function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity->getType() == 'talk') {
+    $config = \Drupal::config('scitalk_base.settings');
+    $use_doi = $config->get('use_doi');
+
     //when creating a new Talk, if there is no talk number in the entity yet, then create one and assign it to the field.
     if ($entity->isNew()) {
       $entity_talk_number = $entity->field_talk_number->value ?? '';
@@ -66,6 +69,27 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
           $talk_num = $idGenerator->generateReferenceId($entity, $year, $month);
           //add it to the entity:
           $entity->set('field_talk_number', $talk_num);
+      }
+
+      if ($use_doi) {
+        //when creating a new Talk, create a Draft DOI
+        $doi = \Drupal::service('scitalk_base.datacite_dois');
+        $doi_id = $doi->create($entity);
+  
+        if (empty($entity->get('field_talk_doi')->value)) {
+          $entity->set('field_talk_doi', $doi_id);
+        }
+      }
+    }
+    else {
+      if ($use_doi) {
+        //update DOI
+        $doi = \Drupal::service('scitalk_base.datacite_dois');
+        $doi_id = $doi->update($entity);
+  
+        if (empty($entity->get('field_talk_doi')->value)) {
+          $entity->set('field_talk_doi', $doi_id);
+        }
       }
     }
   }

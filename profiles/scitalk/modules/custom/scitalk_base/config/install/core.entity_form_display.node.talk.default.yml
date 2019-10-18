@@ -9,6 +9,7 @@ dependencies:
     - field.field.node.talk.field_talk_attachments
     - field.field.node.talk.field_talk_collection
     - field.field.node.talk.field_talk_date
+    - field.field.node.talk.field_talk_doi
     - field.field.node.talk.field_talk_keywords
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
@@ -96,6 +97,14 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: datetime_default
+    region: content
+  field_talk_doi:
+    weight: 35
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
     region: content
   field_talk_keywords:
     weight: 22

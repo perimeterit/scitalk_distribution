@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.talk.field_talk_attachments
     - field.field.node.talk.field_talk_collection
     - field.field.node.talk.field_talk_date
+    - field.field.node.talk.field_talk_doi
     - field.field.node.talk.field_talk_keywords
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
@@ -27,6 +28,7 @@ dependencies:
     - datetime
     - image
     - link
+    - scitalk_media
     - text
     - user
 id: node.talk.default
@@ -35,7 +37,7 @@ bundle: talk
 mode: default
 content:
   field_combination_example:
-    weight: 11
+    weight: 8
     label: above
     settings:
       link: true
@@ -43,7 +45,7 @@ content:
     type: entity_reference_label
     region: content
   field_scientific_area:
-    weight: 10
+    weight: 7
     label: above
     settings:
       link: true
@@ -51,14 +53,14 @@ content:
     type: entity_reference_label
     region: content
   field_talk_abstract:
-    weight: 16
+    weight: 10
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_talk_collection:
-    weight: 17
+    weight: 11
     label: above
     settings:
       link: true
@@ -66,7 +68,7 @@ content:
     type: entity_reference_label
     region: content
   field_talk_date:
-    weight: 2
+    weight: 4
     label: inline
     settings:
       timezone_override: ''
@@ -74,8 +76,16 @@ content:
     third_party_settings: {  }
     type: datetime_default
     region: content
+  field_talk_doi:
+    weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   field_talk_keywords:
-    weight: 14
+    weight: 9
     label: inline
     settings:
       link: true
@@ -83,7 +93,7 @@ content:
     type: entity_reference_label
     region: content
   field_talk_location:
-    weight: 18
+    weight: 12
     label: above
     settings:
       link_to_entity: false
@@ -99,7 +109,7 @@ content:
       link_to_entity: false
     third_party_settings: {  }
   field_talk_series:
-    weight: 19
+    weight: 13
     label: above
     settings:
       link: true
@@ -119,7 +129,7 @@ content:
     type: link
     region: content
   field_talk_speaker_profile:
-    weight: 20
+    weight: 14
     label: above
     settings:
       link: true
@@ -127,7 +137,7 @@ content:
     type: entity_reference_label
     region: content
   field_talk_thumbnail:
-    weight: 23
+    weight: 16
     label: above
     settings:
       image_style: scitalk_thumbnail
@@ -136,7 +146,7 @@ content:
     type: image
     region: content
   field_talk_type:
-    weight: 21
+    weight: 15
     label: above
     settings:
       link: true
@@ -144,12 +154,13 @@ content:
     type: entity_reference_label
     region: content
   field_talk_video:
-    type: entity_reference_entity_view
-    weight: 22
+    type: scitalk_embed
+    weight: 2
     label: above
     settings:
-      view_mode: default
-      link: false
+      uri_field: none
+      jwplayer_preset: ''
+      requirejw: 0
     third_party_settings: {  }
     region: content
   field_talk_viewable_online:
@@ -170,3 +181,4 @@ content:
 hidden:
   field_talk_attachments: true
   langcode: true
+  search_api_excerpt: true
