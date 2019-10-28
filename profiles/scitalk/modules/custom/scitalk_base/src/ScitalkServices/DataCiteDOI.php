@@ -30,17 +30,23 @@ class DataCiteDOI {
     $this->datacite_creator_institution_ror = !empty($config->get('datacite_creator_institution_ror')) ? 'https://ror.org/' . $config->get('datacite_creator_institution_ror') : '';
   }
 
-  //create DOI Draft
+
+  /**
+   * create DOI Draft
+   *
+   * @param \Drupal\Core\Entity\EntityInterface entity
+   */
   public function create( EntityInterface $entity) {
-     $doiObj = $this->buildDOIObject($entity);
+    $doiObj = $this->buildDOIObject($entity);
     return $this->createDOI($doiObj);
   }
 
-  //Update DOI to either "Registed" or "FIndable" based on media status in the Talk
+  /**
+   * Update DOI to either "Registed" or "FIndable" based on media status in the Talk
+   *
+   * @param \Drupal\Core\Entity\EntityInterface entity
+   */
   public function update( EntityInterface $entity) {
-   // \Drupal::logger('scitalk_base')->notice('<pre><code>go and REGISTER/FINDABLE a DOI for this entity ' . print_r($entity->toArray() , TRUE) . '</code></pre>');
-    //$this->getPIDOIs();
-
     $doiObj = $this->buildDOIObject($entity);
     return $this->updateDOI($doiObj);
   }
@@ -62,7 +68,7 @@ class DataCiteDOI {
       $response = json_decode($response);
       $doi_id = $response->data->id;
 
-      \Drupal::logger('scitalk_base')->notice('<pre><code>DOI CREATED! ' . print_r($response , TRUE) . '</code></pre>');
+      \Drupal::logger('scitalk_base')->notice('<pre><code>DOI CREATED: ' .$doi_id . '</code></pre>');
     }
     catch (ClientException | RequestException | ConnectException | GuzzleException | BadResponseException | ServerException $e) {
       if (!empty($res = $e->getResponse()->getBody()->getContents())) {
@@ -81,7 +87,7 @@ class DataCiteDOI {
   private function updateDOI($doiObj) {
     $doi_id = $doiObj['data']['id'];
     $url = "https://api.test.datacite.org/dois/" . $doi_id;
-    //\Drupal::logger('scitalk_base')->notice('<pre><code>GO AND UPDATE! ' .print_r($doiObj,true). print_r(json_encode($doiObj) , TRUE) . '</code></pre>');
+   
     $client = \Drupal::httpClient();
 
     $params = [
@@ -95,7 +101,7 @@ class DataCiteDOI {
       $response = json_decode($response);
       $doi_id = $response->data->id;
 
-      \Drupal::logger('scitalk_base')->notice('<pre><code>DOI UPDATED! ' .$doi_id . print_r($response , TRUE) . '</code></pre>');
+      \Drupal::logger('scitalk_base')->notice('<pre><code>UPDATED DOI : ' .$doi_id . '</code></pre>');
     }
     catch (ClientException | RequestException | ConnectException | GuzzleException | BadResponseException | ServerException $e) {
       if (!empty($res = $e->getResponse()->getBody()->getContents())) {
@@ -112,38 +118,14 @@ class DataCiteDOI {
 
   }
 
-
-  private function getPIDOIs() {
-    // $base_uri = "https://api.test.datacite.org/dois";
-    // $params = [
-    //   'auth' => ['PITP.PIRSA','pirsa-uat'],
-    //   'query' => ['client-id', 'pitp.pirsa'] 
-    // ];
-    // $client = \Drupal::httpClient(['base_uri' => $base_uri]);
-
-    $url = "https://api.test.datacite.org/dois?client-id=pitp.pirsa";
-    $auth = ['auth' => [$this->datacite_user,$this->datacite_pwd]];
-
-    $client = \Drupal::httpClient();
-
-    try {
-      $request = $client->get($url, $auth);
-      $response = $request->getBody();
-      \Drupal::logger('scitalk_base')->notice('<pre><code>get list of DOIS ' . print_r(json_decode($response) , TRUE) . '</code></pre>');
-    }
-    catch (RequestException $e) {
-      \Drupal::logger('scitalk_base')->notice('<pre><code>ERROR geting list of DOIS ' . print_r($e->getMessage() , TRUE) . '</code></pre>');
-    }
-    
-  }
-
   private function buildDOIObject($entityObj) {
     $entity = $entityObj->getTypedData();
 
     $talk_number = $entity->get('field_talk_number')->getValue();
     $abstract = $entity->get('field_talk_abstract')->getValue();
     $talk_id = $this->doi_prefix . '/' . $entity->get('field_talk_number')->value;
-    
+    $url = $entityObj->toUrl()->setAbsolute()->toString(); 
+
     //$reference_number = $entity->field_talk_number->value; 
     $data = [
       'id' => $talk_id,
@@ -155,12 +137,15 @@ class DataCiteDOI {
           'title' => $entity->get('title')->value ?? ''
         ],
         'descriptions' => [
-          'description' => strip_tags( $entity->get('field_talk_abstract')->value ?? '')
+          'description' =>  $entity->get('field_talk_abstract')->value ?? ''
+          //'description' => strip_tags( $entity->get('field_talk_abstract')->value ?? '')
         ],
         'types' => [
-          'resourceTypeGeneral' => "Text"
+          'resourceTypeGeneral' => "Audiovisual",
+          'resourceType' => 'Video Recording'
         ],
-        'url' => 'https://schema.datacite.org/meta/kernel-4.0/index.html',
+        'url' => $url ,
+        'language' => \Drupal::languageManager()->getDefaultLanguage()->getName() ?? '',
         'schemaVersion' => 'http://datacite.org/schema/kernel-4'
       ]
     ];
@@ -183,6 +168,11 @@ class DataCiteDOI {
       ];
     }
 
+    $subjects = $this->getSubject($entity);
+    if (!empty($subjects)) {
+      $data['attributes']['subjects'] = $subjects;
+    }
+
     /*
       check if media available in the talk and if so then set the DOI status to Findable or Registered
         e.g.   event="register" / event="publish"  (maybe isActive=true/false)
@@ -193,19 +183,36 @@ class DataCiteDOI {
     */
     if (!empty($entity->get('field_talk_video')->target_id)) {
       $media = \Drupal::entityTypeManager()->getStorage('media')->load( $entity->get('field_talk_video')->target_id);
-      \Drupal::logger('scitalk_base')->notice('<pre><code>TALK VIDEO set ' . print_r($entity->get('field_talk_video')->target_id,true) . print_r($media, TRUE)  .'</code></pre>');
-
       $data['attributes']['event'] = self::DOI_STATE_TO_FINDABLE; 
     }
 
-    \Drupal::logger('scitalk_base')->notice('<pre><code>generated DOI Object ' . print_r($data, TRUE)  .'</code></pre>');
+   // \Drupal::logger('scitalk_base')->notice('<pre><code>generated DOI Object ' . print_r($data, TRUE)  .'</code></pre>');
         
     return ['data' => $data];
   }
 
-   //we are going to use the institution for the Creator field in DOI instead of the talk speakers:
-    private function getCreator() {
-      
+  /*
+  //fetch DOIs by client id
+  private function getDOIByClient($client_id) {
+    $url = "https://api.test.datacite.org/dois?client-id={$client_id}";
+    $auth = ['auth' => [$this->datacite_user,$this->datacite_pwd]];
+
+    $client = \Drupal::httpClient();
+
+    try {
+      $request = $client->get($url, $auth);
+      $response = $request->getBody();
+      //\Drupal::logger('scitalk_base')->notice('<pre><code>get list of DOIS ' . print_r(json_decode($response) , TRUE) . '</code></pre>');
+    }
+    catch (RequestException $e) {
+      \Drupal::logger('scitalk_base')->notice('<pre><code>ERROR geting list of DOIS ' . print_r($e->getMessage() , TRUE) . '</code></pre>');
+    }
+    
+  }
+  */
+
+  //we are going to use the institution for the Creator field in DOI instead of the talk speakers:
+  private function getCreator() {
       $speakers[] = [
         'name' => 'Perimeter Institute',
         'nameType' => 'Organizational',
@@ -239,6 +246,24 @@ class DataCiteDOI {
       ];
     }
     return $speakers;
+  }
+
+  //return values in Scientific area and Keyword fields to fill DOI subject
+  private function getSubject($entity) {
+    $subjects = [];
+    $sareas = $entity->get('field_scientific_area')->getValue();
+    foreach ($sareas as $sa) {
+      $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($sa['target_id']);
+      $subjects[] = ['subject' => $term->getName()];
+    }
+
+    $keywords = $entity->get('field_talk_keywords')->getValue();
+    foreach ($keywords as $key) {
+      $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($key['target_id']);
+      $subjects[] = ['subject' => $term->getName()];
+    }
+
+    return $subjects;
   }
 
  

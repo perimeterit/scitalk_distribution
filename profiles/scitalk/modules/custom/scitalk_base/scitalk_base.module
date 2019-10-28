@@ -51,9 +51,6 @@ function scitalk_base_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
  */
 function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity->getType() == 'talk') {
-    $config = \Drupal::config('scitalk_base.settings');
-    $use_doi = $config->get('use_doi');
-
     //when creating a new Talk, if there is no talk number in the entity yet, then create one and assign it to the field.
     if ($entity->isNew()) {
       $entity_talk_number = $entity->field_talk_number->value ?? '';
@@ -71,7 +68,7 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
           $entity->set('field_talk_number', $talk_num);
       }
 
-      if ($use_doi) {
+      if (_scitalk_base_use_doi($entity)) {
         //when creating a new Talk, create a Draft DOI
         $doi = \Drupal::service('scitalk_base.datacite_dois');
         $doi_id = $doi->create($entity);
@@ -82,7 +79,7 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
       }
     }
     else {
-      if ($use_doi) {
+      if (_scitalk_base_use_doi($entity)) {
         //update DOI
         $doi = \Drupal::service('scitalk_base.datacite_dois');
         $doi_id = $doi->update($entity);
@@ -111,4 +108,23 @@ function scitalk_base_taxonomy_term_presave(Drupal\taxonomy\Entity\Term $taxonom
         }
     }
   }
+}
+
+//check whether to create/update DOIs for this type of entity Talk
+function _scitalk_base_use_doi(\Drupal\Core\Entity\EntityInterface $entity) {
+  $config = \Drupal::config('scitalk_base.settings');
+  $doi_enabled = $config->get('use_doi');
+
+  //if DOI config is not enabled then no
+  if (!$doi_enabled) return false;
+
+  //if DOI config is on then check if this Talk type is configured to create DOIs
+  $create_doi_for_this_talk_type = false;
+  $talk_type = $entity->field_talk_type->target_id ?? 0;
+  if (!empty($talk_type)) {
+    $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($talk_type);
+    $create_doi_for_this_talk_type = $term->field_create_doi->value ?? false;
+  }
+
+  return $create_doi_for_this_talk_type;
 }
