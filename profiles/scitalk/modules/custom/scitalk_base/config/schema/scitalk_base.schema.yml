@@ -1,0 +1,7 @@
+field.formatter.settings.scitalk_id_base_url:
+  type: mapping
+  label: 'SciTalk Base Url'
+  mapping:
+    scitalk_id_base_url:
+      type: string
+      label: 'Text Length'

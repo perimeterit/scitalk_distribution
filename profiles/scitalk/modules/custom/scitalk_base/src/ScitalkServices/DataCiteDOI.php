@@ -144,6 +144,9 @@ class DataCiteDOI {
           'resourceTypeGeneral' => "Audiovisual",
           'resourceType' => 'Video Recording'
         ],
+        'formats' => [
+          'video/mp4'
+        ],
         'url' => $url ,
         'language' => \Drupal::languageManager()->getDefaultLanguage()->getName() ?? '',
         'schemaVersion' => 'http://datacite.org/schema/kernel-4'
