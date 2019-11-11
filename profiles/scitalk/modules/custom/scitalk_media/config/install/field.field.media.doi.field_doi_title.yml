@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_doi_title
+    - media.type.doi
+id: media.doi.field_doi_title
+field_name: field_doi_title
+entity_type: media
+bundle: doi
+label: Title
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

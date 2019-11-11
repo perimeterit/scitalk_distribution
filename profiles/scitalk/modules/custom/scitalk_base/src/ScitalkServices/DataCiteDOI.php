@@ -15,6 +15,7 @@ class DataCiteDOI {
   private const DOI_STATE_FROM_FINDABLE_TO_REGISTER = 'hide';
   private const DOI_STATE_FROM_DRAFT_TO_REGISTER = 'register';
 
+  private $doi_api_url;
   private $doi_prefix;
   private $datacite_user;
   private $datacite_pwd;
@@ -23,6 +24,13 @@ class DataCiteDOI {
 
   public function __construct() {
     $config = \Drupal::config('scitalk_base.settings');
+
+    $this->doi_api_url =  $config->get('doi_api_url');
+
+    if (substr($this->doi_api_url, -1) != '/') {
+      $this->doi_api_url .= '/';
+    }
+
     $this->doi_prefix = $config->get('doi_prefix');
     $this->datacite_user = $config->get('datacite_user');
     $this->datacite_pwd = $config->get('datacite_pwd');
@@ -51,8 +59,17 @@ class DataCiteDOI {
     return $this->updateDOI($doiObj);
   }
 
+  /**
+   * Fetch DOI by id
+   *
+   * @param string doi
+   */
+  public function getDOI($doi) {
+    return $this->fetchDOIByID($doi);
+  }
+
   private function createDOI($doiObj) {
-    $url = "https://api.test.datacite.org/dois";
+    $url = $this->doi_api_url;
     $client = \Drupal::httpClient();
 
     $doi_id = '';
@@ -86,7 +103,7 @@ class DataCiteDOI {
 
   private function updateDOI($doiObj) {
     $doi_id = $doiObj['data']['id'];
-    $url = "https://api.test.datacite.org/dois/" . $doi_id;
+    $url = $this->doi_api_url . $doi_id;
    
     $client = \Drupal::httpClient();
 
@@ -194,25 +211,35 @@ class DataCiteDOI {
     return ['data' => $data];
   }
 
-  /*
-  //fetch DOIs by client id
-  private function getDOIByClient($client_id) {
-    $url = "https://api.test.datacite.org/dois?client-id={$client_id}";
-    $auth = ['auth' => [$this->datacite_user,$this->datacite_pwd]];
+  private function fetchDOIByID($doi_id) {
+    $url = $this->doi_api_url . urlencode($doi_id);
+
+    $params = [
+      'auth' => [$this->datacite_user,$this->datacite_pwd]
+    ];
 
     $client = \Drupal::httpClient();
 
+    $response = '';
     try {
-      $request = $client->get($url, $auth);
+      $request = $client->get($url, $params);
       $response = $request->getBody();
-      //\Drupal::logger('scitalk_base')->notice('<pre><code>get list of DOIS ' . print_r(json_decode($response) , TRUE) . '</code></pre>');
+      //\Drupal::logger('scitalk_base')->notice('<pre><code>DOI fetched ' . print_r(json_decode($response) , TRUE) . '</code></pre>');
     }
-    catch (RequestException $e) {
-      \Drupal::logger('scitalk_base')->notice('<pre><code>ERROR geting list of DOIS ' . print_r($e->getMessage() , TRUE) . '</code></pre>');
+    catch (ClientException | RequestException | ConnectException | GuzzleException | BadResponseException | ServerException $e) {
+      if (!empty($res = $e->getResponse()->getBody()->getContents())) {
+        $err = json_decode($res);
+        $msg = 'DOI Client error ' . ( $err->errors[0]->title ?? '');
+        drupal_set_message(t($msg), 'error');
+      }
+      
+      \Drupal::logger('scitalk_base')->error('<pre>ERROR CONNECTING to DOI ' . print_r($e->getMessage() , TRUE) .'</pre>');
+    }
+    finally {
+      return $response;
     }
     
   }
-  */
 
   //we are going to use the institution for the Creator field in DOI instead of the talk speakers:
   private function getCreator() {

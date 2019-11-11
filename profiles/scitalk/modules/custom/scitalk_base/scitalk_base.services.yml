@@ -3,4 +3,7 @@ services:
   class: Drupal\scitalk_base\ScitalkServices\ReferenceIDGenerator
 
  scitalk_base.datacite_dois:
-  class: Drupal\scitalk_base\ScitalkServices\DataCiteDOI 
+  class: Drupal\scitalk_base\ScitalkServices\DataCiteDOI
+
+ scitalk_base.crossref_dois:
+  class: Drupal\scitalk_base\ScitalkServices\CrossrefDOI 

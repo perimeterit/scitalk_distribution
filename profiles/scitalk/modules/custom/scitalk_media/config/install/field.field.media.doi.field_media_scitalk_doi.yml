@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_media_scitalk_doi
+    - media.type.doi
+id: media.doi.field_media_scitalk_doi
+field_name: field_media_scitalk_doi
+entity_type: media
+bundle: doi
+label: Reference
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

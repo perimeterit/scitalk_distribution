@@ -1,0 +1,146 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.doi.field_doi_authors
+    - field.field.media.doi.field_doi_date_issued
+    - field.field.media.doi.field_doi_date_published
+    - field.field.media.doi.field_doi_description
+    - field.field.media.doi.field_doi_issue
+    - field.field.media.doi.field_doi_journal_name
+    - field.field.media.doi.field_doi_page_range
+    - field.field.media.doi.field_doi_publisher
+    - field.field.media.doi.field_doi_title
+    - field.field.media.doi.field_doi_volume
+    - field.field.media.doi.field_media_scitalk_doi
+    - image.style.thumbnail
+    - media.type.doi
+  module:
+    - datetime
+    - image
+    - scitalk_base
+    - text
+    - user
+id: media.doi.default
+targetEntityType: media
+bundle: doi
+mode: default
+content:
+  created:
+    label: hidden
+    type: timestamp
+    weight: 0
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  field_doi_authors:
+    weight: 12
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+  field_doi_date_issued:
+    weight: 9
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_doi_date_published:
+    weight: 10
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_doi_description:
+    weight: 8
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_doi_issue:
+    weight: 15
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_doi_journal_name:
+    weight: 11
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_doi_page_range:
+    weight: 14
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_doi_publisher:
+    weight: 16
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_doi_title:
+    weight: 7
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_doi_volume:
+    weight: 13
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_media_scitalk_doi:
+    weight: 6
+    label: above
+    settings:
+      id_base_url: 'http://doi.org'
+    third_party_settings: {  }
+    type: scitalk_base_id_formatter
+    region: content
+  thumbnail:
+    type: image
+    weight: 5
+    label: hidden
+    settings:
+      image_style: thumbnail
+      image_link: ''
+    region: content
+    third_party_settings: {  }
+  uid:
+    label: hidden
+    type: author
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  name: true
+  search_api_excerpt: true

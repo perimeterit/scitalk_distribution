@@ -48,11 +48,44 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
         ],
     ];  
 
+    $form['doi_api_url'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('DataCite DOI API URL'),
+      //'#required' => TRUE,
+      '#default_value' => $config->get('doi_api_url'),
+      '#description' => $this->t('DataCite API URL where new DOIs will be created/updated'),
+      '#states' => [
+        'visible' => [
+            ':input[id="use_doi"]' => ['checked' => TRUE],
+        ],
+        'required' => [
+          ':input[id="use_doi"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];  
+
+    $form['crosref_api_url'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Crossref API URL'),
+      //'#required' => TRUE,
+      '#default_value' => $config->get('crosref_api_url') ?? 'https://api.crossref.org/works/',
+      '#description' => $this->t('Crossref API URL used to fetch related DOI media'),
+      '#states' => [
+        'visible' => [
+            ':input[id="use_doi"]' => ['checked' => TRUE],
+        ],
+        'required' => [
+          ':input[id="use_doi"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];  
+
     $form['doi_prefix'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('DOI Prefix'),
+      '#title' => $this->t('DataCite DOI Prefix'),
       //'#required' => TRUE,
       '#default_value' => $config->get('doi_prefix'),
+      '#description' => $this->t('Prefix to use for DOIs'),
       '#states' => [
         'visible' => [
             ':input[id="use_doi"]' => ['checked' => TRUE],
@@ -68,6 +101,7 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
         '#title' => $this->t('DataCite User'),
         // '#required' => TRUE,
         '#default_value' => $config->get('datacite_user'),
+        '#description' => $this->t('DataCite API username'),
         '#states' => [
             'visible' => [
                 ':input[id="use_doi"]' => ['checked' => TRUE],
@@ -83,6 +117,7 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
         '#title' => $this->t('DataCite Password'),
         //'#required' => TRUE,
         '#default_value' => $config->get('datacite_pwd'),
+        '#description' => $this->t('DataCite API password'),
         '#states' => [
             'visible' => [
                 ':input[id="use_doi"]' => ['checked' => TRUE],
@@ -134,6 +169,8 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
     $this->configFactory->getEditable(static::SETTINGS)
       // Set the submitted configuration setting.
       ->set('use_doi', $form_state->getValue('use_doi'))
+      ->set('doi_api_url', $form_state->getValue('doi_api_url'))
+      ->set('crosref_api_url', $form_state->getValue('crosref_api_url'))
       ->set('doi_prefix', $form_state->getValue('doi_prefix'))
       ->set('datacite_user', $form_state->getValue('datacite_user'))
       ->set('datacite_pwd', $form_state->getValue('datacite_pwd'))

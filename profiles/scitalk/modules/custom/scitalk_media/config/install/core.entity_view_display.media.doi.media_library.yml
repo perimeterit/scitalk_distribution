@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.media_library
+    - field.field.media.doi.field_media_scitalk_doi
+    - image.style.medium
+    - media.type.doi
+  module:
+    - image
+id: media.doi.media_library
+targetEntityType: media
+bundle: doi
+mode: media_library
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_style: medium
+      image_link: ''
+    weight: 0
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  field_media_scitalk_doi: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  uid: true

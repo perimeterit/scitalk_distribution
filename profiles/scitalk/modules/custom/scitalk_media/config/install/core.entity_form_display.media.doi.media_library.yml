@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.media_library
+    - field.field.media.doi.field_media_scitalk_doi
+    - media.type.doi
+id: media.doi.media_library
+targetEntityType: media
+bundle: doi
+mode: media_library
+content:
+  name:
+    type: string_textfield
+    settings:
+      size: 60
+      placeholder: ''
+    weight: 0
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  field_media_scitalk_doi: true
+  langcode: true
+  path: true
+  status: true
+  uid: true

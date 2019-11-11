@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_doi_date_published
+    - media.type.doi
+  module:
+    - datetime
+id: media.doi.field_doi_date_published
+field_name: field_doi_date_published
+entity_type: media
+bundle: doi
+label: 'Date Published'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime
