@@ -1,3 +1,4 @@
+uuid: 7bf93d4e-4aac-4ac9-a658-d6ed45c44283
 langcode: en
 status: true
 dependencies:
@@ -6,11 +7,13 @@ dependencies:
   module:
     - system
   theme:
-    - bartik
-id: bartik_footer
-theme: bartik
-region: footer_fifth
-weight: 0
+    - scitalk_theme
+_core:
+  default_config_hash: 8zRjTNbfNAJ94lQpZDu6MkyD87GYJ2zpH9VQPVmRbcM
+id: scitalk_theme_footer
+theme: scitalk_theme
+region: footer
+weight: -1
 provider: null
 plugin: 'system_menu_block:footer'
 settings:

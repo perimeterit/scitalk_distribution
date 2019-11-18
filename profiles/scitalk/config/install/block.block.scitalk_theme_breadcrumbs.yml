@@ -1,14 +1,17 @@
+uuid: 0c418989-4ee2-4b88-ac21-fb110c99ba05
 langcode: en
 status: true
 dependencies:
   module:
     - system
   theme:
-    - bartik
-id: bartik_breadcrumbs
-theme: bartik
-region: breadcrumb
-weight: 0
+    - scitalk_theme
+_core:
+  default_config_hash: oXUb3JZR2WW5VOdw4HrhRicCsq51mCgLfRyvheG68ck
+id: scitalk_theme_breadcrumbs
+theme: scitalk_theme
+region: content
+weight: -5
 provider: null
 plugin: system_breadcrumb_block
 settings:

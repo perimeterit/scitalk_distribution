@@ -1,14 +1,17 @@
+uuid: 7c372677-a47a-496d-8257-7666757f0380
 langcode: en
 status: true
 dependencies:
   module:
     - help
   theme:
-    - bartik
-id: bartik_help
-theme: bartik
-region: content
-weight: -30
+    - scitalk
+_core:
+  default_config_hash: 8I8iACSa0sKO3k3jlvUG1ge52rfcKX7USJAQYnzuBgg
+id: scitalk_help
+theme: scitalk
+region: admin
+weight: -5
 provider: null
 plugin: help_block
 settings:

@@ -1,3 +1,4 @@
+uuid: 04d6eb9e-b8f0-41b5-9d3f-24988ec408e1
 langcode: en
 status: true
 dependencies:
@@ -6,11 +7,13 @@ dependencies:
   module:
     - system
   theme:
-    - bartik
-id: bartik_account_menu
-theme: bartik
-region: secondary_menu
-weight: 0
+    - scitalk_theme
+_core:
+  default_config_hash: 8a31Ywc1t2zlddGd3bmDrFMefWqgSK2E02ceFdr-bfc
+id: scitalk_theme_account_menu
+theme: scitalk_theme
+region: content
+weight: -2
 provider: null
 plugin: 'system_menu_block:account'
 settings:
