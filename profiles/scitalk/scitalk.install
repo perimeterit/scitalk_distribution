@@ -6,6 +6,9 @@
  */
 
 function scitalk_install() {
-
+ \Drupal::configFactory()
+    ->getEditable('system.theme')
+    ->set('default', 'scitalk_theme')
+    ->save();
 
 }
