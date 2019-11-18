@@ -1,9 +1,9 @@
-uuid: a3f193a0-6a2f-4d15-9900-2189b4378e80
+uuid: dc52b269-d45e-441b-8534-d087c6b1eb63
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.page_header
     - field.field.node.talk.field_combination_example
     - field.field.node.talk.field_scientific_area
     - field.field.node.talk.field_talk_abstract
@@ -22,37 +22,67 @@ dependencies:
     - field.field.node.talk.field_talk_video
     - field.field.node.talk.field_talk_viewable_online
     - node.type.talk
+  enforced:
+    module:
+      - scitalk_base
   module:
+    - datetime
+    - fences
     - user
 _core:
-  default_config_hash: Wh6nQYAtzDTJQVmZGZF2awWmbGhLUik52PNtqnSpHG0
-id: node.talk.teaser
+  default_config_hash: tMdvN1Xmlj4M9n0eLY1fO2VkvWeaDvDzwVIqJjyAB20
+id: node.talk.page_header
 targetEntityType: node
 bundle: talk
-mode: teaser
+mode: page_header
 content:
-  links:
-    weight: 100
+  field_talk_date:
+    weight: 1
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: medium
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
+    type: datetime_default
     region: content
-    settings: {  }
-    third_party_settings: {  }
+  field_talk_speaker_profile:
+    weight: 0
+    label: hidden
+    settings:
+      link: true
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: span
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
+    type: entity_reference_label
+    region: content
 hidden:
   field_combination_example: true
   field_scientific_area: true
   field_talk_abstract: true
   field_talk_attachments: true
   field_talk_collection: true
-  field_talk_date: true
   field_talk_doi: true
   field_talk_keywords: true
   field_talk_location: true
   field_talk_number: true
   field_talk_series: true
   field_talk_source_event: true
-  field_talk_speaker_profile: true
   field_talk_thumbnail: true
   field_talk_type: true
   field_talk_video: true
   field_talk_viewable_online: true
   langcode: true
+  links: true
   search_api_excerpt: true
