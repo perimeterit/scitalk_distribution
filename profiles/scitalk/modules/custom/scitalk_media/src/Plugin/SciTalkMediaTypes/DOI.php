@@ -61,12 +61,8 @@ class DOI extends SciTalkMediaPluginBase {
     $configuration = $source->getConfiguration();
     $val = $this->entity->{$configuration['source_field']}->getString();
 
-    \Drupal::logger('scitalk_base')->notice('<pre>GETiing DOI config ' .$val . ' -> '. print_r($configuration , TRUE) .print_r($this->entity->toArray(),true).'</pre>');
-
     $crossref = \Drupal::service('scitalk_base.crossref_dois');
     $res = $crossref->getDOI($val);
-
-    \Drupal::logger('scitalk_base')->notice('<pre><code>RESULT fetched ' . print_r(json_decode($res) , TRUE) . '</code></pre>');
 
     $doi = json_decode($res);
     $OK = !empty($doi->status) && $doi->status == 'ok';

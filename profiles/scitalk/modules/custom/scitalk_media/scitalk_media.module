@@ -93,3 +93,24 @@ function scitalk_media_get_plugin_by_config(\Drupal\Core\Entity\EntityInterface 
   }
   return $scitalk_plugin;
 }
+
+
+/**
+ * Implements hook_ENTITY_TYPE_presave()
+ */
+function scitalk_media_media_presave(\Drupal\Core\Entity\EntityInterface $entity) {
+  $plugin_id = $entity->getSource()->getPluginId() ?? '';
+  //since we are hiding the required Name field from the forms then make sure that we
+  //set this Name field to the value from these media types source fields
+  switch ($plugin_id) {
+    case 'scitalk_doi':
+      $doi_reference = $entity->field_media_scitalk_doi->value ?? '';
+      $entity->set('name', $doi_reference);
+      break;
+
+    case 'scitalk_arxiv':
+      $arxiv_id = $entity->field_media_scitalk_arxiv->value ?? '';
+      $entity->set('name', $arxiv_id);
+      break;
+  } 
+}
