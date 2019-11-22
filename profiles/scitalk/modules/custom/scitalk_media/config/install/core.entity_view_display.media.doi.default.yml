@@ -13,12 +13,10 @@ dependencies:
     - field.field.media.doi.field_doi_title
     - field.field.media.doi.field_doi_volume
     - field.field.media.doi.field_media_scitalk_doi
-    - image.style.thumbnail
     - media.type.doi
   module:
     - datetime
-    - image
-    - scitalk_base
+    - id_link_formatter
     - text
     - user
 id: media.doi.default
@@ -29,7 +27,7 @@ content:
   created:
     label: hidden
     type: timestamp
-    weight: 0
+    weight: 1
     region: content
     settings:
       date_format: medium
@@ -37,14 +35,14 @@ content:
       timezone: ''
     third_party_settings: {  }
   field_doi_authors:
-    weight: 12
+    weight: 8
     label: above
     settings: {  }
     third_party_settings: {  }
     type: basic_string
     region: content
   field_doi_date_issued:
-    weight: 9
+    weight: 5
     label: above
     settings:
       format_type: medium
@@ -53,7 +51,7 @@ content:
     type: datetime_default
     region: content
   field_doi_date_published:
-    weight: 10
+    weight: 6
     label: above
     settings:
       format_type: medium
@@ -62,21 +60,13 @@ content:
     type: datetime_default
     region: content
   field_doi_description:
-    weight: 8
+    weight: 4
     label: above
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_doi_issue:
-    weight: 15
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_doi_journal_name:
     weight: 11
     label: above
     settings:
@@ -84,23 +74,7 @@ content:
     third_party_settings: {  }
     type: string
     region: content
-  field_doi_page_range:
-    weight: 14
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_doi_publisher:
-    weight: 16
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_doi_title:
+  field_doi_journal_name:
     weight: 7
     label: above
     settings:
@@ -108,8 +82,32 @@ content:
     third_party_settings: {  }
     type: string
     region: content
+  field_doi_page_range:
+    weight: 10
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_doi_publisher:
+    weight: 12
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  field_doi_title:
+    weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
   field_doi_volume:
-    weight: 13
+    weight: 9
     label: above
     settings:
       link_to_entity: false
@@ -117,22 +115,13 @@ content:
     type: string
     region: content
   field_media_scitalk_doi:
-    weight: 6
+    weight: 2
     label: above
     settings:
       id_base_url: 'http://doi.org'
     third_party_settings: {  }
-    type: scitalk_base_id_formatter
+    type: id_url_formatter
     region: content
-  thumbnail:
-    type: image
-    weight: 5
-    label: hidden
-    settings:
-      image_style: thumbnail
-      image_link: ''
-    region: content
-    third_party_settings: {  }
   uid:
     label: hidden
     type: author
@@ -144,3 +133,5 @@ hidden:
   langcode: true
   name: true
   search_api_excerpt: true
+  thumbnail: true
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Drupal\scitalk_base\Plugin\Field\FieldFormatter;
+namespace Drupal\id_link_formatter\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldItemListInterface;
@@ -8,10 +8,10 @@ use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
 
 /**
- * Plugin implementation of the 'scitalk_base_id_formatter' formatter.
+ * Plugin implementation of the 'id_url_formatter' formatter.
  *
  * @FieldFormatter(
- *   id = "scitalk_base_id_formatter",
+ *   id = "id_url_formatter",
  *   label = @Translation("ID to URL Formatter"),
  *   field_types = {
  *     "string",
@@ -19,7 +19,7 @@ use Drupal\Core\Form\FormStateInterface;
  *   }
  * )
  */
-class SciTalkBaseUrlFormatter extends FormatterBase {
+class IDLinkFormatter extends FormatterBase {
 
   /**
    * {@inheritdoc}
