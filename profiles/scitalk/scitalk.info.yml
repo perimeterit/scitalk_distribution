@@ -70,6 +70,7 @@ install:
   - search_api_solr
   - simple_oauth
   - id_link_formatter
+  - layout_builder
   - scitalk_base
   - scitalk_media
   - scitalk_video
