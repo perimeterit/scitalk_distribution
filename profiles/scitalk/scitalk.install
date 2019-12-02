@@ -65,7 +65,7 @@ function _create_help_page() {
         'title' => 'Help',
         'description' => 'Help',
         'link' => ['uri' => 'internal:/node/' . $node->id()],
-        'menu_name' => 'main',
+        'menu_name' => 'footer',
         'expanded' => FALSE,
         'weight' => 0,
     ]);
@@ -93,7 +93,7 @@ function _create_accessibility_page() {
         'title' => 'Accessibility',
         'description' => 'Accessibility',
         'link' => ['uri' => 'internal:/node/' . $node->id()],
-        'menu_name' => 'main',
+        'menu_name' => 'footer',
         'expanded' => FALSE,
         'weight' => 0,
     ]);
@@ -121,7 +121,7 @@ function _create_terms_of_use_page() {
         'title' => 'Terms of use',
         'description' => 'Terms of use',
         'link' => ['uri' => 'internal:/node/' . $node->id()],
-        'menu_name' => 'main',
+        'menu_name' => 'footer',
         'expanded' => FALSE,
         'weight' => 0,
     ]);

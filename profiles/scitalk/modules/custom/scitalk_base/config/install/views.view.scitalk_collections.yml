@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - system.menu.main
     - taxonomy.vocabulary.collection
   module:
     - taxonomy
@@ -163,6 +164,15 @@ display:
       display_extenders: {  }
       path: collections
       display_description: ''
+      menu:
+        type: normal
+        title: Collections
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 0
+        context: '0'
+        menu_name: main
     cache_metadata:
       max-age: -1
       contexts:

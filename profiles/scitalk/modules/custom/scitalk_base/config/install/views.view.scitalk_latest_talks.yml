@@ -8,10 +8,14 @@ dependencies:
     - field.storage.node.field_talk_thumbnail
     - image.style.scitalk_thumbnail
     - node.type.talk
+    - system.menu.main
+    - taxonomy.vocabulary.scientific_area
+    - taxonomy.vocabulary.talk_type
   module:
     - datetime
     - image
     - node
+    - taxonomy
     - text
     - user
 id: scitalk_latest_talks
@@ -433,6 +437,247 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:field.storage.node.field_talk_abstract'
+        - 'config:field.storage.node.field_talk_date'
+        - 'config:field.storage.node.field_talk_speaker_profile'
+        - 'config:field.storage.node.field_talk_thumbnail'
+  scitalk_catch_up:
+    display_plugin: page
+    id: scitalk_catch_up
+    display_title: 'Catch up'
+    position: 2
+    display_options:
+      display_extenders: {  }
+      display_description: ''
+      title: 'Catch up'
+      defaults:
+        title: false
+        exposed_form: false
+        filters: false
+        filter_groups: false
+        use_ajax: false
+      path: catchup
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Apply
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+      filters:
+        status:
+          value: '1'
+          table: node_field_data
+          field: status
+          plugin_id: boolean
+          entity_type: node
+          entity_field: status
+          id: status
+          expose:
+            operator: ''
+          group: 1
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          value:
+            talk: talk
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+        field_talk_date_value:
+          id: field_talk_date_value
+          table: node__field_talk_date
+          field: field_talk_date_value
+          relationship: none
+          group_type: group
+          admin_label: 'last week'
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: '-7 day'
+            type: offset
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_talk_date_value_op
+            label: Since
+            description: ''
+            use_operator: false
+            operator: field_talk_date_value_op
+            identifier: field_talk_date_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              oauth_authentication: '0'
+              portal_scitalk_oauth: '0'
+            placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
+          is_grouped: true
+          group_info:
+            label: Since
+            description: ''
+            identifier: field_talk_date_value
+            optional: false
+            widget: select
+            multiple: false
+            remember: false
+            default_group: '1'
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: Weekly
+                operator: '>='
+                value:
+                  type: offset
+                  value: '-7 day'
+                  min: ''
+                  max: ''
+              2:
+                title: By-weekly
+                operator: '>='
+                value:
+                  type: offset
+                  value: '-14 day'
+                  min: ''
+                  max: ''
+              3:
+                title: Monthly
+                operator: '>='
+                value:
+                  type: offset
+                  value: '-30 day'
+                  min: ''
+                  max: ''
+          plugin_id: datetime
+        field_scientific_area_target_id:
+          id: field_scientific_area_target_id
+          table: node__field_scientific_area
+          field: field_scientific_area_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_scientific_area_target_id_op
+            label: Area
+            description: ''
+            use_operator: false
+            operator: field_scientific_area_target_id_op
+            identifier: field_scientific_area_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              oauth_authentication: '0'
+              portal_scitalk_oauth: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: scientific_area
+          hierarchy: false
+          error_message: true
+          plugin_id: taxonomy_index_tid
+        field_talk_type_target_id:
+          id: field_talk_type_target_id
+          table: node__field_talk_type
+          field: field_talk_type_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_talk_type_target_id_op
+            label: Type
+            description: ''
+            use_operator: false
+            operator: field_talk_type_target_id_op
+            identifier: field_talk_type_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              oauth_authentication: '0'
+              portal_scitalk_oauth: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: talk_type
+          hierarchy: false
+          error_message: true
+          plugin_id: taxonomy_index_tid
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      use_ajax: true
+      menu:
+        type: normal
+        title: 'Catch up'
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 0
+        context: '0'
+        menu_name: main
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
