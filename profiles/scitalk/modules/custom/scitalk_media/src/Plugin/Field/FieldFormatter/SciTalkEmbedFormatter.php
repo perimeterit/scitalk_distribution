@@ -52,7 +52,7 @@ class SciTalkEmbedFormatter extends FormatterBase {
     $video_attributes = [];
     $node = $items->getEntity();
     $field_name = $items->getName();
-    $entity_id = $node->{$field_name}->target_id;
+    $entity_id = $node->{$field_name}->target_id ?? '';
     $media_entity = entity_load('media', $entity_id);
     
     

@@ -1,0 +1,11 @@
+
+{% set speaker_date_attributes = create_attribute() %}
+{%
+  set speaker_date_classes = [
+    'speaker-date',
+  ]
+%}
+<div{{ speaker_date_attributes.addClass(speaker_date_classes) }}>
+  {{ content.field_talk_speaker_profile }}
+  {{ content.field_talk_date }}
+</div>

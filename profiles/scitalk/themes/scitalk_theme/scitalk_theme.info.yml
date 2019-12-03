@@ -13,7 +13,8 @@ libraries:
  - stardust/layout
  - stardust/responsive-menu
 # - stardust/sticky-header
- - scitalk_theme/global-styling
+ - scitalk_theme/global
+ - pirsa_theme/global
 
 # Override Stardust colour and font CSS #
 libraries-override:

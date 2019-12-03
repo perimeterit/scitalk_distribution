@@ -1,14 +1,132 @@
 <?php
 
+use Drupal\node\Entity\Node;
+use Drupal\menu_link_content\Entity\MenuLinkContent;
+
 /**
  * @file
  *  SciTalk site installation code.
  */
 
 function scitalk_install() {
- \Drupal::configFactory()
-    ->getEditable('system.theme')
-    ->set('default', 'scitalk_theme')
-    ->save();
 
+  _create_about_page();
+  _create_help_page();
+  _create_terms_of_use_page();
+  _create_accessibility_page();
+
+}
+
+function _create_about_page() {
+    $about = [
+        "type" => "page",
+        "title" => "About Us",
+        "status" => "1",
+        "body" => [
+                "value" => "About us..",
+                "format" => "basic_html",
+            ],
+
+    ];
+
+    $node = Node::create($about);
+    $node->save();
+
+    $menu_link = MenuLinkContent::create([
+        'title' => 'About Us',
+        'description' => 'About Us',
+        'link' => ['uri' => 'internal:/node/' . $node->id()],
+        'menu_name' => 'main',
+        'expanded' => FALSE,
+        'weight' => 0,
+    ]);
+
+    $menu_link->save();
+    \Drupal::logger('scitalk')->notice('Created content page "%page"', array('%page' => $node->title->value));
+
+}
+
+function _create_help_page() {
+    $help = [
+        "type" => "page",
+        "title" => "Help",
+        "status" => "1",
+        "body" => [
+                "value" => "Help..",
+                "format" => "basic_html",
+            ],
+
+    ];
+
+    $node = Node::create($help);
+    $node->save();
+
+    $menu_link = MenuLinkContent::create([
+        'title' => 'Help',
+        'description' => 'Help',
+        'link' => ['uri' => 'internal:/node/' . $node->id()],
+        'menu_name' => 'footer',
+        'expanded' => FALSE,
+        'weight' => 0,
+    ]);
+
+    $menu_link->save();
+    \Drupal::logger('scitalk')->notice('Created content page "%page"', array('%page' => $node->title->value));
+}
+
+function _create_accessibility_page() {
+    $accessibility = [
+        "type" => "page",
+        "title" => "Accessibility",
+        "status" => "1",
+        "body" => [
+                "value" => "Accessibility..",
+                "format" => "basic_html",
+            ],
+
+    ];
+
+    $node = Node::create($accessibility);
+    $node->save();
+
+    $menu_link = MenuLinkContent::create([
+        'title' => 'Accessibility',
+        'description' => 'Accessibility',
+        'link' => ['uri' => 'internal:/node/' . $node->id()],
+        'menu_name' => 'footer',
+        'expanded' => FALSE,
+        'weight' => 0,
+    ]);
+
+    $menu_link->save();
+    \Drupal::logger('scitalk')->notice('Created content page "%page"', array('%page' => $node->title->value));
+}
+
+function _create_terms_of_use_page() {
+    $terms_of_use = [
+        "type" => "page",
+        "title" => "Terms of use",
+        "status" => "1",
+        "body" => [
+                "value" => "Terms of use..",
+                "format" => "basic_html",
+            ],
+
+    ];
+
+    $node = Node::create($terms_of_use);
+    $node->save();
+
+    $menu_link = MenuLinkContent::create([
+        'title' => 'Terms of use',
+        'description' => 'Terms of use',
+        'link' => ['uri' => 'internal:/node/' . $node->id()],
+        'menu_name' => 'footer',
+        'expanded' => FALSE,
+        'weight' => 0,
+    ]);
+
+    $menu_link->save();
+
+    \Drupal::logger('scitalk')->notice('Created content page "%page"', array('%page' => $node->title->value));
 }

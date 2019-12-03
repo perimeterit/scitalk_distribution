@@ -1,0 +1,25 @@
+{#
+/**
+ * @file
+ * Custom theme implementation to display a node.
+ * Starlight default for all nodes not in "full" view mode
+ *
+ * Documentation here: https://api.drupal.org/api/drupal/core!modules!node!templates!node.html.twig/8.2.x
+ *
+ * @ingroup themeable
+ */
+#}
+
+{%
+  set classes = [
+    'node',
+    node.bundle|clean_class,
+    view_mode ? view_mode|clean_class,
+  ]
+%}
+
+<div{{ attributes.addClass(classes) }}>
+  <h1>{{label}}</h1>
+  {{ content|without('links', 'field_talk_speaker_profile','field_talk_date') }}
+  {% embed "@scitalk_theme/includes/speaker-date.twig" %}{% endembed %}
+</div>

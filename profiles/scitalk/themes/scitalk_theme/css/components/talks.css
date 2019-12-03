@@ -1,0 +1,9 @@
+/**
+ * Node CSS for talks
+*/
+
+
+.submitted {
+  font-family: var(--font-family-condensed);
+  opacity: .9;
+}

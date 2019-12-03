@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Custom theme implementation to display a node.
+ * Custom template for Talk nodes in Full view mode.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{%
+  set classes = [
+    'node',
+    node.bundle|clean_class,
+    view_mode ? view_mode|clean_class,
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  <div class="video">
+    {{ content.field_video }}
+  </div>
+  <div class="content-wrapper">
+    <div class="content">
+      {{ content|without('links, field_talk_video') }}
+    </div>
+    <aside class="sidebar">
+      Sidebar related posts go here
+    </aside>
+  </div>
+  {{ content.links }}
+</article>
