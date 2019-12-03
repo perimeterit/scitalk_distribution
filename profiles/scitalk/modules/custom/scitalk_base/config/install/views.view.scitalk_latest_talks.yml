@@ -497,7 +497,7 @@ display:
           field: field_talk_date_value
           relationship: none
           group_type: group
-          admin_label: 'last week'
+          admin_label: 'Catch up'
           operator: '>='
           value:
             min: ''
@@ -550,7 +550,7 @@ display:
                 operator: '>='
                 value:
                   type: offset
-                  value: '-14 day'
+                  value: '-14 days'
                   min: ''
                   max: ''
               3:
@@ -558,7 +558,7 @@ display:
                 operator: '>='
                 value:
                   type: offset
-                  value: '-30 day'
+                  value: '-1 month'
                   min: ''
                   max: ''
           plugin_id: datetime
