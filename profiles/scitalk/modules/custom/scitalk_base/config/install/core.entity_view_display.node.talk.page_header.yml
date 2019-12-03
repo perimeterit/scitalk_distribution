@@ -28,7 +28,25 @@ dependencies:
   module:
     - datetime
     - fences
+    - field_group
     - user
+third_party_settings:
+  field_group:
+    group_share:
+      children: {  }
+      parent_name: ''
+      weight: 2
+      format_type: html_element
+      format_settings:
+        id: ''
+        classes: share-favourite
+        element: div
+        show_label: true
+        label_element: h3
+        attributes: ''
+        effect: none
+        speed: fast
+      label: 'Share & Favourite'
 _core:
   default_config_hash: tMdvN1Xmlj4M9n0eLY1fO2VkvWeaDvDzwVIqJjyAB20
 id: node.talk.page_header
@@ -44,7 +62,7 @@ content:
       format_type: medium
     third_party_settings:
       fences:
-        fences_field_tag: div
+        fences_field_tag: span
         fences_field_classes: ''
         fences_field_item_tag: none
         fences_field_item_classes: ''
@@ -59,9 +77,9 @@ content:
       link: true
     third_party_settings:
       fences:
-        fences_field_tag: div
+        fences_field_tag: span
         fences_field_classes: ''
-        fences_field_item_tag: span
+        fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
