@@ -461,7 +461,7 @@ display:
         use_ajax: false
       path: catchup
       exposed_form:
-        type: basic
+        type: input_required
         options:
           submit_button: 'Do Catchup'
           reset_button: false
@@ -470,6 +470,8 @@ display:
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
+          text_input_required: 'Select any filter and click on Do Catchup to see results'
+          text_input_required_format: basic_html
       filters:
         status:
           value: '1'
@@ -529,7 +531,7 @@ display:
           group_info:
             label: Since
             description: ''
-            identifier: field_talk_date_value
+            identifier: date_range
             optional: false
             widget: select
             multiple: false
@@ -579,7 +581,7 @@ display:
             description: ''
             use_operator: false
             operator: field_scientific_area_target_id_op
-            identifier: field_scientific_area_target_id
+            identifier: scientific_area_id
             required: false
             remember: false
             multiple: false
@@ -592,16 +594,19 @@ display:
             reduce: false
           is_grouped: false
           group_info:
-            label: ''
-            description: ''
-            identifier: ''
+            label: 'Scientific Area (field_scientific_area)'
+            description: null
+            identifier: field_scientific_area_target_id
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
             default_group_multiple: {  }
-            group_items: {  }
+            group_items:
+              1: {  }
+              2: {  }
+              3: {  }
           reduce_duplicates: false
           type: select
           limit: true
@@ -626,7 +631,7 @@ display:
             description: ''
             use_operator: false
             operator: field_talk_type_target_id_op
-            identifier: field_talk_type_target_id
+            identifier: type
             required: false
             remember: false
             multiple: false
@@ -670,6 +675,7 @@ display:
         weight: 0
         context: '0'
         menu_name: main
+      exposed_block: true
     cache_metadata:
       max-age: -1
       contexts:
