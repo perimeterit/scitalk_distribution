@@ -1,0 +1,13 @@
+global-styling:
+  css:
+    base:
+      css/variables.css: {}
+    layout:
+      css/layout.css: {}
+    component:
+      css/global.css: {}
+  js:
+    js/global.js: { weight: -0.02 }
+  dependencies:
+    - core/drupal
+    - core/jquery

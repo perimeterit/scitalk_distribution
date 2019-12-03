@@ -1,0 +1,28 @@
+/**
+ * Sitewide layout
+*/
+
+/**
+ * Header
+*/
+
+
+/**
+ * Page headers
+*/
+.page-header {
+  padding: var(--gutter-standard) 0;
+}
+
+.page-header h1 {
+  margin-bottom: 0;
+  line-height: 1.4em;
+}
+
+/**
+ * Footer
+*/
+
+.site-footer {
+
+}
