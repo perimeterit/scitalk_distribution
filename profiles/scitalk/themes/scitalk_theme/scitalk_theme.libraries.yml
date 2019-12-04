@@ -1,12 +1,11 @@
 global:
   css:
     base:
-      css/variables.css: {}
+      css/global.css: {}
     layout:
       css/layout.css: {}
     component:
-      css/global.css: {}
-      css/talks.css: {}
+      css/components/talks.css: {}
   js:
     js/global.js: { weight: -0.02 }
   dependencies:

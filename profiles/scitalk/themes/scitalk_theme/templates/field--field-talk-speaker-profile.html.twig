@@ -11,13 +11,11 @@
     'field--name-' ~ field_name|clean_class,
     'field--type-' ~ field_type|clean_class,
     'field--label-' ~ label_display,
-    items|length > 3 ? 'multi-line' : 'single-line'
   ]
 %}
 
 {# if speakers are longer than 3, then break them into separate lines #}
 {# use a list if there are more than one item #}
-
 
 <div{{ attributes.addClass(classes) }}>
 {% if items|length > 1 %}
@@ -26,16 +24,15 @@
   {% endif %}
   <ul class="display-list">
   {% for item in items %}
-    <li{{ item.attributes.addClass(classes, 'field__items') }}>{{ item.content }}</li>
+    <li>{{ item.content }}</li>
   {% endfor %}
   </ul>
 {% else %}
   <p>
-
-  {% if not label_hidden and display_label_tag %}
-    <{{ label_tag|default('div') }}{{ title_attributes.addClass(title_classes) }}>{{ label }}</{{ label_tag|default('div') }}>
-  {% endif %}
-  {{ item.content }}
+    {% if not label_hidden and display_label_tag %}
+      <{{ label_tag|default('div') }}{{ title_attributes.addClass(title_classes) }}>{{ label }}</{{ label_tag|default('div') }}>
+    {% endif %}
+   {{ items.0.content }}
   </p>
 {% endif %}
 </div>

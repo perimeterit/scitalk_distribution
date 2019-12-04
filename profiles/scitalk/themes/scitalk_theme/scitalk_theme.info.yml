@@ -14,7 +14,6 @@ libraries:
  - stardust/responsive-menu
 # - stardust/sticky-header
  - scitalk_theme/global
- - pirsa_theme/global
 
 # Override Stardust colour and font CSS #
 libraries-override:
