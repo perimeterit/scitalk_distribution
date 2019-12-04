@@ -5,7 +5,7 @@ dependencies:
   theme:
     - scitalk_theme
 _core:
-  default_config_hash: 13GQpeITIJsp1kyPniXtWZfyFH87vb1xxJCHifL4UeE
+  default_config_hash: BhSivbbp9JcrHJwZQfQcxOFk7RWf_aqjRJ6MgnZVN5Y
 id: scitalk_theme_local_actions
 theme: scitalk_theme
 region: admin

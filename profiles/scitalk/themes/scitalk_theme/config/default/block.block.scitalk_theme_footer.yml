@@ -9,7 +9,7 @@ dependencies:
   theme:
     - scitalk_theme
 _core:
-  default_config_hash: 8zRjTNbfNAJ94lQpZDu6MkyD87GYJ2zpH9VQPVmRbcM
+  default_config_hash: 4U80sIyF_uIGkpOM1rR_1ER_PgzmGpQY7PyU6BLlY2w
 id: scitalk_theme_footer
 theme: scitalk_theme
 region: footer
