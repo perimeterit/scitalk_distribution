@@ -15,13 +15,8 @@ dependencies:
     - taxonomy.vocabulary.collection
   module:
     - datetime
-    - layout_builder
     - link
     - text
-third_party_settings:
-  layout_builder:
-    allow_custom: false
-    enabled: false
 _core:
   default_config_hash: p_5899UcFss4xwL7lFaQFw5iivGgs1rboCDJv27NdJ4
 id: taxonomy_term.collection.card

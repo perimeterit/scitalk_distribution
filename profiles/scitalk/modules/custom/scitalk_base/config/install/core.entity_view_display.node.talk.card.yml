@@ -29,7 +29,6 @@ dependencies:
     - datetime
     - field_group
     - image
-    - layout_builder
     - user
 third_party_settings:
   field_group:
@@ -75,9 +74,6 @@ third_party_settings:
         classes: ''
       label: Details
       region: hidden
-  layout_builder:
-    allow_custom: false
-    enabled: false
 _core:
   default_config_hash: tMdvN1Xmlj4M9n0eLY1fO2VkvWeaDvDzwVIqJjyAB20
 id: node.talk.card
