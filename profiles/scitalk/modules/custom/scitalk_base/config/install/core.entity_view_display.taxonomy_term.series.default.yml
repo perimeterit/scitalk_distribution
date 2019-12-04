@@ -1,3 +1,4 @@
+uuid: b3cf4913-50a1-41c5-a57d-95f83ab513ff
 langcode: en
 status: true
 dependencies:
@@ -9,6 +10,8 @@ dependencies:
     - taxonomy.vocabulary.series
   module:
     - text
+_core:
+  default_config_hash: 7ey462Ss2uG3MCvuuBXhpOa-TJSvssGjRcNeQvORS0U
 id: taxonomy_term.series.default
 targetEntityType: taxonomy_term
 bundle: series

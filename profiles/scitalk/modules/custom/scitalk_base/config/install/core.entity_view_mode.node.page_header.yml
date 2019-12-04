@@ -4,6 +4,8 @@ status: true
 dependencies:
   module:
     - node
+_core:
+  default_config_hash: OL6t63VvNXBW4V69BrEuRI4aR5FyNBBlEHO4mGmDm4g
 id: node.page_header
 label: 'Page header'
 targetEntityType: node

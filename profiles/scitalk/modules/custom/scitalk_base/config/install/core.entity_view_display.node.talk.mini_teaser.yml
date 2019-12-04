@@ -1,9 +1,9 @@
-uuid: a3f193a0-6a2f-4d15-9900-2189b4378e80
+uuid: 174ab619-da4b-4bf8-9302-69acedc657be
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.mini_teaser
     - field.field.node.talk.field_combination_example
     - field.field.node.talk.field_scientific_area
     - field.field.node.talk.field_talk_abstract
@@ -22,28 +22,71 @@ dependencies:
     - field.field.node.talk.field_talk_video
     - field.field.node.talk.field_talk_viewable_online
     - node.type.talk
+  enforced:
+    module:
+      - scitalk_base
   module:
     - datetime
+    - field_group
     - image
-    - text
+    - layout_builder
     - user
+third_party_settings:
+  field_group:
+    group_talk_resources:
+      children:
+        - field_talk_attachments
+      parent_name: ''
+      weight: 13
+      format_type: html_element
+      format_settings:
+        element: div
+        show_label: true
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: ''
+      label: Resources
+      region: hidden
+    group_talk_details:
+      children:
+        - field_talk_collection
+        - field_talk_doi
+        - field_talk_location
+        - field_talk_number
+        - field_talk_series
+        - field_talk_source_event
+      parent_name: ''
+      weight: 14
+      format_type: html_element
+      format_settings:
+        element: div
+        show_label: true
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: ''
+      label: Details
+      region: hidden
+  layout_builder:
+    allow_custom: false
+    enabled: false
 _core:
-  default_config_hash: Wh6nQYAtzDTJQVmZGZF2awWmbGhLUik52PNtqnSpHG0
-id: node.talk.teaser
+  default_config_hash: tMdvN1Xmlj4M9n0eLY1fO2VkvWeaDvDzwVIqJjyAB20
+id: node.talk.mini_teaser
 targetEntityType: node
 bundle: talk
-mode: teaser
+mode: mini_teaser
 content:
-  field_talk_abstract:
-    type: text_default
-    weight: 2
-    region: content
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
   field_talk_date:
     type: datetime_default
-    weight: 3
+    weight: 2
     region: content
     label: hidden
     settings:
@@ -52,7 +95,7 @@ content:
     third_party_settings: {  }
   field_talk_speaker_profile:
     type: entity_reference_label
-    weight: 1
+    weight: 0
     region: content
     label: hidden
     settings:
@@ -60,7 +103,7 @@ content:
     third_party_settings: {  }
   field_talk_thumbnail:
     type: image
-    weight: 0
+    weight: 1
     region: content
     label: hidden
     settings:
@@ -70,6 +113,7 @@ content:
 hidden:
   field_combination_example: true
   field_scientific_area: true
+  field_talk_abstract: true
   field_talk_attachments: true
   field_talk_collection: true
   field_talk_doi: true

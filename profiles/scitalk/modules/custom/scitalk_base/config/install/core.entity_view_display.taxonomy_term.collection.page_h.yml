@@ -1,8 +1,9 @@
-uuid: 2adab90f-607f-4f6a-a06e-58a614322a8a
+uuid: 43843174-c981-410e-b6fb-454760dfaa92
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.taxonomy_term.page_h
     - field.field.taxonomy_term.collection.field_collection_end_date
     - field.field.taxonomy_term.collection.field_collection_event_url
     - field.field.taxonomy_term.collection.field_collection_number
@@ -13,57 +14,20 @@ dependencies:
     - field.field.taxonomy_term.collection.field_collection_type
     - taxonomy.vocabulary.collection
   module:
-    - datetime
-    - text
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
 _core:
   default_config_hash: p_5899UcFss4xwL7lFaQFw5iivGgs1rboCDJv27NdJ4
-id: taxonomy_term.collection.default
+id: taxonomy_term.collection.page_h
 targetEntityType: taxonomy_term
 bundle: collection
-mode: default
+mode: page_h
 content:
-  description:
-    label: hidden
-    type: text_default
+  field_collection_organizers:
     weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  field_collection_end_date:
-    weight: 2
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    type: datetime_default
-    region: content
-  field_collection_number:
-    weight: 3
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_collection_short_desc:
-    weight: 4
-    label: above
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
-    region: content
-  field_collection_start_date:
-    weight: 1
-    label: above
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-    type: datetime_default
-    region: content
-  field_collection_type:
-    weight: 5
     label: above
     settings:
       link: true
@@ -71,8 +35,13 @@ content:
     type: entity_reference_label
     region: content
 hidden:
+  description: true
+  field_collection_end_date: true
   field_collection_event_url: true
-  field_collection_organizers: true
+  field_collection_number: true
   field_collection_public_viewable: true
+  field_collection_short_desc: true
+  field_collection_start_date: true
+  field_collection_type: true
   langcode: true
   search_api_excerpt: true

@@ -27,20 +27,16 @@ dependencies:
   module:
     - fences
     - field_group
-    - layout_builder
     - link
     - text
     - user
 third_party_settings:
-  layout_builder:
-    allow_custom: false
-    enabled: false
   field_group:
     group_talk_resources:
       children:
         - field_talk_attachments
       parent_name: ''
-      weight: 1
+      weight: 2
       format_type: html_element
       format_settings:
         element: div
@@ -64,7 +60,7 @@ third_party_settings:
         - field_talk_doi
         - field_talk_collection
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: html_element
       format_settings:
         element: div
@@ -86,7 +82,7 @@ bundle: talk
 mode: default
 content:
   field_combination_example:
-    weight: 3
+    weight: 4
     label: inline
     settings:
       link: true
@@ -94,7 +90,7 @@ content:
     type: entity_reference_label
     region: content
   field_talk_abstract:
-    weight: 0
+    weight: 1
     label: above
     settings: {  }
     third_party_settings:
@@ -180,7 +176,14 @@ content:
     label: inline
     settings:
       link: true
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: ul
+        fences_field_classes: display-list
+        fences_field_item_tag: li
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
     type: entity_reference_label
     region: content
   field_talk_source_event:
@@ -217,13 +220,28 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
+  field_talk_video:
+    type: entity_reference_entity_view
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
 hidden:
   field_scientific_area: true
   field_talk_date: true
   field_talk_keywords: true
   field_talk_thumbnail: true
   field_talk_type: true
-  field_talk_video: true
   field_talk_viewable_online: true
   langcode: true
   links: true
