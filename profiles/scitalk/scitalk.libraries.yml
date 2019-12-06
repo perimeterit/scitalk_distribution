@@ -1,0 +1,5 @@
+scitalk_profile_js:
+  js:
+    js/scitalk_feedback.js: {}
+  dependencies:
+    - core/jquery

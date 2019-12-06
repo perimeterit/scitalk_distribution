@@ -32,6 +32,7 @@
         "drupal/jw_player": "^1.0@beta",
         "drupal/module_filter": "^3.1",
         "drupal/pathauto": "^1.5",
+        "drupal/recaptcha": "^2.4",
         "drupal/restui": "^1.15",
         "drupal/search_api": "^1.15",
         "drupal/search_api_solr": "^3.7",

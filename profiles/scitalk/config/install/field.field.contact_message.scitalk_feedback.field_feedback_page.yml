@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.scitalk_feedback
+    - field.storage.contact_message.field_feedback_page
+id: contact_message.scitalk_feedback.field_feedback_page
+field_name: field_feedback_page
+entity_type: contact_message
+bundle: scitalk_feedback
+label: Page/Video
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
