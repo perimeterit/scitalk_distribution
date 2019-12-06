@@ -1,14 +1,17 @@
+uuid: 302d0207-2569-47da-84d2-5ee7bc70a2c1
 langcode: en
 status: true
 dependencies:
   module:
     - system
   theme:
-    - bartik
-id: bartik_content
-theme: bartik
+    - scitalk_theme
+_core:
+  default_config_hash: qcC38S_LNa6X1cM7xs3PQTRVWMnh2DzclY3gXFEoQFM
+id: scitalk_theme_content
+theme: scitalk_theme
 region: content
-weight: 0
+weight: -4
 provider: null
 plugin: system_main_block
 settings:

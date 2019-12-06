@@ -1,3 +1,4 @@
+uuid: 0099fc12-077f-4380-be92-3805158449e2
 langcode: en
 status: true
 dependencies:
@@ -13,6 +14,8 @@ dependencies:
     - node
     - text
     - user
+_core:
+  default_config_hash: EXnl1fJooSUqrXHNmw0YZlzOA-bLEtqHw3DTYrlLpek
 id: scitalk_talks_in_collection
 label: 'SciTalk: Talks in collection'
 module: views

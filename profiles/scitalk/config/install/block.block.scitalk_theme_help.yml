@@ -1,0 +1,22 @@
+uuid: def1112f-8125-46c8-b246-8b58c923f410
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - scitalk_theme
+_core:
+  default_config_hash: '-Hn7O_i0ZXZOAVkMjajJR0UTlV7Oeq-ls2gNRtRKmHs'
+id: scitalk_theme_help
+theme: scitalk_theme
+region: admin
+weight: -3
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  provider: help
+  label_display: '0'
+visibility: {  }

@@ -1,8 +1,9 @@
-uuid: 7830642c-a394-476d-ac4c-0900f16b9d5f
+uuid: 0bf79889-84b5-42a9-b0c1-1003ea9411fe
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.page_header
     - field.field.node.speaker_profile.field_sp_display_name
     - field.field.node.speaker_profile.field_sp_external_id
     - field.field.node.speaker_profile.field_sp_first_name
@@ -14,83 +15,42 @@ dependencies:
     - field.field.node.speaker_profile.field_sp_speaker_profile
     - field.field.node.speaker_profile.field_sp_username
     - field.field.node.speaker_profile.field_sp_web_profile_url
-    - image.style.scitalk_profile_thumbnail
     - node.type.speaker_profile
   module:
-    - fences
-    - image
-    - link
-    - text
     - user
 _core:
   default_config_hash: 4sP_dy2MtJ6oaWKD2dm9JyqE4q49PcXKecGcU4PEHzU
-id: node.speaker_profile.default
+id: node.speaker_profile.page_header
 targetEntityType: node
 bundle: speaker_profile
-mode: default
+mode: page_header
 content:
-  field_sp_external_id:
-    weight: 3
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_sp_orcid_id:
-    weight: 4
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_sp_profile_thumbnail:
+  field_sp_institution_name:
     weight: 0
     label: hidden
     settings:
-      image_style: scitalk_profile_thumbnail
-      image_link: ''
+      link_to_entity: false
     third_party_settings:
       fences:
-        fences_field_tag: figure
+        fences_field_tag: p
         fences_field_classes: ''
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
-    type: image
+    type: string
     region: content
-  field_sp_speaker_profile:
-    weight: 1
-    label: hidden
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
-    region: content
-  field_sp_web_profile_url:
-    weight: 2
-    label: hidden
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
-  links:
-    weight: 5
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   field_sp_display_name: true
+  field_sp_external_id: true
   field_sp_first_name: true
-  field_sp_institution_name: true
   field_sp_last_name: true
   field_sp_linked_user: true
+  field_sp_orcid_id: true
+  field_sp_profile_thumbnail: true
+  field_sp_speaker_profile: true
   field_sp_username: true
+  field_sp_web_profile_url: true
   langcode: true
+  links: true
   search_api_excerpt: true

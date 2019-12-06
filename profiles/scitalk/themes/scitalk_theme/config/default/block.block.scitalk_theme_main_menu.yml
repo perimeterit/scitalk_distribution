@@ -1,0 +1,27 @@
+uuid: a78c00d4-4a5a-458e-96d4-f776c55bb41f
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - scitalk_theme
+_core:
+  default_config_hash: iPebJrIiGwYpoJ4elJy8m6dVrF2jl1PDOFuVqtNvVws
+id: scitalk_theme_main_menu
+theme: scitalk_theme
+region: header
+weight: -4
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 1
+  expand_all_items: false
+visibility: {  }

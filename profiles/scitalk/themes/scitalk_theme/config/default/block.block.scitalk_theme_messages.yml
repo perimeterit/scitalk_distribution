@@ -1,0 +1,22 @@
+uuid: b9ec28df-6b8d-4ede-804f-b3f4b627e0a8
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - scitalk_theme
+_core:
+  default_config_hash: ah4fF2fJjGAOTnvi9rvhWYikSAWUpg9EJ7LHxblFxxg
+id: scitalk_theme_messages
+theme: scitalk_theme
+region: admin
+weight: -4
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  provider: system
+  label_display: '0'
+visibility: {  }

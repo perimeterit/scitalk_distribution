@@ -1,12 +1,15 @@
+uuid: c5d49bf3-1aee-4dca-bda8-aa0113f871d8
 langcode: en
 status: true
 dependencies:
   theme:
-    - bartik
-id: bartik_local_tasks
-theme: bartik
-region: content
-weight: -40
+    - scitalk_theme
+_core:
+  default_config_hash: Mwlf5TK2XpfJxW7dKOhQHJbMIm1DZv9fpkjbQLFKkCw
+id: scitalk_theme_local_tasks
+theme: scitalk_theme
+region: admin
+weight: -5
 provider: null
 plugin: local_tasks_block
 settings:

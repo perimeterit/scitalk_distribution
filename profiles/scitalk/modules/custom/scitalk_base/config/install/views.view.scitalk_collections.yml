@@ -1,12 +1,16 @@
+uuid: dd70f575-2686-47db-870c-1de42183ba28
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.taxonomy_term.card
     - system.menu.main
     - taxonomy.vocabulary.collection
   module:
     - taxonomy
     - user
+_core:
+  default_config_hash: sk4mpK85gZkuUbljSJ73Xt1kA2DE-V49oYnZ5JQyfzQ
 id: scitalk_collections
 label: 'SciTalk: Collections'
 module: views
@@ -68,7 +72,10 @@ display:
       style:
         type: default
       row:
-        type: fields
+        type: 'entity:taxonomy_term'
+        options:
+          relationship: none
+          view_mode: card
       fields:
         name:
           id: name
@@ -146,6 +153,21 @@ display:
       empty: {  }
       relationships: {  }
       arguments: {  }
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url.query_args
+        - user.permissions
+      tags: {  }
+  block_1:
+    display_plugin: block
+    id: block_1
+    display_title: Block
+    position: 2
+    display_options:
       display_extenders: {  }
     cache_metadata:
       max-age: -1

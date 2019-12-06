@@ -1,0 +1,38 @@
+{#
+/**
+ * @file
+ * Theme override for the speakers fields
+ * Writes as a list if there are multiple items, as a paragraph if not.
+ */
+#}
+{%
+  set classes = [
+    'field',
+    'field--name-' ~ field_name|clean_class,
+    'field--type-' ~ field_type|clean_class,
+    'field--label-' ~ label_display,
+  ]
+%}
+
+{# if speakers are longer than 3, then break them into separate lines #}
+{# use a list if there are more than one item #}
+
+<div{{ attributes.addClass(classes) }}>
+{% if items|length > 1 %}
+  {% if not label_hidden and display_label_tag %}
+    <{{ label_tag|default('div') }}{{ title_attributes.addClass(title_classes) }}>{{ label }}</{{ label_tag|default('div') }}>
+  {% endif %}
+  <ul class="display-list">
+  {% for item in items %}
+    <li>{{ item.content }}</li>
+  {% endfor %}
+  </ul>
+{% else %}
+  <p>
+    {% if not label_hidden and display_label_tag %}
+      <{{ label_tag|default('div') }}{{ title_attributes.addClass(title_classes) }}>{{ label }}</{{ label_tag|default('div') }}>
+    {% endif %}
+   {{ items.0.content }}
+  </p>
+{% endif %}
+</div>

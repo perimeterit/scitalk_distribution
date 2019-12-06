@@ -1,0 +1,13 @@
+global:
+  css:
+    base:
+      css/global.css: {}
+    layout:
+      css/layout.css: {}
+    component:
+      css/components/talks.css: {}
+  js:
+    js/global.js: { weight: -0.02 }
+  dependencies:
+    - core/drupal
+    - core/jquery

@@ -9,12 +9,12 @@ use Drupal\menu_link_content\Entity\MenuLinkContent;
  */
 
 function scitalk_install() {
-	
+
   _create_about_page();
   _create_help_page();
   _create_terms_of_use_page();
   _create_accessibility_page();
-	
+
 }
 
 function _create_about_page() {
@@ -69,7 +69,7 @@ function _create_help_page() {
         'expanded' => FALSE,
         'weight' => 0,
     ]);
-    
+
     $menu_link->save();
     \Drupal::logger('scitalk')->notice('Created content page "%page"', array('%page' => $node->title->value));
 }
@@ -97,7 +97,7 @@ function _create_accessibility_page() {
         'expanded' => FALSE,
         'weight' => 0,
     ]);
-    
+
     $menu_link->save();
     \Drupal::logger('scitalk')->notice('Created content page "%page"', array('%page' => $node->title->value));
 }
@@ -125,7 +125,7 @@ function _create_terms_of_use_page() {
         'expanded' => FALSE,
         'weight' => 0,
     ]);
-    
+
     $menu_link->save();
 
     \Drupal::logger('scitalk')->notice('Created content page "%page"', array('%page' => $node->title->value));

@@ -1,3 +1,4 @@
+uuid: c54762b3-1065-4e43-85ac-4f619016dbc2
 langcode: en
 status: true
 dependencies:
@@ -19,166 +20,229 @@ dependencies:
     - field.field.node.talk.field_talk_type
     - field.field.node.talk.field_talk_video
     - field.field.node.talk.field_talk_viewable_online
-    - image.style.scitalk_thumbnail
     - node.type.talk
   enforced:
     module:
       - scitalk_base
   module:
-    - datetime
-    - image
+    - fences
+    - field_group
     - link
-    - scitalk_media
     - text
     - user
+third_party_settings:
+  field_group:
+    group_talk_resources:
+      children:
+        - field_talk_attachments
+      parent_name: ''
+      weight: 2
+      format_type: html_element
+      format_settings:
+        element: div
+        show_label: true
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: ''
+      label: Resources
+      region: content
+    group_talk_details:
+      children:
+        - field_talk_speaker_profile
+        - field_talk_location
+        - field_talk_source_event
+        - field_talk_series
+        - field_talk_number
+        - field_talk_doi
+        - field_talk_collection
+      parent_name: ''
+      weight: 3
+      format_type: html_element
+      format_settings:
+        element: div
+        show_label: true
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: ''
+      label: Details
+      region: content
+_core:
+  default_config_hash: tMdvN1Xmlj4M9n0eLY1fO2VkvWeaDvDzwVIqJjyAB20
 id: node.talk.default
 targetEntityType: node
 bundle: talk
 mode: default
 content:
   field_combination_example:
-    weight: 8
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_scientific_area:
-    weight: 7
-    label: above
+    weight: 4
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
     region: content
   field_talk_abstract:
-    weight: 10
+    weight: 1
     label: above
     settings: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: div
+        fences_field_item_classes: ''
+        fences_label_tag: h3
+        fences_label_classes: ''
     type: text_default
     region: content
-  field_talk_collection:
-    weight: 11
+  field_talk_attachments:
+    type: entity_reference_label
+    weight: 20
+    region: content
     label: above
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_talk_date:
-    weight: 4
+  field_talk_collection:
+    weight: 24
     label: inline
     settings:
-      timezone_override: ''
-      format_type: event_date_time
-    third_party_settings: {  }
-    type: datetime_default
+      link: true
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
+    type: entity_reference_label
     region: content
   field_talk_doi:
-    weight: 3
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
-  field_talk_keywords:
-    weight: 9
+    weight: 23
     label: inline
     settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
+      link_to_entity: false
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
+    type: string
     region: content
   field_talk_location:
-    weight: 12
-    label: above
+    weight: 19
+    label: inline
     settings:
       link_to_entity: false
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
     type: string
     region: content
   field_talk_number:
     type: string
-    weight: 1
+    weight: 22
     region: content
     label: inline
     settings:
       link_to_entity: false
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
   field_talk_series:
-    weight: 13
-    label: above
+    weight: 21
+    label: inline
     settings:
       link: true
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: ul
+        fences_field_classes: display-list
+        fences_field_item_tag: li
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
     type: entity_reference_label
     region: content
   field_talk_source_event:
-    weight: 5
-    label: above
+    weight: 20
+    label: inline
     settings:
       trim_length: 80
       url_only: false
       url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
+      rel: '0'
+      target: '0'
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
     type: link
     region: content
   field_talk_speaker_profile:
-    weight: 14
-    label: above
+    type: entity_reference_label
+    weight: 18
+    region: content
+    label: inline
     settings:
       link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
-  field_talk_thumbnail:
-    weight: 16
-    label: above
-    settings:
-      image_style: scitalk_thumbnail
-      image_link: content
-    third_party_settings: {  }
-    type: image
-    region: content
-  field_talk_type:
-    weight: 15
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: span
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
   field_talk_video:
-    type: scitalk_embed
-    weight: 2
-    label: above
-    settings:
-      uri_field: none
-      jwplayer_preset: ''
-      requirejw: 0
-    third_party_settings: {  }
-    region: content
-  field_talk_viewable_online:
-    weight: 6
-    label: above
-    settings:
-      format: default
-      format_custom_false: ''
-      format_custom_true: ''
-    third_party_settings: {  }
-    type: boolean
-    region: content
-  links:
+    type: entity_reference_entity_view
     weight: 0
     region: content
-    settings: {  }
-    third_party_settings: {  }
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
 hidden:
-  field_talk_attachments: true
+  field_scientific_area: true
+  field_talk_date: true
+  field_talk_keywords: true
+  field_talk_thumbnail: true
+  field_talk_type: true
+  field_talk_viewable_online: true
   langcode: true
+  links: true
   search_api_excerpt: true

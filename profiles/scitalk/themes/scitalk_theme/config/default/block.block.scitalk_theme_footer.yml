@@ -1,0 +1,27 @@
+uuid: 7bf93d4e-4aac-4ac9-a658-d6ed45c44283
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer
+  module:
+    - system
+  theme:
+    - scitalk_theme
+_core:
+  default_config_hash: 4U80sIyF_uIGkpOM1rR_1ER_PgzmGpQY7PyU6BLlY2w
+id: scitalk_theme_footer
+theme: scitalk_theme
+region: footer
+weight: -1
+provider: null
+plugin: 'system_menu_block:footer'
+settings:
+  id: 'system_menu_block:footer'
+  label: 'Footer menu'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

@@ -59,6 +59,7 @@ install:
   - consumers
   - embed
   - entity_embed
+  - fences
   - inline_entity_form
   - jsonapi_extras
   - jw_player
@@ -76,7 +77,8 @@ install:
   - scitalk_media
   - scitalk_video
 themes:
-  - bartik
-  - classy
   - seven
   - stable
+  - starbase
+  - stardust
+  - scitalk_theme

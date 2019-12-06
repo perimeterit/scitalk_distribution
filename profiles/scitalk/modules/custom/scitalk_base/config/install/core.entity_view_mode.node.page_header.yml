@@ -1,0 +1,12 @@
+uuid: 62132eaf-0226-41e7-a537-e80cba06c137
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: OL6t63VvNXBW4V69BrEuRI4aR5FyNBBlEHO4mGmDm4g
+id: node.page_header
+label: 'Page header'
+targetEntityType: node
+cache: true

@@ -23,9 +23,6 @@ dependencies:
     - field.field.node.talk.field_talk_viewable_online
     - node.type.talk
   module:
-    - datetime
-    - image
-    - text
     - user
 _core:
   default_config_hash: Wh6nQYAtzDTJQVmZGZF2awWmbGhLUik52PNtqnSpHG0
@@ -34,53 +31,28 @@ targetEntityType: node
 bundle: talk
 mode: teaser
 content:
-  field_talk_abstract:
-    type: text_default
-    weight: 2
+  links:
+    weight: 100
     region: content
-    label: hidden
     settings: {  }
-    third_party_settings: {  }
-  field_talk_date:
-    type: datetime_default
-    weight: 3
-    region: content
-    label: hidden
-    settings:
-      format_type: medium
-      timezone_override: ''
-    third_party_settings: {  }
-  field_talk_speaker_profile:
-    type: entity_reference_label
-    weight: 1
-    region: content
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-  field_talk_thumbnail:
-    type: image
-    weight: 0
-    region: content
-    label: hidden
-    settings:
-      image_style: ''
-      image_link: ''
     third_party_settings: {  }
 hidden:
   field_combination_example: true
   field_scientific_area: true
+  field_talk_abstract: true
   field_talk_attachments: true
   field_talk_collection: true
+  field_talk_date: true
   field_talk_doi: true
   field_talk_keywords: true
   field_talk_location: true
   field_talk_number: true
   field_talk_series: true
   field_talk_source_event: true
+  field_talk_speaker_profile: true
+  field_talk_thumbnail: true
   field_talk_type: true
   field_talk_video: true
   field_talk_viewable_online: true
   langcode: true
-  links: true
   search_api_excerpt: true
