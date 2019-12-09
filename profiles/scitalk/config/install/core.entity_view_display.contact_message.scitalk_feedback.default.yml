@@ -1,0 +1,35 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.scitalk_feedback
+    - field.field.contact_message.scitalk_feedback.field_feedback_page
+  module:
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: contact_message.scitalk_feedback.default
+targetEntityType: contact_message
+bundle: scitalk_feedback
+mode: default
+content:
+  field_feedback_page:
+    weight: 3
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  message:
+    type: basic_string
+    weight: 0
+    label: above
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  search_api_excerpt: true

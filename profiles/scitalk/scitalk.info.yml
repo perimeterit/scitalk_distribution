@@ -70,6 +70,7 @@ install:
   - search_api
   - search_api_solr
   - simple_oauth
+  - recaptcha
   - id_link_formatter
   - layout_builder
   - scitalk_base

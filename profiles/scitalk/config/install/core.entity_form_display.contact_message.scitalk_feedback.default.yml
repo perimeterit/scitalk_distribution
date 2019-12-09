@@ -1,0 +1,59 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - contact.form.scitalk_feedback
+    - field.field.contact_message.scitalk_feedback.field_feedback_page
+id: contact_message.scitalk_feedback.default
+targetEntityType: contact_message
+bundle: scitalk_feedback
+mode: default
+content:
+  copy:
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_feedback_page:
+    weight: 3
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  langcode:
+    type: language_select
+    weight: 5
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  mail:
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  message:
+    type: string_textarea
+    weight: 4
+    settings:
+      rows: 12
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+  name:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  subject:
+    type: string_textfield
+    weight: 2
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  preview: true

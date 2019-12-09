@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies: {  }
+id: scitalk_feedback
+label: Feedback
+recipients:
+  - admin@example.com
+reply: ''
+weight: 0
+message: 'Your message has been sent.'
+redirect: ''
