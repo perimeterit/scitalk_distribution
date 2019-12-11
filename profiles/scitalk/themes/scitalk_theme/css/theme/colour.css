@@ -11,6 +11,7 @@
  * Colour variables
 */
 :root {
+  --color-default-text: #000;
   --color-primary: #3196AF;
   --color-primary--foreground: #fff;
   --color-secondary: #4759CB;

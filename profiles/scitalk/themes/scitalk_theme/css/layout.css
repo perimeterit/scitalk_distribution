@@ -3,6 +3,23 @@
 */
 
 /**
+ Variables
+*/
+:root {
+  --gutter--standard: 1.5em;
+  --gutter--big: 3em;
+  --max-width: 80em;
+}
+
+/* Unfortunately can't use variables in a media query */
+@media all and (max-width: calc(80em + .4vw)) {
+  :root {
+    --responsive-padding: calc(1em + .2vw);
+    --vertical-padding: calc(1em + .2vw);
+  }
+}
+
+/**
  * Header
 */
 .site-header {

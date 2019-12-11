@@ -1,6 +1,28 @@
+/*
+ * Global adjustments for SciTalk
+*/
+
+/**
+ * Basic element/font definitions
+ */
+
+body {
+  font-size: calc(14px + 0.1vw);
+}
 
 /* Modular scale for heading sizes */
 /* Scale 1.250 -- Major Second via type-scale.com */
 h1 { font-size: 1.802em; }
 h2 { font-size: 1.602em; }
 h3 { font-size: 1.424em; }
+
+/*
+ * Grid layout classes
+*/
+@media all and (min-width: 60em) {
+  .grid-5 {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: var(--gutter--standard);
+  }
+}

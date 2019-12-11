@@ -2,9 +2,6 @@
 /**
  * @file
  * Custom theme implementation to display a node.
- * Starlight default for all nodes not in "full" view mode
- *
- * Documentation here: https://api.drupal.org/api/drupal/core!modules!node!templates!node.html.twig/8.2.x
  *
  * @ingroup themeable
  */
@@ -19,17 +16,30 @@
 %}
 
 <article{{ attributes.addClass(classes) }}>
+  {# adjust the heading level depending on view mode #}
+  {% block content_first %}{% endblock %}
 
-  {% if not page and (view_mode != 'page_header') %}
-    {{ title_prefix }}
-      <h2{{ title_attributes }}>
-        <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-      </h2>
-    {{ title_suffix }}
-  {% elseif view_mode == 'page_header' %}
-    <h1>{{label}}</h1>
-  {% endif %}
-  {{ content|without('links') }}
+  <div class="content-second">
+    {% if not page and (view_mode != 'page_header') %}
+      {{ title_prefix }}
+        {% if view_mode == 'teaser' %}
+          <h2{{ title_attributes }}>
+        {% else %}
+          <h3{{ title_attributes }}>
+        {% endif %}
+          <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+        {% if view_mode == 'teaser' %}
+          </h2>
+        {% else %}
+          </h3>
+        {% endif %}
+      {{ title_suffix }}
+    {% elseif view_mode == 'page_header' %}
+      <h1>{{label}}</h1>
+    {% endif %}
 
-  {{ content.links }}
+    {% block content %}
+      {{ content }}
+    {% endblock %}
+  </div>
 </article>
