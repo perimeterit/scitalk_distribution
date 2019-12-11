@@ -1,0 +1,7 @@
+name: StarDust
+type: theme
+description: 'A simple theming framework for Drupal.'
+core: 8.x
+
+libraries:
+ - stardust/global

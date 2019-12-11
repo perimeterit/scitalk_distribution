@@ -1,0 +1,30 @@
+/**
+ * Buttons
+ * Colours are defined in the colour.css file
+ */
+.button,
+button,
+input[type='submit'],
+.form-submit {
+  display: inline-block;
+  font-size: 1em;
+  line-height: 1rem;
+  padding: .7em 1em;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.button-bigger {
+  font-size: 1.25em;
+}
+.button-smaller {
+  font-size: .85em;
+  font-weight: 600;;
+}
+.button-outline {
+  background: transparent;
+  border: 3px solid;
+  font-weight: 600;
+}
+.button-disabled {
+  opacity: .8;
+}

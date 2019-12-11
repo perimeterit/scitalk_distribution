@@ -1,0 +1,52 @@
+global:
+  css:
+    base:
+      libraries/global/reset.css: {}
+      libraries/global/typography.css: {}
+    layout:
+      libraries/global/layout-utilities.css: {}
+    component:
+      libraries/global/components/admin.css: {}
+      libraries/global/components/breadcrumbs.css: {}
+      libraries/global/components/buttons.css: {}
+      libraries/global/components/forms.css: {}
+      libraries/global/components/nav.css: {}
+      libraries/global/components/media.css: {}
+      libraries/global/components/pagers.css: {}
+      libraries/global/components/utilities.css: {}
+      libraries/global/components/tables.css: {}
+    theme:
+      libraries/global/theme/colour.css: {}
+      libraries/global/theme/font.css: {}
+layout:
+  css:
+    layout:
+      libraries/layout/layout.css: {}
+responsive-menu:
+  css:
+    component:
+      libraries/responsive-menu/responsive-menu.css: {}
+  js:
+    libraries/responsive-menu/responsive-menu.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+search:
+  css:
+    component:
+      libraries/search/search-results.css: {}
+      libraries/search/search-block-form.css: {}
+      libraries/search/search-advanced-form.css: {}
+site-name-slogan:
+  css:
+    component:
+      libraries/site-name-slogan/site-name-slogan.css: {}
+sticky-header:
+  css:
+    component:
+      libraries/sticky-header/sticky-header.css: {}
+  js:
+    libraries/sticky-header/sticky-header.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery

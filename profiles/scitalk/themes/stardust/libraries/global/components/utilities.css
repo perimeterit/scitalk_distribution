@@ -1,0 +1,12 @@
+/**
+ * Utility Styles (useful classes)
+ */
+
+/*
+ * "Display" list: removes list markers, margins, and left padding.
+ */
+ .display-list {
+  margin: 0;
+  padding-left: 0;
+  list-style: none;
+}

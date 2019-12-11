@@ -1,0 +1,31 @@
+<?php
+/**
+ * @file
+ * Functions to support theming
+ */
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_preprocess_HOOK() for HTML document templates.
+ */
+function stardust_preprocess_html(&$variables) {
+  /* Add libraries if modules are enabled. */
+  if (\Drupal::moduleHandler()->moduleExists('search')) {
+    $variables['#attached']['library'][] = 'stardust/search';
+  }
+
+}
+
+/**
+ * Implements hook_preprocess_HOOK() {
+ * Alters variables for nodes
+ */
+function stardust_preprocess_node(&$variables) {
+}
+
+/*
+ Implements hook_form_alter()
+ */
+function stardust_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+}

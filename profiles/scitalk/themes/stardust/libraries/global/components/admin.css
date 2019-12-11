@@ -1,0 +1,73 @@
+/*
+ * Component library CSS for admin tools
+ * Theming for UI elements provided by Drupal
+ * Includes tabs, messages etc.
+ */
+
+.tabs {
+  font-size: 1.1em;
+  border-bottom: 1px solid #ccc;
+  list-style: none;
+  margin: 0;
+  display: flex;
+}
+.tabs a {
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  border: 1px solid #ccc;
+  border-bottom: none;
+
+  color: #424242;
+  font-size: .9em;
+  line-height: 1.4em;
+  text-decoration: none;
+
+  display: block;
+  padding: .3em .9em;
+
+}
+.tabs a.is-active {
+  background: rgba(0,0,0,0.1);
+}
+.tabs a:focus,
+.tabs a:hover {
+  background: rgba(0,0,0,0.2);
+  color: rgba(0,0,0,0.6);
+}
+li.action-links {
+  margin-bottom: 1.5em;
+}
+/* Messages */
+
+.messages {
+  margin: 1.5em 0;
+  padding: 1em 2em;
+}
+.messages:before {
+  content: '';
+  background: url(../../images/messages.svg) 0 0 no-repeat;
+  display: block;
+  float: left;
+  height: 35px;
+  width: 35px;
+  background-size: 35px;
+  margin: -3px 10px 0 -1em;
+}
+.messages.status {
+  background: hsla(99, 39%, 82%, .86);
+}
+.messages.status:before {
+  background-position: 0 0;
+}
+.messages.warning {
+  background-color: hsla(49, 73%, 71%, 0.54);
+}
+.messages.warning:before {
+  background-position: 0 -90px;
+}
+.messages.error {
+  background-color: hsla(0, 69%, 58%, 0.27);
+}
+.messages.error:before {
+  background-position: 0 -44px;
+}

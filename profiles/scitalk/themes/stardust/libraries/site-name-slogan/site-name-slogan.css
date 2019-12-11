@@ -1,0 +1,18 @@
+/*
+ * Theming for the site name and slogan
+ * Only loaded if the site name or site slogan are set to
+ * display in the system-branding-block template
+*/
+.block-system-branding-block {
+  line-height: 1.3;
+}
+.block-system-branding-block .site-name {
+  font-size: 2em;
+  font-weight: bold;
+  text-decoration: none;
+}
+.block-system-branding-block .site-slogan {
+  font-style: italic;
+  margin: 0;
+  opacity: .7;
+}

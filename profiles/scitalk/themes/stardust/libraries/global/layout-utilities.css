@@ -1,0 +1,23 @@
+
+/**
+ * Layout utility classes
+ */
+
+:root {
+  --max-width: 60em;
+  --responsive-padding: 0;
+  --vertical-padding: 2em;
+}
+@media all and (max-width: 62em) {
+  :root {
+    --responsive-padding: 1em;
+    --vertical-padding: 1em;
+  }
+}
+
+.fixwidth {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: var(--responsive-padding);
+  padding-right: var(--responsive-padding);
+}

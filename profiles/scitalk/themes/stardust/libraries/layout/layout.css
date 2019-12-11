@@ -1,0 +1,71 @@
+/**
+ * Sitewide layout
+ * Very basic layout as a simple starting point
+ * Padding variables are set in layout-utilities
+*/
+.site-header {
+  border-bottom: 1px solid var(--color-lt-grey);
+}
+.region-header,
+.region-highlight {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: var(--responsive-padding);
+  padding-right: var(--responsive-padding);
+}
+
+@media all and (min-width: 60em) {
+  .site-header .region-header {
+    display: flex;
+    padding: 1em 0;
+
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+  .site-header .block {
+    margin-right: 1em;
+  }
+  .site-header .block:last-child {
+    margin-right: 0;
+  }
+  .site-header .block-system-branding-block {
+    margin-right: auto;
+  }
+}
+@media all and (max-width: 66em) {
+  .region-header .block {
+    margin-bottom: 1em;
+  }
+}
+
+/**
+ * Content area
+*/
+.main-content {
+  padding-top: var(--vertical-padding);
+  padding-bottom: var(--vertical-padding);
+}
+
+/**
+ * Footer
+ * Header and footer have similar layout by default,
+ * but you will probably want to do something different.
+*/
+.site-footer {
+  border-top: 1px solid var(--lt-grey);
+  padding-top: var(--vertical-padding);
+  padding-bottom: var(--vertical-padding);
+}
+.region-footer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+@media all and (max-width: 66em) {
+  .region-footer {
+    padding-left: var(--responsive-padding);
+    padding-right: var(--responsive-padding);
+  }
+  .region-footer .block {
+    margin-bottom: 1em;
+  }
+}
