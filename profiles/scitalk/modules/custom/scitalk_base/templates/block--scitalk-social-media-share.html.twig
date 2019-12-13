@@ -1,0 +1,24 @@
+
+{% 
+  set cur_page = url('<current>') 
+%}
+
+<div id="share">
+  <span>Share this</span>
+  <div class="share_inner">
+    <ul class="share_item_list">
+      <li class="share_item share_twitter">
+        <a href="http://twitter.com/share?url={{ cur_page }}&text={{ title }}" title="{{ 'Share this on Twitter'|t }}" rel="nofollow" target="_blank">{{ 'Share this on Twitter'|t }} </a>
+      </li>
+      <li class="share_item share_fb">
+        <a href="http://www.facebook.com/sharer.php?u={{ cur_page }}&t={{ title }}" title="{{ 'Share on Facebook'|t }}"  rel="nofollow" target="_blank">{{ 'Share on Facebook'|t }}</a>
+      </li>
+      <li class="share_item share_linkedin">
+        <a href="http://www.linkedin.com/shareArticle?mini=true&url={{ cur_page }}&title={{ title }}&summary=&source=Perimeter%20Institute" title="{{ 'Publish this post to LinkedIn'|t }}" rel="nofollow" target="_blank">{{ 'Publish this post to LinkedIn'|t }}</a>
+      </li>
+      <li class="share_item share_reddit">
+        <a href="http://reddit.com/submit?url={{ cur_page }}&title={{ title }}" title="{{ 'Submit this post on reddit.com'|t }}"  rel="nofollow" target="_blank">{{ 'Submit this post on reddit.com'|t }}</a>
+      </li>
+    </ul>
+  </div>
+</div>

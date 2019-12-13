@@ -3,6 +3,18 @@ use \Drupal\Core\Field\BaseFieldDefinition;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\scitalk_base\ScitalkServices\ReferenceIDGeneratorInterface;
 
+/**
+ * Implements hook_theme().
+ */
+function scitalk_base_theme($existing, $type, $theme, $path) {
+  return [
+    'scitalk_social_media_share_block' => [
+      'variables' => ['title' => ''],
+      'template' => 'block--scitalk-social-media-share'
+    ],
+  ];
+}
+
 
 /**
  * Implements hook_entity_base_field_info
