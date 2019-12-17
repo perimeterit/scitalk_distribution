@@ -23,7 +23,7 @@
         "drupal/backup_migrate": "^4.0",
         "drupal/console": "^1.0.2",
         "drupal/consumers": "^1.10",
-        "drupal/core": "~8.7",
+        "drupal/core": "8.7.10",
         "drupal/devel": "^2.1",
         "drupal/entity_embed": "^1.0",
         "drupal/features": "^3.8",
@@ -42,7 +42,7 @@
         "drupal/starbase": "1.x-dev",
         "drush/drush": "^9.3",
         "vlucas/phpdotenv": "^2.4",
-        "webflo/drupal-core-require-dev": "^8.7",
+        "webflo/drupal-core-require-dev": "8.7.10",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3"
     },
