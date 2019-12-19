@@ -23,14 +23,21 @@
  * Header
 */
 .site-header {
-  padding: calc(var(--vertical-padding) / 2) 0;
+  padding-top: var(--vertical-padding);
+  padding-bottom: var(--vertical-padding);
+}
+.site-header .menu {
+  font-size: 1.3em;
 }
 
 /**
- * Page titles
+ * Special content regions
 */
-.highlight {
-  padding: var(--vertical-padding) 0;
+.highlight,
+.region-content,
+.region-content-bottom {
+  padding-top: var(--vertical-padding);
+  padding-bottom: var(--vertical-padding);
 }
 .highlight a:hover,
 .highlight a:focus {
@@ -44,7 +51,6 @@
 /**
  * Footer
 */
-
 .site-footer {
   border-top: 1px solid var(--color-lt-grey);
 }

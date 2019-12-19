@@ -1,0 +1,19 @@
+{# Use the correct heading level depending on view mode #}
+{{ title_prefix }}
+{% if not page and (view_mode != 'page_header') %}
+  {% if view_mode == 'teaser' %}
+    <h2{{ title_attributes }}>
+  {% else %}
+    <h3{{ title_attributes }}>
+  {% endif %}
+    <a href="{{ url }}" rel="bookmark">{{ label }}</a>
+  {% if view_mode == 'teaser' %}
+    </h2>
+  {% else %}
+    </h3>
+  {% endif %}
+{% elseif view_mode == 'page_header' %}
+  <h1>{{label}}</h1>
+{% endif %}
+
+{{ title_suffix }}

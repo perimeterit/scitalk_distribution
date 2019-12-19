@@ -16,30 +16,8 @@
 %}
 
 <article{{ attributes.addClass(classes) }}>
-  {# adjust the heading level depending on view mode #}
-  {% block content_first %}{% endblock %}
-
-  <div class="content-second">
-    {% if not page and (view_mode != 'page_header') %}
-      {{ title_prefix }}
-        {% if view_mode == 'teaser' %}
-          <h2{{ title_attributes }}>
-        {% else %}
-          <h3{{ title_attributes }}>
-        {% endif %}
-          <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-        {% if view_mode == 'teaser' %}
-          </h2>
-        {% else %}
-          </h3>
-        {% endif %}
-      {{ title_suffix }}
-    {% elseif view_mode == 'page_header' %}
-      <h1>{{label}}</h1>
-    {% endif %}
-
-    {% block content %}
-      {{ content }}
-    {% endblock %}
-  </div>
+  {% block content %}
+    {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
+    {{ content }}
+  {% endblock %}
 </article>

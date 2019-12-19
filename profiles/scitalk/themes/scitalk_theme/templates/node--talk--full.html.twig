@@ -18,11 +18,11 @@
 
 <article{{ attributes.addClass(classes) }}>
   <div class="video">
-    {{ content.field_video }}
+    {{ content.field_talk_video }}
   </div>
   <div class="content-wrapper">
     <div class="content">
-      {{ content|without('links, field_talk_video') }}
+      {{ content|without('links', 'field_talk_video') }}
     </div>
     <aside class="sidebar">
       Sidebar related posts go here

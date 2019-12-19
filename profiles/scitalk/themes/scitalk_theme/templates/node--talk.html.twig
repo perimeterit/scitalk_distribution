@@ -8,14 +8,16 @@
  */
 #}
 
-{% block content_first %}
+{% block content %}
   <div class="content-first">
     {{ content.field_talk_thumbnail }}
+    {% if (content.field_talk_thumbnail.0 == NULL) and (view_mode != 'page_header') %}
+      <div class="thumbnail-placeholder">{{ 'Thumbnail goes here' | t }}</div>
+    {% endif %}
   </div>
-{% endblock %}
-
-{# the heading will go here #}
-{% block content %}
-  {% embed "@scitalk_theme/includes/speaker-date.twig" %}{% endembed %}
-  {{ content|without('links','field_talk_thumbnail', 'field_talk_speaker_profile', 'field_talk_date') }}
+  <div class="content-second">
+    {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
+    {% embed "@scitalk_theme/includes/speaker-date.twig" %}{% endembed %}
+    {{ content|without('links','field_talk_thumbnail', 'field_talk_speaker_profile', 'field_talk_date') }}
+  </div>
 {% endblock %}

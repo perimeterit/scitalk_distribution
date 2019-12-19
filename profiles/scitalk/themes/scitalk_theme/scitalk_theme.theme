@@ -49,6 +49,17 @@ function scitalk_theme_preprocess_page_title(&$variables) {
 
 /**
  * Implements hook_preprocess_HOOK().
+ * Alters variables for regions.
+ */
+function scitalk_theme_preprocess_region(&$variables) {
+  $region = $variables['region'];
+  if (($region == 'middle_highlight') || ($region == 'content_bottom')) {
+    $variables['attributes']['class'][] = 'fixwidth';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
  * Alters variables for nodes.
  */
 function scitalk_theme_preprocess_node(&$variables) {
