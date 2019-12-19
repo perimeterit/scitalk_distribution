@@ -71,12 +71,12 @@ display:
       style:
         type: html_list
         options:
-          grouping: {  }
           row_class: ''
           default_row_class: false
+          uses_fields: false
           type: ul
           wrapper_class: item-list
-          class: 'display-list grid-5'
+          class: 'display-list card-grid'
       row:
         type: 'entity:node'
         options:
@@ -681,6 +681,7 @@ display:
         options:
           relationship: none
           view_mode: teaser
+      exposed_block: true
     cache_metadata:
       max-age: -1
       contexts:
