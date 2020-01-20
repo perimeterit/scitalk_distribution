@@ -1,13 +1,14 @@
-uuid: 9a276e24-dac2-4065-9a8b-7100a4ffef24
 langcode: en
 status: true
 dependencies:
   theme:
-    - scitalk_theme
-id: pagetitle
-theme: scitalk_theme
-region: highlight
-weight: 0
+    - seven
+_core:
+  default_config_hash: ZSpc3IoSaLd0PkB02nxjVPBMztIdsTdHek9SiGaqZ_c
+id: seven_page_title
+theme: seven
+region: header
+weight: -30
 provider: null
 plugin: page_title_block
 settings:
