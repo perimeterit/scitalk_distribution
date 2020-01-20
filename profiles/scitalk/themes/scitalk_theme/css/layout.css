@@ -6,16 +6,16 @@
  Variables
 */
 :root {
-  --gutter--standard: 1.5em;
-  --gutter--big: 3em;
+  --gutter--standard: calc(1em + .2vw);
+  --gutter--big: calc(1.2em + .2vw);
   --max-width: 80em;
+  --vertical-padding: calc(1.7em + .2vw);
 }
 
 /* Unfortunately can't use variables in a media query */
 @media all and (max-width: calc(80em + .4vw)) {
   :root {
     --responsive-padding: calc(1em + .2vw);
-    --vertical-padding: calc(1em + .2vw);
   }
 }
 
@@ -45,7 +45,14 @@
 }
 .highlight h1 {
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.3;
+}
+.highlight h1:last-child {
+  margin-bottom: 0;
+}
+.highlight h1 + *,
+.highlight h1 + .contextual + * {
+  margin-top: .5em;
 }
 
 /**

@@ -11,6 +11,7 @@
  * Colour variables
 */
 :root {
+  --color-default-text: #222;
   --color-primary: #205aff;
   --color-primary--foreground: #fff;
   --color-secondary: #d025ae;
@@ -29,41 +30,6 @@ a:hover,
 a:focus {
   color: var(--color-secondary);
 }
-
-/**
- * Button colours
-*/
-.button,
-button,
-input[type='submit'],
-.form-submit  {
-  background: var(--color-primary);
-  color: var(--color-primary--foreground);
-}
-
-.button:hover,
-button:hover,
-input[type='submit']:hover,
-.form-submit:hover,
-.button:focus,
-button:focus,
-input[type='submit']:focus,
-.form-submit:focus {
-  background: var(--color-secondary);
-  color: var(--color-secondary--foreground);
-}
-.button-outline {
-  background: transparent;
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-}
-.button-outline:hover,
-.button-outline:focus {
-  background: transparent;
-  border-color: var(--color-secondary);
-  color: var(--color-secondary);
-}
-
 
 /* Form elements on focus */
 input:focus,

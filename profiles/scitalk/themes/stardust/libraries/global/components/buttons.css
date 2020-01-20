@@ -6,6 +6,9 @@
 button,
 input[type='submit'],
 .form-submit {
+  background: var(--color-primary);
+  color: var(--color-primary--foreground);
+
   display: inline-block;
   font-size: 1em;
   line-height: 1rem;
@@ -13,6 +16,19 @@ input[type='submit'],
   text-decoration: none;
   white-space: nowrap;
 }
+
+.button:hover,
+button:hover,
+input[type='submit']:hover,
+.form-submit:hover,
+.button:focus,
+button:focus,
+input[type='submit']:focus,
+.form-submit:focus {
+  background: var(--color-secondary);
+  color: var(--color-secondary--foreground);
+}
+
 .button-bigger {
   font-size: 1.25em;
 }
@@ -22,9 +38,18 @@ input[type='submit'],
 }
 .button-outline {
   background: transparent;
+  border-color: var(--color-primary);
+  color: var(--color-primary);
   border: 3px solid;
   font-weight: 600;
 }
+.button-outline:hover,
+.button-outline:focus {
+  background: transparent;
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+}
+
 .button-disabled {
   opacity: .8;
 }

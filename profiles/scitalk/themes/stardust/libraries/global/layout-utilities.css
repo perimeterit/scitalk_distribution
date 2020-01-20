@@ -5,13 +5,13 @@
 
 :root {
   --max-width: 60em;
-  --responsive-padding: 0;
   --vertical-padding: 2em;
 }
-@media all and (max-width: 62em) {
+/* Unfortunately can't use variables in a media query */
+@media all and (max-width: calc(66em + .4vw)) {
   :root {
-    --responsive-padding: 1em;
-    --vertical-padding: 1em;
+    --responsive-padding: calc(1em + .2vw);
+    --vertical-padding: calc(1em + .2vw);
   }
 }
 

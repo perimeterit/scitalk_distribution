@@ -17,13 +17,17 @@
 @media all and (min-width: 60em) {
   .site-header .region-header {
     display: flex;
-    padding: 1em 0;
+    padding: 1.5em  var(--responsive-padding);
 
     max-width: var(--max-width);
     margin: 0 auto;
   }
   .site-header .block {
     margin-right: 1em;
+  }
+  .site-header .block-menu {
+    display: flex;
+    align-items: center;
   }
   .site-header .block:last-child {
     margin-right: 0;

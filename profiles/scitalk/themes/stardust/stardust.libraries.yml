@@ -18,10 +18,16 @@ global:
     theme:
       libraries/global/theme/colour.css: {}
       libraries/global/theme/font.css: {}
+# Layout is for sitewide layout header/footer etc.
 layout:
   css:
     layout:
       libraries/layout/layout.css: {}
+# Layouts (plural) if for layout builder
+layout-builder:
+  css:
+    layouts:
+      layouts/layouts.css: {}
 responsive-menu:
   css:
     component:
@@ -31,6 +37,12 @@ responsive-menu:
   dependencies:
     - core/drupal
     - core/jquery
+responsive-menu-js:
+  css:
+    component:
+      libraries/responsive-menu-js/responsive-menu.css: {}
+  js:
+    libraries/responsive-menu-js/responsive-menu.js: {}
 search:
   css:
     component:

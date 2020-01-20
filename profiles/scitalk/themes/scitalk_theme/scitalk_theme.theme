@@ -12,7 +12,7 @@ use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\node\NodeInterface;
-
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Implements hook_preprocess_HOOK() for HTML document templates.
@@ -28,16 +28,15 @@ function scitalk_theme_preprocess_page_title(&$variables) {
 
   // Get the page header view mode for nodes and taxonomy terms where needed.
   // Get the route to find out what type of page this is
-  $route = \Drupal::routeMatch()->getRouteName();
-  $route_array = explode('.', $route);
-  // dsm($route_array);
+  $route = \Drupal::routeMatch();
+  $routename = $route->getRouteName();
 
-  // For talks and speakers
-  if ($route_array[1] == 'node') {
+  // For talks and speakers (nodes)
+  if (($routename == 'entity.node.canonical') || ($routename == 'entity.node.preview')) {
     // If the node object exists:
-    if ($route_array[2] == 'canonical') {
+    if ($routename == 'entity.node.canonical') {
       $node = \Drupal::routeMatch()->getParameter('node');
-    } else if ($route_array[2] == 'preview') {
+    } else if ($routename == 'entity.node.preview') {
       $node = \Drupal::routeMatch()->getParameter('node_preview');
     }
     if (isset($node) && (($node->getType() == 'talk') || ($node->getType() == 'speaker_profile'))) {
@@ -45,6 +44,15 @@ function scitalk_theme_preprocess_page_title(&$variables) {
     }
   }
   // For taxonomy terms
+  else if ($routename = 'entity.taxonomy_term.canonical') {
+    $term_id = $route->getRawParameter('taxonomy_term');
+    $term = Term::load($term_id);
+
+    // This is doing that thing where it gets all the fields from the default view mode not the view mode requested.
+    if (isset($term) && ($term->bundle() == 'collection')) {
+      $variables['page_header'] = render(\Drupal::entityTypeManager()->getViewBuilder('taxonomy_term')->view($term, 'page_header'));
+    }
+  }
 }
 
 /**

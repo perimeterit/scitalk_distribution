@@ -7,7 +7,8 @@
  */
 
 body {
-  font-size: calc(14px + 0.1vw);
+  font-size: calc(14px + 0.15vw);
+  line-height: 1.55;
 }
 
 /* Modular scale for heading sizes */

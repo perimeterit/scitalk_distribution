@@ -2,6 +2,25 @@
  * Component CSS for Collections/Taxonomy
 */
 
+/**
+ * Page header
+*/
+.page-taxonomy .block-page-title-block .field__label:after {
+  content: ':';
+}
+.page-taxonomy .block-page-title-block a {
+  text-decoration: none;
+}
+.page-taxonomy .block-page-title-block a:hover,
+.page-taxonomy .block-page-title-block a:focus {
+  text-decoration: underline;
+}
+.page-taxonomy .block-page-title-block h1 + * {
+  margin-top: 1em;
+}
+/**
+ * Card view mode + card grid display
+*/
 .view-scitalk-collections .card-grid li {
   min-height: 15em;
 }
@@ -31,3 +50,7 @@
 .taxonomy-term.card h3 a {
   text-decoration: none;
 }
+
+/**
+ * Teaser view mode
+*/

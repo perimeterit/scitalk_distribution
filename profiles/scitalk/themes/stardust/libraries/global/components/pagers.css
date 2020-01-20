@@ -8,13 +8,15 @@
   display: inline-block;
 }
 .pager a {
-  background: rgba(0,0,0,0.1);
+  background: var(--color-lt-grey);
   padding: .4em .7em;
   margin: 0 .2em;
   text-decoration: none;
 }
 .pager .is-active a {
-  font-size: 1.7em;
+  font-weight: bold;
+  background: var(--color-dk-grey);
+  color: white;
 }
 .pager a:hover {
   background: rgba(0,0,0,0.2);
@@ -22,7 +24,7 @@
 
 /* Views mini pager */
 .mini-pager {
-  background: rgba(0,0,0,0.1);
+  background: var(--color-lt-grey);
   display: flex;
   justify-content: space-between;
   overflow: auto;
