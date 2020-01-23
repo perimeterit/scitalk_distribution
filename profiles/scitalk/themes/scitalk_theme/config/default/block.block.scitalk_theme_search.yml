@@ -1,4 +1,3 @@
-uuid: 5cee7f1b-127c-403b-b369-d7f8e10f13a0
 langcode: en
 status: true
 dependencies:
@@ -7,7 +6,7 @@ dependencies:
   theme:
     - scitalk_theme
 _core:
-  default_config_hash: xws0uTdDLebm4LmUpX6Uv0ZKcgc0RaGMZpRKI695JkA
+  default_config_hash: r0nMqLdUHNlQ0QOSWW5MCRuxJOZA1x9Fmuf_LSaO1wg
 id: scitalk_theme_search
 theme: scitalk_theme
 region: header
@@ -19,4 +18,5 @@ settings:
   label: Search
   provider: search
   label_display: visible
+  page_id: ''
 visibility: {  }
