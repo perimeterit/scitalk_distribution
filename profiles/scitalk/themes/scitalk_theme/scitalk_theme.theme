@@ -21,10 +21,23 @@ function scitalk_theme_preprocess_html(&$variables) {
 
 }
 
+
 /**
- * Implements hook_preprocess_HOOK() for region document templates.
+ * Implements hook_preprocess_HOOK().
+ * Alters variables for regions.
  */
-function scitalk_theme_preprocess_page_title(&$variables) {
+function scitalk_theme_preprocess_region(&$variables) {
+  $region = $variables['region'];
+  if (($region == 'middle_highlight') || ($region == 'content_bottom')) {
+    $variables['attributes']['class'][] = 'fixwidth';
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ * Alters variables for blocks.
+ */
+function scitalk_theme_preprocess_page(&$variables) {
 
   // Get the page header view mode for nodes and taxonomy terms where needed.
   // Get the route to find out what type of page this is
@@ -40,7 +53,7 @@ function scitalk_theme_preprocess_page_title(&$variables) {
       $node = \Drupal::routeMatch()->getParameter('node_preview');
     }
     if (isset($node) && (($node->getType() == 'talk') || ($node->getType() == 'speaker_profile'))) {
-      $variables['page_header'] = render(\Drupal::entityTypeManager()->getViewBuilder('node')->view($node, 'page_header'));
+      $variables['page_header_view'] = render(\Drupal::entityTypeManager()->getViewBuilder('node')->view($node, 'page_header'));
     }
   }
   // For taxonomy terms
@@ -50,19 +63,8 @@ function scitalk_theme_preprocess_page_title(&$variables) {
 
     // This is doing that thing where it gets all the fields from the default view mode not the view mode requested.
     if (isset($term) && ($term->bundle() == 'collection')) {
-      $variables['page_header'] = render(\Drupal::entityTypeManager()->getViewBuilder('taxonomy_term')->view($term, 'page_header'));
+      $variables['page_header_view'] = render(\Drupal::entityTypeManager()->getViewBuilder('taxonomy_term')->view($term, 'page_header'));
     }
-  }
-}
-
-/**
- * Implements hook_preprocess_HOOK().
- * Alters variables for regions.
- */
-function scitalk_theme_preprocess_region(&$variables) {
-  $region = $variables['region'];
-  if (($region == 'middle_highlight') || ($region == 'content_bottom')) {
-    $variables['attributes']['class'][] = 'fixwidth';
   }
 }
 

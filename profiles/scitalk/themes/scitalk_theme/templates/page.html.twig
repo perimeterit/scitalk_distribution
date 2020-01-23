@@ -46,8 +46,14 @@
   {{ page.header }}
 </header>
 
-<section class="highlight">
-  {{ page.highlight }}
+<section class="page-header-wrapper">
+  <div class="page-header-inner fixwidth">
+    {{ page.page_title }}
+    <div class="page-header-content">
+      {{ page_header_view }}
+      {{ page.page_header }}
+    </div>
+  </div>
 </section>
 
 <main role="main" class="main-content fixwidth">

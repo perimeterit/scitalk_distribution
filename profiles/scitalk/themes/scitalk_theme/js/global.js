@@ -1,9 +1,19 @@
-(function ($) {
- // Store our function as a property of Drupal.behaviors.
- Drupal.behaviors.starbase_subtheme_global = {
-    attach: function (context, settings) {
-
-
+window.addEventListener("scroll", () => {
+  console.log('scroll');
+  const currentScroll = window.pageYOffset;
+  if (currentScroll == 0) {
+    body.classList.remove(scrollUp);
+    return;
   }
- }
-}(jQuery));
+
+  if (currentScroll > lastScroll && !body.classList.contains(scrollDown)) {
+    // down
+    body.classList.remove(scrollUp);
+    body.classList.add(scrollDown);
+  } else if (currentScroll < lastScroll && body.classList.contains(scrollDown)) {
+    // up
+    body.classList.remove(scrollDown);
+    body.classList.add(scrollUp);
+  }
+  lastScroll = currentScroll;
+}

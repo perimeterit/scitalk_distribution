@@ -12,7 +12,7 @@ libraries:
  - stardust/search
  - stardust/layout
  - stardust/responsive-menu
-# - stardust/sticky-header
+ - stardust/sticky-header
  - scitalk_theme/global
 
 # Override Stardust colour and font CSS #
@@ -26,7 +26,9 @@ libraries-override:
 regions:
   header: 'Header'
   admin: 'Admin tools'
-  highlight: 'Highlight'
+  page_title: 'Page Title'
+  page_header: 'Page Header'
   content: 'Content'
+  middle_highlight: 'Middle highlight'
   content_bottom: 'Content bottom'
   footer: 'Footer'

@@ -3,8 +3,15 @@
  * Layout utility classes
  */
 
+/**
+ Variables
+*/
+
 :root {
+  --gutter--standard: calc(1em + .2vw);
+  --gutter--big: calc(1.2em + .2vw);
   --max-width: 60em;
+  --responsive-padding: 0;
   --vertical-padding: 2em;
 }
 /* Unfortunately can't use variables in a media query */
@@ -21,3 +28,4 @@
   padding-left: var(--responsive-padding);
   padding-right: var(--responsive-padding);
 }
+

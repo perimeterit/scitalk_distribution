@@ -94,10 +94,11 @@
   display: grid;
   grid-template-columns: 1fr 3fr;
   grid-gap: var(--gutter--standard);
-  margin-bottom: var(--gutter--standard);
+  margin-bottom: calc(2 * var(--gutter--standard));
 }
 .node.talk.teaser h2 {
   text-transform: none;
+  margin: 0 0 .3em;
 }
 .node.talk.teaser h2 a {
   text-decoration: none;
@@ -114,18 +115,107 @@
     display: none;
   }
 }
+.node.talk.teaser .field--name-field-talk-abstract strong + p {
+  display: inline;
+}
 .node.talk.teaser .field--name-field-talk-abstract strong:after {
   content: ':';
   display: inline;
   margin-right: .2em;
 }
+
 /*
  * Talks full page
 */
+
+/* Social share links */
+
+.share-links {
+  padding: 1em;
+  margin: -1em;
+}
+h2.share-label {
+  cursor: pointer;
+  margin: 0;
+  padding: .4em .8em;
+}
+@media all and (max-width: 30em) {
+  h2.share-label .text {
+    display: none;
+  }
+}
+.share-item-list {
+  background: var(--color-primary);
+  padding: var(--gutter--standard);
+
+  list-style: none;
+  margin: 0;
+
+  position: absolute;
+  right: 0;
+  top: 3.3em;
+  z-index: 10;
+
+  display: none;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: var(--gutter--standard);
+}
+.share-item-list:before {
+  background: var(--color-primary);
+  content: '';
+  height: 1em;
+  width: 1em;
+  transform: rotate(45deg);
+  position: absolute;
+  top: -.4em;
+  right: 2em;
+}
+.share-links:hover .share-item-list,
+.share-links:focus .share-item-list {
+  display: grid;
+}
+.share-item a,
+.share-item a:hover,
+.share-item a:focus {
+  color: var(--color-primary--foreground);
+  text-decoration: none;
+}
+.share-links h2,
+.share-item {
+  display: flex;
+  align-items: center;
+}
+.share-links svg {
+  fill: var(--color-primary--foreground);
+  height: 2em;
+  width: 2em;
+
+  margin-right: .5em;
+}
+
+/* Video player */
+.jwplayer {
+  width: 100% !important;
+  height: calc(100vw * .75);
+}
+
+@media all and (min-width: 80.1em) {
+  .jwplayer {
+    height: calc(80em * .75);
+  }
+}
+
+/* Content layout */
+
 @media all and (min-width: 35em) {
   .node.talk.full .content-wrapper {
     display: grid;
     grid-template-columns: 2fr 1fr;
     grid-gap: 3em;
+    margin-top: var(--vertical-padding);
   }
+}
+.node.talk.full .field > strong:after {
+  content: ':';
+  display: inline;
 }

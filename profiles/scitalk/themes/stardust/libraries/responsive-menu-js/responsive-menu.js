@@ -1,30 +1,10 @@
-// ES6
-var foo = 1;
-{
-  let foo = 2, bar, baz;
-  console.log(foo); // 2
-}
-console.log(foo); // 1
+const menu_setting = 'push_right'
+const menu_breakpoint = 960;
+// this should be the main menu element
+const menu_block = $('nav[data-menublock="menu--main"]');
+// And its parent region
+const menu_region = $(menu_block).parent('.region');
 
-
-// (function ($) {
-//   // Store our function as a property of Drupal.behaviors.
-//   Drupal.behaviors.starlight_mobile_menus = {
-//    attach: function (context, settings) {
-
-
-
-//      menu_setting = 'push_right';
-//      // Override this file using libraries-override to change this breakpoint
-//      menu_breakpoint = 960;
-
-//      // Set a variable for the original region the menu was placed in, so it can be put back
-//      // When the browser is resized;
-//      if (context == document) {
-//        // For some reason this executes twice when logged in, using different contexts.
-//        menu_block = $('nav[data-menublock="menu--main"]');
-//        menu_region = $(menu_block).parent('.region');
-//      }
 
 //      if (($(window).width() <= menu_breakpoint) && ($('.region-branding .menu--toggle').length == 0)) {
 //        buildMenu();

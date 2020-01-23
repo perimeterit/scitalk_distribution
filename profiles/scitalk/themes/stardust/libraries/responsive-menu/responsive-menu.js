@@ -68,7 +68,6 @@
      // Fix layout when browser window is resized
      var resizeId;
      $(window).on('resize', function() {
-       console.log(' on resize');
        clearTimeout(resizeId);
        resizeId = setTimeout(doneResizing, 700);
      });

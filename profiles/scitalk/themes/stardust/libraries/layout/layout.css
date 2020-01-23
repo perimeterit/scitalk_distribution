@@ -3,6 +3,7 @@
  * Very basic layout as a simple starting point
  * Padding variables are set in layout-utilities
 */
+
 .site-header {
   border-bottom: 1px solid var(--color-lt-grey);
 }
@@ -10,14 +11,12 @@
 .region-highlight {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding-left: var(--responsive-padding);
-  padding-right: var(--responsive-padding);
+  padding: 1.5em var(--responsive-padding);
 }
 
 @media all and (min-width: 60em) {
   .site-header .region-header {
     display: flex;
-    padding: 1.5em  var(--responsive-padding);
 
     max-width: var(--max-width);
     margin: 0 auto;
@@ -34,11 +33,6 @@
   }
   .site-header .block-system-branding-block {
     margin-right: auto;
-  }
-}
-@media all and (max-width: 66em) {
-  .region-header .block {
-    margin-bottom: 1em;
   }
 }
 

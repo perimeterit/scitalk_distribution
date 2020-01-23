@@ -17,7 +17,6 @@ button.menu--toggle {
   background: transparent;
   color: transparent;
   cursor: pointer;
-  opacity: .5;
   margin: 3px .7rem;
   padding: 0;
 }
@@ -36,9 +35,9 @@ button.menu--toggle:focus {
   color: var(--color-primary--foreground);
 	padding: 1em;
 }
-.responsive-menu a,
-.responsive-menu a:hover,
-.responsive-menu a:focus {
+.responsive-menu .menu a,
+.responsive-menu .menu a:hover,
+.responsive-menu .menu a:focus {
   color: var(--color-primary--foreground);
 }
 .responsive-menu .menu--close svg {

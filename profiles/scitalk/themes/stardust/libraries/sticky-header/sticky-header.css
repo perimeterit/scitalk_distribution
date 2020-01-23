@@ -1,50 +1,9 @@
-/* If sticky setting is enabled */
 
-.sticky-wrapper {
-  position: relative;
-  z-index: 99;
-}
-/*.sticky-wrapper + .highlight {
-  z-index: -3;
-}*/
-.is-sticky .site-header {
-  left: 0;
+.scroll-down .site-header {
+  position: fixed;
   width: 100%;
-  z-index: 99;
-}
-.mobile-menu-active .is-sticky .site-header {
-  box-shadow: 1px 1px 10px rgba(42,42,42,0.3);
-}
-.mobile-menu-active .is-sticky .region-header .menu {
-  display: none;
-}
-.is-sticky .innerwrapper {
-  padding-top: .5rem;
-  padding-bottom:s .8rem;
-}
-.block-system-branding-block a {
-  transition: none;
-}
-.block-system-branding-block img {
-  transition: min-height 1s;
-}
-.is-sticky .block-system-branding-block img {
-  min-height: 2rem;
-}
-.is-sticky .region-header.header-layout--default {
-  flex-direction: row;
-  align-items: center;
-}
-.is-sticky .search-block-form {
-  margin-bottom: 0;
-}
-.is-sticky .menu-trigger {
-  transform: scale(.8);
-}
-.menu--main li {
-  font-size: 1rem;
-  transition: font-size 1s;
-}
-.is-sticky .menu--main li {
-  font-size: .9rem;
+  z-index: 15;
+
+  background: #fff;
+  box-shadow: 0px 2px 5px rgba(155,155,155,0.5)
 }

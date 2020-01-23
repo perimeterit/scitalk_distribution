@@ -1,19 +1,17 @@
-(function ($) {
- // Store our function as a property of Drupal.behaviors.
- Drupal.behaviors.starlight_sticky_header = {
-    attach: function (context, settings) {
+const body = document.body;
+const scrollClass = "scroll-down";
+let lastScroll = 0;
 
-      $('header.site-header').sticky();
-      if ($('#toolbar-bar').length > 0) {
-        var toolbarHeight = $('#toolbar-bar').height();
-        $('header.site-header').on('sticky-start', function() {
-          $(this).css('margin-top',toolbarHeight);
-        });
-        $('header.site-header').on('sticky-end', function() {
-          $(this).css('margin-top',0);
-        });
-      }
-
+window.addEventListener("scroll", () => {
+  const currentScroll = window.pageYOffset;
+  if (currentScroll == 0) {
+    body.classList.remove(scrollClass);
+    return;
   }
- }
-}(jQuery));
+
+  // On scrolling down, add the Scroll class if it isn't already there
+  if (currentScroll > lastScroll && !body.classList.contains(scrollClass)) {
+    body.classList.add(scrollClass);
+  }
+  lastScroll = currentScroll;
+});
