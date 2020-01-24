@@ -1,0 +1,30 @@
+uuid: d01708ea-6729-4f5c-9954-102c84cb0c88
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.scitalk_collections
+  module:
+    - system
+    - views
+  theme:
+    - scitalk_theme
+id: views_block__scitalk_collections_block_1
+theme: scitalk_theme
+region: content_bottom
+weight: 0
+provider: null
+plugin: 'views_block:scitalk_collections-block_1'
+settings:
+  id: 'views_block:scitalk_collections-block_1'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }

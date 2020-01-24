@@ -1,0 +1,33 @@
+uuid: 5f34b509-23dc-429d-b46d-11d390efb84f
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.scitalk_talks_in_collection
+  module:
+    - node
+    - views
+  theme:
+    - scitalk_theme
+id: views_block__scitalk_talk_by_speaker_block
+theme: scitalk_theme
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:scitalk_talks_in_collection-scitalk_talk_by_speaker_block'
+settings:
+  id: 'views_block:scitalk_talks_in_collection-scitalk_talk_by_speaker_block'
+  label: 'Talks by Speaker'
+  provider: views
+  label_display: visible
+  views_label: 'Talks by Speaker'
+  items_per_page: none
+  context_mapping: {  }
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      speaker_profile: speaker_profile
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
