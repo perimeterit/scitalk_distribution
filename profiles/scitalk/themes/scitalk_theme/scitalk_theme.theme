@@ -76,6 +76,19 @@ function scitalk_theme_preprocess_node(&$variables) {
    $node = $variables['node'];
 }
 
+/**
+ * Implements hook_preprocess_HOOK() for HTML document templates.
+ */
+function scitalk_theme_preprocess_block(&$variables) {
+  // Change the title on the Talks by speaker view
+  if ($variables['derivative_plugin_id'] == 'scitalk_talks_in_collection-scitalk_talk_by_speaker_block') {
+    $speaker_nid = $variables['content']['#view']->argument['field_talk_speaker_profile_target_id']->getValue('value');
+    $speaker_node = \Drupal\node\Entity\Node::load($speaker_nid);
+    $speaker_name = $speaker_node->get('field_sp_display_name')->getValue();
+    $variables['label'] = t('Talks by ') . $speaker_name[0]['value'];
+  }
+}
+
 /*
  Implements hook_form_alter()
  */

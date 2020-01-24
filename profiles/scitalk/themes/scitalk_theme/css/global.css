@@ -38,7 +38,18 @@ h3 { font-size: 1.424em; }
   }
 }
 
-/*select forms */
+/*
+ * Inline form labels
+*/
+
+.field--label-inline strong:after {
+  content: ':';
+  display: inline;
+  margin-right: .2em;
+}
+/*
+ * Select forms
+ */
 select {
   display: block;
   line-height: 1.3;

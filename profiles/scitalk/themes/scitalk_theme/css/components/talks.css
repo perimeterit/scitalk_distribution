@@ -118,11 +118,6 @@
 .node.talk.teaser .field--name-field-talk-abstract strong + p {
   display: inline;
 }
-.node.talk.teaser .field--name-field-talk-abstract strong:after {
-  content: ':';
-  display: inline;
-  margin-right: .2em;
-}
 
 /*
  * Talks full page

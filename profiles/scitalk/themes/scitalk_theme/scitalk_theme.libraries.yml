@@ -4,6 +4,7 @@ global:
       css/layout.css: {}
     component:
       css/global.css: {}
-      css/components/talks.css: {}
       css/components/catchup.css: {}
       css/components/collections.css: {}
+      css/components/speakers.css: {}
+      css/components/talks.css: {}

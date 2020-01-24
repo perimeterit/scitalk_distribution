@@ -1,0 +1,22 @@
+/**
+ * Component CSS for speakers
+*/
+
+.node.speaker-profile.page-header .field--name-field-sp-institution-name {
+  margin: 0;
+  font-size: 1.15em;
+}
+
+/**
+ Speaker full nodes
+*/
+
+.node.speaker-profile.full {
+  display: flex;
+  margin-bottom:calc(2 * var(--vertical-padding));
+}
+
+.node.speaker-profile.full .field--name-field-sp-profile-thumbnail {
+  flex: 1 0 auto;
+  margin-right: var(--gutter--standard);
+}
