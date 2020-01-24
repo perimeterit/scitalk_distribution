@@ -21,7 +21,9 @@ install:
   - dblog
   - dynamic_page_cache
   - editor
+  - fences
   - field
+  - field_group
   - field_ui
   - file
   - filter
