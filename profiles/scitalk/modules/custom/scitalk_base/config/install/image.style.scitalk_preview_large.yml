@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: scitalk_preview_large
+label: 'Scitalk Preview Large'
+effects:
+  6d425d0d-a67d-4cc6-ac74-1eccb29978cb:
+    uuid: 6d425d0d-a67d-4cc6-ac74-1eccb29978cb
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 460
+      height: 375
+      anchor: center-center

@@ -1,4 +1,3 @@
-uuid: b2a9ed54-f262-4fc4-a4ad-587dd5007880
 langcode: en
 status: true
 dependencies:
@@ -27,8 +26,9 @@ dependencies:
       - scitalk_base
   module:
     - datetime
+    - fences
     - field_group
-    - image
+    - scitalk_media
     - user
 third_party_settings:
   field_group:
@@ -99,14 +99,21 @@ content:
       link: true
     third_party_settings: {  }
   field_talk_thumbnail:
-    type: image
+    type: scitalk_thumbnail_formatter
     weight: 0
     region: content
     label: hidden
     settings:
-      image_style: ''
-      image_link: ''
-    third_party_settings: {  }
+      which_thumb: media
+      which_style: scitalk_preview_medium
+    third_party_settings:
+      fences:
+        fences_field_tag: figure
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
 hidden:
   field_combination_example: true
   field_scientific_area: true

@@ -1,9 +1,8 @@
-uuid: 43843174-c981-410e-b6fb-454760dfaa92
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.taxonomy_term.page_h
+    - core.entity_view_mode.taxonomy_term.teaser
     - field.field.taxonomy_term.collection.field_collection_end_date
     - field.field.taxonomy_term.collection.field_collection_event_url
     - field.field.taxonomy_term.collection.field_collection_number
@@ -13,29 +12,62 @@ dependencies:
     - field.field.taxonomy_term.collection.field_collection_start_date
     - field.field.taxonomy_term.collection.field_collection_type
     - taxonomy.vocabulary.collection
+  module:
+    - datetime
+    - fences
+    - text
 _core:
   default_config_hash: p_5899UcFss4xwL7lFaQFw5iivGgs1rboCDJv27NdJ4
-id: taxonomy_term.collection.page_h
+id: taxonomy_term.collection.teaser
 targetEntityType: taxonomy_term
 bundle: collection
-mode: page_h
+mode: teaser
 content:
-  field_collection_organizers:
+  description:
+    label: hidden
+    type: text_default
     weight: 0
-    label: above
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_collection_end_date:
+    weight: 3
+    label: inline
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_collection_organizers:
+    type: entity_reference_label
+    weight: 1
+    region: content
+    label: inline
     settings:
       link: true
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: div
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
+  field_collection_start_date:
+    weight: 2
+    label: inline
+    settings:
+      format_type: medium
+      timezone_override: ''
     third_party_settings: {  }
-    type: entity_reference_label
+    type: datetime_default
     region: content
 hidden:
-  description: true
-  field_collection_end_date: true
   field_collection_event_url: true
   field_collection_number: true
   field_collection_public_viewable: true
   field_collection_short_desc: true
-  field_collection_start_date: true
   field_collection_type: true
   langcode: true
   search_api_excerpt: true

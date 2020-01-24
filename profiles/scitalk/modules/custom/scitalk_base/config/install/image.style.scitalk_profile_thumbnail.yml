@@ -4,6 +4,8 @@ dependencies:
   enforced:
     module:
       - scitalk_base
+_core:
+  default_config_hash: 3nHm_H70667302nAHrAoh46oaLzGZEY3Cxx_6WTi2AY
 name: scitalk_profile_thumbnail
 label: 'Scitalk Profile Thumbnail'
 effects:

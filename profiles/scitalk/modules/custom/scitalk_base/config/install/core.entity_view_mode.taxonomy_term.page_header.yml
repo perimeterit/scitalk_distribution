@@ -1,10 +1,9 @@
-uuid: 92845d91-4e38-4206-b670-74db7765b1e6
 langcode: en
 status: true
 dependencies:
   module:
     - taxonomy
-id: taxonomy_term.page_h
-label: 'Page header'
+id: taxonomy_term.page_header
+label: 'Page Header'
 targetEntityType: taxonomy_term
 cache: true

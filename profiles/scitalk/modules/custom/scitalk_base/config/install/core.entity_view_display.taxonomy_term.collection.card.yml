@@ -12,6 +12,8 @@ dependencies:
     - field.field.taxonomy_term.collection.field_collection_start_date
     - field.field.taxonomy_term.collection.field_collection_type
     - taxonomy.vocabulary.collection
+_core:
+  default_config_hash: p_5899UcFss4xwL7lFaQFw5iivGgs1rboCDJv27NdJ4
 id: taxonomy_term.collection.card
 targetEntityType: taxonomy_term
 bundle: collection

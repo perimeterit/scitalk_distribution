@@ -1,4 +1,3 @@
-uuid: c54762b3-1065-4e43-85ac-4f619016dbc2
 langcode: en
 status: true
 dependencies:
@@ -28,6 +27,7 @@ dependencies:
     - fences
     - field_group
     - link
+    - scitalk_media
     - text
     - user
 third_party_settings:
@@ -41,7 +41,7 @@ third_party_settings:
       format_settings:
         element: div
         show_label: true
-        label_element: h3
+        label_element: h2
         label_element_classes: ''
         attributes: ''
         effect: none
@@ -65,7 +65,7 @@ third_party_settings:
       format_settings:
         element: div
         show_label: true
-        label_element: h3
+        label_element: h2
         label_element_classes: ''
         attributes: ''
         effect: none
@@ -99,7 +99,7 @@ content:
         fences_field_classes: ''
         fences_field_item_tag: div
         fences_field_item_classes: ''
-        fences_label_tag: h3
+        fences_label_tag: h2
         fences_label_classes: ''
     type: text_default
     region: content
@@ -220,14 +220,24 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
+  field_talk_thumbnail:
+    type: scitalk_thumbnail_formatter
+    weight: 5
+    region: content
+    label: above
+    settings:
+      which_thumb: field
+      which_style: thumbnail
+    third_party_settings: {  }
   field_talk_video:
-    type: entity_reference_entity_view
+    type: scitalk_embed
     weight: 0
     region: content
     label: hidden
     settings:
-      view_mode: default
-      link: false
+      uri_field: media.pirsa_interim_hd.field_media_scitalk_video
+      jwplayer_preset: ''
+      requirejw: 0
     third_party_settings:
       fences:
         fences_field_tag: div
@@ -240,7 +250,6 @@ hidden:
   field_scientific_area: true
   field_talk_date: true
   field_talk_keywords: true
-  field_talk_thumbnail: true
   field_talk_type: true
   field_talk_viewable_online: true
   langcode: true
