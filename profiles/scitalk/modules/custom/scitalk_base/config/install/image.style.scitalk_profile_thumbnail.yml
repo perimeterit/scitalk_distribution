@@ -10,10 +10,9 @@ name: scitalk_profile_thumbnail
 label: 'Scitalk Profile Thumbnail'
 effects:
   2b3a20bd-620b-418e-bf53-37a340357a1a:
-    uuid: 2b3a20bd-620b-418e-bf53-37a340357a1a
     id: image_scale
     weight: 1
     data:
-      width: 100
-      height: 100
+      width: 280
+      height: null
       upscale: true

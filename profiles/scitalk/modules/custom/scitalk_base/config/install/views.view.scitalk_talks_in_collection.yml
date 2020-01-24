@@ -1,8 +1,8 @@
-uuid: 0099fc12-077f-4380-be92-3805158449e2
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.teaser
     - field.storage.node.field_sp_display_name
     - field.storage.node.field_talk_abstract
     - field.storage.node.field_talk_date
@@ -23,7 +23,6 @@ description: 'List of Talks by Collection'
 tag: ''
 base_table: node_field_data
 base_field: nid
-core: 8.x
 display:
   default:
     display_plugin: default
@@ -77,13 +76,10 @@ display:
       style:
         type: default
       row:
-        type: fields
+        type: 'entity:node'
         options:
-          default_field_elements: true
-          inline:
-            title: title
-          separator: ''
-          hide_empty: false
+          relationship: none
+          view_mode: teaser
       fields:
         field_talk_thumbnail:
           id: field_talk_thumbnail
@@ -396,6 +392,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         type:
           id: type
@@ -406,6 +404,9 @@ display:
           entity_type: node
           entity_field: type
           plugin_id: bundle
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
       sorts:
         created:
           id: created

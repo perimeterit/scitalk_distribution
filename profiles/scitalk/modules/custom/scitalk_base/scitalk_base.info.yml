@@ -9,6 +9,7 @@ dependencies:
   - path:path
   - text:text
   - fences:fences
+  - field_group:field_group
   - scitalk_media:scitalk_media
   - jw_player:jw_player
   - inline_entity_form:inline_entity_form
