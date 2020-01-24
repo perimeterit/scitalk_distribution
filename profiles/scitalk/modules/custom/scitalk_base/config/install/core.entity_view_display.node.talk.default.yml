@@ -75,7 +75,7 @@ third_party_settings:
       label: Details
       region: content
 _core:
-  default_config_hash: tMdvN1Xmlj4M9n0eLY1fO2VkvWeaDvDzwVIqJjyAB20
+  default_config_hash: 5WHItPqP5MXoMTqiIaHV7zRfX5QXwIXXZV1w_h8DzvY
 id: node.talk.default
 targetEntityType: node
 bundle: talk
@@ -230,14 +230,13 @@ content:
       which_style: thumbnail
     third_party_settings: {  }
   field_talk_video:
-    type: scitalk_embed
+    type: entity_reference_entity_view
     weight: 0
     region: content
     label: hidden
     settings:
-      uri_field: media.pirsa_interim_hd.field_media_scitalk_video
-      jwplayer_preset: ''
-      requirejw: 0
+      view_mode: full
+      link: false
     third_party_settings:
       fences:
         fences_field_tag: div
