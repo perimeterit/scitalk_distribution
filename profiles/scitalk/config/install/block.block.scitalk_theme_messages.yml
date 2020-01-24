@@ -1,4 +1,4 @@
-uuid: b9ec28df-6b8d-4ede-804f-b3f4b627e0a8
+uuid: a23058ed-da46-405b-a1e8-7c416b49e93e
 langcode: en
 status: true
 dependencies:
@@ -7,7 +7,7 @@ dependencies:
   theme:
     - scitalk_theme
 _core:
-  default_config_hash: ah4fF2fJjGAOTnvi9rvhWYikSAWUpg9EJ7LHxblFxxg
+  default_config_hash: Zc6K3X-HkDPy6yIh1daci8z5MMFc01Ot0CS8qXc03pk
 id: scitalk_theme_messages
 theme: scitalk_theme
 region: admin

@@ -1,0 +1,29 @@
+uuid: 7d7fcbde-98f8-484d-ac48-5367bb353c1a
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.scitalk_latest_talks
+  module:
+    - system
+    - views
+  theme:
+    - scitalk_theme
+id: exposedformscitalk_latest_talksscitalk_catch_up
+theme: scitalk_theme
+region: middle_highlight
+weight: 0
+provider: null
+plugin: 'views_exposed_filter_block:scitalk_latest_talks-scitalk_catch_up'
+settings:
+  id: 'views_exposed_filter_block:scitalk_latest_talks-scitalk_catch_up'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }
