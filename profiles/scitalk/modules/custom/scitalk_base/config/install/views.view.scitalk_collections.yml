@@ -1,12 +1,13 @@
-uuid: dd70f575-2686-47db-870c-1de42183ba28
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.taxonomy_term.card
+    - core.entity_view_mode.taxonomy_term.teaser
     - system.menu.main
     - taxonomy.vocabulary.collection
   module:
+    - datetime
     - taxonomy
     - user
 _core:
@@ -18,7 +19,6 @@ description: 'List of Talk Collections'
 tag: ''
 base_table: taxonomy_term_field_data
 base_field: tid
-core: 8.x
 display:
   default:
     display_plugin: default
@@ -75,7 +75,7 @@ display:
         type: 'entity:taxonomy_term'
         options:
           relationship: none
-          view_mode: card
+          view_mode: teaser
       fields:
         name:
           id: name
@@ -136,6 +136,8 @@ display:
           id: status
           expose:
             operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
           group: 1
         vid:
           id: vid
@@ -146,7 +148,23 @@ display:
           entity_type: taxonomy_term
           entity_field: vid
           plugin_id: bundle
-      sorts: {  }
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
+      sorts:
+        field_collection_end_date_value:
+          id: field_collection_end_date_value
+          table: taxonomy_term__field_collection_end_date
+          field: field_collection_end_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: DESC
+          exposed: false
+          expose:
+            label: ''
+          granularity: second
+          plugin_id: datetime
       title: Collections
       header: {  }
       footer: {  }
@@ -220,9 +238,20 @@ display:
         description: ''
         expanded: false
         parent: ''
-        weight: 0
+        weight: -47
         context: '0'
         menu_name: main
+      style:
+        type: default
+        options: {  }
+      defaults:
+        style: false
+        row: false
+      row:
+        type: 'entity:taxonomy_term'
+        options:
+          relationship: none
+          view_mode: teaser
     cache_metadata:
       max-age: -1
       contexts:

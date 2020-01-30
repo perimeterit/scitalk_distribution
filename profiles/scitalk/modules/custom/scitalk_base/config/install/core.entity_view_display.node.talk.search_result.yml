@@ -1,0 +1,127 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_result
+    - field.field.node.talk.field_combination_example
+    - field.field.node.talk.field_scientific_area
+    - field.field.node.talk.field_talk_abstract
+    - field.field.node.talk.field_talk_attachments
+    - field.field.node.talk.field_talk_collection
+    - field.field.node.talk.field_talk_date
+    - field.field.node.talk.field_talk_doi
+    - field.field.node.talk.field_talk_keywords
+    - field.field.node.talk.field_talk_location
+    - field.field.node.talk.field_talk_number
+    - field.field.node.talk.field_talk_series
+    - field.field.node.talk.field_talk_source_event
+    - field.field.node.talk.field_talk_speaker_profile
+    - field.field.node.talk.field_talk_thumbnail
+    - field.field.node.talk.field_talk_type
+    - field.field.node.talk.field_talk_video
+    - field.field.node.talk.field_talk_viewable_online
+    - node.type.talk
+  enforced:
+    module:
+      - scitalk_base
+  module:
+    - fences
+    - field_group
+    - layout_builder
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_talk_resources:
+      children:
+        - field_talk_attachments
+      parent_name: ''
+      weight: 10
+      format_type: html_element
+      format_settings:
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: ''
+      label: Resources
+      region: hidden
+    group_talk_details:
+      children:
+        - field_combination_example
+        - field_talk_collection
+        - field_talk_doi
+        - field_talk_location
+        - field_talk_number
+        - field_talk_series
+        - field_talk_source_event
+        - field_talk_speaker_profile
+        - field_talk_thumbnail
+      parent_name: ''
+      weight: 11
+      format_type: html_element
+      format_settings:
+        element: div
+        show_label: true
+        label_element: h2
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: ''
+      label: Details
+      region: hidden
+  layout_builder:
+    allow_custom: false
+    enabled: false
+_core:
+  default_config_hash: QMGRl_AscJqwrvQQ0iVrIHCOGitTjkbkeclhGccx4io
+id: node.talk.search_result
+targetEntityType: node
+bundle: talk
+mode: search_result
+content:
+  field_talk_abstract:
+    type: text_trimmed
+    weight: 0
+    region: content
+    label: inline
+    settings:
+      trim_length: 200
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
+  search_api_excerpt:
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_combination_example: true
+  field_scientific_area: true
+  field_talk_attachments: true
+  field_talk_collection: true
+  field_talk_date: true
+  field_talk_doi: true
+  field_talk_keywords: true
+  field_talk_location: true
+  field_talk_number: true
+  field_talk_series: true
+  field_talk_source_event: true
+  field_talk_speaker_profile: true
+  field_talk_thumbnail: true
+  field_talk_type: true
+  field_talk_video: true
+  field_talk_viewable_online: true
+  langcode: true
+  links: true

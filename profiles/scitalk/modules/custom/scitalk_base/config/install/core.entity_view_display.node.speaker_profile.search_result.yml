@@ -1,0 +1,90 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.search_result
+    - field.field.node.speaker_profile.field_sp_display_name
+    - field.field.node.speaker_profile.field_sp_external_id
+    - field.field.node.speaker_profile.field_sp_first_name
+    - field.field.node.speaker_profile.field_sp_institution_name
+    - field.field.node.speaker_profile.field_sp_last_name
+    - field.field.node.speaker_profile.field_sp_linked_user
+    - field.field.node.speaker_profile.field_sp_orcid_id
+    - field.field.node.speaker_profile.field_sp_profile_thumbnail
+    - field.field.node.speaker_profile.field_sp_speaker_profile
+    - field.field.node.speaker_profile.field_sp_username
+    - field.field.node.speaker_profile.field_sp_web_profile_url
+    - node.type.speaker_profile
+  module:
+    - fences
+    - field_group
+    - layout_builder
+    - text
+    - user
+third_party_settings:
+  field_group:
+    group_speaker_info:
+      children:
+        - field_sp_speaker_profile
+        - field_sp_external_id
+        - field_sp_orcid_id
+        - field_sp_web_profile_url
+        - links
+      parent_name: ''
+      weight: 10
+      format_type: html_element
+      region: hidden
+      format_settings:
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: content
+      label: 'Speaker info'
+  layout_builder:
+    allow_custom: false
+    enabled: false
+_core:
+  default_config_hash: 5huQmXXyEJM6IHVqEXujflq7mSLQX56kvtAr08v_sKI
+id: node.speaker_profile.search_result
+targetEntityType: node
+bundle: speaker_profile
+mode: search_result
+content:
+  field_sp_speaker_profile:
+    type: text_trimmed
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      trim_length: 200
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
+  search_api_excerpt:
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  field_sp_display_name: true
+  field_sp_external_id: true
+  field_sp_first_name: true
+  field_sp_institution_name: true
+  field_sp_last_name: true
+  field_sp_linked_user: true
+  field_sp_orcid_id: true
+  field_sp_profile_thumbnail: true
+  field_sp_username: true
+  field_sp_web_profile_url: true
+  langcode: true
+  links: true
