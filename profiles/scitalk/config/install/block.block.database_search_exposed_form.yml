@@ -1,0 +1,23 @@
+uuid: 2b67d54b-cbb9-4e08-b513-00a242e6a971
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.default_search_content
+  module:
+    - views
+  theme:
+    - scitalk_theme
+id: database_search_exposed_form
+theme: scitalk_theme
+region: header
+weight: 0
+provider: null
+plugin: 'views_exposed_filter_block:default_search_content-page_2'
+settings:
+  id: 'views_exposed_filter_block:default_search_content-page_2'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+visibility: {  }
