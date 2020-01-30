@@ -106,11 +106,9 @@ button.menu--toggle:focus {
 
 /* Search form button adjustment */
 .responsive-menu input.form-submit {
-  background: var(--color-primary--foreground);
-  color: var(--color-primary);
+  background-color: var(--color-secondary);
   margin-left: .2em;
 }
-
 /* Make everything slide right/left */
 .responsive-menu,
 body {

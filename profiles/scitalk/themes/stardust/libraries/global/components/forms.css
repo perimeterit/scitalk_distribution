@@ -24,7 +24,7 @@ input,
 select,
 textarea {
   background: #fff;
-  border: 1px solid #999;
+  border: .1em solid #999;
   border-radius: .2rem;
 
   max-width: 100%;
