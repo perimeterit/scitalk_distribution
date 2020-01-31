@@ -1,0 +1,28 @@
+uuid: 35e4d914-2ed3-4924-a301-c610a9d61983
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - scitalk_base
+  theme:
+    - scitalk_theme
+id: scitalksocialmediashareblock
+theme: scitalk_theme
+region: page_header
+weight: 0
+provider: null
+plugin: scitalk_social_media_share_block
+settings:
+  id: scitalk_social_media_share_block
+  label: 'SciTalk Social Media Share Block'
+  provider: scitalk_base
+  label_display: '0'
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      talk: talk
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
