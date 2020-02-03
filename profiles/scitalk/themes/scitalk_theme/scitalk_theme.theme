@@ -53,7 +53,8 @@ function scitalk_theme_preprocess_page(&$variables) {
       $node = \Drupal::routeMatch()->getParameter('node_preview');
     }
     if (isset($node) && (($node->getType() == 'talk') || ($node->getType() == 'speaker_profile'))) {
-      $variables['page_header_view'] = render(\Drupal::entityTypeManager()->getViewBuilder('node')->view($node, 'page_header'));
+      $page_header_markup = \Drupal::entityTypeManager()->getViewBuilder('node')->view($node, 'page_header');
+      $variables['page_header_view'] = render($page_header_markup);
     }
   }
   // For taxonomy terms
