@@ -59,6 +59,7 @@ install:
   - admin_toolbar_tools
   - backup_migrate
   - consumers
+  - copyright_block
   - embed
   - entity_embed
   - fences

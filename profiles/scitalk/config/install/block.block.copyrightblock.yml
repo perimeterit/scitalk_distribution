@@ -1,0 +1,25 @@
+uuid: 80ef95af-b501-46f4-9880-c722c6256cae
+langcode: en
+status: true
+dependencies:
+  module:
+    - copyright_block
+  theme:
+    - scitalk_theme
+id: copyrightblock
+theme: scitalk_theme
+region: footer
+weight: 0
+provider: null
+plugin: copyright_block
+settings:
+  id: copyright_block
+  label: 'Copyright block'
+  provider: copyright_block
+  label_display: '0'
+  start_year: '2020'
+  seperator: '-'
+  text:
+    value: "<p>© Copyright [copyright_statement:dates] [site:name]</p>\r\n"
+    format: basic_html
+visibility: {  }
