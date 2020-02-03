@@ -23,6 +23,7 @@
         "drupal/backup_migrate": "^4.1",
         "drupal/console": "^1.0.2",
         "drupal/consumers": "^1.10",
+        "drupal/copyright_block": "^1.0@RC",
         "drupal/core": "^8.8.0",
         "drupal/devel": "^2.1",
         "drupal/embed": "^1.3",
