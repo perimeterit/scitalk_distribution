@@ -1,0 +1,79 @@
+{%
+  set cur_page = url('<current>')
+%}
+
+{%  set APA_authors = [] %}
+{%  set MLA_authors = [] %}
+{%  set BibTeX_authors = [] %}
+
+{% for speaker in speakers %}
+  {% set APA_authors = APA_authors|merge([speaker.last ~ ', ' ~ speaker.initials])  %}
+  {% set BibTeX_authors = BibTeX_authors|merge([speaker.last ~ ', ' ~ speaker.first])  %}
+{% endfor %}
+
+{% set APA_max_authors_len = 6 %}
+{% if APA_authors|length <= APA_max_authors_len %}
+{%   set APA_authors = APA_authors|join(', ', ' & ') %}
+{% elseif APA_authors|length > APA_max_authors_len %}
+{%   set APA_authors = APA_authors|slice(0,APA_max_authors_len)|join(', ') ~ ', ...' %}
+{% endif %}
+
+{% set BibTeX_authors = BibTeX_authors|join(' and ') %}
+
+{% if speakers|length == 1 %}
+  {% set MLA_authors = speakers|first  %}
+  {% set MLA_authors = MLA_authors.last ~ ', ' ~ MLA_authors.first ~ '.' %}
+{% elseif speakers|length == 2 %}
+  {% set first_author = speakers|first  %}
+  {% set second_author = speakers|last  %}
+  {% set MLA_authors = first_author.last ~ ', ' ~ first_author.first ~ ', and ' ~ second_author.first ~ ' ' ~ second_author.last ~ '.' %}
+{% elseif speakers|length > 2 %}
+  {% set first_author = speakers|first  %}
+  {% set MLA_authors = first_author.last ~ ', ' ~ first_author.first ~ ', et al.' %}  
+{% endif %}
+
+
+<div id="citations" class="itations-wrapper">
+  <h2 class="citations-label button">
+    <span class="text">{{ 'Cite'|t }}</span>
+  </h2>
+  <ul class="citation-item-list">
+    <li class="citation-item citation-apa">
+       <a href="#" title="{{ 'APA'|t }}">{{ 'APA'|t }} </a>
+
+       {# authors surname, initials. (Date Published). Title of source. Reposiory. URL  #}
+      {{ APA_authors|e }} ({{ year}}). {{ title|e }}. {{ repository|e }}. {{ url }}
+    </li>
+
+    <li class="citation-item citation-mla">
+      <a href="#" title="{{ 'MLA'|t }}">{{ 'MLA'|t }} </a>
+
+      {# MLA formatting:  Author's Last name, First name. "Title of Source." Title of Container, other contributors, version, numbers, publisher, publication date, location. #}
+      {{ MLA_authors|e }} {{ title|e }}. {{ repository|e }}, {{ talk_date_formatted }}, {{ url }}
+    </li>
+
+    <li class="citation-item citation-bibtex">
+      <a href="#" title="{{ 'BibTeX'|t }}">{{ 'BibTex'|t }} </a>
+        <pre>
+          @misc{ {{site_name}}_{{talk_number}},
+            doi = {% verbatim %}{{% endverbatim %}{{doi|e}}{% verbatim %}}{% endverbatim %},
+            url = {% verbatim %}{{% endverbatim %}{{cur_page}}{% verbatim %}}{% endverbatim %},
+            author = {% verbatim %}{{% endverbatim %}{{ BibTeX_authors|e }}{% verbatim %}}{% endverbatim %},
+            keywords = {% verbatim %}{{% endverbatim %}{{keywords|join(', ')|e}}{% verbatim %}}{% endverbatim %},
+            language = {% verbatim %}{{% endverbatim %}{{language}}{% verbatim %}}{% endverbatim %},
+            title = {% verbatim %}{{% endverbatim %}{{title|e}}{% verbatim %}}{% endverbatim %},
+            publisher = {% verbatim %}{{% endverbatim %}{{publisher|e}}{% verbatim %}}{% endverbatim %},
+            year = {% verbatim %}{{% endverbatim %}{{year}}{% verbatim %}}{% endverbatim %}
+          }
+        </pre>
+    </li>
+  </ul>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.citation-item a').forEach(item => {
+      item.addEventListener('click', e => e.preventDefault());
+    });
+});
+</script>

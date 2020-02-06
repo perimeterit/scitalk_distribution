@@ -12,6 +12,24 @@ function scitalk_base_theme($existing, $type, $theme, $path) {
       'variables' => ['title' => ''],
       'template' => 'block--scitalk-social-media-share'
     ],
+    'scitalk_citations_block' => [
+      'variables' => [
+        'title' => '', 
+        'talk_number' => '',
+        'talk_date' => '',
+        'talk_date_formatted' => '',
+        'speakers' => [],
+        'doi' => '',
+        'url' => '',
+        'language' => '',
+        'site_name' => '',
+        'year' => '',
+        'keywords' => '',
+        'publisher' => '',
+        'repository' => ''
+      ],
+      'template' => 'block--scitalk-citations'
+    ],
   ];
 }
 
