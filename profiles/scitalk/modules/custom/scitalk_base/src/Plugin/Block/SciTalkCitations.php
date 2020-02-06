@@ -23,10 +23,6 @@ use Drupal\node\NodeInterface;
  */
 class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterface {
 
-    protected $request;
-    protected $route;
-
- 
     /**
      * Constructs a new SciTalkCitations object.
      *
@@ -55,7 +51,6 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
             $container->get('current_user')
         );
     }
-
 
     /**
      * {@inheritdoc}
