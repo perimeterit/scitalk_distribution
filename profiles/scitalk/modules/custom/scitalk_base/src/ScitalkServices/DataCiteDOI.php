@@ -149,7 +149,7 @@ class DataCiteDOI {
       'type' => 'dois',
       'attributes' => [
         'doi' => $talk_id,
-        'publisher' => 'Perimeter Institute',
+        'publisher' =>  $this->datacite_creator_institution, //'Perimeter Institute',
         'titles' => [
           'title' => $entity->get('title')->value ?? ''
         ],
@@ -244,7 +244,7 @@ class DataCiteDOI {
   //we are going to use the institution for the Creator field in DOI instead of the talk speakers:
   private function getCreator() {
       $speakers[] = [
-        'name' => 'Perimeter Institute',
+        'name' =>  $this->datacite_creator_institution, //'Perimeter Institute',
         'nameType' => 'Organizational',
         'affiliation' => [ 
           [

@@ -55,7 +55,7 @@
     <li class="citation-item citation-bibtex">
       <a href="#" title="{{ 'BibTeX'|t }}">{{ 'BibTex'|t }} </a>
         <pre>
-          @misc{ {{site_name}}_{{talk_number}},
+          @misc{ {{site_name|e}}_{{talk_number}},
             doi = {% verbatim %}{{% endverbatim %}{{doi|e}}{% verbatim %}}{% endverbatim %},
             url = {% verbatim %}{{% endverbatim %}{{cur_page}}{% verbatim %}}{% endverbatim %},
             author = {% verbatim %}{{% endverbatim %}{{ BibTeX_authors|e }}{% verbatim %}}{% endverbatim %},

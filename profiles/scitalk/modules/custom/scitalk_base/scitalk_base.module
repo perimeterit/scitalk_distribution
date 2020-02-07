@@ -2,6 +2,7 @@
 use \Drupal\Core\Field\BaseFieldDefinition;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\scitalk_base\ScitalkServices\ReferenceIDGeneratorInterface;
+use Drupal\node\NodeInterface;
 
 /**
  * Implements hook_theme().
@@ -98,15 +99,15 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
           $entity->set('field_talk_number', $talk_num);
       }
 
-      if (_scitalk_base_use_doi($entity)) {
-        //when creating a new Talk, create a Draft DOI
-        $doi = \Drupal::service('scitalk_base.datacite_dois');
-        $doi_id = $doi->create($entity);
+      // if (_scitalk_base_use_doi($entity)) {
+      //   //when creating a new Talk, create a Draft DOI
+      //   $doi = \Drupal::service('scitalk_base.datacite_dois');
+      //   $doi_id = $doi->create($entity);
   
-        if (empty($entity->get('field_talk_doi')->value)) {
-          $entity->set('field_talk_doi', $doi_id);
-        }
-      }
+      //   if (empty($entity->get('field_talk_doi')->value)) {
+      //     $entity->set('field_talk_doi', $doi_id);
+      //   }
+      // }
     }
     else {
       if (_scitalk_base_use_doi($entity)) {
@@ -122,6 +123,21 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
   }
 }
 
+/**
+ * Implements hook_ENTITY_TYPE_insert()
+ */
+function scitalk_base_node_insert(NodeInterface $entity) {
+  if (_scitalk_base_use_doi($entity)) {
+    //when creating a new Talk, create a Draft DOI
+    $doi = \Drupal::service('scitalk_base.datacite_dois');
+    $doi_id = $doi->create($entity);
+
+    if (empty($entity->get('field_talk_doi')->value)) {
+      $entity->set('field_talk_doi', $doi_id);
+      $entity->save();
+    }
+   }
+}
 
 /**
  * Implements hook_ENTITY_TYPE_presave()
