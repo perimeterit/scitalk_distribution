@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - scitalk_base
+  theme:
+    - scitalk_theme
+id: scitalkcitationsblock
+theme: scitalk_theme
+region: page_header
+weight: 0
+provider: null
+plugin: scitalk_citations_block
+settings:
+  id: scitalk_citations_block
+  label: 'SciTalk Citations Block'
+  provider: scitalk_base
+  label_display: '0'
+  context_mapping:
+    node: '@node.node_route_context:node'
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      talk: talk
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
