@@ -14,11 +14,9 @@
   padding: 1.5em var(--responsive-padding);
 }
 
-@media all and (min-width: 60em) {
+@media all and (min-width: 62em) {
   .site-header .region-header {
     display: flex;
-
-    max-width: var(--max-width);
     margin: 0 auto;
   }
   .site-header .block {

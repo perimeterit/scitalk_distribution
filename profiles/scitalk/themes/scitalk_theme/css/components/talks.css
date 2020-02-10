@@ -3,10 +3,10 @@
 */
 
 /**
- * Page header with speaker name and date
+ * Speaker + date metadata, used in all view modes
 */
 .speaker-date {
-  line-height: 1.2;;
+  line-height: 1.2;
 }
 .speaker-date a {
   text-decoration: none;
@@ -47,8 +47,7 @@
   content: '';
 }
 
-/* Temp background for image */
-
+/* Placeholder for image if there is no thumbnail */
 .node.talk .thumbnail-placeholder {
   background: var(--color-lt-grey);
   display: flex;
@@ -120,23 +119,23 @@
 }
 
 /*
- * Talks full page
+ * Full view mode
 */
 
 /* Social share links */
-
 .share-links {
   padding: 1em;
   margin: -1em;
   position: relative;
+
 }
-h2.share-label {
-  cursor: pointer;
-  margin: 0;
-  padding: .4em .8em;
+.share-label {
+  display: flex;
+  align-items: center;
+  padding: .5em 1em;
 }
 @media all and (max-width: 30em) {
-  h2.share-label .text {
+  .share-label .text {
     display: none;
   }
 }

@@ -24,15 +24,10 @@
 
 /* Views mini pager */
 .mini-pager {
-  background: var(--color-lt-grey);
   display: flex;
   justify-content: space-between;
-  overflow: auto;
+  margin: 1em 0;
   width: 100%;
-}
-.mini-pager > * {
-  flex-basis: 33%;
-  padding: .4em;
 }
 .mini-pager .pager-current {
   display: block;
@@ -51,18 +46,16 @@
 .mini-pager .pager-prev a:before,
 .mini-pager .pager-next a:after {
   content: '';
-  background: url(../images/angle-icons.svg) no-repeat;
-  background-size: 3.2em;
-  height: 1.2em;
-  width: 1.2em;
-  opacity: .5;
-  flex: 0 0 1.2em;
+  height: .6em;
+  width: .6em;
+  border-right: 1px solid var(--color-default-text);
+  border-top: 1px solid var(--color-default-text);
+  transform: rotate(45deg);
 }
 .mini-pager .pager-prev a:before {
-  background-position: 0.2em -5.1em;
-  margin-right: .3em;
+  transform: rotate(-135deg);
+  margin-right: .2em;
 }
 .mini-pager .pager-next a:after {
-  background-position: 0.4em -3.1em;
-  margin-left: .3em;
+  margin-left: .2em;
 }

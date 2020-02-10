@@ -5,6 +5,10 @@ global:
     component:
       css/global.css: {}
       css/components/catchup.css: {}
+      css/components/citations.css: {}
       css/components/collections.css: {}
       css/components/speakers.css: {}
       css/components/talks.css: {}
+  js:
+    js/van11y-accessible-modal-window-aria/dist/van11y-accessible-modal-window-aria.min.js: {}
+    js/van11y-accessible-tab-panel-aria/dist/van11y-accessible-tab-panel-aria.min.js: {}

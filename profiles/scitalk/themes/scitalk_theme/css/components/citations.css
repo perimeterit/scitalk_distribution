@@ -1,0 +1,153 @@
+
+/**
+ * Modal dialogs for Citations
+*/
+.citations-label {
+  display: flex;
+  align-items: center;
+  padding: .5em 1em;
+}
+.citations-label svg {
+  fill: var(--color-primary--foreground);
+  height: 2em;
+  width: 2em;
+
+  margin-right: .5em;
+}
+
+/* needed for old browsers */
+dialog {
+  display: block;
+  border: 0;
+}
+/* removes scroll when modal is opened */
+.no-scroll {
+  overflow: hidden;
+}
+/* overlay covers everything */
+.modal-overlay {
+  background: rgba(0,0,0,0.7);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 666;
+}
+/* modal */
+.modal {
+  position: fixed;
+  left: 25%;
+  right: auto;
+  top: 15%;
+  max-width: 90%;
+  z-index: 667;
+
+  background: #fff;
+  padding: calc(1.5 * var(--gutter--big));
+  box-shadow: 2px 2px 6px rgba(42,42,42,0.2);
+}
+@media all and (min-width: 60em) {
+  .modal {
+    max-width: 60%;
+  }
+}
+button.modal-close {
+  float: right;
+  overflow: hidden;
+  position: relative;
+
+  height: 2em;
+  width: 2em;
+  margin: -2.2em -1.3em 0px 0;
+
+  background: transparent;
+  color: var(--color-default-text);
+}
+.modal-close__text {
+  color: transparent;
+}
+.modal-close:after,
+.modal-close:before {
+  background: var(--color-default-text);
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+
+  height: 2px;
+  width: 1.8em;
+
+  transform: rotate(45deg);
+}
+.modal-close:after {
+  transform: rotate(-45deg);
+}
+.modal-title {
+  border-bottom: 1px solid var(--color-lt-grey);
+  font-size: 1.3em;
+  padding-right: 1em;
+  padding-bottom: 1em;
+  margin-bottom: 1em;
+}
+/*
+ * Tabs
+*/
+#citations-content {
+  display: none;
+}
+.citations-content {
+  display: block;
+  border: none;
+}
+
+/* Tab labels */
+.citations-tab-labels {
+  display: flex;
+}
+.citations-tab-labels li {
+  margin-right: .2em;
+}
+.citations-tab-labels a {
+  border: none;
+  cursor: pointer;
+}
+.citations-tab-labels a:hover,
+.citations-tab-labels a:focus,
+.citations-tab-labels a[aria-selected="true"] {
+  background: transparent;
+  color: var(--color-primary);
+}
+.citations-tab-labels a[aria-selected="true"]:after {
+  content: '';
+  display: block;
+  width: 1.5em;
+  height: 1.5em;
+
+  background: var(--color-lt-grey);
+  margin: 0;
+  transform: rotate(45deg);
+  position: relative;
+  left: calc(50% - .8em);
+  bottom: -2.1em;
+  margin-top: -1.6em;
+}
+
+/* Tab content */
+
+.citation-item[aria-hidden="true"] {
+  display: none;
+}
+.citation-content {
+  background: var(--color-lt-grey);
+  padding: 1em;
+  margin-top: 1em;
+  color: var(--color-dk-grey);
+}
+.citation-item .bibtex-content {
+  overflow: scroll
+}
+.citation-item pre {
+  margin-left: -5em;
+}

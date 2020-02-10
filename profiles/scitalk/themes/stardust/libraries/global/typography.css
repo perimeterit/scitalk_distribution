@@ -62,7 +62,7 @@ blockquote p:last-child {
 }
 
 /* Inline elements */
-code, kbd {
+code, kbd, pre {
   font-family: monospace;
 }
 mark {

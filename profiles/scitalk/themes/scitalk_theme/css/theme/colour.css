@@ -34,37 +34,6 @@ a:focus {
 /**
  * Button colours
 */
-.button,
-button,
-input[type='submit'],
-.form-submit  {
-  background: var(--color-primary);
-  color: var(--color-primary--foreground);
-}
-
-.button:hover,
-button:hover,
-input[type='submit']:hover,
-.form-submit:hover,
-.button:focus,
-button:focus,
-input[type='submit']:focus,
-.form-submit:focus {
-  background: var(--color-secondary);
-  color: var(--color-secondary--foreground);
-}
-.button-outline {
-  background: transparent;
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-}
-.button-outline:hover,
-.button-outline:focus {
-  background: transparent;
-  border-color: var(--color-secondary);
-  color: var(--color-secondary);
-}
-
 
 input:focus,
 select:focus,

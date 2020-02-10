@@ -16,7 +16,6 @@ input[type='submit'],
   text-decoration: none;
   white-space: nowrap;
 }
-
 .button:hover,
 button:hover,
 input[type='submit']:hover,
@@ -28,7 +27,6 @@ input[type='submit']:focus,
   background: var(--color-secondary);
   color: var(--color-secondary--foreground);
 }
-
 .button-bigger {
   font-size: 1.25em;
 }

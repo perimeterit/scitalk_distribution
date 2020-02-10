@@ -1,0 +1,23 @@
+uuid: f85f7fad-03d2-45ef-aa22-c17cb493fe60
+langcode: en
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - scitalk_theme
+_core:
+  default_config_hash: 939sG_MeceP9dsLtKvGnOZE7YT83owBAR2zL7JevZAU
+id: scitalk_theme_search
+theme: scitalk_theme
+region: header
+weight: -3
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: Search
+  provider: search
+  label_display: visible
+  page_id: ''
+visibility: {  }
