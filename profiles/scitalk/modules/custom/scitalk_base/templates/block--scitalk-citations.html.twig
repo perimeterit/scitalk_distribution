@@ -29,32 +29,45 @@
   {% set MLA_authors = first_author.last ~ ', ' ~ first_author.first ~ ', and ' ~ second_author.first ~ ' ' ~ second_author.last ~ '.' %}
 {% elseif speakers|length > 2 %}
   {% set first_author = speakers|first  %}
-  {% set MLA_authors = first_author.last ~ ', ' ~ first_author.first ~ ', et al.' %}  
+  {% set MLA_authors = first_author.last ~ ', ' ~ first_author.first ~ ', et al.' %}
 {% endif %}
 
-
-<div id="citations" class="itations-wrapper">
-  <h2 class="citations-label button">
+<div id="citations" class="citations-wrapper">
+  <button class="citations-label button js-modal" data-modal-content-id="citations-content" data-modal-title="{{ title }}" aria-haspopup-"dialog">
+    <svg style="width:24px;height:24px" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M10,7L8,11H11V17H5V11L7,7H10M18,7L16,11H19V17H13V11L15,7H18Z" />
+    </svg>
     <span class="text">{{ 'Cite'|t }}</span>
-  </h2>
-  <ul class="citation-item-list">
-    <li class="citation-item citation-apa">
-       <a href="#" title="{{ 'APA'|t }}">{{ 'APA'|t }} </a>
+  </button>
 
-       {# authors surname, initials. (Date Published). Title of source. Reposiory. URL  #}
-      {{ APA_authors|e }} ({{ year}}). {{ title|e }}. {{ repository|e }}. {{ url }}
-    </li>
+  <div id="citations-content">
+    <div class="js-tabs citations-content">
+      <ul class="citations-tab-labels display-list js-tablist" data-hx="h3">
+        <li class="js-tablist__item"><a href="#citation-apa" class="js-tablist__link">{{ 'APA'|t }} </a></li>
+        <li class="js-tablist__item"><a href="#citation-mla" class="js-tablist__link">{{ 'MLA'|t }} </a></li>
+        <li class="js-tablist__item"><a href="#citation-bibtex" class="js-tablist__link">{{ 'BibTeX'|t }} </a></li>
+      </ul>
 
-    <li class="citation-item citation-mla">
-      <a href="#" title="{{ 'MLA'|t }}">{{ 'MLA'|t }} </a>
+      <div class="citation-item js-tabcontent" id="citation-apa">
+        <h3 class="visually-hidden">{{ 'APA'|t }}</h3>
+        <p class="citation-content">
+          {# authors surname, initials. (Date Published). Title of source. Reposiory. URL  #}
+          {{ APA_authors|e }} ({{ year}}). {{ title|e }}. {{ repository|e }}. {{ url }}
+        </p>
+      </div>
 
-      {# MLA formatting:  Author's Last name, First name. "Title of Source." Title of Container, other contributors, version, numbers, publisher, publication date, location. #}
-      {{ MLA_authors|e }} {{ title|e }}. {{ repository|e }}, {{ talk_date_formatted }}, {{ url }}
-    </li>
+      <div class="citation-item js-tabcontent" id="citation-mla">
+        <h3 class="visually-hidden">{{ 'MLA'|t }} </a></h3>
+        <p class="citation-content">
+          {# MLA formatting:  Author's Last name, First name. "Title of Source." Title of Container, other contributors, version, numbers, publisher, publication date, location. #}
+          {{ MLA_authors|e }} {{ title|e }}. {{ repository|e }}, {{ talk_date_formatted }}, {{ url }}
+        </p>
+      </div>
 
-    <li class="citation-item citation-bibtex">
-      <a href="#" title="{{ 'BibTeX'|t }}">{{ 'BibTex'|t }} </a>
-        <pre>
+      <div class="citation-item js-tabcontent" id="citation-bibtex">
+        <h3 class="visually-hidden">{{ 'BibTex'|t }} </h3>
+        <div class="citation-content bibtex-content">
+          <pre>
           @misc{ {{site_name|e}}_{{talk_number}},
             doi = {% verbatim %}{{% endverbatim %}{{doi|e}}{% verbatim %}}{% endverbatim %},
             url = {% verbatim %}{{% endverbatim %}{{cur_page}}{% verbatim %}}{% endverbatim %},
@@ -65,15 +78,8 @@
             publisher = {% verbatim %}{{% endverbatim %}{{publisher|e}}{% verbatim %}}{% endverbatim %},
             year = {% verbatim %}{{% endverbatim %}{{year}}{% verbatim %}}{% endverbatim %}
           }
-        </pre>
-    </li>
-  </ul>
-</div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.citation-item a').forEach(item => {
-      item.addEventListener('click', e => e.preventDefault());
-    });
-});
-</script>
+          </pre>
+        </div>
+      </div>
+    </div>
+  </div>
