@@ -141,7 +141,13 @@ class DataCiteDOI {
     $talk_number = $entity->get('field_talk_number')->getValue();
     $abstract = $entity->get('field_talk_abstract')->getValue();
     $talk_id = $this->doi_prefix . '/' . $entity->get('field_talk_number')->value;
-    $url = $entityObj->toUrl()->setAbsolute()->toString(); 
+    //$url = $entityObj->toUrl()->setAbsolute()->toString(); 
+    $url = $entityObj->toUrl()->setAbsolute()->toString(true)->getGeneratedUrl() ?? '';
+
+    /////////////////////
+    /////////////////////
+    // TODO: REMOVE THE LINE BELOW AFTER DONE RUNNING THe create_interimhd_media_sript.php!!!! 
+    //$url = str_replace( '/create_interimhd_media_script.php', '', $url);  //for now when running update script!!!!
 
     //$reference_number = $entity->field_talk_number->value; 
     $data = [
