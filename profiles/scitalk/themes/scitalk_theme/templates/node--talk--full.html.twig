@@ -25,7 +25,10 @@
       {{ content|without('links', 'field_talk_video') }}
     </div>
     <aside class="sidebar">
-      Sidebar related posts go here
+      <h2 class="related-talks-toggle">{{ 'Related Talks'|t }}</h2>
+      <div class="related-talks-view">
+        {{ related_talks_block }}
+      </div>
     </aside>
   </div>
   {{ content.links }}

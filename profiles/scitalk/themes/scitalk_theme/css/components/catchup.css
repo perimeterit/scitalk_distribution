@@ -6,17 +6,16 @@
   margin: 0;
 }
 @media all and (min-width: 35em) {
-  .region-middle-highlight .views-exposed-form form {
+  .block-views-exposed-filter-block--scitalk-latest-talks-scitalk-catch-up form {
     display: flex;
     align-items: center;
   }
-
-  .region-middle-highlight .views-exposed-form .form-item {
+  .block-views-exposed-filter-block--scitalk-latest-talks-scitalk-catch-up .form-item {
     margin-right: 1em;
   }
 }
 @media all and (max-width: 34em) {
-  .region-middle-highlight .views-exposed-form .form-item {
+  .block-views-exposed-filter-block--scitalk-latest-talks-scitalk-catch-up .form-item {
     margin-bottom: 1em;
   }
 }

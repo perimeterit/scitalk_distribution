@@ -17,6 +17,9 @@ h1 { font-size: 1.802em; }
 h2 { font-size: 1.602em; }
 h3 { font-size: 1.424em; }
 
+h1, h2, h3 {
+  margin: calc(0.4em + 0.7vw) 0;
+}
 /*
  * Grid layout classes
 */
@@ -24,7 +27,7 @@ h3 { font-size: 1.424em; }
   display: grid;
   grid-gap: var(--gutter--standard);
 }
-.card-grid li {
+.card-grid > li {
   display: grid;
 }
 @media all and (min-width: 35em) and (max-width: 60em) {

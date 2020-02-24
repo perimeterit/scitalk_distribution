@@ -47,17 +47,6 @@
   content: '';
 }
 
-/* Placeholder for image if there is no thumbnail */
-.node.talk .thumbnail-placeholder {
-  background: var(--color-lt-grey);
-  display: flex;
-  align-items: center;
-  text-align: center;
-  padding: 4vw 1.5em;
-  margin-bottom: 1em;
-  width: 100%;
-}
-
 /**
  * Card view mode
 */
@@ -116,6 +105,32 @@
 }
 .node.talk.teaser .field--name-field-talk-abstract strong + p {
   display: inline;
+}
+
+/**
+ * Mini Teaser view mode
+*/
+
+.node.talk.mini-teaser {
+  display: grid;
+  grid-gap: 1em;
+  grid-template-columns: 1fr 2fr;
+  margin-bottom: 1em;
+}
+.node.talk.mini-teaser h3 {
+  font-size: 1em;
+  font-weight: normal;
+  margin-top: 0;
+}
+.node.talk.mini-teaser h3 a {
+  color: var(--);
+  text-decoration: none;
+}
+.node.talk.mini-teaser img {
+  width: 100%;
+}
+.node.talk.mini-teaser .speaker-date {
+  font-size: .9em;
 }
 
 /*
@@ -199,7 +214,7 @@
 
 /* Content layout */
 
-@media all and (min-width: 35em) {
+@media all and (min-width: 55em) {
   .node.talk.full .content-wrapper {
     display: grid;
     grid-template-columns: 2fr 1fr;
@@ -207,7 +222,108 @@
     margin-top: var(--vertical-padding);
   }
 }
+@media all and (max-width: 55em) {
+  .node.talk.full .sidebar {
+    margin-top: 2em;
+  }
+  h2.related-talks-toggle {
+    background: var(--color-primary);
+    color: var(--color-primary--foreground);
+    padding: .5em .8em;
+
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+  }
+  h2.related-talks-toggle:after {
+    content: '';
+    display: inline-block;
+
+    border-bottom: 2px solid var(--color-primary--foreground);
+    border-right: 2px solid var(--color-primary--foreground);
+    transform: rotate(45deg);
+    height: 0.6em;
+    width: 0.6em;
+  }
+  .related-talks-view {
+    max-height: 0;
+    overflow: hidden;
+    margin: 1.2em;
+    transition: max-height 1s;
+  }
+  .related-talks-view.show {
+    max-height: 90em; /* some really big value */
+    display: block;
+  }
+}
+
+/* Fields */
 .node.talk.full .field > strong:after {
   content: ':';
+  display: inline;
+}
+
+/* Resources */
+
+.field--name-field-talk-attachments li {
+  margin-bottom: 1em;
+}
+.resource-link,
+.resource-link .icon {
+  display: flex;
+}
+.resource--image,
+.resource--file {
+  align-items: center;
+}
+.resource-link .icon {
+  background: var(--color-primary);
+  color: var(--color-primary--foreground);
+
+  height: 3em;
+  width: 3em;
+  margin-right: 1em;
+  padding: 1em;
+
+  align-items: center;
+  justify-content: center;
+}
+.resource-link .icon svg {
+  color: var(--color-primary--foreground);
+}
+.resource--arxiv .icon {
+  background: #b31b1b;
+}
+.resource--file .icon {
+  background: no-repeat transparent center center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M13,9V3.5L18.5,9M6,2C4.89,2 4,2.89 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6Z' /%3E%3C/svg%3E");
+  background-size: cover;
+  font-size: .9em;
+  height: 5em;
+  width: 4em;
+  padding: .8em 0 0;
+}
+.resource--image .icon {
+  background: none;
+  padding: 0;
+}
+.resource--image .icon figure,
+.resource--image .icon figure a  {
+  display: flex;
+  height: 100%;
+}
+.resource--image .icon img {
+  object-fit: cover;
+}
+.resource-link p {
+  margin: 0;
+}
+.resource-link .small {
+  font-size: .8em;
+}
+.resource-link strong {
+  font-weight: 500;
+}
+.resource--file p {
   display: inline;
 }

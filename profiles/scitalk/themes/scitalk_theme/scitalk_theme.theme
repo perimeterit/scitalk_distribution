@@ -75,6 +75,9 @@ function scitalk_theme_preprocess_page(&$variables) {
  */
 function scitalk_theme_preprocess_node(&$variables) {
    $node = $variables['node'];
+
+   // Get the related talks block and
+   $variables['related_talks_block'] = views_embed_view('scitalk_talks_in_collection', 'related_talks');
 }
 
 /**
@@ -85,8 +88,10 @@ function scitalk_theme_preprocess_block(&$variables) {
   if ($variables['derivative_plugin_id'] == 'scitalk_talks_in_collection-scitalk_talk_by_speaker_block') {
     $speaker_nid = $variables['content']['#view']->argument['field_talk_speaker_profile_target_id']->getValue('value');
     $speaker_node = \Drupal\node\Entity\Node::load($speaker_nid);
-    $speaker_name = $speaker_node->get('field_sp_display_name')->getValue();
-    $variables['label'] = t('Talks by ') . $speaker_name[0]['value'];
+    if (isset($speaker_node)) {
+      $speaker_name = $speaker_node->get('field_sp_display_name')->getValue();
+      $variables['label'] = t('Talks by ') . $speaker_name[0]['value'];
+    }
   }
   // Add search form classes to search exposed form, for default search view & solr search view
   if (($variables['derivative_plugin_id'] == 'default_search_content-page_2') ||
@@ -96,6 +101,12 @@ function scitalk_theme_preprocess_block(&$variables) {
   }
 }
 
+/*
+ * Implements hook_preprocess_HOOK() for media entities.
+ */
+function scitalk_theme_preprocess_media(&$variables) {
+  $variables['bundle'] = $variables['media']->bundle();
+}
 /*
  Implements hook_form_alter()
  */

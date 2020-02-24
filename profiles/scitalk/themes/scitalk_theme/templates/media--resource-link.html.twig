@@ -1,0 +1,63 @@
+{#
+/**
+ * @file
+ * Theme override to display a media item.
+ * Resource link is the view mode.
+ *
+ * Available variables:
+ * - name: Name of the media.
+ * - content: Media content.
+ *
+ * @see template_preprocess_media()
+ *
+ * @ingroup themeable
+ */
+#}
+{% set classes = [
+  'resource-link',
+  'resource--' ~ bundle,
+]
+%}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_suffix.contextual_links }}
+  {% if content %}
+    <span class="icon">
+      {% if bundle == 'arxiv' %}
+        {{ 'x' }}
+      {% elseif bundle == 'file' %}
+        {% set file_name = content.field_media_file.0['#file'].getFileName() %}
+        {% set file_extension = file_name|split('.')|last %}
+        {{ file_extension }}
+      {% elseif bundle == 'image' %}
+        {% set image_uri = content.field_media_image['#items'].0.entity.getFileUri() %}
+        <a href="{{ file_url(image_uri) }}" class="js-modal" data-modal-prefix-class="image" data-modal-title="{{ name }}" data-modal-text="<img src='{{ file_url(image_uri) }}' />" aria-haspopup="dialog">
+          {{ content.field_media_image }}
+        </a>
+      {% else %}
+        {{ bundle }}
+      {% endif %}
+    </span>
+
+    <div class="reference-content">
+      {% if bundle == 'doi' %}
+        <p class="small">{{ 'DOI: ' }} {{ content.field_media_scitalk_doi }}</p>
+        <p><strong><a href="http://doi.org/{{ content.field_media_scitalk_doi['#items'].0.value }} " target="_blank">{{ content.field_doi_title }}</a></strong></p>
+        {{ content|without('field_media_scitalk_doi','field_doi_title') }}
+      {% elseif bundle == 'arxiv' %}
+        <p class="small">{{ 'Arxiv: ' }} {{ content.field_media_scitalk_arxiv }}</p>
+        <p><strong><a href="http://arxiv.org/abs/{{ content.field_media_scitalk_arxiv['#items'].0.value }}" target="_blank">{{ content.field_arxiv_title }}</a></strong></p>
+        {{ content|without('field_media_scitalk_arxiv', 'name', 'field_arxiv_title') }}
+      {% elseif bundle == 'image' %}
+        {{ name }}
+      {% elseif bundle == 'file' %}
+        {% set file_bytes = content.field_media_file.0['#file'].getSize() %}
+        {% if file_bytes > 1024 %}
+          {% set filesize = (file_bytes / 1024)|number_format(1, '.') ~ 'mb'  %}
+        {% else %}
+          {% set filesize = file_bytes ~ 'kb' %}
+        {% endif %}
+        {{ content }} | {{ filesize }}
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
