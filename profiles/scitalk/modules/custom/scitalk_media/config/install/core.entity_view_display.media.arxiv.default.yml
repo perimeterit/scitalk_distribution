@@ -1,0 +1,79 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.arxiv.field_arxiv_published_date
+    - field.field.media.arxiv.field_arxiv_summary
+    - field.field.media.arxiv.field_arxiv_title
+    - field.field.media.arxiv.field_arxiv_updated_date
+    - field.field.media.arxiv.field_media_scitalk_arxiv
+    - media.type.arxiv
+  module:
+    - id_link_formatter
+    - user
+id: media.arxiv.default
+targetEntityType: media
+bundle: arxiv
+mode: default
+content:
+  created:
+    label: hidden
+    type: timestamp
+    weight: 6
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  field_arxiv_published_date:
+    type: string
+    weight: 3
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_arxiv_summary:
+    type: basic_string
+    weight: 2
+    region: content
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+  field_arxiv_title:
+    type: string
+    weight: 1
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_arxiv_updated_date:
+    type: string
+    weight: 4
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  field_media_scitalk_arxiv:
+    type: id_url_formatter
+    weight: 0
+    region: content
+    label: above
+    settings:
+      id_base_url: 'https://arxiv.org/abs/'
+    third_party_settings: {  }
+  uid:
+    label: hidden
+    type: author
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  thumbnail: true

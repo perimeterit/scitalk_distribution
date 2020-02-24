@@ -1,0 +1,102 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.resource_link
+    - field.field.media.doi.field_doi_authors
+    - field.field.media.doi.field_doi_date_issued
+    - field.field.media.doi.field_doi_date_published
+    - field.field.media.doi.field_doi_description
+    - field.field.media.doi.field_doi_issue
+    - field.field.media.doi.field_doi_journal_name
+    - field.field.media.doi.field_doi_page_range
+    - field.field.media.doi.field_doi_publisher
+    - field.field.media.doi.field_doi_title
+    - field.field.media.doi.field_doi_volume
+    - field.field.media.doi.field_media_scitalk_doi
+    - media.type.doi
+  module:
+    - fences
+    - layout_builder
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
+id: media.doi.resource_link
+targetEntityType: media
+bundle: doi
+mode: resource_link
+content:
+  field_doi_authors:
+    type: basic_string
+    weight: 3
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: none
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
+  field_doi_journal_name:
+    type: string
+    weight: 2
+    region: content
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      fences:
+        fences_field_tag: none
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
+  field_doi_title:
+    type: string
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      fences:
+        fences_field_tag: none
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
+  field_media_scitalk_doi:
+    type: string
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      fences:
+        fences_field_tag: none
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
+hidden:
+  created: true
+  field_doi_date_issued: true
+  field_doi_date_published: true
+  field_doi_description: true
+  field_doi_issue: true
+  field_doi_page_range: true
+  field_doi_publisher: true
+  field_doi_volume: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true
