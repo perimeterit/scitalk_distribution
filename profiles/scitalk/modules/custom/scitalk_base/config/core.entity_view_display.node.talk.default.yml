@@ -104,13 +104,21 @@ content:
     type: text_default
     region: content
   field_talk_attachments:
-    type: entity_reference_label
+    type: entity_reference_entity_view
     weight: 20
     region: content
-    label: above
+    label: hidden
     settings:
-      link: true
-    third_party_settings: {  }
+      view_mode: resource_link
+      link: false
+    third_party_settings:
+      fences:
+        fences_field_tag: ul
+        fences_field_classes: display-list
+        fences_field_item_tag: li
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
   field_talk_collection:
     weight: 24
     label: inline

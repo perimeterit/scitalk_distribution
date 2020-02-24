@@ -10,7 +10,6 @@ name: scitalk_thumbnail
 label: 'Scitalk Thumbnail'
 effects:
   73f1b109-9b59-4ccb-8707-23ac4db76386:
-    uuid: 73f1b109-9b59-4ccb-8707-23ac4db76386
     id: image_scale_and_crop
     weight: 1
     data:

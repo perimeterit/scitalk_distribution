@@ -103,8 +103,8 @@ content:
     region: content
     label: hidden
     settings:
-      which_thumb: field
-      which_style: thumbnail
+      which_thumb: media
+      which_style: scitalk_thumbnail
     third_party_settings:
       fences:
         fences_field_tag: figure

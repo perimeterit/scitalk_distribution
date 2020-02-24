@@ -71,7 +71,7 @@ class SciTalkSocialMediaShare extends BlockBase implements ContainerFactoryPlugi
         // $host_url = $this->request->getSchemeAndHttpHost();
         // $alias = \Drupal::service('path.alias_manager')->getAliasByPath($current_path);
         // $path = $host_url . '/' . $alias;
-        
+
         $request = $this->request; //\Drupal::request();
         $route = $this->route->getRouteObject();  //\Drupal::routeMatch()->getRouteObject();
         $title = \Drupal::service('title_resolver')->getTitle($request, $route);

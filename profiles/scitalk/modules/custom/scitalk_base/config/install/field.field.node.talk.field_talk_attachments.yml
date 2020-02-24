@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_talk_attachments
-    - media.type.file
     - node.type.talk
 id: node.talk.field_talk_attachments
 field_name: field_talk_attachments
