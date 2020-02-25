@@ -1,4 +1,5 @@
 <?php
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * @file
@@ -13,10 +14,20 @@ function scitalk_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_s
   $formObject = $form_state->getFormObject();
   if ($formObject instanceof \Drupal\Core\Entity\EntityFormInterface) {
     $entity = $formObject->getEntity();
-    \Drupal::logger('scitalk')->notice('in FORM ALTER: "%entID", "%bundle"', array('%entID' => $entity->getEntityTypeId(), '%bundle' => $entity->bundle()));
     if ($entity->getEntityTypeId() === 'contact_message'  && in_array($entity->bundle(), ['scitalk_feedback'])) {
-         $form['#attached']['library'][] = 'scitalk/scitalk_profile_js';
+
+      //need to pass the referer page to the feedback form:
+      $request = \Drupal::request();
+      $referer = $request->headers->get('referer');
+
+      // Getting the base url.
+      $base_url = Request::createFromGlobals()->getSchemeAndHttpHost();
+      // Getting the alias or the relative path.
+      $referer_alias = substr($referer, strlen($base_url));
+      
+      $form['#attached']['library'][] = 'scitalk/scitalk_profile_js';
+      $form['#attached']['drupalSettings']['scitalk']['scitalk_profile_js']['feedback_referer'] = $referer_alias;
     }
   }
+  
 }
-
