@@ -71,7 +71,7 @@ xmlrpc.php
 /modules
 /scripts
 /themes
-
+/drush
 
 #in addition to the above, ignore everything that is not "discrete changes to the custom modules, the custom theme, updates to the profile install dependencies and tweaks to composer.json."
 .csslintrc
