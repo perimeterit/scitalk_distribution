@@ -20,8 +20,6 @@ dependencies:
     - taxonomy
     - text
     - user
-_core:
-  default_config_hash: Xaj6f6gqrDx7v6hKYYVMsGaEHCurYiydrnP6P1oYVPI
 id: scitalk_latest_talks
 label: 'SciTalk: Latest talks'
 module: views
@@ -425,7 +423,12 @@ display:
           granularity: second
       title: 'Latest Talks'
       header: {  }
-      footer: {  }
+      footer:
+        area:
+          id: area
+          table: views
+          field: area
+          plugin_id: text
       empty: {  }
       relationships: {  }
       arguments: {  }
@@ -459,6 +462,7 @@ display:
         use_ajax: false
         style: false
         row: false
+        pager: false
       path: catchup
       exposed_form:
         type: basic
@@ -517,6 +521,8 @@ display:
             description: ''
             use_operator: false
             operator: field_talk_date_value_op
+            operator_limit_selection: false
+            operator_list: {  }
             identifier: field_talk_date_value
             required: false
             remember: false
@@ -530,8 +536,6 @@ display:
             placeholder: ''
             min_placeholder: ''
             max_placeholder: ''
-            operator_limit_selection: false
-            operator_list: {  }
           is_grouped: true
           group_info:
             label: Since
@@ -566,6 +570,14 @@ display:
                 value:
                   type: offset
                   value: '-1 month'
+                  min: ''
+                  max: ''
+              4:
+                title: 'All time'
+                operator: '>='
+                value:
+                  type: offset
+                  value: '-30 years'
                   min: ''
                   max: ''
           plugin_id: datetime
@@ -696,12 +708,34 @@ display:
           relationship: none
           view_mode: teaser
       exposed_block: true
+      pager:
+        type: full
+        options:
+          items_per_page: 10
+          offset: 0
+          id: 0
+          total_pages: null
+          tags:
+            previous: '‹ Previous'
+            next: 'Next ›'
+            first: '« First'
+            last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
+        - url.query_args
         - user
         - 'user.node_grants:view'
         - user.permissions
@@ -719,6 +753,28 @@ display:
       display_extenders: {  }
       path: latest-talks
       display_description: ''
+      use_more: false
+      defaults:
+        use_more: false
+        use_more_always: false
+        use_more_text: false
+        footer: false
+      use_more_always: false
+      use_more_text: 'More talks'
+      footer:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content:
+            value: "<div class=\"more-link\">\r\n  <a href=\"/catchup\">More talks</a>\r\n</div>"
+            format: full_html
+          plugin_id: text
     cache_metadata:
       max-age: -1
       contexts:

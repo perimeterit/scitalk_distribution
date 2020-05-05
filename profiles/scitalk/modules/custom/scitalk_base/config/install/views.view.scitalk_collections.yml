@@ -10,8 +10,6 @@ dependencies:
     - datetime
     - taxonomy
     - user
-_core:
-  default_config_hash: sk4mpK85gZkuUbljSJ73Xt1kA2DE-V49oYnZ5JQyfzQ
 id: scitalk_collections
 label: 'SciTalk: Collections'
 module: views
@@ -152,10 +150,10 @@ display:
             operator_limit_selection: false
             operator_list: {  }
       sorts:
-        field_collection_end_date_value:
-          id: field_collection_end_date_value
-          table: taxonomy_term__field_collection_end_date
-          field: field_collection_end_date_value
+        field_collection_date_end_value:
+          id: field_collection_date_end_value
+          table: taxonomy_term__field_collection_date
+          field: field_collection_date_end_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -166,7 +164,12 @@ display:
           granularity: second
           plugin_id: datetime
       title: Collections
-      header: {  }
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          plugin_id: text
       footer: {  }
       empty: {  }
       relationships: {  }
@@ -199,9 +202,10 @@ display:
         use_more_text: false
         style: false
         row: false
-      use_more: false
+        header: false
+      use_more: true
       use_more_always: true
-      use_more_text: more
+      use_more_text: 'More Collections'
       style:
         type: html_list
         options:
@@ -216,6 +220,20 @@ display:
         options:
           relationship: none
           view_mode: card
+      header:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: false
+          content:
+            value: '<h2><a href="/collections">Collections</a></h2>'
+            format: basic_html
+          plugin_id: text
     cache_metadata:
       max-age: -1
       contexts:
@@ -247,11 +265,13 @@ display:
       defaults:
         style: false
         row: false
+        header: false
       row:
         type: 'entity:taxonomy_term'
         options:
           relationship: none
           view_mode: teaser
+      header: {  }
     cache_metadata:
       max-age: -1
       contexts:

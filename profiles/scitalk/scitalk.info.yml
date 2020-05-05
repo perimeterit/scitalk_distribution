@@ -76,6 +76,7 @@ install:
   - recaptcha
   - id_link_formatter
   - layout_builder
+  - date_all_day
   - scitalk_base
   - scitalk_media
   - scitalk_video

@@ -1,19 +1,16 @@
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - scitalk_base
   module:
-    - datetime
+    - datetime_range
     - taxonomy
-id: taxonomy_term.field_collection_end_date
-field_name: field_collection_end_date
+id: taxonomy_term.field_collection_date
+field_name: field_collection_date
 entity_type: taxonomy_term
-type: datetime
+type: daterange
 settings:
   datetime_type: datetime
-module: datetime
+module: datetime_range
 locked: false
 cardinality: 1
 translatable: true

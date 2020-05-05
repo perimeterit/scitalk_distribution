@@ -2,17 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.taxonomy_term.collection.field_collection_end_date
+    - field.field.taxonomy_term.collection.field_collection_date
     - field.field.taxonomy_term.collection.field_collection_event_url
     - field.field.taxonomy_term.collection.field_collection_number
     - field.field.taxonomy_term.collection.field_collection_organizers
     - field.field.taxonomy_term.collection.field_collection_public_viewable
     - field.field.taxonomy_term.collection.field_collection_short_desc
-    - field.field.taxonomy_term.collection.field_collection_start_date
     - field.field.taxonomy_term.collection.field_collection_type
     - taxonomy.vocabulary.collection
   module:
-    - datetime
+    - date_all_day
     - link
     - path
     - text
@@ -29,14 +28,14 @@ content:
       placeholder: ''
       rows: 5
     third_party_settings: {  }
-  field_collection_end_date:
-    weight: 8
+  field_collection_date:
+    weight: 4
     settings: {  }
     third_party_settings: {  }
-    type: datetime_default
+    type: daterange_all_day
     region: content
   field_collection_event_url:
-    weight: 12
+    weight: 10
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -44,7 +43,7 @@ content:
     type: link_default
     region: content
   field_collection_number:
-    weight: 9
+    weight: 7
     settings:
       size: 60
       placeholder: ''
@@ -52,47 +51,43 @@ content:
     type: string_textfield
     region: content
   field_collection_organizers:
-    weight: 14
+    region: content
+    weight: 12
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
   field_collection_public_viewable:
-    weight: 13
+    weight: 11
     settings:
       display_label: true
     third_party_settings: {  }
     type: boolean_checkbox
     region: content
   field_collection_short_desc:
-    weight: 10
+    weight: 8
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: text_textfield
     region: content
-  field_collection_start_date:
-    weight: 7
-    settings: {  }
-    third_party_settings: {  }
-    type: datetime_default
-    region: content
   field_collection_type:
-    weight: 11
+    weight: 9
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
   langcode:
     type: language_select
-    weight: 5
+    weight: 2
     region: content
     settings:
       include_locked: true
@@ -107,8 +102,15 @@ content:
     third_party_settings: {  }
   path:
     type: path
-    weight: 6
+    weight: 3
     region: content
     settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 13
+    region: content
     third_party_settings: {  }
 hidden: {  }

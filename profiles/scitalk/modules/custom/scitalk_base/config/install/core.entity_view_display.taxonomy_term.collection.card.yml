@@ -3,17 +3,14 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.taxonomy_term.card
-    - field.field.taxonomy_term.collection.field_collection_end_date
+    - field.field.taxonomy_term.collection.field_collection_date
     - field.field.taxonomy_term.collection.field_collection_event_url
     - field.field.taxonomy_term.collection.field_collection_number
     - field.field.taxonomy_term.collection.field_collection_organizers
     - field.field.taxonomy_term.collection.field_collection_public_viewable
     - field.field.taxonomy_term.collection.field_collection_short_desc
-    - field.field.taxonomy_term.collection.field_collection_start_date
     - field.field.taxonomy_term.collection.field_collection_type
     - taxonomy.vocabulary.collection
-_core:
-  default_config_hash: p_5899UcFss4xwL7lFaQFw5iivGgs1rboCDJv27NdJ4
 id: taxonomy_term.collection.card
 targetEntityType: taxonomy_term
 bundle: collection
@@ -21,13 +18,12 @@ mode: card
 content: {  }
 hidden:
   description: true
-  field_collection_end_date: true
+  field_collection_date: true
   field_collection_event_url: true
   field_collection_number: true
   field_collection_organizers: true
   field_collection_public_viewable: true
   field_collection_short_desc: true
-  field_collection_start_date: true
   field_collection_type: true
   langcode: true
   search_api_excerpt: true

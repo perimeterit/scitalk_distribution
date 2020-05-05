@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.mini_teaser
+    - core.entity_view_mode.node.teaser
     - field.storage.node.field_sp_display_name
     - field.storage.node.field_talk_abstract
     - field.storage.node.field_talk_date
@@ -14,8 +15,6 @@ dependencies:
     - node
     - text
     - user
-_core:
-  default_config_hash: EXnl1fJooSUqrXHNmw0YZlzOA-bLEtqHw3DTYrlLpek
 id: scitalk_talks_in_collection
 label: 'SciTalk: Talks in collection'
 module: views
@@ -562,6 +561,8 @@ display:
       defaults:
         title: false
         arguments: false
+        style: false
+        row: false
       display_description: ''
       arguments:
         field_talk_speaker_profile_target_id:
@@ -598,6 +599,14 @@ display:
           break_phrase: false
           not: false
           plugin_id: numeric
+      style:
+        type: default
+        options: {  }
+      row:
+        type: 'entity:node'
+        options:
+          relationship: none
+          view_mode: teaser
     cache_metadata:
       max-age: -1
       contexts:
