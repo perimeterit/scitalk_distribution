@@ -1,7 +1,7 @@
 {
     "name": "perimeterit/scitalk",
     "description": "Video talks base project from Perimeter Institute",
-    "type": "project",
+    "type": "drupal-custom-profile",
     "license": "GPL-2.0-or-later",
     "authors": [
         {
