@@ -1,6 +1,6 @@
 {
-    "name": "drupal-composer/drupal-project",
-    "description": "Project template for Drupal 8 projects with composer",
+    "name": "perimeterit/scitalk",
+    "description": "Video talks base project from Perimeter Institute",
     "type": "project",
     "license": "GPL-2.0-or-later",
     "authors": [
