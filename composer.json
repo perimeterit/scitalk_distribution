@@ -92,7 +92,7 @@
         "enable-patching": true,
         "patches": {
                 "drupal/core": {
-                        "fix aliased fields contraints validation issues when using JSON API Extras": "patches/fix-aliased-fields-constraint-validations-3059720-9.patch",
+                        "fix aliased fields contraints validation issues when using JSON API Extras": "./patches/fix-aliased-fields-constraint-validations-3059720-9.patch",
                         "fix for jsonapi": "https://www.drupal.org/files/issues/2019-12-03/2996114-99.patch"
                 }
         }
