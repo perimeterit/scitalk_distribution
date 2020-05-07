@@ -1,0 +1,16 @@
+diff --git a/core/modules/jsonapi/src/Controller/EntityResource.php b/core/modules/jsonapi/src/Controller/EntityResource.php
+index 5c43d3e..d544116 100644
+--- a/core/modules/jsonapi/src/Controller/EntityResource.php
++++ b/core/modules/jsonapi/src/Controller/EntityResource.php
+@@ -322,6 +322,11 @@ public function patchIndividual(ResourceType $resource_type, EntityInterface $en
+       return $destination;
+     }, $entity);
+ 
++    // Use internal field names in case aliases where sent in the $request parameter.
++    $field_names = array_map( function($field_name) use ($resource_type) { 
++      return $resource_type->getInternalName($field_name); 
++    }, $field_names);
++
+     static::validate($entity, $field_names);
+ 
+     // Set revision data details for revisionable entities.

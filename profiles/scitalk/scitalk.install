@@ -8,13 +8,39 @@ use Drupal\menu_link_content\Entity\MenuLinkContent;
  *  SciTalk site installation code.
  */
 
+/*
 function scitalk_install() {
-
   _create_about_page();
   _create_help_page();
   _create_terms_of_use_page();
   _create_accessibility_page();
+}
+ */
 
+/**
+ * Implements hook_install_tasks().
+ */
+function scitalk_install_tasks(&$install_state) {
+  $tasks = [
+    'scitalk_create_default_pages' => [
+      'display_name' => t('Create SciTalk default pages'),
+      'type' => 'normal',
+    ]
+  ];
+
+  return $tasks;
+}
+
+/**
+ * Callback function to install default profile content.
+ *
+ * @see scitalk_install_tasks()
+ */
+function scitalk_create_default_pages() {
+  _create_about_page();
+  _create_help_page();
+  _create_terms_of_use_page();
+  _create_accessibility_page();
 }
 
 function _create_about_page() {

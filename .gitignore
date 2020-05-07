@@ -5,13 +5,23 @@
 /modules/contrib/
 /themes/contrib/
 /profiles/contrib/
+/sites/default/files
+/libraries
+
 # -- removing libraries from gitignore.  How else for us to put jw in here as it's a private DL?
 # /web/libraries/
 
+/sites/default/default.services.yml
+/sites/default/default.settings.php
+/sites/development.services.yml
+
 # Ignore sensitive information
-#/web/sites/*/settings.php
-sites/*/*settings*.php
-sites/example.sites.php
+#sites/*/*settings*.php
+/sites/example.sites.php
+/sites/*/settings.local.php
+/sites/example.sites.php
+/sites/example.settings.local.php
+/config/sync/.htaccess
 
 # Ignore Drupal's file directory
 /sites/*/files/
@@ -84,4 +94,4 @@ xmlrpc.php
 autoload.php
 composer.lock
 console/
-sites/
+#sites/
