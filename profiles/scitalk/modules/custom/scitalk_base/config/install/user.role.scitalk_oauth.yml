@@ -1,0 +1,41 @@
+langcode: en
+status: true
+dependencies: {  }
+id: scitalk_oauth
+label: 'SciTalk JSON Admin user oAuth'
+weight: 3
+is_admin: null
+permissions:
+  - 'administer nodes'
+  - 'create speaker_profile content'
+  - 'create talk content'
+  - 'create terms in collection'
+  - 'create terms in collection_type'
+  - 'create terms in scientific_area'
+  - 'create terms in series'
+  - 'create terms in tags'
+  - 'create terms in talk_keywords'
+  - 'create terms in talk_type'
+  - 'delete any speaker_profile content'
+  - 'delete any talk content'
+  - 'delete own speaker_profile content'
+  - 'delete own talk content'
+  - 'delete terms in collection'
+  - 'delete terms in collection_type'
+  - 'delete terms in scientific_area'
+  - 'delete terms in series'
+  - 'delete terms in tags'
+  - 'delete terms in talk_keywords'
+  - 'delete terms in talk_type'
+  - 'edit any speaker_profile content'
+  - 'edit any talk content'
+  - 'edit own speaker_profile content'
+  - 'edit own talk content'
+  - 'edit terms in collection'
+  - 'edit terms in collection_type'
+  - 'edit terms in scientific_area'
+  - 'edit terms in series'
+  - 'edit terms in tags'
+  - 'edit terms in talk_keywords'
+  - 'edit terms in talk_type'
+
