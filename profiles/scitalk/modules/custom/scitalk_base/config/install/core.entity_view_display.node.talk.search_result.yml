@@ -16,9 +16,11 @@ dependencies:
     - field.field.node.talk.field_talk_series
     - field.field.node.talk.field_talk_source_event
     - field.field.node.talk.field_talk_speaker_profile
+    - field.field.node.talk.field_talk_speakers_text
     - field.field.node.talk.field_talk_thumbnail
     - field.field.node.talk.field_talk_type
     - field.field.node.talk.field_talk_video
+    - field.field.node.talk.field_talk_video_url
     - field.field.node.talk.field_talk_viewable_online
     - node.type.talk
   enforced:
@@ -79,8 +81,6 @@ third_party_settings:
   layout_builder:
     allow_custom: false
     enabled: false
-_core:
-  default_config_hash: QMGRl_AscJqwrvQQ0iVrIHCOGitTjkbkeclhGccx4io
 id: node.talk.search_result
 targetEntityType: node
 bundle: talk
@@ -119,9 +119,11 @@ hidden:
   field_talk_series: true
   field_talk_source_event: true
   field_talk_speaker_profile: true
+  field_talk_speakers_text: true
   field_talk_thumbnail: true
   field_talk_type: true
   field_talk_video: true
+  field_talk_video_url: true
   field_talk_viewable_online: true
   langcode: true
   links: true

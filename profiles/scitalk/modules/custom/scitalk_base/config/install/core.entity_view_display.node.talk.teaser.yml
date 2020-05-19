@@ -16,86 +16,44 @@ dependencies:
     - field.field.node.talk.field_talk_series
     - field.field.node.talk.field_talk_source_event
     - field.field.node.talk.field_talk_speaker_profile
+    - field.field.node.talk.field_talk_speakers_text
     - field.field.node.talk.field_talk_thumbnail
     - field.field.node.talk.field_talk_type
     - field.field.node.talk.field_talk_video
+    - field.field.node.talk.field_talk_video_url
     - field.field.node.talk.field_talk_viewable_online
     - node.type.talk
   module:
-    - datetime
-    - fences
-    - scitalk_media
-    - text
     - user
-_core:
-  default_config_hash: Wh6nQYAtzDTJQVmZGZF2awWmbGhLUik52PNtqnSpHG0
 id: node.talk.teaser
 targetEntityType: node
 bundle: talk
 mode: teaser
 content:
-  field_talk_abstract:
-    type: text_trimmed
-    weight: 2
+  links:
+    weight: 100
     region: content
-    label: inline
-    settings:
-      trim_length: 600
-    third_party_settings:
-      fences:
-        fences_field_tag: div
-        fences_field_classes: ''
-        fences_field_item_tag: none
-        fences_field_item_classes: ''
-        fences_label_tag: strong
-        fences_label_classes: ''
-  field_talk_date:
-    type: datetime_default
-    weight: 3
-    region: content
-    label: hidden
-    settings:
-      format_type: medium
-      timezone_override: ''
+    settings: {  }
     third_party_settings: {  }
-  field_talk_speaker_profile:
-    type: entity_reference_label
-    weight: 1
-    region: content
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-  field_talk_thumbnail:
-    type: scitalk_thumbnail_formatter
-    weight: 0
-    region: content
-    label: hidden
-    settings:
-      which_thumb: media
-      which_style: scitalk_preview_large
-    third_party_settings:
-      fences:
-        fences_field_tag: figure
-        fences_field_classes: ''
-        fences_field_item_tag: none
-        fences_field_item_classes: ''
-        fences_label_tag: div
-        fences_label_classes: ''
 hidden:
   field_combination_example: true
   field_scientific_area: true
+  field_talk_abstract: true
   field_talk_attachments: true
   field_talk_collection: true
+  field_talk_date: true
   field_talk_doi: true
   field_talk_keywords: true
   field_talk_location: true
   field_talk_number: true
   field_talk_series: true
   field_talk_source_event: true
+  field_talk_speaker_profile: true
+  field_talk_speakers_text: true
+  field_talk_thumbnail: true
   field_talk_type: true
   field_talk_video: true
+  field_talk_video_url: true
   field_talk_viewable_online: true
   langcode: true
-  links: true
   search_api_excerpt: true

@@ -16,9 +16,11 @@ dependencies:
     - field.field.node.talk.field_talk_series
     - field.field.node.talk.field_talk_source_event
     - field.field.node.talk.field_talk_speaker_profile
+    - field.field.node.talk.field_talk_speakers_text
     - field.field.node.talk.field_talk_thumbnail
     - field.field.node.talk.field_talk_type
     - field.field.node.talk.field_talk_video
+    - field.field.node.talk.field_talk_video_url
     - field.field.node.talk.field_talk_viewable_online
     - node.type.talk
   enforced:
@@ -74,8 +76,6 @@ third_party_settings:
         classes: ''
       label: Details
       region: hidden
-_core:
-  default_config_hash: tMdvN1Xmlj4M9n0eLY1fO2VkvWeaDvDzwVIqJjyAB20
 id: node.talk.card
 targetEntityType: node
 bundle: talk
@@ -126,8 +126,10 @@ hidden:
   field_talk_number: true
   field_talk_series: true
   field_talk_source_event: true
+  field_talk_speakers_text: true
   field_talk_type: true
   field_talk_video: true
+  field_talk_video_url: true
   field_talk_viewable_online: true
   langcode: true
   links: true

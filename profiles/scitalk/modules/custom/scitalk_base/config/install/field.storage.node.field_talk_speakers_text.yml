@@ -6,11 +6,13 @@ dependencies:
       - scitalk_base
   module:
     - node
-id: node.field_talk_speaker_string
-field_name: field_talk_speaker_string
+id: node.field_talk_speakers_text
+field_name: field_talk_speakers_text
 entity_type: node
-type: string_long
+type: string
 settings:
+  max_length: 5000
+  is_ascii: false
   case_sensitive: false
 module: core
 locked: false

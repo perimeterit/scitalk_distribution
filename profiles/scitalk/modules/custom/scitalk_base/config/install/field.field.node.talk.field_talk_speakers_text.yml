@@ -2,10 +2,10 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_talk_speaker_string
+    - field.storage.node.field_talk_speakers_text
     - node.type.talk
-id: node.talk.field_talk_speaker_string
-field_name: field_talk_speaker_string
+id: node.talk.field_talk_speakers_text
+field_name: field_talk_speakers_text
 entity_type: node
 bundle: talk
 label: Speaker(s)
@@ -15,5 +15,4 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
-field_type: string_long
-
+field_type: string
