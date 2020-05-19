@@ -44,6 +44,7 @@
         "drupal/simple_oauth": "^4.3",
         "drupal/starbase": "1.x-dev",
         "drush/drush": "^9.3",
+        "symfony/event-dispatcher": "4.3.11 as 3.4.35",
         "vlucas/phpdotenv": "^2.4",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3"
