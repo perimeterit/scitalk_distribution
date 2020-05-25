@@ -4,6 +4,7 @@
 :root {
   --color--primary: #0f75bc;
   --gutter--standard: 2em;
+  --max-width: 1200px;
 }
 
 @media all and (min-width: 60em) {
@@ -11,6 +12,3 @@
     --gutter--standard: 3em;
   }
 }
-/**
- * Basic element/font definitions
- */

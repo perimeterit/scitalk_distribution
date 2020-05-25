@@ -18,13 +18,13 @@
 .page-taxonomy .block-page-title-block h1 + * {
   margin-top: 1em;
 }
+
 /**
  * Card view mode + card grid display
 */
 .view-scitalk-collections .card-grid li {
   min-height: 15em;
 }
-
 .taxonomy-term.card {
   background: var(--color-secondary);
   padding: 1em;
@@ -51,6 +51,12 @@
   text-decoration: none;
 }
 
-/**
- * Teaser view mode
+/*
+ * Full page
 */
+.taxonomy-term.full {
+  margin-bottom: var(--vertical-padding);
+}
+.taxonomy-term .field--name-description p {
+  display: inline;
+}

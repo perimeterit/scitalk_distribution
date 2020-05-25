@@ -5,7 +5,8 @@
 .button,
 button,
 input[type='submit'],
-.form-submit {
+.form-submit,
+.more-link a {
   background: var(--color-primary);
   color: var(--color-primary--foreground);
 
@@ -20,10 +21,12 @@ input[type='submit'],
 button:hover,
 input[type='submit']:hover,
 .form-submit:hover,
+.more-link a:hover,
 .button:focus,
 button:focus,
 input[type='submit']:focus,
-.form-submit:focus {
+.form-submit:focus,
+.more-link a:focus {
   background: var(--color-secondary);
   color: var(--color-secondary--foreground);
 }

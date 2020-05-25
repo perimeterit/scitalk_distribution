@@ -20,6 +20,15 @@ h3 { font-size: 1.424em; }
 h1, h2, h3 {
   margin: calc(0.4em + 0.7vw) 0;
 }
+.view-header h2 a {
+  color: var(--color-primary);
+  text-decoration: none;
+}
+.view-header h2 a:hover,
+.view-header h2 a:focus {
+  color: var(--color-secondary);
+  text-decoration: underline;
+}
 /*
  * Grid layout classes
 */
@@ -42,14 +51,30 @@ h1, h2, h3 {
 }
 
 /*
- * Inline form labels
+ * Add some margin on more links
 */
+.more-link {
+  margin-top: var(--gutter--standard);
+}
 
-.field--label-inline strong:after {
+/*
+ * Inline fields
+*/
+.field--label-inline strong:after,
+.node.talk.full .field > strong:after {
   content: ':';
   display: inline;
   margin-right: .2em;
 }
+.field.inline-list li:after {
+  content: ',';
+  display: inline-block;
+  margin: 0 0.1em 0 -.1em;
+}
+.field.inline-list li:last-child:after {
+  display: none;
+}
+
 /*
  * Select forms
  */

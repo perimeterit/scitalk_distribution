@@ -1,10 +1,12 @@
 /**
  * Component CSS for speakers
 */
-
+.page-speaker-profile .page-header-content {
+  margin-top: 0;
+}
 .node.speaker-profile.page-header .field--name-field-sp-institution-name {
   margin: 0;
-  font-size: 1.15em;
+  font-size: 1.05em;
 }
 
 /**
@@ -12,11 +14,12 @@
 */
 
 .node.speaker-profile.full {
-  display: flex;
-  margin-bottom:calc(2 * var(--vertical-padding));
+  margin-bottom: calc(2 * var(--vertical-padding));
+  overflow: auto;
 }
-
 .node.speaker-profile.full .field--name-field-sp-profile-thumbnail {
-  flex: 1 0 auto;
+  float: left;
   margin-right: var(--gutter--standard);
+  width: 250px;
+  max-width: 40%;
 }

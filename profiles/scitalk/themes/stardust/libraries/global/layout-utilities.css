@@ -10,13 +10,13 @@
 :root {
   --gutter--standard: calc(1em + .2vw);
   --gutter--big: calc(1.2em + .2vw);
-  --max-width: 80em;
+  --max-width: 1200px;
   --responsive-padding: 0;
   --vertical-padding: 2em;
 }
 
 /* Unfortunately can't use variables in a media query */
-@media all and (max-width: calc(80em + .4vw)) {
+@media all and (max-width: 1200px) {
   :root {
     --responsive-padding: calc(1em + .2vw);
     --vertical-padding: calc(1em + .2vw);

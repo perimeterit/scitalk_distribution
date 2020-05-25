@@ -5,6 +5,10 @@
 .region-middle-highlight h2 {
   margin: 0;
 }
+
+.block-views-exposed-filter-block--scitalk-latest-talks-scitalk-catch-up form {
+  margin-bottom: 2em;
+}
 @media all and (min-width: 35em) {
   .block-views-exposed-filter-block--scitalk-latest-talks-scitalk-catch-up form {
     display: flex;

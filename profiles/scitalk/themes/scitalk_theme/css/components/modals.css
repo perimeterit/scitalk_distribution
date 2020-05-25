@@ -23,14 +23,15 @@ dialog {
   z-index: 667;
 
   background: #fff;
-  padding: calc(1.5 * var(--gutter--big));
   box-shadow: 2px 2px 6px rgba(42,42,42,0.2);
+  padding: var(--gutter--big);
 }
 .modal {
   position: fixed;
-  left: 25%;
   right: auto;
+  left: 3vw;
   top: 15%;
+  max-width: calc(100% - 6vw):
 }
 .image-modal {
   position: absolute;
@@ -38,8 +39,13 @@ dialog {
   left: 5%;
   top: 5%;
 }
-@media all and (min-width: 60em) {
+@media all and (min-width: 960px) {
+  .modal,
+  .image-modal {
+    padding: calc(1.5 * var(--gutter--big));
+  }
   .modal {
+    left: 25%;
     max-width: 60%;
   }
 }

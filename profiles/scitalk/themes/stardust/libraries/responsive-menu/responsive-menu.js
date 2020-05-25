@@ -11,7 +11,6 @@
      if (context == document) {
        // Get all the blocks in the header region, except the branding block
        header_blocks = $('.region-header .block:not(".block-system-branding-block")');
-       console.log(header_blocks);
      }
 
      // Build the menu if the browser with is smaller than the breakpoint

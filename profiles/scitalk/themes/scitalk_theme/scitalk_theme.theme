@@ -60,11 +60,14 @@ function scitalk_theme_preprocess_page(&$variables) {
   // For taxonomy terms
   else if ($routename = 'entity.taxonomy_term.canonical') {
     $term_id = $route->getRawParameter('taxonomy_term');
-    $term = Term::load($term_id);
+    if ($term_id != NULL) {
+      $term = Term::load($term_id);
+    }
 
     // This is doing that thing where it gets all the fields from the default view mode not the view mode requested.
     if (isset($term) && ($term->bundle() == 'collection')) {
-      $variables['page_header_view'] = render(\Drupal::entityTypeManager()->getViewBuilder('taxonomy_term')->view($term, 'page_header'));
+      $view = \Drupal::entityTypeManager()->getViewBuilder('taxonomy_term')->view($term, 'page_header');
+      $variables['page_header_view'] = render($view);
     }
   }
 }
@@ -125,4 +128,19 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     $form['search_api_fulltext']['#attributes']['placeholder'] = t('Search');
     $form['search_api_fulltext']['#size'] = 20;
   }
+
+  if ($form['#id'] == 'views-exposed-form-scitalk-latest-talks-scitalk-catch-up') {
+    foreach ($form['field_scientific_area_target_id']['#options'] as $key => &$option) {
+			if ($key == 'All') {
+				$option = t('All');
+      }
+    }
+    foreach ($form['field_talk_type_target_id']['#options'] as $key => &$option) {
+			if ($key == 'All') {
+				$option = t('All');
+      }
+    }
+  }
+
+
 }

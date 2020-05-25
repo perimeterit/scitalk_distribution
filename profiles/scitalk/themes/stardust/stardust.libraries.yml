@@ -18,16 +18,10 @@ global:
     theme:
       libraries/global/theme/colour.css: {}
       libraries/global/theme/font.css: {}
-# Layout is for sitewide layout header/footer etc.
 layout:
   css:
     layout:
       libraries/layout/layout.css: {}
-# Layouts (plural) if for layout builder
-layout-builder:
-  css:
-    layouts:
-      layouts/layouts.css: {}
 responsive-menu:
   css:
     component:
@@ -59,6 +53,3 @@ sticky-header:
       libraries/sticky-header/sticky-header.css: {}
   js:
     libraries/sticky-header/sticky-header.js: {}
-  dependencies:
-    - core/drupal
-    - core/jquery

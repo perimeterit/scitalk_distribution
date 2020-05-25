@@ -2,6 +2,7 @@
 .pager {
   font-size: 1.1em;
   margin: 2em 0;
+  padding: 0;
   text-align: center;
 }
 .pager li {
