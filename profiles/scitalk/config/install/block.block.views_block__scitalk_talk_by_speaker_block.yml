@@ -1,4 +1,3 @@
-uuid: 5f34b509-23dc-429d-b46d-11d390efb84f
 langcode: en
 status: true
 dependencies:
@@ -9,10 +8,12 @@ dependencies:
     - views
   theme:
     - scitalk_theme
+_core:
+  default_config_hash: M1KUOLG9Jk6JglUKUM17luiNFR3kCP6K8lN5EOn96aQ
 id: views_block__scitalk_talk_by_speaker_block
 theme: scitalk_theme
 region: content
-weight: 0
+weight: -6
 provider: null
 plugin: 'views_block:scitalk_talks_in_collection-scitalk_talk_by_speaker_block'
 settings:
