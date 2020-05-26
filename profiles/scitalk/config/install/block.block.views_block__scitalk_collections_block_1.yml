@@ -1,4 +1,3 @@
-uuid: d01708ea-6729-4f5c-9954-102c84cb0c88
 langcode: en
 status: true
 dependencies:
@@ -12,14 +11,14 @@ dependencies:
 id: views_block__scitalk_collections_block_1
 theme: scitalk_theme
 region: content_bottom
-weight: 0
+weight: -8
 provider: null
 plugin: 'views_block:scitalk_collections-block_1'
 settings:
   id: 'views_block:scitalk_collections-block_1'
   label: ''
   provider: views
-  label_display: visible
+  label_display: '0'
   views_label: ''
   items_per_page: none
 visibility:

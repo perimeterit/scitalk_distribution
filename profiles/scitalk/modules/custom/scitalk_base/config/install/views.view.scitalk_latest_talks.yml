@@ -20,6 +20,8 @@ dependencies:
     - taxonomy
     - text
     - user
+_core:
+  default_config_hash: Xaj6f6gqrDx7v6hKYYVMsGaEHCurYiydrnP6P1oYVPI
 id: scitalk_latest_talks
 label: 'SciTalk: Latest talks'
 module: views

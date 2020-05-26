@@ -15,11 +15,9 @@ dependencies:
     - field.field.node.talk.field_talk_series
     - field.field.node.talk.field_talk_source_event
     - field.field.node.talk.field_talk_speaker_profile
-    - field.field.node.talk.field_talk_speakers_text
     - field.field.node.talk.field_talk_thumbnail
     - field.field.node.talk.field_talk_type
     - field.field.node.talk.field_talk_video
-    - field.field.node.talk.field_talk_video_url
     - field.field.node.talk.field_talk_viewable_online
     - node.type.talk
   enforced:
@@ -28,6 +26,7 @@ dependencies:
   module:
     - fences
     - field_group
+    - id_link_formatter
     - link
     - scitalk_media
     - text
@@ -38,7 +37,7 @@ third_party_settings:
       children:
         - field_talk_attachments
       parent_name: ''
-      weight: 2
+      weight: 3
       format_type: html_element
       format_settings:
         element: div
@@ -54,15 +53,16 @@ third_party_settings:
       region: content
     group_talk_details:
       children:
+        - field_talk_number
         - field_talk_speaker_profile
-        - field_talk_location
         - field_talk_source_event
         - field_talk_series
-        - field_talk_number
-        - field_talk_doi
         - field_talk_collection
+        - field_scientific_area
+        - field_talk_type
+        - field_talk_doi
       parent_name: ''
-      weight: 3
+      weight: 2
       format_type: html_element
       format_settings:
         element: div
@@ -76,6 +76,8 @@ third_party_settings:
         classes: ''
       label: Details
       region: content
+_core:
+  default_config_hash: tMdvN1Xmlj4M9n0eLY1fO2VkvWeaDvDzwVIqJjyAB20
 id: node.talk.default
 targetEntityType: node
 bundle: talk
@@ -89,6 +91,21 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
+  field_scientific_area:
+    type: entity_reference_label
+    weight: 27
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings:
+      fences:
+        fences_field_tag: ul
+        fences_field_classes: inline-list
+        fences_field_item_tag: li
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
   field_talk_abstract:
     weight: 1
     label: above
@@ -104,15 +121,23 @@ content:
     type: text_default
     region: content
   field_talk_attachments:
-    type: entity_reference_label
+    type: entity_reference_entity_view
     weight: 20
     region: content
-    label: above
+    label: hidden
     settings:
-      link: true
-    third_party_settings: {  }
+      view_mode: resource_link
+      link: false
+    third_party_settings:
+      fences:
+        fences_field_tag: ul
+        fences_field_classes: display-list
+        fences_field_item_tag: li
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
   field_talk_collection:
-    weight: 24
+    weight: 26
     label: inline
     settings:
       link: true
@@ -127,10 +152,10 @@ content:
     type: entity_reference_label
     region: content
   field_talk_doi:
-    weight: 23
+    weight: 29
     label: inline
     settings:
-      link_to_entity: false
+      id_base_url: 'https://doi.test.datacite.org/dois/'
     third_party_settings:
       fences:
         fences_field_tag: div
@@ -139,22 +164,7 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    type: string
-    region: content
-  field_talk_location:
-    weight: 19
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings:
-      fences:
-        fences_field_tag: div
-        fences_field_classes: ''
-        fences_field_item_tag: none
-        fences_field_item_classes: ''
-        fences_label_tag: strong
-        fences_label_classes: ''
-    type: string
+    type: id_url_formatter
     region: content
   field_talk_number:
     type: string
@@ -172,14 +182,14 @@ content:
         fences_label_tag: strong
         fences_label_classes: ''
   field_talk_series:
-    weight: 21
+    weight: 25
     label: inline
     settings:
       link: true
     third_party_settings:
       fences:
         fences_field_tag: ul
-        fences_field_classes: display-list
+        fences_field_classes: 'display-list inline-list'
         fences_field_item_tag: li
         fences_field_item_classes: ''
         fences_label_tag: strong
@@ -187,7 +197,7 @@ content:
     type: entity_reference_label
     region: content
   field_talk_source_event:
-    weight: 20
+    weight: 24
     label: inline
     settings:
       trim_length: 80
@@ -207,7 +217,7 @@ content:
     region: content
   field_talk_speaker_profile:
     type: entity_reference_label
-    weight: 18
+    weight: 23
     region: content
     label: inline
     settings:
@@ -220,14 +230,6 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-  field_talk_speakers_text:
-    weight: 25
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
   field_talk_thumbnail:
     type: scitalk_thumbnail_formatter
     weight: 5
@@ -237,14 +239,30 @@ content:
       which_thumb: field
       which_style: thumbnail
     third_party_settings: {  }
+  field_talk_type:
+    type: entity_reference_label
+    weight: 28
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings:
+      fences:
+        fences_field_tag: ul
+        fences_field_classes: inline-list
+        fences_field_item_tag: li
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
   field_talk_video:
-    type: entity_reference_entity_view
+    type: scitalk_embed
     weight: 0
     region: content
     label: hidden
     settings:
-      view_mode: full
-      link: false
+      uri_field: media.pirsa_interim_hd.field_media_scitalk_video
+      requirejw: '1'
+      jwplayer_preset: scitalk_preset
     third_party_settings:
       fences:
         fences_field_tag: div
@@ -253,23 +271,10 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
-  field_talk_video_url:
-    weight: 26
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
 hidden:
-  field_scientific_area: true
   field_talk_date: true
   field_talk_keywords: true
-  field_talk_type: true
+  field_talk_location: true
   field_talk_viewable_online: true
   langcode: true
   links: true

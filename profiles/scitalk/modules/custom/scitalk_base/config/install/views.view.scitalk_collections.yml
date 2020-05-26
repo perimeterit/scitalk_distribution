@@ -10,6 +10,8 @@ dependencies:
     - datetime
     - taxonomy
     - user
+_core:
+  default_config_hash: sk4mpK85gZkuUbljSJ73Xt1kA2DE-V49oYnZ5JQyfzQ
 id: scitalk_collections
 label: 'SciTalk: Collections'
 module: views
