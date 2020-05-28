@@ -103,3 +103,14 @@ select option {
   font-weight:normal;
 }
 
+/*
+ * Views exposed forms
+*/
+
+.views-exposed-form {
+  display: flex;
+  align-items: center;
+}
+.views-exposed-form .form-item {
+  margin-right: 1em;
+}
