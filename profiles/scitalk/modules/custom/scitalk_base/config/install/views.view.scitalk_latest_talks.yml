@@ -1563,6 +1563,123 @@ display:
           expose:
             operator_limit_selection: false
             operator_list: {  }
+        field_talk_date_value:
+          id: field_talk_date_value
+          table: node__field_talk_date
+          field: field_talk_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_talk_date_value_op
+            label: 'Date (field_talk_date)'
+            description: null
+            use_operator: false
+            operator: field_talk_date_value_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_talk_date_value
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            placeholder: null
+            min_placeholder: null
+            max_placeholder: null
+          is_grouped: true
+          group_info:
+            label: Date
+            description: ''
+            identifier: field_talk_date_value
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items:
+              1:
+                title: Weekly
+                operator: '>='
+                value:
+                  type: offset
+                  value: '-1 week'
+                  min: ''
+                  max: ''
+              2:
+                title: Bi-weekly
+                operator: '='
+                value:
+                  type: offset
+                  value: '-2 weeks'
+                  min: ''
+                  max: ''
+              3:
+                title: Monthly
+                operator: '='
+                value:
+                  type: offset
+                  value: '-1 month'
+                  min: ''
+                  max: ''
+          plugin_id: datetime
+        field_talk_type_target_id:
+          id: field_talk_type_target_id
+          table: node__field_talk_type
+          field: field_talk_type_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_talk_type_target_id_op
+            label: 'Talk Type'
+            description: ''
+            use_operator: false
+            operator: field_talk_type_target_id_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_talk_type_target_id
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              scitalk_oauth: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: talk_type
+          hierarchy: false
+          error_message: true
+          plugin_id: taxonomy_index_tid
       filter_groups:
         operator: AND
         groups:
@@ -1575,6 +1692,8 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - url
+        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
