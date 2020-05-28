@@ -1,5 +1,16 @@
 
 /**
+ * Responsive tables for Latest Talks table display
+*/
+(function ($) {
+  Drupal.behaviors.responsiveTable = {
+    attach: function (context, settings) {
+      $.responsiveTables('800px');
+    }
+  };
+})(jQuery);
+
+/**
  * Related talks
 */
 (function (Drupal) {
