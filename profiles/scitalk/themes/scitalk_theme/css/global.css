@@ -107,7 +107,7 @@ select option {
  * Views exposed forms
 */
 
-.views-exposed-form {
+form.views-exposed-form {
   display: flex;
   align-items: center;
 }
