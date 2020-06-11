@@ -16,6 +16,9 @@ function scitalk_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_s
     $entity = $formObject->getEntity();
     if ($entity->getEntityTypeId() === 'contact_message'  && in_array($entity->bundle(), ['scitalk_feedback'])) {
 
+      //disable the form cache for anonymous users and all others too
+      \Drupal::service('page_cache_kill_switch')->trigger();
+
       //need to pass the referer page to the feedback form:
       $request = \Drupal::request();
       $referer = $request->headers->get('referer');
