@@ -142,5 +142,41 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     }
   }
 
+  //luis: for advanced search section
+  if ($form['#id'] == 'views-exposed-form-scitalk-default-advanced-search-advanced-search')  {
+    $form['keys']['#title_display'] = 'invisible';
+    $form['keys']['#attributes']['placeholder'] = t('Search');
+    $form['keys']['#size'] = 20;
+  
+    $form['search']['#prefix'] = '<div class="search-wrap"> <div class="content-search-wrap">';
+    $form['field_talk_type']['#suffix'] = '</div>';
+    
+    $form['field_talk_date']['#prefix'] = '<div class="date-search-wrap">';
+    $form['field_talk_date_1']['#suffix'] = '</div>';
 
+    $form['field_talk_date_2']['#prefix'] = '<div class="catch-up-wrap">';
+    $form['field_talk_date_2']['#suffix'] = '</div>';
+
+    $form['actions']['#suffix'] = '</div>';
+
+    foreach ($form['field_scientific_area']['#options'] as $key => &$option) {
+      if ($key == 'All') {
+        $option = t('All Areas');
+        break;
+      }
+    }
+    foreach ($form['field_talk_type']['#options'] as $key => &$option) {
+      if ($key == 'All') {
+        $option = t('All Types');
+         break;
+      }
+    }
+    foreach ($form['field_talk_date_2']['#options'] as $key => &$option) {
+      if ($key == 'All') {
+        $option = t('Since');
+         break;
+      }
+    }
+    
+  }
 }

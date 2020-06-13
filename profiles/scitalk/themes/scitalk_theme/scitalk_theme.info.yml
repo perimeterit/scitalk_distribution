@@ -26,6 +26,7 @@ libraries-override:
 regions:
   header: 'Header'
   admin: 'Admin tools'
+  advanced_search: 'Advanced Search'
   page_title: 'Page Title'
   page_header: 'Page Header'
   content: 'Content'

@@ -29,3 +29,21 @@
     }
   };
 })(Drupal);
+
+/**
+ * Advanced search
+*/
+(function ($) {
+  Drupal.behaviors.toggleAdvanced = {
+    attach: function (context, settings) {
+      const adv_btn = '<span class="toggle-advanced_wrapper"><a class="toggle-advanced" href="#" title="Toggle Advanced Search">Advanced</a></span>';
+      $('.advanced-search-wrapper #edit-submit-default-search-content', context).parent().append(adv_btn);
+      
+      $('.toggle-advanced', context).click( function(e){
+        e.preventDefault(); 
+        $('.block-views-exposed-filter-block--scitalk-default-advanced-search-advanced-search').toggle();
+      });
+
+    }
+  };
+})(jQuery);

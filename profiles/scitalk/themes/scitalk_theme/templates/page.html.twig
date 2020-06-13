@@ -46,6 +46,14 @@
   {{ page.header }}
 </header>
 
+<section class="advanced-search-wrapper">
+  {% if page.advanced_search %}
+    <div class="advanced-search fixwidth">
+    {{ page.advanced_search}}
+    </div>
+  {% endif %}
+ </section>
+
 <section class="page-header-wrapper">
   <div class="page-header-inner fixwidth">
     {{ page.page_title }}
