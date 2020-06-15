@@ -118,33 +118,24 @@ form.views-exposed-form {
 /**
  * Advanced search form
 */
-.block-views-exposed-filter-block--scitalk-default-advanced-search-advanced-search {
-  display: none;
- }
- .block-views-exposed-filter-block--scitalk-default-advanced-search-advanced-search label {
-   display: inline-block;
-   width:80px;
- }
- .block-views-exposed-filter-block--scitalk-default-advanced-search-advanced-search #edit-field-talk-date-2 {
-   display:inline-block;
-   width: auto;
- }
- .block-views-exposed-filter-block--scitalk-default-advanced-search-advanced-search .form-actions {
-   margin-top: 0;
- }
- 
- .block-views-exposed-filter-block--scitalk-default-advanced-search-advanced-search .search-wrap {
-   display: grid;
- }
- .block-views-exposed-filter-block--scitalk-default-advanced-search-advanced-search .content-search-wrap,
- .block-views-exposed-filter-block--scitalk-default-advanced-search-advanced-search .date-search-wrap,
- .block-views-exposed-filter-block--scitalk-default-advanced-search-advanced-search .catch-up-wrap {
-   display: flex;
-   flex-flow: row wrap;
- }
- .advanced-search-form table {
-   table-layout: auto;
- }
- .advanced-search-form table th.views-field-field-talk-date {
-   column-width: 200px;
- }
+.block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search label {
+  display: inline-block;
+  width:80px;
+}
+.block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search #edit-field-talk-date-2 {
+  display:inline-block;
+  width: auto;
+}
+.block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search .form-actions {
+  margin-top: 0;
+}
+
+.block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search .search-wrap {
+  display: grid;
+}
+.block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search .content-search-wrap,
+.block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search .date-search-wrap,
+.block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search .catch-up-wrap {
+  display: flex;
+  flex-flow: row wrap;
+}

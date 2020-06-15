@@ -143,7 +143,7 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
   }
 
   //luis: for advanced search section
-  if ($form['#id'] == 'views-exposed-form-scitalk-default-advanced-search-advanced-search')  {
+  if ($form['#id'] == 'views-exposed-form-scitalk-default-advanced-search2-advanced-search')  {
     $form['keys']['#title_display'] = 'invisible';
     $form['keys']['#attributes']['placeholder'] = t('Search');
     $form['keys']['#size'] = 20;
@@ -151,15 +151,15 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     $form['search']['#prefix'] = '<div class="search-wrap"> <div class="content-search-wrap">';
     $form['field_talk_type']['#suffix'] = '</div>';
     
-    $form['field_talk_date']['#prefix'] = '<div class="date-search-wrap">';
-    $form['field_talk_date_1']['#suffix'] = '</div>';
+    $form['date_from']['#prefix'] = '<div class="date-search-wrap">';
+    $form['date_to']['#suffix'] = '</div>';
 
-    $form['field_talk_date_2']['#prefix'] = '<div class="catch-up-wrap">';
-    $form['field_talk_date_2']['#suffix'] = '</div>';
+    $form['catch_up']['#prefix'] = '<div class="catch-up-wrap">';
+    $form['catch_up']['#suffix'] = '</div>';
 
     $form['actions']['#suffix'] = '</div>';
 
-    foreach ($form['field_scientific_area']['#options'] as $key => &$option) {
+    foreach ($form['scientific_area']['#options'] as $key => &$option) {
       if ($key == 'All') {
         $option = t('All Areas');
         break;
@@ -171,7 +171,7 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
          break;
       }
     }
-    foreach ($form['field_talk_date_2']['#options'] as $key => &$option) {
+    foreach ($form['catch_up']['#options'] as $key => &$option) {
       if ($key == 'All') {
         $option = t('Since');
          break;
