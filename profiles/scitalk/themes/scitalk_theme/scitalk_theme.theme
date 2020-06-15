@@ -177,7 +177,5 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
          break;
       }
     }
-    
-  }
   }
 }
