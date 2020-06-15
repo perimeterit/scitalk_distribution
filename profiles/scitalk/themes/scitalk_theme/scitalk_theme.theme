@@ -102,6 +102,12 @@ function scitalk_theme_preprocess_block(&$variables) {
     $variables['attributes']['class'][] = 'search-block-form';
     $variables['title_attributes']['class'][] = 'visually-hidden';
   }
+
+  //new default search
+  if ($variables['derivative_plugin_id'] == 'scitalk_default_advanced_search2-talks_search') {
+    $variables['attributes']['class'][] = 'search-block-form';
+    $variables['title_attributes']['class'][] = 'visually-hidden';
+  }
 }
 
 /*
@@ -175,6 +181,17 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
       if ($key == 'All') {
         $option = t('Since');
          break;
+      }
+    }
+  }
+
+  //new default search
+  if ($form['#id'] == 'views-exposed-form-scitalk-default-advanced-search2-talks-search')  {
+    $form['actions']['submit']['#attributes'] = array('class' => array('do-advanced-search'));
+    foreach ($form['field_scientific_area']['#options'] as $key => &$option) {
+      if ($key == 'All') {
+        $option = t('All Subjects');
+        break;
       }
     }
   }

@@ -37,7 +37,9 @@
   Drupal.behaviors.toggleAdvanced = {
     attach: function (context, settings) {
       const adv_btn = '<span class="toggle-advanced_wrapper"><a class="toggle-advanced" href="#" title="Toggle Advanced Search">Advanced</a></span>';
-      $('.advanced-search-wrapper #edit-submit-default-search-content', context).parent().append(adv_btn);
+      //$('.advanced-search-wrapper #edit-submit-default-search-content', context).parent().append(adv_btn);
+      //$('.advanced-search-wrapper #edit-submit-scitalk-default-advanced-search2', context).parent().append(adv_btn);
+      $('input.do-advanced-search', context).parent().append(adv_btn);
       
       $('.toggle-advanced', context).click( function(e){
         e.preventDefault(); 
