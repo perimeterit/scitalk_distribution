@@ -41,7 +41,7 @@
       
       $('.toggle-advanced', context).click( function(e){
         e.preventDefault(); 
-        $('.block-views-exposed-filter-block--scitalk-default-advanced-search-advanced-search').toggle();
+        $('.block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search').toggle();
       });
 
     }

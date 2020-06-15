@@ -118,6 +118,9 @@ form.views-exposed-form {
 /**
  * Advanced search form
 */
+.block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search {
+  display: none;
+ }
 .block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search label {
   display: inline-block;
   width:80px;

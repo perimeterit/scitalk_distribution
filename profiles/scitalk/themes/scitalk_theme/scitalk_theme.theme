@@ -149,10 +149,10 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     $form['keys']['#size'] = 20;
   
     $form['search']['#prefix'] = '<div class="search-wrap"> <div class="content-search-wrap">';
-    $form['field_talk_type']['#suffix'] = '</div>';
+    $form['type']['#suffix'] = '</div>';
     
-    $form['date_from']['#prefix'] = '<div class="date-search-wrap">';
-    $form['date_to']['#suffix'] = '</div>';
+    $form['from']['#prefix'] = '<div class="date-search-wrap">';
+    $form['to']['#suffix'] = '</div>';
 
     $form['catch_up']['#prefix'] = '<div class="catch-up-wrap">';
     $form['catch_up']['#suffix'] = '</div>';
@@ -165,7 +165,7 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
         break;
       }
     }
-    foreach ($form['field_talk_type']['#options'] as $key => &$option) {
+    foreach ($form['type']['#options'] as $key => &$option) {
       if ($key == 'All') {
         $option = t('All Types');
          break;
@@ -178,5 +178,6 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
       }
     }
     
+  }
   }
 }
