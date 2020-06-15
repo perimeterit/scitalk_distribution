@@ -188,7 +188,7 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
   //new default search
   if ($form['#id'] == 'views-exposed-form-scitalk-default-advanced-search2-talks-search')  {
     $form['actions']['submit']['#attributes'] = array('class' => array('do-advanced-search'));
-    foreach ($form['field_scientific_area']['#options'] as $key => &$option) {
+    foreach ($form['scientific_area']['#options'] as $key => &$option) {
       if ($key == 'All') {
         $option = t('All Subjects');
         break;
