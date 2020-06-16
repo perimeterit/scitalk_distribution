@@ -151,7 +151,7 @@ form.views-exposed-form {
 .search-wrap .date-search-wrap div.form-item {
   display:grid;
   column-gap: 10px;
-  grid-template-columns: 68px min-content auto;
+  grid-template-columns: 80px 160px auto;
   align-items: center;
 }
 
