@@ -120,25 +120,42 @@ form.views-exposed-form {
 */
 .block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search {
   display: none;
+  border: 1px solid #e4dede;
+  border-radius: 5px;
+  padding-left: 5px;
+  margin-top: 5px;
  }
 .block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search label {
   display: inline-block;
   width:80px;
 }
-.block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search #edit-catch-up {
-  display:inline-block;
-  width: auto;
-}
 .block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search .form-actions {
   margin-top: 0;
 }
 
-.block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search .search-wrap {
-  display: grid;
+.search-block-form form {
+  flex-flow:wrap;
 }
-.block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search .content-search-wrap,
-.block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search .date-search-wrap,
-.block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search .catch-up-wrap {
+.search-wrap .content-search-wrap,
+.search-wrap .date-search-wrap {
+  flex-flow: column;
   display: flex;
-  flex-flow: row wrap;
+}
+.search-wrap .content-search-wrap div.form-item {
+  display:grid;
+  column-gap: 10px;
+  grid-template-columns: 250px auto;
+  align-items: center;
+}
+
+.search-wrap .date-search-wrap div.form-item {
+  display:grid;
+  column-gap: 10px;
+  grid-template-columns: 68px min-content auto;
+  align-items: center;
+}
+
+.search-wrap .content-search-wrap div.form-item div.description,
+.search-wrap .date-search-wrap div.form-item div.description {
+  display:inline-block;
 }

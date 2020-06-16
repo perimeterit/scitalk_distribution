@@ -167,7 +167,7 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
 
     foreach ($form['scientific_area']['#options'] as $key => &$option) {
       if ($key == 'All') {
-        $option = t('All Areas');
+        $option = t('All Subjects');
         break;
       }
     }
