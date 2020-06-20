@@ -38,6 +38,16 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
   public function buildForm(array $form, FormStateInterface $form_state) {
     $config = $this->config(static::SETTINGS);
 
+    $form['datacite_creator_institution'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Publishing Institution'),
+      '#description' => $this->t('Name of the institution.'),
+      '#default_value' => $config->get('datacite_creator_institution'),
+      '#attributes' => [
+          'id' => 'datacite_creator_institution',
+      ],
+   ];
+
     $form['use_doi'] = [
         '#type' => 'checkbox',
         '#title' => $this->t('Use DOI'),
@@ -128,20 +138,20 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
         ],
     ];  
     
-    $form['datacite_creator_institution'] = [
-        '#type' => 'textfield',
-        '#title' => $this->t('DataCite Creator Institution'),
-        '#description' => $this->t('Use this field if using an organization as the creator field in DOI.'),
-        '#default_value' => $config->get('datacite_creator_institution'),
-        '#attributes' => [
-            'id' => 'datacite_creator_institution',
-        ],
-        '#states' => [
-            'visible' => [
-                ':input[id="use_doi"]' => ['checked' => TRUE],
-            ],
-        ],
-    ];
+    // $form['datacite_creator_institution'] = [
+    //     '#type' => 'textfield',
+    //     '#title' => $this->t('DataCite Creator Institution'),
+    //     '#description' => $this->t('Use this field if using an organization as the creator field in DOI.'),
+    //     '#default_value' => $config->get('datacite_creator_institution'),
+    //     '#attributes' => [
+    //         'id' => 'datacite_creator_institution',
+    //     ],
+    //     '#states' => [
+    //         'visible' => [
+    //             ':input[id="use_doi"]' => ['checked' => TRUE],
+    //         ],
+    //     ],
+    // ];
 
     $form['datacite_creator_institution_ror'] = [
         '#type' => 'textfield',
