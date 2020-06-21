@@ -82,7 +82,8 @@ class SciTalkThumbnailFormatter extends FormatterBase {
             }
           }
         }
-        
+
+	$thumbnail_uri = '';
         if($media_entity) {
           $default_thumbnail_filename = $media_entity->getSource()->getPluginDefinition()['default_thumbnail_filename'];
           $thumbnail_uri = \Drupal::service('config.factory')->get('media.settings')->get('icon_base_uri') . '/' . $default_thumbnail_filename;
