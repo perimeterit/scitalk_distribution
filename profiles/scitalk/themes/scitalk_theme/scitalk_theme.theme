@@ -177,10 +177,13 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
          break;
       }
     }
-    foreach ($form['catch_up']['#options'] as $key => &$option) {
-      if ($key == 'All') {
-        $option = t('Since');
-         break;
+
+    if (!empty($form['catch_up']['#options'])) {
+      foreach ($form['catch_up']['#options'] as $key => &$option) {
+        if ($key == 'All') {
+          $option = t('Since');
+           break;
+        }
       }
     }
   }
