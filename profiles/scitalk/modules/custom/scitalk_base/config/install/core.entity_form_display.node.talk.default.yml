@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.talk.field_talk_source_event
     - field.field.node.talk.field_talk_speaker_profile
     - field.field.node.talk.field_talk_speakers_text
+    - field.field.node.talk.field_talk_subject
     - field.field.node.talk.field_talk_thumbnail
     - field.field.node.talk.field_talk_type
     - field.field.node.talk.field_talk_video
@@ -172,6 +173,16 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: string_textfield
+    region: content
+  field_talk_subject:
+    weight: 38
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
     region: content
   field_talk_thumbnail:
     weight: 34

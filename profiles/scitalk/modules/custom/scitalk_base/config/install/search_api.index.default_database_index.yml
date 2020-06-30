@@ -2,6 +2,9 @@ uuid: 3b20ab75-7454-4bed-b3c8-7765cd68a3f1
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - scitalk_base
   module:
     - search_api_solr
     - node

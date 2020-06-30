@@ -2,6 +2,9 @@ uuid: 62f3b823-5c1f-4cf0-8a92-cea1244affcf
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - scitalk_base
   config:
     - search_api.index.default_database_index
   module:

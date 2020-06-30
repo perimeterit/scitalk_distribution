@@ -128,6 +128,12 @@ resourceFields:
     enhancer:
       id: ''
     disabled: false
+  menu_link:
+    fieldName: menu_link
+    publicName: menu_link
+    enhancer:
+      id: ''
+    disabled: false
   field_combination_example:
     fieldName: field_combination_example
     publicName: combination_example
@@ -161,6 +167,12 @@ resourceFields:
   field_talk_date:
     fieldName: field_talk_date
     publicName: talk_date
+    enhancer:
+      id: ''
+    disabled: false
+  field_talk_doi:
+    fieldName: field_talk_doi
+    publicName: talk_doi
     enhancer:
       id: ''
     disabled: false
@@ -200,6 +212,18 @@ resourceFields:
     enhancer:
       id: ''
     disabled: false
+  field_talk_speakers_text:
+    fieldName: field_talk_speakers_text
+    publicName: talk_speakers_text
+    enhancer:
+      id: ''
+    disabled: false
+  field_talk_subject:
+    fieldName: field_talk_subject
+    publicName: talk_subject
+    enhancer:
+      id: ''
+    disabled: false
   field_talk_thumbnail:
     fieldName: field_talk_thumbnail
     publicName: talk_thumbnail
@@ -218,10 +242,15 @@ resourceFields:
     enhancer:
       id: ''
     disabled: false
+  field_talk_video_url:
+    fieldName: field_talk_video_url
+    publicName: talk_video_url
+    enhancer:
+      id: ''
+    disabled: false
   field_talk_viewable_online:
     fieldName: field_talk_viewable_online
     publicName: talk_viewable_online
     enhancer:
       id: ''
     disabled: false
-

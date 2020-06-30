@@ -2,6 +2,9 @@ uuid: 62132eaf-0226-41e7-a537-e80cba06c137
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - scitalk_base
   module:
     - node
 _core:

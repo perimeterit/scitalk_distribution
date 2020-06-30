@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - scitalk_base
 name: scitalk_preview_large
 label: 'Scitalk Preview Large'
 effects:

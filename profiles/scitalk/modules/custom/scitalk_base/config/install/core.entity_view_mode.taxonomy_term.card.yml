@@ -2,6 +2,9 @@ uuid: 90c8937a-75dd-4fbd-9909-ad95970b9078
 langcode: en
 status: true
 dependencies:
+  enforced:
+    module:
+      - scitalk_base
   module:
     - taxonomy
 id: taxonomy_term.card

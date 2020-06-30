@@ -15,9 +15,12 @@ dependencies:
     - field.field.node.talk.field_talk_series
     - field.field.node.talk.field_talk_source_event
     - field.field.node.talk.field_talk_speaker_profile
+    - field.field.node.talk.field_talk_speakers_text
+    - field.field.node.talk.field_talk_subject
     - field.field.node.talk.field_talk_thumbnail
     - field.field.node.talk.field_talk_type
     - field.field.node.talk.field_talk_video
+    - field.field.node.talk.field_talk_video_url
     - field.field.node.talk.field_talk_viewable_online
     - node.type.talk
   enforced:
@@ -76,8 +79,6 @@ third_party_settings:
         classes: ''
       label: Details
       region: content
-_core:
-  default_config_hash: tMdvN1Xmlj4M9n0eLY1fO2VkvWeaDvDzwVIqJjyAB20
 id: node.talk.default
 targetEntityType: node
 bundle: talk
@@ -230,6 +231,14 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
+  field_talk_subject:
+    weight: 30
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
   field_talk_thumbnail:
     type: scitalk_thumbnail_formatter
     weight: 5
@@ -275,6 +284,8 @@ hidden:
   field_talk_date: true
   field_talk_keywords: true
   field_talk_location: true
+  field_talk_speakers_text: true
+  field_talk_video_url: true
   field_talk_viewable_online: true
   langcode: true
   links: true

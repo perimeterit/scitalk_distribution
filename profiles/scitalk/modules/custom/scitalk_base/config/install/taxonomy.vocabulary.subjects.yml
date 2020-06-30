@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - scitalk_base
+name: Subjects
+vid: subjects
+description: 'Branches of Science'
+weight: 0
