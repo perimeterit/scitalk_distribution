@@ -1,0 +1,295 @@
+<?php
+
+use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Config\FileStorage;
+
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
+
+
+/**
+*  Add Subjects taxonomy, Subject field to Talk content type 
+*  and update other scitalk_base configs to enforce their dependency on scitalk_base module
+*/
+function scitalk_base_update_8101(&$sandbox) {
+    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $source      = new FileStorage($config_path);
+  
+    //create TAXONOMY VOCABULARY Subjects
+    $storage_config = \Drupal::entityManager()->getStorage('taxonomy_vocabulary');
+    $field_storage_yml = 'taxonomy.vocabulary.subjects';
+    $field_storage_id = 'subjects';
+    if (!$storage_config->load($field_storage_id)) 
+    {
+        \Drupal::logger('scitalk_base')->notice('Create Subject taxonomy vocabulary storage');
+        $storage_config_yml = $source->read($field_storage_yml);
+        $storage_config->create($storage_config_yml)->save();
+    }
+    
+    //add FIELD STORAGE for subject field
+    $storage_config = \Drupal::entityManager()->getStorage('field_storage_config');
+    $field_storage_yml = 'field.storage.node.field_talk_subject';
+    $field_storage_id = 'node.field_talk_subject';
+    if (!$storage_config->load($field_storage_id)) 
+    {
+        \Drupal::logger('scitalk_base')->notice('Create Subject field storage');
+        $storage_config_yml = $source->read($field_storage_yml);
+        $storage_config->create($storage_config_yml)->save();
+    }
+   
+    //add FIELD subject
+    $field_config = \Drupal::entityManager()->getStorage('field_config');
+    $field_yml = 'field.field.node.talk.field_talk_subject';
+    $field_id = 'node.talk.field_talk_subject';
+    if (!$field_config->load($field_id))
+    {
+        \Drupal::logger('scitalk_base')->notice('Create Subject field');
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+    }
+        
+    //update Subject language setting
+    $lang_setting = \Drupal::entityManager()->getStorage('language_content_settings');
+    $lang_setting_subjects = $lang_setting->load('taxonomy_term.subjects');
+    if (!empty($lang_setting_subjects))
+    {
+        $lang_setting_yml = $source->read('language.content_settings.taxonomy_term.subjects');
+        $entity = $lang_setting->updateFromStorageRecord($lang_setting_subjects, $lang_setting_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Subjects Language settings');
+    }
+
+    //create entity form display
+    $entity_form = \Drupal::entityManager()->getStorage('entity_form_display');
+    $org_entity_form = $entity_form->load('node.talk.default');
+    if (!empty($org_entity_form))
+    {
+        $form_display_yml = $source->read('core.entity_form_display.node.talk.default');
+        $entity = $entity_form->updateFromStorageRecord($org_entity_form, $form_display_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Talk entity_form_display');
+    }
+
+    //now update ENTITY VIEWS: default, card, page header, teaser ,mini teaser and search result
+    $view_display = \Drupal::entityManager()->getStorage('entity_view_display');
+    $default_view_display = $view_display->load('node.talk.default');
+    if (!empty($default_view_display))
+    {
+        $view_display_yml = $source->read('core.entity_view_display.node.talk.default');
+        $entity = $view_display->updateFromStorageRecord($default_view_display, $view_display_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Talk Default entity view display');
+    }
+
+    $card_view_display = $view_display->load('node.talk.card');
+    if (!empty($card_view_display))
+    {
+        $view_display_yml = $source->read('core.entity_view_display.node.talk.card');
+        $entity = $view_display->updateFromStorageRecord($card_view_display, $view_display_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Talk Card entity view display');
+    }
+
+    $header_view_display = $view_display->load('node.talk.page_header');
+    if (!empty($header_view_display))
+    {
+        $view_display_yml = $source->read('core.entity_view_display.node.talk.page_header');
+        $entity = $view_display->updateFromStorageRecord($header_view_display, $view_display_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Talk Page header entity view display');
+    }
+
+    $teaser_view_display = $view_display->load('node.talk.teaser');
+    if (!empty($teaser_view_display))
+    {
+        $view_display_yml = $source->read('core.entity_view_display.node.talk.teaser');
+        $entity = $view_display->updateFromStorageRecord($teaser_view_display, $view_display_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Talk Teaser entity view display');
+    }
+
+    $mini_teaser_view_display = $view_display->load('node.talk.mini_teaser');
+    if (!empty($mini_teaser_view_display))
+    {
+        $view_display_yml = $source->read('core.entity_view_display.node.talk.mini_teaser');
+        $entity = $view_display->updateFromStorageRecord($mini_teaser_view_display, $view_display_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Talk Mini Teaser entity view display');
+    }
+
+    $search_result_view_display = $view_display->load('node.talk.search_result');
+    if (!empty($search_result_view_display))
+    {
+        $view_display_yml = $source->read('core.entity_view_display.node.talk.search_result');
+        $entity = $view_display->updateFromStorageRecord($search_result_view_display, $view_display_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Talk Search header entity view display');
+    }
+
+    //update view modes: node card
+    $view_mode = \Drupal::entityManager()->getStorage('entity_view_mode');
+    $card_view_mode = $view_mode->load('node.card');
+    if (!empty($card_view_mode))
+    {
+        $view_mode_yml = $source->read('core.entity_view_mode.node.card');
+        $entity = $view_mode->updateFromStorageRecord($card_view_mode, $view_mode_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Node Card view mode');
+    }
+
+    //update view mode: node mini teaser
+    $node_mini_teaser_view_mode = $view_mode->load('node.mini_teaser');
+    if (!empty($node_mini_teaser_view_mode))
+    {
+        $view_mode_yml = $source->read('core.entity_view_mode.node.mini_teaser');
+        $entity = $view_mode->updateFromStorageRecord($node_mini_teaser_view_mode, $view_mode_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Node Mini teaser view mode');
+    }
+
+    //update view mode: node page header
+    $node_page_header_view_mode = $view_mode->load('node.page_header');
+    if (!empty($node_page_header_view_mode))
+    {
+        $view_mode_yml = $source->read('core.entity_view_mode.node.page_header');
+        $entity = $view_mode->updateFromStorageRecord($node_page_header_view_mode, $view_mode_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Node Page Header view mode');
+    }
+
+    //update view mode: node speaker name institution
+    $node_speaker_institute_view_mode = $view_mode->load('node.speaker_name_institution');
+    if (!empty($node_speaker_institute_view_mode))
+    {
+        $view_mode_yml = $source->read('core.entity_view_mode.node.speaker_name_institution');
+        $entity = $view_mode->updateFromStorageRecord($node_speaker_institute_view_mode, $view_mode_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Node Speaker name + Institution view mode');
+    }
+
+    //update view mode: taxonomy term card
+    $tax_term_card_view_mode = $view_mode->load('taxonomy_term.card');
+    if (!empty($tax_term_card_view_mode))
+    {
+        $view_mode_yml = $source->read('core.entity_view_mode.taxonomy_term.card');
+        $entity = $view_mode->updateFromStorageRecord($tax_term_card_view_mode, $view_mode_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Taxonomy Term Card view mode');
+    }
+
+    //update view mode: taxonomy term page header
+    $tax_term_page_header_view_mode = $view_mode->load('taxonomy_term.page_header');
+    if (!empty($tax_term_page_header_view_mode))
+    {
+        $view_mode_yml = $source->read('core.entity_view_mode.taxonomy_term.page_header');
+        $entity = $view_mode->updateFromStorageRecord($tax_term_page_header_view_mode, $view_mode_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Taxonomy Term Card view mode');
+    }
+
+    //update view mode: taxonomy term page header
+    $tax_term_teaser_view_mode = $view_mode->load('taxonomy_term.teaser');
+    if (!empty($tax_term_teaser_view_mode))
+    {
+        $view_mode_yml = $source->read('core.entity_view_mode.taxonomy_term.teaser');
+        $entity = $view_mode->updateFromStorageRecord($tax_term_teaser_view_mode, $view_mode_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Taxonomy Term Teaser view mode');
+    }
+
+    //update image style: scitalk preview large
+    $image_style = \Drupal::entityManager()->getStorage('image_style');
+    $image_style_large = $image_style->load('scitalk_preview_large');
+    if (!empty($image_style_large))
+    {
+        $image_style_yml = $source->read('image.style.scitalk_preview_large');
+        $entity = $image_style->updateFromStorageRecord($image_style_large, $image_style_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Image Style Preview Large');
+    }
+
+    //update image style: scitalk preview medium
+    $image_style_medium = $image_style->load('scitalk_preview_medium');
+    if (!empty($image_style_medium))
+    {
+        $image_style_yml = $source->read('image.style.scitalk_preview_medium');
+        $entity = $image_style->updateFromStorageRecord($image_style_medium, $image_style_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Image Style Preview Medium');
+    }
+
+    //update JSON API resource override: Talk
+    $json_api_resource = \Drupal::entityManager()->getStorage('jsonapi_resource_config');
+    $json_api_resource_talk = $json_api_resource->load('node--talk');
+    if (!empty($json_api_resource_talk))
+    {
+        $json_api_resource_yml = $source->read('jsonapi_extras.jsonapi_resource_config.node--talk');
+        $entity = $json_api_resource->updateFromStorageRecord($json_api_resource_talk, $json_api_resource_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Talk JSON API Resource Override');
+    }
+
+    //create JSON API resource override: Subjects
+    $json_api_resource_subject = $json_api_resource->load('taxonomy_term--subjects');
+    if (!empty($json_api_resource_subject))
+    {
+        $json_api_resource_yml = $source->read('jsonapi_extras.jsonapi_resource_config.taxonomy_term--subjects');
+        $entity = $json_api_resource->updateFromStorageRecord($json_api_resource_subject, $json_api_resource_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Subjects JSON API Resource Override');
+    }
+    else {
+        $json_api_resource_yml = $source->read('jsonapi_extras.jsonapi_resource_config.taxonomy_term--subjects');
+        $json_api_resource->create($json_api_resource_yml)->save();
+        
+        \Drupal::logger('scitalk_base')->notice('Created Subjects JSON API Resource Override');
+    }
+
+    //update user role
+    $user_role = \Drupal::entityManager()->getStorage('user_role');
+    $user_role_scitalk = $user_role->load('scitalk_oauth');
+    if (!empty($user_role_scitalk))
+    {
+        $user_role_yml = $source->read('user.role.scitalk_oauth');
+        $entity = $user_role->updateFromStorageRecord($user_role_scitalk, $user_role_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated SciTalk User Role');
+    }
+
+    //update Scitalk: default datbase search
+    $view_display = \Drupal::entityManager()->getStorage('view');
+    $view_display_id = 'default_search_content';
+    $view_yml = 'views.view.default_search_content';
+    $org_view_display = $view_display->load($view_display_id);
+    if (!empty($org_view_display))
+    {
+        $view_display_yml = $source->read($view_yml);
+        $entity = $view_display->updateFromStorageRecord($org_view_display, $view_display_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated view '.  $view_display_id);
+    }
+
+    //add module dependency to search_api.server.database_server
+    $config_factory = \Drupal::configFactory();
+    $search_api_server_config = $config_factory->getEditable('search_api.server.database_server');
+    $dependencies = $search_api_server_config->get('dependencies');
+    $dependencies['enforced'] = ['module' => ['scitalk_base']];
+    $search_api_server_config->set('dependencies', $dependencies);
+    $search_api_server_config->save(TRUE);
+
+    $dependencies = [];
+    //add module dependency to search_api.index.default_database_index
+    $search_api_index_config = $config_factory->getEditable('search_api.index.default_database_index');
+    $dependencies = $search_api_index_config->get('dependencies');
+    $dependencies['enforced'] = ['module' => ['scitalk_base']];
+    $search_api_index_config->set('dependencies', $dependencies);
+    $search_api_index_config->save(TRUE);
+
+    $dependencies = [];
+    //add module dependency to views.view.default_search_content
+    $default_search_content_config = $config_factory->getEditable('views.view.default_search_content');
+    $dependencies = $default_search_content_config->get('dependencies');
+    $dependencies['enforced'] = ['module' => ['scitalk_base']];
+    $default_search_content_config->set('dependencies', $dependencies);
+    $default_search_content_config->save(TRUE);
+}
