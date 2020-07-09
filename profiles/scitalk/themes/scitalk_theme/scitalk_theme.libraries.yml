@@ -7,6 +7,7 @@ global:
       css/components/catchup.css: {}
       css/components/citations.css: {}
       css/components/collections.css: {}
+      css/components/forms.css: {}
       css/components/modals.css: {}
       css/components/share-links.css: {}
       css/components/speakers.css: {}

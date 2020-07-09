@@ -104,58 +104,8 @@ select option {
 }
 
 /*
- * Views exposed forms
+ * Pager
 */
-
-form.views-exposed-form {
-  display: flex;
-  align-items: center;
-}
-.views-exposed-form .form-item {
-  margin-right: 1em;
-}
-
-/**
- * Advanced search form
-*/
-.block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search {
-  display: none;
-  border: 1px solid #e4dede;
-  border-radius: 5px;
-  padding-left: 5px;
-  margin-top: 5px;
- }
-.block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search label {
-  display: inline-block;
-  width:80px;
-}
-.block-views-exposed-filter-block--scitalk-default-advanced-search2-advanced-search .form-actions {
-  margin-top: 0;
-}
-
-.search-block-form form {
-  flex-flow:wrap;
-}
-.search-wrap .content-search-wrap,
-.search-wrap .date-search-wrap {
-  flex-flow: column;
-  display: flex;
-}
-.search-wrap .content-search-wrap div.form-item {
-  display:grid;
-  column-gap: 10px;
-  grid-template-columns: 250px auto;
-  align-items: center;
-}
-
-.search-wrap .date-search-wrap div.form-item {
-  display:grid;
-  column-gap: 10px;
-  grid-template-columns: 80px 160px auto;
-  align-items: center;
-}
-
-.search-wrap .content-search-wrap div.form-item div.description,
-.search-wrap .date-search-wrap div.form-item div.description {
-  display:inline-block;
+.pager.is-active a {
+  background: var(--color-primary);
 }
