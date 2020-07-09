@@ -63,51 +63,6 @@
   content: '';
 }
 
-/*
- * Table display
-*/
-.view-scitalk-latest-talks.table-display table {
-  width: 100%;
-}
-.view-scitalk-latest-talks.table-display .views-field-title {
-  font-size: 1.2em;
-}
-.view-scitalk-latest-talks.table-display .views-field-field-talk-speaker-profile ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-.view-scitalk-latest-talks.table-display .institution:before {
-  content: ',';
-  margin: 0 .2em 0 -.2em;
-}
-@media all and (max-width: 800px) {
-  .view-scitalk-latest-talks.table-display .jrt tr {
-    border: none;
-    margin: .5em 0 1.5em;
-  }
-  .view-scitalk-latest-talks.table-display .jrt td {
-    border: none;
-    display: block;
-    padding: 0;
-  }
-  .view-scitalk-latest-talks.table-display .jrt td > * {
-    padding: .2em 0;
-  }
-  .view-scitalk-latest-talks.table-display .jrt td:before {
-    display: inline-block;
-    font-weight: 500;
-    margin-top: 0.2em;
-    vertical-align: top;
-    width: auto;
-  }
-  .view-scitalk-latest-talks.table-display .jrt td > * {
-    display: inline-block;
-  }
-  .view-scitalk-latest-talks.table-display .jrt .views-field-title:before {
-    display: none;
-  }
-}
 
 /**
  * Card view mode
