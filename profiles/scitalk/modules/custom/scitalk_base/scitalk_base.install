@@ -14,7 +14,7 @@ use Drupal\field\Entity\FieldConfig;
 function scitalk_base_update_8101(&$sandbox) {
     $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
     $source      = new FileStorage($config_path);
-  
+    
     //create TAXONOMY VOCABULARY Subjects
     $storage_config = \Drupal::entityManager()->getStorage('taxonomy_vocabulary');
     $field_storage_yml = 'taxonomy.vocabulary.subjects';
@@ -36,7 +36,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $storage_config_yml = $source->read($field_storage_yml);
         $storage_config->create($storage_config_yml)->save();
     }
-   
+    
     //add FIELD subject
     $field_config = \Drupal::entityManager()->getStorage('field_config');
     $field_yml = 'field.field.node.talk.field_talk_subject';
@@ -47,7 +47,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $field_config_yml = $source->read($field_yml);
         $field_config->create($field_config_yml)->save();
     }
-        
+    
     //update Subject language setting
     $lang_setting = \Drupal::entityManager()->getStorage('language_content_settings');
     $lang_setting_subjects = $lang_setting->load('taxonomy_term.subjects');
@@ -58,7 +58,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Subjects Language settings');
     }
-
+    
     //create entity form display
     $entity_form = \Drupal::entityManager()->getStorage('entity_form_display');
     $org_entity_form = $entity_form->load('node.talk.default');
@@ -69,7 +69,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Talk entity_form_display');
     }
-
+    
     //now update ENTITY VIEWS: default, card, page header, teaser ,mini teaser and search result
     $view_display = \Drupal::entityManager()->getStorage('entity_view_display');
     $default_view_display = $view_display->load('node.talk.default');
@@ -80,7 +80,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Talk Default entity view display');
     }
-
+    
     $card_view_display = $view_display->load('node.talk.card');
     if (!empty($card_view_display))
     {
@@ -89,7 +89,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Talk Card entity view display');
     }
-
+    
     $header_view_display = $view_display->load('node.talk.page_header');
     if (!empty($header_view_display))
     {
@@ -98,7 +98,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Talk Page header entity view display');
     }
-
+    
     $teaser_view_display = $view_display->load('node.talk.teaser');
     if (!empty($teaser_view_display))
     {
@@ -107,7 +107,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Talk Teaser entity view display');
     }
-
+    
     $mini_teaser_view_display = $view_display->load('node.talk.mini_teaser');
     if (!empty($mini_teaser_view_display))
     {
@@ -116,7 +116,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Talk Mini Teaser entity view display');
     }
-
+    
     $search_result_view_display = $view_display->load('node.talk.search_result');
     if (!empty($search_result_view_display))
     {
@@ -125,7 +125,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Talk Search header entity view display');
     }
-
+    
     //update view modes: node card
     $view_mode = \Drupal::entityManager()->getStorage('entity_view_mode');
     $card_view_mode = $view_mode->load('node.card');
@@ -136,7 +136,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Node Card view mode');
     }
-
+    
     //update view mode: node mini teaser
     $node_mini_teaser_view_mode = $view_mode->load('node.mini_teaser');
     if (!empty($node_mini_teaser_view_mode))
@@ -146,7 +146,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Node Mini teaser view mode');
     }
-
+    
     //update view mode: node page header
     $node_page_header_view_mode = $view_mode->load('node.page_header');
     if (!empty($node_page_header_view_mode))
@@ -156,7 +156,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Node Page Header view mode');
     }
-
+    
     //update view mode: node speaker name institution
     $node_speaker_institute_view_mode = $view_mode->load('node.speaker_name_institution');
     if (!empty($node_speaker_institute_view_mode))
@@ -166,7 +166,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Node Speaker name + Institution view mode');
     }
-
+    
     //update view mode: taxonomy term card
     $tax_term_card_view_mode = $view_mode->load('taxonomy_term.card');
     if (!empty($tax_term_card_view_mode))
@@ -176,7 +176,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Taxonomy Term Card view mode');
     }
-
+    
     //update view mode: taxonomy term page header
     $tax_term_page_header_view_mode = $view_mode->load('taxonomy_term.page_header');
     if (!empty($tax_term_page_header_view_mode))
@@ -186,7 +186,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Taxonomy Term Card view mode');
     }
-
+    
     //update view mode: taxonomy term page header
     $tax_term_teaser_view_mode = $view_mode->load('taxonomy_term.teaser');
     if (!empty($tax_term_teaser_view_mode))
@@ -196,7 +196,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Taxonomy Term Teaser view mode');
     }
-
+    
     //update image style: scitalk preview large
     $image_style = \Drupal::entityManager()->getStorage('image_style');
     $image_style_large = $image_style->load('scitalk_preview_large');
@@ -207,7 +207,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Image Style Preview Large');
     }
-
+    
     //update image style: scitalk preview medium
     $image_style_medium = $image_style->load('scitalk_preview_medium');
     if (!empty($image_style_medium))
@@ -217,7 +217,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Image Style Preview Medium');
     }
-
+    
     //update JSON API resource override: Talk
     $json_api_resource = \Drupal::entityManager()->getStorage('jsonapi_resource_config');
     $json_api_resource_talk = $json_api_resource->load('node--talk');
@@ -228,7 +228,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Talk JSON API Resource Override');
     }
-
+    
     //create JSON API resource override: Subjects
     $json_api_resource_subject = $json_api_resource->load('taxonomy_term--subjects');
     if (!empty($json_api_resource_subject))
@@ -244,7 +244,7 @@ function scitalk_base_update_8101(&$sandbox) {
         
         \Drupal::logger('scitalk_base')->notice('Created Subjects JSON API Resource Override');
     }
-
+    
     //update user role
     $user_role = \Drupal::entityManager()->getStorage('user_role');
     $user_role_scitalk = $user_role->load('scitalk_oauth');
@@ -255,7 +255,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated SciTalk User Role');
     }
-
+    
     //update Scitalk: default datbase search
     $view_display = \Drupal::entityManager()->getStorage('view');
     $view_display_id = 'default_search_content';
@@ -268,7 +268,7 @@ function scitalk_base_update_8101(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated view '.  $view_display_id);
     }
-
+    
     //add module dependency to search_api.server.database_server
     $config_factory = \Drupal::configFactory();
     $search_api_server_config = $config_factory->getEditable('search_api.server.database_server');
@@ -276,7 +276,7 @@ function scitalk_base_update_8101(&$sandbox) {
     $dependencies['enforced'] = ['module' => ['scitalk_base']];
     $search_api_server_config->set('dependencies', $dependencies);
     $search_api_server_config->save(TRUE);
-
+    
     $dependencies = [];
     //add module dependency to search_api.index.default_database_index
     $search_api_index_config = $config_factory->getEditable('search_api.index.default_database_index');
@@ -284,7 +284,7 @@ function scitalk_base_update_8101(&$sandbox) {
     $dependencies['enforced'] = ['module' => ['scitalk_base']];
     $search_api_index_config->set('dependencies', $dependencies);
     $search_api_index_config->save(TRUE);
-
+    
     $dependencies = [];
     //add module dependency to views.view.default_search_content
     $default_search_content_config = $config_factory->getEditable('views.view.default_search_content');
@@ -292,4 +292,117 @@ function scitalk_base_update_8101(&$sandbox) {
     $dependencies['enforced'] = ['module' => ['scitalk_base']];
     $default_search_content_config->set('dependencies', $dependencies);
     $default_search_content_config->save(TRUE);
+}
+
+/**
+*  Update storage dependenies on scitalk_base module for Source Repository 
+*  Update pathauto patterns for Talks, Collections and Series
+*  Add Subject field for Collections and Series taxonomies
+*/
+function scitalk_base_update_8102(&$sandbox) {
+    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $source      = new FileStorage($config_path);
+
+    //add storage and field for "collection_subject"
+    $storage_config = \Drupal::entityManager()->getStorage('field_storage_config');
+    if (!$storage_config->load('taxonomy_term.field_collection_subject'))
+    {
+        $storage_config_yml = $source->read('field.storage.taxonomy_term.field_collection_subject');
+        $storage_config->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created storage: field.storage.taxonomy_term.field_collection_subject');
+    }
+
+    $field_config = \Drupal::entityManager()->getStorage('field_config');
+    if (!$field_config->load('taxonomy_term.collection.field_collection_subject'))
+    {
+        $field_config_yml = $source->read('field.field.taxonomy_term.collection.field_collection_subject');
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created field: field.field.taxonomy_term.collection.field_collection_subject');
+    }
+    
+
+    //add storage and field for "series_subject"
+    $storage_config = \Drupal::entityManager()->getStorage('field_storage_config');
+    if (!$storage_config->load('taxonomy_term.field_series_subject'))
+    {
+        $storage_config_yml = $source->read('field.storage.taxonomy_term.field_series_subject');
+        $storage_config->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created storage: field.storage.taxonomy_term.field_series_subject');
+    }
+    
+
+    $field_config = \Drupal::entityManager()->getStorage('field_config');
+    if (!$field_config->load('taxonomy_term.series.field_series_subject'))
+    {
+        $field_config_yml = $source->read('field.field.taxonomy_term.series.field_series_subject');
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created field: field.field.taxonomy_term.series.field_series_subject');
+    }
+
+    //update FIELD STORAGEs
+    $node_storage_list = [
+        'node.field_repo_institution',
+        'node.field_source_repo_full_name',
+        'node.field_source_repo_logo',
+        'node.field_source_repo_url',
+        'node.field_talk_source',
+        'taxonomy_term.field_collection_source',
+        'taxonomy_term.field_series_source'
+    ];
+    
+    $storage_config = \Drupal::entityManager()->getStorage('field_storage_config');
+    foreach ($node_storage_list as $storage){
+      $cur_storage_config = $storage_config->load($storage);
+      if (!empty($cur_storage_config)) 
+      {
+          $storage_config_yml = $source->read('field.storage.' . $storage); 
+          $entity = $storage_config->updateFromStorageRecord($cur_storage_config, $storage_config_yml);
+          $entity->save();
+
+          \Drupal::logger('scitalk_base')->notice('Updated field storage: ' . $storage);
+      }
+    }
+
+    //update node.type.source_repository
+    $node_type_config = \Drupal::entityManager()->getStorage('node_type');
+    $source_repo_config = $node_type_config->load('source_repository');
+    if (!empty($source_repo_config))
+    {
+        $node_type_config_yml = $source->read('node.type.source_repository');
+        $entity = $node_type_config->updateFromStorageRecord($source_repo_config, $node_type_config_yml);
+        $entity->save();
+        
+        \Drupal::logger('scitalk_base')->notice('Updated node type: node.type.source_repository');
+    }
+
+    //update pathauto talk alias pattern
+    $pathauto_config = \Drupal::entityManager()->getStorage('pathauto_pattern');
+    $talk_alias_config = $pathauto_config->load('talk_alias');
+    if (!empty($talk_alias_config))
+    {
+        $pathauto_config_yml = $source->read('pathauto.pattern.talk_alias');
+        $entity = $pathauto_config->updateFromStorageRecord($talk_alias_config, $pathauto_config_yml);
+        $entity->save();
+        
+        \Drupal::logger('scitalk_base')->notice('Updated pathauto alias: pathauto.pattern.talk_alias');
+    }
+  
+    //add pathauto collection alias pattern
+    if (!$pathauto_config->load('collection_alias'))
+    {
+        $pathauto_config_yml = $source->read('pathauto.pattern.collection_alias');
+        $pathauto_config->create($pathauto_config_yml)->save();
+        
+        \Drupal::logger('scitalk_base')->notice('Created pathauto alias: pathauto.pattern.collection_alias');
+    }
+    
+    //add pathauto series alias pattern
+    if (!$pathauto_config->load('series_aliases'))
+    {
+        $pathauto_config_yml = $source->read('pathauto.pattern.series_aliases');
+        $pathauto_config->create($pathauto_config_yml)->save();
+        
+        \Drupal::logger('scitalk_base')->notice('Created pathauto alias: pathauto.pattern.series_aliases');
+    }
+    
 }

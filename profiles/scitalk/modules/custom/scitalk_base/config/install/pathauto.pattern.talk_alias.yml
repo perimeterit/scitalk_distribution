@@ -1,0 +1,25 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - scitalk_base
+  module:
+    - node
+id: talk_alias
+label: 'Talk alias'
+type: 'canonical_entities:node'
+pattern: '[node:field_talk_source:entity:title]/[node:field_talk_number]'
+selection_criteria:
+  5e766291-7e53-4705-bb83-63a6c3717c92:
+    id: node_type
+    bundles:
+      talk: talk
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 5e766291-7e53-4705-bb83-63a6c3717c92
+selection_logic: and
+weight: 0
+relationships: {  }
+

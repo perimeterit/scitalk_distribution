@@ -1,0 +1,26 @@
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - scitalk_base
+  module:
+    - ctools
+    - taxonomy
+id: collection_alias
+label: 'Collection alias'
+type: 'canonical_entities:taxonomy_term'
+pattern: '[term:field_collection_source:entity:title]/[term:field_collection_number]'
+selection_criteria:
+  b66fdc20-66a7-4435-9502-be2492a5ff29:
+    id: 'entity_bundle:taxonomy_term'
+    bundles:
+      collection: collection
+    negate: false
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    uuid: b66fdc20-66a7-4435-9502-be2492a5ff29
+selection_logic: and
+weight: -5
+relationships: {  }
+

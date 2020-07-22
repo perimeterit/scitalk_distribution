@@ -16,6 +16,6 @@ use Symfony\Component\Validator\Constraint;
 class UniqueSeriesNumberConstraint extends Constraint {
 
   // The message that will be shown if the value is not unique.
-  public $notUnique = 'Series nuumber %value is not unique';
+  public $notUnique = 'Series number %value is not unique';
 
 }
