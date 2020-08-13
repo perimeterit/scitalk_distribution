@@ -424,6 +424,15 @@ function scitalk_base_update_8103(&$sandbox) {
         $entity = $view_display->create( $view_display_yml)->save();
         \Drupal::logger('scitalk_base')->notice('Created views.view.my_talks');
     }
+
+    $user_role = \Drupal::entityManager()->getStorage('user_role');
+    $user_role_talk_editor = $user_role->load('talk_editor');
+    if (empty($user_role_talk_editor))
+    {
+        $user_role_yml = $source->read('user.role.talk_editor');
+        $user_role->create($user_role_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created user.role.talk_editor');
+    }
    
     //profile updates
     $profile_config_path = drupal_get_path('profile', 'scitalk') . '/config/install';
@@ -451,15 +460,6 @@ function scitalk_base_update_8103(&$sandbox) {
         $block_storage_config_yml = $source->read('block.block.useraccountmenu');
         $block_storage_config->create($block_storage_config_yml)->save();
         \Drupal::logger('scitalk_base')->notice('Created block.block.useraccountmenu');
-    }
-
-    $user_role = \Drupal::entityManager()->getStorage('user_role');
-    $user_role_talk_editor = $user_role->load('talk_editor');
-    if (empty($user_role_talk_editor))
-    {
-        $user_role_yml = $source->read('user.role.talk_editor');
-        $user_role->create($user_role_yml)->save();
-        \Drupal::logger('scitalk_base')->notice('Created user.role.talk_editor');
     }
 
     \Drupal::configFactory()->getEditable('contact.settings')->set('user_default_enabled', FALSE)->save(TRUE);
