@@ -474,3 +474,20 @@ function scitalk_base_update_8103(&$sandbox) {
     \Drupal::configFactory()->getEditable('block.block.scitalk_theme_footer')->set('weight', '-8')->save(TRUE);
     \Drupal::logger('scitalk_base')->notice('Updated block.block.scitalk_theme_footer');
 }
+
+/**
+*  Update view My Talks
+*/
+function scitalk_base_update_8104(&$sandbox) {
+    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $source      = new FileStorage($config_path);
+
+    $view_display = \Drupal::entityManager()->getStorage('view');
+    $my_talks_view_display = $view_display->load('my_talks');
+    if (!empty($my_talks_view_display))
+    {
+        $view_display_yml = $source->read('views.view.my_talks');
+        $view_display->updateFromStorageRecord($my_talks_view_display, $view_display_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Updated views.view.my_talks');
+    }
+}

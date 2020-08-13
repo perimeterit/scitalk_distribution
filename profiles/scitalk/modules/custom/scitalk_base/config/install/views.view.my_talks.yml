@@ -173,7 +173,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          empty: false
+          empty: true
           tokenize: false
           content:
             value: '<a href="/node/add/talk" class="talk-add button">Add Talk</a>'
