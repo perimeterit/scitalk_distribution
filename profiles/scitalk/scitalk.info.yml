@@ -65,8 +65,8 @@ install:
   - fences
   - inline_entity_form
   - jsonapi_extras
-  - jw_player
   - libraries
+  - jw_player
   - module_filter
   - restui
   - search_api_db
