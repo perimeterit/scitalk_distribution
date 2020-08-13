@@ -261,3 +261,6 @@
 .resource--file p {
   display: inline;
 }
+.talk-add {
+  padding: .5em 1em;
+}

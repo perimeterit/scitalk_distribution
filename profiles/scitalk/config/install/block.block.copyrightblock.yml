@@ -8,7 +8,7 @@ dependencies:
 id: copyrightblock
 theme: scitalk_theme
 region: footer
-weight: 0
+weight: -6
 provider: null
 plugin: copyright_block
 settings:

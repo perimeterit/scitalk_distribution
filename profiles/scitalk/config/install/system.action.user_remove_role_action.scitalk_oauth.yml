@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.scitalk_oauth
+  module:
+    - user
+id: user_remove_role_action.scitalk_oauth
+label: 'Remove the SciTalk JSON Admin user oAuth role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: scitalk_oauth
+

@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies: {  }
+id: talk_editor
+label: 'Talk Editor'
+weight: 4
+is_admin: null
+permissions:
+  - 'create talk content'
+  - 'delete own talk content'
+  - 'edit own talk content'
+

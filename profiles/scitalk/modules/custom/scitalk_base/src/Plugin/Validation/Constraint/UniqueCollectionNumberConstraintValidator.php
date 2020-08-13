@@ -51,21 +51,6 @@ class UniqueCollectionNumberConstraintValidator extends ConstraintValidator {
    * @param string $value
    */
   private function isUnique($value, $source_name, $tid = '') {
-    // $query_count = \Drupal::entityQuery('taxonomy_term')
-    //      ->condition('vid', $this->vocabulary_name)
-    //      ->condition('field_collection_number', $value, '=')
-    //      ->count();
-
-    // //for updates: check that no other taxonomy has this collection number
-    // if (!empty($tid)) {
-    //   $query_count = \Drupal::entityQuery('taxonomy_term')
-    //      ->condition('vid', $this->vocabulary_name)
-    //      ->condition('field_collection_number', $value, '=')
-    //      ->condition('tid', $tid, '<>')
-    //      ->count();
-
-    // }
-
     $query_count = \Drupal::entityQuery('taxonomy_term')
          ->condition('vid', $this->vocabulary_name)
          ->condition('field_collection_number', $value, '=');

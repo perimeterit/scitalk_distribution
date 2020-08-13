@@ -406,3 +406,71 @@ function scitalk_base_update_8102(&$sandbox) {
     }
     
 }
+
+/**
+*  Update user and contact settings
+*  Add user account menu
+*  Add view for My Talks
+*/
+function scitalk_base_update_8103(&$sandbox) {
+    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $source      = new FileStorage($config_path);
+
+    $view_display = \Drupal::entityManager()->getStorage('view');
+    $my_talks_view_display = $view_display->load('my_talks');
+    if (empty($my_talks_view_display))
+    {
+        $view_display_yml = $source->read('views.view.my_talks');
+        $entity = $view_display->create( $view_display_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created views.view.my_talks');
+    }
+   
+    //profile updates
+    $profile_config_path = drupal_get_path('profile', 'scitalk') . '/config/install';
+    $source      = new FileStorage($profile_config_path);
+    $system_actions = $source->listAll('system.action');
+    $action_storage = \Drupal::entityManager()->getStorage('action');
+    foreach ($system_actions as $action) {
+      $action_id = str_replace('system.action.','',$action); 
+      $action_config = $action_storage->load($action_id);
+      $action_yml = $source->read($action);
+      if (!$action_config) {
+        $action_storage->create($action_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created ' . $action);
+      }
+      else {
+       $action_storage->updateFromStorageRecord($action_config, $action_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Updated ' . $action);
+      }
+    }
+    
+    $block_storage_config = \Drupal::entityManager()->getStorage('block');
+    $block_config = $block_storage_config->load('useraccountmenu');
+    if (empty($block_config))
+    {
+        $block_storage_config_yml = $source->read('block.block.useraccountmenu');
+        $storage_config->create($block_storage_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created block.block.useraccountmenu');
+    }
+
+    $user_role = \Drupal::entityManager()->getStorage('user_role');
+    $user_role_talk_editor = $user_role->load('talk_editor');
+    if (empty($user_role_talk_editor))
+    {
+        $user_role_yml = $source->read('user.role.talk_editor');
+        $user_role->create($user_role_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created user.role.talk_editor');
+    }
+
+    \Drupal::configFactory()->getEditable('contact.settings')->set('user_default_enabled', FALSE)->save(TRUE);
+    \Drupal::logger('scitalk_base')->notice('Updated contact.settings');
+
+    \Drupal::configFactory()->getEditable('user.settings')->set('register', 'admin_only')->save(TRUE);
+    \Drupal::logger('scitalk_base')->notice('Updated user.settings');
+
+    \Drupal::configFactory()->getEditable('block.block.copyrightblock')->set('weight', '-6')->save(TRUE);
+    \Drupal::logger('scitalk_base')->notice('Updated block.block.copyrightblock');
+
+    \Drupal::configFactory()->getEditable('block.block.scitalk_theme_footer')->set('weight', '-8')->save(TRUE);
+    \Drupal::logger('scitalk_base')->notice('Updated block.block.scitalk_theme_footer');
+}

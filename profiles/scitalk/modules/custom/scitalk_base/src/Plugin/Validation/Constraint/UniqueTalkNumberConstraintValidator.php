@@ -47,21 +47,6 @@ class UniqueTalkNumberConstraintValidator extends ConstraintValidator {
    * @param string $value
    */
   private function isUnique($talk_number, $source_name, $id = '') {
-    // $query_count = \Drupal::entityQuery('node')
-    //      ->condition('type', $this->entity_type)
-    //      ->condition('field_talk_number', $talk_number, '=')
-    //      ->count();
-
-    // //for updates: check that no other entity has this talk number
-    // if (!empty($id)) {
-    //   $query_count = \Drupal::entityQuery('node')
-    //      ->condition('type', $this->entity_type)
-    //      ->condition('field_talk_number', $talk_number, '=')
-    //      ->condition('nid', $id, '<>')
-    //      ->count();
-
-    // }
-
     //we've added a new condition to allow duplicate IDs as long as they belong to different sources
     $query_count = \Drupal::entityQuery('node')
          ->condition('type', $this->entity_type)
@@ -79,39 +64,6 @@ class UniqueTalkNumberConstraintValidator extends ConstraintValidator {
     }
 
     $query_count->count();
-
-
-    // //we've added a new condition to allow duplicate IDs as long as they belong to different sources
-    // $query_count = \Drupal::entityQuery('node')
-    //      ->condition('type', $this->entity_type)
-    //      ->condition('field_talk_number', $talk_number, '=');
-
-    // if (empty($source_name)) {
-    //   $query_count->notExists('field_talk_source.entity.title');
-    // }
-    // else {
-    //   $query_count->condition('field_talk_source.entity.title', $source_name);
-    // }
-
-    // $query_count->count();
-
-    // //for updates: check that no other entity has this talk number
-    // if (!empty($id)) {
-    //   $query_count = \Drupal::entityQuery('node')
-    //      ->condition('type', $this->entity_type)
-    //      ->condition('field_talk_number', $talk_number, '=');
-
-    //   if (empty($source_name)) {
-    //     $query_count->notExists('field_talk_source.entity.title');
-    //   }
-    //   else {
-    //     $query_count->condition('field_talk_source.entity.title', $source_name);
-    //   }   
-
-    //   $query_count->condition('nid', $id, '<>');
-    //   $query_count->count();
-    // }
-
 
     return $query_count->execute() == 0;
   }
