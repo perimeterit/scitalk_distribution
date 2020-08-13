@@ -449,7 +449,7 @@ function scitalk_base_update_8103(&$sandbox) {
     if (empty($block_config))
     {
         $block_storage_config_yml = $source->read('block.block.useraccountmenu');
-        $storage_config->create($block_storage_config_yml)->save();
+        $block_storage_config->create($block_storage_config_yml)->save();
         \Drupal::logger('scitalk_base')->notice('Created block.block.useraccountmenu');
     }
 
