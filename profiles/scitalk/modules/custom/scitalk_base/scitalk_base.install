@@ -453,14 +453,14 @@ function scitalk_base_update_8103(&$sandbox) {
       }
     }
     
-    $block_storage_config = \Drupal::entityManager()->getStorage('block');
-    $block_config = $block_storage_config->load('useraccountmenu');
-    if (empty($block_config))
-    {
-        $block_storage_config_yml = $source->read('block.block.useraccountmenu');
-        $block_storage_config->create($block_storage_config_yml)->save();
-        \Drupal::logger('scitalk_base')->notice('Created block.block.useraccountmenu');
-    }
+    // $block_storage_config = \Drupal::entityManager()->getStorage('block');
+    // $block_config = $block_storage_config->load('useraccountmenu');
+    // if (empty($block_config))
+    // {
+    //     $block_storage_config_yml = $source->read('block.block.useraccountmenu');
+    //     $block_storage_config->create($block_storage_config_yml)->save();
+    //     \Drupal::logger('scitalk_base')->notice('Created block.block.useraccountmenu');
+    // }
 
     \Drupal::configFactory()->getEditable('contact.settings')->set('user_default_enabled', FALSE)->save(TRUE);
     \Drupal::logger('scitalk_base')->notice('Updated contact.settings');
