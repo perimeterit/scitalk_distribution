@@ -468,10 +468,10 @@ function scitalk_base_update_8103(&$sandbox) {
     \Drupal::configFactory()->getEditable('user.settings')->set('register', 'admin_only')->save(TRUE);
     \Drupal::logger('scitalk_base')->notice('Updated user.settings');
 
-    \Drupal::configFactory()->getEditable('block.block.copyrightblock')->set('weight', '-6')->save(TRUE);
+    \Drupal::configFactory()->getEditable('block.block.copyrightblock')->set('weight', -6)->save(TRUE);
     \Drupal::logger('scitalk_base')->notice('Updated block.block.copyrightblock');
 
-    \Drupal::configFactory()->getEditable('block.block.scitalk_theme_footer')->set('weight', '-8')->save(TRUE);
+    \Drupal::configFactory()->getEditable('block.block.scitalk_theme_footer')->set('weight', -8)->save(TRUE);
     \Drupal::logger('scitalk_base')->notice('Updated block.block.scitalk_theme_footer');
 }
 
