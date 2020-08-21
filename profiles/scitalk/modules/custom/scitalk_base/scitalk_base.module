@@ -41,16 +41,50 @@ function scitalk_base_theme($existing, $type, $theme, $path) {
  */
 function scitalk_base_entity_base_field_info(\Drupal\Core\Entity\EntityTypeInterface $entity_type) {
   if ($entity_type->id() == 'node') {
-      $fields = array();
-      $fields['scitalk_bogus_field_type'] = BaseFieldDefinition::create('string')
-        ->setLabel(t('The text'))
-        ->setDescription(t('A text property added by scitalk.'))
-        ->setDefaultValue('test')
-        ->setInitialValue('tst')
+  }
+
+  if ($entity_type->id() == 'taxonomy_term') {
+  }
+}
+
+/**
+ * Implements hook_entity_bundle_field_info
+ */
+function scitalk_base_entity_bundle_field_info(\Drupal\Core\Entity\EntityTypeInterface $entity_type, $bundle, array $base_field_definitions) {
+  //create computed field to display the number of talks under a Collection or Series
+  if ($entity_type->id() == 'taxonomy_term' && in_array($bundle, ['collection', 'series'])) {
+      $fields['scitalk_number_of_talks'] = BaseFieldDefinition::create('integer')
+        ->setLabel(t('Number of Talks'))
+        ->setDescription(t('Number of Talks in a Collection or Series.'))
+        ->setDefaultValue(0)
+        ->setInitialValue(0)
         ->setComputed(TRUE)
-        ->setClass('\\Drupal\\scitalk_base\\Plugin\FieldItemList\SciTalkEntityComputedText');
+        ->setClass('\Drupal\scitalk_base\Plugin\Field\SciTalkEntityNumberOfTalksList')
+        ->setDisplayConfigurable('view', TRUE)
+        ->setDisplayOptions('view', [
+          'label' => 'inline',
+          'weight' => -1,
+          'region' => 'hidden',
+          'type' => 'scitalk_number_of_talks_formatter',
+        ]);
+
+      $fields['scitalk_most_recent_talk'] = BaseFieldDefinition::create('datetime')
+        ->setLabel(t('Most recent Talk'))
+        ->setDescription(t('Date of the most recent Talks in a Collection or Series.'))
+        // ->setDefaultValue(0)
+        // ->setInitialValue(0)
+        ->setComputed(TRUE)
+        ->setClass('\Drupal\scitalk_base\Plugin\Field\SciTalkMostRecentTalkList')
+        ->setDisplayConfigurable('view', TRUE)
+        ->setDisplayOptions('view', [
+          'label' => 'inline',
+          'weight' => -2,
+          'region' => 'hidden',
+          'type' => 'scitalk_most_recent_talk_formatter',
+        ]);
+
       return $fields;
-    }
+  }
 }
 
 /**
@@ -135,7 +169,7 @@ function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
       $entity->set('field_talk_doi', $doi_id);
       $entity->save();
     }
-   }
+  }
 }
 
 /**
