@@ -82,11 +82,27 @@ class SciTalkThumbnailFormatter extends FormatterBase {
             }
           }
         }
-
-	$thumbnail_uri = '';
+        
+        $thumbnail_uri = '';
         if($media_entity) {
-          $default_thumbnail_filename = $media_entity->getSource()->getPluginDefinition()['default_thumbnail_filename'];
-          $thumbnail_uri = \Drupal::service('config.factory')->get('media.settings')->get('icon_base_uri') . '/' . $default_thumbnail_filename;
+          // $default_thumbnail_filename = $media_entity->getSource()->getPluginDefinition()['default_thumbnail_filename'];
+          // $thumbnail_uri = \Drupal::service('config.factory')->get('media.settings')->get('icon_base_uri') . '/' . $default_thumbnail_filename;
+
+          //luis: replaced the above 2 lines with the code below
+          //the above was always displaying the default thumbnail. This change will grab the thumbnail attached to the ScitalkVideo 
+
+          //grab the thumbnail of the video
+          $file = File::load($media_entity->thumbnail->target_id);
+          //if the file exists then use it as the thumbnail otherwise use the default
+          $media_thumb = $file->getFileUri() ?? '';
+          if (!file_destination($media_thumb, FILE_EXISTS_ERROR)) {
+            $thumbnail_uri = $media_thumb;
+          }
+          else {
+            $default_thumbnail_filename = $media_entity->getSource()->getPluginDefinition()['default_thumbnail_filename'];
+            $thumbnail_uri = \Drupal::service('config.factory')->get('media.settings')->get('icon_base_uri') . '/' . $default_thumbnail_filename;
+          }
+
         }
         $element = [
           '#theme' => 'image_style',
