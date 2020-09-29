@@ -13,7 +13,8 @@ use Drupal\scitalk_media\Plugin\media\Source\SciTalkArXiv;
 use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
 
-
+use Drupal\Core\Link;
+use Drupal\Core\Url;
 
 /**
  * Plugin implementation of the 'scitalk_thumbnail_formatter' formatter.
