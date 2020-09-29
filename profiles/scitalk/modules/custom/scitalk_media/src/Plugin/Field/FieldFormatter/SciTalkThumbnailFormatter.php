@@ -61,10 +61,23 @@ class SciTalkThumbnailFormatter extends FormatterBase {
         if(isset($field[0])) {
           $file = File::load($field[0]['target_id']);
           //$image_uri = ImageStyle::load('thumbnail')->buildUrl($file->getFileUri());
-          $element = [
+          // $element = [
+          //   '#theme' => 'image_style',
+          //   '#style_name' => 'thumbnail',
+          //   '#uri' => $file->getFileUri(),
+          // ];
+
+          //make images clickable
+          $img_rendered_array = [
             '#theme' => 'image_style',
             '#style_name' => 'thumbnail',
             '#uri' => $file->getFileUri(),
+          ];
+
+          $element = [
+            '#type' => 'link',
+            '#title' => $img_rendered_array,
+            '#url' => Url::fromUri("entity:node/{$node->get('nid')->value}"),
           ];
         }
         break;
@@ -104,11 +117,25 @@ class SciTalkThumbnailFormatter extends FormatterBase {
           }
 
         }
-        $element = [
+        // $element = [
+        //   '#theme' => 'image_style',
+        //   '#style_name' => $style_to_use,
+        //   '#uri' => $thumbnail_uri,
+        // ];
+
+        //make images clickable
+        $img_rendered_array = [
           '#theme' => 'image_style',
           '#style_name' => $style_to_use,
           '#uri' => $thumbnail_uri,
         ];
+
+        $element = [
+          '#type' => 'link',
+          '#title' => $img_rendered_array,
+          '#url' => Url::fromUri("entity:node/{$node->get('nid')->value}"),
+        ];
+
         break;
         
       default:  //no output.  Show broken thumb image?
