@@ -353,7 +353,6 @@ function scitalk_base_update_8102(&$sandbox) {
     else {
         $node_type_config_yml = $source->read('node.type.source_repository');
         $node_type_config->create($node_type_config_yml)->save();
-        $entity->save();
         
         \Drupal::logger('scitalk_base')->notice('Created node type: node.type.source_repository');
     }
