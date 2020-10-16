@@ -339,30 +339,6 @@ function scitalk_base_update_8102(&$sandbox) {
         \Drupal::logger('scitalk_base')->notice('Created field: field.field.taxonomy_term.series.field_series_subject');
     }
 
-    //update FIELD STORAGEs
-    $node_storage_list = [
-        'node.field_repo_institution',
-        'node.field_source_repo_full_name',
-        'node.field_source_repo_logo',
-        'node.field_source_repo_url',
-        'node.field_talk_source',
-        'taxonomy_term.field_collection_source',
-        'taxonomy_term.field_series_source'
-    ];
-    
-    $storage_config = \Drupal::entityManager()->getStorage('field_storage_config');
-    foreach ($node_storage_list as $storage){
-      $cur_storage_config = $storage_config->load($storage);
-      if (!empty($cur_storage_config)) 
-      {
-          $storage_config_yml = $source->read('field.storage.' . $storage); 
-          $entity = $storage_config->updateFromStorageRecord($cur_storage_config, $storage_config_yml);
-          $entity->save();
-
-          \Drupal::logger('scitalk_base')->notice('Updated field storage: ' . $storage);
-      }
-    }
-
     //update node.type.source_repository
     $node_type_config = \Drupal::entityManager()->getStorage('node_type');
     $source_repo_config = $node_type_config->load('source_repository');
@@ -373,6 +349,70 @@ function scitalk_base_update_8102(&$sandbox) {
         $entity->save();
         
         \Drupal::logger('scitalk_base')->notice('Updated node type: node.type.source_repository');
+    }
+    else {
+        $node_type_config_yml = $source->read('node.type.source_repository');
+        $node_type_config->create($node_type_config_yml)->save();
+        $entity->save();
+        
+        \Drupal::logger('scitalk_base')->notice('Created node type: node.type.source_repository');
+    }
+
+    //update FIELD STORAGEs
+    $node_storage_list = [
+        'node.field_repo_institution',
+        'node.field_source_repo_full_name',
+        'node.field_source_repo_logo',
+        'node.field_source_repo_url',
+        'node.field_talk_source',
+        'taxonomy_term.field_collection_source',
+        'taxonomy_term.field_series_source'
+    ];
+
+    $storage_config = \Drupal::entityManager()->getStorage('field_storage_config');
+    foreach ($node_storage_list as $storage){
+        $cur_storage_config = $storage_config->load($storage);
+        if (!empty($cur_storage_config)) 
+        {
+            $storage_config_yml = $source->read('field.storage.' . $storage); 
+            $entity = $storage_config->updateFromStorageRecord($cur_storage_config, $storage_config_yml);
+            $entity->save();
+
+            \Drupal::logger('scitalk_base')->notice('Updated field storage: ' . $storage);
+        }
+        else {
+            $storage_config_yml = $source->read('field.storage.' . $storage);
+            $storage_config->create($storage_config_yml)->save();
+            \Drupal::logger('scitalk_base')->notice('Created field storage: ' . $storage);
+        }
+    }
+
+    //update/create fields
+    $fields_list = [
+        'node.source_repository.field_repo_institution',
+        'node.source_repository.field_source_repo_full_name',
+        'node.source_repository.field_source_repo_logo',
+        'node.source_repository.field_source_repo_url',
+        'node.talk.field_talk_source',
+        'taxonomy_term.collection.field_collection_source',
+        'taxonomy_term.series.field_series_source'
+    ];
+    $fields_config = \Drupal::entityManager()->getStorage('field_config');
+    foreach ($fields_list as $storage){
+        $cur_storage_config = $fields_config->load($storage);
+        if (!empty($cur_storage_config)) 
+        {
+            $storage_config_yml = $source->read('field.field.' . $storage); 
+            $entity = $fields_config->updateFromStorageRecord($cur_storage_config, $storage_config_yml);
+            $entity->save();
+
+            \Drupal::logger('scitalk_base')->notice('Updated field : ' . $storage);
+        }
+        else {
+            $storage_config_yml = $source->read('field.field.' . $storage);
+            $fields_config->create($storage_config_yml)->save();
+            \Drupal::logger('scitalk_base')->notice('Created field : ' . $storage);          
+        }
     }
 
     //update pathauto talk alias pattern
