@@ -95,3 +95,4 @@ autoload.php
 composer.lock
 console/
 #sites/
+/example.gitignore
