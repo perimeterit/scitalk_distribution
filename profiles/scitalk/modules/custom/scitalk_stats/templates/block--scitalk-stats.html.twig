@@ -1,0 +1,37 @@
+{%
+  set cur_page = url('<current>')
+%}
+
+<div id="scitalks-stats" class="scitalks-stats-wrapper">
+ 
+  <div id="scitalks-stats-content">
+    <div class="scitalks-stats-item">
+        <span>Number of repositories: {{ repositories}}</span>
+    </div>
+
+    <hr>
+    <div class="scitalks-stats-item">
+        <span>Number of talks: {{ talks.total }}</span>
+        <div class="scitalks-stats-content">
+        <ul class="scitalks-stats-list" >
+            {% for talk in talks.stats %}
+            <li class="scitalks-stats-list__item">{{ talk.number_of_talks }} from {{ talk.institution_name|e }}.</li>
+            {% endfor %}
+        </ul>
+        </div>
+    </div>
+    
+    <hr>
+    <div class="scitalks-stats-item">
+        <span>Number of collections: {{ collections.total}}</span>
+        <div class="scitalks-stats-content">
+        <ul class="scitalks-stats-list" >
+            {% for coll in collections.stats %}
+            <li class="scitalks-stats-list__item">{{ coll.number_of_collections }} from {{ coll.institution_name|e }}.</li>
+            {% endfor %}
+        </ul>
+        </div>
+    </div>
+
+  </div>
+</div>

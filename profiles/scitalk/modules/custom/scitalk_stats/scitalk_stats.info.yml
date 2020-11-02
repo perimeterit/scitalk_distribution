@@ -1,0 +1,8 @@
+name: SciTalks Stats
+type: module
+description: Provides site content statistics
+core: 8.x
+package: SciTalk
+
+dependencies:
+ - scitalk:scitalk_base
