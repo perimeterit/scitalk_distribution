@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.node.source_repository.body
     - field.field.node.source_repository.field_repo_institution
+    - field.field.node.source_repository.field_repo_institution_full_name
     - field.field.node.source_repository.field_source_repo_full_name
     - field.field.node.source_repository.field_source_repo_logo
     - field.field.node.source_repository.field_source_repo_url
@@ -21,7 +22,7 @@ mode: default
 content:
   body:
     type: text_textarea_with_summary
-    weight: 121
+    weight: 9
     settings:
       rows: 9
       summary_rows: 3
@@ -31,12 +32,20 @@ content:
     region: content
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
   field_repo_institution:
-    weight: 125
+    weight: 12
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_repo_institution_full_name:
+    weight: 26
     settings:
       size: 60
       placeholder: ''
@@ -44,7 +53,7 @@ content:
     type: string_textfield
     region: content
   field_source_repo_full_name:
-    weight: 122
+    weight: 8
     settings:
       size: 60
       placeholder: ''
@@ -52,7 +61,7 @@ content:
     type: string_textfield
     region: content
   field_source_repo_logo:
-    weight: 124
+    weight: 11
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
@@ -60,7 +69,7 @@ content:
     type: image_image
     region: content
   field_source_repo_url:
-    weight: 123
+    weight: 10
     settings:
       placeholder_url: ''
       placeholder_title: ''
@@ -69,14 +78,14 @@ content:
     region: content
   langcode:
     type: language_select
-    weight: 2
+    weight: 1
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
   path:
     type: path
-    weight: 30
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -84,26 +93,26 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 15
+    weight: 4
     region: content
     third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 120
+    weight: 7
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 16
+    weight: 5
     region: content
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: -5
+    weight: 0
     region: content
     settings:
       size: 60
@@ -111,7 +120,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 2
     settings:
       match_operator: CONTAINS
       size: 60

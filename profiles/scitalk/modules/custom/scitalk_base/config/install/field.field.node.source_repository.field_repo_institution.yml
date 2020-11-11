@@ -8,9 +8,9 @@ id: node.source_repository.field_repo_institution
 field_name: field_repo_institution
 entity_type: node
 bundle: source_repository
-label: Institution
+label: 'Institution Short Name'
 description: ''
-required: false
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''

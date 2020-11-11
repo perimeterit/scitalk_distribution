@@ -530,3 +530,130 @@ function scitalk_base_update_8104(&$sandbox) {
         \Drupal::logger('scitalk_base')->notice('Updated views.view.my_talks');
     }
 }
+
+/**
+*  Updates to Source Repository content type
+*  including renaming fields labels, adding new Institution Full Name field, updating existing Insitution field max length (Short Name)
+*/
+function scitalk_base_update_8105(&$sandbox) {
+    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $source      = new FileStorage($config_path);
+    
+    //update description for source repository node type
+    \Drupal::configFactory()->getEditable('node.type.source_repository')
+      ->set('description', 'Repository and Institution information')
+      ->save(TRUE);
+    \Drupal::logger('scitalk_base')->notice('Updated Source Repository: node Description');
+    
+    //update source repository label for Repo short name
+    \Drupal::configFactory()->getEditable('core.base_field_override.node.source_repository.title')
+      ->set('label', 'Repository Short Name')
+      ->save(TRUE);
+    \Drupal::logger('scitalk_base')->notice('Updated Source Repository: Repository Short Name label');
+    
+    //update for source repository field Repository Institution its label and required properties
+    \Drupal::configFactory()->getEditable('field.field.node.source_repository.field_repo_institution')
+      ->set('label', 'Institution Short Name')
+      ->set('required', TRUE)
+      ->save(TRUE);
+    \Drupal::logger('scitalk_base')->notice('Updated Source Repository: Institution Short Name label and Required property');
+    
+    //update for source repository field Repository Institution Full Name its label property
+    \Drupal::configFactory()->getEditable('field.field.node.source_repository.field_source_repo_full_name')
+      ->set('label', 'Repository Full Name')
+      ->save(TRUE);
+    \Drupal::logger('scitalk_base')->notice('Updated Source Repository: Repository Full Name label');
+    
+    //update for source repository field URL its link type and text properties
+    \Drupal::configFactory()->getEditable('field.field.node.source_repository.field_source_repo_url')
+      ->set('settings.title', 0)
+      ->set('settings.link_type', 16)
+      ->save(TRUE);
+    \Drupal::logger('scitalk_base')->notice('Updated Source Repository: Repository Url link type and text');
+
+ 
+    //update source repository entity form display
+    $entity_form = \Drupal::entityTypeManager()->getStorage('entity_form_display');
+    $repo_entity_form = $entity_form->load('node.source_repository.default');
+    if (!empty($repo_entity_form))
+    {
+        $form_display_yml = $source->read('core.entity_form_display.node.source_repository.default');
+        $entity = $entity_form->updateFromStorageRecord($repo_entity_form, $form_display_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Source Repository entity form display');
+    }
+
+    //update source repository entity view display default
+    $view_display = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+    $default_view_display = $view_display->load('node.source_repository.default');
+    if (!empty($default_view_display))
+    {
+        $view_display_yml = $source->read('core.entity_view_display.node.source_repository.default');
+        $entity = $view_display->updateFromStorageRecord($default_view_display, $view_display_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Source Repository Default entity view display');
+    }
+
+    //update source repository entity view display teaser
+    $teaser_view_display = $view_display->load('node.source_repository.teaser');
+    if (!empty($teaser_view_display))
+    {
+        $view_display_yml = $source->read('core.entity_view_display.node.source_repository.teaser');
+        $entity = $view_display->updateFromStorageRecord($teaser_view_display, $view_display_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Source Repository Teaser entity view display');
+    }
+
+    //add FIELD STORAGE for Source Repository Full Name
+    //\Drupal::entityManager()->getStorage will be deprecated, use \Drupal::entityTypeManager()->getStorage instead
+    $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+    $field_storage_yml = 'field.storage.node.field_repo_institution_full_name';
+    $field_storage_id = 'node.field_repo_institution_full_name';
+    $loaded_storage_config = $storage_config->load($field_storage_id);
+    if (empty($loaded_storage_config))
+    {
+        \Drupal::logger('scitalk_base')->notice('Created Institution Full Name field storage');
+        $storage_config_yml = $source->read($field_storage_yml);
+        $storage_config->create($storage_config_yml)->save();
+    }
+    
+    //add FIELD Institution Full Name
+    $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
+    $field_yml = 'field.field.node.source_repository.field_repo_institution_full_name';
+    $field_id = 'node.source_repository.field_repo_institution_full_name';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        \Drupal::logger('scitalk_base')->notice('Created Institution Full Name field');
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+    }
+
+    //change field length for Institution Short Name:
+    $entity_type = 'node';
+    $field_name = 'field_repo_institution';
+    $field_length = 20;
+
+    // Update database schema.
+    $database = \Drupal::database();
+    // Resize the main field data table.
+    $database->query("ALTER TABLE {$entity_type}__{$field_name} MODIFY {$field_name}_value VARCHAR({$field_length})");
+    // Resize the revision field data table (if revisions are enabled).
+    $database->query("ALTER TABLE {$entity_type}_revision__{$field_name} MODIFY {$field_name}_value VARCHAR({$field_length})");
+    
+    // Update storage schema
+    $storage_key = $entity_type . '.field_schema_data.' . $field_name;
+    $storage_schema = \Drupal::keyValue('entity.storage_schema.sql');
+    $field_schema = $storage_schema->get($storage_key);
+    $field_schema[$entity_type . '__' . $field_name]['fields'][$field_name . '_value']['length'] = $field_length;
+    $field_schema[$entity_type . '_revision__' . $field_name]['fields'][$field_name . '_value']['length'] = $field_length;
+    $storage_schema->set($storage_key, $field_schema);
+
+    // Update field configuration.
+    $config = \Drupal::configFactory()->getEditable("field.storage.{$entity_type}.{$field_name}");
+    $config->set('settings.max_length', $field_length);
+    $config->save(TRUE);
+
+    // Update field storage configuration.
+    FieldStorageConfig::loadByName($entity_type, $field_name)->save();
+}

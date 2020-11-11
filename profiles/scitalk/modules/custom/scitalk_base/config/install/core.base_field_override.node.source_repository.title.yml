@@ -7,7 +7,7 @@ id: node.source_repository.title
 field_name: title
 entity_type: node
 bundle: source_repository
-label: 'Short Name'
+label: 'Repository Short Name'
 description: ''
 required: true
 translatable: true

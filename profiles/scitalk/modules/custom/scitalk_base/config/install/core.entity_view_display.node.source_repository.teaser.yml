@@ -5,6 +5,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.source_repository.body
     - field.field.node.source_repository.field_repo_institution
+    - field.field.node.source_repository.field_repo_institution_full_name
     - field.field.node.source_repository.field_source_repo_full_name
     - field.field.node.source_repository.field_source_repo_logo
     - field.field.node.source_repository.field_source_repo_url
@@ -32,6 +33,7 @@ content:
     region: content
 hidden:
   field_repo_institution: true
+  field_repo_institution_full_name: true
   field_source_repo_full_name: true
   field_source_repo_logo: true
   field_source_repo_url: true
