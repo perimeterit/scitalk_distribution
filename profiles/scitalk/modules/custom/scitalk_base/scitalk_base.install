@@ -546,10 +546,8 @@ function scitalk_base_update_8105(&$sandbox) {
     \Drupal::logger('scitalk_base')->notice('Updated Source Repository: node Description');
     
     //update source repository label for Repo short name
-    \Drupal::configFactory()->getEditable('core.base_field_override.node.source_repository.title')
-      ->set('label', 'Repository Short Name')
-      ->save(TRUE);
-    \Drupal::logger('scitalk_base')->notice('Updated Source Repository: Repository Short Name label');
+    //\Drupal::configFactory()->getEditable('core.base_field_override.node.source_repository.title') ->set('label', 'Repository Short Name') ->save(TRUE);
+    //\Drupal::logger('scitalk_base')->notice('Updated Source Repository: Repository Short Name label');
     
     //update for source repository field Repository Institution its label and required properties
     \Drupal::configFactory()->getEditable('field.field.node.source_repository.field_repo_institution')
