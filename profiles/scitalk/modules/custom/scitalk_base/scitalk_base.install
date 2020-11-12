@@ -653,5 +653,5 @@ function scitalk_base_update_8105(&$sandbox) {
     $config->save(TRUE);
 
     // Update field storage configuration.
-    FieldStorageConfig::loadByName($entity_type, $field_name)->save();
+    //FieldStorageConfig::loadByName($entity_type, $field_name)->save();
 }
