@@ -1,6 +1,9 @@
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  enforced:
+    module:
+      - scitalk_base
 id: talk_editor
 label: 'Talk Editor'
 weight: 4
@@ -9,4 +12,3 @@ permissions:
   - 'create talk content'
   - 'delete own talk content'
   - 'edit own talk content'
-

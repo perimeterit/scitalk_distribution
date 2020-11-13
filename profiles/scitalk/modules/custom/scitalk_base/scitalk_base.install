@@ -673,3 +673,17 @@ function scitalk_base_update_8106(&$sandbox) {
       ->save(TRUE);
     \Drupal::logger('scitalk_base')->notice('Updated Source Repository: Repository Full Name label');
 }
+
+/**
+*  Update talk editor role dependency
+*/
+function scitalk_base_update_8107(&$sandbox) {
+    $config_factory = \Drupal::configFactory();
+    $user_role_depencies = $config_factory->getEditable('user.role.talk_editor');
+    $dependencies = $user_role_depencies->get('dependencies');
+    $dependencies['enforced'] = ['module' => ['scitalk_base']];
+    $user_role_depencies->set('dependencies', $dependencies);
+    $user_role_depencies->save(TRUE);
+
+    \Drupal::logger('scitalk_base')->notice('Updated User Role Talk Editor module dependency');
+}
