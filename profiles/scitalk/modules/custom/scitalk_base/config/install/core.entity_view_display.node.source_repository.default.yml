@@ -8,8 +8,10 @@ dependencies:
     - field.field.node.source_repository.field_source_repo_full_name
     - field.field.node.source_repository.field_source_repo_logo
     - field.field.node.source_repository.field_source_repo_url
+    - image.style.large
     - node.type.source_repository
   module:
+    - fences
     - image
     - link
     - text
@@ -22,60 +24,102 @@ content:
   body:
     label: hidden
     type: text_default
-    weight: 101
+    weight: 5
     settings: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: div
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
     region: content
   field_repo_institution:
-    weight: 105
-    label: above
+    weight: 2
+    label: inline
     settings:
       link_to_entity: false
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: span
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
     type: string
     region: content
   field_repo_institution_full_name:
-    weight: 106
-    label: above
+    weight: 3
+    label: inline
     settings:
       link_to_entity: false
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: span
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
     type: string
     region: content
   field_source_repo_full_name:
-    weight: 102
-    label: above
+    weight: 1
+    label: inline
     settings:
       link_to_entity: false
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: span
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
     type: string
     region: content
   field_source_repo_logo:
-    weight: 104
+    weight: 6
     label: above
     settings:
-      image_style: ''
+      image_style: large
       image_link: ''
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: figure
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
     type: image
     region: content
   field_source_repo_url:
-    weight: 103
-    label: above
+    weight: 4
+    label: inline
     settings:
       trim_length: 80
       url_only: false
       url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
+      rel: '0'
+      target: '0'
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
     type: link
     region: content
   links:
-    weight: 100
+    weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
   langcode: true
   search_api_excerpt: true

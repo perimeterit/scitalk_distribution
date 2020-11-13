@@ -656,3 +656,20 @@ function scitalk_base_update_8105(&$sandbox) {
     FieldStorageConfig::loadByName($entity_type, $field_name)->save();
     \Drupal::logger('scitalk_base')->notice('Finished updates');
 }
+
+/**
+*  Re-label source repository fields
+*/
+function scitalk_base_update_8106(&$sandbox) {
+    //update for source repository field Repository Institution its label and required properties
+    \Drupal::configFactory()->getEditable('field.field.node.source_repository.field_repo_institution_full_name')
+      ->set('label', 'Institution Name')
+      ->save(TRUE);
+    \Drupal::logger('scitalk_base')->notice('Updated Source Repository: Institution Name label');
+    
+    //update for source repository field Repository Institution Name its label property
+    \Drupal::configFactory()->getEditable('field.field.node.source_repository.field_source_repo_full_name')
+      ->set('label', 'Repository Name')
+      ->save(TRUE);
+    \Drupal::logger('scitalk_base')->notice('Updated Source Repository: Repository Full Name label');
+}
