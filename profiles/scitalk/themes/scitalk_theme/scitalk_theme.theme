@@ -186,6 +186,29 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
         }
       }
     }
+
+    //in Advanced Search replace the search by repository textbox field by a dropdown
+    if (!empty($form['repository_id'])) {
+      $sql = "SELECT entity_id, title as repo_short_name, node__field_repo_institution.field_repo_institution_value as institution_short_name
+        FROM node_field_data
+        JOIN node__field_repo_institution ON node_field_data.nid = node__field_repo_institution.entity_id
+        ORDER BY institution_short_name";
+
+      $repositories = \Drupal::database()->query($sql)->fetchAll();
+      $options = [];
+      foreach ($repositories as $repo) {
+          $options[$repo->entity_id] = $repo->institution_short_name . ' - ' . $repo->repo_short_name;
+      }
+
+      $form['repository_id'] = [
+        '#type' => "select",
+        '#size' => 1,
+        '#default_value' => t('All Repositories'),
+        '#validated' => TRUE,
+        '#empty_option' => t('All Repositories'),
+        '#options' => $options
+      ];
+    }
   }
 
   //new default search
