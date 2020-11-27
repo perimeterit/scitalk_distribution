@@ -108,6 +108,13 @@ function scitalk_base_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
       $fields['field_collection_number']->addConstraint('UniqueSeriesNumber');
     }
   }
+
+  if ($bundle == 'source_repository') {
+    if (isset($fields['title'])) {
+      //makes sure that the Repository Short Name is no more that a max length (20)
+      $fields['title']->addConstraint('RepositoryShortNameMaxLength', []);
+    }
+  }
 }
 
 /**
