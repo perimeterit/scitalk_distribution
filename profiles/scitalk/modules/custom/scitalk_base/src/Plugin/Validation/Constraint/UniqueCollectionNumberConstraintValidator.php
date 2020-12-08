@@ -39,7 +39,7 @@ class UniqueCollectionNumberConstraintValidator extends ConstraintValidator {
       }
 
       if (!$isUnique) {
-        $this->context->addViolation( $constraint->notUnique, ['%value' => $taxonomy->field_collection_number->value] );
+        $this->context->addViolation( t($constraint->notUnique, ['%value' => $taxonomy->field_collection_number->value]) );
       }
 
     }

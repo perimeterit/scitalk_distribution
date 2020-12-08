@@ -23,7 +23,7 @@ class RepositoryShortNameConstraintValidator extends ConstraintValidator {
       
       $short_repo_name_len = strlen($item->value) ?? 0;
       if ($short_repo_name_len > self::MAX_LEN) {
-        $this->context->addViolation( $constraint->tooLong, ['%value' => $item->value] );
+        $this->context->addViolation( t($constraint->tooLong) );
       }
     }
   }

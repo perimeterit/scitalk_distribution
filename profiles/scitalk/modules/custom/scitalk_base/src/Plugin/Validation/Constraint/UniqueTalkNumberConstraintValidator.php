@@ -36,7 +36,7 @@ class UniqueTalkNumberConstraintValidator extends ConstraintValidator {
       }
 
       if (!$isUnique) {
-        $this->context->addViolation( $constraint->notUnique, ['%value' => $entity->field_talk_number->value] );
+        $this->context->addViolation( t($constraint->notUnique, ['%value' => $entity->field_talk_number->value]) );
       }
     }
   }
