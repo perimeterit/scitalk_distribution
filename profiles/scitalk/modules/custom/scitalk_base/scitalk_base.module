@@ -196,6 +196,43 @@ function scitalk_base_taxonomy_term_presave(Drupal\taxonomy\Entity\Term $taxonom
   }
 }
 
+/**
+ * Implements hook_form_alter().
+ */
+function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  
+  //detect if this is a node form, taxonomy collection or series
+  if( $form_id == 'node_talk_form'
+      || $form_id == 'taxonomy_term_collection_form'
+      || $form_id == 'taxonomy_term_series_form') {
+        
+    //detect if there is a single Source (Source Repository content type)
+    //if so, set it to the value in the form.
+    
+    $query = \Drupal::entityQuery('node');
+    $query->condition('status', 1);
+    $query->condition('type', 'source_repository');
+    $entity_ids = $query->execute();
+    
+    if(count($entity_ids) === 1) {
+      //only 1 repository, fill it in.
+      //xdebug_break();
+      $singleSource = \Drupal\node\Entity\Node::load(current($entity_ids));
+      if($singleSource) {
+        if($form_id == 'node_talk_form') {
+          $form['field_talk_source']['widget'][0]['target_id']['#default_value'] = $singleSource;
+        }
+        elseif($form_id == 'taxonomy_term_collection_form') {
+          $form['field_collection_source']['widget'][0]['target_id']['#default_value'] = $singleSource;
+        }
+        elseif($form_id == 'taxonomy_term_series_form') {
+          $form['field_series_source']['widget'][0]['target_id']['#default_value'] = $singleSource;
+        }
+      }
+    }
+  }
+}
+
 //check whether to create/update DOIs for this type of entity Talk
 function _scitalk_base_use_doi(\Drupal\Core\Entity\EntityInterface $entity) {
   $config = \Drupal::config('scitalk_base.settings');
