@@ -1,5 +1,6 @@
 <?php
 use \Drupal\Core\Field\BaseFieldDefinition;
+use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\scitalk_base\ScitalkServices\ReferenceIDGeneratorInterface;
 
