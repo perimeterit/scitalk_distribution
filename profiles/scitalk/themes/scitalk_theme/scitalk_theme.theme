@@ -165,12 +165,15 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
 
     $form['actions']['#suffix'] = '</div>';
 
-    foreach ($form['talk_subject']['#options'] as $key => &$option) {
-      if ($key == 'All') {
-        $option = t('All Subjects');
-        break;
+    if (!empty($form['talk_subject']['#options'])) {
+      foreach ($form['talk_subject']['#options'] as $key => &$option) {
+        if ($key == 'All') {
+          $option = t('All Subjects');
+          break;
+        }
       }
     }
+
     foreach ($form['type']['#options'] as $key => &$option) {
       if ($key == 'All') {
         $option = t('All Types');
@@ -214,10 +217,13 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
   //new default search
   if ($form['#id'] == 'views-exposed-form-scitalk-default-advanced-search2-talks-search')  {
     $form['actions']['submit']['#attributes'] = array('class' => array('do-advanced-search'));
-    foreach ($form['talk_subject']['#options'] as $key => &$option) {
-      if ($key == 'All') {
-        $option = t('All Subjects');
-        break;
+
+    if (!empty($form['talk_subject']['#options'])) {
+      foreach ($form['talk_subject']['#options'] as $key => &$option) {
+        if ($key == 'All') {
+          $option = t('All Subjects');
+          break;
+        }
       }
     }
   }
