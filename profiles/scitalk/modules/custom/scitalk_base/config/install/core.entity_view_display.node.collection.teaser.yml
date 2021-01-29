@@ -1,0 +1,39 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.collection.field_collection_date
+    - field.field.node.collection.field_collection_event_url
+    - field.field.node.collection.field_collection_number
+    - field.field.node.collection.field_collection_organizers
+    - field.field.node.collection.field_collection_public_viewable
+    - field.field.node.collection.field_collection_short_desc
+    - field.field.node.collection.field_collection_source
+    - field.field.node.collection.field_collection_subject
+    - field.field.node.collection.field_collection_type
+    - node.type.collection
+  module:
+    - user
+id: node.collection.teaser
+targetEntityType: node
+bundle: collection
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_collection_date: true
+  field_collection_event_url: true
+  field_collection_number: true
+  field_collection_organizers: true
+  field_collection_public_viewable: true
+  field_collection_short_desc: true
+  field_collection_source: true
+  field_collection_subject: true
+  field_collection_type: true
+  langcode: true
+  search_api_excerpt: true
