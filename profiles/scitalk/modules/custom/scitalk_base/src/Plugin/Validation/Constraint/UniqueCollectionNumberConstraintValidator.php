@@ -15,33 +15,56 @@ class UniqueCollectionNumberConstraintValidator extends ConstraintValidator {
    * {@inheritdoc}
    */
   public function validate($entity, Constraint $constraint) {
-    $taxonomy = $entity->getEntity(); 
-
-    if (!isset($taxonomy)) {
+    //Determine what entity type this is.
+    $thisEntity = $entity->getEntity();
+    
+    if (!isset($thisEntity)) {
       return;
     }
 
-    if ($taxonomy->getVocabularyId() == $this->vocabulary_name) {
-      $isUnique = true;
-
-      //new requirement: unique is now a talk number + source
-      $source_target_id = $taxonomy->get('field_collection_source')->target_id ?? 0;
+    $entityType = $thisEntity->getEntityTypeId();
+    
+    if($entityType == 'node') {
+      //for the node collection type, load the source and talk
+      $source_target_id = $thisEntity->get('field_collection_source')->target_id ?? 0;
       $source_field = \Drupal::entityTypeManager()->getStorage('node')->load($source_target_id);
       $source_name = $source_field->title->value ?? '';
-
-      // If the taxonomy already has an id we're in an entity *update* operation
-      //make sure that (in case they are changing the talk number) that no other entity has the same colletion number
-      if ($taxonomy->id()) {
-        $isUnique = $this->isUnique( $taxonomy->field_collection_number->value, $source_name, $taxonomy->id() );
+      
+      //Make sure that (in case they are changing the talk number) that no other entity has the same colletion number
+      if ($thisEntity->id()) {
+        $isUnique = $this->isUnique( $thisEntity->field_collection_number->value, $source_name, $thisEntity->id() );
       }
       else {
-        $isUnique = $this->isUnique( $taxonomy->field_collection_number->value, $source_name);
+        $isUnique = $this->isUnique( $thisEntity->field_collection_number->value, $source_name);
       }
-
+      
       if (!$isUnique) {
-        $this->context->addViolation( t($constraint->notUnique, ['%value' => $taxonomy->field_collection_number->value]) );
+        $this->context->addViolation( $this->t($constraint->notUnique, ['%value' => $thisEntity->field_collection_number->value]) );
       }
-
+    }
+    elseif($entityType == 'taxonomy') {
+      if ($thisEntity->getVocabularyId() == $this->vocabulary_name) {
+        $isUnique = true;
+  
+        //new requirement: unique is now a talk number + source
+        $source_target_id = $thisEntity->get('field_collection_source')->target_id ?? 0;
+        $source_field = \Drupal::entityTypeManager()->getStorage('node')->load($source_target_id);
+        $source_name = $source_field->title->value ?? '';
+  
+        // If the taxonomy already has an id we're in an entity *update* operation
+        //make sure that (in case they are changing the talk number) that no other entity has the same colletion number
+        if ($thisEntity->id()) {
+          $isUnique = $this->isUnique( $thisEntity->field_collection_number->value, $source_name, $thisEntity->id(), $entityType);
+        }
+        else {
+          $isUnique = $this->isUnique( $thisEntity->field_collection_number->value, $source_name, '', $entityType);
+        }
+  
+        if (!$isUnique) {
+          $this->context->addViolation( $this->t($constraint->notUnique, ['%value' => $thisEntity->field_collection_number->value]));
+        }
+  
+      }
     }
   }
 
@@ -50,22 +73,40 @@ class UniqueCollectionNumberConstraintValidator extends ConstraintValidator {
    *
    * @param string $value
    */
-  private function isUnique($value, $source_name, $tid = '') {
-    $query_count = \Drupal::entityQuery('taxonomy_term')
-         ->condition('vid', $this->vocabulary_name)
-         ->condition('field_collection_number', $value, '=');
-
-    if (empty($source_name)) {
-      $query_count->notExists('field_collection_source.entity.title');
+  private function isUnique($value, $source_name, $tid = '', $entityType) {
+    if($entityType == 'taxonomy') {
+      $query_count = \Drupal::entityQuery('taxonomy_term')
+           ->condition('vid', $this->vocabulary_name)
+           ->condition('field_collection_number', $value, '=');
+  
+      if (empty($source_name)) {
+        $query_count->notExists('field_collection_source.entity.title');
+      }
+      else {
+        $query_count->condition('field_collection_source.entity.title', $source_name);
+      }     
+  
+      if (!empty($tid)) {
+        $query_count->condition('tid', $tid, '<>');
+      }
     }
     else {
-      $query_count->condition('field_collection_source.entity.title', $source_name);
-    }     
-
-    if (!empty($tid)) {
-      $query_count->condition('tid', $tid, '<>');
+      $query_count = \Drupal::entityQuery('node')
+        ->condition('type', 'collection')
+        ->condition('field_collection_number', $value, '=');
+      
+      if (empty($source_name)) {
+        $query_count->notExists('field_collection_source.entity.title');
+      }
+      else {
+        $query_count->condition('field_collection_source.entity.title', $source_name);
+      }
+      
+      if (!empty($tid)) {
+        $query_count->condition('tid', $tid, '<>');
+      }
+      
     }
-
     $query_count->count();
 
     return $query_count->execute() == 0;
