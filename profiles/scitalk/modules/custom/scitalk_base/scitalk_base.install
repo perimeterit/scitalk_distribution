@@ -724,17 +724,13 @@ function scitalk_base_update_8108(&$sandbox) {
  * Create collection and series content types
  */
 function scitalk_base_update_8109(&$sandbox) {
-  $files = [
+  $nodes = [
     'node.type.collection.yml',
-    'field.storage.node.field_collection_date.yml',
-    'field.storage.node.field_collection_event_url.yml',
-    'field.storage.node.field_collection_number.yml',
-    'field.storage.node.field_collection_organizers.yml',
-    'field.storage.node.field_collection_public_viewable.yml',
-    'field.storage.node.field_collection_short_desc.yml',
-    'field.storage.node.field_collection_source.yml',
-    'field.storage.node.field_collection_subject.yml',
-    'field.storage.node.field_collection_type.yml',
+    'node.type.series.yml',
+  ];
+  
+  $fields = [
+
     'field.field.node.collection.field_collection_date.yml',
     'field.field.node.collection.field_collection_event_url.yml',
     'field.field.node.collection.field_collection_number.yml',
@@ -750,13 +746,7 @@ function scitalk_base_update_8109(&$sandbox) {
     'core.entity_form_display.node.collection.default.yml',
     'core.entity_view_display.node.collection.default.yml',
     'core.entity_view_display.node.collection.teaser.yml',
-    'node.type.series.yml',
-    'field.storage.node.field_series_active.yml',
-    'field.storage.node.field_series_meeting_time.yml',
-    'field.storage.node.field_series_number.yml',
-    'field.storage.node.field_series_short_description.yml',
-    'field.storage.node.field_series_source.yml',
-    'field.storage.node.field_series_subject.yml',
+
     'field.field.node.series.field_series_active.yml',
     'field.field.node.series.field_series_meeting_time.yml',
     'field.field.node.series.field_series_number.yml',
@@ -771,16 +761,50 @@ function scitalk_base_update_8109(&$sandbox) {
     'language.content_settings.node.series.yml',
   ];
   
+  $storage = [
+    'field.storage.node.field_collection_date.yml',
+    'field.storage.node.field_collection_event_url.yml',
+    'field.storage.node.field_collection_number.yml',
+    'field.storage.node.field_collection_organizers.yml',
+    'field.storage.node.field_collection_public_viewable.yml',
+    'field.storage.node.field_collection_short_desc.yml',
+    'field.storage.node.field_collection_source.yml',
+    'field.storage.node.field_collection_subject.yml',
+    'field.storage.node.field_collection_type.yml',
+    'field.storage.node.field_series_active.yml',
+    'field.storage.node.field_series_meeting_time.yml',
+    'field.storage.node.field_series_number.yml',
+    'field.storage.node.field_series_short_description.yml',
+    'field.storage.node.field_series_source.yml',
+    'field.storage.node.field_series_subject.yml',
+  ];
+  
   $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
   $source = new FileStorage($config_path);
   $config_storage = \Drupal::service('config.storage');
   
-  foreach($files as $file) {
+  foreach($nodes as $file) {
     $configName = str_replace('.yml', '' , $file);
     \Drupal::logger('scitalk_base')->notice('Importing YML file: ' . $file . '. Config name: ' . $configName);
     
     $config_storage->write($configName, $source->read($configName));
   }
+  
+  $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+  foreach($storage as $file) {
+    $configName = str_replace('.yml', '' , $file);
+    \Drupal::logger('scitalk_base')->notice('Importing YML file: ' . $file . '. Config name: ' . $configName);
+    
+    $storage_config->create($source->read($configName))->save();
+  }
+  
+  foreach($fields as $file) {
+    $configName = str_replace('.yml', '' , $file);
+    \Drupal::logger('scitalk_base')->notice('Importing YML file: ' . $file . '. Config name: ' . $configName);
+    
+    $config_storage->write($configName, $source->read($configName));
+  }
+  
 }
 
 

@@ -32,10 +32,10 @@ class UniqueSeriesNumberConstraintValidator extends ConstraintValidator {
       
       //Make sure that (in case they are changing the talk number) that no other entity has the same colletion number
       if ($thisEntity->id()) {
-        $isUnique = $this->isUnique( $thisEntity->field_series_number->value, $source_name, $thisEntity->id() );
+        $isUnique = $this->isUnique( $thisEntity->field_series_number->value, $source_name, $thisEntity->id(), $entityType );
       }
       else {
-        $isUnique = $this->isUnique( $thisEntity->field_series_number->value, $source_name);
+        $isUnique = $this->isUnique( $thisEntity->field_series_number->value, $source_name, '', $entityType);
       }
       
       if (!$isUnique) {
@@ -54,10 +54,10 @@ class UniqueSeriesNumberConstraintValidator extends ConstraintValidator {
         // If the taxonomy already has an id we're in an entity *update* operation
         //make sure that (in case they are changing the talk number) that no other entity has the same colletion number
         if ($thisEntity->id()) {
-          $isUnique = $this->isUnique( $thisEntity->field_collection_number->value, $source_name, $thisEntity->id() );
+          $isUnique = $this->isUnique( $thisEntity->field_collection_number->value, $source_name, $thisEntity->id(), $entityType );
         }
         else {
-          $isUnique = $this->isUnique( $thisEntity->field_collection_number->value, $source_name);
+          $isUnique = $this->isUnique( $thisEntity->field_collection_number->value, $source_name, '', $entityType);
         }
         
         if (!$isUnique) {
@@ -73,10 +73,7 @@ class UniqueSeriesNumberConstraintValidator extends ConstraintValidator {
    *
    * @param string $value
    */
-  private function isUnique($value, $source_name, $tid = '') {
-    
-    
-    
+  private function isUnique($value, $source_name, $id = '', $entityType) {
     if($entityType == 'taxonomy') {
       $query_count = \Drupal::entityQuery('taxonomy_term')
       ->condition('vid', $this->vocabulary_name)
@@ -89,14 +86,15 @@ class UniqueSeriesNumberConstraintValidator extends ConstraintValidator {
         $query_count->condition('field_series_source.entity.title', $source_name);
       }
       
-      if (!empty($tid)) {
-        $query_count->condition('tid', $tid, '<>');
+      if (!empty($id)) {
+        $query_count->condition('tid', $id, '<>');
       }
     }
     else {
       $query_count = \Drupal::entityQuery('node')
-      ->condition('type', 'collection')
-      ->condition('field_collection_number', $value, '=');
+      ->condition('type', 'series')
+      // ->condition('status', 1) //omitting in the event there is a non-published series that is already established
+      ->condition('field_collection_number.value', $value, '=');
       
       if (empty($source_name)) {
         $query_count->notExists('field_series_source.entity.title');
@@ -105,8 +103,8 @@ class UniqueSeriesNumberConstraintValidator extends ConstraintValidator {
         $query_count->condition('field_series_source.entity.title', $source_name);
       }
       
-      if (!empty($tid)) {
-        $query_count->condition('tid', $tid, '<>');
+      if (!empty($id)) {
+        $query_count->condition('nid', $id, '<>');
       }
       
     }

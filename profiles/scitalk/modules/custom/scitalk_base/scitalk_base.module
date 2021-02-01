@@ -99,12 +99,12 @@ function scitalk_base_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
       $fields['field_talk_number']->addConstraint('UniqueTalkNumber', []);
     }
   }
-  else if ($bundle == 'collection') {
+  else if ($bundle == 'collection') {  //Fires for any entity whose bundle is set to 'collection'
     if (isset($fields['field_collection_number'])) {
       $fields['field_collection_number']->addConstraint('UniqueCollectionNumber');
     }
   }
-  else if ($bundle == 'series') {
+  else if ($bundle == 'series') {  //Fires for any entity whose bundle is set to 'collection'
     if (isset($fields['field_collection_number'])) {
       $fields['field_collection_number']->addConstraint('UniqueSeriesNumber');
     }

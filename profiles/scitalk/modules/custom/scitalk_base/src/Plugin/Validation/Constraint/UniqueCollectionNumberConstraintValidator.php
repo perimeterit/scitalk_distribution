@@ -35,7 +35,7 @@ class UniqueCollectionNumberConstraintValidator extends ConstraintValidator {
         $isUnique = $this->isUnique( $thisEntity->field_collection_number->value, $source_name, $thisEntity->id() );
       }
       else {
-        $isUnique = $this->isUnique( $thisEntity->field_collection_number->value, $source_name);
+        $isUnique = $this->isUnique( $thisEntity->field_collection_number->value, $source_name, '', $entityType);
       }
       
       if (!$isUnique) {
@@ -73,7 +73,8 @@ class UniqueCollectionNumberConstraintValidator extends ConstraintValidator {
    *
    * @param string $value
    */
-  private function isUnique($value, $source_name, $tid = '', $entityType) {
+  private function isUnique($value, $source_name, $id = '', $entityType) {
+
     if($entityType == 'taxonomy') {
       $query_count = \Drupal::entityQuery('taxonomy_term')
            ->condition('vid', $this->vocabulary_name)
@@ -86,29 +87,28 @@ class UniqueCollectionNumberConstraintValidator extends ConstraintValidator {
         $query_count->condition('field_collection_source.entity.title', $source_name);
       }     
   
-      if (!empty($tid)) {
-        $query_count->condition('tid', $tid, '<>');
+      if (!empty($id)) {
+        $query_count->condition('tid', $id, '<>');
       }
     }
     else {
       $query_count = \Drupal::entityQuery('node')
         ->condition('type', 'collection')
+        //->condition('status', 1)  //omitting as there could be a valid collection that is not published
         ->condition('field_collection_number', $value, '=');
+        
       
-      if (empty($source_name)) {
-        $query_count->notExists('field_collection_source.entity.title');
-      }
-      else {
+      if (!empty($source_name)) {
         $query_count->condition('field_collection_source.entity.title', $source_name);
       }
       
-      if (!empty($tid)) {
-        $query_count->condition('tid', $tid, '<>');
+      if (!empty($id)) {
+        $query_count->condition('nid', $id, '<>');
       }
       
     }
+  
     $query_count->count();
-
     return $query_count->execute() == 0;
   }
 
