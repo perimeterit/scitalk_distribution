@@ -39,7 +39,7 @@ class UniqueCollectionNumberConstraintValidator extends ConstraintValidator {
       }
       
       if (!$isUnique) {
-        $this->context->addViolation( $this->t($constraint->notUnique, ['%value' => $thisEntity->field_collection_number->value]) );
+        $this->context->addViolation( t($constraint->notUnique, ['%value' => $thisEntity->field_collection_number->value]) );
       }
     }
     elseif($entityType == 'taxonomy') {
@@ -61,7 +61,7 @@ class UniqueCollectionNumberConstraintValidator extends ConstraintValidator {
         }
   
         if (!$isUnique) {
-          $this->context->addViolation( $this->t($constraint->notUnique, ['%value' => $thisEntity->field_collection_number->value]));
+          $this->context->addViolation( t($constraint->notUnique, ['%value' => $thisEntity->field_collection_number->value]));
         }
   
       }
