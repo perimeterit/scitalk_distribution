@@ -19,3 +19,5 @@ dependencies:
   - search_api_solr:search_api_solr
   - date_all_day
   - jsonapi_extras
+  - group:group
+  - group:gnode
