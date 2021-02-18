@@ -12,3 +12,6 @@ group_type: source_repository_admi
 permissions_ui: true
 permissions:
   - 'view group'
+  - 'view group_node:collection entity'
+  - 'view group_node:series entity'
+  - 'view group_node:talk entity'
