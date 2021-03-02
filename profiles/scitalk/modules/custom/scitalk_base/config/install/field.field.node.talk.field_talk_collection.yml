@@ -2,14 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.node.field_collection_source
+    - field.storage.node.field_talk_collection
     - node.type.collection
-    - node.type.source_repository
-id: node.collection.field_collection_source
-field_name: field_collection_source
+    - node.type.talk
+id: node.talk.field_talk_collection
+field_name: field_talk_collection
 entity_type: node
-bundle: collection
-label: Source
+bundle: talk
+label: Collection
 description: ''
 required: false
 translatable: false
@@ -19,7 +19,7 @@ settings:
   handler: 'default:node'
   handler_settings:
     target_bundles:
-      source_repository: source_repository
+      collection: collection
     sort:
       field: _none
     auto_create: false

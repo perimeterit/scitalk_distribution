@@ -7,5 +7,4 @@ dependencies:
 name: 'Talk Type'
 vid: talk_type
 description: 'The type of Talk'
-hierarchy: 0
 weight: 0

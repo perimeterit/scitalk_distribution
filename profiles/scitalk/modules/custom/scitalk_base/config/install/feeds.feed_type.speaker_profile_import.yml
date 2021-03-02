@@ -1,0 +1,212 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.speaker_profile.field_sp_display_name
+    - field.field.node.speaker_profile.field_sp_external_id
+    - field.field.node.speaker_profile.field_sp_first_name
+    - field.field.node.speaker_profile.field_sp_institution_name
+    - field.field.node.speaker_profile.field_sp_last_name
+    - field.field.node.speaker_profile.field_sp_orcid_id
+    - field.field.node.speaker_profile.field_sp_profile_thumbnail
+    - field.field.node.speaker_profile.field_sp_speaker_profile
+    - field.field.node.speaker_profile.field_sp_username
+    - field.field.node.speaker_profile.field_sp_web_profile_url
+    - node.type.speaker_profile
+  module:
+    - feeds_ex
+    - node
+id: speaker_profile_import
+label: 'Speaker Profile Import'
+description: 'JSON import for speaker profiles'
+help: ''
+import_period: -1
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: true
+  fallback_hub: ''
+  request_timeout: 30
+parser: jsonpath
+parser_configuration:
+  context:
+    value: '$.*'
+  sources:
+    _title:
+      label: $.title
+      value: $.title
+    _display_name:
+      label: $.display_name
+      value: $.display_name
+    _external_id:
+      label: $.external_id
+      value: $.external_id
+    _first_name:
+      label: $.first_name
+      value: $.first_name
+    _last_name:
+      label: $.last_name
+      value: $.last_name
+    _institution_name:
+      label: $.institution_name
+      value: $.institution_name
+    _orcid_id:
+      label: $.orcid_id
+      value: $.orcid_id
+    _profile:
+      label: $.profile
+      value: $.profile
+    _username:
+      label: $.username
+      value: $.username
+    _web_profile:
+      label: $.web_profile
+      value: $.web_profile
+    _thumbnail:
+      label: $.thumbnail
+      value: $.thumbnail
+  display_errors: false
+  source_encoding:
+    - auto
+  debug_mode: false
+  line_limit: 100
+processor: 'entity:node'
+processor_configuration:
+  langcode: en
+  update_existing: 0
+  update_non_existent: _keep
+  expire: -1
+  owner_feed_author: false
+  owner_id: 1
+  authorize: false
+  skip_hash_check: false
+  values:
+    type: speaker_profile
+custom_sources:
+  _title:
+    label: $.title
+    value: $.title
+    machine_name: _title
+  _display_name:
+    label: $.display_name
+    value: $.display_name
+    machine_name: _display_name
+  _external_id:
+    label: $.external_id
+    value: $.external_id
+    machine_name: _external_id
+  _first_name:
+    label: $.first_name
+    value: $.first_name
+    machine_name: _first_name
+  _last_name:
+    label: $.last_name
+    value: $.last_name
+    machine_name: _last_name
+  _institution_name:
+    label: $.institution_name
+    value: $.institution_name
+    machine_name: _institution_name
+  _orcid_id:
+    label: $.orcid_id
+    value: $.orcid_id
+    machine_name: _orcid_id
+  _thumbnail:
+    label: $.thumbnail
+    value: $.thumbnail
+    machine_name: _thumbnail
+  _profile:
+    label: $.profile
+    value: $.profile
+    machine_name: _profile
+  _username:
+    label: $.username
+    value: $.username
+    machine_name: _username
+  _web_profile:
+    label: $.web_profile
+    value: $.web_profile
+    machine_name: _web_profile
+mappings:
+  -
+    target: title
+    map:
+      value: _title
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_sp_display_name
+    map:
+      value: _display_name
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_sp_external_id
+    map:
+      value: _external_id
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_sp_first_name
+    map:
+      value: _first_name
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_sp_last_name
+    map:
+      value: _last_name
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_sp_institution_name
+    map:
+      value: _institution_name
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_sp_orcid_id
+    map:
+      value: _orcid_id
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_sp_speaker_profile
+    map:
+      value: _profile
+    settings:
+      language: null
+      format: plain_text
+  -
+    target: field_sp_username
+    map:
+      value: _username
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_sp_web_profile_url
+    map:
+      uri: _web_profile
+      title: _web_profile
+    settings:
+      language: null
+  -
+    target: field_sp_profile_thumbnail
+    map:
+      target_id: _thumbnail
+      alt: _display_name
+      title: _display_name
+    settings:
+      language: ''
+      reference_by: fid
+      autocreate: '1'
+      existing: '0'

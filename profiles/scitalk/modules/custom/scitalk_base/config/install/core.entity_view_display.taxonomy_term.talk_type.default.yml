@@ -1,4 +1,3 @@
-uuid: 27bf21df-aa1e-4239-b7b1-c04120277b8b
 langcode: en
 status: true
 dependencies:
@@ -7,8 +6,6 @@ dependencies:
     - taxonomy.vocabulary.talk_type
   module:
     - text
-_core:
-  default_config_hash: UcaobPXNYkB0iD2Hf9l1VWmIGLHeHqMYcr3O0Whe2_s
 id: taxonomy_term.talk_type.default
 targetEntityType: taxonomy_term
 bundle: talk_type

@@ -1,0 +1,134 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.base_field_override.node.series.title
+    - field.field.node.series.field_series_active
+    - field.field.node.series.field_series_meeting_time
+    - field.field.node.series.field_series_number
+    - field.field.node.series.field_series_short_description
+    - field.field.node.series.field_series_subject
+    - node.type.series
+  module:
+    - feeds_ex
+    - node
+id: series_import
+label: 'Series Import'
+description: 'Import a Series content type'
+help: ''
+import_period: -1
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: true
+  fallback_hub: ''
+  request_timeout: 30
+parser: jsonpath
+parser_configuration:
+  context:
+    value: '$.*'
+  sources:
+    _active:
+      label: $.active
+      value: $.active
+    _title:
+      label: $.title
+      value: $.title
+    _date:
+      label: $.date
+      value: $.date
+    _short_description:
+      label: $.short_description
+      value: $.short_description
+    _series_number:
+      label: $.series_number
+      value: $.series_number
+    _subject:
+      label: $.subject
+      value: $.subject
+  display_errors: false
+  source_encoding:
+    - auto
+  debug_mode: false
+  line_limit: 100
+processor: 'entity:node'
+processor_configuration:
+  langcode: en
+  update_existing: 0
+  update_non_existent: _keep
+  expire: -1
+  owner_feed_author: false
+  owner_id: 1
+  authorize: true
+  skip_hash_check: false
+  values:
+    type: series
+custom_sources:
+  _active:
+    label: $.active
+    value: $.active
+    machine_name: _active
+  _title:
+    label: $.title
+    value: $.title
+    machine_name: _title
+  _date:
+    label: $.date
+    value: $.date
+    machine_name: _date
+  _short_description:
+    label: $.short_description
+    value: $.short_description
+    machine_name: _short_description
+  _series_number:
+    label: $.series_number
+    value: $.series_number
+    machine_name: _series_number
+  _subject:
+    label: $.subject
+    value: $.subject
+    machine_name: _subject
+mappings:
+  -
+    target: field_series_active
+    map:
+      value: _active
+    settings:
+      language: null
+  -
+    target: title
+    map:
+      value: _title
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_series_meeting_time
+    map:
+      value: _date
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_series_short_description
+    map:
+      value: _short_description
+    settings:
+      language: null
+      format: plain_text
+  -
+    target: field_series_number
+    map:
+      value: _series_number
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_series_subject
+    map:
+      target_id: _subject
+    settings:
+      language: ''
+      reference_by: name
+      autocreate: '1'

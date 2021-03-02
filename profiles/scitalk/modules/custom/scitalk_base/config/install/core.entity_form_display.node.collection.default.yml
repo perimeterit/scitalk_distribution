@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.collection.field_collection_organizers
     - field.field.node.collection.field_collection_public_viewable
     - field.field.node.collection.field_collection_short_desc
-    - field.field.node.collection.field_collection_source
     - field.field.node.collection.field_collection_subject
     - field.field.node.collection.field_collection_type
     - node.type.collection
@@ -74,16 +73,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textfield
-    region: content
-  field_collection_source:
-    weight: 127
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
     region: content
   field_collection_subject:
     weight: 129

@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.collection.field_collection_organizers
     - field.field.node.collection.field_collection_public_viewable
     - field.field.node.collection.field_collection_short_desc
-    - field.field.node.collection.field_collection_source
     - field.field.node.collection.field_collection_subject
     - field.field.node.collection.field_collection_type
     - node.type.collection
@@ -76,14 +75,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     type: text_default
-    region: content
-  field_collection_source:
-    weight: 107
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
     region: content
   field_collection_subject:
     weight: 109

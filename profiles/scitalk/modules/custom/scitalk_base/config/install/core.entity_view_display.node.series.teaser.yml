@@ -7,7 +7,6 @@ dependencies:
     - field.field.node.series.field_series_meeting_time
     - field.field.node.series.field_series_number
     - field.field.node.series.field_series_short_description
-    - field.field.node.series.field_series_source
     - field.field.node.series.field_series_subject
     - node.type.series
   module:
@@ -27,7 +26,6 @@ hidden:
   field_series_meeting_time: true
   field_series_number: true
   field_series_short_description: true
-  field_series_source: true
   field_series_subject: true
   langcode: true
   search_api_excerpt: true

@@ -6,7 +6,6 @@ dependencies:
     - field.field.node.series.field_series_meeting_time
     - field.field.node.series.field_series_number
     - field.field.node.series.field_series_short_description
-    - field.field.node.series.field_series_source
     - field.field.node.series.field_series_subject
     - node.type.series
   module:
@@ -53,16 +52,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
     type: text_textfield
-    region: content
-  field_series_source:
-    weight: 125
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
     region: content
   field_series_subject:
     weight: 126

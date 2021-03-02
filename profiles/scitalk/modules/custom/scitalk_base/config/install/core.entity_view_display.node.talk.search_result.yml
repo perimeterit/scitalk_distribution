@@ -3,7 +3,8 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.search_result
-    - field.field.node.talk.field_combination_example
+    - field.field.node.talk.feeds_item
+    - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
     - field.field.node.talk.field_talk_abstract
     - field.field.node.talk.field_talk_attachments
@@ -14,7 +15,6 @@ dependencies:
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
     - field.field.node.talk.field_talk_series
-    - field.field.node.talk.field_talk_source
     - field.field.node.talk.field_talk_source_event
     - field.field.node.talk.field_talk_speaker_profile
     - field.field.node.talk.field_talk_speakers_text
@@ -109,7 +109,8 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
-  field_combination_example: true
+  feeds_item: true
+  field_embargo_date: true
   field_scientific_area: true
   field_talk_attachments: true
   field_talk_collection: true
@@ -119,7 +120,6 @@ hidden:
   field_talk_location: true
   field_talk_number: true
   field_talk_series: true
-  field_talk_source: true
   field_talk_source_event: true
   field_talk_speaker_profile: true
   field_talk_speakers_text: true

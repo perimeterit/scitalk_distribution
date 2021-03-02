@@ -3,7 +3,6 @@ status: true
 dependencies:
   config:
     - core.entity_form_mode.media.media_library
-    - field.field.node.talk.field_combination_example
     - field.field.node.talk.field_scientific_area
     - field.field.node.talk.field_talk_abstract
     - field.field.node.talk.field_talk_attachments
@@ -14,7 +13,6 @@ dependencies:
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
     - field.field.node.talk.field_talk_series
-    - field.field.node.talk.field_talk_source
     - field.field.node.talk.field_talk_source_event
     - field.field.node.talk.field_talk_speaker_profile
     - field.field.node.talk.field_talk_speakers_text
@@ -45,16 +43,6 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_combination_example:
-    weight: 13
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-      match_limit: 10
-    third_party_settings: {  }
-    type: entity_reference_autocomplete
-    region: content
   field_scientific_area:
     weight: 12
     settings:
@@ -150,16 +138,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
-  field_talk_source:
-    type: entity_reference_autocomplete
-    weight: 28
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
   field_talk_source_event:
     weight: 11
     settings:

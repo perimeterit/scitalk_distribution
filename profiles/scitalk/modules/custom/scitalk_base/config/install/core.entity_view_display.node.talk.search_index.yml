@@ -3,7 +3,8 @@ status: false
 dependencies:
   config:
     - core.entity_view_mode.node.search_index
-    - field.field.node.talk.field_combination_example
+    - field.field.node.talk.feeds_item
+    - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
     - field.field.node.talk.field_talk_abstract
     - field.field.node.talk.field_talk_attachments
@@ -14,7 +15,6 @@ dependencies:
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
     - field.field.node.talk.field_talk_series
-    - field.field.node.talk.field_talk_source
     - field.field.node.talk.field_talk_source_event
     - field.field.node.talk.field_talk_speaker_profile
     - field.field.node.talk.field_talk_speakers_text
@@ -70,7 +70,6 @@ third_party_settings:
         - field_scientific_area
         - field_talk_type
         - field_talk_keywords
-        - field_talk_source
       parent_name: ''
       weight: 4
       format_type: html_element
@@ -131,21 +130,6 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-  field_talk_collection:
-    weight: 32
-    label: inline
-    settings:
-      link: true
-    third_party_settings:
-      fences:
-        fences_field_tag: div
-        fences_field_classes: ''
-        fences_field_item_tag: none
-        fences_field_item_classes: ''
-        fences_label_tag: strong
-        fences_label_classes: ''
-    type: entity_reference_label
-    region: content
   field_talk_date:
     type: datetime_default
     weight: 28
@@ -222,36 +206,6 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-  field_talk_series:
-    weight: 30
-    label: inline
-    settings:
-      link: true
-    third_party_settings:
-      fences:
-        fences_field_tag: ul
-        fences_field_classes: display-list
-        fences_field_item_tag: li
-        fences_field_item_classes: ''
-        fences_label_tag: strong
-        fences_label_classes: ''
-    type: entity_reference_label
-    region: content
-  field_talk_source:
-    weight: 36
-    label: inline
-    settings:
-      link: true
-    third_party_settings:
-      fences:
-        fences_field_tag: div
-        fences_field_classes: ''
-        fences_field_item_tag: span
-        fences_field_item_classes: ''
-        fences_label_tag: strong
-        fences_label_classes: ''
-    type: entity_reference_label
-    region: content
   field_talk_source_event:
     weight: 29
     label: inline
@@ -345,7 +299,10 @@ content:
     type: link
     region: content
 hidden:
-  field_combination_example: true
+  feeds_item: true
+  field_embargo_date: true
+  field_talk_collection: true
+  field_talk_series: true
   field_talk_subject: true
   field_talk_thumbnail: true
   field_talk_viewable_online: true

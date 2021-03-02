@@ -1,21 +1,19 @@
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - scitalk_base
   module:
+    - feeds
     - node
-id: node.field_talk_source
-field_name: field_talk_source
+id: node.feeds_item
+field_name: feeds_item
 entity_type: node
-type: entity_reference
+type: feeds_item
 settings:
-  target_type: node
-module: core
+  target_type: feeds_feed
+module: feeds
 locked: false
 cardinality: 1
-translatable: true
+translatable: false
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false
