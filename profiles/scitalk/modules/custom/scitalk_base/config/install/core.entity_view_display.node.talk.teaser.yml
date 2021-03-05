@@ -14,7 +14,6 @@ dependencies:
     - field.field.node.talk.field_talk_keywords
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
-    - field.field.node.talk.field_talk_series
     - field.field.node.talk.field_talk_source_event
     - field.field.node.talk.field_talk_speaker_profile
     - field.field.node.talk.field_talk_speakers_text
@@ -39,6 +38,7 @@ content:
     third_party_settings: {  }
 hidden:
   feeds_item: true
+  field_combination_example: true
   field_embargo_date: true
   field_scientific_area: true
   field_talk_abstract: true
@@ -49,7 +49,6 @@ hidden:
   field_talk_keywords: true
   field_talk_location: true
   field_talk_number: true
-  field_talk_series: true
   field_talk_source_event: true
   field_talk_speaker_profile: true
   field_talk_speakers_text: true

@@ -13,7 +13,6 @@ dependencies:
     - field.field.node.talk.field_talk_keywords
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
-    - field.field.node.talk.field_talk_series
     - field.field.node.talk.field_talk_source_event
     - field.field.node.talk.field_talk_speaker_profile
     - field.field.node.talk.field_talk_speakers_text
@@ -60,7 +59,6 @@ third_party_settings:
         - field_talk_number
         - field_talk_speaker_profile
         - field_talk_source_event
-        - field_talk_series
         - field_talk_collection
         - field_scientific_area
         - field_talk_type
@@ -168,14 +166,6 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-  field_talk_series:
-    weight: 32
-    label: above
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_talk_source_event:
     weight: 24
     label: inline

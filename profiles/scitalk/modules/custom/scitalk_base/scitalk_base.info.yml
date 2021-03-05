@@ -19,5 +19,8 @@ dependencies:
   - search_api_solr:search_api_solr
   - date_all_day
   - jsonapi_extras
+  - feeds:feeds
+  - feeds_ex:feeds_ex
+  - feeds_tamper:feeds_tamper
   - group:group
   - group:gnode

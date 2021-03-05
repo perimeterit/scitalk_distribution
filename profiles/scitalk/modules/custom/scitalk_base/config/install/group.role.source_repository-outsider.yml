@@ -2,16 +2,16 @@ langcode: en
 status: true
 dependencies:
   config:
-    - group.type.source_repository_admi
-id: source_repository_admi-outsider
+    - group.type.source_repository
+id: source_repository-outsider
 label: Outsider
 weight: -101
 internal: true
 audience: outsider
-group_type: source_repository_admi
+group_type: source_repository
 permissions_ui: true
 permissions:
   - 'view group'
   - 'view group_node:collection entity'
-  - 'view group_node:series entity'
+  - 'view group_node:speaker_profile entity'
   - 'view group_node:talk entity'

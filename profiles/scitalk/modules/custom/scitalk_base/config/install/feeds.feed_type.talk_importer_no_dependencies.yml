@@ -20,6 +20,7 @@ dependencies:
     - field.field.node.talk.field_talk_type
     - field.field.node.talk.field_talk_video
     - field.field.node.talk.field_talk_video_url
+    - field.field.node.talk.field_talk_viewable_online
     - node.type.talk
   module:
     - feeds_ex
