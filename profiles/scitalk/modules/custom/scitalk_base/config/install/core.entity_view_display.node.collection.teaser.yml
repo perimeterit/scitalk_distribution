@@ -3,12 +3,14 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.collection.feeds_item
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_event_url
     - field.field.node.collection.field_collection_number
     - field.field.node.collection.field_collection_organizers
     - field.field.node.collection.field_collection_public_viewable
     - field.field.node.collection.field_collection_short_desc
+    - field.field.node.collection.field_collection_source_repo
     - field.field.node.collection.field_collection_subject
     - field.field.node.collection.field_collection_type
     - node.type.collection
@@ -25,12 +27,14 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  feeds_item: true
   field_collection_date: true
   field_collection_event_url: true
   field_collection_number: true
   field_collection_organizers: true
   field_collection_public_viewable: true
   field_collection_short_desc: true
+  field_collection_source_repo: true
   field_collection_subject: true
   field_collection_type: true
   langcode: true

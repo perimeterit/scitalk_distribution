@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
     - field.field.node.talk.field_talk_source_event
+    - field.field.node.talk.field_talk_source_repository
     - field.field.node.talk.field_talk_speaker_profile
     - field.field.node.talk.field_talk_speakers_text
     - field.field.node.talk.field_talk_subject
@@ -136,6 +137,16 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
+  field_talk_source_repository:
+    weight: 28
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
     region: content
   field_talk_speaker_profile:
     weight: 20
