@@ -105,12 +105,8 @@ function scitalk_base_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
       $fields['field_collection_number']->addConstraint('UniqueCollectionNumber');
     }
   }
-  else if ($bundle == 'series') {  //Fires for any entity whose bundle is set to 'collection'
-    if (isset($fields['field_collection_number'])) {
-      $fields['field_collection_number']->addConstraint('UniqueSeriesNumber');
-    }
-  }
-  
+ 
+  //TODO:  Change this to the group type?  
   if ($bundle == 'source_repository') {
     if (isset($fields['title'])) {
       //makes sure that the Repository Short Name is no more than a max length (20)
@@ -163,6 +159,20 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
       }
     }
   }
+  
+  
+  //collections have collection_number so create a collection number for them if none exists
+  if ($entity->getType() == 'collection') {
+    if ($entity->isNew()) {
+      $input_coll_number = $entity->get('field_collection_number')->value ?? '';
+      if (empty($input_coll_number)) {
+        $idGenerator = \Drupal::service('scitalk_base.reference_id_generator');
+        $collection_number = $idGenerator->generateReferenceId($entity);
+        $entity->set('field_collection_number', $collection_number);
+      }
+    }
+  }
+  
 }
 
 /**
@@ -170,10 +180,10 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
  */
 function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
   /*
-   * Upon insertion of a talk, series or collection, we bind the content
+   * Upon insertion of a talk or collection, we bind the content
    * to the first group the user doing the saving has access to.
    */
-  if ($entity->getType() == 'talk' || $entity->getType() == 'series' || $entity->getType() == 'collection') {
+  if ($entity->getType() == 'talk' || $entity->getType() == 'collection') {
     $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
     $groups = [];
     $groupMembershipService = \Drupal::service('group.membership_loader');
@@ -189,6 +199,8 @@ function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
       $group->addContent($entity, $pluginId);
     }
   }
+
+  
   
   if (_scitalk_base_use_doi($entity)) {
     //when creating a new Talk, create a Draft DOI
@@ -206,17 +218,7 @@ function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
  * Implements hook_ENTITY_TYPE_presave()
  */
 function scitalk_base_taxonomy_term_presave(Drupal\taxonomy\Entity\Term $taxonomy) {
-  //collection and series have collection_number so check for those two terms and create a collection number for them if none exists
-  if (in_array( $taxonomy->getVocabularyId() , ['collection', 'series'])) {
-    if ($taxonomy->isNew()) {
-      $input_coll_number = $taxonomy->get('field_collection_number')->value ?? '';   //$taxonomy->get('field_collection_number')->getValue();
-      if (empty($input_coll_number)) {
-        $idGenerator = \Drupal::service('scitalk_base.reference_id_generator');
-        $collection_number = $idGenerator->generateReferenceId($taxonomy);
-        $taxonomy->set('field_collection_number', $collection_number);
-      }
-    }
-  }
+  
 }
 
 /**
