@@ -173,6 +173,30 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
     }
   }
   
+  //For both the collection and talk, if this content is already grouped, then
+  //add the entity reference to the group in the source repository ER field.
+  //If this entity does not have a group, determine your group and fill the field
+  //as the entity will be grouped.
+  if ($entity->getType() == 'collection' || $entity->getType() == 'talk') {
+    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+    $groups = [];
+    $groupMembershipService = \Drupal::service('group.membership_loader');
+    $userGroups = $groupMembershipService->loadByUser($user);
+    foreach ($userGroups as $grp) {
+      $groups[] = $grp->getGroup();
+      break;  //we just need the first one
+    }
+    
+    if(count($groups)) { //if we have groups, using the first one only, use the ID for the ER
+      $groupID = $groups[0]->id();
+      if($entity->getType() == 'talk') {
+        $entity->set('field_talk_source_repository', $groupID);
+      }
+      else {
+        $entity->set('field_collection_source_repo', $groupID);
+      }
+    }
+  }
 }
 
 /**

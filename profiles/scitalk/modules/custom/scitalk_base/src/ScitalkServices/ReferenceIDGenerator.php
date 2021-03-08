@@ -34,10 +34,10 @@ class ReferenceIDGenerator implements ReferenceIDGeneratorInterface {
       ->condition('type', $type);
 
     if (empty($source_name)) {
-      $node_query->notExists('field_talk_source.entity.title');
+      $node_query->notExists('field_talk_source_repository.entity.label');
     }
     else {
-      $node_query->condition('field_talk_source.entity.title', $source_name);
+      $node_query->condition('field_talk_source_repository.entity.label', $source_name);
     }
 
     $result = $node_query->sort('field_talk_number','DESC')
@@ -122,8 +122,8 @@ class ReferenceIDGenerator implements ReferenceIDGeneratorInterface {
 
     }
 
-    $source_field = \Drupal::entityTypeManager()->getStorage('node')->load($source_target_id);
-    return $source_field->title->value ?? '';
+    $source_field = \Drupal::entityTypeManager()->getStorage('group')->load($source_target_id);
+    return $source_field->label->value ?? '';
   }
 
 }
