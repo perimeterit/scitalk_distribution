@@ -54,7 +54,7 @@ function scitalk_base_entity_base_field_info(\Drupal\Core\Entity\EntityTypeInter
  */
 function scitalk_base_entity_bundle_field_info(\Drupal\Core\Entity\EntityTypeInterface $entity_type, $bundle, array $base_field_definitions) {
   //create computed field to display the number of talks under a Collection or Series
-  if ($entity_type->id() == 'taxonomy_term' && in_array($bundle, ['collection', 'series'])) {
+  if ($entity_type->id() == 'node' && in_array($bundle, ['collection'])) {
     $fields['scitalk_number_of_talks'] = BaseFieldDefinition::create('integer')
     ->setLabel(t('Number of Talks'))
     ->setDescription(t('Number of Talks in a Collection or Series.'))
@@ -66,7 +66,7 @@ function scitalk_base_entity_bundle_field_info(\Drupal\Core\Entity\EntityTypeInt
     ->setDisplayOptions('view', [
       'label' => 'inline',
       'weight' => -1,
-      'region' => 'hidden',
+      'region' => 'disabled',
       'type' => 'scitalk_number_of_talks_formatter',
     ]);
     
@@ -81,7 +81,7 @@ function scitalk_base_entity_bundle_field_info(\Drupal\Core\Entity\EntityTypeInt
     ->setDisplayOptions('view', [
       'label' => 'inline',
       'weight' => -2,
-      'region' => 'hidden',
+      'region' => 'disabled',
       'type' => 'scitalk_most_recent_talk_formatter',
     ]);
     
@@ -105,15 +105,19 @@ function scitalk_base_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
       $fields['field_collection_number']->addConstraint('UniqueCollectionNumber');
     }
   }
- 
-  //TODO:  Change this to the group type?  
-  if ($bundle == 'source_repository') {
-    if (isset($fields['title'])) {
-      //makes sure that the Repository Short Name is no more than a max length (20)
-      $fields['title']->addConstraint('RepositoryShortNameMaxLength', []);
-    }
-  }
 }
+
+
+/**
+ * Implements hook_entity_type_alter().
+ */
+function scitalk_base_entity_type_alter(array &$entity_types) {
+  //Groups manage Repository security. As a result the group is not a content type 
+  //but rather a content entity.  We must add a constraint on the 
+  //group entity to ensure the title doesn't breach our max length.
+  $entity_types['group']->addConstraint('RepositoryShortNameMaxLength', []);
+}
+
 
 /**
  * Implements hook_ENTITY_TYPE_presave()

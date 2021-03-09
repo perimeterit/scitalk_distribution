@@ -55,23 +55,16 @@
     /**
      * return the number of talks under a Collection or Series
      */
-    public static function fetchNumberOfTalks($vid) {
-        $entity = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($vid);
+    public static function fetchNumberOfTalks($nid) {
+        $entity = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
         $bundle = $entity->bundle();
+        
+        //query number of talks for a collection
+        $query_count = \Drupal::entityQuery('node')
+          ->condition('type', 'talk')
+          ->condition('status', 1)
+          ->condition('field_talk_collection.target_id', $nid);
 
-        //query number of talks for a collection or series 
-        $query_count = \Drupal::entityQuery('node')->condition('type', 'talk');
-        switch ($bundle) {
-            case 'collection':
-                $query_count->condition('field_talk_collection.entity.vid', $bundle)
-                            ->condition('field_talk_collection.entity.tid', $entity->id());
-            break;
-            case 'series':
-                $query_count->condition('field_talk_series.entity.vid', $bundle)
-                            ->condition('field_talk_series.entity.tid', $entity->id());
-            break;
-        }
-    
         $markup = [
             '#markup' => $query_count->count()->execute() ?? 0
         ];

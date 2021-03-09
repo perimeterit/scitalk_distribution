@@ -17,15 +17,13 @@ class RepositoryShortNameConstraintValidator extends ConstraintValidator {
   public function validate($item, Constraint $constraint) {
     if (!isset($item)) {
       return;
-    }
-    $entity = $item->getEntity();
-    if ($entity->bundle() == $this->entity_type) {
+    }    
       
-      $short_repo_name_len = strlen($item->value) ?? 0;
-      if ($short_repo_name_len > self::MAX_LEN) {
-        $this->context->addViolation( t($constraint->tooLong) );
-      }
+    $short_repo_name_len = strlen($item->label->value) ?? 0;
+    if ($short_repo_name_len > self::MAX_LEN) {
+      $this->context->addViolation( t($constraint->tooLong) );
     }
+    
   }
 
 }

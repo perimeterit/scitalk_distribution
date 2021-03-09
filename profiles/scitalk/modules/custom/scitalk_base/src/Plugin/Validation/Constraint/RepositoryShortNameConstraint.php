@@ -16,6 +16,6 @@ use Symfony\Component\Validator\Constraint;
 class RepositoryShortNameConstraint extends Constraint {
 
   // The message that will be shown if the value is not unique.
-  public $tooLong = 'Repository short name must be 20 characters or less';
+  public $tooLong = 'Repository Tile/Name name must be 20 characters or less';
 
 }
