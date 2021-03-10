@@ -22,6 +22,8 @@ libraries-override:
       theme:
         libraries/global/theme/colour.css: css/theme/colour.css
         libraries/global/theme/font.css: css/theme/font.css
+      component:
+        libraries/global/components/admin.css: css/components/admin.css
 
 regions:
   header: 'Header'
