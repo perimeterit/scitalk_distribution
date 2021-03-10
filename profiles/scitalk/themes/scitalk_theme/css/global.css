@@ -109,3 +109,22 @@ select option {
 .pager.is-active a {
   background: var(--color-primary);
 }
+
+/* Standard expand/contract carets */
+.toggle-expand:after {
+  content: '';
+  display: inline-block;
+  border-bottom: 2px solid var(--color-primary--foreground);
+  border-right: 2px solid var(--color-primary--foreground);
+  transform: rotate(45deg);
+
+  margin: 0 0 0 .5em;
+  height: .6em;
+  width: .6em;
+  vertical-align: text-top;
+}
+.toggle-expand.toggle-contract:after {
+  transform: rotate(-135deg);
+  margin-top: .2em;
+  vertical-align: middle;
+}

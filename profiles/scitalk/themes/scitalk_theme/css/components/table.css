@@ -1,0 +1,102 @@
+
+/*
+ * Table display
+*/
+
+.view-scitalk-default-advanced-search2 table {
+  font-size: .9em;
+  width: 100%;
+}
+.view-scitalk-default-advanced-search2 table td,
+.view-scitalk-default-advanced-search2 table th {
+  padding: 0.6rem 0.8rem;
+}
+
+/* Table header */
+.view-scitalk-default-advanced-search2 th a {
+  display: flex;
+  align-items: center;
+}
+.view-scitalk-default-advanced-search2 .tablesort {
+  background: none;
+  content: '';
+  border-bottom: .2em solid var(--color-primary);
+  border-right: .2em solid var(--color-primary);
+
+  height: .6em;
+  width: .6em;
+  display: block;
+  transform: rotate(45deg);
+  vertical-align: middle;
+  margin: 0 0 0 0.5em;
+}
+.view-scitalk-default-advanced-search2 .tablesort--desc {
+  margin-top: 0;
+  transform: rotate(-135deg);
+}
+
+/* Table body */
+.view-scitalk-default-advanced-search2 table a {
+  text-decoration: none;
+}
+.view-scitalk-default-advanced-search2 table a:hover,
+.view-scitalk-default-advanced-search2 table a:focus {
+  text-decoration: underline;
+}
+.view-scitalk-default-advanced-search2 table .views-field-title {
+  font-weight: 400;
+}
+.view-scitalk-default-advanced-search2 table .views-field-title a {
+  text-decoration: none;;
+}
+.view-scitalk-default-advanced-search2 table .views-field-field-talk-speaker-profile ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.view-scitalk-default-advanced-search2 table .views-field-field-repo-institution {
+  min-width: 14em;
+}
+.view-scitalk-default-advanced-search2 table .institution:before {
+  content: ',';
+  margin: 0 .2em 0 -.2em;
+}
+
+.view-scitalk-default-advanced-search2 table .icon {
+  color: var(--color-primary);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%233196af' d='M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z' /%3E%3C/svg%3E");
+  display: block;
+  height: 2em;
+  width: 2em;
+}
+
+/*
+ * Mobile/responsive changes
+*/
+@media all and (max-width: 800px) {
+  .view-scitalk-default-advanced-search2 table.jrt tr {
+    border: none;
+    margin: .5em 0 1.5em;
+  }
+  .view-scitalk-default-advanced-search2 table.jrt td {
+    border: none;
+    display: block;
+    padding: 0;
+  }
+  .view-scitalk-default-advanced-search2 table.jrt td > * {
+    padding: .2em 0;
+  }
+  .view-scitalk-default-advanced-search2 table.jrt td:before {
+    display: inline-block;
+    font-weight: 500;
+    margin-top: 0.2em;
+    vertical-align: top;
+    width: auto;
+  }
+  .view-scitalk-default-advanced-search2 table.jrt td > * {
+    display: inline-block;
+  }
+  .view-scitalk-default-advanced-search2 table.jrt .views-field-title:before {
+    display: none;
+  }
+}
