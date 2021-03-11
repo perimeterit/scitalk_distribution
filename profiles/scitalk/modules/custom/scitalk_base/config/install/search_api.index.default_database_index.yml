@@ -8,15 +8,20 @@ dependencies:
   module:
     - search_api_solr
     - node
+    - group
     - search_api
   config:
+    - field.storage.node.field_talk_abstract
     - field.storage.node.body
+    - field.storage.node.field_talk_collection
+    - field.storage.node.field_talk_date
     - field.storage.node.field_sp_display_name
     - field.storage.node.field_sp_first_name
+    - field.storage.node.field_talk_source_repository
+    - field.storage.group.field_repo_institution
     - field.storage.node.field_sp_speaker_profile
-    - field.storage.node.field_talk_abstract
-    - field.storage.node.field_talk_collection
     - field.storage.node.field_talk_speaker_profile
+    - field.storage.node.field_talk_subject
     - field.storage.node.field_talk_type
     - search_api.server.database_server
 third_party_settings:
@@ -57,6 +62,8 @@ third_party_settings:
       index_prefix: ''
       collection: ''
       timezone: ''
+_core:
+  default_config_hash: JZdQxrUETtYDp3bROoWLFxbLe61l3J8cYc5KgPQdvKA
 id: default_database_index
 name: 'Default database index'
 description: ''
@@ -70,6 +77,17 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.body
+  field_repo_institution:
+    label: 'Source Repository » Group » Institution'
+    datasource_id: 'entity:node'
+    property_path: 'field_talk_source_repository:entity:field_repo_institution'
+    type: string
+    dependencies:
+      config:
+        - field.storage.group.field_repo_institution
+        - field.storage.node.field_talk_source_repository
+      module:
+        - group
   field_sp_display_name:
     label: 'Display Name'
     datasource_id: 'entity:node'
@@ -78,6 +96,17 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_sp_display_name
+  field_sp_display_name_1:
+    label: 'Speaker Profile » Content » Display Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_talk_speaker_profile:entity:field_sp_display_name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_sp_display_name
+        - field.storage.node.field_talk_speaker_profile
+      module:
+        - node
   field_sp_first_name:
     label: 'First Name'
     datasource_id: 'entity:node'
@@ -110,6 +139,22 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_talk_collection
+  field_talk_date:
+    label: Date
+    datasource_id: 'entity:node'
+    property_path: field_talk_date
+    type: date
+    dependencies:
+      config:
+        - field.storage.node.field_talk_date
+  field_talk_source:
+    label: Source
+    datasource_id: 'entity:node'
+    property_path: field_talk_source_repository
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_talk_source_repository
   field_talk_speaker_profile:
     label: 'Speaker Profile'
     datasource_id: 'entity:node'
@@ -118,6 +163,14 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_talk_speaker_profile
+  field_talk_subject:
+    label: Subject
+    datasource_id: 'entity:node'
+    property_path: field_talk_subject
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_talk_subject
   field_talk_type:
     label: 'Talk Type'
     datasource_id: 'entity:node'
@@ -134,10 +187,37 @@ field_settings:
     dependencies:
       module:
         - node
+  speaker_combined:
+    label: 'Combined Speaker(s)'
+    property_path: aggregated_field
+    type: string
+    configuration:
+      type: concat
+      fields:
+        - 'entity:node/field_sp_speaker_profile'
+        - 'entity:node/field_talk_speakers_text'
   title:
     label: Title
     datasource_id: 'entity:node'
     property_path: title
+    type: string
+    dependencies:
+      module:
+        - node
+  title_2:
+    label: 'Source Repository » Group » Title'
+    datasource_id: 'entity:node'
+    property_path: 'field_talk_source_repository:entity:label'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_talk_source_repository
+      module:
+        - group
+  type:
+    label: 'Content type'
+    datasource_id: 'entity:node'
+    property_path: type
     type: string
     dependencies:
       module:
