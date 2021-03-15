@@ -1,4 +1,4 @@
-langcode: en
+﻿langcode: en
 status: true
 dependencies:
   config:
@@ -8,6 +8,8 @@ dependencies:
     - views
   theme:
     - scitalk_theme
+_core:
+  default_config_hash: IFBC8QOw7QXdyCmZUqhyr9dlUIqizvpLJIqs7U1XeII
 id: views_block__scitalk_collections_block_1
 theme: scitalk_theme
 region: content_bottom
