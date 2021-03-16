@@ -1339,26 +1339,23 @@ display:
           hierarchy: false
           error_message: true
           plugin_id: search_api_term
-        title_2:
-          id: title_2
+        search_api_fulltext_1:
+          id: search_api_fulltext_1
           table: search_api_index_default_database_index
-          field: title_2
+          field: search_api_fulltext
           relationship: none
           group_type: group
           admin_label: ''
-          operator: '='
-          value:
-            min: ''
-            max: ''
-            value: ''
+          operator: or
+          value: ''
           group: 1
           exposed: true
           expose:
-            operator_id: title_2_op
+            operator_id: search_api_fulltext_1_op
             label: Source
             description: ''
             use_operator: false
-            operator: title_2_op
+            operator: search_api_fulltext_1_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: field_talk_source
@@ -1372,8 +1369,6 @@ display:
               scitalk_oauth: '0'
               talk_editor: '0'
             placeholder: ''
-            min_placeholder: ''
-            max_placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -1386,7 +1381,11 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          plugin_id: search_api_text
+          parse_mode: terms
+          min_length: null
+          fields:
+            - title_2
+          plugin_id: search_api_fulltext
       sorts:
         title:
           id: title
