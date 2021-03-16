@@ -1,4 +1,4 @@
-﻿langcode: en
+langcode: en
 status: true
 dependencies:
   config:
@@ -84,10 +84,10 @@ display:
           id: 1
           total_pages: null
           tags:
-            previous: ??
-            next: ??
-            first: '? First'
-            last: 'Last ?'
+            previous: ‹‹
+            next: ››
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -351,7 +351,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Speaker Profile ? Content ? Display Name (indexed field)'
+          label: 'Speaker Profile » Content » Display Name (indexed field)'
           exclude: true
           alter:
             alter_text: false
@@ -1386,7 +1386,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          plugin_id: search_api_string
+          plugin_id: search_api_text
       sorts:
         title:
           id: title
@@ -1862,7 +1862,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Speaker Profile ? Content ? Display Name (indexed field)'
+          label: 'Speaker Profile » Content » Display Name (indexed field)'
           exclude: true
           alter:
             alter_text: false
@@ -2371,7 +2371,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Source ? Content ? Title (indexed field)'
+          label: 'Source » Content » Title (indexed field)'
           exclude: true
           alter:
             alter_text: false
