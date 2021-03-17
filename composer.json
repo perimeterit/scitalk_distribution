@@ -70,7 +70,8 @@
     },
     "autoload": {
         "classmap": [
-            "scripts/composer/ScriptHandler.php"
+          "scripts/composer/ScriptHandler.php",
+          "profiles/composer/ScitalkHandler.php"
         ]
     },
     "scripts": {
@@ -81,10 +82,12 @@
             "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
         ],
         "post-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+            "Scitalk\\composer\\ScriptHandler::moveProfile"
         ],
         "post-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+            "Scitalk\\composer\\ScriptHandler::moveProfile"
         ]
     },
     "extra": {
