@@ -24,3 +24,4 @@ dependencies:
   - feeds_tamper:feeds_tamper
   - group:group
   - group:gnode
+  - better_exposed_filters:better_exposed_filters
