@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.talk.field_combination_example
     - field.field.node.talk.field_scientific_area
     - field.field.node.talk.field_talk_abstract
     - field.field.node.talk.field_talk_attachments
@@ -36,7 +35,6 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
-  field_combination_example: true
   field_scientific_area: true
   field_talk_abstract: true
   field_talk_attachments: true
