@@ -1,3 +1,4 @@
+uuid: 0aab65e2-24a0-47e7-891e-9307e81a855b
 langcode: en
 status: true
 dependencies:
@@ -20,7 +21,7 @@ dependencies:
     - link
     - search_api
 _core:
-  default_config_hash: pZTquGgWg49bqQfzuYC4JmmTGBniKvCobfyJGNaPmO0
+  default_config_hash: EXK1_M9vwL1HID7upXMGm1Kd4b6hz3B4joXUM5e2g3w
 id: scitalk_advanced_search
 label: 'Scitalk: Advanced search'
 module: views
@@ -58,7 +59,7 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
           text_input_required: 'Select any filter and click on Apply to see results'
-          text_input_required_format: null
+          text_input_required_format: basic_html
           bef:
             general:
               autosubmit: false
@@ -71,11 +72,15 @@ display:
               secondary_open: false
             sort:
               plugin_id: default
-            filter:
-              search_api_fulltext:
-                plugin_id: default
-              field_talk_subject:
-                plugin_id: default
+              advanced:
+                combine: true
+                combine_rewrite: ''
+                reset: false
+                reset_label: ''
+                collapsible: false
+                collapsible_label: 'Sort options'
+                is_secondary: false
+            filter: {  }
       pager:
         type: full
         options:
@@ -1399,18 +1404,6 @@ display:
           expose:
             label: Title
           plugin_id: search_api
-        speaker_combined:
-          id: speaker_combined
-          table: search_api_index_default_database_index
-          field: speaker_combined
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: 'Combined Speaker(s)'
-          plugin_id: search_api
         search_api_relevance:
           id: search_api_relevance
           table: search_api_index_default_database_index
@@ -1434,6 +1427,18 @@ display:
           exposed: true
           expose:
             label: Date
+          plugin_id: search_api
+        field_sp_display_name_1:
+          id: field_sp_display_name_1
+          table: search_api_index_default_database_index
+          field: field_sp_display_name_1
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: true
+          expose:
+            label: Speaker
           plugin_id: search_api
       title: ''
       header: {  }
@@ -1501,7 +1506,7 @@ display:
       display_extenders: {  }
       path: search-talks
       display_description: ''
-      exposed_block: false
+      exposed_block: true
       defaults:
         filters: true
         filter_groups: true
@@ -1600,8 +1605,21 @@ display:
           wrapper_class: ''
           class: display-list
       row:
-        type: fields
-        options: {  }
+        type: search_api
+        options:
+          view_modes:
+            'entity:group':
+              source_repository: default
+            'entity:group_content':
+              group_content_type_73ec1320d728e: default
+              group_content_type_c4a29b8386d54: default
+              group_content_type_c9dd6de687b8e: default
+              group_content_type_d731991a61211: default
+            'entity:node':
+              collection: default
+              page: default
+              speaker_profile: default
+              talk: horizontal_card
       exposed_form:
         type: bef
         options:
@@ -1627,7 +1645,7 @@ display:
             sort:
               plugin_id: default
               advanced:
-                combine: true
+                combine: false
                 combine_rewrite: "Title Asc|A -> Z\r\nTitle Desc|Z -> A\r\nDate Asc|Date Newest first\r\nDate Dsc|Date Oldest first\r\nCombined Speaker(s) Asc| Speakers A > Z\r\nCombined Speaker(s) Desc| Speakers Z -> A"
                 reset: false
                 reset_label: ''
@@ -1671,9 +1689,11 @@ display:
                     filter_rewrite_values: ''
                   collapsible: false
                   is_secondary: false
-              field_talk_source_repository:
+              search_api_fulltext_1:
                 plugin_id: default
                 advanced:
+                  rewrite:
+                    filter_rewrite_values: ''
                   collapsible: false
                   is_secondary: false
       use_ajax: true
@@ -1705,7 +1725,7 @@ display:
         fields: false
         header: false
         css_class: false
-        sorts: false
+        sorts: true
         use_ajax: false
       title: ''
       fields:
@@ -2439,55 +2459,6 @@ display:
       attachment_position: after
       inherit_exposed_filters: true
       css_class: 'advanced-search-form table-display'
-      sorts:
-        search_api_relevance:
-          id: search_api_relevance
-          table: search_api_index_default_database_index
-          field: search_api_relevance
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: true
-          expose:
-            label: Relevance
-          plugin_id: search_api
-        field_talk_date:
-          id: field_talk_date
-          table: search_api_index_default_database_index
-          field: field_talk_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: true
-          expose:
-            label: Date
-          plugin_id: search_api
-        title:
-          id: title
-          table: search_api_index_default_database_index
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: true
-          expose:
-            label: Title
-          plugin_id: search_api
-        speaker_combined:
-          id: speaker_combined
-          table: search_api_index_default_database_index
-          field: speaker_combined
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: true
-          expose:
-            label: 'Combined Speaker(s)'
-          plugin_id: search_api
       use_ajax: true
     cache_metadata:
       max-age: -1
@@ -2656,62 +2627,13 @@ display:
       defaults:
         filters: false
         filter_groups: false
-        sorts: false
+        sorts: true
       filter_groups:
         operator: AND
         groups:
           1: AND
       path: search-talks
       exposed_block: true
-      sorts:
-        title:
-          id: title
-          table: search_api_index_default_database_index
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: Title
-          plugin_id: search_api
-        speaker_combined:
-          id: speaker_combined
-          table: search_api_index_default_database_index
-          field: speaker_combined
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: 'Combined Speaker(s)'
-          plugin_id: search_api
-        search_api_relevance:
-          id: search_api_relevance
-          table: search_api_index_default_database_index
-          field: search_api_relevance
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: Relevance
-          plugin_id: search_api
-        field_talk_date_1:
-          id: field_talk_date_1
-          table: search_api_index_default_database_index
-          field: field_talk_date
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: false
-          expose:
-            label: Date
-          plugin_id: search_api
     cache_metadata:
       max-age: -1
       contexts:
@@ -2719,6 +2641,8 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
+        - 'url.query_args:sort_by'
+        - 'url.query_args:sort_order'
         - user
         - 'user.node_grants:view'
       tags:
@@ -2820,7 +2744,7 @@ display:
         fields: false
         header: false
         sorts: true
-        exposed_form: false
+        exposed_form: true
         use_ajax: false
       filter_groups:
         operator: AND
@@ -2903,38 +2827,6 @@ display:
           empty: false
           content: 'Displaying @start - @end of @total'
           plugin_id: result
-      exposed_form:
-        type: bef
-        options:
-          submit_button: Apply
-          reset_button: false
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
-          expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
-          text_input_required: 'Select any filter and click on Apply to see results'
-          text_input_required_format: basic_html
-          bef:
-            general:
-              autosubmit: false
-              autosubmit_exclude_textfield: false
-              autosubmit_textfield_delay: 500
-              autosubmit_hide: false
-              input_required: false
-              allow_secondary: false
-              secondary_label: 'Advanced options'
-              secondary_open: false
-            sort:
-              plugin_id: default
-              advanced:
-                combine: true
-                combine_rewrite: ''
-                reset: false
-                reset_label: ''
-                collapsible: false
-                collapsible_label: 'Sort options'
-                is_secondary: false
       use_ajax: true
     cache_metadata:
       max-age: -1
