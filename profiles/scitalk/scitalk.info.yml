@@ -81,6 +81,7 @@ install:
   - scitalk_base
   - scitalk_media
   - scitalk_video
+  - twig_tweak
 themes:
   - seven
   - stable
