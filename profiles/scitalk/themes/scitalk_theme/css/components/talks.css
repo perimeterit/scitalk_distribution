@@ -28,6 +28,7 @@
 .page-header .speaker-date.single-line {
   line-height: 1;
 }
+.horizontal-card .speaker-date.single-line .field--name-field-talk-speaker-profile
 .teaser .speaker-date.single-line .field--name-field-talk-speaker-profile,
 .mini-teaser .speaker-date.single-line .field--name-field-talk-speaker-profile  {
   border-right: 1px solid var(--color-dk-grey);
@@ -63,7 +64,35 @@
   content: '';
 }
 
-
+/**
+ * Hozitontal card view mode
+*/
+.node.talk.horizontal-card {
+  display: flex;
+  line-height: 1.7em;
+  margin: 1.5em 0;
+}
+.node.talk.horizontal-card a {
+  text-decoration: none;
+}
+.node.talk.horizontal-card h3 {
+  margin: 0;
+}
+.node.talk.horizontal-card .info div {
+  display: inline-block;
+}
+.node.talk.horizontal-card .speaker-date:after {
+  content: '|';
+  display: inline-block;
+}
+.node.talk.horizontal-card .icon-info {
+	color: var(--color-primary);
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%233196af' d='M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z' /%3E%3C/svg%3E");
+	display: inline-block;
+	height: 1.7em;
+	width: 1.7em;
+  vertical-align: middle;
+}
 /**
  * Card view mode
 */

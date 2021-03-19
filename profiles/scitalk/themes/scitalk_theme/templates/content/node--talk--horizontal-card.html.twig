@@ -1,0 +1,37 @@
+{% extends "node.html.twig" %}
+{#
+/**
+ * @file
+ * Custom theme implementation to display a Talk node.
+ *
+ * @ingroup themeable
+ */
+#}
+{% block content %}
+  {{ content.field_talk_thumbnail }}
+  <div class="content">
+    {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
+    <div class="info">
+      {% embed "@scitalk_theme/includes/speaker-date.twig" %}{% endembed %}
+      {{ content.field_talk_collection }}
+      {{ content.field_talk_series }}
+    </div>
+
+    <div class="details">
+      {# Render source as Insitution + Repository #}
+      {# {% set source_nid = node.field_talk_source.entity.nid.value %}
+      {{ node.field_talk_source.entity.field_repo_institution.value }}
+      <a href="{{ path('entity.node.canonical', {'node': source_nid}) }}">
+        {{ node.field_talk_source.entity.title.value }}
+      </a> #}
+      {{ content.field_talk_source_repository }}
+
+      {{ content|without('links', ' 	field_talk_source_repository','field_talk_collection','field_talk_series','field_talk_thumbnail', 'field_talk_speaker_profile', 'field_talk_date') }}
+    </div>
+    <div class="actions">
+      <a class="talk-info" href="{{url}}">
+        <span class="icon icon-info"></span> {{ 'View Details'|t }}
+      </a>
+    </div>
+  </div>
+{% endblock %}

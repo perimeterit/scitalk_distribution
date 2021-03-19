@@ -1,0 +1,166 @@
+/**
+ * Advanced search form
+*/
+.search-block-form form {
+  flex-flow: wrap;
+}
+@media all and (max-width: 767px) {
+  .search-block-form .form-item {
+    margin-bottom: 1em;
+  }
+}
+
+/*
+*  Advanced Search bar
+*/
+
+/* Colour adjustments */
+.advanced-search-wrapper {
+  background: var(--color-primary);
+  color: var(--color-primary--foreground);
+  padding: 2em 0;
+}
+.advanced-sarch-wrapper form {
+  display: block;
+  flex-direction: column;
+}
+.advanced-search-wrapper a {
+  color: var(--color-primary--foreground);
+  text-decoration: none;
+}
+.advanced-search-wrapper a:hover,
+.advanced-search-wrapper a:focus {
+  color: var(--color-primary--foreground);
+  text-decoration: underline;
+}
+.advanced-search-wrapper .form-submit,
+.advanced-search-wrapper .form-submit:hover,
+.advanced-search-wrapper .form-submit:focus {
+  background: no-repeat 4.4em center white;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='%233196AF' d='M443.5 420.2L336.7 312.4c20.9-26.2 33.5-59.4 33.5-95.5 0-84.5-68.5-153-153.1-153S64 132.5 64 217s68.5 153 153.1 153c36.6 0 70.1-12.8 96.5-34.2l106.1 107.1c3.2 3.4 7.6 5.1 11.9 5.1 4.1 0 8.2-1.5 11.3-4.5 6.6-6.3 6.8-16.7.6-23.3zm-226.4-83.1c-32.1 0-62.3-12.5-85-35.2-22.7-22.7-35.2-52.9-35.2-84.9 0-32.1 12.5-62.3 35.2-84.9 22.7-22.7 52.9-35.2 85-35.2s62.3 12.5 85 35.2c22.7 22.7 35.2 52.9 35.2 84.9 0 32.1-12.5 62.3-35.2 84.9-22.7 22.7-52.9 35.2-85 35.2z'/%3E%3C/svg%3E");
+  background-size: 1.5em 1.5em;
+  padding-right: 2.3em;
+  color: var(--color-primary);
+}
+.advanced-search-wrapper .form-submit:hover,
+.advanced-search-wrapper .form-submit:focus {
+  background-color: var(--color-secondary);
+  color: white;
+}
+.advanced-search-wrapper .form-text,
+.advanced-search-wrapper select {
+  border: none;
+}
+
+/* Form block layout */
+
+.advanced-search-wrapper h2 {
+  font-size: 1.4em;
+  margin: 0;
+}
+.hide-advanced {
+  cursor: pointer;
+  float: right;
+  margin-top: -2.8em;
+}
+.search-wrap {
+  margin-top: 1em;
+}
+.search-wrap .form-item {
+  display: grid;
+  grid-gap: 1em;
+  grid-template-columns: 7em auto;
+  align-items: center;
+  max-width: 40em;
+}
+@media all and (min-width: 600px) {
+  .date-search-wrap {
+    display: flex;
+  }
+  .date-search-wrap input {
+    max-width: 10em;
+  }
+  .date-search-wrap .form-item:last-child {
+    display: flex;
+  }
+  .date-search-wrap .form-item:last-child label {
+    margin-right: .2em;
+  }
+}
+@media all and (max-width: 599px) {
+  .date-search-wrap .form-item {
+    max-width: 20em;
+  }
+}
+/* Submit */
+.search-wrap .form-actions {
+  margin-top: 0;
+}
+
+/**
+ * Search results
+*/
+.advanced-search-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  align-items: center;
+  background: var(--color-lt-grey);
+  padding: 1em;
+}
+.search-display-toggle {
+  text-align: right;
+}
+.search-exposed-sort form {
+  display: flex;
+  justify-content: center;
+  align-items: center;;
+}
+.search-exposed-sort label {
+  margin-right: .5em;
+  white-space: nowrap;
+}
+.search-exposed-sort .form-item {
+  display: flex;
+  align-items: center;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.search-exposed-sort .form-actions {
+  margin: 0;
+}
+
+/*
+ * Display switcher
+ * Uses Van11y accessible tab switcher
+ * https://van11y.net/accessible-tab-panel/
+*/
+.search-display-toggle ul {
+  display: flex;
+  justify-content: end;
+}
+.search-display-toggle li {
+  margin-left: .5em;
+}
+.search-display-toggle a {
+  cursor: pointer;
+}
+.search-display {
+  margin-top: 1.5em;
+}
+.search-display[aria-hidden="true"] {
+  display: none;
+}
+
+/* Get the contextual links out of the way */
+
+.view--scitalk-advanced-search .contextual {
+  margin-top: 18px;
+}
+
+/* Node View adjustments */
+
+.view--scitalk-advanced-search .node.horizontal-card {
+ border-bottom: 0.1rem solid #e1e1e1;
+ padding-bottom: 1.5em;
+}
+
