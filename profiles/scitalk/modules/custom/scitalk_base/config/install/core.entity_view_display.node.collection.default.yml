@@ -14,7 +14,7 @@ dependencies:
     - field.field.node.collection.field_collection_type
     - node.type.collection
   module:
-    - datetime_range
+    - date_all_day
     - link
     - text
     - user
@@ -28,10 +28,11 @@ content:
     label: above
     settings:
       separator: '-'
-      format_type: medium
       timezone_override: ''
+      date_only_format: date_all_day
+      date_format: 'Y-m-d\TH:i:s'
     third_party_settings: {  }
-    type: daterange_default
+    type: daterange_all_day_custom
     region: content
   field_collection_event_url:
     weight: 108
@@ -104,10 +105,13 @@ content:
     region: content
   links:
     weight: 100
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
   feeds_item: true
   langcode: true
+  scitalk_most_recent_talk: true
+  scitalk_number_of_talks: true
   search_api_excerpt: true
+

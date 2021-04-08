@@ -14,7 +14,7 @@ dependencies:
     - field.field.node.collection.field_collection_type
     - node.type.collection
   module:
-    - datetime_range
+    - date_all_day
     - link
     - path
     - text
@@ -33,7 +33,7 @@ content:
     weight: 124
     settings: {  }
     third_party_settings: {  }
-    type: daterange_default
+    type: daterange_all_day
     region: content
   field_collection_event_url:
     weight: 128
@@ -160,3 +160,4 @@ content:
     third_party_settings: {  }
 hidden:
   feeds_item: true
+
