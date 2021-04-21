@@ -165,17 +165,7 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
   }
   
   
-  //collections have collection_number so create a collection number for them if none exists
-  if ($entity->getType() == 'collection') {
-    if ($entity->isNew()) {
-      $input_coll_number = $entity->get('field_collection_number')->value ?? '';
-      if (empty($input_coll_number)) {
-        $idGenerator = \Drupal::service('scitalk_base.reference_id_generator');
-        $collection_number = $idGenerator->generateReferenceId($entity);
-        $entity->set('field_collection_number', $collection_number);
-      }
-    }
-  }
+  
   
   //For both the collection and talk, if this content is already grouped, then
   //add the entity reference to the group in the source repository ER field.
@@ -198,6 +188,18 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
       }
       else {
         $entity->set('field_collection_source_repo', $groupID);
+      }
+    }
+    
+    //collections have collection_number so create a collection number for them if none exists
+    if ($entity->getType() == 'collection') {
+      if ($entity->isNew()) {
+        $input_coll_number = $entity->get('field_collection_number')->value ?? '';
+        if (empty($input_coll_number)) {
+          $idGenerator = \Drupal::service('scitalk_base.reference_id_generator');
+          $collection_number = $idGenerator->generateReferenceId($entity);
+          $entity->set('field_collection_number', $collection_number);
+        }
       }
     }
   }

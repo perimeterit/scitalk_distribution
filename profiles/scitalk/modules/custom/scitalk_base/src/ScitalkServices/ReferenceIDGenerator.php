@@ -91,6 +91,9 @@ class ReferenceIDGenerator implements ReferenceIDGeneratorInterface {
         //now query if this return number exists
         $cquery = \Drupal::entityQuery('node')->condition('type', 'collection');
         $cquery->condition('field_collection_number', $return_number);
+        if (!empty($source_name)) {
+          $cquery->condition($source_field, $source_name);
+        }
         $cquery->sort('field_collection_number', 'DESC')->range(0,1);   //get just 1
         $entityIDs = $cquery->execute();
         if($entityIDs) {
@@ -108,6 +111,36 @@ class ReferenceIDGenerator implements ReferenceIDGeneratorInterface {
     //if first ever value then start from 1
     $last_number = 1;
     $return_number = strtoupper( substr($type, 0, 1) ) .  str_pad($last_number, 5, "0", STR_PAD_LEFT);
+    //now test for this number existing
+    $cquery = \Drupal::entityQuery('node')->condition('type', 'collection');
+    $cquery->condition('field_collection_number', $return_number);
+    $cquery->sort('field_collection_number', 'DESC')->range(0,1);   //get just 1
+    $entityIDs = $cquery->execute();
+    if ($entityIDs) {
+      $eid = current($entityIDs);
+      $exists = TRUE;
+      while($exists) {
+        $last_collection_number = (\Drupal::entityTypeManager()->getStorage('node')->load($eid))->field_collection_number->value;
+        $last_collection_number_int_val = intval(substr($last_collection_number,1));  //the first char is either 'C' or 'S', the rest is the number
+        $last_collection_number_int_val += 1;
+        $return_number = strtoupper( substr($type, 0, 1) ) .  str_pad($last_collection_number_int_val, 5, "0", STR_PAD_LEFT);
+      
+        $cquery = \Drupal::entityQuery('node')->condition('type', 'collection');
+        $cquery->condition('field_collection_number', $return_number);
+        if (!empty($source_name)) {
+          $cquery->condition($source_field, $source_name);
+        }
+        $cquery->sort('field_collection_number', 'DESC')->range(0,1);   //get just 1
+        $entityIDs = $cquery->execute();
+        if($entityIDs) {
+          $eid = current($entityIDs);
+        }
+        else {
+          $exists = FALSE;
+        }
+      }
+    
+    }
     
     \Drupal::logger('scitalk_base')->notice('New %source %voc "%number" created', array('%source' => $source_name, '%voc' => ucfirst($vocabulary_name), '%number'  => $return_number));
     return $return_number;
