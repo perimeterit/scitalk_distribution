@@ -126,20 +126,7 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
   if ($entity->getType() == 'talk') {
     //when creating a new Talk, if there is no talk number in the entity yet, then create one and assign it to the field.
     if ($entity->isNew()) {
-      $entity_talk_number = $entity->field_talk_number->value ?? '';
-      if (empty($entity_talk_number)) {
-        $idGenerator = \Drupal::service('scitalk_base.reference_id_generator');
-        
-        $year =  date('y');
-        $month = date('m');
-        $year = substr($year, -2); //just chops it off at 2 to be sure
-        $month = substr($month, -2);
-        
-        //call service to generate talk id:
-        $talk_num = $idGenerator->generateReferenceId($entity, $year, $month);
-        //add it to the entity:
-        $entity->set('field_talk_number', $talk_num);
-      }
+      
       
       // if (_scitalk_base_use_doi($entity)) {
       //   //when creating a new Talk, create a Draft DOI
@@ -199,6 +186,27 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
           $idGenerator = \Drupal::service('scitalk_base.reference_id_generator');
           $collection_number = $idGenerator->generateReferenceId($entity);
           $entity->set('field_collection_number', $collection_number);
+        }
+      }
+    }
+    
+    
+    if ($entity->getType() == 'talk') {
+      //when creating a new Talk, if there is no talk number in the entity yet, then create one and assign it to the field.
+      if ($entity->isNew()) {
+        $entity_talk_number = $entity->field_talk_number->value ?? '';
+        if (empty($entity_talk_number)) {
+          $idGenerator = \Drupal::service('scitalk_base.reference_id_generator');
+          
+          $year =  date('y');
+          $month = date('m');
+          $year = substr($year, -2); //just chops it off at 2 to be sure
+          $month = substr($month, -2);
+          
+          //call service to generate talk id:
+          $talk_num = $idGenerator->generateReferenceId($entity);
+          //add it to the entity:
+          $entity->set('field_talk_number', $talk_num);
         }
       }
     }
