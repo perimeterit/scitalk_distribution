@@ -68,8 +68,8 @@ third_party_settings:
       timezone: ''
 _core:
   default_config_hash: JZdQxrUETtYDp3bROoWLFxbLe61l3J8cYc5KgPQdvKA
-id: default_database_index
-name: 'Default database index'
+id: default_talks_index
+name: 'Default Talks index'
 description: ''
 read_only: false
 field_settings:
