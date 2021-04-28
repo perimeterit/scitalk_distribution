@@ -1,14 +1,13 @@
-uuid: d4b77d44-570b-4336-b626-837518904a34
-name: 'Scitalk Onboarding'
-mail: admin@example.com
+name: PIRSA
+mail: lrivas@pitp.ca
 slogan: ''
 page:
   403: ''
   404: ''
-  front: /search-talks
+  front: /front
 admin_compact_mode: false
 weight_select_max: 100
 langcode: en
 default_langcode: en
 _core:
-  default_config_hash: Su4g4d_Co94SorMg6dytM93mAzXyRT1K1Cn8xvck4Js
+  default_config_hash: A_jX7v_NnqP64YHsK10McEl9oDjOQAWsE3E6p3NMsKk
