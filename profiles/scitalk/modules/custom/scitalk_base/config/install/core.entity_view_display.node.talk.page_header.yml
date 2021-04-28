@@ -50,6 +50,9 @@ third_party_settings:
         effect: none
         speed: fast
       label: 'Share & Favourite'
+      region: hidden
+_core:
+  default_config_hash: Ki3W5tdQyoSoEDUAKpRrJGqJhxQLC0CuREyGM_Mhv_8
 id: node.talk.page_header
 targetEntityType: node
 bundle: talk
@@ -75,7 +78,8 @@ content:
     weight: 0
     label: hidden
     settings:
-      link: true
+      view_mode: speaker_name_institution
+      link: false
     third_party_settings:
       fences:
         fences_field_tag: span
@@ -84,7 +88,7 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
-    type: entity_reference_label
+    type: entity_reference_entity_view
     region: content
 hidden:
   feeds_item: true

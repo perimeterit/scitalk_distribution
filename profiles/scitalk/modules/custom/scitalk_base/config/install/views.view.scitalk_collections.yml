@@ -2,13 +2,14 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.card
     - core.entity_view_mode.node.teaser
     - node.type.collection
   module:
     - datetime
     - node
     - user
+_core:
+  default_config_hash: ixafIuFZatW2SfGe2asyxkRYvQ2lWBpXCkImPYMpNDg
 id: scitalk_collections
 label: 'Scitalk: Collections'
 module: views
@@ -191,12 +192,12 @@ display:
       style:
         type: html_list
         options:
+          grouping: {  }
           row_class: ''
           default_row_class: false
-          uses_fields: false
           type: ul
           wrapper_class: ''
-          class: 'display-list card-grid'
+          class: 'display-list term-grid'
       defaults:
         style: false
         row: false
@@ -205,14 +206,16 @@ display:
         use_more_always: false
         use_more_text: false
       row:
-        type: 'entity:node'
+        type: fields
         options:
-          relationship: none
-          view_mode: card
+          default_field_elements: false
+          inline: {  }
+          separator: ''
+          hide_empty: false
       pager:
         type: some
         options:
-          items_per_page: 10
+          items_per_page: 9
           offset: 0
       use_more: true
       use_more_always: true
