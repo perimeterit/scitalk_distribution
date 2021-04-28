@@ -42,6 +42,20 @@
   /**
    * Related talks
   */
+  Drupal.behaviors.toggleSearchDisplay = {
+    attach: function (context, settings) {
+      $('button.switch-display', context).click(function() {
+        $target = $(this).data('target');
+        console.log($target);
+        $('.search-display').addClass('hidden');
+        $('.search-display[data-display=' + $target + ']').removeClass('hidden');
+      })
+
+    }
+  };
+  /**
+   * Related talks
+  */
   Drupal.behaviors.toggleRelatedPosts = {
     attach: function (context, settings) {
 

@@ -28,11 +28,8 @@
       {{ header }}
     {% endif %}
     <div class="search-exposed-sort">
-      {# Render the sort exposed form using Twig Tweak  #}
-      {{ drupal_block('views_exposed_filter_block:scitalk_advanced_search-sort_filters')}}
       {{ exposed }}
     </div>
-
     {% include '@scitalk_theme/views/view-toggle.twig' %}
 
   </header>
@@ -57,5 +54,4 @@
     </footer>
   {% endif %}
 
-  {{ feed_icons }}
 </div>

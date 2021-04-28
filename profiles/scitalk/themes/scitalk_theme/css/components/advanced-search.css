@@ -14,6 +14,12 @@
 *  Advanced Search bar
 */
 
+@media all and (max-width: 767px) {
+  .advanced-sarch-wrapper .views-exposed-form form {
+    display: block;
+  }
+}
+
 /* Colour adjustments */
 .advanced-search-wrapper {
   background: var(--color-primary);
@@ -101,19 +107,19 @@
  * Search results
 */
 .advanced-search-header {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  align-items: center;
   background: var(--color-lt-grey);
   padding: 1em;
 }
-.search-display-toggle {
-  text-align: right;
+@media all and (min-width: 768px) {
+  .advanced-search-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+  }
 }
 .search-exposed-sort form {
   display: flex;
-  justify-content: center;
-  align-items: center;;
+  align-items: center;
 }
 .search-exposed-sort label {
   margin-right: .5em;
@@ -128,7 +134,20 @@
 .search-exposed-sort .form-actions {
   margin: 0;
 }
+@media all and (min-width: 768px) {
+  .search-exposed-sort form {
+    justify-content: center;
+  }
+  .search-display-toggle {
+    text-align: right;
+  }
+}
 
+@media all and (max-width: 768px) {
+  .search-exposed-sort {
+    margin: 1em 0;
+  }
+}
 /*
  * Display switcher
  * Uses Van11y accessible tab switcher
@@ -136,13 +155,23 @@
 */
 .search-display-toggle ul {
   display: flex;
-  justify-content: end;
+}
+
+@media all and (min-width: 768px) {
+  .search-display-toggle ul {
+    justify-content: end;
+  }
 }
 .search-display-toggle li {
   margin-left: .5em;
 }
 .search-display-toggle a {
   cursor: pointer;
+}
+.search-display-toggle button {
+  background: transparent;
+  color: var(--color-primary);
+  padding: 0;
 }
 .search-display {
   margin-top: 1.5em;
@@ -151,16 +180,31 @@
   display: none;
 }
 
+/*
+ * On search view, hide the unused filters in the sort block
+ * they need to be here so the filters aren't reset
+ */
+
 /* Get the contextual links out of the way */
 
 .view--scitalk-advanced-search .contextual {
   margin-top: 18px;
 }
+.view--scitalk-advanced-search .search-exposed-sort .form-item {
+  display: none;
+}
+.view--scitalk-advanced-search .search-exposed-sort .form-item-sort-bef-combine {
+  display: inline-flex;
 
-/* Node View adjustments */
+}
 
+/* View adjustments */
 .view--scitalk-advanced-search .node.horizontal-card {
  border-bottom: 0.1rem solid #e1e1e1;
  padding-bottom: 1.5em;
+}
+
+table.jrt {
+  width: 100%;
 }
 

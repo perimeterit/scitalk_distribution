@@ -1,0 +1,26 @@
+{#
+/**
+ * @file
+ * Custom theme implementation to display a node.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{%
+  set classes = [
+    'node',
+    node.bundle|clean_class,
+    view_mode ? view_mode|clean_class,
+  ]
+%}
+
+<article{{ attributes.addClass(classes) }}>
+  {% block content %}
+      {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
+    {{ content }}
+    {# drupal_view is from Twig Tweak #}
+    
+    {{ drupal_view('scitalk_talks_in_collection','scitalk_talk_by_collection_block') }}
+  {% endblock %}
+</article>

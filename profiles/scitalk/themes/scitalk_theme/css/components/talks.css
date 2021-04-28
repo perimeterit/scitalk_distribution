@@ -72,6 +72,9 @@
   line-height: 1.7em;
   margin: 1.5em 0;
 }
+.node.talk.horizontal-card  > a + .content {
+  margin-left: 1em;
+}
 .node.talk.horizontal-card a {
   text-decoration: none;
 }
