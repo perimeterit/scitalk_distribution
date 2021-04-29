@@ -16,9 +16,6 @@
   ]
 %}
 
-
-{{ drupal_block('scitalk_citations_block', {context_mapping: {node: '@node.node_route_context:node'}}) }}
-
 <article{{ attributes.addClass(classes) }}>
   <div class="video">
     {{ content.field_talk_video }}
