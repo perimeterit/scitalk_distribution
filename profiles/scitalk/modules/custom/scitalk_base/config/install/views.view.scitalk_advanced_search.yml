@@ -10,7 +10,7 @@ dependencies:
     - field.storage.node.field_talk_speakers_text
     - field.storage.node.field_talk_type
     - field.storage.node.field_talk_video_url
-    - search_api.index.default_database_index
+    - search_api.index.default_talks_index
     - taxonomy.vocabulary.subjects
     - taxonomy.vocabulary.talk_type
   module:
@@ -26,7 +26,7 @@ label: 'Scitalk: Advanced search'
 module: views
 description: ''
 tag: ''
-base_table: search_api_index_default_database_index
+base_table: search_api_index_default_talks_index
 base_field: search_api_id
 display:
   default:
@@ -248,7 +248,7 @@ display:
       fields:
         field_talk_video_url:
           id: field_talk_video_url
-          table: search_api_datasource_default_database_index_entity_node
+          table: search_api_datasource_default_talks_index_entity_node
           field: field_talk_video_url
           relationship: none
           group_type: group
@@ -323,7 +323,7 @@ display:
           plugin_id: search_api_field
         title:
           id: title
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: title
           relationship: none
           group_type: group
@@ -393,7 +393,7 @@ display:
           plugin_id: search_api_field
         field_sp_display_name_1:
           id: field_sp_display_name_1
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: field_sp_display_name_1
           relationship: none
           group_type: group
@@ -463,7 +463,7 @@ display:
           plugin_id: search_api_field
         field_talk_speakers_text:
           id: field_talk_speakers_text
-          table: search_api_datasource_default_database_index_entity_node
+          table: search_api_datasource_default_talks_index_entity_node
           field: field_talk_speakers_text
           relationship: none
           group_type: group
@@ -534,7 +534,7 @@ display:
           plugin_id: search_api_field
         field_talk_date:
           id: field_talk_date
-          table: search_api_datasource_default_database_index_entity_node
+          table: search_api_datasource_default_talks_index_entity_node
           field: field_talk_date
           relationship: none
           group_type: group
@@ -606,7 +606,7 @@ display:
           plugin_id: search_api_field
         field_talk_collection:
           id: field_talk_collection
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: field_talk_collection
           relationship: none
           group_type: group
@@ -743,7 +743,7 @@ display:
           plugin_id: custom
         field_talk_type:
           id: field_talk_type
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: field_talk_type
           relationship: none
           group_type: group
@@ -831,7 +831,7 @@ display:
           plugin_id: search_api_field
         field_repo_institution:
           id: field_repo_institution
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: field_repo_institution
           relationship: none
           group_type: group
@@ -901,7 +901,7 @@ display:
           plugin_id: search_api_field
         field_talk_source_repository:
           id: field_talk_source_repository
-          table: search_api_datasource_default_database_index_entity_node
+          table: search_api_datasource_default_talks_index_entity_node
           field: field_talk_source_repository
           relationship: none
           group_type: group
@@ -985,7 +985,7 @@ display:
           plugin_id: search_api_field
         title_1:
           id: title_1
-          table: search_api_datasource_default_database_index_entity_node
+          table: search_api_datasource_default_talks_index_entity_node
           field: title
           relationship: none
           group_type: group
@@ -1057,7 +1057,7 @@ display:
       filters:
         type:
           id: type
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: type
           relationship: none
           group_type: group
@@ -1098,7 +1098,7 @@ display:
           plugin_id: search_api_options
         search_api_fulltext:
           id: search_api_fulltext
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: search_api_fulltext
           relationship: none
           group_type: group
@@ -1144,7 +1144,7 @@ display:
           plugin_id: search_api_fulltext
         field_sp_display_name_1:
           id: field_sp_display_name_1
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: field_sp_display_name_1
           relationship: none
           group_type: group
@@ -1192,7 +1192,7 @@ display:
           plugin_id: search_api_text
         field_talk_subject:
           id: field_talk_subject
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: field_talk_subject
           relationship: none
           group_type: group
@@ -1241,7 +1241,7 @@ display:
           plugin_id: search_api_term
         field_talk_date:
           id: field_talk_date
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: field_talk_date
           relationship: none
           group_type: group
@@ -1290,7 +1290,7 @@ display:
           plugin_id: search_api_date
         field_talk_date_2:
           id: field_talk_date_2
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: field_talk_date
           relationship: none
           group_type: group
@@ -1339,7 +1339,7 @@ display:
           plugin_id: search_api_date
         field_talk_type:
           id: field_talk_type
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: field_talk_type
           relationship: none
           group_type: group
@@ -1388,7 +1388,7 @@ display:
           plugin_id: search_api_term
         search_api_fulltext_1:
           id: search_api_fulltext_1
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: search_api_fulltext
           relationship: none
           group_type: group
@@ -1436,7 +1436,7 @@ display:
       sorts:
         search_api_relevance:
           id: search_api_relevance
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: search_api_relevance
           relationship: none
           group_type: group
@@ -1448,7 +1448,7 @@ display:
           plugin_id: search_api
         field_talk_date_1:
           id: field_talk_date_1
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: field_talk_date
           relationship: none
           group_type: group
@@ -1460,7 +1460,7 @@ display:
           plugin_id: search_api
         title:
           id: title
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: title
           relationship: none
           group_type: group
@@ -1472,7 +1472,7 @@ display:
           plugin_id: search_api
         field_sp_display_name_1:
           id: field_sp_display_name_1
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: field_sp_display_name_1
           relationship: none
           group_type: group
@@ -1502,7 +1502,7 @@ display:
       relationships:
         field_talk_source_repository:
           id: field_talk_source_repository
-          table: search_api_datasource_default_database_index_entity_node
+          table: search_api_datasource_default_talks_index_entity_node
           field: field_talk_source_repository
           relationship: none
           group_type: group
@@ -1538,7 +1538,7 @@ display:
         - 'config:field.storage.node.field_talk_speakers_text'
         - 'config:field.storage.node.field_talk_type'
         - 'config:field.storage.node.field_talk_video_url'
-        - 'config:search_api.index.default_database_index'
+        - 'config:search_api.index.default_talks_index'
   advanced_search:
     display_plugin: page
     id: advanced_search
@@ -1564,7 +1564,7 @@ display:
       fields:
         search_api_rendered_item:
           id: search_api_rendered_item
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: search_api_rendered_item
           relationship: none
           group_type: group
@@ -1674,7 +1674,7 @@ display:
         - user
         - 'user.node_grants:view'
       tags:
-        - 'config:search_api.index.default_database_index'
+        - 'config:search_api.index.default_talks_index'
   attachment_2:
     display_plugin: attachment
     id: attachment_2
@@ -1697,7 +1697,7 @@ display:
       fields:
         field_talk_video_url:
           id: field_talk_video_url
-          table: search_api_datasource_default_database_index_entity_node
+          table: search_api_datasource_default_talks_index_entity_node
           field: field_talk_video_url
           relationship: none
           group_type: group
@@ -1772,7 +1772,7 @@ display:
           plugin_id: search_api_field
         title:
           id: title
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: title
           relationship: none
           group_type: group
@@ -1842,7 +1842,7 @@ display:
           plugin_id: search_api_field
         field_sp_display_name_1:
           id: field_sp_display_name_1
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: field_sp_display_name_1
           relationship: none
           group_type: group
@@ -1912,7 +1912,7 @@ display:
           plugin_id: search_api_field
         field_talk_speakers_text:
           id: field_talk_speakers_text
-          table: search_api_datasource_default_database_index_entity_node
+          table: search_api_datasource_default_talks_index_entity_node
           field: field_talk_speakers_text
           relationship: none
           group_type: group
@@ -1983,7 +1983,7 @@ display:
           plugin_id: search_api_field
         field_talk_date:
           id: field_talk_date
-          table: search_api_datasource_default_database_index_entity_node
+          table: search_api_datasource_default_talks_index_entity_node
           field: field_talk_date
           relationship: none
           group_type: group
@@ -2055,7 +2055,7 @@ display:
           plugin_id: search_api_field
         field_talk_collection:
           id: field_talk_collection
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: field_talk_collection
           relationship: none
           group_type: group
@@ -2192,7 +2192,7 @@ display:
           plugin_id: custom
         field_talk_type:
           id: field_talk_type
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: field_talk_type
           relationship: none
           group_type: group
@@ -2280,7 +2280,7 @@ display:
           plugin_id: search_api_field
         title_1:
           id: title_1
-          table: search_api_datasource_default_database_index_entity_node
+          table: search_api_datasource_default_talks_index_entity_node
           field: title
           relationship: none
           group_type: group
@@ -2351,7 +2351,7 @@ display:
           plugin_id: search_api_field
         title_2:
           id: title_2
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: title_2
           relationship: none
           group_type: group
@@ -2451,7 +2451,7 @@ display:
         - 'config:field.storage.node.field_talk_speakers_text'
         - 'config:field.storage.node.field_talk_type'
         - 'config:field.storage.node.field_talk_video_url'
-        - 'config:search_api.index.default_database_index'
+        - 'config:search_api.index.default_talks_index'
   basic_search:
     display_plugin: page
     id: basic_search
@@ -2463,7 +2463,7 @@ display:
       filters:
         type:
           id: type
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: type
           relationship: none
           group_type: group
@@ -2504,7 +2504,7 @@ display:
           plugin_id: search_api_options
         search_api_fulltext:
           id: search_api_fulltext
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: search_api_fulltext
           relationship: none
           group_type: group
@@ -2550,7 +2550,7 @@ display:
           plugin_id: search_api_fulltext
         field_talk_subject:
           id: field_talk_subject
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: field_talk_subject
           relationship: none
           group_type: group
@@ -2627,7 +2627,7 @@ display:
         - 'config:field.storage.node.field_talk_speakers_text'
         - 'config:field.storage.node.field_talk_type'
         - 'config:field.storage.node.field_talk_video_url'
-        - 'config:search_api.index.default_database_index'
+        - 'config:search_api.index.default_talks_index'
   sort_filters:
     display_plugin: page
     id: sort_filters
@@ -2651,7 +2651,7 @@ display:
       fields:
         search_api_rendered_item:
           id: search_api_rendered_item
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: search_api_rendered_item
           relationship: none
           group_type: group
@@ -2813,4 +2813,4 @@ display:
         - user
         - 'user.node_grants:view'
       tags:
-        - 'config:search_api.index.default_database_index'
+        - 'config:search_api.index.default_talks_index'
