@@ -131,10 +131,10 @@ display:
           id: 1
           total_pages: null
           tags:
-            previous: ‹‹
-            next: ››
-            first: '« First'
-            last: 'Last »'
+            previous: ï¿½ï¿½
+            next: ï¿½ï¿½
+            first: 'ï¿½ First'
+            last: 'Last ï¿½'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -398,7 +398,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Speaker Profile » Content » Display Name (indexed field)'
+          label: 'Speaker Profile ï¿½ Content ï¿½ Display Name (indexed field)'
           exclude: true
           alter:
             alter_text: false
@@ -2231,7 +2231,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Speaker Profile » Content » Display Name (indexed field)'
+          label: 'Speaker Profile ï¿½ Content ï¿½ Display Name (indexed field)'
           exclude: true
           alter:
             alter_text: false
@@ -2740,7 +2740,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Source » Content » Title (indexed field)'
+          label: 'Source ï¿½ Content ï¿½ Title (indexed field)'
           exclude: true
           alter:
             alter_text: false

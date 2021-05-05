@@ -82,7 +82,7 @@ field_settings:
       config:
         - field.storage.node.body
   field_repo_institution:
-    label: 'Source Repository » Group » Institution'
+    label: 'Source Repository ï¿½ Group ï¿½ Institution'
     datasource_id: 'entity:node'
     property_path: 'field_talk_source_repository:entity:field_repo_institution'
     type: text
@@ -125,7 +125,7 @@ field_settings:
       config:
         - field.storage.node.field_sp_display_name
   field_sp_display_name_1:
-    label: 'Speaker Profile » Content » Display Name'
+    label: 'Speaker Profile ï¿½ Content ï¿½ Display Name'
     datasource_id: 'entity:node'
     property_path: 'field_talk_speaker_profile:entity:field_sp_display_name'
     type: text
@@ -249,7 +249,7 @@ field_settings:
       module:
         - node
   title_2:
-    label: 'Source Repository » Group » Title'
+    label: 'Source Repository ï¿½ Group ï¿½ Title'
     datasource_id: 'entity:node'
     property_path: 'field_talk_source_repository:entity:label'
     type: text
