@@ -10,18 +10,18 @@ dependencies:
     - node
     - search_api
   config:
-    - field.storage.group.field_repo_institution_full_name
-    - field.storage.group.field_repo_institution
-    - field.storage.group.field_source_repo_full_name
-    - field.storage.node.field_talk_abstract
     - field.storage.node.body
+    - field.storage.group.field_repo_institution
+    - field.storage.node.field_talk_source_repository
+    - field.storage.group.field_repo_institution_full_name
+    - field.storage.group.field_source_repo_full_name
+    - field.storage.node.field_sp_display_name
+    - field.storage.node.field_talk_speaker_profile
+    - field.storage.node.field_sp_first_name
+    - field.storage.node.field_sp_speaker_profile
+    - field.storage.node.field_talk_abstract
     - field.storage.node.field_talk_collection
     - field.storage.node.field_talk_date
-    - field.storage.node.field_sp_display_name
-    - field.storage.node.field_sp_first_name
-    - field.storage.node.field_talk_source_repository
-    - field.storage.node.field_sp_speaker_profile
-    - field.storage.node.field_talk_speaker_profile
     - field.storage.node.field_talk_subject
     - field.storage.node.field_talk_type
     - search_api.server.database_server
@@ -67,7 +67,7 @@ third_party_settings:
       collection: ''
       timezone: ''
 _core:
-  default_config_hash: JZdQxrUETtYDp3bROoWLFxbLe61l3J8cYc5KgPQdvKA
+  default_config_hash: dw_5Rg3UULgIv1_6IcQO6FE0HJUbUmhh0NPMAmcVriI
 id: default_talks_index
 name: 'Default Talks index'
 description: ''
@@ -82,7 +82,7 @@ field_settings:
       config:
         - field.storage.node.body
   field_repo_institution:
-    label: 'Source Repository Â» Group Â» Institution'
+    label: 'Source Repository » Group » Institution'
     datasource_id: 'entity:node'
     property_path: 'field_talk_source_repository:entity:field_repo_institution'
     type: text
@@ -125,10 +125,10 @@ field_settings:
       config:
         - field.storage.node.field_sp_display_name
   field_sp_display_name_1:
-    label: 'Speaker Profile Â» Content Â» Display Name'
+    label: 'Speaker Profile » Content » Display Name'
     datasource_id: 'entity:node'
     property_path: 'field_talk_speaker_profile:entity:field_sp_display_name'
-    type: string
+    type: text
     dependencies:
       config:
         - field.storage.node.field_sp_display_name
@@ -249,7 +249,7 @@ field_settings:
       module:
         - node
   title_2:
-    label: 'Source Repository Â» Group Â» Title'
+    label: 'Source Repository » Group » Title'
     datasource_id: 'entity:node'
     property_path: 'field_talk_source_repository:entity:label'
     type: text

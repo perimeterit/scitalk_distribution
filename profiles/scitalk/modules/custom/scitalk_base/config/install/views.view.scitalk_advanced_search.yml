@@ -20,7 +20,7 @@ dependencies:
     - link
     - search_api
 _core:
-  default_config_hash: aDAlffa7H8ZpuzCZnexfq7z6_ct-Plk8qdJ1vFeskKI
+  default_config_hash: ILsGL_ONAWK1hO4GWSwe1aheuNHIYdaDujQ4t4Pi9SM
 id: scitalk_advanced_search
 label: 'Scitalk: Advanced search'
 module: views
@@ -131,10 +131,10 @@ display:
           id: 1
           total_pages: null
           tags:
-            previous: â€¹â€¹
-            next: â€ºâ€º
-            first: 'Â« First'
-            last: 'Last Â»'
+            previous: ‹‹
+            next: ››
+            first: '« First'
+            last: 'Last »'
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -398,7 +398,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Speaker Profile Â» Content Â» Display Name (indexed field)'
+          label: 'Speaker Profile » Content » Display Name (indexed field)'
           exclude: true
           alter:
             alter_text: false
@@ -1550,8 +1550,8 @@ display:
       display_description: ''
       exposed_block: true
       defaults:
-        filters: true
-        filter_groups: true
+        filters: false
+        filter_groups: false
         title: false
         fields: false
         header: false
@@ -1663,6 +1663,390 @@ display:
               speaker_profile: default
               talk: horizontal_card
       use_ajax: true
+      filters:
+        type:
+          id: type
+          table: search_api_index_default_talks_index
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value:
+            talk: talk
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          plugin_id: search_api_options
+        search_api_fulltext:
+          id: search_api_fulltext
+          table: search_api_index_default_talks_index
+          field: search_api_fulltext
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: and
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: search_api_fulltext_op
+            label: 'Search terms'
+            description: ''
+            use_operator: false
+            operator: search_api_fulltext_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: search_api_fulltext
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              scitalk_oauth: '0'
+              talk_editor: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          parse_mode: terms
+          min_length: null
+          fields: {  }
+          plugin_id: search_api_fulltext
+        search_api_fulltext_2:
+          id: search_api_fulltext_2
+          table: search_api_index_default_talks_index
+          field: search_api_fulltext
+          relationship: none
+          group_type: group
+          admin_label: 'Fulltext Speaker'
+          operator: and
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: search_api_fulltext_2_op
+            label: Speaker
+            description: ''
+            use_operator: false
+            operator: search_api_fulltext_2_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: speaker
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              scitalk_oauth: '0'
+              talk_editor: '0'
+            placeholder: Speaker
+            expose_fields: false
+            searched_fields_id: search_api_fulltext_2_searched_fields
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          parse_mode: terms
+          min_length: null
+          fields:
+            - field_sp_display_name_1
+          plugin_id: search_api_fulltext
+        field_talk_subject:
+          id: field_talk_subject
+          table: search_api_index_default_talks_index
+          field: field_talk_subject
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_talk_subject_op
+            label: Subject
+            description: ''
+            use_operator: false
+            operator: field_talk_subject_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: talk_subject
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              scitalk_oauth: '0'
+              talk_editor: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: subjects
+          hierarchy: true
+          error_message: true
+          plugin_id: search_api_term
+        field_talk_date:
+          id: field_talk_date
+          table: search_api_index_default_talks_index
+          field: field_talk_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_talk_date_op
+            label: From
+            description: ''
+            use_operator: false
+            operator: field_talk_date_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: from
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              scitalk_oauth: '0'
+              talk_editor: '0'
+            placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: search_api_date
+        field_talk_date_2:
+          id: field_talk_date_2
+          table: search_api_index_default_talks_index
+          field: field_talk_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '<='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_talk_date_2_op
+            label: To
+            description: ''
+            use_operator: false
+            operator: field_talk_date_2_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: to
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              scitalk_oauth: '0'
+              talk_editor: '0'
+            placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: search_api_date
+        field_talk_type:
+          id: field_talk_type
+          table: search_api_index_default_talks_index
+          field: field_talk_type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_talk_type_op
+            label: 'Talk Type'
+            description: ''
+            use_operator: false
+            operator: field_talk_type_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: type
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              scitalk_oauth: '0'
+              talk_editor: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: talk_type
+          hierarchy: false
+          error_message: true
+          plugin_id: search_api_term
+        search_api_fulltext_1:
+          id: search_api_fulltext_1
+          table: search_api_index_default_talks_index
+          field: search_api_fulltext
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: search_api_fulltext_1_op
+            label: Source
+            description: ''
+            use_operator: false
+            operator: search_api_fulltext_1_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_talk_source
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              scitalk_oauth: '0'
+              talk_editor: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          parse_mode: terms
+          min_length: null
+          fields:
+            - title_2
+          plugin_id: search_api_fulltext
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
     cache_metadata:
       max-age: -1
       contexts:
@@ -1847,7 +2231,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Speaker Profile Â» Content Â» Display Name (indexed field)'
+          label: 'Speaker Profile » Content » Display Name (indexed field)'
           exclude: true
           alter:
             alter_text: false
@@ -2356,7 +2740,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Source Â» Content Â» Title (indexed field)'
+          label: 'Source » Content » Title (indexed field)'
           exclude: true
           alter:
             alter_text: false
@@ -2639,8 +3023,8 @@ display:
       display_description: ''
       exposed_block: true
       defaults:
-        filters: true
-        filter_groups: true
+        filters: false
+        filter_groups: false
         title: false
         fields: false
         header: false
@@ -2802,6 +3186,390 @@ display:
                     filter_rewrite_values: ''
                   collapsible: false
                   is_secondary: false
+      filters:
+        type:
+          id: type
+          table: search_api_index_default_talks_index
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value:
+            talk: talk
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          plugin_id: search_api_options
+        search_api_fulltext:
+          id: search_api_fulltext
+          table: search_api_index_default_talks_index
+          field: search_api_fulltext
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: and
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: search_api_fulltext_op
+            label: 'Search terms'
+            description: ''
+            use_operator: false
+            operator: search_api_fulltext_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: search_api_fulltext
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              scitalk_oauth: '0'
+              talk_editor: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          parse_mode: terms
+          min_length: null
+          fields: {  }
+          plugin_id: search_api_fulltext
+        search_api_fulltext_2:
+          id: search_api_fulltext_2
+          table: search_api_index_default_talks_index
+          field: search_api_fulltext
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: and
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: search_api_fulltext_2_op
+            label: Speaker
+            description: ''
+            use_operator: false
+            operator: search_api_fulltext_2_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: speaker
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              scitalk_oauth: '0'
+              talk_editor: '0'
+            placeholder: Speaker
+            expose_fields: false
+            searched_fields_id: search_api_fulltext_2_searched_fields
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          parse_mode: terms
+          min_length: null
+          fields:
+            - field_sp_display_name_1
+          plugin_id: search_api_fulltext
+        field_talk_subject:
+          id: field_talk_subject
+          table: search_api_index_default_talks_index
+          field: field_talk_subject
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_talk_subject_op
+            label: Subject
+            description: ''
+            use_operator: false
+            operator: field_talk_subject_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: talk_subject
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              scitalk_oauth: '0'
+              talk_editor: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: subjects
+          hierarchy: true
+          error_message: true
+          plugin_id: search_api_term
+        field_talk_date:
+          id: field_talk_date
+          table: search_api_index_default_talks_index
+          field: field_talk_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '>='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_talk_date_op
+            label: From
+            description: ''
+            use_operator: false
+            operator: field_talk_date_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: from
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              scitalk_oauth: '0'
+              talk_editor: '0'
+            placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: search_api_date
+        field_talk_date_2:
+          id: field_talk_date_2
+          table: search_api_index_default_talks_index
+          field: field_talk_date
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: '<='
+          value:
+            min: ''
+            max: ''
+            value: ''
+            type: date
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_talk_date_2_op
+            label: To
+            description: ''
+            use_operator: false
+            operator: field_talk_date_2_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: to
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              scitalk_oauth: '0'
+              talk_editor: '0'
+            placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          plugin_id: search_api_date
+        field_talk_type:
+          id: field_talk_type
+          table: search_api_index_default_talks_index
+          field: field_talk_type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_talk_type_op
+            label: 'Talk Type'
+            description: ''
+            use_operator: false
+            operator: field_talk_type_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: type
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              scitalk_oauth: '0'
+              talk_editor: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: talk_type
+          hierarchy: false
+          error_message: true
+          plugin_id: search_api_term
+        search_api_fulltext_1:
+          id: search_api_fulltext_1
+          table: search_api_index_default_talks_index
+          field: search_api_fulltext
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: ''
+          group: 1
+          exposed: true
+          expose:
+            operator_id: search_api_fulltext_1_op
+            label: Source
+            description: ''
+            use_operator: false
+            operator: search_api_fulltext_1_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_talk_source
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              scitalk_oauth: '0'
+              talk_editor: '0'
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          parse_mode: terms
+          min_length: null
+          fields:
+            - title_2
+          plugin_id: search_api_fulltext
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
     cache_metadata:
       max-age: -1
       contexts:
