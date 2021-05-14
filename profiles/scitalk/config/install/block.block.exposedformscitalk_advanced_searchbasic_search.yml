@@ -9,8 +9,8 @@ dependencies:
     - scitalk_theme
 id: exposedformscitalk_advanced_searchbasic_search
 theme: scitalk_theme
-region: advanced_search
-weight: -9
+region: header
+weight: -5
 provider: null
 plugin: 'views_exposed_filter_block:scitalk_advanced_search-basic_search'
 settings:
