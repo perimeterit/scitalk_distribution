@@ -9,34 +9,23 @@
     }
   };
 
+  // Toggle advanced search filters
   Drupal.behaviors.toggleAdvanced = {
     attach: function (context, settings) {
-      $adv_btn = '<a class="toggle-advanced toggle-expand" href="#" title="Toggle Advanced Search">Show advanced</a>';
-      $adv_search_el = $('.block-views-exposed-filter-block--scitalk-advanced-search-advanced-search');
-      $basic_search_el = $('#views-exposed-form-scitalk-advanced-search-basic-search');
 
-      $adv_search_el.hide();
-      $('#views-exposed-form-scitalk-advanced-search-basic-search .form-actions', context).append($adv_btn);
-      $('.search-wrap', context).prepend('<span class="hide-advanced toggle-expand toggle-contract">Hide advanced</span>');
+      $('.filter-toggle', context).click(function() {
+        if ($(this).hasClass('show-filters')) {
+          $('.search-exposed-filters').hide().removeClass('visually-hidden').slideDown();
+          $(this).removeClass('show-filters').addClass('hide-filters');
+          $(this).children('.text').html('hide filters');
+        }
+        else if ($(this).hasClass('hide-filters')) {
+          $('.search-exposed-filters').slideUp();
+          $(this).removeClass('hide-filters').addClass('show-filters')
+          $(this).children('.text').html('filter');
+        }
 
-      $('.toggle-advanced', context).click( function(e){
-        e.preventDefault();
-
-        $adv_search_el.slideDown();
-        $basic_search_el.slideUp();
-
-        // Prepopulate search & subjects fields with values from simple search bar
-        $form_search_val = $('.form-item-search .form-text', $basic_search_el).val();
-        $form_search_subject = $('.form-item-talk-subject .form-select', $basic_search_el).val();
-        $('.form-item-search .form-text', $adv_search_el).val($form_search_val);
-        $('.form-item-talk-subject .form-select', $adv_search_el).val($form_search_subject);
       });
-
-      $('.hide-advanced', context).click(function(){
-        $adv_search_el.slideUp();
-        $basic_search_el.slideDown();
-      });
-
     }
   };
   /**

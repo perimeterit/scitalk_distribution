@@ -4,10 +4,10 @@ global:
       css/layout.css: {}
     component:
       css/global.css: {}
+      css/components/forms.css: {}
       css/components/advanced-search.css: {}
       css/components/citations.css: {}
       css/components/collections.css: {}
-      css/components/forms.css: {}
       css/components/modals.css: {}
       css/components/share-links.css: {}
       css/components/speakers.css: {}

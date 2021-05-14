@@ -5,7 +5,6 @@ core: 8.x
 base theme: starbase
 dependencies:
  - starbase
- - stardust
 
 libraries:
  - stardust/global

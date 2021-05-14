@@ -1,6 +1,15 @@
 /**
  * Sitewide layout
 */
+
+@media all and (max-width: 1240px) {
+  :root {
+    --responsive-padding: calc(1em + .2vw);
+    --vertical-padding: calc(1em + .2vw);
+  }
+}
+
+
 /**
  * Header
 */

@@ -38,7 +38,7 @@ function scitalk_theme_preprocess_region(&$variables) {
 
 /**
  * Implements hook_preprocess_HOOK().
- * Alters variables for blocks.
+ * Alters variables for page template.
  */
 function scitalk_theme_preprocess_page(&$variables) {
 
@@ -87,7 +87,7 @@ function scitalk_theme_preprocess_node(&$variables) {
 }
 
 /**
- * Implements hook_preprocess_HOOK() for HTML document templates.
+ * Implements hook_preprocess_HOOK() for blocks.
  */
 function scitalk_theme_preprocess_block(&$variables) {
   // Change the title on the Talks by speaker view.
@@ -119,14 +119,27 @@ function scitalk_theme_preprocess_block(&$variables) {
 function scitalk_theme_preprocess_media(&$variables) {
   $variables['bundle'] = $variables['media']->bundle();
 }
+/**
+ * Implements hook_preprocess_HOOK().
+ * Alters variables for views.
+ */
+function scitalk_theme_preprocess_views_view(&$variables) {
+  $view = $variables['view'];
+  // For search view, get exposed input and view count.
+  if ($view->id() == 'scitalk_advanced_search') {
+    $exposed_input = $view->getExposedInput();
+    $variables['search_input'] = $exposed_input['search_api_fulltext'];
+    $variables['search_result_count'] = $view->total_rows;
+  }
+}
+
 /*
  Implements hook_form_alter()
  */
 function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
 
-  // Alter Views search form to hide form label.
-  if (($form['#id'] == 'views-exposed-form-solr-search-content-page-2') ||
-      ($form['#id'] == 'views-exposed-form-default-search-content-page-2'))  {
+  // Alter search form to hide form label in basic form
+  if (($form['#id'] == 'views-exposed-form-scitalk-advanced-search-basic-search'))  {
     // Solr search.
     $form['keys']['#title_display'] = 'invisible';
     $form['keys']['#attributes']['placeholder'] = t('Search');
@@ -144,14 +157,14 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     $form['keys']['#attributes']['placeholder'] = t('Search');
     $form['keys']['#size'] = 20;
 
+    // Add some wrappers for two-column layout
     $form['search_api_fulltext']['#prefix'] = '<div class="search-wrap"> <div class="content-search-wrap">';
-    $form['type']['#suffix'] = '</div>';
 
     $form['from']['#prefix'] = '<div class="date-search-wrap">';
-    $form['to']['#suffix'] = '</div>';
-
-    $form['actions']['#suffix'] = '</div>';
-
+    //  This closes the content-search-wrap as well
+    $form['to']['#suffix'] = '</div></div>';
+    $form['type']['#prefix'] = '<div class="content-search-wrap">';
+    $form['sort_bef_combine']['#suffix'] = '</div></div>';
     if (!empty($form['talk_subject']['#options'])) {
       foreach ($form['talk_subject']['#options'] as $key => &$option) {
         if ($key == 'All') {
