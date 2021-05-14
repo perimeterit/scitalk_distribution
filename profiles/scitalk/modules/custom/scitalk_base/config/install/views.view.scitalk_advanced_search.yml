@@ -20,7 +20,7 @@ dependencies:
     - link
     - search_api
 _core:
-  default_config_hash: ILsGL_ONAWK1hO4GWSwe1aheuNHIYdaDujQ4t4Pi9SM
+  default_config_hash: CMsRzTj8Zh--K22f0BGEzgneA9nyCD_D9U8ixQux4yM
 id: scitalk_advanced_search
 label: 'Scitalk: Advanced search'
 module: views
@@ -1466,7 +1466,7 @@ display:
           group_type: group
           admin_label: ''
           order: ASC
-          exposed: true
+          exposed: false
           expose:
             label: Title
           plugin_id: search_api
@@ -1548,7 +1548,7 @@ display:
       display_extenders: {  }
       path: search-talks
       display_description: ''
-      exposed_block: true
+      exposed_block: false
       defaults:
         filters: false
         filter_groups: false
@@ -1560,7 +1560,7 @@ display:
         row: false
         exposed_form: true
         use_ajax: false
-      title: ''
+      title: 'Search Results'
       fields:
         search_api_rendered_item:
           id: search_api_rendered_item
@@ -1635,7 +1635,7 @@ display:
           group_type: group
           admin_label: ''
           empty: false
-          content: 'Displaying @start - @end of @total'
+          content: 'Displaying @start - @end'
           plugin_id: result
       style:
         type: html_list
@@ -2916,6 +2916,8 @@ display:
               scitalk_oauth: '0'
               talk_editor: '0'
             placeholder: ''
+            expose_fields: false
+            searched_fields_id: ''
           is_grouped: false
           group_info:
             label: ''
@@ -2932,65 +2934,29 @@ display:
           min_length: null
           fields: {  }
           plugin_id: search_api_fulltext
-        field_talk_subject:
-          id: field_talk_subject
-          table: search_api_index_default_talks_index
-          field: field_talk_subject
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_talk_subject_op
-            label: Subject
-            description: ''
-            use_operator: false
-            operator: field_talk_subject_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: talk_subject
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              scitalk_oauth: '0'
-              talk_editor: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          type: select
-          limit: true
-          vid: subjects
-          hierarchy: true
-          error_message: true
-          plugin_id: search_api_term
       defaults:
         filters: false
         filter_groups: false
-        sorts: true
+        sorts: false
       filter_groups:
         operator: AND
         groups:
           1: AND
       path: search-talks
       exposed_block: true
+      sorts:
+        search_api_relevance:
+          id: search_api_relevance
+          table: search_api_index_default_talks_index
+          field: search_api_relevance
+          relationship: none
+          group_type: group
+          admin_label: ''
+          order: ASC
+          exposed: false
+          expose:
+            label: ''
+          plugin_id: search_api
     cache_metadata:
       max-age: -1
       contexts:
@@ -2998,9 +2964,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - 'url.query_args:sort_by'
-        - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.group.field_repo_institution'
@@ -3150,9 +3113,11 @@ display:
                     filter_rewrite_values: ''
                   collapsible: false
                   is_secondary: false
-              field_sp_display_name_1:
+              search_api_fulltext_2:
                 plugin_id: default
                 advanced:
+                  rewrite:
+                    filter_rewrite_values: ''
                   collapsible: false
                   is_secondary: false
               field_talk_subject:
