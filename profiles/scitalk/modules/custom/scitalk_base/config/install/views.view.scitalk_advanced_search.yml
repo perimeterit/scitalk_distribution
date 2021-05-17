@@ -994,7 +994,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '<span class="icon"><span class="visually-hidden">{{ "View details"|t}}</span></span>'
+            text: '<span class="info-icon"></span><span class="visually-hidden">{{ "View details"|t}}</span>'
             make_link: true
             path: ''
             absolute: false
@@ -2673,7 +2673,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '<span class="icon"><span class="visually-hidden">{{ "View details"|t}}</span></span>'
+            text: '<span class="info-icon"></span><span class="visually-hidden">{{ "View details"|t}}</span>'
             make_link: true
             path: ''
             absolute: false
