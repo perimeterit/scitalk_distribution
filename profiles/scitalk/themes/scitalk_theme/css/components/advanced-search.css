@@ -10,7 +10,7 @@
   padding-top: 0;
 }
 
-/* Standard search form */s
+/* Standard search form */
 .block-views-exposed-filter-block--scitalk-advanced-search-basic-search .form-item,
 .block-views-exposed-filter-block--scitalk-advanced-search-basic-search .form-actions {
   margin: 0;
@@ -43,7 +43,6 @@
 }
 
 /* Filter toggle */
-
 .filter-toggle {
   background: var(--color-lt-grey) left center no-repeat;
   color: var(--color-primary);
@@ -108,7 +107,6 @@
   background-size: 1.7em;
   padding-right: 2.1em;
 }
-
 /**
  * Search header
 */

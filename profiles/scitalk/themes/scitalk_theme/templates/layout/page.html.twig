@@ -55,11 +55,11 @@
  </section>
 
 <section class="page-header-wrapper">
-  <div class="page-header-inner fixwidth">
+  <div class="page-header-inner fixwidth">{% spaceless %}
     {{ page.page_title }}
     {{ page_header_view }}
     {{ page.page_header }}
-  </div>
+  {% endspaceless %}</div>
 </section>
 
 <main role="main" class="main-content fixwidth">
