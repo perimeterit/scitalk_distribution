@@ -35,7 +35,6 @@
     attach: function (context, settings) {
       $('button.switch-display', context).click(function() {
         $target = $(this).data('target');
-        console.log($target);
         $('.search-display').addClass('hidden');
         $('.search-display[data-display=' + $target + ']').removeClass('hidden');
       })

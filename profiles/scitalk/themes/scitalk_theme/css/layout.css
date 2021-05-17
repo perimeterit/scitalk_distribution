@@ -9,7 +9,6 @@
   }
 }
 
-
 /**
  * Header
 */
@@ -20,13 +19,15 @@
 /**
  * Special content regions
 */
-.page-header-wrapper,
+.page-header-inner,
 .region-content,
 .region-content-bottom {
   padding-top: var(--vertical-padding);
   padding-bottom: var(--vertical-padding);
 }
-
+.page-header-inner:empty {
+  padding: 0;
+}
 /* Page header */
 .page-header-wrapper a:hover,
 .page-header-wrapper a:focus {
