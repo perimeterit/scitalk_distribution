@@ -28,17 +28,19 @@
 .page-header .speaker-date.single-line {
   line-height: 1;
 }
-.horizontal-card .speaker-date.single-line .field--name-field-talk-speaker-profile
-.teaser .speaker-date.single-line .field--name-field-talk-speaker-profile,
-.mini-teaser .speaker-date.single-line .field--name-field-talk-speaker-profile  {
-  border-right: 1px solid var(--color-dk-grey);
-  margin-right: .3em;
+.horizontal-card .speaker-date.single-line .field--name-field-talk-speaker-profile:after,
+.teaser .speaker-date.single-line .field--name-field-talk-speaker-profile:after {
+  content: '|';
+  display: inline-block;
   padding-right: .4em;
 }
 @media all and (min-width: 768px) {
-  .page-header .speaker-date.single-line .field--name-field-talk-speaker-profile {
-    border-right: 1px solid var(--color-dk-grey);
-    margin-right: .3em;
+  .page-header .speaker-date.single-line .node.speaker-profile {
+    display: inline-block;
+  }
+  .page-header .speaker-date.single-line .field--name-field-talk-speaker-profile:after {
+    content: '|';
+    display: inline-block;
     padding-right: .4em;
   }
 }
@@ -63,7 +65,10 @@
 .field--name-field-talk-speaker-profile ul li:last-child:after {
   content: '';
 }
-
+.speaker-date .field--name-field-sp-institution-name:before {
+  content: ' - ';
+  display: inline-block;
+}
 /**
  * Hozitontal card view mode
 */
@@ -75,18 +80,32 @@
 .node.talk.horizontal-card  > a + .content {
   margin-left: 1em;
 }
+.node.talk.horizontal-card .speaker-date {
+  line-height: inherit;
+}
 .node.talk.horizontal-card a {
   text-decoration: none;
 }
 .node.talk.horizontal-card h3 {
   margin: 0;
 }
+.node.talk.horizontal-card .field--name-field-talk-speaker-profile li {
+  display: inline-flex;
+}
+.node.talk.horizontal-card .field--name-field-talk-speaker-profile a:hover,
+.node.talk.horizontal-card .field--name-field-talk-speaker-profile a:focus {
+  text-decoration: underline;
+}
 .node.talk.horizontal-card .info div {
   display: inline-block;
 }
-.node.talk.horizontal-card .speaker-date:after {
+.node.talk.horizontal-card .field--name-field-talk-date:after {
   content: '|';
   display: inline-block;
+}
+.node.talk.horizontal-card .talk-info svg  {
+	display: inline-block;
+  vertical-align: middle;
 }
 /**
  * Card view mode
@@ -160,6 +179,9 @@
 .node.talk.mini-teaser h3 a {
   color: var(--color-primary);
   text-decoration: none;
+}
+.node.talk.mini-teaser .field--name-field-talk-date {
+  display: block;
 }
 .node.talk.mini-teaser img {
   width: 100%;

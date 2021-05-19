@@ -11,6 +11,7 @@ global:
       css/components/modals.css: {}
       css/components/share-links.css: {}
       css/components/speakers.css: {}
+      css/components/taxonomy.css: {}
       css/components/table.css: {}
       css/components/talks.css: {}
       js/jquery-responsive-tables/css/responsive-tables.min.css: {}

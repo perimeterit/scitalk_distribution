@@ -2,7 +2,6 @@
  * Component CSS for Collections/Taxonomy
 */
 
-
 /* Grid list of terms on the home page  */
 
 .view-scitalk-collections .term-grid {
@@ -47,7 +46,6 @@
 /**
  * Page header view mode
 */
-
 .node.collection.page-header a {
   color: #fff;
   text-decoration: none;
@@ -69,7 +67,7 @@
 /*
  * Full page
 */
-.node.collection.full {
+.node.collection .field--name-description {
   margin-bottom: var(--vertical-padding);
 }
 .node.collection .field--name-description p {

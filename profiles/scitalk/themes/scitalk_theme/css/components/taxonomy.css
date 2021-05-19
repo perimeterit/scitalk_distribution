@@ -1,0 +1,6 @@
+/**
+ * Theming for any taxonomy terms
+*/
+.taxonomy-term.full {
+  margin-bottom: var(--vertical-padding);
+}
