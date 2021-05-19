@@ -23,7 +23,6 @@
   {{ title }}
   {{ title_suffix }}
 
-  {% if search_result_count or search_input %}
   <p class="search-summary">
     {% trans %}
       Displaying {{ search_result_count}} results
@@ -36,7 +35,6 @@
       <span class="text">{{ 'filter'|t }}</span>
     </button>
   </p>
-  {% endif %}
 
   <div class="search-exposed-filters visually-hidden">
     {{ exposed }}
