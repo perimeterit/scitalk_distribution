@@ -82,6 +82,10 @@
 }
 .node.talk.horizontal-card .speaker-date {
   line-height: inherit;
+  color: inherit;
+}
+.node.talk.horizontal-card .speaker-date a {
+  color: var(--color-primary);
 }
 .node.talk.horizontal-card a {
   text-decoration: none;
