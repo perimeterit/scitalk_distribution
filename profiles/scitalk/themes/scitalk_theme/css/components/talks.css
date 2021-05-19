@@ -58,6 +58,10 @@
   flex-wrap: wrap;
   line-height: 1.5;
 }
+
+.field--name-field-talk-speaker-profile ul li {
+  display: inline-flex;
+}
 .field--name-field-talk-speaker-profile ul li:after {
   content: ',';
   margin-right: .2em;
@@ -73,9 +77,11 @@
  * Hozitontal card view mode
 */
 .node.talk.horizontal-card {
+  border-bottom: 0.1rem solid #e1e1e1;
   display: flex;
   line-height: 1.7em;
   margin: 1.5em 0;
+  padding-bottom: 1.5em;
 }
 .node.talk.horizontal-card  > a + .content {
   margin-left: 1em;
@@ -92,9 +98,6 @@
 }
 .node.talk.horizontal-card h3 {
   margin: 0;
-}
-.node.talk.horizontal-card .field--name-field-talk-speaker-profile li {
-  display: inline-flex;
 }
 .node.talk.horizontal-card .field--name-field-talk-speaker-profile a:hover,
 .node.talk.horizontal-card .field--name-field-talk-speaker-profile a:focus {

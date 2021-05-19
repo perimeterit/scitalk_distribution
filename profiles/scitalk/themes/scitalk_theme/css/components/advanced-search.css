@@ -171,6 +171,7 @@
 
 @media all and (min-width: 768px) {
   .search-display-toggle ul {
+    justify-content: flex-end;
     justify-content: end;
   }
 }
@@ -211,11 +212,6 @@
 }
 
 /* View adjustments */
-.view--scitalk-advanced-search .node.horizontal-card {
- border-bottom: 0.1rem solid #e1e1e1;
- padding-bottom: 1.5em;
-}
-
 table.jrt {
   width: 100%;
 }
