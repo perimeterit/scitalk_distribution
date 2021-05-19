@@ -43,9 +43,9 @@
   </div>
 
   <header class="advanced-search-header">
-    {% if header %}
+    <div class="search-summary">
       {{ header }}
-    {% endif %}
+    </div>
     <div class="search-exposed-sort">
       {# Render the sort exposed form using Twig Tweak  #}
       {{ drupal_block('views_exposed_filter_block:scitalk_advanced_search-sort_filters')}}

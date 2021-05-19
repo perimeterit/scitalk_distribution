@@ -105,6 +105,8 @@
 */
 .site-footer {
   border-top: 1px solid var(--color-lt-grey);
+  padding-left: var(--responsive-padding);
+  padding-right: var(--responsive-padding);
 }
 
 /**
