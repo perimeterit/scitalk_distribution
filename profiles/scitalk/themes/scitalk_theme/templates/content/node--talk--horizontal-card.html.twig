@@ -11,8 +11,11 @@
   {{ content.field_talk_thumbnail }}
   <div class="content">
     {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
+    <div class="speaker-date">
+      {{ content.field_talk_speaker_profile }}
+    </div>
     <div class="info">
-      {% embed "@scitalk_theme/includes/speaker-date.twig" %}{% endembed %}
+      {{ content.field_talk_date }}
       {{ content.field_talk_collection }}
       {{ content.field_talk_series }}
     </div>
