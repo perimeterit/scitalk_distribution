@@ -25,17 +25,18 @@
   padding-top: var(--vertical-padding);
   padding-bottom: var(--vertical-padding);
 }
-.page-header-inner:empty {
-  padding: 0;
-}
 /* Page header */
 
 .page-header-wrapper {
   max-width: var(--max-width);
   margin: 0 auto;
+}
+.page-header-inner {
   padding: var(--vertical-padding) var(--responsive-padding);
 }
-
+.page-header-inner:empty {
+  padding: 0;
+}
 .page-header-wrapper a:hover,
 .page-header-wrapper a:focus {
   text-decoration: underline;
