@@ -24,9 +24,11 @@
   {{ title_suffix }}
 
   <header class="advanced-search-header">
-    {% if header %}
-      {{ header }}
-    {% endif %}
+    <div class="header">
+      {% if header %}
+        {{ header }}
+      {% endif %}
+    </div>
     <div class="search-exposed-sort">
       {{ exposed }}
     </div>
