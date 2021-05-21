@@ -82,7 +82,7 @@
     display: flex;
   }
   .date-search-wrap input {
-    max-width: 10em;
+    max-width: 12em;
   }
   .date-search-wrap .form-item:last-child {
     display: flex;
