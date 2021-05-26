@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - scitalk_media
+id: remote_file
+label: 'Remote file'
+description: 'Link to remote file'
+source: scitalk_remote_file
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  source_field: field_media_scitalk_remote_file
+field_map: {  }
+

@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.media_library
+    - field.field.media.remote_file.field_media_scitalk_remote_file
+    - image.style.medium
+    - media.type.remote_file
+  module:
+    - image
+id: media.remote_file.media_library
+targetEntityType: media
+bundle: remote_file
+mode: media_library
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_style: medium
+      image_link: ''
+    weight: 0
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  field_media_scitalk_remote_file: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  uid: true
+

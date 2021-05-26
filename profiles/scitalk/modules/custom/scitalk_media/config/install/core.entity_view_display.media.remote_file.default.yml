@@ -1,0 +1,34 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.remote_file.field_media_scitalk_remote_file
+    - media.type.remote_file
+id: media.remote_file.default
+targetEntityType: media
+bundle: remote_file
+mode: default
+content:
+  field_media_scitalk_remote_file:
+    label: visually_hidden
+    weight: 1
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  name:
+    type: string
+    weight: 0
+    region: content
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  created: true
+  langcode: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true
+
