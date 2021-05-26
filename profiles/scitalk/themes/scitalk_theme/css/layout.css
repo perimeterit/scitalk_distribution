@@ -114,7 +114,10 @@
 .site-footer {
   border-top: 1px solid var(--color-lt-grey);
 }
-
+.region-footer {
+  padding-left: var(--responsive-padding);
+  padding-right: var(--responsive-padding);
+}
 /**
  * set Footer navigations side by side with account section right aligned
 */

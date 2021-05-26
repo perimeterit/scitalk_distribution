@@ -128,7 +128,9 @@ function scitalk_theme_preprocess_views_view(&$variables) {
   // For search view, get exposed input and view count.
   if ($view->id() == 'scitalk_advanced_search') {
     $exposed_input = $view->getExposedInput();
-    $variables['search_input'] = $exposed_input['search_api_fulltext'];
+    if (!empty($exposed_input)) {
+      $variables['search_input'] = $exposed_input['search_api_fulltext'];
+    }
     $variables['search_result_count'] = $view->total_rows;
   }
 }
@@ -235,7 +237,9 @@ function scitalk_theme_suggestions_form_alter(array &$suggestions, array $variab
 function scitalk_theme_page_attachments_alter(array &$page) {
   $route = \Drupal::routeMatch();
   $routename = $route->getRouteName();
-  if ($routename == 'view.scitalk_advanced_search.advanced_search') {
+  $search_terms = \Drupal::request()->query->get('search_api_fulltext');
+  if (($routename == 'view.scitalk_advanced_search.advanced_search') &&
+      empty($search_terms)) {
     $page['#attached']['drupalSettings']['scitalk']['adv_search_page'] = 'true';
   }
 }
