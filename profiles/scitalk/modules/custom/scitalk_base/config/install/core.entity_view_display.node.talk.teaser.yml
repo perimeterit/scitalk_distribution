@@ -39,70 +39,55 @@ bundle: talk
 mode: teaser
 content:
   field_talk_abstract:
-    type: text_trimmed
-    weight: 0
+    type: text_default
+    weight: 4
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_talk_date:
+    type: datetime_default
+    weight: 2
     region: content
     label: hidden
     settings:
-      trim_length: 600
-    third_party_settings:
-      fences:
-        fences_field_tag: div
-        fences_field_classes: ''
-        fences_field_item_tag: div
-        fences_field_item_classes: ''
-        fences_label_tag: div
-        fences_label_classes: ''
-  field_talk_date:
-    type: datetime_default
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+  field_talk_speaker_profile:
+    type: entity_reference_label
     weight: 3
     region: content
     label: hidden
     settings:
-      timezone_override: ''
-      format_type: medium
-    third_party_settings:
-      fences:
-        fences_field_tag: p
-        fences_field_classes: date
-        fences_field_item_tag: none
-        fences_field_item_classes: ''
-        fences_label_tag: div
-        fences_label_classes: ''
-  field_talk_speaker_profile:
-    type: entity_reference_entity_view
+      link: true
+    third_party_settings: {  }
+  field_talk_speakers_text:
+    type: string
     weight: 1
     region: content
     label: hidden
     settings:
-      view_mode: speaker_name_institution
-      link: false
-    third_party_settings:
-      fences:
-        fences_field_tag: ul
-        fences_field_classes: inline-list
-        fences_field_item_tag: li
-        fences_field_item_classes: ''
-        fences_label_tag: div
-        fences_label_classes: ''
+      link_to_entity: false
+    third_party_settings: {  }
   field_talk_thumbnail:
     type: scitalk_thumbnail_formatter
-    weight: 2
+    weight: 0
     region: content
-    label: above
+    label: hidden
     settings:
       which_thumb: media
       which_style: scitalk_preview_large
     third_party_settings:
       fences:
-        fences_field_tag: div
+        fences_field_tag: figure
         fences_field_classes: ''
-        fences_field_item_tag: div
+        fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
   links:
-    weight: 4
+    weight: 5
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -118,7 +103,6 @@ hidden:
   field_talk_number: true
   field_talk_source_event: true
   field_talk_source_repository: true
-  field_talk_speakers_text: true
   field_talk_subject: true
   field_talk_type: true
   field_talk_video: true
