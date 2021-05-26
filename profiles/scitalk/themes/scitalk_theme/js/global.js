@@ -12,20 +12,32 @@
   // Toggle advanced search filters
   Drupal.behaviors.toggleAdvanced = {
     attach: function (context, settings) {
-
+      // Toggle on click
       $('.filter-toggle', context).click(function() {
         if ($(this).hasClass('show-filters')) {
-          $('.search-exposed-filters').hide().removeClass('visually-hidden').slideDown();
-          $(this).removeClass('show-filters').addClass('hide-filters');
-          $(this).children('.text').html('hide filters');
+          show_filters($(this));
         }
         else if ($(this).hasClass('hide-filters')) {
-          $('.search-exposed-filters').slideUp();
-          $(this).removeClass('hide-filters').addClass('show-filters')
-          $(this).children('.text').html('filter');
+          hide_filters($(this));
         }
-
       });
+
+      // Open by default on Search landing page
+      console.log(drupalSettings.scitalk);
+      if (drupalSettings.scitalk.adv_search_page == 'true') {
+        show_filters($('.filter-toggle'));
+      }
+
+      function show_filters(link_el) {
+        $('.search-exposed-filters').hide().removeClass('visually-hidden').slideDown();
+        link_el.removeClass('show-filters').addClass('hide-filters');
+        link_el.children('.text').html('hide filters');
+      }
+      function hide_filters(link_el) {
+        $('.search-exposed-filters').slideUp();
+        link_el.removeClass('hide-filters').addClass('show-filters')
+        link_el.children('.text').html('filter');
+      }
     }
   };
   /**

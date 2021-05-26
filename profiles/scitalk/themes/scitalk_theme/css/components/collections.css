@@ -67,11 +67,8 @@
 /*
  * Full page
 */
-.node.collection .field--name-description {
-  margin-bottom: var(--vertical-padding);
-}
-.node.collection .field--name-description p {
-  display: inline;
+.node.collection.full > .content .field {
+  margin-bottom: 1em;
 }
 .node.collection.full .view-scitalk-talks-in-collection {
   margin-top: 2em;

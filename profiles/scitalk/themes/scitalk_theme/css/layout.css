@@ -80,7 +80,7 @@
   }
 }
 @media all and (max-width: 767px) {
-  .page-talk .page-header-wrapper .region-page-title {
+  .page-talk .page-header-inner .region-page-title {
     grid-column: span 2;
   }
   .region-page-header button {
@@ -113,8 +113,6 @@
 */
 .site-footer {
   border-top: 1px solid var(--color-lt-grey);
-  padding-left: var(--responsive-padding);
-  padding-right: var(--responsive-padding);
 }
 
 /**

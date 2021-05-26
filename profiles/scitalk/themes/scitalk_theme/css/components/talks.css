@@ -83,6 +83,9 @@
   margin: 1.5em 0;
   padding-bottom: 1.5em;
 }
+.node.talk.horizontal-card > a {
+  flex: 1 0 150px;
+}
 .node.talk.horizontal-card  > a + .content {
   margin-left: 1em;
 }

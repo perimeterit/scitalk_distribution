@@ -17,10 +17,12 @@
 
 <article{{ attributes.addClass(classes) }}>
   {% block content %}
-      {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
-    {{ content }}
+    {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
+
+    <div class="content">
+      {{ content }}
+    </div>
     {# drupal_view is from Twig Tweak #}
-    
     {{ drupal_view('scitalk_talks_in_collection','scitalk_talk_by_collection_block') }}
   {% endblock %}
 </article>

@@ -149,6 +149,7 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     $form['search_api_fulltext']['#title_display'] = 'invisible';
     $form['search_api_fulltext']['#attributes']['placeholder'] = t('Search');
     $form['search_api_fulltext']['#size'] = 20;
+
   }
 
   //luis: for advanced search section
@@ -217,5 +218,24 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
         }
       }
     }
+  }
+}
+
+/**
+ * Create template suggestion for forms
+ */
+function scitalk_theme_suggestions_form_alter(array &$suggestions, array $variables) {
+  $suggestions[] = 'form__' . str_replace('-','_', $variables['element']['#id']);
+}
+
+/**
+ * Alter page attachments
+ * Send variable to DrupalSettings for advanced search page
+*/
+function scitalk_theme_page_attachments_alter(array &$page) {
+  $route = \Drupal::routeMatch();
+  $routename = $route->getRouteName();
+  if ($routename == 'view.scitalk_advanced_search.advanced_search') {
+    $page['#attached']['drupalSettings']['scitalk']['adv_search_page'] = 'true';
   }
 }
