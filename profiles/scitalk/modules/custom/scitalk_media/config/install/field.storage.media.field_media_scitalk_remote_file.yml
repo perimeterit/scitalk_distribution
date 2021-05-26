@@ -6,8 +6,8 @@ dependencies:
       - scitalk_media
   module:
     - media
-id: media.field_media_scitalk_doi
-field_name: field_media_scitalk_doi
+id: media.field_media_scitalk_remote_file
+field_name: field_media_scitalk_remote_file
 entity_type: media
 type: string
 settings:
@@ -21,3 +21,4 @@ translatable: true
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false
+

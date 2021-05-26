@@ -259,6 +259,7 @@
 .resource-link .icon {
   display: flex;
 }
+.resource--remote_file,
 .resource--image,
 .resource--file {
   align-items: center;
@@ -281,6 +282,7 @@
 .resource--arxiv .icon {
   background: #b31b1b;
 }
+.resource--remote_file .icon,
 .resource--file .icon {
   background: no-repeat transparent center center;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M13,9V3.5L18.5,9M6,2C4.89,2 4,2.89 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6Z' /%3E%3C/svg%3E");
@@ -311,6 +313,7 @@
 .resource-link strong {
   font-weight: 500;
 }
+resource--remote_file p,
 .resource--file p {
   display: inline;
 }
