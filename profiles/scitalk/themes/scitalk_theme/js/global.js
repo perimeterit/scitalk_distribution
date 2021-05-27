@@ -22,11 +22,6 @@
         }
       });
 
-      // Open by default on Search landing page
-      console.log(drupalSettings.scitalk);
-      if (drupalSettings.scitalk.adv_search_page == 'true') {
-        show_filters($('.filter-toggle'));
-      }
 
       function show_filters(link_el) {
         $('.search-exposed-filters').hide().removeClass('visually-hidden').slideDown();
@@ -45,12 +40,26 @@
   */
   Drupal.behaviors.toggleSearchDisplay = {
     attach: function (context, settings) {
-      $('button.switch-display', context).click(function() {
-        $target = $(this).data('target');
-        $('.search-display').addClass('hidden');
-        $('.search-display[data-display=' + $target + ']').removeClass('hidden');
-      })
 
+      $('button.switch-display', context).click(function() {
+        var target = $(this).data('target');
+        $('.search-display').addClass('hidden');
+        $('.search-display[data-display=' + target + ']').removeClass('hidden');
+        $(this).parents('.adv-search-wrapper').attr('data-show-display', target);
+      });
+
+      // Add a wrapper that will persist when page is changed via ajax
+      if ($('.adv-search-wrapper').length == 0) {
+        $('.advanced-search-form').wrap('<div class="adv-search-wrapper">');
+      }
+
+      // Make sure the right display is open after using the pager
+      var display_attr = $('.adv-search-wrapper').attr('data-show-display');
+      if (typeof display_attr !== 'undefined' && display_attr !== false) {
+        var target = $('.adv-search-wrapper').attr('data-show-display');
+        $('.search-display').addClass('hidden');
+        $('.search-display[data-display=' + target + ']').removeClass('hidden');
+      }
     }
   };
   /**
