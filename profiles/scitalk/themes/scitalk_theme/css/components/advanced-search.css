@@ -30,11 +30,13 @@
   width: 2.5em;
   margin-left: -.3em;
 }
-.search-block-form .adv-search-link {
-  padding: .2em;
+.search-block-form .adv-search-button {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.search-block-form .adv-search-link {
+  padding: .2em;
   margin-left: -.4em;
 }
 .search-block-form .adv-search-icon {
