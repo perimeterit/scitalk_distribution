@@ -101,13 +101,7 @@ function scitalk_theme_preprocess_block(&$variables) {
   }
   // Add search form classes to search exposed form, for default search view & solr search view
   if (($variables['derivative_plugin_id'] == 'default_search_content-page_2') ||
-    ($variables['derivative_plugin_id'] == 'solr_search_content-page_2')) {
-    $variables['attributes']['class'][] = 'search-block-form';
-    $variables['title_attributes']['class'][] = 'visually-hidden';
-  }
-
-  //new default search
-  if ($variables['derivative_plugin_id'] == 'scitalk_default_advanced_search2-talks_search') {
+   ($variables['derivative_plugin_id'] == 'scitalk_advanced_search-basic_search')) {
     $variables['attributes']['class'][] = 'search-block-form';
     $variables['title_attributes']['class'][] = 'visually-hidden';
   }
@@ -143,6 +137,7 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
   // Alter search form to hide form label in basic form
   if (($form['#id'] == 'views-exposed-form-scitalk-advanced-search-basic-search'))  {
     // Solr search.
+
     $form['keys']['#title_display'] = 'invisible';
     $form['keys']['#attributes']['placeholder'] = t('Search');
     $form['keys']['#size'] = 20;
@@ -221,13 +216,6 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
       }
     }
   }
-}
-
-/**
- * Create template suggestion for forms
- */
-function scitalk_theme_suggestions_form_alter(array &$suggestions, array $variables) {
-  $suggestions[] = 'form__' . str_replace('-','_', $variables['element']['#id']);
 }
 
 /**
