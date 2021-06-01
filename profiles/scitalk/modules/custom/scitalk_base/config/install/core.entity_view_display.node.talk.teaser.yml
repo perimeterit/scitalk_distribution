@@ -39,11 +39,12 @@ bundle: talk
 mode: teaser
 content:
   field_talk_abstract:
-    type: text_default
-    weight: 4
+    type: text_trimmed
+    weight: 3
     region: content
     label: hidden
-    settings: {  }
+    settings:
+      trim_length: 600
     third_party_settings: {  }
   field_talk_date:
     type: datetime_default
@@ -55,21 +56,21 @@ content:
       timezone_override: ''
     third_party_settings: {  }
   field_talk_speaker_profile:
-    type: entity_reference_label
-    weight: 3
-    region: content
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-  field_talk_speakers_text:
-    type: string
+    type: entity_reference_entity_view
     weight: 1
     region: content
     label: hidden
     settings:
-      link_to_entity: false
-    third_party_settings: {  }
+      view_mode: speaker_name_institution
+      link: false
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
   field_talk_thumbnail:
     type: scitalk_thumbnail_formatter
     weight: 0
@@ -87,7 +88,7 @@ content:
         fences_label_tag: div
         fences_label_classes: ''
   links:
-    weight: 5
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -103,6 +104,7 @@ hidden:
   field_talk_number: true
   field_talk_source_event: true
   field_talk_source_repository: true
+  field_talk_speakers_text: true
   field_talk_subject: true
   field_talk_type: true
   field_talk_video: true
