@@ -78,6 +78,7 @@ install:
   - id_link_formatter
   - layout_builder
   - date_all_day
+  - date_popup
   - scitalk_base
   - scitalk_media
   - scitalk_video
