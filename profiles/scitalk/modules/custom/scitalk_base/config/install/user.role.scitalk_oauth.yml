@@ -49,4 +49,5 @@ permissions:
   - 'edit terms in tags'
   - 'edit terms in talk_keywords'
   - 'edit terms in talk_type'
+  - 'view media'
 

@@ -3,7 +3,12 @@ status: true
 dependencies:
   config:
     - field.storage.node.field_talk_attachments
+    - media.type.arxiv
+    - media.type.audio
+    - media.type.doi
     - media.type.file
+    - media.type.image
+    - media.type.remote_file
     - node.type.talk
 id: node.talk.field_talk_attachments
 field_name: field_talk_attachments
@@ -19,7 +24,12 @@ settings:
   handler: 'default:media'
   handler_settings:
     target_bundles:
+      arxiv: arxiv
+      audio: audio
+      doi: doi
       file: file
+      image: image
+      remote_file: remote_file
     sort:
       field: _none
     auto_create: false
