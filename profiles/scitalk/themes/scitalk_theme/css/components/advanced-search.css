@@ -21,6 +21,9 @@
 .search-block-form .form-item {
   max-width: calc(100% - 2em);
 }
+.search-block-form input {
+  border: none;
+}
 .search-block-form .form-actions .form-submit {
   background-position: center center;
   background-repeat: no-repeat;
@@ -30,31 +33,37 @@
   width: 2.5em;
   margin-left: -.3em;
 }
-.search-block-form .adv-search-button {
+.search-block-form .adv-search-link {
+  padding: .2em;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.search-block-form .adv-search-link {
-  padding: .2em;
   margin-left: -.4em;
 }
 .search-block-form .adv-search-icon {
   height: 2em;
   width: 2em;
-  color: var(--color-primary);
-}
-.search-block-form .adv-search-link:hover .adv-search-icon,
-.search-block-form .adv-search-link:focus .adv-search-icon {
-  color: var(--color-secondary);
+  color: white;
 }
 
 @media all and (max-width: 767px) {
   .search-block-form {
     margin-top: 1em;
   }
-  .search-block-form input {
-    border: none;
+  .search-block-form.views-exposed-form form {
+    max-width: calc(100% - 3em);
+  }
+  .search-block-form .adv-search-link {
+    margin-left: .5em;
+  }
+}
+@media all and (min-width: 767px) {
+  .search-block-form .adv-search-icon {
+    color: var(--color-primary);
+  }
+  .search-block-form .adv-search-link:hover .adv-search-icon,
+  .search-block-form .adv-search-link:focus .adv-search-icon {
+    color: var(--color-secondary);
   }
 }
 
@@ -134,14 +143,39 @@
 */
 .advanced-search-header {
   background: var(--color-lt-grey);
+  display: grid;
   margin-top: 2em;
   padding: 1em;
 }
+@media all and (max-width: 767px) {
+  .advanced-search-header {
+    grid-template-columns: auto auto;
+  }
+  .advanced-search-header .header {
+    grid-column: span 2;
+    margin-bottom: 1em;
+  }
+  .advanced-search-header .search-display-toggle {
+    display: flex;
+    align-items: center;
+  }
+  .advanced-search-header .search-display-toggle ul {
+    justify-content: flex-end;
+  }
+  .search-exposed-sort {
+    margin: 0;
+  }
+}
 @media all and (min-width: 768px) {
   .advanced-search-header {
-    display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     align-items: center;
+  }
+  .search-exposed-sort form {
+    justify-content: center;
+  }
+  .search-display-toggle {
+    text-align: right;
   }
 }
 .search-exposed-sort form {
@@ -169,20 +203,6 @@
   color: transparent;
   width: 2em;
   padding: 0.8em 0;
-}
-@media all and (min-width: 768px) {
-  .search-exposed-sort form {
-    justify-content: center;
-  }
-  .search-display-toggle {
-    text-align: right;
-  }
-}
-
-@media all and (max-width: 768px) {
-  .search-exposed-sort {
-    margin: 1em 0;
-  }
 }
 /*
  * Display switcher

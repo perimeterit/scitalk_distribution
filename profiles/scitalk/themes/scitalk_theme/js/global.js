@@ -22,6 +22,10 @@
         }
       });
 
+      // Open by default on Search landing page
+      if (drupalSettings.scitalk.adv_search_page == 'true') {
+        show_filters($('.filter-toggle'));
+      }
 
       function show_filters(link_el) {
         $('.search-exposed-filters').hide().removeClass('visually-hidden').slideDown();
