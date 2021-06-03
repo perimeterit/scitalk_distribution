@@ -23,16 +23,17 @@
       });
 
       // Open by default on Search landing page
-      if (drupalSettings.scitalk.adv_search_page == 'true') {
+      if ((drupalSettings.scitalk.adv_search_page == 'true') && (context == document)) {
         show_filters($('.filter-toggle'));
       }
 
-      function show_filters(link_el) {
+      function show_filters(link_el, context) {
+        console.log('show filters');
         $('.search-exposed-filters').hide().removeClass('visually-hidden').slideDown();
         link_el.removeClass('show-filters').addClass('hide-filters');
         link_el.children('.text').html('hide filters');
       }
-      function hide_filters(link_el) {
+      function hide_filters(link_el, context) {
         $('.search-exposed-filters').slideUp();
         link_el.removeClass('hide-filters').addClass('show-filters')
         link_el.children('.text').html('filter');

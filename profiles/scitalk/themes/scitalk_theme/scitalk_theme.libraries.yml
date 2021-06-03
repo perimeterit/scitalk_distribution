@@ -21,5 +21,6 @@ global:
     js/jquery-responsive-tables/js/jquery.responsive-tables.js: {}
     js/global.js: {}
   dependencies:
+    - core/drupal
     - core/jquery
     - core/jquery.once
