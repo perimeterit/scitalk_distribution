@@ -57,25 +57,26 @@
      });
 
      // Fix layout when browser window is resized
-     var resizeId;
-     $(window).on('resize', function() {
-       clearTimeout(resizeId);
-       resizeId = setTimeout(doneResizing, 700);
-     });
-
-     function doneResizing() {
-       // If it's smaller than the mobile menu breakpoint and the menu toggle doesn't exist, make it
-       if (($(window).width() <= menu_breakpoint) && ($('.region-branding .menu--toggle').length == 0)) {
-         buildMenu();
-       }
-       // Otherwise, if it's greater than the menu breakpoint and ???
-       else if ($(window).width() > menu_breakpoint) {
-         destroyMenu($('.menu-region'));
-       }
-     }
+     // This causes problems with search form on android, because the Form
+     // focus is triggering ar resize.
+     // var resizeId;
+     // $(window).on('resize', function() {
+     //   clearTimeout(resizeId);
+     //   resizeId = setTimeout(doneResizing, 700);
+     // });
+     //
+     // function doneResizing() {
+     //   // If it's smaller than the mobile menu breakpoint and the menu toggle doesn't exist, make it
+     //   if (($(window).width() <= menu_breakpoint) && ($('.region-branding .menu--toggle').length == 0)) {
+     //     buildMenu();
+     //   }
+     //   // Otherwise, if it's greater than the menu breakpoint and ???
+     //   else if ($(window).width() > menu_breakpoint) {
+     //     destroyMenu($('.menu-region'));
+     //   }
+     // }
 
      // Second level menu behaviour
-     // @todo: This doesn't work after resize, only if page is reloaded
      $('li.expanded .menu-trigger', context).click(function(e) {
        e.preventDefault();
        $(this).toggleClass('expanded');

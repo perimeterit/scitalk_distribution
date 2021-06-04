@@ -226,6 +226,7 @@ function scitalk_theme_page_attachments_alter(array &$page) {
   $route = \Drupal::routeMatch();
   $routename = $route->getRouteName();
   $search_terms = \Drupal::request()->query->get('search_api_fulltext');
+  $page['#attached']['drupalSettings']['scitalk']['adv_search_page'] = 'false';
   if (($routename == 'view.scitalk_advanced_search.advanced_search') &&
       empty($search_terms)) {
     $page['#attached']['drupalSettings']['scitalk']['adv_search_page'] = 'true';
