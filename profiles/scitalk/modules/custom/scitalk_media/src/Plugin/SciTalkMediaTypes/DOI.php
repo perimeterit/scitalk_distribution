@@ -76,22 +76,19 @@ class DOI extends SciTalkMediaPluginBase {
 
       $journal_name = $doi->message->{'container-title'} ?? '';
       $date_issued = '';
-      if (!empty($doi->message->issued))
-      {
+      if (!empty($doi->message->issued)) {
         $date_issued = implode('-' , current($doi->message->issued->{'date-parts'}));
         $date_issued = date('Y-m-d', strtotime($date_issued));
       }
 
       $date_published_online = '';
-      if (!empty($doi->message->{'published-online'}))
-      {
+      if (!empty($doi->message->{'published-online'})) {
         $date_published_online = implode('-' , current( $doi->message->{'published-online'}->{'date-parts'}));
         $date_published_online = date('Y-m-d', strtotime($date_published_online));
       }
 
       $abstract = '';
-      if (!empty($doi->message->abstract))
-      {
+      if (!empty($doi->message->abstract)) {
         $abstract = strip_tags($doi->message->abstract);
       }
 
