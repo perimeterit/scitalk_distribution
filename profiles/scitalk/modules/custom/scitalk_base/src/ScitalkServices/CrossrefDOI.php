@@ -39,7 +39,6 @@ class CrossrefDOI {
         try {
             $request = $client->get($url);
             $response = $request->getBody();
-            \Drupal::logger('scitalk_base')->notice('<pre><code>Crossref DOI fetched ' . print_r(json_decode($response) , TRUE) . '</code></pre>');
         }
         catch (ClientException | RequestException | ConnectException | GuzzleException | BadResponseException | ServerException $e) {
             if (!empty($res = $e->getResponse()->getBody()->getContents())) {

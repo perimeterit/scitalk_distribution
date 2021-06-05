@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.doi
+id: media.doi
+target_entity_type_id: media
+target_bundle: doi
+default_langcode: site_default
+language_alterable: false
+

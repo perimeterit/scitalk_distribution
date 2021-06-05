@@ -8,8 +8,6 @@ dependencies:
     - field.field.media.arxiv.field_arxiv_updated_date
     - field.field.media.arxiv.field_media_scitalk_arxiv
     - media.type.arxiv
-  module:
-    - path
 id: media.arxiv.default
 targetEntityType: media
 bundle: arxiv
@@ -17,13 +15,13 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   field_arxiv_published_date:
     type: string_textfield
-    weight: 7
+    weight: 2
     region: content
     settings:
       size: 60
@@ -31,7 +29,7 @@ content:
     third_party_settings: {  }
   field_arxiv_summary:
     type: string_textarea
-    weight: 10
+    weight: 4
     region: content
     settings:
       rows: 5
@@ -39,7 +37,7 @@ content:
     third_party_settings: {  }
   field_arxiv_title:
     type: string_textfield
-    weight: 9
+    weight: 1
     region: content
     settings:
       size: 60
@@ -47,7 +45,7 @@ content:
     third_party_settings: {  }
   field_arxiv_updated_date:
     type: string_textfield
-    weight: 8
+    weight: 3
     region: content
     settings:
       size: 60
@@ -55,47 +53,21 @@ content:
     third_party_settings: {  }
   field_media_scitalk_arxiv:
     type: string_textfield
-    weight: 6
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 1
-    region: content
-    settings:
-      include_locked: true
-    third_party_settings: {  }
-  name:
-    type: string_textfield
     weight: 0
     region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  path:
-    type: path
-    weight: 4
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   status:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 5
     region: content
-    third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 2
     settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    region: content
+      display_label: true
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  langcode: true
+  name: true
+  path: true
+  uid: true

@@ -3,6 +3,16 @@ status: true
 dependencies:
   config:
     - core.entity_form_mode.media.media_library
+    - field.field.media.doi.field_doi_authors
+    - field.field.media.doi.field_doi_date_issued
+    - field.field.media.doi.field_doi_date_published
+    - field.field.media.doi.field_doi_description
+    - field.field.media.doi.field_doi_issue
+    - field.field.media.doi.field_doi_journal_name
+    - field.field.media.doi.field_doi_page_range
+    - field.field.media.doi.field_doi_publisher
+    - field.field.media.doi.field_doi_title
+    - field.field.media.doi.field_doi_volume
     - field.field.media.doi.field_media_scitalk_doi
     - media.type.doi
 id: media.doi.media_library
@@ -10,18 +20,28 @@ targetEntityType: media
 bundle: doi
 mode: media_library
 content:
-  name:
+  field_media_scitalk_doi:
     type: string_textfield
+    weight: 0
+    region: content
     settings:
       size: 60
       placeholder: ''
-    weight: 0
     third_party_settings: {  }
-    region: content
 hidden:
   created: true
-  field_media_scitalk_doi: true
+  field_doi_authors: true
+  field_doi_date_issued: true
+  field_doi_date_published: true
+  field_doi_description: true
+  field_doi_issue: true
+  field_doi_journal_name: true
+  field_doi_page_range: true
+  field_doi_publisher: true
+  field_doi_title: true
+  field_doi_volume: true
   langcode: true
+  name: true
   path: true
   status: true
   uid: true

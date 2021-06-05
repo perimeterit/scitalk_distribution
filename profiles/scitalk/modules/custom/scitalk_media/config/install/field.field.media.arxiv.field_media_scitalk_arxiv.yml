@@ -9,7 +9,7 @@ field_name: field_media_scitalk_arxiv
 entity_type: media
 bundle: arxiv
 label: 'ArXiv ID'
-description: ''
+description: 'Enter the ArXiv ID.  The remaining fields on this form will be filled from the ArXiv site once you save the form.'
 required: true
 translatable: true
 default_value: {  }

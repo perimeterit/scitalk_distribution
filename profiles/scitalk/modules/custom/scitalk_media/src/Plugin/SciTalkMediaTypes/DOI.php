@@ -55,8 +55,6 @@ class DOI extends SciTalkMediaPluginBase {
    */
   public function entityMetaDataUpdate() {
     //fetch off media information
-    //The URI for the API is something like this:  http://export.arxiv.org/api/query?search_query=hep-ex/0307015
-    //where the search_query parameter takes the ArXiv citation number as the query.
     $source = $this->entity->bundle->entity->getSource();
     $configuration = $source->getConfiguration();
     $val = $this->entity->{$configuration['source_field']}->getString();
