@@ -29,34 +29,12 @@ targetEntityType: node
 bundle: speaker_profile
 mode: default
 content:
-  field_sp_external_id:
+  field_sp_orcid_id:
     weight: 3
     label: inline
     settings:
       link_to_entity: false
-    third_party_settings:
-      fences:
-        fences_field_tag: div
-        fences_field_classes: ''
-        fences_field_item_tag: none
-        fences_field_item_classes: ''
-        fences_label_tag: strong
-        fences_label_classes: ''
-    type: string
-    region: content
-  field_sp_orcid_id:
-    weight: 4
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings:
-      fences:
-        fences_field_tag: div
-        fences_field_classes: ''
-        fences_field_item_tag: none
-        fences_field_item_classes: ''
-        fences_label_tag: strong
-        fences_label_classes: ''
+    third_party_settings: {  }
     type: string
     region: content
   field_sp_profile_thumbnail:
@@ -95,13 +73,14 @@ content:
     type: link
     region: content
   links:
-    weight: 5
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   feeds_item: true
   field_sp_display_name: true
+  field_sp_external_id: true
   field_sp_first_name: true
   field_sp_institution_name: true
   field_sp_last_name: true
