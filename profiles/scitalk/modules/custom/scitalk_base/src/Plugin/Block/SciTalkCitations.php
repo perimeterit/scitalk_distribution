@@ -60,7 +60,7 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
         $speakers = $keywords = [];
 
         $pirsa = $this->getContextValue('node');
-        if ($pirsa instanceof \Drupal\node\NodeInterface) {           
+        if ($pirsa instanceof \Drupal\node\NodeInterface) {
             $config = \Drupal::config('system.site');
             $datacite_config = \Drupal::config('scitalk_base.settings');
 
@@ -85,7 +85,9 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
             $speakers = array_map(function($sp) {
                 //create name initials 
                 $initials = array_reduce( explode(' ', $sp->field_sp_first_name->value), function($carry, $item) {
-                    $carry .= strtoupper($item[0]) . '.';
+                    //$carry .= strtoupper($item[0]) . '.';
+                    $first_letter = mb_substr($item,0,1,"UTF-8");
+                    $carry .= strtoupper($first_letter) . '.';
                     return $carry;
                 });
 
