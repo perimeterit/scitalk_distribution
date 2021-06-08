@@ -141,7 +141,6 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
         if ($new_name !== false) {
            return $new_name;
         }
-
         //$name = transliterator_transliterate($transliterator_id, $name);
         return $name; 
     }

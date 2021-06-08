@@ -7,7 +7,7 @@
 {%  set BibTeX_authors = [] %}
 
 {% for speaker in speakers %}
-  {% set APA_authors = APA_authors|merge([speaker.last ~ ', ' ~ speaker.initials])  %}
+  {% set APA_authors = APA_authors|merge([speaker.last ~ ', ' ~ speaker.initials]) %}
   {# {% set BibTeX_authors = BibTeX_authors|merge([speaker.last ~ ', ' ~ speaker.first])  %} #}
   {% set BibTeX_authors = BibTeX_authors|merge([speaker.bibtex_last ~ ', ' ~ speaker.bibtex_first])  %}
 {% endfor %}
