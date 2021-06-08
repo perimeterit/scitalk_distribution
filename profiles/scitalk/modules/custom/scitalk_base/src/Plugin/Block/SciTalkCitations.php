@@ -91,7 +91,9 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
 
                 return [
                     'first' => $sp->field_sp_first_name->value, 
-                    'last' => $sp->field_sp_last_name->value, 
+                    'last' => $sp->field_sp_last_name->value,
+                    'bibtex_first' => $this->transliterate($sp->field_sp_first_name->value),
+                    'bibtex_last' => $this->transliterate($sp->field_sp_last_name->value),
                     'initials' => $initials, 
                     'display_name' => $sp->field_sp_display_name->value
                 ];
@@ -131,6 +133,17 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
             '#repository' => $repository
         ];
 
+    }
+
+    private function transliterate($name, $transliterator_id = 'Any-Latin; Latin-ASCII') {
+        $transliterator = \Transliterator::create($transliterator_id);
+        $new_name = @$transliterator->transliterate($name);
+        if ($new_name !== false) {
+           return $new_name;
+        }
+
+        //$name = transliterator_transliterate($transliterator_id, $name);
+        return $name; 
     }
 
   }
