@@ -21,7 +21,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: CmV5O8azonKMJ2WIS1sU0z6gTf_uk7Si8PQEx2pyTco
+  default_config_hash: zuGoXJ8Jl-TLkB2-3ET53mWgmmfx04QXZ3VkXd4H6eg
 id: node.collection.default
 targetEntityType: node
 bundle: collection
@@ -31,12 +31,19 @@ content:
     weight: 5
     label: inline
     settings:
-      separator: '-'
       timezone_override: ''
-      date_only_format: date_all_day
-      date_format: 'Y-m-d\TH:i:s'
-    third_party_settings: {  }
-    type: daterange_all_day_custom
+      format_type: medium
+      separator: '-'
+      date_only_format: medium
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
+    type: daterange_all_day_default
     region: content
   field_collection_description:
     type: text_default
