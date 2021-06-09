@@ -23,7 +23,7 @@
   {% if content %}
     <span class="icon">
       {% if bundle == 'arxiv' %}
-        {{ 'x' }}
+        {{ 'ArXiv' }}
       {% elseif bundle == 'file' %}
         {% set file_name = content.field_media_file.0['#file'].getFileName() %}
         {% set file_extension = file_name|split('.')|last %}
