@@ -6,7 +6,7 @@
  * Speaker + date metadata, used in all view modes
 */
 .speaker-date {
-  line-height: 1.2;
+  line-height: 1.4;
 }
 .speaker-date a {
   text-decoration: none;
@@ -19,41 +19,6 @@
   margin: 0;
 }
 
-/* Speaker name display changes depending on how many there are */
-.speaker-date.single-line > div,
-.speaker-date.single-line > p,{
-  display: inline-block;
-  line-height: 1.3;
-}
-
-.page-header .speaker-date.single-line {
-  line-height: 1;
-}
-.horizontal-card .speaker-date.single-line .field--name-field-talk-speaker-profile:after,
-.teaser .speaker-date.single-line .field--name-field-talk-speaker-profile:after {
-  content: '|';
-  display: inline-block;
-  padding-right: .4em;
-}
-@media all and (min-width: 768px) {
-  .page-header .speaker-date.single-line .node.speaker-profile {
-    display: inline-block;
-  }
-  .page-header .speaker-date.single-line .field--name-field-talk-speaker-profile:after {
-    content: '|';
-    display: inline-block;
-    padding-right: .4em;
-  }
-}
-@media all and (max-width: 767px) {
-  .page-header .speaker-date.single-line .field--name-field-talk-speaker-profile {
-    display: block;
-    margin-bottom: .3em;
-  }
-}
-.field--name-field-talk-speaker-profile ul.single-line {
-  display: inline-block;
-}
 .field--name-field-talk-speaker-profile ul {
   display: flex;
   flex-wrap: wrap;
@@ -117,7 +82,7 @@
 .node.talk.horizontal-card .info div {
   display: inline-block;
 }
-.node.talk.horizontal-card .field--name-field-talk-date:after {
+.node.talk.horizontal-card .field--name-field-talk-date + .field--name-field-talk-collection:before {
   content: '|';
   display: inline-block;
 }
