@@ -75,7 +75,7 @@
             author = {% verbatim %}{{% endverbatim %}{{ BibTeX_authors|e }}{% verbatim %}}{% endverbatim %},
             keywords = {% verbatim %}{{% endverbatim %}{{keywords|join(', ')|e}}{% verbatim %}}{% endverbatim %},
             language = {% verbatim %}{{% endverbatim %}{{language}}{% verbatim %}}{% endverbatim %},
-            title = {% verbatim %}{{% endverbatim %}{{title|e}}{% verbatim %}}{% endverbatim %},
+            title = {% verbatim %}{{% endverbatim %}{{bibtex_title|e}}{% verbatim %}}{% endverbatim %},
             publisher = {% verbatim %}{{% endverbatim %}{{publisher|e}}{% verbatim %}}{% endverbatim %},
             year = {% verbatim %}{{% endverbatim %}{{year}}{% verbatim %}}{% endverbatim %}
           }
