@@ -17,6 +17,7 @@ function scitalk_base_theme($existing, $type, $theme, $path) {
     'scitalk_citations_block' => [
       'variables' => [
         'title' => '',
+        'bibtex_title' => '',
         'talk_number' => '',
         'talk_date' => '',
         'talk_date_formatted' => '',
@@ -34,7 +35,6 @@ function scitalk_base_theme($existing, $type, $theme, $path) {
     ],
   ];
 }
-
 
 /**
  * Implements hook_entity_base_field_info

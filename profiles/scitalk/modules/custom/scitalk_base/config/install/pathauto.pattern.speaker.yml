@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: speaker
+label: Speaker
+type: 'canonical_entities:node'
+pattern: 'speaker/[node:field_sp_display_name]'
+selection_criteria:
+  59ec63c4-0299-4a0a-94fa-9a36fe276964:
+    id: node_type
+    bundles:
+      speaker_profile: speaker_profile
+    negate: false
+    context_mapping:
+      node: node
+    uuid: 59ec63c4-0299-4a0a-94fa-9a36fe276964
+selection_logic: and
+weight: -5
+relationships: {  }
+
