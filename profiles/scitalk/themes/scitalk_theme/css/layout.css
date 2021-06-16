@@ -64,7 +64,7 @@
   display: grid;
   grid-template-columns: auto 7em;
 }
-@media all and (min-width: 960px) {
+@media all and (min-width: 768px) {
   .page-talk .page-header-inner {
     display: grid;
     grid-template-columns: auto 15em;
