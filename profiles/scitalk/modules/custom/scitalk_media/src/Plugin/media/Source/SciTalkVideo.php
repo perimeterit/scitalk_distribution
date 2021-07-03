@@ -7,6 +7,7 @@ use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Render\RendererInterface;
+use Drupal\Core\File\FileSystemInterface;
 use Drupal\media\MediaInterface;
 use Drupal\media\MediaSourceBase;
 use Drupal\media\MediaTypeInterface;
@@ -149,15 +150,36 @@ use function GuzzleHttp\json_encode;
           //process it
           //let's create the temp directory it if it doesn't exist.
           $temp_path = 'public://scitalk-thumbs';
-          if (file_prepare_directory($temp_path, FILE_CREATE_DIRECTORY)) {
+
+          //TODO: Prune the temp directory of aged images?
+          //this will eventually be a large directory and could be done via simple script
+
+          //this function is deprecated in drupal:8.7.0 and is removed from drupal:9.0.0
+          //if (file_prepare_directory($temp_path, FILE_CREATE_DIRECTORY)) {
+          if (\Drupal::service('file_system')->prepareDirectory($temp_path, FileSystemInterface::CREATE_DIRECTORY)) {
             //TODO: Prune the temp directory of aged images?
             //this will eventually be a large directory and could be done via simple script
             $uri_path = parse_url($thumbnail_uri, PHP_URL_PATH);
             $arr = explode('/', $uri_path);
-            $thumbnail_filenanme = $arr[count($arr) - 1];  //this is something.jpg // this should be generic enough to use the last piece of the url path
+            $thumbnail_filename = $arr[count($arr) - 1];  //this is something.jpg // this should be generic enough to use the last piece of the url path
             
-            $file_temp = file_save_data($img, 'public://scitalk-thumbs/' . $thumbnail_filenanme, FILE_EXISTS_REPLACE);
-            return 'public://scitalk-thumbs/' . $thumbnail_filenanme;
+            //try to create a subfolder from the url path if there are at least 2 path subdirectories
+            //this will help in those cases where the thumbnails have the same file name like in PIRSA:
+            //e.g: /images/09040037/Slide_0001.jpg
+            //the thumb would be stored as public://scitalk-thumbs/09040037/Slide_0001.jpg
+            if (count($arr) > 1) {
+              $uri_path_subfolder = $arr[count($arr) - 2] ?? NULL;
+              if ($uri_path_subfolder) {
+                $create_subfolder = $temp_path . '/' . $uri_path_subfolder;
+                $created = \Drupal::service('file_system')->prepareDirectory($create_subfolder, FileSystemInterface::CREATE_DIRECTORY);
+                if ($created) {
+                  $thumbnail_filename = $uri_path_subfolder . '/' . $thumbnail_filename;
+                }
+              }
+            }
+
+            $file_temp = file_save_data($img, 'public://scitalk-thumbs/' . $thumbnail_filename, FILE_EXISTS_REPLACE);
+            return 'public://scitalk-thumbs/' . $thumbnail_filename;
           }
           else {
             return FALSE;
