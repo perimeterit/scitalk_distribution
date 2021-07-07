@@ -52,6 +52,7 @@
         "drupal/simple_oauth": "^4.3",
         "drupal/starbase": "1.x-dev",
         "drupal/twig_tweak": "2.9",
+        "drupal/views_ajax_history": "^1.6",
         "drush/drush": "^9.3",
         "symfony/event-dispatcher": "4.3.11 as 3.4.35",
         "vlucas/phpdotenv": "^2.4",
@@ -91,6 +92,9 @@
         "post-update-cmd": [
             "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
             "Scitalk\\composer\\ScriptHandler::moveProfile"
+        ],
+        "post-autoload-dump": [
+            "wget -q -P web/libraries/ --no-check-certificate https://raw.githubusercontent.com/browserstate/history.js/master/scripts/compressed/history.js"
         ]
     },
     "extra": {
