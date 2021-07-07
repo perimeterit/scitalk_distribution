@@ -20,7 +20,7 @@ dependencies:
     - link
     - search_api
 _core:
-  default_config_hash: 6LZaC5PS7OQ-PmUG1YDVoQIJvaTnE6KZpZUa_z-Z6Kg
+  default_config_hash: F5IUAYEMY-J5ZbfRkAfrPOB8l1Fz6UznJ7a7AmRYBsI
 id: scitalk_advanced_search
 label: 'Scitalk: Advanced search'
 module: views
@@ -1545,7 +1545,9 @@ display:
     display_title: 'Advanced Search (all filters)'
     position: 1
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        ajax_history:
+          enable_history: true
       path: search-talks
       display_description: ''
       exposed_block: false
@@ -2065,7 +2067,9 @@ display:
     display_title: 'Attachment (table)'
     position: 3
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        ajax_history:
+          enable_history: true
       display_description: ''
       exposed_block: true
       defaults:
@@ -2981,7 +2985,9 @@ display:
     display_title: 'Advanced Search (sort filters)'
     position: 2
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        ajax_history:
+          enable_history: true
       path: search-talks
       display_description: ''
       exposed_block: true

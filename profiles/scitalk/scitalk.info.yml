@@ -83,6 +83,7 @@ install:
   - scitalk_media
   - scitalk_video
   - twig_tweak
+  - views_ajax_history
 themes:
   - seven
   - stable
