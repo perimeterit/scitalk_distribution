@@ -43,7 +43,10 @@
 }
 .page-header-wrapper h1 {
   line-height: 1.3;
-  margin: 0 0 .3em;
+  margin: 0
+}
+.block-pagetitle {
+  margin-bottom: .3em;
 }
 .page-header-content,
 .region-page-header {
@@ -56,10 +59,12 @@
 .page-header-region .page-header {
   margin-right: auto;
 }
+.region-page-header {
+  align-items: flex-end;
+}
 .region-page-header .block {
   margin-left: 1em;
 }
-
 .page-talk .page-header-inner {
   display: grid;
   grid-template-columns: auto 7em;

@@ -13,9 +13,10 @@
  */
 #}
 {{ title_prefix }}
-{% if page_header %}
-  {{ page_header }}
-{% elseif title %}
+  {% if talk_number %}
+    <p class="talk-number">{{ 'Talk'|t}} #{{ talk_number }}</p>
+  {% endif %}
+{% if title %}
   <h1{{ title_attributes }}>{{ title }}</h1>
 {% endif %}
 {{ title_suffix }}

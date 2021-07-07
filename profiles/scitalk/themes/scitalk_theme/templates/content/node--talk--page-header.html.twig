@@ -16,7 +16,5 @@
 
 <div{{ attributes.addClass(classes) }}>
   {{ content|without('links', 'field_talk_speaker_profile','field_talk_date') }}
-  {% if node.bundle == 'talk' %}
-    {% embed "@scitalk_theme/includes/speaker-date.twig" %}{% endembed %}
-  {% endif %}
+  {% embed "@scitalk_theme/includes/speaker-date.twig" %}{% endembed %}
 </div>

@@ -40,6 +40,17 @@
   display: inline-block;
   margin-left: .3em;
 }
+
+/**
+ * Talk number in page header
+*/
+.talk-number {
+  display: inline-block;
+  background: #eee;
+  padding: 0.2em 0.7em;
+  margin-bottom: 0.2em;
+}
+
 /**
  * Hozitontal card view mode
 */

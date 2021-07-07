@@ -31,9 +31,6 @@ function scitalk_theme_preprocess_region(&$variables) {
   if (($region == 'middle_highlight') || ($region == 'content_bottom')) {
     $variables['attributes']['class'][] = 'fixwidth';
   }
-  if ($region == 'page_header') {
-    // dsm($variables['elements']['scitalksocialmediashareblock']);
-  }
 }
 
 /**
@@ -75,6 +72,22 @@ function scitalk_theme_preprocess_page(&$variables) {
   }
 }
 
+/**
+ * Implements hook_preprocess_HOOK().
+ * Alters variables for page titles.
+ */
+function scitalk_theme_preprocess_page_title(&$variables) {
+  $route = \Drupal::routeMatch();
+  $routename = $route->getRouteName();
+  if ($routename == 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+  }
+  // Get talk number and pass as a variable
+  if (isset($node) && (($node->getType() == 'talk'))) {
+    $talk_number = $node->get('field_talk_number')->getValue();
+    $variables['talk_number'] = $talk_number[0]['value'];
+  }
+}
 /**
  * Implements hook_preprocess_HOOK().
  * Alters variables for nodes.
