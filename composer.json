@@ -13,7 +13,11 @@
         {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
-        }
+        },
+	{
+        "type": "composer",
+        "url": "https://asset-packagist.org"
+       }
     ],
     "require": {
         "composer/installers": "^1.2",
@@ -54,6 +58,8 @@
         "drupal/twig_tweak": "2.9",
         "drupal/views_ajax_history": "^1.6",
         "drush/drush": "^9.3",
+        "npm-asset/jquery-ui-touch-punch": "^0.2.3",
+        "oomphinc/composer-installers-extender": "^2.0",
         "symfony/event-dispatcher": "4.3.11 as 3.4.35",
         "vlucas/phpdotenv": "^2.4",
         "webflo/drupal-finder": "^1.0.0",
@@ -105,13 +111,22 @@
         },
         "installer-paths": {
             "web/core": ["type:drupal-core"],
-            "web/libraries/{$name}": ["type:drupal-library"],
+            "web/libraries/{$name}": [
+               "type:drupal-library",
+               "type:bower-asset",
+               "type:npm-asset"
+            ],
             "web/modules/contrib/{$name}": ["type:drupal-module"],
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/profiles/scitalk": ["perimeterit/scitalk"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"],
             "drush/Commands/{$name}": ["type:drupal-drush"]
         },
+	"installer-types": [
+            "bower-asset",
+            "npm-asset",
+	    "drupal-library"
+        ],
         "enable-patching": true,
         "patches": {
                 "drupal/core": {
