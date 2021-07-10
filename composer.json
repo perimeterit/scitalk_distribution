@@ -58,7 +58,6 @@
         "drupal/twig_tweak": "2.9",
         "drupal/views_ajax_history": "^1.6",
         "drush/drush": "^9.3",
-        "npm-asset/jquery-ui-touch-punch": "^0.2.3",
         "oomphinc/composer-installers-extender": "^2.0",
         "symfony/event-dispatcher": "4.3.11 as 3.4.35",
         "vlucas/phpdotenv": "^2.4",
