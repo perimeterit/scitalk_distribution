@@ -1,3 +1,4 @@
+uuid: d1d34d14-ddc6-4157-8388-ee2c2c57cb2e
 langcode: en
 status: true
 dependencies:
@@ -10,18 +11,18 @@ dependencies:
     - node
     - search_api
   config:
-    - field.storage.node.body
-    - field.storage.group.field_repo_institution
-    - field.storage.node.field_talk_source_repository
     - field.storage.group.field_repo_institution_full_name
+    - field.storage.group.field_repo_institution
     - field.storage.group.field_source_repo_full_name
-    - field.storage.node.field_sp_display_name
-    - field.storage.node.field_talk_speaker_profile
-    - field.storage.node.field_sp_first_name
-    - field.storage.node.field_sp_speaker_profile
     - field.storage.node.field_talk_abstract
+    - field.storage.node.body
     - field.storage.node.field_talk_collection
     - field.storage.node.field_talk_date
+    - field.storage.node.field_sp_display_name
+    - field.storage.node.field_sp_first_name
+    - field.storage.node.field_talk_source_repository
+    - field.storage.node.field_sp_speaker_profile
+    - field.storage.node.field_talk_speaker_profile
     - field.storage.node.field_talk_subject
     - field.storage.node.field_talk_type
     - search_api.server.database_server
@@ -66,8 +67,6 @@ third_party_settings:
       index_prefix: ''
       collection: ''
       timezone: ''
-_core:
-  default_config_hash: dw_5Rg3UULgIv1_6IcQO6FE0HJUbUmhh0NPMAmcVriI
 id: default_talks_index
 name: 'Default Talks index'
 description: ''
@@ -240,6 +239,14 @@ field_settings:
       fields:
         - 'entity:node/field_sp_speaker_profile'
         - 'entity:node/field_talk_speakers_text'
+  status:
+    label: Published
+    datasource_id: 'entity:node'
+    property_path: status
+    type: boolean
+    dependencies:
+      module:
+        - node
   title:
     label: Title
     datasource_id: 'entity:node'
@@ -348,3 +355,4 @@ options:
   index_directly: true
   cron_limit: 50
 server: database_server
+
