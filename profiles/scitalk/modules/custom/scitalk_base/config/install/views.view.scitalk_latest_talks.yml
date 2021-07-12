@@ -1,4 +1,3 @@
-uuid: f43805b1-ec0a-4791-82ac-9a472e9abb2e
 langcode: en
 status: true
 dependencies:
@@ -19,7 +18,7 @@ dependencies:
     - link
     - search_api
 _core:
-  default_config_hash: Bl8AhCdiHicmiClwiLP8ygOGuYAK1wkOGiA7jEL-peY
+  default_config_hash: UzxYVBTCCgFHWNHOqRRoolLqJSlaZ2BGy6b2zFDTsgo
 id: scitalk_latest_talks
 label: 'Scitalk: Latest Talks (new)'
 module: views
@@ -1098,7 +1097,9 @@ display:
     display_title: 'Attachment (table)'
     position: 3
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        ajax_history:
+          enable_history: true
       display_description: ''
       exposed_block: true
       defaults:
@@ -1894,7 +1895,9 @@ display:
     display_title: 'Card view (page)'
     position: 2
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        ajax_history:
+          enable_history: true
       path: front
       display_description: ''
       exposed_block: false
@@ -1995,4 +1998,3 @@ display:
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.default_talks_index'
-
