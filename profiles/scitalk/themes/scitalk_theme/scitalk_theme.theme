@@ -135,7 +135,7 @@ function scitalk_theme_preprocess_views_view(&$variables) {
   // For search view, get exposed input and view count.
   if ($view->id() == 'scitalk_advanced_search') {
     $exposed_input = $view->getExposedInput();
-    if (!empty($exposed_input)) {
+    if (!empty($exposed_input['search_api_fulltext'])) {
       $variables['search_input'] = $exposed_input['search_api_fulltext'];
     }
     $variables['search_result_count'] = $view->total_rows;
