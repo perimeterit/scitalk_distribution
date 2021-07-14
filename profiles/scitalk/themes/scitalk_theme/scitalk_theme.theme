@@ -85,7 +85,7 @@ function scitalk_theme_preprocess_page_title(&$variables) {
   // Get talk number and pass as a variable
   if (isset($node) && (($node->getType() == 'talk'))) {
     $talk_number = $node->get('field_talk_number')->getValue();
-    $variables['talk_number'] = $talk_number[0]['value'];
+    $variables['talk_number'] = t('Talk #') . $talk_number[0]['value'];
   }
 }
 /**
@@ -133,6 +133,7 @@ function scitalk_theme_preprocess_media(&$variables) {
 function scitalk_theme_preprocess_views_view(&$variables) {
   $view = $variables['view'];
   // For search view, get exposed input and view count.
+  // Used in "Displaying (count) results for (terms)" text
   if ($view->id() == 'scitalk_advanced_search') {
     $exposed_input = $view->getExposedInput();
     if (!empty($exposed_input['search_api_fulltext'])) {
