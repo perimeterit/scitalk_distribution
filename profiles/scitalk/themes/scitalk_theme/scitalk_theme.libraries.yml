@@ -19,6 +19,7 @@ global:
     js/van11y-accessible-modal-window-aria/dist/van11y-accessible-modal-window-aria.min.js: {}
     js/van11y-accessible-tab-panel-aria/dist/van11y-accessible-tab-panel-aria.min.js: {}
     js/jquery-responsive-tables/js/jquery.responsive-tables.js: {}
+    js/jquery.sticky/jquery.sticky.js: {}
     js/global.js: {}
   dependencies:
     - core/drupal

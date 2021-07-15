@@ -15,7 +15,17 @@
 .site-header .menu {
   font-size: 1.3em;
 }
+.is-sticky .site-header {
+  position: fixed;
+  width: 100%;
+  z-index: 25 !important;
 
+  background: #fff;
+  box-shadow: 0px 2px 5px rgba(155,155,155,0.5)
+}
+.toolbar-fixed .is-sticky .site-header {
+  margin-top: 39px;
+}
 /**
  * Special content regions
 */

@@ -1,8 +1,16 @@
 
 (function ($) {
-/**
- * Responsive tables for Latest Talks table display
-*/
+  /**
+   * Implement sticky header
+  */
+  Drupal.behaviors.stickyHeader = {
+    attach: function (context, settings) {
+      $(".site-header").sticky({topSpacing:0});
+    }
+  };
+  /**
+   * Responsive tables for Latest Talks table display
+  */
   Drupal.behaviors.responsiveTable = {
     attach: function (context, settings) {
       $.responsiveTables('800px');
