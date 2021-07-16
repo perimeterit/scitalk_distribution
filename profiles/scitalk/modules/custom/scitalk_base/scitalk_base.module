@@ -123,37 +123,6 @@ function scitalk_base_entity_type_alter(array &$entity_types) {
  * Implements hook_ENTITY_TYPE_presave()
  */
 function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) {
-  if ($entity->getType() == 'talk') {
-    //when creating a new Talk, if there is no talk number in the entity yet, then create one and assign it to the field.
-    if ($entity->isNew()) {
-      
-      
-      // if (_scitalk_base_use_doi($entity)) {
-      //   //when creating a new Talk, create a Draft DOI
-      //   $doi = \Drupal::service('scitalk_base.datacite_dois');
-      //   $doi_id = $doi->create($entity);
-      
-      //   if (empty($entity->get('field_talk_doi')->value)) {
-      //     $entity->set('field_talk_doi', $doi_id);
-      //   }
-      // }
-    }
-    else {
-      if (_scitalk_base_use_doi($entity)) {
-        //update DOI
-        $doi = \Drupal::service('scitalk_base.datacite_dois');
-        $doi_id = $doi->update($entity);
-        
-        if (empty($entity->get('field_talk_doi')->value)) {
-          $entity->set('field_talk_doi', $doi_id);
-        }
-      }
-    }
-  }
-  
-  
-  
-  
   //For both the collection and talk, if this content is already grouped, then
   //add the entity reference to the group in the source repository ER field.
   //If this entity does not have a group, determine your group and fill the field
@@ -204,6 +173,20 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
           $entity->set('field_talk_number', $talk_num);
         }
       }
+      else {
+        if (_scitalk_base_use_doi($entity)) {
+          //when updating check if the talk has a DOI: if not then create it else update it
+          $talk_doi = $entity->field_talk_doi->value ?? '';
+          $doi = \Drupal::service('scitalk_base.datacite_dois');
+          if (empty($talk_doi)) {
+            $doi_id = $doi->create($entity);
+            $entity->set('field_talk_doi', $doi_id);
+          }
+          else {
+            $doi_id = $doi->update($entity);
+          }
+        }
+      }
     }
   }
 }
@@ -232,15 +215,14 @@ function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
       $group->addContent($entity, $pluginId);
     }
   }
-
-  
   
   if (_scitalk_base_use_doi($entity)) {
-    //when creating a new Talk, create a Draft DOI
-    $doi = \Drupal::service('scitalk_base.datacite_dois');
-    $doi_id = $doi->create($entity);
-    
-    if (empty($entity->get('field_talk_doi')->value)) {
+    //when creating a new Talk, create a DOI
+    $talk_doi = $entity->field_talk_doi->value ?? '';
+    if (empty($talk_doi)) {
+      $doi = \Drupal::service('scitalk_base.datacite_dois');
+      $doi_id = $doi->create($entity);
+
       $entity->set('field_talk_doi', $doi_id);
       $entity->save();
     }
@@ -304,8 +286,10 @@ function _scitalk_base_use_doi(\Drupal\Core\Entity\EntityInterface $entity) {
   $doi_enabled = $config->get('use_doi');
   
   //if DOI config is not enabled then no
-  if (!$doi_enabled) return false;
-  
+  if (!$doi_enabled) {
+    return false;
+  }
+
   //if DOI config is on then check if this Talk type is configured to create DOIs
   $create_doi_for_this_talk_type = false;
   $talk_type = $entity->field_talk_type->target_id ?? 0;

@@ -68,6 +68,16 @@ class DataCiteDOI {
     return $this->fetchDOIByID($doi);
   }
 
+  /**
+   * Fetch DOI by Talk ID
+   *
+   * @param string talk_id
+   */
+  public function getDOIByTalkId($talk_id) {
+    $doi = $this->doi_prefix . '/' . $talk_id;
+    return $this->fetchDOIByID($doi);
+  }
+
   private function createDOI($doiObj) {
     $url = $this->doi_api_url;
     $client = \Drupal::httpClient();
@@ -79,22 +89,21 @@ class DataCiteDOI {
     ];
 
     try {
-     // $request = $client->post($url, $auth, json_encode($doiObj));//['body' => json_encode($doiObj)]);
       $request = $client->post($url, $params);
       $response = $request->getBody();
       $response = json_decode($response);
       $doi_id = $response->data->id;
 
-      \Drupal::logger('scitalk_base')->notice('<pre><code>DOI CREATED: ' .$doi_id . '</code></pre>');
+      \Drupal::logger('scitalk_base')->notice('DOI CREATED: ' .$doi_id);
     }
     catch (ClientException | RequestException | ConnectException | GuzzleException | BadResponseException | ServerException $e) {
       if (!empty($res = $e->getResponse()->getBody()->getContents())) {
         $err = json_decode($res);
-        $msg = 'DOI Client error ' . ( $err->errors[0]->title ?? '');
+        $msg = 'DOI create error: ' . ( $err->errors[0]->title ?? '');
         drupal_set_message(t($msg), 'error');
       }
       
-      \Drupal::logger('scitalk_base')->error('<pre>ERROR CONNECTING to DOI ' . print_r($e->getMessage() , TRUE) .'</pre>');
+      \Drupal::logger('scitalk_base')->error('DOI ERROR: ' . print_r($e->getMessage() , TRUE) );
     }
     finally {
       return $doi_id;
@@ -118,16 +127,16 @@ class DataCiteDOI {
       $response = json_decode($response);
       $doi_id = $response->data->id;
 
-      \Drupal::logger('scitalk_base')->notice('<pre><code>UPDATED DOI : ' .$doi_id . '</code></pre>');
+      \Drupal::logger('scitalk_base')->notice('UPDATED DOI : ' .$doi_id);
     }
     catch (ClientException | RequestException | ConnectException | GuzzleException | BadResponseException | ServerException $e) {
       if (!empty($res = $e->getResponse()->getBody()->getContents())) {
         $err = json_decode($res);
-        $msg = 'DOI Client error ' . ( $err->errors[0]->title ?? '');
+        $msg = 'DOI update error: ' . ( $err->errors[0]->title ?? '');
         drupal_set_message(t($msg), 'error');
       }
       
-      \Drupal::logger('scitalk_base')->error('<pre>ERROR CONNECTING to DOI ' . print_r($e->getMessage() , TRUE) .'</pre>');
+      \Drupal::logger('scitalk_base')->error('DOI ERROR: ' . print_r($e->getMessage() , TRUE) );
     }
     finally {
       return $doi_id;
@@ -209,10 +218,8 @@ class DataCiteDOI {
     */
     if (!empty($entity->get('field_talk_video')->target_id)) {
       $media = \Drupal::entityTypeManager()->getStorage('media')->load( $entity->get('field_talk_video')->target_id);
-      $data['attributes']['event'] = self::DOI_STATE_TO_FINDABLE; 
+      $data['attributes']['event'] = self::DOI_STATE_TO_FINDABLE;
     }
-
-   // \Drupal::logger('scitalk_base')->notice('<pre><code>generated DOI Object ' . print_r($data, TRUE)  .'</code></pre>');
         
     return ['data' => $data];
   }
@@ -226,20 +233,22 @@ class DataCiteDOI {
 
     $client = \Drupal::httpClient();
 
-    $response = '';
+    $response = NULL;
     try {
       $request = $client->get($url, $params);
       $response = $request->getBody();
-      //\Drupal::logger('scitalk_base')->notice('<pre><code>DOI fetched ' . print_r(json_decode($response) , TRUE) . '</code></pre>');
     }
     catch (ClientException | RequestException | ConnectException | GuzzleException | BadResponseException | ServerException $e) {
       if (!empty($res = $e->getResponse()->getBody()->getContents())) {
         $err = json_decode($res);
-        $msg = 'DOI Client error ' . ( $err->errors[0]->title ?? '');
-        drupal_set_message(t($msg), 'error');
+        if ($err->errors[0]->status != 404) {//if error is other than not found then log this error
+          $msg = 'DOI Fetch: ' . ( $err->errors[0]->title ?? '');
+          \Drupal::logger('scitalk_base')->error($msg);
+        }
       }
-      
-      \Drupal::logger('scitalk_base')->error('<pre>ERROR CONNECTING to DOI ' . print_r($e->getMessage() , TRUE) .'</pre>');
+      else {
+        \Drupal::logger('scitalk_base')->error('DOI Fetch: ' . print_r($e->getMessage() , TRUE));
+      }
     }
     finally {
       return $response;
