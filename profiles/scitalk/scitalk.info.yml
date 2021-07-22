@@ -84,6 +84,7 @@ install:
   - scitalk_video
   - twig_tweak
   - views_ajax_history
+  - google_analytics
 themes:
   - seven
   - stable
