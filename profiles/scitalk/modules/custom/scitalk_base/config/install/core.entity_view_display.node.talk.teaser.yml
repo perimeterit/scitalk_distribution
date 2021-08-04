@@ -28,7 +28,7 @@ dependencies:
   module:
     - datetime
     - fences
-    - scitalk_media
+    - image
     - text
     - user
 _core:
@@ -39,30 +39,42 @@ bundle: talk
 mode: teaser
 content:
   field_talk_abstract:
-    type: text_trimmed
+    type: text_default
     weight: 3
     region: content
     label: hidden
-    settings:
-      trim_length: 600
-    third_party_settings: {  }
+    settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
   field_talk_date:
     type: datetime_default
     weight: 2
     region: content
     label: hidden
     settings:
-      format_type: medium
       timezone_override: ''
-    third_party_settings: {  }
+      format_type: medium
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
   field_talk_speaker_profile:
-    type: entity_reference_entity_view
+    type: entity_reference_label
     weight: 1
     region: content
     label: hidden
     settings:
-      view_mode: speaker_name_institution
-      link: false
+      link: true
     third_party_settings:
       fences:
         fences_field_tag: div
@@ -72,13 +84,13 @@ content:
         fences_label_tag: div
         fences_label_classes: ''
   field_talk_thumbnail:
-    type: scitalk_thumbnail_formatter
+    type: image
     weight: 0
     region: content
     label: hidden
     settings:
-      which_thumb: media
-      which_style: scitalk_preview_large
+      image_style: ''
+      image_link: ''
     third_party_settings:
       fences:
         fences_field_tag: figure
