@@ -4,6 +4,10 @@ use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\group\Entity\Group;
 use Drupal\scitalk_base\ScitalkServices\ReferenceIDGeneratorInterface;
+use Drupal\views\Plugin\views\query\QueryPluginBase;
+use Drupal\views\ViewExecutable;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\node\Entity\Node;
 
 /**
  * Implements hook_theme().
@@ -44,7 +48,7 @@ function scitalk_base_theme($existing, $type, $theme, $path) {
 function scitalk_base_entity_base_field_info(\Drupal\Core\Entity\EntityTypeInterface $entity_type) {
   if ($entity_type->id() == 'node') {
   }
-  
+
   if ($entity_type->id() == 'taxonomy_term') {
   }
 }
@@ -69,7 +73,7 @@ function scitalk_base_entity_bundle_field_info(\Drupal\Core\Entity\EntityTypeInt
       'region' => 'disabled',
       'type' => 'scitalk_number_of_talks_formatter',
     ]);
-    
+
     $fields['scitalk_most_recent_talk'] = BaseFieldDefinition::create('datetime')
     ->setLabel(t('Most recent Talk'))
     ->setDescription(t('Date of the most recent Talks in a Collection or Series.'))
@@ -84,7 +88,7 @@ function scitalk_base_entity_bundle_field_info(\Drupal\Core\Entity\EntityTypeInt
       'region' => 'disabled',
       'type' => 'scitalk_most_recent_talk_formatter',
     ]);
-    
+
     return $fields;
   }
 }
@@ -112,8 +116,8 @@ function scitalk_base_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
  * Implements hook_entity_type_alter().
  */
 function scitalk_base_entity_type_alter(array &$entity_types) {
-  //Groups manage Repository security. As a result the group is not a content type 
-  //but rather a content entity.  We must add a constraint on the 
+  //Groups manage Repository security. As a result the group is not a content type
+  //but rather a content entity.  We must add a constraint on the
   //group entity to ensure the title doesn't breach our max length.
   $entity_types['group']->addConstraint('RepositoryShortNameMaxLength', []);
 }
@@ -136,7 +140,7 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
       $groups[] = $grp->getGroup();
       break;  //we just need the first one
     }
-    
+
     if(count($groups)) { //if we have groups, using the first one only, use the ID for the ER
       $groupID = $groups[0]->id();
       if($entity->getType() == 'talk') {
@@ -146,7 +150,7 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
         $entity->set('field_collection_source_repo', $groupID);
       }
     }
-    
+
     //collections have collection_number so create a collection number for them if none exists
     if ($entity->getType() == 'collection') {
       if ($entity->isNew()) {
@@ -158,15 +162,15 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
         }
       }
     }
-    
-    
+
+
     if ($entity->getType() == 'talk') {
       //when creating a new Talk, if there is no talk number in the entity yet, then create one and assign it to the field.
       if ($entity->isNew()) {
         $entity_talk_number = $entity->field_talk_number->value ?? '';
         if (empty($entity_talk_number)) {
           $idGenerator = \Drupal::service('scitalk_base.reference_id_generator');
-  
+
           //call service to generate talk id:
           $talk_num = $idGenerator->generateReferenceId($entity);
           //add it to the entity:
@@ -215,7 +219,7 @@ function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
       $group->addContent($entity, $pluginId);
     }
   }
-  
+
   if (_scitalk_base_use_doi($entity)) {
     //when creating a new Talk, create a DOI
     $talk_doi = $entity->field_talk_doi->value ?? '';
@@ -233,35 +237,54 @@ function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
  * Implements hook_ENTITY_TYPE_presave()
  */
 function scitalk_base_taxonomy_term_presave(Drupal\taxonomy\Entity\Term $taxonomy) {
-  
+
+}
+
+/**
+ * Implements hook_views_query_alter()
+ */
+function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+  /* Alter the collection view sort order based on the value of the sort order field */
+  if ($view->id() == 'scitalk_talks_in_collection') {
+    $collection_node = Node::load($view->args[0]);
+    $collection_type_field = $collection_node->get('field_collection_type')->getValue();
+    $collection_type_tid = $collection_type_field[0]['target_id'];
+    $collection_type_term = Term::load($collection_type_tid);
+    $collection_type_sort = $collection_type_term->get('field_sort_order')->getValue();
+    $collection_type_sort_value = $collection_type_sort[0]['value'];
+    /* Descending is the default on the view so we only need to alter this if the value is ascending */
+    if ($collection_type_sort_value == 'date_asc') {
+      $query->orderby[0]['direction'] = "ASC";
+    }
+  }
 }
 
 /**
  * Implements hook_form_alter().
  */
 function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  
-  
+
+
   /*
    * The original form alter used here was to force a source repository.
    * The source repository is now a Drupal Group which manages the linkages
    * to content FROM the group to the content itself.
-   * 
+   *
    * In the initial save of content we attach the content to a source repository group
    * if the user is a part of one.
    */
-  
-  
+
+
   //detect if this is a node form, taxonomy collection or series
 //               if( $form_id == 'node_talk_form') {
 //                     //detect if there is a single Source (Source Repository content type)
 //                     //if so, set it to the value in the form.
-                    
+
 //                     $query = \Drupal::entityQuery('node');
 //                     $query->condition('status', 1);
 //                     $query->condition('type', 'source_repository');
 //                     $entity_ids = $query->execute();
-                    
+
 //                     if(count($entity_ids) === 1) {
 //                       //only 1 repository, fill it in.
 //                       $singleSource = \Drupal\node\Entity\Node::load(current($entity_ids));
@@ -284,7 +307,7 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
 function _scitalk_base_use_doi(\Drupal\Core\Entity\EntityInterface $entity) {
   $config = \Drupal::config('scitalk_base.settings');
   $doi_enabled = $config->get('use_doi');
-  
+
   //if DOI config is not enabled then no
   if (!$doi_enabled) {
     return false;
@@ -297,6 +320,6 @@ function _scitalk_base_use_doi(\Drupal\Core\Entity\EntityInterface $entity) {
     $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($talk_type);
     $create_doi_for_this_talk_type = $term->field_create_doi->value ?? false;
   }
-  
+
   return $create_doi_for_this_talk_type;
 }
