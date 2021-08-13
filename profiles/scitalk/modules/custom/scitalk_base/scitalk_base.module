@@ -250,8 +250,14 @@ function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $q
     $collection_type_field = $collection_node->get('field_collection_type')->getValue();
     $collection_type_tid = $collection_type_field[0]['target_id'];
     $collection_type_term = Term::load($collection_type_tid);
-    $collection_type_sort = $collection_type_term->get('field_sort_order')->getValue();
-    $collection_type_sort_value = $collection_type_sort[0]['value'] ?? '';
+    if(property_exists($collection_type_term->field_sort_order)) {
+      $collection_type_sort = $collection_type_term->get('field_sort_order')->getValue();
+      $collection_type_sort_value = $collection_type_sort[0]['value'] ?? '';
+    }
+    else {
+      $collection_type_sort_value = 'date_asc';
+    }
+    
     /* Descending is the default on the view so we only need to alter this if the value is ascending */
     if ($collection_type_sort_value == 'date_asc') {
       $query->orderby[0]['direction'] = "ASC";

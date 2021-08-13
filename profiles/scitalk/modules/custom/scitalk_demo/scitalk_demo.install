@@ -3,6 +3,7 @@
 use Drupal\node\Entity\Node;
 use Drupal\file\Entity;
 use Drupal\media\Entity\Media;
+use Drupal\taxonomy\Entity\Term;
 //use Drupal\media_entity\Entity\Media;
 
 /**
@@ -17,7 +18,7 @@ function scitalk_demo_install() {
  */
 function scitalk_demo_uninstall() {
     $result = \Drupal::entityQuery("node")
-    ->condition('uuid', ['79a2c470-e2db-461b-bd82-6b89bd74b061','b2d7977f-4e3e-4190-8ff4-00474c567c2e', '6fa7e659-1a6e-4992-8193-0cc55ab79672','d26d9386-c47e-4c27-8a95-e4950d937f3d'], 'IN')
+    ->condition('uuid', ['79a2c470-e2db-461b-bd82-6b89bd74b061','b2d7977f-4e3e-4190-8ff4-00474c567c2e', '6fa7e659-1a6e-4992-8193-0cc55ab79672','d26d9386-c47e-4c27-8a95-e4950d937f3d', 'd6f9a028-b37f-4e3e-baa1-70565455098d'], 'IN')
     ->execute();
 
     $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
@@ -47,6 +48,20 @@ function scitalk_demo_uninstall() {
         $storage_handler->delete($entities);
     }
 
+    //For the taxonomy terms
+    $result = \Drupal::entityQuery("taxonomy_term")
+      ->condition('uuid', ['4e0c75bc-c3df-4677-a8f7-6631374cf154','c3adfe86-86cd-479a-a10d-e637af9b30d4', 'f4a60b73-cf2d-4e3f-a1c8-34b2dd33dfc3'], 'IN')
+      ->execute();
+    
+    $storage_handler = \Drupal::entityTypeManager()->getStorage("taxonomy_term");
+    $entities = $storage_handler->loadMultiple($result);
+
+    //delete taxonomy terms
+    if (!empty($entities))
+    {
+      $storage_handler->delete($entities);
+    }
+    
     //for the media in Talks find the files to delete
     if (!empty($media_ids))
     {
@@ -69,7 +84,7 @@ function scitalk_demo_uninstall() {
                 {
                     $file_ids[] = $node->get('field_media_image')->target_id;
                 }
-                
+
             }
 
             $media_storage->delete($media_entities);
@@ -104,7 +119,7 @@ function scitalk_demo_uninstall() {
         }
 
     }
-    
+
     drupal_set_message( "Deleted Scitalk Demo content!\n");
 }
 
@@ -112,8 +127,64 @@ function scitalk_demo_uninstall() {
  *  create content for Talk
  */
 function scitalk_demo_create_demo_talks() {
+    $tz = \Drupal::currentUser()->getTimezone();
+    $tomorrow = date('Y-m-d\TH:i:s', (time() + (1 * 24 * 60 * 60)) );
+    $after_tomorrow = date('Y-m-d\TH:i:s', (time() + (2 * 24 * 60 * 60)) );
+    
+    $tomorrow_dt = new \Drupal\Core\Datetime\DrupalDateTime($tomorrow, $tz);
+    $tomorrow_dt->setTimezone(new \DateTimeZone("UTC"));
+    $tomorrow_ds = $tomorrow_dt->format("Y-m-d\TH:i:s");
+    
+    $after_tomorrow_dt = new \Drupal\Core\Datetime\DrupalDateTime($tomorrow, $tz);
+    $after_tomorrow_dt->setTimezone(new \DateTimeZone("UTC"));
+    $after_tomorrow_ds = $after_tomorrow_dt->format("Y-m-d\TH:i:s");
+  
     //create speaker profiles first
     $speakers = scitalk_demo_create_demo_speaker_profiles();
+
+    //create talk type and collection type taxonomy entries
+    $term_sci_series = Term::create([
+      'uuid' =>  "4e0c75bc-c3df-4677-a8f7-6631374cf154",
+      'name' => 'Example Scientific Series',
+      'vid' => 'talk_type',
+      'parent' => [],
+    ]);
+    $term_sci_series->save();
+    $term_sci_series = $term_sci_series->id();
+    
+    $term_conference = Term::create([
+      'uuid' =>  "c3adfe86-86cd-479a-a10d-e637af9b30d4",
+      'name' => 'Example Conference',
+      'vid' => 'talk_type',
+      'parent' => [],
+    ]);
+    $term_conference->save();
+    $term_conference = $term_conference->id();
+    
+    $term_collection = Term::create([
+      'uuid' =>  "f4a60b73-cf2d-4e3f-a1c8-34b2dd33dfc3",
+      'name' => 'Example Collection Type',
+      'vid' => 'collection_type',
+      'parent' => [],
+    ]);
+    $term_collection->save();
+    $term_collection = $term_collection->id();
+    
+    //create a collection
+    $collection = [
+      "uuid" =>  "d6f9a028-b37f-4e3e-baa1-70565455098d",
+      "type"=> "collection",
+      "title"=> "Example Collection",
+      "field_collection_date" => [
+        'value' => $tomorrow_ds,
+        'end_value' => $after_tomorrow_ds,
+        ],
+      "field_collection_short_desc" => "An Example Collection",
+      
+    ];
+    $collection_node = Node::create($collection);
+    $collection_node->save();
+    
 
     $video = file_get_contents(__DIR__ . '/media/BigBuckBunny_320x180.mp4');
     $file = file_save_data($video, 'public://BigBuckBunny_320x180.mp4', FILE_EXISTS_REPLACE);
@@ -133,17 +204,7 @@ function scitalk_demo_create_demo_talks() {
 
     $image_media->save();
 
-    $tz = \Drupal::currentUser()->getTimezone();
-    $tomorrow = date('Y-m-d\TH:i:s', (time() + (1 * 24 * 60 * 60)) );
-    $after_tomorrow = date('Y-m-d\TH:i:s', (time() + (2 * 24 * 60 * 60)) );
-
-    $tomorrow_dt = new \Drupal\Core\Datetime\DrupalDateTime($tomorrow, $tz);
-    $tomorrow_dt->setTimezone(new \DateTimeZone("UTC"));
-    $tomorrow_ds = $tomorrow_dt->format("Y-m-d\TH:i:s");
-
-    $after_tomorrow_dt = new \Drupal\Core\Datetime\DrupalDateTime($tomorrow, $tz);
-    $after_tomorrow_dt->setTimezone(new \DateTimeZone("UTC"));
-    $after_tomorrow_ds = $after_tomorrow_dt->format("Y-m-d\TH:i:s");
+    
 
     $talks = [
         [
@@ -162,6 +223,12 @@ function scitalk_demo_create_demo_talks() {
                 "target_id" => $speakers[0]
             ],
             "field_talk_date" => $tomorrow_ds,
+            "field_talk_type" => [
+                "target_id" => $term_sci_series,
+            ],
+            "field_talk_collection" => [
+                "target_id" => $collection_node->id(),
+            ],
             "status" =>  1
         ],
         [
@@ -177,6 +244,9 @@ function scitalk_demo_create_demo_talks() {
                 "target_id" => $speakers[1]
             ],
             "field_talk_date" => $after_tomorrow_ds,
+            "field_talk_type" => [
+                "target_id" => $term_conference,
+            ],
             "status" =>  1
         ]
 
@@ -241,9 +311,9 @@ function scitalk_demo_create_demo_speaker_profiles() {
                 "options" => ["target" => "_blank"]
             ],
             "status" =>  1
-        ]    
+        ]
       ];
-    
+
       $speaker_ids = [];
       foreach ($speakers as $speaker) {
         $node = Node::create($speaker);
