@@ -117,3 +117,19 @@ function scitalk_media_media_presave(\Drupal\Core\Entity\EntityInterface $entity
       break;
   } 
 }
+
+/**
+ * Implements hook_page_attachments().
+ */
+function scitalk_media_page_attachments(array &$page) {
+  $module_handler = \Drupal::service('module_handler');
+  $module_path = $module_handler->getModule('scitalk_media')->getPath();
+  $icon_path = "/{$module_path}/images/icons/";
+  $icon = 'link.svg';
+  $page['#attached'] = [
+    'drupalSettings' => [
+      'url_copy_icon' => $icon,
+      'icon_path' => $icon_path
+    ],
+  ];
+}
