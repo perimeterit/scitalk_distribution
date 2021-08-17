@@ -27,6 +27,7 @@ install:
   - field_ui
   - file
   - filter
+  - group
   - help
   - image
   - inline_form_errors
