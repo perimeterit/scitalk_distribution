@@ -21,6 +21,7 @@ class DataCiteDOI {
   private $datacite_pwd;
   private $datacite_creator_institution;
   private $datacite_creator_institution_ror;
+  private $datacite_alternate_indentifier;
 
   public function __construct() {
     $config = \Drupal::config('scitalk_base.settings');
@@ -36,6 +37,11 @@ class DataCiteDOI {
     $this->datacite_pwd = $config->get('datacite_pwd');
     $this->datacite_creator_institution = $config->get('datacite_creator_institution');
     $this->datacite_creator_institution_ror = !empty($config->get('datacite_creator_institution_ror')) ? 'https://ror.org/' . $config->get('datacite_creator_institution_ror') : '';
+
+    $this->datacite_alternate_indentifier = $config->get('datacite_alternate_indentifier');
+    if (!empty($this->datacite_alternate_indentifier) && substr($this->datacite_alternate_indentifier, -1) != '/') {
+      $this->datacite_alternate_indentifier .= '/';
+    }
   }
 
 
@@ -164,7 +170,7 @@ class DataCiteDOI {
       'type' => 'dois',
       'attributes' => [
         'doi' => $talk_id,
-        'publisher' =>  $this->datacite_creator_institution, //'Perimeter Institute',
+        'publisher' =>  $this->datacite_creator_institution,
         'titles' => [
           'title' => $entity->get('title')->value ?? ''
         ],
@@ -173,13 +179,13 @@ class DataCiteDOI {
           //'description' => strip_tags( $entity->get('field_talk_abstract')->value ?? '')
         ],
         'types' => [
-          'resourceTypeGeneral' => "Audiovisual",
+          'resourceTypeGeneral' => 'Audiovisual',
           'resourceType' => 'Video Recording'
         ],
         'formats' => [
           'video/mp4'
         ],
-        'url' => $url ,
+        'url' => $url,
         'language' => \Drupal::languageManager()->getDefaultLanguage()->getName() ?? '',
         'schemaVersion' => 'http://datacite.org/schema/kernel-4'
       ]
@@ -219,6 +225,16 @@ class DataCiteDOI {
     if (!empty($entity->get('field_talk_video')->target_id)) {
       $media = \Drupal::entityTypeManager()->getStorage('media')->load( $entity->get('field_talk_video')->target_id);
       $data['attributes']['event'] = self::DOI_STATE_TO_FINDABLE;
+    }
+
+    if (!empty($this->datacite_alternate_indentifier)) {
+      $alternate_identifier_url = $this->datacite_alternate_indentifier . $entity->get('field_talk_number')->value;
+      $data['attributes']['identifiers'] = [
+        [
+          'identifier' => $alternate_identifier_url,
+          'identifierType' => 'PURL'
+        ]
+      ];
     }
         
     return ['data' => $data];
