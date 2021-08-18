@@ -273,11 +273,10 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
   // On advanced search form, remove the Source field if there is only one source
   if ($form['#id'] == 'views-exposed-form-scitalk-advanced-search-advanced-search') {
     // Get the number of soure repository nodes
-    $query = \Drupal::entityQuery('node')
-        ->condition('status', 1)
-        ->condition('type', 'collection');
-    $num_collections = $query->count()->execute();
-    if ($num_collections <= 1) {
+    $query = \Drupal::entityQuery('group')
+        ->condition('type', 'source_repository');
+    $num_source_repos = $query->count()->execute();
+    if ($num_source_repos <= 1) {
       unset($form['field_talk_source']);
     }
   }
