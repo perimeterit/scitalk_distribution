@@ -168,15 +168,10 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     $form['keys']['#title_display'] = 'invisible';
     $form['keys']['#attributes']['placeholder'] = t('Search');
     $form['keys']['#size'] = 20;
-
-    // Add some wrappers for two-column layout
-    $form['search_api_fulltext']['#prefix'] = '<div class="search-wrap"> <div class="content-search-wrap">';
-
+    dsm($form);
     $form['from']['#prefix'] = '<div class="date-search-wrap">';
     //  This closes the content-search-wrap as well
-    $form['to']['#suffix'] = '</div></div>';
-    $form['type']['#prefix'] = '<div class="content-search-wrap">';
-    $form['sort_bef_combine']['#suffix'] = '</div></div>';
+    $form['to']['#suffix'] = '</div>';
     if (!empty($form['talk_subject']['#options'])) {
       foreach ($form['talk_subject']['#options'] as $key => &$option) {
         if ($key == 'All') {
