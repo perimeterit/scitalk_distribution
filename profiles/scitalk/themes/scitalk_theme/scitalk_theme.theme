@@ -168,7 +168,6 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     $form['keys']['#title_display'] = 'invisible';
     $form['keys']['#attributes']['placeholder'] = t('Search');
     $form['keys']['#size'] = 20;
-    dsm($form);
     $form['from']['#prefix'] = '<div class="date-search-wrap">';
     //  This closes the content-search-wrap as well
     $form['to']['#suffix'] = '</div>';
