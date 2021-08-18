@@ -257,7 +257,7 @@ function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $q
     else {
       $collection_type_sort_value = 'date_asc';
     }
-    
+
     /* Descending is the default on the view so we only need to alter this if the value is ascending */
     if ($collection_type_sort_value == 'date_asc') {
       $query->orderby[0]['direction'] = "ASC";
@@ -270,6 +270,17 @@ function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $q
  */
 function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
+  // On advanced search form, remove the Source field if there is only one source
+  if ($form['#id'] == 'views-exposed-form-scitalk-advanced-search-advanced-search') {
+    // Get the number of soure repository nodes
+    $query = \Drupal::entityQuery('node')
+        ->condition('status', 1)
+        ->condition('type', 'collection');
+    $num_collections = $query->count()->execute();
+    if ($num_collections <= 1) {
+      unset($form['field_talk_source']);
+    }
+  }
 
   /*
    * The original form alter used here was to force a source repository.
