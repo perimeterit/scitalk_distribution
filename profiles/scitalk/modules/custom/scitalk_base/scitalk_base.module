@@ -265,21 +265,28 @@ function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $q
   }
 }
 
+
+/**
+ * Implements views_pre_build().
+ */
+function scitalk_base_views_pre_build(ViewExecutable $view) {
+  // On advanced search view, remove the Source exposed filter
+  // if there is only one source
+  if (($view->id() == 'scitalk_advanced_search') && ($view->current_display == 'advanced_search')) {
+    // Get the number of soure repository groups
+    $query = \Drupal::entityQuery('group')
+        ->condition('type', 'source_repository');
+    $num_source_repos = $query->count()->execute();
+    if ($num_source_repos <= 1 ) {
+      unset($view->filter['search_api_fulltext_1']);
+    }
+  }
+}
+
 /**
  * Implements hook_form_alter().
  */
 function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-
-  // On advanced search form, remove the Source field if there is only one source
-  if ($form['#id'] == 'views-exposed-form-scitalk-advanced-search-advanced-search') {
-    // Get the number of soure repository nodes
-    $query = \Drupal::entityQuery('group')
-        ->condition('type', 'source_repository');
-    $num_source_repos = $query->count()->execute();
-    if ($num_source_repos <= 1) {
-      unset($form['field_talk_source']);
-    }
-  }
 
   /*
    * The original form alter used here was to force a source repository.
