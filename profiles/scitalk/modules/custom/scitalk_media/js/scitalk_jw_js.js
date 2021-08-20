@@ -20,7 +20,9 @@
         const icon = drupalSettings.icon_path + drupalSettings.url_copy_icon;
         const playerInstance = jwplayer('video_player');
         playerInstance.addButton(icon,'Copy Video URL at current time', () => {
-          playerInstance.pause();
+          if (playerInstance.getState() == 'playing') {
+            playerInstance.pause();
+          }
           copyUrlToClipboard();
         },'copy-video-url');
   
