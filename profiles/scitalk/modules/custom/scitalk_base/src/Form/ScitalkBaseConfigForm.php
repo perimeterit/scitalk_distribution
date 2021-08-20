@@ -46,7 +46,14 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
       '#attributes' => [
           'id' => 'datacite_creator_institution',
       ],
-   ];
+    ];
+
+    $form['datacite_talk_prefix'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Talk Number Prefix'),
+      '#description' => $this->t('Prefix to use for talks'),
+      '#default_value' => $config->get('datacite_talk_prefix'),
+    ];
 
     $form['use_doi'] = [
         '#type' => 'checkbox',
@@ -198,6 +205,7 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
       ->set('doi_prefix', $form_state->getValue('doi_prefix'))
       ->set('datacite_user', $form_state->getValue('datacite_user'))
       ->set('datacite_pwd', $form_state->getValue('datacite_pwd'))
+      ->set('datacite_talk_prefix', $form_state->getValue('datacite_talk_prefix'))
       ->set('datacite_creator_institution', $form_state->getValue('datacite_creator_institution'))
       ->set('datacite_creator_institution_ror', $form_state->getValue('datacite_creator_institution_ror'))
       ->set('datacite_alternate_indentifier', $form_state->getValue('datacite_alternate_indentifier'))

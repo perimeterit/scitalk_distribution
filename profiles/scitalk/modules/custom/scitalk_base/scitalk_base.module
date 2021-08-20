@@ -31,9 +31,13 @@ function scitalk_base_theme($existing, $type, $theme, $path) {
         'language' => '',
         'site_name' => '',
         'year' => '',
+        'month' => '',
         'keywords' => '',
         'publisher' => '',
-        'repository' => ''
+        'repository' => '',
+        'talk_prefix' => '',
+        'persistent_url' => '',
+        'bibtex_note' => ''
       ],
       'template' => 'block--scitalk-citations'
     ],

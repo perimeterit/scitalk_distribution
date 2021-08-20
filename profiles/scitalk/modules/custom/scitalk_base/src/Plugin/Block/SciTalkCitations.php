@@ -72,6 +72,7 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
             $talk_date = $pirsa->field_talk_date->value ?? '';
             $talk_date_formatted = $talk_date ? date('M. d, Y', strtotime($talk_date)) : '';
             $year = $talk_date ? date('Y', strtotime($talk_date)) : '';
+            $month = $talk_date ? strtolower(date('M', strtotime($talk_date))) : '';
             $doi = $pirsa->field_talk_doi->value ?? '';
             $url = $pirsa->field_talk_source_event->uri;
             $lang = $pirsa->langcode->value ?? '';
@@ -80,7 +81,17 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
             $repository = $config->get('name') ?? '';
 
             //use for publisher the entry in "DataCite Creator Institution" from the Scitalk configuration form:
+            $doi_on = (bool)$datacite_config->get('use_doi') ?? FALSE;
             $publisher = $datacite_config->get('datacite_creator_institution') ?? '';
+            $talk_prefix = $datacite_config->get('datacite_talk_prefix') ?? '';
+            $talk_prefix = empty($talk_prefix) ? 'Talk #' : $talk_prefix;
+
+            //for the BibTex "note" field: if using DOI then grab the "Persistent Domain" value, else use this site base url
+            $base_url = \Drupal::request()->getSchemeAndHttpHost();
+            if ($doi_on) {
+                $base_url = $datacite_config->get('datacite_alternate_indentifier') ?? $base_url;
+            }
+            $bibtex_note = $talk_prefix . $talk_number . (!empty($base_url) ? " see \url{$base_url}" : '');
 
             $speakers = array_map(function($sp) {
                 //create name initials 
@@ -126,6 +137,7 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
             '#talk_date' => $talk_date,
             '#talk_date_formatted' => $talk_date_formatted,
             '#year' => $year,
+            '#month' => $month,
             '#doi' => $doi,
             '#url' => $url,
             '#language' => $lang,
@@ -133,7 +145,9 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
             '#speakers' => $speakers,
             '#keywords' => $keywords,
             '#publisher' => $publisher,
-            '#repository' => $repository
+            '#repository' => $repository,
+            '#talk_prefix' => $talk_prefix,
+            '#bibtex_note' => $bibtex_note
         ];
 
     }
