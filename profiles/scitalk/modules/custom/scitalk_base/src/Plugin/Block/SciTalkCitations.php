@@ -91,7 +91,7 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
             if ($doi_on) {
                 $base_url = $datacite_config->get('datacite_alternate_indentifier') ?? $base_url;
             }
-            $bibtex_note = $talk_prefix . $talk_number . (!empty($base_url) ? " see \url{$base_url}" : '');
+            $bibtex_note = $talk_prefix . $talk_number . (!empty($base_url) ? " see, \url{{$base_url}" : '');
 
             $speakers = array_map(function($sp) {
                 //create name initials 
