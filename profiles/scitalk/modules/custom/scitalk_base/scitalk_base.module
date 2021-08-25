@@ -148,10 +148,14 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
     if(count($groups)) { //if we have groups, using the first one only, use the ID for the ER
       $groupID = $groups[0]->id();
       if($entity->getType() == 'talk') {
-        $entity->set('field_talk_source_repository', $groupID);
+        if (empty($entity->get('field_talk_source_repository')->target_id)) {
+          $entity->set('field_talk_source_repository', $groupID);
+        }
       }
       else {
-        $entity->set('field_collection_source_repo', $groupID);
+        if (empty($entity->get('field_collection_source_repo')->target_id)) {
+          $entity->set('field_collection_source_repo', $groupID);
+        }
       }
     }
 
