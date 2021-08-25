@@ -1,3 +1,4 @@
+uuid: dad7a9a0-29a8-491f-8140-26832428d8de
 langcode: en
 status: true
 dependencies:
@@ -20,8 +21,8 @@ dependencies:
     - field.storage.node.field_sp_display_name
     - field.storage.node.field_sp_first_name
     - field.storage.node.field_talk_source_repository
-    - field.storage.node.field_talk_speaker_profile
     - field.storage.node.field_sp_speaker_profile
+    - field.storage.node.field_talk_speaker_profile
     - field.storage.node.field_talk_subject
     - field.storage.node.field_talk_number
     - field.storage.node.field_talk_type
@@ -68,7 +69,7 @@ third_party_settings:
       collection: ''
       timezone: ''
 _core:
-  default_config_hash: pKolKwgpawjxg_zXHW_JLlONcmD3gd27nHagHrPxSKU
+  default_config_hash: wmCY96teGgUFR_5uyCab0NY35fCdjJPkhKAatkjKg20
 id: default_talks_index
 name: 'Default Talks index'
 description: ''
@@ -188,7 +189,7 @@ field_settings:
     label: Source
     datasource_id: 'entity:node'
     property_path: field_talk_source_repository
-    type: text
+    type: string
     dependencies:
       config:
         - field.storage.node.field_talk_source_repository

@@ -12,8 +12,6 @@ dependencies:
     - field.storage.node.field_talk_type
     - field.storage.node.field_talk_video_url
     - search_api.index.default_talks_index
-    - taxonomy.vocabulary.subjects
-    - taxonomy.vocabulary.talk_type
   module:
     - better_exposed_filters
     - datetime
@@ -21,7 +19,7 @@ dependencies:
     - link
     - search_api
 _core:
-  default_config_hash: 6LZaC5PS7OQ-PmUG1YDVoQIJvaTnE6KZpZUa_z-Z6Kg
+  default_config_hash: aNPgVvCs7PLWV6HrTj35RnCU4-V9NRm6nWQDbtcBshw
 id: scitalk_advanced_search
 label: 'Scitalk: Advanced search'
 module: views
@@ -2037,23 +2035,26 @@ display:
           hierarchy: false
           error_message: true
           plugin_id: search_api_term
-        search_api_fulltext_1:
-          id: search_api_fulltext_1
+        field_talk_source:
+          id: field_talk_source
           table: search_api_index_default_talks_index
-          field: search_api_fulltext
+          field: field_talk_source
           relationship: none
           group_type: group
           admin_label: ''
-          operator: or
-          value: ''
+          operator: '='
+          value:
+            min: ''
+            max: ''
+            value: ''
           group: 1
           exposed: true
           expose:
-            operator_id: search_api_fulltext_1_op
+            operator_id: field_talk_source_op
             label: Source
             description: ''
             use_operator: false
-            operator: search_api_fulltext_1_op
+            operator: field_talk_source_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: field_talk_source
@@ -2067,6 +2068,8 @@ display:
               scitalk_oauth: '0'
               talk_editor: '0'
             placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -2079,11 +2082,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          parse_mode: terms
-          min_length: null
-          fields:
-            - title_2
-          plugin_id: search_api_fulltext
+          plugin_id: search_api_string
         status:
           id: status
           table: search_api_index_default_talks_index
