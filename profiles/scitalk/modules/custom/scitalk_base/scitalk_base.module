@@ -256,11 +256,11 @@ function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $q
   if (($view->id() == 'scitalk_talks_in_collection') && ($view->current_display == 'scitalk_talk_by_collection_block')) {
     $collection_node = Node::load($view->args[0]);
     $collection_type_field = $collection_node->get('field_collection_type')->getValue();
-    $collection_type_tid = $collection_type_field[0]['target_id'];
+    $collection_type_tid = $collection_type_field[0]['target_id'] ?? 0;
     $collection_type_term = Term::load($collection_type_tid);
-    if(property_exists($collection_type_term->field_sort_order)) {
+    if(isset($collection_type_term->field_sort_order)) {
       $collection_type_sort = $collection_type_term->get('field_sort_order')->getValue();
-      $collection_type_sort_value = $collection_type_sort[0]['value'] ?? '';
+      $collection_type_sort_value = $collection_type_sort[0]['value'] ?? 'date_asc';
     }
     else {
       $collection_type_sort_value = 'date_asc';
