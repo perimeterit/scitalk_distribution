@@ -283,7 +283,7 @@ function scitalk_base_views_pre_build(ViewExecutable $view) {
   if (($view->id() == 'scitalk_advanced_search') && ($view->current_display == 'advanced_search')) {
     // Get the number of soure repository groups
     $query = \Drupal::entityQuery('group')
-        ->condition('type', 'source_repository');
+      ->condition('type', 'source_repository');
     $num_source_repos = $query->count()->execute();
     if ($num_source_repos <= 1 ) {
       unset($view->filter['search_api_fulltext_1']);
@@ -295,6 +295,40 @@ function scitalk_base_views_pre_build(ViewExecutable $view) {
  * Implements hook_form_alter().
  */
 function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if($form_id == 'views_exposed_form') {
+
+    $view_machine_names = [
+      'scitalk_advanced_search',
+    ];
+    $view = $form_state->getStorage('view');
+    $display = $view['display']['id'];
+    if ((in_array($view['view']->id(), $view_machine_names)) &&
+        ($view['display']['id'] != 'basic_search')) {
+
+      // Get all the groups
+      $query = \Drupal::entityQuery('group')
+      ->condition('type', 'source_repository');
+      $group_ids = $query->execute();
+      $group_options = ['' => 'All'];
+      $group_storage =  \Drupal::entityTypeManager()->getStorage('group');
+      $groups = $group_storage->loadMultiple($group_ids);
+
+      // Create the options array with the group id and group name
+      foreach ($groups as $id => $group) {
+        $group_title = $group->get('label')->getValue();
+        $group_options[$id] = $group_title[0]['value'];
+      }
+
+      $form['field_talk_source']['#default_value'] =   'All';
+
+      $form['field_talk_source']['#type'] = 'select';
+      $form['field_talk_source']['#options'] = $group_options;
+      unset($form['field_talk_source']['#size']);
+
+
+    }
+  }
+
 
   /*
    * The original form alter used here was to force a source repository.
