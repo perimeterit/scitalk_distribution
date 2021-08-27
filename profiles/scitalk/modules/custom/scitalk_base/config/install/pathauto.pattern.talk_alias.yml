@@ -9,16 +9,16 @@ dependencies:
 id: talk_alias
 label: 'Talk alias'
 type: 'canonical_entities:node'
-pattern: '[node:field_talk_source:entity:title]/[node:field_talk_number]'
+pattern: '[node:field_talk_source_repository:entity:title]/[node:field_talk_number]'
 selection_criteria:
-  5e766291-7e53-4705-bb83-63a6c3717c92:
+  417d3adb-d9df-48c0-a7f2-4bd99795b3a9:
     id: node_type
     bundles:
       talk: talk
     negate: false
     context_mapping:
       node: node
-    uuid: 5e766291-7e53-4705-bb83-63a6c3717c92
+    uuid: 417d3adb-d9df-48c0-a7f2-4bd99795b3a9
 selection_logic: and
 weight: 0
 relationships: {  }
