@@ -293,7 +293,9 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
       'scitalk_advanced_search',
     ];
     $view = $form_state->getStorage('view');
-    if(in_array($view['view']->id(), $view_machine_names)) {
+    $display = $view['display']['id'];
+    if ((in_array($view['view']->id(), $view_machine_names)) &&
+        ($view['display']['id'] != 'basic_search')) {
 
       // Get all the groups
       $query = \Drupal::entityQuery('group')
@@ -315,11 +317,6 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
       $form['field_talk_source']['#options'] = $group_options;
       unset($form['field_talk_source']['#size']);
 
-      $form['field_talk_source']['#default_value'] =   'All';
-
-      $form['field_talk_source']['#type'] = 'select';
-      $form['field_talk_source']['#options'] = $group_options;
-      unset($form['field_talk_source']['#size']);
 
     }
   }
