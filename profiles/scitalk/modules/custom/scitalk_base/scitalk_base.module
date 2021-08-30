@@ -313,19 +313,19 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
       $group_storage =  \Drupal::entityTypeManager()->getStorage('group');
       $groups = $group_storage->loadMultiple($group_ids);
 
-      // Create the options array with the group id and group name
-      foreach ($groups as $id => $group) {
-        $group_title = $group->get('label')->getValue();
-        $group_options[$id] = $group_title[0]['value'];
+      if (count($groups) > 1) {
+        // Create the options array with the group id and group name
+        foreach ($groups as $id => $group) {
+          $group_title = $group->get('label')->getValue();
+          $group_options[$id] = $group_title[0]['value'];
+        }
+
+        $form['field_talk_source']['#default_value'] =   'All';
+
+        $form['field_talk_source']['#type'] = 'select';
+        $form['field_talk_source']['#options'] = $group_options;
+        unset($form['field_talk_source']['#size']);
       }
-
-      $form['field_talk_source']['#default_value'] =   'All';
-
-      $form['field_talk_source']['#type'] = 'select';
-      $form['field_talk_source']['#options'] = $group_options;
-      unset($form['field_talk_source']['#size']);
-
-
     }
   }
 
