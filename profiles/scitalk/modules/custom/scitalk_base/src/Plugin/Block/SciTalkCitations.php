@@ -73,7 +73,8 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
             $talk_date_formatted = $talk_date ? date('M. d, Y', strtotime($talk_date)) : '';
             $year = $talk_date ? date('Y', strtotime($talk_date)) : '';
             $doi = $pirsa->field_talk_doi->value ?? '';
-            $url = $pirsa->field_talk_source_event->uri;
+	    //$url = $pirsa->field_talk_source_event->uri;
+	    $url = $pirsa->field_talk_video_url->uri ?? $pirsa->toUrl()->setAbsolute()->toString(true)->getGeneratedUrl() ?? '' ;
             $lang = $pirsa->langcode->value ?? '';
 
             //using the site name for the repository field that shows in APA and MLA citations:
