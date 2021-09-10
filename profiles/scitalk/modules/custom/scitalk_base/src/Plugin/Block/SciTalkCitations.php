@@ -85,8 +85,8 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
             $publisher = $datacite_config->get('datacite_creator_institution') ?? '';
 
             //for the Repository field in APA, MLA citations:
-            // use long Institution name from the groups, falling back to the Publishing Institution (from Scitalks config) and if that is also empty, falling back to the site name. 
-            $repository = $publisher ?? $config->get('name') ?? '';
+            // use long Institution name from the groups, falling back to the Publishing Institution (from Scitalks config) and if that is also empty, falling back to the site name.
+            $repository = $publisher ?: $config->get('name');
 
             $repo_id = $pirsa->get('field_talk_source_repository')->target_id ?? '';
             if (!empty($repo_id)) {
