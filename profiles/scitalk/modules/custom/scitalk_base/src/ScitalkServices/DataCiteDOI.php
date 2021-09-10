@@ -170,7 +170,7 @@ class DataCiteDOI {
     $repo_id = $entity->get('field_talk_source_repository')->target_id ?? '';
     if (!empty($repo_id)) {
       $repo = Group::load($repo_id);
-      $publisher = $repo->field_repo_institution->value ?? $publisher;
+      $publisher = $repo->field_repo_institution_full_name->value ?? $publisher;
     }
 
     $data = [
