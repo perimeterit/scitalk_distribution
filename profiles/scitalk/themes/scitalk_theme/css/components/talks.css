@@ -82,6 +82,10 @@
 .node.talk.horizontal-card a {
   text-decoration: none;
 }
+.node.talk.horizontal-card a:hover,
+.node.talk.horizontal-card a:focus {
+  text-decoration: underline;
+}
 .node.talk.horizontal-card h3 {
   margin: 0;
 }

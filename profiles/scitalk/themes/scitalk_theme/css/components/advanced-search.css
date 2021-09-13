@@ -69,8 +69,10 @@
 
 /* Search summary */
 .search-summary {
-  margin: 0;
-  padding-bottom: 1em;
+  margin: 0 0 1em;
+}
+.advanced-search-header .search-summary {
+  margin-bottom: 0;
 }
 
 /* Filter toggle */

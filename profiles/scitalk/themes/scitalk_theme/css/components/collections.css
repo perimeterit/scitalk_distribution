@@ -30,9 +30,11 @@
 }
 .view-scitalk-collections .term-grid li:nth-child(even) a {
   background: var(--color-secondary);
+  color: var(--color-secondary--foreground);
 }
 .view-scitalk-collections .term-grid li:nth-child(odd) a {
   background: var(--color-primary);
+  color: var(--color-primary--foreground);
 }
 .view-scitalk-collections .term-grid li:nth-child(even) a:hover,
 .view-scitalk-collections .term-grid li:nth-child(even) a:focus {
