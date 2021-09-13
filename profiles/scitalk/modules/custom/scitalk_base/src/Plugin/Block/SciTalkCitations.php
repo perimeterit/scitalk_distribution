@@ -8,6 +8,7 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\node\NodeInterface;
+use Drupal\group\Entity\Group;
 
 /**
  * Provides a 'SciTalks Citations' Block.
@@ -78,12 +79,22 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
             $url = $pirsa->field_talk_video_url->uri ?? $pirsa->toUrl()->setAbsolute()->toString(true)->getGeneratedUrl() ?? '' ;
             $lang = $pirsa->langcode->value ?? '';
 
-            //using the site name for the repository field that shows in APA and MLA citations:
-            $repository = $config->get('name') ?? '';
-
             //use for publisher the entry in "DataCite Creator Institution" from the Scitalk configuration form:
             $doi_on = (bool)$datacite_config->get('use_doi') ?? FALSE;
+
             $publisher = $datacite_config->get('datacite_creator_institution') ?? '';
+
+            //for the Repository field in APA, MLA citations:
+            // use long Institution name from the groups, falling back to the Publishing Institution (from Scitalks config) and if that is also empty, falling back to the site name.
+            $repository = $publisher ?: $config->get('name');
+
+            $repo_id = $pirsa->get('field_talk_source_repository')->target_id ?? '';
+            if (!empty($repo_id)) {
+                $repo = Group::load($repo_id);
+                $repository = $repo->field_repo_institution_full_name->value ?? $repository;
+                $publisher = $repo->field_repo_institution_full_name->value ?? $publisher;
+            }
+
             $talk_prefix = $datacite_config->get('datacite_talk_prefix') ?? '';
             $talk_prefix = empty($talk_prefix) ? 'Talk #' : $talk_prefix;
 

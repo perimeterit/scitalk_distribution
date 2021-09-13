@@ -2,6 +2,7 @@
 namespace Drupal\scitalk_base\ScitalkServices;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\group\Entity\Group;
 use GuzzleHttp\Exception\GuzzleException;  
 use GuzzleHttp\Exception\ConnectException;  
 use GuzzleHttp\Exception\ClientException;  
@@ -163,14 +164,21 @@ class DataCiteDOI {
     /////////////////////
     // TODO: REMOVE THE LINE BELOW AFTER DONE RUNNING THe create_interimhd_media_sript.php!!!! 
     //$url = str_replace( '/create_interimhd_media_script.php', '', $url);  //for now when running update script!!!!
-
     //$reference_number = $entity->field_talk_number->value; 
+
+    $publisher = $this->datacite_creator_institution ?? '';
+    $repo_id = $entity->get('field_talk_source_repository')->target_id ?? '';
+    if (!empty($repo_id)) {
+      $repo = Group::load($repo_id);
+      $publisher = $repo->field_repo_institution_full_name->value ?? $publisher;
+    }
+
     $data = [
       'id' => $talk_id,
       'type' => 'dois',
       'attributes' => [
         'doi' => $talk_id,
-        'publisher' =>  $this->datacite_creator_institution,
+        'publisher' =>  $publisher,
         'titles' => [
           'title' => $entity->get('title')->value ?? ''
         ],
@@ -191,9 +199,9 @@ class DataCiteDOI {
       ]
     ];
 
-    //speaker info (use the institution "Perimeter Institute" instead of the talk speaker)
-    //$speakerProfile = $this->getSpeakerInfo($entity->get('field_talk_speaker_profile')->getValue()); //target_id);
-    $speakerProfile =  $this->getCreator();
+    //speaker info (use the institution name instead of the talk speaker) - NO!: updated this to use talk speakers:
+    $speakerProfile = $this->getSpeakerInfo($entity->get('field_talk_speaker_profile')->getValue());
+    //$speakerProfile =  $this->getCreator();
     if (!empty($speakerProfile)) {
       $data['attributes']['creators'] = $speakerProfile;
     }

@@ -39,7 +39,8 @@ class IDLinkFormatter extends FormatterBase {
         '#tag' => 'a',
         '#attributes' => [
           'target' => '_blank: ',
-          'href' => $base_url . urlencode($item->value)
+          'href' => $base_url . $item->value
+          //'href' => $base_url . urlencode($item->value)
         ],
         '#value' => $this->t('@url', ['@url' => $item->value]),
       ];
