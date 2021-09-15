@@ -1,3 +1,4 @@
+uuid: b9ecdbe5-0105-408e-8f70-cc5ef4546fbc
 langcode: en
 status: true
 dependencies:
@@ -5,6 +6,8 @@ dependencies:
     - copyright_block
   theme:
     - scitalk_theme
+_core:
+  default_config_hash: Z_xvWKUStQoSDnGOlvjdFqfBzOuEbZLLB8yLBR7ZRyk
 id: copyrightblock
 theme: scitalk_theme
 region: footer
@@ -17,8 +20,9 @@ settings:
   provider: copyright_block
   label_display: '0'
   start_year: '2020'
-  seperator: '-'
+  separator: '-'
   text:
     value: "<p>© Copyright [copyright_statement:dates] [site:name]</p>\r\n"
     format: basic_html
+  seperator: '-'
 visibility: {  }

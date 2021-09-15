@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.speaker_profile.feeds_item
     - field.field.node.speaker_profile.field_sp_display_name
     - field.field.node.speaker_profile.field_sp_external_id
     - field.field.node.speaker_profile.field_sp_first_name
@@ -19,7 +20,7 @@ dependencies:
   module:
     - user
 _core:
-  default_config_hash: 52u5MAzOmx46Cr6Yg-YtVSlw16QNP9JwQvB5RW-utSo
+  default_config_hash: vbFxfRUM4oLB_H1u7rhLd-lLUURH1TACj5AagmtYBiw
 id: node.speaker_profile.teaser
 targetEntityType: node
 bundle: speaker_profile
@@ -31,6 +32,7 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  feeds_item: true
   field_sp_display_name: true
   field_sp_external_id: true
   field_sp_first_name: true

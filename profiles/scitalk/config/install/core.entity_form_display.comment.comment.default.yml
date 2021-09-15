@@ -1,3 +1,4 @@
+uuid: 284c2d53-183a-49dd-9266-073e9e32029f
 langcode: en
 status: true
 dependencies:
@@ -6,6 +7,8 @@ dependencies:
     - field.field.comment.comment.comment_body
   module:
     - text
+_core:
+  default_config_hash: I0Pa0aQvT_jawlPo9oz4FE3h_ickc55dYKTPl6gILes
 id: comment.comment.default
 targetEntityType: comment
 bundle: comment
@@ -21,6 +24,13 @@ content:
     settings:
       rows: 5
       placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
     third_party_settings: {  }
   subject:
     type: string_textfield
