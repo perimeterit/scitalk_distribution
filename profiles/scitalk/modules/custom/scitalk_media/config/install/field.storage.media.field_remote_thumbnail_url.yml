@@ -1,12 +1,14 @@
+uuid: 483a535c-96e8-4410-ba41-7de74326f673
 langcode: en
 status: true
 dependencies:
-  module:
-    - media
-    - scitalk_media
   enforced:
     module:
       - scitalk_media
+  module:
+    - media
+_core:
+  default_config_hash: FWbndDKXI4eZX7X1WeoITEr8z09j0hdZCDkuJ8QVn8A
 id: media.field_remote_thumbnail_url
 field_name: field_remote_thumbnail_url
 entity_type: media

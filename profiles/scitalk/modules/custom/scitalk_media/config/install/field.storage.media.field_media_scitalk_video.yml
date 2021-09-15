@@ -1,12 +1,14 @@
+uuid: 09b8239e-ad6c-49e0-8a14-03c2562c5ed8
 langcode: en
 status: true
 dependencies:
-  module:
-    - media
-    - scitalk_media
   enforced:
     module:
-      - scitalk_media    
+      - scitalk_media
+  module:
+    - media
+_core:
+  default_config_hash: ZgAAg6326IO37AxuE7U-N-QHkRBU1SuLOE1tScs8EI8
 id: media.field_media_scitalk_video
 field_name: field_media_scitalk_video
 entity_type: media
