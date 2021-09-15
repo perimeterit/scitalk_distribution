@@ -1,11 +1,13 @@
+uuid: 452ff9f4-c62d-4aea-a45c-a7bed3d6d1d4
 langcode: en
 status: true
 dependencies:
   enforced:
     module:
       - scitalk_base
+_core:
+  default_config_hash: pByVVCs0nBGJ8LbpYFro4IascxuSfuBPXeLPq46hrfM
 name: 'Talk Keywords'
 vid: talk_keywords
 description: ''
-hierarchy: 0
 weight: 0

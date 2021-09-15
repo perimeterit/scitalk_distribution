@@ -1,7 +1,9 @@
+uuid: 5ad60501-ddfa-4b66-a555-6664a0972858
 langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.speaker_profile.feeds_item
     - field.field.node.speaker_profile.field_sp_display_name
     - field.field.node.speaker_profile.field_sp_external_id
     - field.field.node.speaker_profile.field_sp_first_name
@@ -22,7 +24,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: hSwg1i1eEomtqvS084OIa5bwpLaulO5dNvbRecP_YD0
+  default_config_hash: 3Mtr8LUwkUnMuqC9i_-MYUHEG59FxSAhOfTjqQm6cs8
 id: node.speaker_profile.default
 targetEntityType: node
 bundle: speaker_profile
@@ -77,6 +79,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  feeds_item: true
   field_sp_display_name: true
   field_sp_external_id: true
   field_sp_first_name: true

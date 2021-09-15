@@ -1,3 +1,4 @@
+uuid: 7accdf71-fa00-417a-81fd-af695d7af9b3
 langcode: en
 status: true
 dependencies:
@@ -15,6 +16,8 @@ dependencies:
     - link
     - path
     - text
+_core:
+  default_config_hash: OIb5em9MAzqZ80F24c8ktGJLi6cQww62I44gwf1CYSA
 id: group.source_repository.default
 targetEntityType: group
 bundle: source_repository
@@ -90,6 +93,13 @@ content:
     weight: 30
     region: content
     settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 120
+    region: content
     third_party_settings: {  }
 hidden:
   uid: true

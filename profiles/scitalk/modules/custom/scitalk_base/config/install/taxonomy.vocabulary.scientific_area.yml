@@ -1,11 +1,13 @@
+uuid: 9462cdb6-620a-4d0f-9554-6f14dc62d10c
 langcode: en
 status: true
 dependencies:
   enforced:
     module:
       - scitalk_base
+_core:
+  default_config_hash: 5H-zJn1Pc3p-I4X59mg9Ln1gR5G4wHqEBgm88dHLiSE
 name: 'Scientific Area'
 vid: scientific_area
 description: 'The scientific area of a Talk'
-hierarchy: 0
 weight: 0

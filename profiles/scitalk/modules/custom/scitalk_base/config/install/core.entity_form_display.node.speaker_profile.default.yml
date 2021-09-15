@@ -1,7 +1,9 @@
+uuid: f79b14f9-e748-4cd7-adc7-764030f818a5
 langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.speaker_profile.feeds_item
     - field.field.node.speaker_profile.field_sp_display_name
     - field.field.node.speaker_profile.field_sp_external_id
     - field.field.node.speaker_profile.field_sp_first_name
@@ -20,6 +22,8 @@ dependencies:
     - link
     - path
     - text
+_core:
+  default_config_hash: Kpf7wTOQ-WPxuFAN8VcnMmb-E34Y3vdSMcVpl0jvpDU
 id: node.speaker_profile.default
 targetEntityType: node
 bundle: speaker_profile
@@ -77,6 +81,7 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
@@ -169,6 +174,8 @@ content:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
+      match_limit: 10
     region: content
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  feeds_item: true

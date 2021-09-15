@@ -1,11 +1,13 @@
+uuid: 56eef9e2-7ea4-4406-a998-b470f95b2c51
 langcode: en
 status: true
 dependencies:
   enforced:
     module:
       - scitalk_base
+_core:
+  default_config_hash: PrPLafuUTJDyA15f4p62DktgO35Ev6Hqjjk8W31Hb3g
 name: 'Collection Type'
 vid: collection_type
 description: 'Type of Collection'
-hierarchy: 0
 weight: 0

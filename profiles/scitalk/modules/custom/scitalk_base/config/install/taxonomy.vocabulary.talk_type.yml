@@ -1,11 +1,13 @@
+uuid: a575f23b-5ffc-431c-8c67-c054db025f6a
 langcode: en
 status: true
 dependencies:
   enforced:
     module:
       - scitalk_base
+_core:
+  default_config_hash: 7zplOGpOKRdACLLlVxHC-d-IGIPKt_rk9XDbhQbM9mA
 name: 'Talk Type'
 vid: talk_type
 description: 'The type of Talk'
-hierarchy: 0
 weight: 0
