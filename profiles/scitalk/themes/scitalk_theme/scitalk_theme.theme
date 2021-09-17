@@ -240,3 +240,18 @@ function scitalk_theme_page_attachments_alter(array &$page) {
     $page['#attached']['drupalSettings']['scitalk']['adv_search_page'] = 'true';
   }
 }
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter().
+ *
+ * Add views template suggestions.
+ */
+function scitalk_theme_theme_suggestions_views_view_alter(array &$suggestions, array $variables) {
+  // Make all the views that use the card/table display use the same template
+  $view = $variables['view'];
+  $machine_name = $view->element['#name'];
+  $card_table_views = array('scitalk_latest_talks', 'scitalk_talks_in_collection', 'taxonomy_term');
+  if (in_array($machine_name, $card_table_views)) {
+    $suggestions[] = 'views_view__scitalk_card_table_view';
+  }
+}
