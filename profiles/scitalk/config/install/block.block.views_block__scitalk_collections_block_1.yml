@@ -1,4 +1,5 @@
-﻿langcode: en
+uuid: 71706f44-a61c-41e9-94aa-060dabb02754
+langcode: en
 status: true
 dependencies:
   config:
@@ -9,7 +10,7 @@ dependencies:
   theme:
     - scitalk_theme
 _core:
-  default_config_hash: IFBC8QOw7QXdyCmZUqhyr9dlUIqizvpLJIqs7U1XeII
+  default_config_hash: 6qXu6DFdLq8wM0SbtBmzv4t2PRz0A5kDcLeDbW7NKW8
 id: views_block__scitalk_collections_block_1
 theme: scitalk_theme
 region: content_bottom
@@ -20,7 +21,7 @@ settings:
   id: 'views_block:scitalk_collections-block_1'
   label: ''
   provider: views
-  label_display: '0'
+  label_display: visible
   views_label: ''
   items_per_page: none
 visibility:
