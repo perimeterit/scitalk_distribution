@@ -1,3 +1,4 @@
+uuid: 61bdae3a-6ed2-455c-9bd3-13da93ea3cab
 langcode: en
 status: true
 dependencies:
@@ -18,7 +19,7 @@ dependencies:
     - link
     - search_api
 _core:
-  default_config_hash: UzxYVBTCCgFHWNHOqRRoolLqJSlaZ2BGy6b2zFDTsgo
+  default_config_hash: 3cn0mOKfLZd_j2Zx-KkjRXkr1LGSv8gVnYV74XpZOaM
 id: scitalk_latest_talks
 label: 'Scitalk: Latest Talks (new)'
 module: views
@@ -1091,9 +1092,9 @@ display:
         - 'config:field.storage.node.field_talk_type'
         - 'config:field.storage.node.field_talk_video_url'
         - 'config:search_api.index.default_talks_index'
-  attachment_2:
+  attachment_1:
     display_plugin: attachment
-    id: attachment_2
+    id: attachment_1
     display_title: 'Attachment (table)'
     position: 3
     display_options:

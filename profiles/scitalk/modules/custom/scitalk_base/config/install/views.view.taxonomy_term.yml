@@ -691,6 +691,7 @@ display:
       defaults:
         style: false
         row: false
+        header: false
       row:
         type: fields
         options:
@@ -699,6 +700,11 @@ display:
           separator: ''
           hide_empty: false
       display_description: ''
+      displays:
+        page_1: page_1
+      attachment_position: after
+      inherit_exposed_filters: true
+      header: {  }
     cache_metadata:
       max-age: -1
       contexts:
