@@ -29,6 +29,10 @@ h1, h2, h3 {
   color: var(--color-secondary);
   text-decoration: underline;
 }
+
+td, th {
+  padding: 1em;
+}
 /*
  * Grid layout classes
 */

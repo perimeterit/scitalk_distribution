@@ -8,7 +8,9 @@
  */
 #}
 {% block content %}
-  {{ content.field_talk_thumbnail }}
+  {% if content.field_talk_thumbnail.0 %}
+    {{ content.field_talk_thumbnail }}
+  {% endif %}
   <div class="content">
     {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
     <div class="speaker-date">
