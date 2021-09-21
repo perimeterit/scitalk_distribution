@@ -9,6 +9,7 @@ global:
       css/components/citations.css: {}
       css/components/collections.css: {}
       css/components/modals.css: {}
+      css/components/nav.css: {}
       css/components/share-links.css: {}
       css/components/speakers.css: {}
       css/components/taxonomy.css: {}
