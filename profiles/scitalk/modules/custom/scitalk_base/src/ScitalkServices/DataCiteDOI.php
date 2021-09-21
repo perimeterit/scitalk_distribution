@@ -180,7 +180,7 @@ class DataCiteDOI {
         'doi' => $talk_id,
         'publisher' =>  $publisher,
         'titles' => [
-          'title' => $entity->get('title')->value ?? ''
+          ['title' => $entity->get('title')->value ?? '']
         ],
         'descriptions' => [
           'description' =>  $entity->get('field_talk_abstract')->value ?? ''
