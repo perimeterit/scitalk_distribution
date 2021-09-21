@@ -128,8 +128,8 @@
         "patches": {
                 "drupal/core": {
                         "fix aliased fields contraints validation issues when using JSON API Extras": "https://raw.githubusercontent.com/perimeterit/scitalk/f6ed0b64fe78903c40009be5e2712eeb5ad18067/patches/fix-aliased-fields-constraint-validations-3059720-9.patch",
-                        "fix for jsonapi": "https://www.drupal.org/files/issues/2019-12-03/2996114-99.patch",
-			"patch to support bundle computed field in Layout builder": "https://www.drupal.org/files/issues/2019-02-22/layoutbuilder-bundlecomputedfieldsfix-3034979-1-8.7x.patch"
+                        "fix for jsonapi": "https://www.drupal.org/files/issues/2021-09-17/2996114-201.patch",
+                        "patch to support bundle computed field in Layout builder": "https://www.drupal.org/files/issues/2019-02-22/layoutbuilder-bundlecomputedfieldsfix-3034979-1-8.7x.patch"
                 }
         }
     }
