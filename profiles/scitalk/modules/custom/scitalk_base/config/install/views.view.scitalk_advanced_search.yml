@@ -12,6 +12,8 @@ dependencies:
     - field.storage.node.field_talk_type
     - field.storage.node.field_talk_video_url
     - search_api.index.default_talks_index
+    - taxonomy.vocabulary.subjects
+    - taxonomy.vocabulary.talk_type
   module:
     - better_exposed_filters
     - datetime
@@ -19,7 +21,7 @@ dependencies:
     - link
     - search_api
 _core:
-  default_config_hash: 7zxQevKbx-odWMuht4JSvGZzEEJ4LplcodMUYZdx2vk
+  default_config_hash: aNPgVvCs7PLWV6HrTj35RnCU4-V9NRm6nWQDbtcBshw
 id: scitalk_advanced_search
 label: 'Scitalk: Advanced search'
 module: views
@@ -130,10 +132,10 @@ display:
           id: 1
           total_pages: null
           tags:
-            previous: ��
-            next: ��
-            first: '� First'
-            last: 'Last �'
+            previous: Previous
+            next: Next
+            first: First
+            last: Last
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -157,14 +159,16 @@ display:
           columns:
             field_talk_video_url: field_talk_video_url
             title: title
-            field_sp_display_name_1: field_sp_display_name_1
-            field_talk_speakers_text: field_sp_display_name_1
+            field_talk_speaker_profile: field_talk_speaker_profile
+            field_talk_speakers_text: field_talk_speakers_text
             field_talk_date: field_talk_date
+            field_talk_series: field_talk_series
             field_talk_collection: field_talk_collection
             nothing_1: nothing_1
             field_talk_type: field_talk_type
+            field_repo_institution: field_repo_institution
+            field_talk_source_repository: field_talk_source_repository
             title_1: title_1
-            title_2: title_2
           info:
             field_talk_video_url:
               align: ''
@@ -178,8 +182,8 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_sp_display_name_1:
-              sortable: false
+            field_talk_speaker_profile:
+              sortable: true
               default_sort_order: asc
               align: ''
               separator: ''
@@ -191,6 +195,11 @@ display:
               empty_column: false
               responsive: ''
             field_talk_date:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_talk_series:
               align: ''
               separator: ''
               empty_column: false
@@ -216,14 +225,19 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            title_1:
+            field_repo_institution:
+              sortable: true
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            title_2:
-              sortable: false
-              default_sort_order: asc
+            field_talk_source_repository:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            title_1:
               align: ''
               separator: ''
               empty_column: false
@@ -1373,23 +1387,26 @@ display:
           hierarchy: false
           error_message: true
           plugin_id: search_api_term
-        search_api_fulltext_1:
-          id: search_api_fulltext_1
+        field_talk_source:
+          id: field_talk_source
           table: search_api_index_default_talks_index
-          field: search_api_fulltext
+          field: field_talk_source
           relationship: none
           group_type: group
           admin_label: ''
-          operator: or
-          value: ''
+          operator: '='
+          value:
+            min: ''
+            max: ''
+            value: ''
           group: 1
           exposed: true
           expose:
-            operator_id: search_api_fulltext_1_op
+            operator_id: field_talk_source_op
             label: Source
             description: ''
             use_operator: false
-            operator: search_api_fulltext_1_op
+            operator: field_talk_source_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: field_talk_source
@@ -1403,6 +1420,8 @@ display:
               scitalk_oauth: '0'
               talk_editor: '0'
             placeholder: ''
+            min_placeholder: ''
+            max_placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -1415,11 +1434,7 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          parse_mode: terms
-          min_length: null
-          fields:
-            - title_2
-          plugin_id: search_api_fulltext
+          plugin_id: search_api_text
         status:
           id: status
           table: search_api_index_default_talks_index
@@ -2299,8 +2314,8 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: Speaker(s)
-          exclude: false
+          label: 'Speaker Profile � Content � Display Name (indexed field)'
+          exclude: true
           alter:
             alter_text: false
             text: ''
@@ -2361,6 +2376,77 @@ display:
             use_highlighting: false
             multi_type: separator
             multi_separator: ', '
+          plugin_id: search_api_field
+        field_talk_speakers_text:
+          id: field_talk_speakers_text
+          table: search_api_datasource_default_talks_index_entity_node
+          field: field_talk_speakers_text
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Speaker(s)
+          exclude: false
+          alter:
+            alter_text: true
+            text: '{{ field_sp_display_name_1 }}{{ field_talk_speakers_text__value }}'
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: '{{ field_sp_display_name_1 }}'
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          field_rendering: false
+          fallback_handler: search_api
+          fallback_options:
+            link_to_item: true
+            use_highlighting: false
+            multi_type: separator
+            multi_separator: ', '
+          entity_type: node
           plugin_id: search_api_field
         field_talk_date:
           id: field_talk_date
@@ -2829,6 +2915,7 @@ display:
         - 'config:field.storage.node.field_sp_display_name'
         - 'config:field.storage.node.field_talk_collection'
         - 'config:field.storage.node.field_talk_date'
+        - 'config:field.storage.node.field_talk_speakers_text'
         - 'config:field.storage.node.field_talk_type'
         - 'config:field.storage.node.field_talk_video_url'
         - 'config:search_api.index.default_talks_index'
