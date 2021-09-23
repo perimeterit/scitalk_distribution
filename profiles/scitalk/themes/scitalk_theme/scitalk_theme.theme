@@ -247,14 +247,15 @@ function scitalk_theme_page_attachments_alter(array &$page) {
  * Add views template suggestions.
  */
 function scitalk_theme_theme_suggestions_views_view_alter(array &$suggestions, array $variables) {
-  // Make all the views that use the card/table display use the same template
-  // * but not the attachments **
+  // Make the views that use the card/table display use the same template
   $view = $variables['view'];
-
-  $machine_name = $view->element['#name'];
-  $display = $view->element['#display_id'];
-  $card_table_views = array('scitalk_latest_talks', 'scitalk_talks_in_collection', 'taxonomy_term');
-  if ((in_array($machine_name, $card_table_views)) && ($display != 'attachment_1')) {
-    $suggestions[] = 'views_view__scitalk_card_table_view';
+  if (isset($view->element['#name'])) {
+    $machine_name = $view->element['#name'];
+    $display = $view->element['#display_id'];
+    // Need to figure out exactly which views get this display.
+    $card_table_views = array('scitalk_latest_talks', 'scitalk_talks_in_collection', 'taxonomy_term');
+    if ((in_array($machine_name, $card_table_views)) && ($display == 'card_view')) {
+      $suggestions[] = 'views_view__scitalk_card_table_view';
+    }
   }
 }
