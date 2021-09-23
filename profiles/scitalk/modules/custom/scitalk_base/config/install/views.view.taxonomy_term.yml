@@ -1,4 +1,4 @@
-uuid: ecff45b4-6891-4f32-86bf-6c5464da53b1
+uuid: 9088f288-1a15-41c6-a3a3-ec495a6bc54a
 langcode: en
 status: true
 dependencies:
@@ -704,7 +704,7 @@ display:
           hide_empty: false
       display_description: ''
       displays:
-        page_1: page_1
+        card_view: card_view
       attachment_position: after
       inherit_exposed_filters: true
       header: {  }
