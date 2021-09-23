@@ -1,4 +1,4 @@
-uuid: 9088f288-1a15-41c6-a3a3-ec495a6bc54a
+uuid: ecff45b4-6891-4f32-86bf-6c5464da53b1
 langcode: en
 status: true
 dependencies:
@@ -743,6 +743,33 @@ display:
         - 'config:field.storage.node.field_talk_speaker_profile'
         - 'config:field.storage.node.field_talk_speakers_text'
         - 'config:field.storage.node.field_talk_type'
+  card_view:
+    id: card_view
+    display_title: 'Card view (page)'
+    display_plugin: page
+    position: 1
+    display_options:
+      query:
+        type: views_query
+        options: {  }
+      path: taxonomy/term/%
+      display_extenders:
+        ajax_history: {  }
+      display_description: ''
+    cache_metadata:
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      max-age: -1
+      tags:
+        - 'config:field.storage.node.field_talk_date'
+        - 'config:field.storage.node.field_talk_speaker_profile'
+        - 'config:field.storage.node.field_talk_speakers_text'
+        - 'config:field.storage.node.field_talk_type'
   feed_1:
     id: feed_1
     display_title: Feed
@@ -778,33 +805,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - 'user.node_grants:view'
-        - user.permissions
-      max-age: -1
-      tags:
-        - 'config:field.storage.node.field_talk_date'
-        - 'config:field.storage.node.field_talk_speaker_profile'
-        - 'config:field.storage.node.field_talk_speakers_text'
-        - 'config:field.storage.node.field_talk_type'
-  page_1:
-    id: page_1
-    display_title: 'Card view (page)'
-    display_plugin: page
-    position: 1
-    display_options:
-      query:
-        type: views_query
-        options: {  }
-      path: taxonomy/term/%
-      display_extenders:
-        ajax_history: {  }
-      display_description: ''
-    cache_metadata:
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - url
-        - url.query_args
         - 'user.node_grants:view'
         - user.permissions
       max-age: -1
