@@ -1,10 +1,8 @@
-uuid: 0bf79889-84b5-42a9-b0c1-1003ea9411fe
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.page_header
-    - field.field.node.speaker_profile.feeds_item
     - field.field.node.speaker_profile.field_sp_display_name
     - field.field.node.speaker_profile.field_sp_external_id
     - field.field.node.speaker_profile.field_sp_first_name
@@ -42,7 +40,6 @@ content:
     type: string
     region: content
 hidden:
-  feeds_item: true
   field_sp_display_name: true
   field_sp_external_id: true
   field_sp_first_name: true
