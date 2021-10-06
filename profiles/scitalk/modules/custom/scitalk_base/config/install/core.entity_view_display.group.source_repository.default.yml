@@ -33,10 +33,17 @@ content:
     type: string
     weight: 4
     region: content
-    label: above
+    label: inline
     settings:
       link_to_entity: false
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
   field_source_repo_full_name:
     weight: 3
     label: inline
