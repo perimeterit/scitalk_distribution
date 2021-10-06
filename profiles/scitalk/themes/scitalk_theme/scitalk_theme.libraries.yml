@@ -1,5 +1,7 @@
 global:
   css:
+    base:
+      css/base.css: {}
     layout:
       css/layout.css: {}
     component:
@@ -11,9 +13,11 @@ global:
       css/components/modals.css: {}
       css/components/nav.css: {}
       css/components/share-links.css: {}
+      css/components/source-repos.css: {}
       css/components/speakers.css: {}
       css/components/taxonomy.css: {}
       css/components/table.css: {}
+      css/components/tabs.css: {}
       css/components/talks.css: {}
       js/jquery-responsive-tables/css/responsive-tables.min.css: {}
   js:

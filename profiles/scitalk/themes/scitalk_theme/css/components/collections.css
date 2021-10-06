@@ -77,3 +77,26 @@
 .node.collection.full .view-scitalk-talks-in-collection {
   margin-top: 2em;
 }
+
+/**
+ * Other view modes
+*/
+.node.collection:not(.full) h2 a,
+.node.collection:not(.full) h3 a {
+  text-decoration: none;
+}
+.node.collection:not(.full) h2 a:hover,
+.node.collection:not(.full) h2 a:focus,
+.node.collection:not(.full) h3 a:hover,
+.node.collection:not(.full) h3 a:focus {
+  text-decoration: underline;
+}
+.node.collection.horizontal-card {
+  border-bottom: 0.1rem solid #e1e1e1;
+  line-height: 1.7em;
+  margin: 1.5em 0;
+  padding-bottom: 1.5em;
+}
+.node.collection.horizontal-card h3 {
+  margin-bottom: 0;
+}
