@@ -33,6 +33,9 @@
 }
 /* Full view mode */
 
+.visit-repo-button {
+  margin-top: 1em;
+}
 .visit-repo-button strong:after {
   content: '';
   display: inline-block;

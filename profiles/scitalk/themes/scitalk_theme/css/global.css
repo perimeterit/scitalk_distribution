@@ -53,16 +53,16 @@
 .grid-4col,
 .grid-3col {
   grid-template-columns: 1fr 1fr;
-  grid-gap: var(--gutter-standard);
+  grid-gap: var(--gutter--standard);
 }
 @media all and (min-width: 960px) {
   .grid-4col {
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-gap: var(--gutter-big);
+    grid-gap: var(--gutter--big);
   }
   .grid-3col {
     grid-template-columns: 1fr 1fr 1fr;
-    grid-gap: var(--gutter-big);
+    grid-gap: var(--gutter--big);
   }
 }
 

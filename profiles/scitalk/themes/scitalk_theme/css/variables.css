@@ -3,7 +3,8 @@
 */
 :root {
   --color--primary: #0f75bc;
-  --gutter--standard: 2em;
+  --gutter--standard: calc(1em + .2vw);
+  --gutter--big: calc(1.2em + .2vw);
   --max-width: 1200px;
 }
 
