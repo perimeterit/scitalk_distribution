@@ -1,3 +1,4 @@
+uuid: 71557c3d-05e9-4761-9b0f-207bc19a612e
 langcode: en
 status: true
 dependencies:
@@ -6,6 +7,8 @@ dependencies:
     - group.type.source_repository
   module:
     - link
+_core:
+  default_config_hash: kmT2FTOl0Ltc4gbSgvcoLBaT6ObxjW-7xHWlVbcbsU0
 id: group.source_repository.field_source_repo_url
 field_name: field_source_repo_url
 entity_type: group
@@ -18,5 +21,5 @@ default_value: {  }
 default_value_callback: ''
 settings:
   link_type: 17
-  title: 1
+  title: 0
 field_type: link
