@@ -1,11 +1,33 @@
 /**
  * Component CSS for Source Repositories
 */
-
 /* Teaser view mode (used on repositories view ) */
-.group--source-repository.group--card {
-  display: grid;
-  grid-template-rows: 10em 1fr;
+@media all and (min-width: 768px) {
+  .group--source-repository.group--card {
+    display: grid;
+    grid-template-rows: 10em 1fr;
+  }
+  .group--source-repository.group--card .field--name-field-source-repo-logo {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    overflow: hidden;
+  }
+}
+@media all and (max-width: 500px) {
+  .view-source-repositories .grid-4col {
+    grid-template-columns: 1fr;
+  }
+  .group--source-repository.group--card {
+    max-width: 350px;
+    margin: 0 auto 3em;
+  }
+  .group--source-repository.group--card .field--name-field-source-repo-logo {
+    margin: 0 auto;
+  }
+}
+.group--source-repository.group--card .group-content {
+  margin-top: 1em;
 }
 .group--source-repository.group--card a {
   display: grid;
@@ -14,14 +36,17 @@
 
   font-size: 2em;
   font-weight: bold;
+  line-height: 1.1;
+  text-align: center;
   text-decoration: none;
 }
 .group--source-repository.group--card .field--name-field-source-repo-logo img {
   display: block;
   max-height: 100%;
   width: auto;
+  margin: 0 auto;
+  max-width: 200px;
 }
-
 .no-talks-collections {
   display: flex;
   line-height: 1;
@@ -55,7 +80,7 @@
  }
 /* Full page layout */
 @media all and (max-width: 500px) {
-   .group--source-repository.has-logo .field--name-field-source-repo-logo img {
+   .group--source-repository.group--full.has-logo .field--name-field-source-repo-logo img {
      display: block;
      margin: 0 auto;
      max-width: 80%;
@@ -63,18 +88,18 @@
    }
 }
 @media all and (min-width: 501px) {
-  .group--source-repository.has-logo .content-wrapper {
+  .group--source-repository.group--full.has-logo .content-wrapper {
     display: grid;
     grid-template-columns: 20em auto;
+    grid-gap: var(--gutter--big);
   }
-  .group--source-repository .field--name-field-source-repo-logo {
+  .group--source-repository.group--full .field--name-field-source-repo-logo {
     flex: 1 0 auto;
-    margin-right: 2em;
     max-width: 20em;
   }
 }
 @media all and (min-width: 501px) and (max-width: 960px) {
-  .group--source-repository.has-logo .content-wrapper {
+  .group--source-repository.group--full.has-logo .content-wrapper {
     grid-template-columns: 30% auto;
   }
 }

@@ -3,6 +3,7 @@ global:
     base:
       css/base.css: {}
     layout:
+      css/variables.css: {}
       css/layout.css: {}
     component:
       css/global.css: {}
