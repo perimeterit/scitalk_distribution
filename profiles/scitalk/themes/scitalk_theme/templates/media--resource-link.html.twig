@@ -48,7 +48,7 @@
         <p><strong><a href="http://doi.org/{{ content.field_media_scitalk_doi['#items'].0.value }} " target="_blank">{{ content.field_doi_title }}</a></strong></p>
         {{ content|without('field_media_scitalk_doi','field_doi_title') }}
       {% elseif bundle == 'arxiv' %}
-        <p class="small">{{ 'Arxiv: ' }} {{ content.field_media_scitalk_arxiv }}</p>
+        <p class="small">{{ 'arXiv: ' }} {{ content.field_media_scitalk_arxiv }}</p>
         <p><strong><a href="http://arxiv.org/abs/{{ content.field_media_scitalk_arxiv['#items'].0.value }}" target="_blank">{{ content.field_arxiv_title }}</a></strong></p>
         {{ content|without('field_media_scitalk_arxiv', 'name', 'field_arxiv_title') }}
       {% elseif bundle == 'image' %}

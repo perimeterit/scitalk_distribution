@@ -244,7 +244,36 @@ class DataCiteDOI {
         ]
       ];
     }
-        
+
+    //create "Related Identifiers" from DOI and arXiv attachments
+    $talk_attachments = $entity->get('field_talk_attachments');
+    if (!empty($talk_attachments)) {
+      $related = [];
+      foreach($talk_attachments->referencedEntities() as $attach) {
+        $attachment_id = $attach->get('name')->value ?? '';
+        $relationship_type = 'References'; //'IsReferencedBy'
+
+        switch ($attach->bundle()) {
+          case 'doi';
+            $related[] = [
+              'relatedIdentifierType' => 'DOI',
+              'relationType' => $relationship_type,
+              'relatedIdentifier' => $attachment_id
+            ];
+            break;
+          case 'arxiv':
+            $related[] = [
+              'relatedIdentifierType' => 'arXiv',
+              'relationType' => $relationship_type,
+              'relatedIdentifier' => 'arXiv:' . $attachment_id
+            ];
+            break;
+        }
+      }
+
+      $data['attributes']['relatedIdentifiers'] = $related;
+    }
+
     return ['data' => $data];
   }
 
