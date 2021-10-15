@@ -78,6 +78,7 @@ install:
   - search_api_solr
   - simple_oauth
   - recaptcha
+  - recaptcha_v3
   - id_link_formatter
   - layout_builder
   - date_all_day
