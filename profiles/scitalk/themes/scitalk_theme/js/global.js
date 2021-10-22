@@ -49,7 +49,7 @@
     }
   };
   /**
-   * Related talks
+   * Search display toggle
   */
   Drupal.behaviors.toggleSearchDisplay = {
     attach: function (context, settings) {
