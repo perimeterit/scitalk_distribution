@@ -55,13 +55,13 @@ display:
         options:
           items_per_page: 12
           offset: 0
-          id: 0
+          id: 1
           total_pages: null
           tags:
-            previous: '‹ Previous'
-            next: 'Next ›'
-            first: '« First'
-            last: 'Last »'
+            previous: Previous
+            next: Next
+            first: First
+            last: Last
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -257,6 +257,7 @@ display:
           plugin_id: numeric
       display_extenders:
         ajax_history: {  }
+      use_ajax: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -275,7 +276,8 @@ display:
     position: 2
     display_options:
       display_extenders:
-        ajax_history: {  }
+        ajax_history:
+          enable_history: true
       display_description: ''
       filters:
         status:

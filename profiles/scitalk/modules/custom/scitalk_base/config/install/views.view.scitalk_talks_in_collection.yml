@@ -433,6 +433,8 @@ display:
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
+      use_ajax: true
+      css_class: advanced-search-form
     cache_metadata:
       max-age: -1
       contexts:
@@ -453,7 +455,8 @@ display:
     position: 2
     display_options:
       display_extenders:
-        ajax_history: {  }
+        ajax_history:
+          enable_history: true
       display_description: ''
       relationships: {  }
       defaults:
@@ -464,6 +467,7 @@ display:
         style: false
         row: false
         fields: false
+        css_class: false
       arguments:
         field_talk_collection_target_id:
           id: field_talk_collection_target_id
@@ -502,7 +506,7 @@ display:
       pager:
         type: full
         options:
-          items_per_page: 10
+          items_per_page: 12
           offset: 0
           id: 0
           total_pages: null
@@ -910,14 +914,14 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        title_1:
-          id: title_1
-          table: node_field_data
-          field: title
+        view_node:
+          id: view_node
+          table: node
+          field: view_node
           relationship: none
           group_type: group
           admin_label: ''
-          label: Info
+          label: 'Link to Content'
           exclude: false
           alter:
             alter_text: true
@@ -958,25 +962,14 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: true
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
+          text: view
+          output_url_as_text: false
+          absolute: false
           entity_type: node
-          entity_field: title
-          plugin_id: field
+          plugin_id: entity_link
       inherit_pager: true
       render_pager: true
+      css_class: 'advanced-search-form table-display'
     cache_metadata:
       max-age: -1
       contexts:
@@ -998,7 +991,8 @@ display:
     position: 1
     display_options:
       display_extenders:
-        ajax_history: {  }
+        ajax_history:
+          enable_history: true
       display_description: ''
       relationships: {  }
       defaults:
@@ -1045,7 +1039,7 @@ display:
       pager:
         type: full
         options:
-          items_per_page: 10
+          items_per_page: 12
           offset: 0
           id: 0
           total_pages: null
