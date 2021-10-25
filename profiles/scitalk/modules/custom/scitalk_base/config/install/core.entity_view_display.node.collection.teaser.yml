@@ -1,3 +1,4 @@
+uuid: 2ce712c8-e851-4741-9dbd-70b274c7d592
 langcode: en
 status: true
 dependencies:
@@ -17,10 +18,11 @@ dependencies:
     - node.type.collection
   module:
     - datetime_range
+    - fences
     - text
     - user
 _core:
-  default_config_hash: LwaRdPNBtmfkfEny1Pzk9lcIC06VHHmvH__ITBX8pIE
+  default_config_hash: 4vDQm0Djn9FheK0nXECHXIYPmVTX87_CpGWd2TsuKD0
 id: node.collection.teaser
 targetEntityType: node
 bundle: collection
@@ -28,19 +30,26 @@ mode: teaser
 content:
   field_collection_date:
     type: daterange_default
-    weight: 2
+    weight: 1
     region: content
     label: inline
     settings:
-      separator: '-'
-      format_type: medium
       timezone_override: ''
-    third_party_settings: {  }
+      format_type: medium
+      separator: '-'
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
   field_collection_description:
     type: text_default
-    weight: 1
+    weight: 2
     region: content
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
   field_collection_number:
@@ -50,7 +59,14 @@ content:
     label: inline
     settings:
       link_to_entity: false
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
   links:
     weight: 4
     region: content
@@ -64,7 +80,14 @@ content:
     settings:
       thousand_separator: ''
       prefix_suffix: true
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
 hidden:
   feeds_item: true
   field_collection_event_url: true
