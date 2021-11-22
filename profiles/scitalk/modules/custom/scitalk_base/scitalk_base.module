@@ -1,4 +1,5 @@
 <?php
+use Drupal\Core\Access\AccessResult;
 use \Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -274,6 +275,38 @@ function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $q
   }
 }
 
+/**
+ * Implements hook_entity_access().
+ */
+function scitalk_base_entity_access(\Drupal\Core\Entity\EntityInterface $entity, $operation, \Drupal\Core\Session\AccountInterface $account) {
+  $entity_type = $entity->getEntityTypeId();
+  $entity_bundle = $entity->bundle();
+  if($entity_type == 'feeds_feed') {
+    //check if our feeds entity has a group field on it and if so, check if this user is a part of that group
+    $entityFieldManager = \Drupal::service('entity_field.manager');
+    $fields = $entityFieldManager->getFieldDefinitions($entity_type, $entity_bundle);
+    if (isset($fields['field_feeds_group'])) {
+
+      //this feed bundle does indeed have a feeds group field.
+      //let's check to see if it is populated, has a value and this user is a member of it.
+
+      if(isset($entity->field_feeds_group) && $entity->field_feeds_group->target_id != '') {
+        //group is set, check if this group has this user as a member
+        $grps = \Drupal::service('group.membership_loader')->loadByUser(\Drupal::currentUser());
+        foreach ($grps as $grp) {
+          $this_group = $grp->getGroup();
+          if($this_group->id() == $entity->field_feeds_group->target_id) {
+            return AccessResult::allowed();
+          }
+        }
+        return AccessResult::forbidden();
+      }
+    }
+  }
+  
+  // This is not a feed or this feed does not have a group field, we don't set access.
+  return AccessResult::neutral();
+}
 
 /**
  * Implements views_pre_build().
