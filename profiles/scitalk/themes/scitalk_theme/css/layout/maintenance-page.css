@@ -1,0 +1,19 @@
+/**
+ * Maintenance page
+ */
+
+ .maintenance-page {
+  display: flex;
+  height: calc(100vh - 180px);
+  padding: 30px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+ .maintenance-page .logo {
+  margin-bottom: 20px;
+  max-width: 80%;
+}
+
+/*# sourceMappingURL=maintenance-page.css.map */

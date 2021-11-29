@@ -1,0 +1,105 @@
+/**
+ * Theming for Tables
+*/
+
+
+/* Base table theming */
+
+
+table {
+  border: none;
+  border-collapse: collapse;
+  font-size: .9rem
+}
+
+
+table caption {
+    background: #eee;
+    font-size: .9em;
+    font-style: italic;
+
+    margin-bottom: .2em;
+    opacity: .9;
+    padding: 0.7em 1.5em;
+  }
+
+
+tr {
+  border-bottom: 0.1rem solid var(--color-lt-grey);
+}
+
+
+th {
+  font-weight: 500;
+  text-align: left;
+}
+
+
+td, th {
+  border: none;
+  padding: 1rem;
+  vertical-align: top;
+}
+
+
+tr.even {
+  background: #ddd;
+}
+
+
+tr.odd {
+  background: #eee;
+}
+
+
+/* Table body */
+
+
+table a {
+  text-decoration: none
+}
+
+
+table a:hover, table a:focus {
+    text-decoration: underline;
+  }
+
+
+/* In advanced view */
+
+
+.advanced-view-display table tr {
+    background: white;
+    border-width: .6rem;
+  }
+
+
+/*
+ * Mobile/responsive changes
+*/
+
+
+@media all and (max-width: 800px) {
+    .advanced-view-display table.jrt tr {
+      border: none;
+      margin: .5em 0 1.5em;
+    }
+    .advanced-view-display table.jrt td {
+      border: none;
+      display: block;
+      padding: 0
+    }
+      .advanced-view-display table.jrt td > * {
+        display: inline-block;
+        padding: .2em 0;
+      }
+      .advanced-view-display table.jrt td:before {
+        display: inline-block;
+        font-weight: 500;
+        margin-top: 0.2em;
+        vertical-align: top;
+        width: auto;
+      }
+}
+
+/*# sourceMappingURL=tables.css.map */

@@ -1,0 +1,93 @@
+
+/* needed for old browsers */
+dialog {
+  display: block;
+  border: 0;
+}
+
+/* overlay covers everything */
+.modal-overlay,
+.image-modal-overlay {
+  background: rgba(0,0,0,0.7);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 666;
+}
+/* modal */
+.modal,
+.image-modal {
+  max-width: 90%;
+  z-index: 667;
+
+  background: #fff;
+  box-shadow: 2px 2px 6px rgba(42,42,42,0.2);
+  padding: var(--gutter--big);
+}
+.modal {
+  position: fixed;
+  right: auto;
+  left: 3vw;
+  top: 15%;
+  max-width: calc(100% - 6vw);
+}
+.image-modal {
+  position: absolute;
+  max-width: 90%;
+  left: 5%;
+  top: 5%;
+}
+@media all and (min-width: 960px) {
+  .modal,
+  .image-modal {
+    padding: calc(1.5 * var(--gutter--big));
+  }
+  .modal {
+    left: 25%;
+    max-width: 60%;
+  }
+}
+button.js-modal-close {
+  float: right;
+  overflow: hidden;
+  position: relative;
+
+  height: 2em;
+  width: 2em;
+  margin: -1.2em -1.3em 0px 0;
+
+  background: transparent;
+  color: var(--color-default-text);
+  outline: none;
+}
+.js-modal-close span {
+  color: transparent;
+}
+.js-modal-close:after,
+.js-modal-close:before {
+  background: var(--color-default-text);
+  content: '';
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 50%;
+
+  height: 2px;
+  width: 1.8em;
+
+  transform: rotate(45deg);
+}
+.js-modal-close:after {
+  transform: rotate(-45deg);
+}
+h1.modal-title,
+h1.image-modal-title {
+  border-bottom: 1px solid var(--color-lt-grey);
+  font-size: 1.3em;
+  padding-right: 1em;
+  padding-bottom: 1em;
+  margin-top: 0;
+  margin-bottom: 1em;
+}

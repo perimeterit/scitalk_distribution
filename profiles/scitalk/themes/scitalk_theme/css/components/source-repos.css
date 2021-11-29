@@ -57,7 +57,6 @@
   padding-left: .5em;
 }
 /* Full view mode */
-
 .visit-repo-button {
   margin-top: 1em;
 }
@@ -72,10 +71,8 @@
   width: .4em;
   vertical-align: text-top;
 }
-
 /* Full display mode */
-
- .group--source-repository.group--full .content-wrapper {
+.group--source-repository.group--full .content-wrapper {
    margin-bottom: 4em;
  }
 /* Full page layout */
@@ -103,3 +100,5 @@
     grid-template-columns: 30% auto;
   }
 }
+
+/*# sourceMappingURL=source-repos.css.map */

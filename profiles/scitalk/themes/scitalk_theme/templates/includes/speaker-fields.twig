@@ -1,0 +1,39 @@
+{# Speaker fields - renders both the entity reference field
+  (field_talk_speaker_profile) and the plain text field
+  (field_talk_speakers_text) in one list
+#}
+{# Merge the two fields first #}
+{% if content.field_talk_speakers_text.0 and content.field_talk_speaker_profile.0 %}
+  {% set speakers = content.field_talk_speaker_profile['#items']|merge(content.field_talk_speakers_text['#items']) %}
+{% elseif content.field_talk_speaker_profile.0 %}
+  {% set speakers = content.field_talk_speaker_profile['#items'] %}
+{% elseif content.field_talk_speakers_text.0 %}
+  {% set speakers = content.field_talk_speakers_text.getvalue %}
+{% endif %}
+
+{% if (speakers|length == 1) %}
+  <div class="speakers">
+{% else %}
+  <ul class="display-list speaker-list">
+{% endif %}
+
+{% for speaker in speakers %}
+  {% if (speakers|length > 1) %}
+  <li>
+  {% endif %}
+    <svg class="speaker-marker"><use href="#speaker-marker"></svg>
+    {% if speaker.value.target_id %}
+      {{ drupal_entity('node', speaker.value.target_id, 'speaker_name_institution') }}
+    {% else %}
+      {{ speaker.value }}
+    {% endif %}
+  {% if (speakers|length > 1) %}
+  </li>
+  {% endif %}
+{% endfor %}
+
+{% if (speakers|length == 1) %}
+  </div>
+{% else %}
+  </ul>
+{% endif %}

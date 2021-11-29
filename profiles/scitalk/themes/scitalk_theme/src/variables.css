@@ -1,0 +1,41 @@
+/**
+ * To customize the Scitalk theme, copy thise file to a subtheme and customize as needed
+ */
+ /* Primary font family */
+ @import url('https://fonts.googleapis.com/css?family=Ubuntu:300, 400,500&display=swap');
+ /**
+ * Colour variables
+* Always make sure colours pass colour contrast requirements for accessibility
+* Check colour contrast at:
+* https://snook.ca/technical/colour_contrast/colour.html#fg=FFFFFF,bg=F99D31
+*/
+ :root {
+  --color-default-text: #333;
+  --color-primary: #3196AF;
+  --color-primary--foreground: #fff;
+  --color-secondary: #4759CB;
+  --color-secondary--foreground: #fff;
+  --color-lt-grey: #eee;
+  --color-med-grey: #747474;
+  --color-dk-grey: #333;
+ }
+
+:root {
+  --font-family-primary: 'Ubuntu', Helvetica, sans-serif;
+}
+
+/* Layout Variables */
+ :root {
+  --gutter-standard: calc(1em + .2vw);
+  --gutter-big: calc(1.2em + .2vw);
+  --max-width: 1200px;
+  --responsive-padding: 0;
+  --vertical-padding: 2em;
+}
+
+@media all and (max-width: 1300px) {
+  :root {
+    --responsive-padding: calc(1em + .2vw);
+    --vertical-padding: calc(1em + .2vw);
+  }
+}

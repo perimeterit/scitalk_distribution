@@ -1,0 +1,18 @@
+
+/**
+ * Layout utility classes
+ */
+
+/**
+ Variables
+*/
+
+.fixwidth {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: var(--responsive-padding);
+  padding-right: var(--responsive-padding);
+  width: 100%;
+}
+
+/*# sourceMappingURL=layout-utilities.css.map */

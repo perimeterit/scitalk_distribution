@@ -39,7 +39,6 @@ function scitalk_theme_preprocess_region(&$variables) {
  * Alters variables for page template.
  */
 function scitalk_theme_preprocess_page(&$variables) {
-
   // Get the page header view mode for nodes and taxonomy terms where needed.
   // Get the route to find out what type of page this is
   $route = \Drupal::routeMatch();
@@ -173,13 +172,6 @@ function scitalk_theme_preprocess_views_view(&$variables) {
     }
     $variables['search_result_count'] = $view->total_rows;
   }
-
-
-  $display = $view->getDisplay()->display['id'];
-  $card_table_views = array('scitalk_latest_talks', 'scitalk_talks_in_collection', 'taxonomy_term');
-  if ((in_array($view->id(), $card_table_views)) && ($display == 'card_view')) {
-    $variables['row_count'] = $view->total_rows;
-  }
 }
 
 /*
@@ -190,7 +182,6 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
   // Alter search form to hide form label in basic form
   if (($form['#id'] == 'views-exposed-form-scitalk-advanced-search-basic-search'))  {
     // Solr search.
-
     $form['keys']['#title_display'] = 'invisible';
     $form['keys']['#attributes']['placeholder'] = t('Search');
     $form['keys']['#size'] = 20;
@@ -199,9 +190,17 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     $form['search_api_fulltext']['#title_display'] = 'invisible';
     $form['search_api_fulltext']['#attributes']['placeholder'] = t('Search');
     $form['search_api_fulltext']['#size'] = 20;
-
   }
 
+  // For talks view, make labels visually hidden
+  if ($form['#id'] == 'views-exposed-form-scitalk-latest-talks-card-view') {
+      $form['field_talk_type']['#title_display'] = 'invisible';
+      $form['field_scientific_area']['#title_display'] = 'invisible';
+      $form['sort_bef_combine']['#title_display'] = 'invisible';
+  }
+  if ($form['#id'] == 'views-exposed-form-scitalk-latest-talks-extra-filters') {
+    $form['field_scientific_area']['#title_display'] = 'invisible';
+  }
   //luis: for advanced search section
   if ($form['#id'] == 'views-exposed-form-scitalk-advanced-search-advanced-search')  {
     $form['keys']['#title_display'] = 'invisible';

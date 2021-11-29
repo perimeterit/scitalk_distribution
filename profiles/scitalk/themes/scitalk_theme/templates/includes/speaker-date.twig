@@ -1,7 +1,6 @@
 {% set speaker_date_attributes = create_attribute() %}
 {% set num_speakers = content.field_talk_speaker_profile['#items']|length %}
 
-
 <div{{ speaker_date_attributes.addClass(speaker_date_classes) }}>
   {{ content.field_talk_speaker_profile }}
   {{ content.field_talk_date }}

@@ -1,6 +1,46 @@
 /**
  * Theming for any taxonomy terms
 */
+/*
+ * Mixins - Classes created in utilities.css
+*/
+/*
+ * to use:
+ * @mixin caret 2px, 1em, var(--color-black)
+*/
+/*
+ * As entity reference, and exposed form BEF links
+ */
+.form-select.bef-links ul {
+   list-style: none;
+   margin: 0;
+   padding: 0;
+   font-size: .8rem
+ }
+.form-select.bef-links ul li {
+     display: inline-block;
+     margin: 0.5rem;
+   }
+.field--type-entity-reference a, .form-select.bef-links a {
+    background: var(--color-lt-grey);
+    color: var(--color-default-text);
+    display: inline-block;
+    line-height: 1.6rem;
+    padding: 0rem 0.7rem;
+    text-decoration: none
+  }
+.field--type-entity-reference a.bef-link--selected, .form-select.bef-links a.bef-link--selected {
+      background: var(--color-primary);
+      color: var(--color-primary--foreground)
+    }
+.field--type-entity-reference a:hover, .field--type-entity-reference a:focus, .form-select.bef-links a:hover, .form-select.bef-links a:focus{
+      background: var(--color-secondary);
+      color: var(--color-secondary--foreground);
+      text-decoration: none;
+    }
+/* Full term display */
 .taxonomy-term.full {
   margin-bottom: var(--vertical-padding);
 }
+
+/*# sourceMappingURL=taxonomy.css.map */

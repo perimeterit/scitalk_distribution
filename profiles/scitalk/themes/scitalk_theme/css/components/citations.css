@@ -14,7 +14,6 @@
 
   margin-right: .5em;
 }
-
 /*
  * Tabs
 */
@@ -25,7 +24,6 @@
   display: block;
   border: none;
 }
-
 /* Tab labels */
 .citations-tab-labels {
   display: flex;
@@ -59,7 +57,6 @@
   bottom: -3.3em;
   margin-top: -2.9em;
 }
-
 /* Tab content */
 .citation-item[aria-hidden="true"] {
   display: none;
@@ -76,3 +73,5 @@
 .citation-item pre {
   margin-left: -5em;
 }
+
+/*# sourceMappingURL=citations.css.map */

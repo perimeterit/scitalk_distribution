@@ -11,24 +11,35 @@
  */
 #}
 <div{{ attributes.addClass(classes) }}>
+
   {{ title_prefix }}
   {{ title }}
   {{ title_suffix }}
 
+  {# Render the extra exposed filters #}
+  {{ drupal_block('views_exposed_filter_block:' ~ id ~ '-extra_filters')}}
+
   {{ header|without('result') }}
-  {% if row_count > 0 %}
-    <div class="advanced-search-header">
-      <div class="search-summary">
-          {{ header.result }}
+
+  {% set top_pager = pager %}
+  {% if rows[0]['#rows']|length > 0 %}
+    <div class="advanced-view-header">
+      <div class="view-summary">
+        {{ header.result }}
       </div>
-      <div class="search-exposed-sort">
+      <div class="views-tiny-pager">
+        {# Remove as much as we can from the pager at this point #}
+        {% set top_pager = top_pager|merge({'#quantity': 0}) %}
+        {{ top_pager }}
+      </div>
+      <div class="view-exposed-filters">
         {{ exposed }}
       </div>
         {% include '@scitalk_theme/views/view-toggle.twig' %}
     </div>
   {% endif %}
 
-  <div data-display="results--cards" class="search-display">
+  <div data-display="results--cards" class="view-display">
     {% if rows -%}
       {{ rows }}
     {% elseif empty -%}
@@ -37,7 +48,10 @@
     {{ pager }}
   </div>
 
-  <div data-display="results--table" class="search-display hidden" aria-hidden="hidden">
+  <div data-display="results--teasers" class="view-display hidden" aria-hidden="hidden">
+    {{ attachment_before }}
+  </div>
+  <div data-display="results--table" class="view-display hidden" aria-hidden="hidden">
     {{ attachment_after }}
   </div>
   {{ more }}

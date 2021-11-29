@@ -1,0 +1,55 @@
+{#
+/**
+ * @file
+ * Theme override to display a menu.
+ * Adds classes to indicate child levels
+ *
+ * Documentation here: https://api.drupal.org/api/drupal/core!modules!system!templates!menu.html.twig/8.2.x
+#}
+{% import _self as menus %}
+
+{#
+  We call a macro which calls itself to render the full tree.
+  @see http://twig.sensiolabs.org/doc/tags/macro.html
+#}
+{{ menus.menu_links(items, attributes, 0) }}
+
+{% macro menu_links(items, attributes, menu_level) %}
+  {% import _self as menus %}
+  {% if items %}
+    {% if menu_level == 0 %}
+      <ul{{ attributes.addClass('menu') }}>
+    {% else %}
+      <ul class="menu">
+    {% endif %}
+    {% for item in items %}
+      {%
+        set classes = [
+          item.is_expanded ? 'expanded',
+          item.in_active_trail ? 'active-trail',
+          item.title|clean_class
+        ]
+      %}
+      <li{{ item.attributes.addClass(classes) }}>
+        {{ link(item.title, item.url) }}
+        {% if item.is_expanded %}
+          <a href="#" class="menu-trigger">
+            <svg viewBox="0 0 8.4939137 4.9516668" class="menu-caret">
+              <g
+                 transform="translate(-62.934856,-82.904732)">
+                <path
+                   id="path4508"
+                   d="m 71.42877,83.610167 c -0.03664,0.228262 -0.266383,0.347541 -0.405013,0.515668 -1.215628,1.215628 -2.431257,2.431257 -3.646885,3.646885 -0.18869,0.197952 -0.413189,0.0027 -0.544557,-0.152987 -1.271261,-1.271261 -2.542521,-2.542521 -3.813781,-3.813781 -0.197949,-0.188693 -0.0027,-0.413188 0.152987,-0.544557 0.161758,-0.13101 0.282064,-0.380353 0.520555,-0.351645 0.218679,0.09613 0.354713,0.313758 0.53307,0.468436 0.985313,0.985313 1.970627,1.970627 2.955941,2.955941 1.115122,-1.115121 2.230243,-2.230243 3.345365,-3.345364 0.189385,-0.198575 0.412969,-0.0031 0.544556,0.152987 0.123798,0.149713 0.335285,0.26057 0.357762,0.468417 z"
+                    />
+              </g>
+            </svg>
+          </a>
+        {% endif %}
+        {% if item.below %}
+          {{ menus.menu_links(item.below, attributes, menu_level + 1) }}
+        {% endif %}
+      </li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endmacro %}

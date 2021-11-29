@@ -1,0 +1,45 @@
+/*
+ * Mixins - Classes created in utilities.css
+*/
+@define-mixin fixwidth {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-right: var(--responsive-padding);
+  padding-left: var(--responsive-padding);
+}
+@define-mixin display-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+@define-mixin grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: var(--standard-gutter);
+}
+@define-mixin grid-3col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: var(--standard-gutter);
+}
+@define-mixin visually-hidden {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  width: 1px;
+  height: 1px;
+  word-wrap: normal;
+}
+/*
+ * to use:
+ * @mixin caret 2px, 1em, var(--color-black)
+*/
+@define-mixin caret $weight: 2px, $size: .8em, $color: var(--color-black) {
+  content: '';
+  display: inline-block;
+  height: $size;
+  width: $size;
+  border-right: $weight solid $color;
+  border-bottom: $weight solid $color;
+  transform: rotate(45deg);
+}

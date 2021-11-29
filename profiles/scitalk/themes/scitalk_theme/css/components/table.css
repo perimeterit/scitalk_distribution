@@ -7,16 +7,19 @@
   font-size: .9em;
   width: 100%;
 }
+
 .view-scitalk-default-advanced-search2 table td,
 .view-scitalk-default-advanced-search2 table th {
   padding: 0.6rem 0.8rem;
 }
 
 /* Table header */
+
 .view-scitalk-default-advanced-search2 th a {
   display: flex;
   align-items: center;
 }
+
 .view-scitalk-default-advanced-search2 .tablesort {
   background: none;
   content: '';
@@ -30,33 +33,41 @@
   vertical-align: middle;
   margin: 0 0 0 0.5em;
 }
+
 .view-scitalk-default-advanced-search2 .tablesort--desc {
   margin-top: 0;
   transform: rotate(-135deg);
 }
 
 /* Table body */
+
 .view-scitalk-default-advanced-search2 table a {
   text-decoration: none;
 }
+
 .view-scitalk-default-advanced-search2 table a:hover,
 .view-scitalk-default-advanced-search2 table a:focus {
   text-decoration: underline;
 }
+
 .view-scitalk-default-advanced-search2 table .views-field-title {
   font-weight: 400;
 }
+
 .view-scitalk-default-advanced-search2 table .views-field-title a {
   text-decoration: none;;
 }
+
 .view-scitalk-default-advanced-search2 table .views-field-field-talk-speaker-profile ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
+
 .view-scitalk-default-advanced-search2 table .views-field-field-repo-institution {
   min-width: 14em;
 }
+
 .view-scitalk-default-advanced-search2 table .institution:before {
   content: ',';
   margin: 0 .2em 0 -.2em;
@@ -73,6 +84,7 @@
 /*
  * Mobile/responsive changes
 */
+
 @media all and (max-width: 800px) {
   .view-scitalk-default-advanced-search2 table.jrt tr {
     border: none;
@@ -100,3 +112,5 @@
     display: none;
   }
 }
+
+/*# sourceMappingURL=table.css.map */

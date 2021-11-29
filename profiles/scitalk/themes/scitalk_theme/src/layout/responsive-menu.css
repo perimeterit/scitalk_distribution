@@ -1,0 +1,142 @@
+/**
+ * Component CSS for responsive menus
+ * Push menu code based on: https://tympanus.net/codrops/2013/04/17/slide-and-push-menus/
+ */
+@import "../base/mixins.css";
+/* Toggle/close icons */
+.region-header {
+  position: relative;
+}
+.mobile-toggle-icons {
+  fill: var(--color-primary--foreground);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: .5em;
+  position: absolute;
+  top: 2em;
+  right: var(--responsive-padding);
+  & button {
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    &:matches(:hover,:focus) {
+      background: none;
+    }
+  }
+  & .menu-toggle {
+    & svg {
+      height: 1.6rem;
+      width: 1.6rem;
+    }
+  }
+  & .search-toggle {
+    & svg {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+}
+@media all and (min-width: 767px) {
+  .mobile-toggle-icons {
+    display: none;
+  }
+}
+/* Vertical menu that slides from the left or right */
+.responsive-menu {
+  background: var(--color-default-text);
+  color: white;
+	padding: 1em;
+  & .menu a {
+    color: white;
+    &:matches(:hover,:focus) {
+      color: white;
+    }
+  }
+  & .menu--close {
+    background: transparent;
+    &:after {
+     @mixin caret 2px, 1em, white;
+     transform: rotate(-45deg);
+   }
+  }
+}
+
+/* Main menu in slideout */
+.responsive-menu .menu {
+  flex-direction: column;
+  margin-bottom: 2em;
+}
+.responsive-menu .menu li {
+  display: block;
+  font-size: 1.1em;
+  line-height: 2;
+  padding: .5em;
+  border-bottom: 1px solid rgba(255,255,255,0.6);
+}
+
+/* Slide-out positioning */
+.responsive-menu {
+  position: fixed;
+	width: 80vw;
+	height: 100vh;
+	top: 0;
+	z-index: 1000;
+}
+.menu--push_left {
+	left: -80vw;
+}
+.menu--push_right {
+	right: -80vw;
+}
+.menu--push_left.menu--open {
+	left: 0px;
+}
+.menu--push_right.menu--open {
+	right: 0px;
+}
+
+/* Make everything slide right/left */
+.responsive-menu,
+body {
+  transition: all 0.3s ease;
+}
+body {
+ 	overflow-x: hidden;
+  left: 0;
+  position: relative;
+}
+body.menu--push_right.menu--open {
+ 	left: -70vw;
+}
+.menu--push_left.menu--open {
+ 	left: 70vw;
+}
+
+/* Dropdowns */
+.responsive-menu li.expanded {
+  position: relative;
+}
+.responsive-menu li.expanded > *:first-child {
+  max-width: calc(100% - 3.2rem);
+}
+.responsive-menu li.expanded .menu-trigger {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 0;
+}
+.responsive-menu li.expanded svg {
+  padding: 1rem;
+  width: 3.2rem;
+}
+.responsive-menu li.expanded .menu-trigger.expanded svg {
+  transform:rotate(180deg);
+}
+.responsive-menu li.expanded > ul {
+  clear: both;
+  position: static;
+  display: none;
+}
+.responsive-menu li.expanded > ul.expanded {
+  display: block;
+}

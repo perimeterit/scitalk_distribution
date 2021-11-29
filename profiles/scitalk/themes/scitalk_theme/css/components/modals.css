@@ -4,7 +4,6 @@ dialog {
   display: block;
   border: 0;
 }
-
 /* overlay covers everything */
 .modal-overlay,
 .image-modal-overlay {
@@ -31,7 +30,7 @@ dialog {
   right: auto;
   left: 3vw;
   top: 15%;
-  max-width: calc(100% - 6vw):
+  max-width: calc(100% - 6vw);
 }
 .image-modal {
   position: absolute;
@@ -91,3 +90,5 @@ h1.image-modal-title {
   margin-top: 0;
   margin-bottom: 1em;
 }
+
+/*# sourceMappingURL=modals.css.map */

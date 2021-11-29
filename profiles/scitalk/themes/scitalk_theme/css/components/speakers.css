@@ -8,11 +8,9 @@
   margin: 0;
   font-size: 1.05em;
 }
-
 /**
  Speaker full nodes
 */
-
 .node.speaker-profile.full {
   margin-bottom: calc(2 * var(--vertical-padding));
   overflow: auto;
@@ -23,3 +21,5 @@
   width: 250px;
   max-width: 40%;
 }
+
+/*# sourceMappingURL=speakers.css.map */

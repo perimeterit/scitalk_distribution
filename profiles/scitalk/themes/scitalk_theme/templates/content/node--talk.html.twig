@@ -7,18 +7,18 @@
  * @ingroup themeable
  */
 #}
-
 {% block content %}
-  <div class="content-first">
     {{ content.field_talk_thumbnail }}
-  </div>
-  <div class="content-second">
+  <div class="content">
     {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
-    {% embed "@scitalk_theme/includes/speaker-date.twig" %}{% endembed %}
-    {{ content|without('links', 'field_talk_thumbnail', 'field_talk_speaker_profile', 'field_talk_date') }}
-    {% if view_mode == 'horizontal_card' %}
-      <a class="talk-info" href="{{url}}">{{ 'Details'|t }}</a>
-
+    <div class="speakers">
+      {% include '@scitalk_theme/includes/speaker-fields.twig' %}
+    </div>
+    <div class="info">
+      {{ content|without('links','field_talk_thumbnail', 'field_talk_speaker_profile', 'field_talk_speakers_text','field_talk_abstract') }}
+    </div>
+    {% if view_mode == 'teaser' %}
+      {{ content.field_talk_abstract }}
     {% endif %}
   </div>
 {% endblock %}

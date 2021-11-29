@@ -1,0 +1,40 @@
+/**
+ * Theming for any taxonomy terms
+*/
+@import "../base/mixins.css";
+/*
+ * As entity reference, and exposed form BEF links
+ */
+ .form-select.bef-links ul {
+   @mixin display-list;
+   font-size: .8rem;
+   & li {
+     display: inline-block;
+     margin: 0.5rem;
+   }
+ }
+.field--type-entity-reference,
+.form-select.bef-links {
+  & a {
+    background: var(--color-lt-grey);
+    color: var(--color-default-text);
+    display: inline-block;
+    line-height: 1.6rem;
+    padding: 0rem 0.7rem;
+    text-decoration: none;
+    &.bef-link--selected {
+      background: var(--color-primary);
+      color: var(--color-primary--foreground)
+    }
+    &:matches(:hover,:focus){
+      background: var(--color-secondary);
+      color: var(--color-secondary--foreground);
+      text-decoration: none;
+    }
+  }
+}
+
+/* Full term display */
+.taxonomy-term.full {
+  margin-bottom: var(--vertical-padding);
+}

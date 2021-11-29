@@ -40,11 +40,11 @@
     {{ exposed }}
   </div>
 
-  <header class="advanced-search-header">
-    <div class="search-summary">
+  <header class="advanced-view-header">
+    <div class="view-summary">
       {{ header }}
     </div>
-    <div class="search-exposed-sort">
+    <div class="view-exposed-sort">
       {# Render the sort exposed form using Twig Tweak  #}
       {{ drupal_block('views_exposed_filter_block:scitalk_advanced_search-sort_filters')}}
     </div>
@@ -53,7 +53,7 @@
 
   </header>
 
-  <div data-display="results--cards" class="search-display">
+  <div data-display="results--cards" class="view-display">
     {% if rows -%}
       {{ rows }}
     {% elseif empty -%}
@@ -62,7 +62,7 @@
     {{ pager }}
   </div>
 
-  <div data-display="results--table" class="search-display hidden" aria-hidden="hidden">
+  <div data-display="results--table" class="view-display hidden" aria-hidden="hidden">
     {{ attachment_after }}
   </div>
   {{ more }}

@@ -1,0 +1,206 @@
+/**
+ * Sitewide layout
+*/
+
+/* Skip link */
+
+.skip-link {
+  text-decoration: none;
+  background: var(--color-secondary);
+  color: var(--color-secondary--foreground);
+  padding: .2em .5em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1
+}
+
+.skip-link:hover, .skip-link:focus {
+    color: var(--color-secondary--foreground);
+    z-index: 2;
+  }
+
+/* Sitewider header layout */
+
+.sticky-wrapper.is-sticky {
+  z-index: 1;
+
+}
+
+.site-header {
+  background: var(--color-primary);
+  color: var(--color-primary--foreground);
+  position: relative
+}
+
+.site-header a {
+    color: var(--color-primary--foreground);
+  }
+
+.site-header .region-header {
+    padding: 1rem calc(1em + .2vw);
+  }
+
+.site-header .block-system-branding-block a,
+    .site-header .block-system-branding-block img {
+      display: block;
+    }
+
+.site-header .block-system-branding-block img {
+      max-height: 4rem;
+    }
+
+.site-header .search-block-form .form-text {
+      border: none;
+    }
+
+@media all and (min-width: 959.99px) {
+    .site-header .region-header {
+      align-items: center;
+      display: flex;
+      margin: 0 auto;
+    }
+    .site-header .block-system-branding-block {
+      margin-right: auto;
+    }
+}
+
+/* Mobile header layout */
+
+@media all and (max-width: 959.99px) {
+  .region-header {
+    padding-top: 1em;
+    padding-bottom: 0
+  }
+    .region-header .block-system-branding-block {
+      margin-bottom: 1em
+    }
+      .region-header .block-system-branding-block img {
+        max-height: 4em;
+        max-width: auto;
+        width: auto;
+      }
+    .region-header .search-block-form {
+      background: var(--color-dk-grey);
+      display: flex;
+      margin: 0 calc(-1 * var(--responsive-padding));
+      height: 0;
+      width: calc(100% + (2 * var(--responsive-padding)));
+      overflow: hidden;
+      transition: .3s height
+    }
+      .region-header .search-block-form.open {
+        height: 4em;
+      }
+      .region-header .search-block-form form {
+        padding: .5em 1.5em;
+        flex: 1 0 auto;
+        max-width: 28em;
+        margin: 0 auto
+      }
+        .region-header .search-block-form form .form-item {
+          flex: 1 0 auto;
+        }
+        .region-header .search-block-form form .form-text {
+          flex: 1 0 auto;
+          font-size: 1em;
+          width: 100%;
+        }
+        .region-header .search-block-form form .form-actions {
+          margin-left: -.5em;
+        }
+}
+
+/**
+ * Content layout + Left nav
+*/
+
+@media all and (max-width: 959.99px) {
+  .left-nav-wrapper {
+    display: none;
+  }
+}
+
+@media all and (max-width: 959px) {
+  .left-nav-wrapper,
+  .content-wrapper {
+    padding: var(--gutter-standard) var(--responsive-padding);
+  }
+}
+
+@media all and (min-width: 960px) {
+  .page-wrapper {
+    display: grid;
+    grid-template-columns: 220px auto;
+    grid-gap: var(--gutter--standard);
+    padding-right: var(--responsive-padding);
+  }
+  .content-wrapper {
+    max-width: 1000px;
+    padding-right:
+  }
+  .left-nav-wrapper {
+    background: var(--color-lt-grey);
+    padding-bottom: var(--gutter-standard);
+    padding-top: var(--gutter-standard);
+    width: 220px;
+  }
+}
+
+/* Left nav  */
+
+.region-left-nav .menu {
+  margin: 0
+}
+
+.region-left-nav .menu li {
+    display: block;
+  }
+
+.region-left-nav .menu a {
+    display: block;
+    font-size: 1.1em;
+    font-weight: 400;
+    padding: 0.7em 1em
+  }
+
+.region-left-nav .menu a:hover, .region-left-nav .menu a:focus {
+      background: var(--color-primary);
+      color: var(--color-primary--foreground);
+    }
+
+/**
+ * Content area
+*/
+
+.main-content {
+  padding-top: var(--vertical-padding);
+  padding-bottom: var(--vertical-padding);
+}
+
+/**
+ * Footer
+*/
+
+.site-footer {
+  border-top: 1px solid var(--lt-grey);
+  padding-top: var(--vertical-padding);
+  padding-bottom: var(--vertical-padding);
+}
+
+.region-footer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+@media all and (max-width: 66em) {
+  .region-footer {
+    padding-left: var(--responsive-padding);
+    padding-right: var(--responsive-padding);
+  }
+  .region-footer .block {
+    margin-bottom: 1em;
+  }
+}
+
+/*# sourceMappingURL=layout.css.map */

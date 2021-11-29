@@ -2,34 +2,18 @@ name: Scitalk common theme
 type: theme
 description: 'Common theme for the Scitalk distro'
 core: 8.x
-base theme: starbase
-dependencies:
- - starbase
+base theme: stable
 
 libraries:
- - stardust/global
- - stardust/search
- - stardust/layout
- - stardust/responsive-menu
  - scitalk_theme/global
-
-# Override Stardust colour and font CSS #
-libraries-override:
-  stardust/global:
-    css:
-      theme:
-        libraries/global/theme/colour.css: css/theme/colour.css
-        libraries/global/theme/font.css: css/theme/font.css
-      component:
-        libraries/global/components/admin.css: css/components/admin.css
+ - scitalk_theme/responsive-menu
 
 regions:
   header: 'Header'
+  left_nav: 'Left side navbar'
   admin: 'Admin tools'
-  advanced_search: 'Advanced Search'
   page_title: 'Page Title'
   page_header: 'Page Header'
   content: 'Content'
-  middle_highlight: 'Middle highlight'
   content_bottom: 'Content bottom'
   footer: 'Footer'
