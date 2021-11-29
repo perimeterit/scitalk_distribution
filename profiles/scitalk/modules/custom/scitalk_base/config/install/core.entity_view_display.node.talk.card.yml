@@ -1,5 +1,6 @@
+uuid: 74957904-fe8d-4c9a-a02d-b40edbba8c51
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.card
@@ -78,7 +79,7 @@ third_party_settings:
       label: Details
       region: hidden
 _core:
-  default_config_hash: XzXBGrUJIxp7lhWCHEA15sQ2XObM1-bT8gI-oTKwtYQ
+  default_config_hash: 8jBKXJXLVZNxqArErD8puLHKJQYWUyXaDxKDkywVfto
 id: node.talk.card
 targetEntityType: node
 bundle: talk

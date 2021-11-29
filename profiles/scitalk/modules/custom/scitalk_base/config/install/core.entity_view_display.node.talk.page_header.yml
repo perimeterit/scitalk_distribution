@@ -1,5 +1,6 @@
+uuid: f6716b1e-76d1-460c-beed-c418cb144509
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.page_header
@@ -52,7 +53,7 @@ third_party_settings:
       label: 'Share & Favourite'
       region: hidden
 _core:
-  default_config_hash: Ki3W5tdQyoSoEDUAKpRrJGqJhxQLC0CuREyGM_Mhv_8
+  default_config_hash: cxlxqxUUf5EHoSengOi9i2lZSi1UhOmEWiCe2fXjtPk
 id: node.talk.page_header
 targetEntityType: node
 bundle: talk

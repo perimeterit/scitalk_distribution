@@ -1,5 +1,6 @@
+uuid: 0659060b-1746-459b-b090-2251cd678d43
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.mini_teaser
@@ -77,7 +78,7 @@ third_party_settings:
       label: Details
       region: hidden
 _core:
-  default_config_hash: f5Bn1sihrBucffIjGWdZPiMdycF-1Gy3SMNjxiin9lo
+  default_config_hash: YlSLHG72d00t_bVZ-zZOL-pag5LKKB8Z61OW5qN9mhE
 id: node.talk.mini_teaser
 targetEntityType: node
 bundle: talk
@@ -85,7 +86,7 @@ mode: mini_teaser
 content:
   field_talk_date:
     type: datetime_default
-    weight: 1
+    weight: 2
     region: content
     label: hidden
     settings:
@@ -117,7 +118,7 @@ content:
         fences_label_classes: ''
   field_talk_thumbnail:
     type: scitalk_thumbnail_formatter
-    weight: 2
+    weight: 1
     region: content
     label: hidden
     settings:

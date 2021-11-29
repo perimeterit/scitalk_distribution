@@ -1,5 +1,6 @@
+uuid: 276ec3fd-d559-436c-8721-4144b81f0536
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.horizontal_card
@@ -41,7 +42,7 @@ third_party_settings:
       children:
         - field_talk_attachments
       parent_name: ''
-      weight: 19
+      weight: 20
       format_type: html_element
       format_settings:
         element: div
@@ -62,7 +63,7 @@ third_party_settings:
         - field_talk_subject
         - field_talk_type
       parent_name: ''
-      weight: 18
+      weight: 19
       format_type: html_element
       format_settings:
         element: div
@@ -88,7 +89,7 @@ mode: horizontal_card
 content:
   field_talk_collection:
     type: entity_reference_label
-    weight: 4
+    weight: 5
     region: content
     label: hidden
     settings:
@@ -119,9 +120,9 @@ content:
         fences_label_classes: ''
   field_talk_number:
     type: string
-    weight: 7
+    weight: 4
     region: content
-    label: inline
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings:
@@ -171,9 +172,9 @@ content:
       link: false
     third_party_settings:
       fences:
-        fences_field_tag: div
+        fences_field_tag: none
         fences_field_classes: ''
-        fences_field_item_tag: div
+        fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
@@ -186,11 +187,11 @@ content:
       link_to_entity: false
     third_party_settings:
       fences:
-        fences_field_tag: span
+        fences_field_tag: none
         fences_field_classes: ''
         fences_field_item_tag: none
         fences_field_item_classes: ''
-        fences_label_tag: div
+        fences_label_tag: none
         fences_label_classes: ''
   field_talk_thumbnail:
     type: scitalk_thumbnail_formatter
