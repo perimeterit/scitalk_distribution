@@ -8,7 +8,8 @@
  */
 #}
 {% block content %}
-  {% if content.field_talk_thumbnail.0 %}
+  {# {% if content.field_talk_thumbnail.0 %} #}
+  {% if content.field_talk_thumbnail %}
     {{ content.field_talk_thumbnail }}
   {% endif %}
   <div class="content">
