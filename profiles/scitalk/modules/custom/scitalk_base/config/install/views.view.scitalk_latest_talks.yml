@@ -13,6 +13,7 @@ dependencies:
     - field.storage.node.field_talk_video_url
     - search_api.index.default_talks_index
     - system.menu.main
+    - taxonomy.vocabulary.scientific_area
     - taxonomy.vocabulary.talk_type
   module:
     - better_exposed_filters
@@ -21,7 +22,7 @@ dependencies:
     - link
     - search_api
 _core:
-  default_config_hash: Kdnt7k4Ptc_mfcqrfxrshkYF2_sjxwmf5wrjSXZJHmY
+  default_config_hash: Qyr2fSycxrgVX2QRb4sL2LjsPUV-F8G6DTHGpaEQ_rM
 id: scitalk_latest_talks
 label: 'Scitalk: Latest Talks (new)'
 module: views
@@ -118,7 +119,7 @@ display:
           default_row_class: false
           type: ul
           wrapper_class: ''
-          class: 'display-list view-display-wrapper'
+          class: display-list
       row:
         type: fields
       fields:
@@ -2467,7 +2468,9 @@ display:
       max-age: -1
       contexts:
         - 'languages:language_interface'
+        - url
         - url.query_args
+        - user
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.default_talks_index'
