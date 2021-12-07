@@ -7,8 +7,9 @@
 {%  set BibTeX_authors = [] %}
 
 {% for speaker in speakers %}
-  {% set APA_authors = APA_authors|merge([speaker.last ~ ', ' ~ speaker.initials])  %}
-  {% set BibTeX_authors = BibTeX_authors|merge([speaker.last ~ ', ' ~ speaker.first])  %}
+  {% set APA_authors = APA_authors|merge([speaker.last ~ ', ' ~ speaker.initials]) %}
+  {# {% set BibTeX_authors = BibTeX_authors|merge([speaker.last ~ ', ' ~ speaker.first])  %} #}
+  {% set BibTeX_authors = BibTeX_authors|merge([speaker.bibtex_last ~ ', ' ~ speaker.bibtex_first])  %}
 {% endfor %}
 
 {% set APA_max_authors_len = 6 %}
@@ -74,9 +75,11 @@
             author = {% verbatim %}{{% endverbatim %}{{ BibTeX_authors|e }}{% verbatim %}}{% endverbatim %},
             keywords = {% verbatim %}{{% endverbatim %}{{keywords|join(', ')|e}}{% verbatim %}}{% endverbatim %},
             language = {% verbatim %}{{% endverbatim %}{{language}}{% verbatim %}}{% endverbatim %},
-            title = {% verbatim %}{{% endverbatim %}{{title|e}}{% verbatim %}}{% endverbatim %},
+            title = {% verbatim %}{{% endverbatim %}{{bibtex_title|e}}{% verbatim %}}{% endverbatim %},
             publisher = {% verbatim %}{{% endverbatim %}{{publisher|e}}{% verbatim %}}{% endverbatim %},
-            year = {% verbatim %}{{% endverbatim %}{{year}}{% verbatim %}}{% endverbatim %}
+            year = {% verbatim %}{{% endverbatim %}{{year}}{% verbatim %}}{% endverbatim %},
+            month = {% verbatim %}{{% endverbatim %}{{month}}{% verbatim %}}{% endverbatim %},
+            note = {% verbatim %}{{% endverbatim %}{{bibtex_note}}{% verbatim %}}{% endverbatim %}
           }
           </pre>
         </div>

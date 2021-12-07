@@ -46,7 +46,14 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
       '#attributes' => [
           'id' => 'datacite_creator_institution',
       ],
-   ];
+    ];
+
+    $form['datacite_talk_prefix'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Talk Number Prefix'),
+      '#description' => $this->t('Prefix to use for talks'),
+      '#default_value' => $config->get('datacite_talk_prefix'),
+    ];
 
     $form['use_doi'] = [
         '#type' => 'checkbox',
@@ -168,6 +175,20 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
         ],
     ];
 
+    $form['datacite_alternate_indentifier'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Persistent Domain'),
+      '#description' => $this->t('The persistent domain is used when creating the persistent URL (PURL) as an alternative identifier in the DOI'),
+      '#default_value' => $config->get('datacite_alternate_indentifier'),
+      '#states' => [
+          //show this textfield only if the an institution has been entered
+          'visible' => [
+              ':input[id="datacite_creator_institution"]' => ['filled' => TRUE],
+              ':input[id="use_doi"]' => ['checked' => TRUE],
+          ],
+      ],
+  ];
+
     return parent::buildForm($form, $form_state);
   }
 
@@ -184,8 +205,10 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
       ->set('doi_prefix', $form_state->getValue('doi_prefix'))
       ->set('datacite_user', $form_state->getValue('datacite_user'))
       ->set('datacite_pwd', $form_state->getValue('datacite_pwd'))
+      ->set('datacite_talk_prefix', $form_state->getValue('datacite_talk_prefix'))
       ->set('datacite_creator_institution', $form_state->getValue('datacite_creator_institution'))
       ->set('datacite_creator_institution_ror', $form_state->getValue('datacite_creator_institution_ror'))
+      ->set('datacite_alternate_indentifier', $form_state->getValue('datacite_alternate_indentifier'))
       ->save();
 
     parent::submitForm($form, $form_state);

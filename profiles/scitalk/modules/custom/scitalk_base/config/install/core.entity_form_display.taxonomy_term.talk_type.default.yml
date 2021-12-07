@@ -1,3 +1,4 @@
+uuid: 48539ed2-a5cd-4b54-80d4-7973d73c367e
 langcode: en
 status: true
 dependencies:
@@ -7,6 +8,8 @@ dependencies:
   module:
     - path
     - text
+_core:
+  default_config_hash: E_gn0H2o82xAs8rP3brCSO3uCYf4T3mWnH-AnwGg-8o
 id: taxonomy_term.talk_type.default
 targetEntityType: taxonomy_term
 bundle: talk_type
@@ -47,5 +50,12 @@ content:
     weight: 30
     region: content
     settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 100
+    region: content
     third_party_settings: {  }
 hidden: {  }

@@ -46,7 +46,7 @@ function scitalk_media_theme() {
  */
 function scitalk_media_entity_insert(\Drupal\Core\Entity\EntityInterface $entity) {
   $entity_type = $entity->getEntityTypeId();
-  
+
   if($entity_type == 'media') {
     $scitalk_plugin = scitalk_media_get_plugin_by_config($entity);
     if($scitalk_plugin) $scitalk_plugin->entityInsert();
@@ -79,20 +79,20 @@ function scitalk_media_get_plugin_by_config(\Drupal\Core\Entity\EntityInterface 
     $source = $entity->bundle->entity->getSource();
     $source_plugin_id = $source->getPluginId();
     $configuration = $source->getConfiguration();
-    
+
     foreach($plugins as $plugin => $plugin_config) {
       if($plugin_config['media_type'] == $source_plugin_id &&
         array_key_exists('scitalk_video_source', $configuration) &&
         $plugin_config['media_source'] == $configuration['scitalk_video_source']) {
-          
+
           $scitalk_plugin = $manager->createInstance($plugin, array($entity));
-          
+
         }
         elseif($plugin_config['media_type'] == $source_plugin_id) {
           $scitalk_plugin = $manager->createInstance($plugin, array($entity));
         }
     }
-    
+
   }
   return $scitalk_plugin;
 }
@@ -115,5 +115,18 @@ function scitalk_media_media_presave(\Drupal\Core\Entity\EntityInterface $entity
       $arxiv_id = $entity->field_media_scitalk_arxiv->value ?? '';
       $entity->set('name', $arxiv_id);
       break;
-  } 
+  }
+}
+
+/**
+ * Implements hook_page_attachments().
+ */
+function scitalk_media_page_attachments(array &$page) {
+  $module_handler = \Drupal::service('module_handler');
+  $module_path = $module_handler->getModule('scitalk_media')->getPath();
+  $icon_path = "/{$module_path}/images/icons/";
+  $icon = 'link.svg';
+  $page['#attached']['drupalSettings']['url_copy_icon'] = $icon;
+  $page['#attached']['drupalSettings']['icon_path'] = $icon_path;
+
 }

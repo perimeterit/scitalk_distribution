@@ -37,6 +37,10 @@ a:focus {
 
 input:focus,
 select:focus,
-textarea:focus {
+textarea:focus,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
   border-color: var(--color-primary);
+  box-shadow-color: 0 0 2px .1rem  var(--color-primary);
 }

@@ -7,6 +7,8 @@
 /profiles/contrib/
 /sites/default/files
 /libraries
+/config
+/web
 
 # -- removing libraries from gitignore.  How else for us to put jw in here as it's a private DL?
 # /web/libraries/

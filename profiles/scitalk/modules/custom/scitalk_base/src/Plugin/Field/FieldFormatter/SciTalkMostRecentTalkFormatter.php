@@ -53,27 +53,19 @@
     }
 
     /**
-     * return the date for the most recent talk under a Collection or Series
+     * return the date for the most recent talk under a Collection
      */
-    public static function fetchMostRecentTalkDate($vid) {
-        $entity = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($vid);
+    public static function fetchMostRecentTalkDate($nid) {
+
+        $entity = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
         $bundle = $entity->bundle();
 
         //query most recent talk for a collection or series 
         $query = \Drupal::entityQuery('node')
           ->condition('type', 'talk')
-          ->condition('status', 1);
-
-        switch ($bundle) {
-            case 'collection':
-                $query->condition('field_talk_collection.entity.vid', $bundle)
-                      ->condition('field_talk_collection.entity.tid', $entity->id());
-            break;
-            case 'series':
-                $query->condition('field_talk_series.entity.vid', $bundle)
-                      ->condition('field_talk_series.entity.tid', $entity->id());
-            break;
-        }
+          ->condition('status', 1)
+          ->condition('field_talk_collection.target_id', $nid);
+        
 
         $talk = $query->sort('field_talk_date','DESC')
           ->range(0,1)
@@ -82,8 +74,8 @@
         $most_recent_date = '';
         $date_format = 'Y-m-d';
         if ($talk) {
-          $nid = current($talk);
-          $talk_entity = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
+          $talkNID = current($talk);
+          $talk_entity = \Drupal::entityTypeManager()->getStorage('node')->load($talkNID);
           
           $most_recent_date = $talk_entity->field_talk_date->value ?? '';
 

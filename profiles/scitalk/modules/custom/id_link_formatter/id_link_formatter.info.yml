@@ -2,4 +2,4 @@ name: 'ID Link Formatter'
 type: module
 description: 'Format an ID as a URL'
 core: 8.x
-package: 'Scitalk'
+package: SciTalk

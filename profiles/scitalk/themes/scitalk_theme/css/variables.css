@@ -3,12 +3,14 @@
 */
 :root {
   --color--primary: #0f75bc;
-  --gutter--standard: 2em;
+  --gutter--standard: calc(1em + .2vw);
+  --gutter--big: calc(1.3em + .2vw);
   --max-width: 1200px;
 }
 
 @media all and (min-width: 60em) {
   :root {
     --gutter--standard: 3em;
+    --gutter--big: calc(2em + .2vw);
   }
 }

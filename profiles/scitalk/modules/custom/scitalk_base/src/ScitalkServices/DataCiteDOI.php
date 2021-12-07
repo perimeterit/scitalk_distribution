@@ -2,6 +2,7 @@
 namespace Drupal\scitalk_base\ScitalkServices;
 
 use Drupal\Core\Entity\EntityInterface;
+use Drupal\group\Entity\Group;
 use GuzzleHttp\Exception\GuzzleException;  
 use GuzzleHttp\Exception\ConnectException;  
 use GuzzleHttp\Exception\ClientException;  
@@ -21,6 +22,7 @@ class DataCiteDOI {
   private $datacite_pwd;
   private $datacite_creator_institution;
   private $datacite_creator_institution_ror;
+  private $datacite_alternate_indentifier;
 
   public function __construct() {
     $config = \Drupal::config('scitalk_base.settings');
@@ -36,6 +38,11 @@ class DataCiteDOI {
     $this->datacite_pwd = $config->get('datacite_pwd');
     $this->datacite_creator_institution = $config->get('datacite_creator_institution');
     $this->datacite_creator_institution_ror = !empty($config->get('datacite_creator_institution_ror')) ? 'https://ror.org/' . $config->get('datacite_creator_institution_ror') : '';
+
+    $this->datacite_alternate_indentifier = $config->get('datacite_alternate_indentifier');
+    if (!empty($this->datacite_alternate_indentifier) && substr($this->datacite_alternate_indentifier, -1) != '/') {
+      $this->datacite_alternate_indentifier .= '/';
+    }
   }
 
 
@@ -68,6 +75,16 @@ class DataCiteDOI {
     return $this->fetchDOIByID($doi);
   }
 
+  /**
+   * Fetch DOI by Talk ID
+   *
+   * @param string talk_id
+   */
+  public function getDOIByTalkId($talk_id) {
+    $doi = $this->doi_prefix . '/' . $talk_id;
+    return $this->fetchDOIByID($doi);
+  }
+
   private function createDOI($doiObj) {
     $url = $this->doi_api_url;
     $client = \Drupal::httpClient();
@@ -79,22 +96,21 @@ class DataCiteDOI {
     ];
 
     try {
-     // $request = $client->post($url, $auth, json_encode($doiObj));//['body' => json_encode($doiObj)]);
       $request = $client->post($url, $params);
       $response = $request->getBody();
       $response = json_decode($response);
       $doi_id = $response->data->id;
 
-      \Drupal::logger('scitalk_base')->notice('<pre><code>DOI CREATED: ' .$doi_id . '</code></pre>');
+      \Drupal::logger('scitalk_base')->notice('DOI CREATED: ' .$doi_id);
     }
     catch (ClientException | RequestException | ConnectException | GuzzleException | BadResponseException | ServerException $e) {
       if (!empty($res = $e->getResponse()->getBody()->getContents())) {
         $err = json_decode($res);
-        $msg = 'DOI Client error ' . ( $err->errors[0]->title ?? '');
+        $msg = 'DOI create error: ' . ( $err->errors[0]->title ?? '');
         drupal_set_message(t($msg), 'error');
       }
       
-      \Drupal::logger('scitalk_base')->error('<pre>ERROR CONNECTING to DOI ' . print_r($e->getMessage() , TRUE) .'</pre>');
+      \Drupal::logger('scitalk_base')->error('DOI ERROR: ' . print_r($e->getMessage() , TRUE) );
     }
     finally {
       return $doi_id;
@@ -118,16 +134,16 @@ class DataCiteDOI {
       $response = json_decode($response);
       $doi_id = $response->data->id;
 
-      \Drupal::logger('scitalk_base')->notice('<pre><code>UPDATED DOI : ' .$doi_id . '</code></pre>');
+      \Drupal::logger('scitalk_base')->notice('UPDATED DOI : ' .$doi_id);
     }
     catch (ClientException | RequestException | ConnectException | GuzzleException | BadResponseException | ServerException $e) {
       if (!empty($res = $e->getResponse()->getBody()->getContents())) {
         $err = json_decode($res);
-        $msg = 'DOI Client error ' . ( $err->errors[0]->title ?? '');
+        $msg = 'DOI update error: ' . ( $err->errors[0]->title ?? '');
         drupal_set_message(t($msg), 'error');
       }
       
-      \Drupal::logger('scitalk_base')->error('<pre>ERROR CONNECTING to DOI ' . print_r($e->getMessage() , TRUE) .'</pre>');
+      \Drupal::logger('scitalk_base')->error('DOI ERROR: ' . print_r($e->getMessage() , TRUE) );
     }
     finally {
       return $doi_id;
@@ -148,37 +164,44 @@ class DataCiteDOI {
     /////////////////////
     // TODO: REMOVE THE LINE BELOW AFTER DONE RUNNING THe create_interimhd_media_sript.php!!!! 
     //$url = str_replace( '/create_interimhd_media_script.php', '', $url);  //for now when running update script!!!!
-
     //$reference_number = $entity->field_talk_number->value; 
+
+    $publisher = $this->datacite_creator_institution ?? '';
+    $repo_id = $entity->get('field_talk_source_repository')->target_id ?? '';
+    if (!empty($repo_id)) {
+      $repo = Group::load($repo_id);
+      $publisher = $repo->field_repo_institution_full_name->value ?? $publisher;
+    }
+
     $data = [
       'id' => $talk_id,
       'type' => 'dois',
       'attributes' => [
         'doi' => $talk_id,
-        'publisher' =>  $this->datacite_creator_institution, //'Perimeter Institute',
+        'publisher' =>  $publisher,
         'titles' => [
-          'title' => $entity->get('title')->value ?? ''
+          ['title' => $entity->get('title')->value ?? '']
         ],
         'descriptions' => [
           'description' =>  $entity->get('field_talk_abstract')->value ?? ''
           //'description' => strip_tags( $entity->get('field_talk_abstract')->value ?? '')
         ],
         'types' => [
-          'resourceTypeGeneral' => "Audiovisual",
+          'resourceTypeGeneral' => 'Audiovisual',
           'resourceType' => 'Video Recording'
         ],
         'formats' => [
           'video/mp4'
         ],
-        'url' => $url ,
+        'url' => $url,
         'language' => \Drupal::languageManager()->getDefaultLanguage()->getName() ?? '',
         'schemaVersion' => 'http://datacite.org/schema/kernel-4'
       ]
     ];
 
-    //speaker info (use the institution "Perimeter Institute" instead of the talk speaker)
-    //$speakerProfile = $this->getSpeakerInfo($entity->get('field_talk_speaker_profile')->getValue()); //target_id);
-    $speakerProfile =  $this->getCreator();
+    //speaker info (use the institution name instead of the talk speaker) - NO!: updated this to use talk speakers:
+    $speakerProfile = $this->getSpeakerInfo($entity->get('field_talk_speaker_profile')->getValue());
+    //$speakerProfile =  $this->getCreator();
     if (!empty($speakerProfile)) {
       $data['attributes']['creators'] = $speakerProfile;
     }
@@ -209,11 +232,48 @@ class DataCiteDOI {
     */
     if (!empty($entity->get('field_talk_video')->target_id)) {
       $media = \Drupal::entityTypeManager()->getStorage('media')->load( $entity->get('field_talk_video')->target_id);
-      $data['attributes']['event'] = self::DOI_STATE_TO_FINDABLE; 
+      $data['attributes']['event'] = self::DOI_STATE_TO_FINDABLE;
     }
 
-   // \Drupal::logger('scitalk_base')->notice('<pre><code>generated DOI Object ' . print_r($data, TRUE)  .'</code></pre>');
-        
+    if (!empty($this->datacite_alternate_indentifier)) {
+      $alternate_identifier_url = $this->datacite_alternate_indentifier . $entity->get('field_talk_number')->value;
+      $data['attributes']['identifiers'] = [
+        [
+          'identifier' => $alternate_identifier_url,
+          'identifierType' => 'PURL'
+        ]
+      ];
+    }
+
+    //create "Related Identifiers" from DOI and arXiv attachments
+    $talk_attachments = $entity->get('field_talk_attachments');
+    if (!empty($talk_attachments)) {
+      $related = [];
+      foreach($talk_attachments->referencedEntities() as $attach) {
+        $attachment_id = $attach->get('name')->value ?? '';
+        $relationship_type = 'References'; //'IsReferencedBy'
+
+        switch ($attach->bundle()) {
+          case 'doi';
+            $related[] = [
+              'relatedIdentifierType' => 'DOI',
+              'relationType' => $relationship_type,
+              'relatedIdentifier' => $attachment_id
+            ];
+            break;
+          case 'arxiv':
+            $related[] = [
+              'relatedIdentifierType' => 'arXiv',
+              'relationType' => $relationship_type,
+              'relatedIdentifier' => 'arXiv:' . $attachment_id
+            ];
+            break;
+        }
+      }
+
+      $data['attributes']['relatedIdentifiers'] = $related;
+    }
+
     return ['data' => $data];
   }
 
@@ -226,20 +286,22 @@ class DataCiteDOI {
 
     $client = \Drupal::httpClient();
 
-    $response = '';
+    $response = NULL;
     try {
       $request = $client->get($url, $params);
       $response = $request->getBody();
-      //\Drupal::logger('scitalk_base')->notice('<pre><code>DOI fetched ' . print_r(json_decode($response) , TRUE) . '</code></pre>');
     }
     catch (ClientException | RequestException | ConnectException | GuzzleException | BadResponseException | ServerException $e) {
       if (!empty($res = $e->getResponse()->getBody()->getContents())) {
         $err = json_decode($res);
-        $msg = 'DOI Client error ' . ( $err->errors[0]->title ?? '');
-        drupal_set_message(t($msg), 'error');
+        if ($err->errors[0]->status != 404) {//if error is other than not found then log this error
+          $msg = 'DOI Fetch: ' . ( $err->errors[0]->title ?? '');
+          \Drupal::logger('scitalk_base')->error($msg);
+        }
       }
-      
-      \Drupal::logger('scitalk_base')->error('<pre>ERROR CONNECTING to DOI ' . print_r($e->getMessage() , TRUE) .'</pre>');
+      else {
+        \Drupal::logger('scitalk_base')->error('DOI Fetch: ' . print_r($e->getMessage() , TRUE));
+      }
     }
     finally {
       return $response;

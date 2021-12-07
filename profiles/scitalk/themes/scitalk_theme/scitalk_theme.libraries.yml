@@ -1,23 +1,33 @@
 global:
   css:
+    base:
+      css/base.css: {}
     layout:
+      css/variables.css: {}
       css/layout.css: {}
     component:
       css/global.css: {}
-      css/components/catchup.css: {}
+      css/components/forms.css: {}
+      css/components/advanced-search.css: {}
       css/components/citations.css: {}
       css/components/collections.css: {}
-      css/components/forms.css: {}
       css/components/modals.css: {}
+      css/components/nav.css: {}
       css/components/share-links.css: {}
+      css/components/source-repos.css: {}
       css/components/speakers.css: {}
+      css/components/taxonomy.css: {}
+      css/components/table.css: {}
+      css/components/tabs.css: {}
       css/components/talks.css: {}
       js/jquery-responsive-tables/css/responsive-tables.min.css: {}
   js:
     js/van11y-accessible-modal-window-aria/dist/van11y-accessible-modal-window-aria.min.js: {}
     js/van11y-accessible-tab-panel-aria/dist/van11y-accessible-tab-panel-aria.min.js: {}
     js/jquery-responsive-tables/js/jquery.responsive-tables.js: {}
+    js/jquery.sticky/jquery.sticky.js: {}
     js/global.js: {}
   dependencies:
+    - core/drupal
     - core/jquery
     - core/jquery.once

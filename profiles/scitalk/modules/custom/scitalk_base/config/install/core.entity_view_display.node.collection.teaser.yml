@@ -1,0 +1,102 @@
+uuid: 2ce712c8-e851-4741-9dbd-70b274c7d592
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.collection.feeds_item
+    - field.field.node.collection.field_collection_date
+    - field.field.node.collection.field_collection_description
+    - field.field.node.collection.field_collection_event_url
+    - field.field.node.collection.field_collection_number
+    - field.field.node.collection.field_collection_organizers
+    - field.field.node.collection.field_collection_public_viewable
+    - field.field.node.collection.field_collection_short_desc
+    - field.field.node.collection.field_collection_source_repo
+    - field.field.node.collection.field_collection_subject
+    - field.field.node.collection.field_collection_type
+    - node.type.collection
+  module:
+    - datetime_range
+    - fences
+    - text
+    - user
+_core:
+  default_config_hash: 4vDQm0Djn9FheK0nXECHXIYPmVTX87_CpGWd2TsuKD0
+id: node.collection.teaser
+targetEntityType: node
+bundle: collection
+mode: teaser
+content:
+  field_collection_date:
+    type: daterange_default
+    weight: 1
+    region: content
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: medium
+      separator: '-'
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
+  field_collection_description:
+    type: text_default
+    weight: 2
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  field_collection_number:
+    type: string
+    weight: 0
+    region: content
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
+  links:
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  scitalk_number_of_talks:
+    label: inline
+    weight: 3
+    region: content
+    type: number_integer
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
+hidden:
+  feeds_item: true
+  field_collection_event_url: true
+  field_collection_organizers: true
+  field_collection_public_viewable: true
+  field_collection_short_desc: true
+  field_collection_source_repo: true
+  field_collection_subject: true
+  field_collection_type: true
+  langcode: true
+  scitalk_most_recent_talk: true
+  search_api_excerpt: true

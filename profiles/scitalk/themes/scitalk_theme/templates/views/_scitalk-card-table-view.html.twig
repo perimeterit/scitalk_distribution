@@ -1,0 +1,51 @@
+{#/**
+ * @file
+ * Custom theme implementation for the views that include the card/table toggle
+ * Renders sort filters exposed form
+ * Adds mark-up for card/table dispay toggle
+ * Adding this as a template suggestion did not work with ajax paging
+ *
+ * @see template_preprocess_views_view()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {{ title }}
+  {{ title_suffix }}
+
+  {{ header|without('result') }}
+  {% if row_count > 0 %}
+    <div class="advanced-search-header">
+      <div class="search-summary">
+          {{ header.result }}
+      </div>
+      <div class="search-exposed-sort">
+        {{ exposed }}
+      </div>
+        {% include '@scitalk_theme/views/view-toggle.twig' %}
+    </div>
+  {% endif %}
+
+  <div data-display="results--cards" class="search-display">
+    {% if rows -%}
+      {{ rows }}
+    {% elseif empty -%}
+      {{ empty }}
+    {% endif %}
+    {{ pager }}
+  </div>
+
+  <div data-display="results--table" class="search-display hidden" aria-hidden="hidden">
+    {{ attachment_after }}
+  </div>
+  {{ more }}
+
+  {% if footer %}
+    <div class='view-footer'>
+      {{ footer }}
+    </div>
+  {% endif %}
+
+</div>

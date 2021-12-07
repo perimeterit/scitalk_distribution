@@ -55,8 +55,6 @@ class DOI extends SciTalkMediaPluginBase {
    */
   public function entityMetaDataUpdate() {
     //fetch off media information
-    //The URI for the API is something like this:  http://export.arxiv.org/api/query?search_query=hep-ex/0307015
-    //where the search_query parameter takes the ArXiv citation number as the query.
     $source = $this->entity->bundle->entity->getSource();
     $configuration = $source->getConfiguration();
     $val = $this->entity->{$configuration['source_field']}->getString();
@@ -78,22 +76,19 @@ class DOI extends SciTalkMediaPluginBase {
 
       $journal_name = $doi->message->{'container-title'} ?? '';
       $date_issued = '';
-      if (!empty($doi->message->issued))
-      {
+      if (!empty($doi->message->issued)) {
         $date_issued = implode('-' , current($doi->message->issued->{'date-parts'}));
         $date_issued = date('Y-m-d', strtotime($date_issued));
       }
 
       $date_published_online = '';
-      if (!empty($doi->message->{'published-online'}))
-      {
+      if (!empty($doi->message->{'published-online'})) {
         $date_published_online = implode('-' , current( $doi->message->{'published-online'}->{'date-parts'}));
         $date_published_online = date('Y-m-d', strtotime($date_published_online));
       }
 
       $abstract = '';
-      if (!empty($doi->message->abstract))
-      {
+      if (!empty($doi->message->abstract)) {
         $abstract = strip_tags($doi->message->abstract);
       }
 

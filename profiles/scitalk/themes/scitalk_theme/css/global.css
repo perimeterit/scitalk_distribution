@@ -1,34 +1,7 @@
 /*
- * Global adjustments for SciTalk
+ * Global CSS utilities
 */
 
-/**
- * Basic element/font definitions
- */
-
-body {
-  font-size: calc(14px + 0.1vw);
-  line-height: 1.6;
-}
-
-/* Modular scale for heading sizes */
-/* Scale 1.250 -- Major Second via type-scale.com */
-h1 { font-size: 1.802em; }
-h2 { font-size: 1.602em; }
-h3 { font-size: 1.424em; }
-
-h1, h2, h3 {
-  margin: calc(0.4em + 0.7vw) 0;
-}
-.view-header h2 a {
-  color: var(--color-primary);
-  text-decoration: none;
-}
-.view-header h2 a:hover,
-.view-header h2 a:focus {
-  color: var(--color-secondary);
-  text-decoration: underline;
-}
 /*
  * Grid layout classes
 */
@@ -75,6 +48,25 @@ h1, h2, h3 {
   display: none;
 }
 
+
+/* Three column grid */
+.grid-4col,
+.grid-3col {
+  grid-template-columns: 1fr 1fr;
+  grid-gap: var(--gutter--standard);
+}
+@media all and (min-width: 960px) {
+  .grid-4col {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-gap: var(--gutter--big);
+  }
+  .grid-3col {
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: var(--gutter--big);
+  }
+}
+
+
 /*
  * Select forms
  */
@@ -108,4 +100,23 @@ select option {
 */
 .pager.is-active a {
   background: var(--color-primary);
+}
+
+/* Standard expand/contract carets */
+.toggle-expand:after {
+  content: '';
+  display: inline-block;
+  border-bottom: 2px solid var(--color-primary--foreground);
+  border-right: 2px solid var(--color-primary--foreground);
+  transform: rotate(45deg);
+
+  margin: 0 0 0 .5em;
+  height: .6em;
+  width: .6em;
+  vertical-align: text-top;
+}
+.toggle-expand.toggle-contract:after {
+  transform: rotate(-135deg);
+  margin-top: .2em;
+  vertical-align: middle;
 }

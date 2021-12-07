@@ -1,0 +1,105 @@
+uuid: 7accdf71-fa00-417a-81fd-af695d7af9b3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.group.source_repository.field_description
+    - field.field.group.source_repository.field_repo_institution
+    - field.field.group.source_repository.field_repo_institution_full_name
+    - field.field.group.source_repository.field_source_repo_full_name
+    - field.field.group.source_repository.field_source_repo_logo
+    - field.field.group.source_repository.field_source_repo_url
+    - group.type.source_repository
+    - image.style.thumbnail
+  module:
+    - image
+    - link
+    - path
+    - text
+_core:
+  default_config_hash: OIb5em9MAzqZ80F24c8ktGJLi6cQww62I44gwf1CYSA
+id: group.source_repository.default
+targetEntityType: group
+bundle: source_repository
+mode: default
+content:
+  field_description:
+    weight: 31
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+    type: text_textarea_with_summary
+    region: content
+  field_repo_institution:
+    weight: 33
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_repo_institution_full_name:
+    weight: 32
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_source_repo_full_name:
+    weight: 35
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_source_repo_logo:
+    weight: 34
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
+  field_source_repo_url:
+    weight: 36
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  label:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 120
+    region: content
+    third_party_settings: {  }
+hidden:
+  uid: true

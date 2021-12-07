@@ -4,6 +4,8 @@ dependencies:
   enforced:
     module:
       - scitalk_base
+_core:
+  default_config_hash: Es8KLNc5gLhCsIcZ2Bh34G_Z9teL6AN-72nXxkzuuMc
 name: scitalk_preview_large
 label: 'Scitalk Preview Large'
 effects:
@@ -13,5 +15,5 @@ effects:
     weight: 1
     data:
       width: 460
-      height: 375
-      anchor: center-center
+      height: 255
+      anchor: left-top

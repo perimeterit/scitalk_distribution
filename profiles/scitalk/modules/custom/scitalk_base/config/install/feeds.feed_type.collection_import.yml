@@ -1,0 +1,205 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.base_field_override.node.collection.title
+    - field.field.node.collection.field_collection_date
+    - field.field.node.collection.field_collection_event_url
+    - field.field.node.collection.field_collection_number
+    - field.field.node.collection.field_collection_organizers
+    - field.field.node.collection.field_collection_public_viewable
+    - field.field.node.collection.field_collection_short_desc
+    - field.field.node.collection.field_collection_subject
+    - field.field.node.collection.field_collection_type
+    - node.type.collection
+  module:
+    - feeds_ex
+    - node
+id: collection_import
+label: 'Collection Import'
+description: 'Import configuration for Collection'
+help: ''
+import_period: -1
+fetcher: http
+fetcher_configuration:
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: true
+  fallback_hub: ''
+  request_timeout: 30
+parser: jsonpath
+parser_configuration:
+  context:
+    value: '$.*'
+  sources:
+    _collection_date_start_:
+      label: '$.collection_date[''start'']'
+      value: '$.collection_date[''start'']'
+    _collection_date_end_:
+      label: '$.collection_date[''end'']'
+      value: '$.collection_date[''end'']'
+    _collection_number:
+      label: $.collection_number
+      value: $.collection_number
+    _title:
+      label: $.title
+      value: $.title
+    _collection_type:
+      label: $.collection_type
+      value: $.collection_type
+    _organizers:
+      label: $.organizers
+      value: $.organizers
+    _viewable:
+      label: $.viewable
+      value: $.viewable
+    _short_description:
+      label: $.short_description
+      value: $.short_description
+    _event_url:
+      label: $.event_url
+      value: $.event_url
+    _event_url_2:
+      label: $.event_url
+      value: $.event_url
+    _subject:
+      label: $.subject
+      value: $.subject
+  display_errors: false
+  source_encoding:
+    - auto
+  debug_mode: false
+  line_limit: 100
+processor: 'entity:node'
+processor_configuration:
+  langcode: en
+  update_existing: 2
+  update_non_existent: _keep
+  expire: -1
+  owner_feed_author: false
+  owner_id: 1
+  authorize: false
+  skip_hash_check: false
+  values:
+    type: collection
+custom_sources:
+  _collection_date_0_:
+    label: '$.collection_date[0]'
+    value: '$.collection_date[0]'
+    machine_name: _collection_date_0_
+  _collection_date_1_:
+    label: '$.collection_date[1]'
+    value: '$.collection_date[1]'
+    machine_name: _collection_date_1_
+  _collection_number:
+    label: $.collection_number
+    value: $.collection_number
+    machine_name: _collection_number
+  _title:
+    label: $.title
+    value: $.title
+    machine_name: _title
+  _collection_type:
+    label: $.collection_type
+    value: $.collection_type
+    machine_name: _collection_type
+  _organizers:
+    label: $.organizers
+    value: $.organizers
+    machine_name: _organizers
+  _viewable:
+    label: $.viewable
+    value: $.viewable
+    machine_name: _viewable
+  _short_description:
+    label: $.short_description
+    value: $.short_description
+    machine_name: _short_description
+  _event_url:
+    label: $.event_url
+    value: $.event_url
+    machine_name: _event_url
+  _event_url_2:
+    label: $.event_url
+    value: $.event_url
+    machine_name: _event_url_2
+  _subject:
+    label: $.subject
+    value: $.subject
+    machine_name: _subject
+  _collection_date_start_:
+    label: '$.collection_date[''start'']'
+    value: '$.collection_date[''start'']'
+    machine_name: _collection_date_start_
+  _collection_date_end_:
+    label: '$.collection_date[''end'']'
+    value: '$.collection_date[''end'']'
+    machine_name: _collection_date_end_
+mappings:
+  -
+    target: field_collection_date
+    map:
+      value: _collection_date_start_
+      end_value: _collection_date_end_
+    settings:
+      language: null
+      timezone: UTC
+  -
+    target: field_collection_number
+    map:
+      value: _collection_number
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: title
+    map:
+      value: _title
+    unique: {  }
+    settings:
+      language: null
+  -
+    target: field_collection_type
+    map:
+      target_id: _collection_type
+    settings:
+      language: ''
+      reference_by: name
+      autocreate: '1'
+  -
+    target: field_collection_organizers
+    map:
+      target_id: _organizers
+    settings:
+      language: ''
+      reference_by: title
+      feeds_item: guid
+      autocreate: 0
+  -
+    target: field_collection_public_viewable
+    map:
+      value: _viewable
+    settings:
+      language: null
+  -
+    target: field_collection_short_desc
+    map:
+      value: _short_description
+    settings:
+      language: null
+      format: plain_text
+  -
+    target: field_collection_event_url
+    map:
+      uri: _event_url
+      title: _event_url_2
+    settings:
+      language: null
+  -
+    target: field_collection_subject
+    map:
+      target_id: _subject
+    settings:
+      language: ''
+      reference_by: name
+      autocreate: '1'

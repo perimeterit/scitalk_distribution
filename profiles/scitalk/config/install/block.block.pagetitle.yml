@@ -1,9 +1,12 @@
-uuid: f368a462-3596-498f-b202-a32671608161
 langcode: en
 status: true
 dependencies:
+  module:
+    - system
   theme:
     - scitalk_theme
+_core:
+  default_config_hash: QZ78zozwY3ezZuZsnPKVfZkg887bxlzFbU8vXaWcAuU
 id: pagetitle
 theme: scitalk_theme
 region: page_title
@@ -15,4 +18,9 @@ settings:
   label: 'Page title'
   provider: core
   label_display: '0'
-visibility: {  }
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: true
+    context_mapping: {  }

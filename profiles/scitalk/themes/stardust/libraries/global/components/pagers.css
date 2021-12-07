@@ -7,11 +7,12 @@
 }
 .pager li {
   display: inline-block;
+  margin-bottom: .8em;
 }
 .pager a {
   background: var(--color-lt-grey);
+  display: block;
   padding: .4em .7em;
-  margin: 0 .2em;
   text-decoration: none;
 }
 .pager .is-active a {

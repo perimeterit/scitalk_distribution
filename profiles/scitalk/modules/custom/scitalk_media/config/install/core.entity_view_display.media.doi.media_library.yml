@@ -1,13 +1,26 @@
+uuid: 33310f4a-7015-45a3-a035-22625dbf9724
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.media.media_library
+    - field.field.media.doi.field_doi_authors
+    - field.field.media.doi.field_doi_date_issued
+    - field.field.media.doi.field_doi_date_published
+    - field.field.media.doi.field_doi_description
+    - field.field.media.doi.field_doi_issue
+    - field.field.media.doi.field_doi_journal_name
+    - field.field.media.doi.field_doi_page_range
+    - field.field.media.doi.field_doi_publisher
+    - field.field.media.doi.field_doi_title
+    - field.field.media.doi.field_doi_volume
     - field.field.media.doi.field_media_scitalk_doi
     - image.style.medium
     - media.type.doi
   module:
     - image
+_core:
+  default_config_hash: tvYY6kQhstfwOcc9sscpt0wmboL-zJqJ81w9vbWIANM
 id: media.doi.media_library
 targetEntityType: media
 bundle: doi
@@ -24,6 +37,16 @@ content:
     region: content
 hidden:
   created: true
+  field_doi_authors: true
+  field_doi_date_issued: true
+  field_doi_date_published: true
+  field_doi_description: true
+  field_doi_issue: true
+  field_doi_journal_name: true
+  field_doi_page_range: true
+  field_doi_publisher: true
+  field_doi_title: true
+  field_doi_volume: true
   field_media_scitalk_doi: true
   langcode: true
   name: true

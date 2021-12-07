@@ -2,7 +2,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.talk.field_combination_example
+    - field.field.node.talk.feeds_item
+    - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
     - field.field.node.talk.field_talk_abstract
     - field.field.node.talk.field_talk_attachments
@@ -12,9 +13,8 @@ dependencies:
     - field.field.node.talk.field_talk_keywords
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
-    - field.field.node.talk.field_talk_series
-    - field.field.node.talk.field_talk_source
     - field.field.node.talk.field_talk_source_event
+    - field.field.node.talk.field_talk_source_repository
     - field.field.node.talk.field_talk_speaker_profile
     - field.field.node.talk.field_talk_speakers_text
     - field.field.node.talk.field_talk_subject
@@ -60,8 +60,6 @@ third_party_settings:
         - field_talk_number
         - field_talk_speaker_profile
         - field_talk_source_event
-        - field_talk_series
-        - field_talk_source
         - field_talk_collection
         - field_scientific_area
         - field_talk_type
@@ -86,14 +84,6 @@ targetEntityType: node
 bundle: talk
 mode: default
 content:
-  field_combination_example:
-    weight: 5
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    type: entity_reference_label
-    region: content
   field_scientific_area:
     type: entity_reference_label
     weight: 28
@@ -140,18 +130,11 @@ content:
         fences_label_tag: div
         fences_label_classes: ''
   field_talk_collection:
-    weight: 27
-    label: inline
+    weight: 31
+    label: above
     settings:
       link: true
-    third_party_settings:
-      fences:
-        fences_field_tag: div
-        fences_field_classes: ''
-        fences_field_item_tag: none
-        fences_field_item_classes: ''
-        fences_label_tag: strong
-        fences_label_classes: ''
+    third_party_settings: {  }
     type: entity_reference_label
     region: content
   field_talk_doi:
@@ -184,36 +167,6 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-  field_talk_series:
-    weight: 25
-    label: inline
-    settings:
-      link: true
-    third_party_settings:
-      fences:
-        fences_field_tag: ul
-        fences_field_classes: 'display-list inline-list'
-        fences_field_item_tag: li
-        fences_field_item_classes: ''
-        fences_label_tag: strong
-        fences_label_classes: ''
-    type: entity_reference_label
-    region: content
-  field_talk_source:
-    type: entity_reference_label
-    weight: 26
-    region: content
-    label: inline
-    settings:
-      link: true
-    third_party_settings:
-      fences:
-        fences_field_tag: div
-        fences_field_classes: ''
-        fences_field_item_tag: span
-        fences_field_item_classes: ''
-        fences_label_tag: strong
-        fences_label_classes: ''
   field_talk_source_event:
     weight: 24
     label: inline
@@ -232,6 +185,14 @@ content:
         fences_label_tag: strong
         fences_label_classes: ''
     type: link
+    region: content
+  field_talk_source_repository:
+    weight: 32
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
     region: content
   field_talk_speaker_profile:
     type: entity_reference_label
@@ -316,6 +277,8 @@ content:
         fences_label_tag: strong
         fences_label_classes: ''
 hidden:
+  feeds_item: true
+  field_embargo_date: true
   field_talk_date: true
   field_talk_keywords: true
   field_talk_location: true

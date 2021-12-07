@@ -1,4 +1,3 @@
-uuid: 7830642c-a394-476d-ac4c-0900f16b9d5f
 langcode: en
 status: true
 dependencies:
@@ -23,22 +22,14 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: 4sP_dy2MtJ6oaWKD2dm9JyqE4q49PcXKecGcU4PEHzU
+  default_config_hash: 3Mtr8LUwkUnMuqC9i_-MYUHEG59FxSAhOfTjqQm6cs8
 id: node.speaker_profile.default
 targetEntityType: node
 bundle: speaker_profile
 mode: default
 content:
-  field_sp_external_id:
-    weight: 3
-    label: inline
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-    region: content
   field_sp_orcid_id:
-    weight: 4
+    weight: 3
     label: inline
     settings:
       link_to_entity: false
@@ -81,12 +72,13 @@ content:
     type: link
     region: content
   links:
-    weight: 5
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
 hidden:
   field_sp_display_name: true
+  field_sp_external_id: true
   field_sp_first_name: true
   field_sp_institution_name: true
   field_sp_last_name: true

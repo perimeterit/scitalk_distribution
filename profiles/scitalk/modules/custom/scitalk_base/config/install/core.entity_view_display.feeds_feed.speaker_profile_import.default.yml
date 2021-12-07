@@ -1,0 +1,51 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - feeds.feed_type.speaker_profile_import
+    - field.field.feeds_feed.speaker_profile_import.field_feeds_group
+  module:
+    - feeds
+    - user
+id: feeds_feed.speaker_profile_import.default
+targetEntityType: feeds_feed
+bundle: speaker_profile_import
+mode: default
+content:
+  field_feeds_group:
+    type: entity_reference_label
+    weight: 1
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+  imported:
+    label: inline
+    type: timestamp_ago
+    weight: 2
+    region: content
+    settings:
+      future_format: '@interval hence'
+      past_format: '@interval ago'
+      granularity: 2
+    third_party_settings: {  }
+  next:
+    label: inline
+    type: timestamp
+    weight: 3
+    region: content
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+  source:
+    label: inline
+    type: feeds_uri_link
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  search_api_excerpt: true

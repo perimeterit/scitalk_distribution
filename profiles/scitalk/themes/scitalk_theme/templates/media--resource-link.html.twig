@@ -23,7 +23,7 @@
   {% if content %}
     <span class="icon">
       {% if bundle == 'arxiv' %}
-        {{ 'x' }}
+        {{ 'ArXiv' }}
       {% elseif bundle == 'file' %}
         {% set file_name = content.field_media_file.0['#file'].getFileName() %}
         {% set file_extension = file_name|split('.')|last %}
@@ -33,6 +33,10 @@
         <a href="{{ file_url(image_uri) }}" class="js-modal" data-modal-prefix-class="image" data-modal-title="{{ name }}" data-modal-text="<img src='{{ file_url(image_uri) }}' />" aria-haspopup="dialog">
           {{ content.field_media_image }}
         </a>
+      {% elseif bundle == 'remote_file' %}
+        {% set file_name = content.field_media_scitalk_remote_file['#items'].0.value|split('/')|last %}
+        {% set file_extension = file_name|split('.')|last %}
+        {{ file_extension }}
       {% else %}
         {{ bundle }}
       {% endif %}
@@ -44,7 +48,7 @@
         <p><strong><a href="http://doi.org/{{ content.field_media_scitalk_doi['#items'].0.value }} " target="_blank">{{ content.field_doi_title }}</a></strong></p>
         {{ content|without('field_media_scitalk_doi','field_doi_title') }}
       {% elseif bundle == 'arxiv' %}
-        <p class="small">{{ 'Arxiv: ' }} {{ content.field_media_scitalk_arxiv }}</p>
+        <p class="small">{{ 'arXiv: ' }} {{ content.field_media_scitalk_arxiv }}</p>
         <p><strong><a href="http://arxiv.org/abs/{{ content.field_media_scitalk_arxiv['#items'].0.value }}" target="_blank">{{ content.field_arxiv_title }}</a></strong></p>
         {{ content|without('field_media_scitalk_arxiv', 'name', 'field_arxiv_title') }}
       {% elseif bundle == 'image' %}
@@ -57,6 +61,9 @@
           {% set filesize = file_bytes ~ 'kb' %}
         {% endif %}
         {{ content }} | {{ filesize }}
+      {% elseif bundle == 'remote_file' %}
+        {% set filename = content.name['#items'].0.value ?? content.field_media_scitalk_remote_file['#items'].0.value|split('/')|last %}
+        <a href="{{ content.field_media_scitalk_remote_file['#items'].0.value }}" target="_blank">{{ filename }}</a>
       {% endif %}
     </div>
   {% endif %}

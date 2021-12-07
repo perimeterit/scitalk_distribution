@@ -1,0 +1,154 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.collection.feeds_item
+    - field.field.node.collection.field_collection_date
+    - field.field.node.collection.field_collection_description
+    - field.field.node.collection.field_collection_event_url
+    - field.field.node.collection.field_collection_number
+    - field.field.node.collection.field_collection_organizers
+    - field.field.node.collection.field_collection_public_viewable
+    - field.field.node.collection.field_collection_short_desc
+    - field.field.node.collection.field_collection_source_repo
+    - field.field.node.collection.field_collection_subject
+    - field.field.node.collection.field_collection_type
+    - node.type.collection
+  module:
+    - date_all_day
+    - fences
+    - link
+    - text
+    - user
+_core:
+  default_config_hash: zuGoXJ8Jl-TLkB2-3ET53mWgmmfx04QXZ3VkXd4H6eg
+id: node.collection.default
+targetEntityType: node
+bundle: collection
+mode: default
+content:
+  field_collection_date:
+    weight: 5
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: medium
+      separator: '-'
+      date_only_format: medium
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
+    type: daterange_all_day_default
+    region: content
+  field_collection_description:
+    type: text_default
+    weight: 2
+    region: content
+    label: inline
+    settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
+  field_collection_event_url:
+    weight: 6
+    label: inline
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: '0'
+      target: '0'
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
+    type: link
+    region: content
+  field_collection_number:
+    weight: 1
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
+    type: string
+    region: content
+  field_collection_organizers:
+    weight: 4
+    label: inline
+    settings:
+      link: true
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
+    type: entity_reference_label
+    region: content
+  field_collection_source_repo:
+    weight: 7
+    label: inline
+    settings:
+      link: true
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
+    type: entity_reference_label
+    region: content
+  field_collection_type:
+    weight: 3
+    label: inline
+    settings:
+      link: true
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
+    type: entity_reference_label
+    region: content
+  links:
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  feeds_item: true
+  field_collection_public_viewable: true
+  field_collection_short_desc: true
+  field_collection_subject: true
+  langcode: true
+  scitalk_most_recent_talk: true
+  scitalk_number_of_talks: true
+  search_api_excerpt: true

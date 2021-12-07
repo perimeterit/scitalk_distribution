@@ -1,0 +1,24 @@
+{% extends "node.html.twig" %}
+{#
+/**
+ * @file
+ * Custom theme implementation to display a Talk node.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% block content %}
+  <div class="content-first">
+    {{ content.field_talk_thumbnail }}
+  </div>
+  <div class="content-second">
+    {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
+    {% embed "@scitalk_theme/includes/speaker-date.twig" %}{% endembed %}
+    {{ content|without('links', 'field_talk_thumbnail', 'field_talk_speaker_profile', 'field_talk_date') }}
+    {% if view_mode == 'horizontal_card' %}
+      <a class="talk-info" href="{{url}}">{{ 'Details'|t }}</a>
+
+    {% endif %}
+  </div>
+{% endblock %}

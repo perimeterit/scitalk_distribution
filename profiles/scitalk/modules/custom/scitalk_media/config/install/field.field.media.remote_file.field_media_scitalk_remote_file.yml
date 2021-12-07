@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_media_scitalk_remote_file
+    - media.type.remote_file
+id: media.remote_file.field_media_scitalk_remote_file
+field_name: field_media_scitalk_remote_file
+entity_type: media
+bundle: remote_file
+label: 'Remote file'
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
+

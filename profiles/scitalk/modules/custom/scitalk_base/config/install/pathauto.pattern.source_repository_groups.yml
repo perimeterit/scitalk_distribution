@@ -1,0 +1,14 @@
+uuid: fa0f10de-fa38-4f39-9ea1-6d02d9e82877
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: source_repository_groups
+label: 'Source Repository Groups'
+type: 'canonical_entities:group'
+pattern: 'source-repository/[group:title]'
+selection_criteria: {  }
+selection_logic: and
+weight: 0
+relationships: {  }

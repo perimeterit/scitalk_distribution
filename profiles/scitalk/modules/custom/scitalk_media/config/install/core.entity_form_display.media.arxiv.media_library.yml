@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.media_library
+    - field.field.media.arxiv.field_arxiv_published_date
+    - field.field.media.arxiv.field_arxiv_summary
+    - field.field.media.arxiv.field_arxiv_title
+    - field.field.media.arxiv.field_arxiv_updated_date
+    - field.field.media.arxiv.field_media_scitalk_arxiv
+    - media.type.arxiv
+id: media.arxiv.media_library
+targetEntityType: media
+bundle: arxiv
+mode: media_library
+content:
+  field_media_scitalk_arxiv:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  field_arxiv_published_date: true
+  field_arxiv_summary: true
+  field_arxiv_title: true
+  field_arxiv_updated_date: true
+  langcode: true
+  name: true
+  path: true
+  status: true
+  uid: true
+

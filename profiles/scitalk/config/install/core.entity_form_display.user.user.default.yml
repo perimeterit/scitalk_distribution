@@ -1,3 +1,4 @@
+uuid: efe1d26c-a319-4f76-903b-60ba180ea8a5
 langcode: en
 status: true
 dependencies:
@@ -6,9 +7,10 @@ dependencies:
     - image.style.thumbnail
   module:
     - image
+    - path
     - user
 _core:
-  default_config_hash: K-1rBM8mTIkFp9RqOC2tMRUukOQ1xbRCfSKK8dEddnA
+  default_config_hash: 7FXGe7t_AfiUilswIXPtlshND2UE9H0ctnUkkz7j8yg
 id: user.user.default
 targetEntityType: user
 bundle: user
@@ -24,6 +26,11 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  google_analytics:
+    weight: 3
+    settings: {  }
+    third_party_settings: {  }
+    region: content
   language:
     weight: 0
     region: content

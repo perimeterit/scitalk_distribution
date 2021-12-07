@@ -30,6 +30,8 @@
 ]
 %}
 <div{{ attributes.addClass(classes) }}>
+  {% if view_mode != 'full' %}
   {% include "@scitalk_theme/includes/entity-headers.twig" with {'label': name.0 } %}
+  {% endif %}
   {{ content }}
 </div>

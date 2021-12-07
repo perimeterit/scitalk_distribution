@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_sort_order
+    - taxonomy.vocabulary.collection_type
+  module:
+    - options
+id: taxonomy_term.collection_type.field_sort_order
+field_name: field_sort_order
+entity_type: taxonomy_term
+bundle: collection_type
+label: 'Sort Order'
+description: 'Sort order for the Collection page display.'
+required: false
+translatable: false
+default_value:
+  -
+    value: date_desc
+default_value_callback: ''
+settings: {  }
+field_type: list_string

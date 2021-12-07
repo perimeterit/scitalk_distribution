@@ -57,11 +57,18 @@ nav a {
   margin: 0 .2em;
   text-decoration: none;
 }
-.pager .is-active a {
-  font-size: 1.7em;
-}
 .pager a:hover {
   background: rgba(0,0,0,0.2);
+}
+.pager__item--next a:after,
+.pager__item--last a:after  {
+  content: '\00BB';
+  display: inline;
+}
+.pager__item--previous a:before,
+.pager__item--first a:before{
+  content: '\00AB';
+  display: inline;
 }
 
 /* Views mini pager */

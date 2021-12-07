@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_collection_event_url
+    - node.type.collection
+  module:
+    - link
+id: node.collection.field_collection_event_url
+field_name: field_collection_event_url
+entity_type: node
+bundle: collection
+label: 'Source Event URL'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link

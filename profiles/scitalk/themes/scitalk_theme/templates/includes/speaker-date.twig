@@ -1,14 +1,5 @@
 {% set speaker_date_attributes = create_attribute() %}
-
 {% set num_speakers = content.field_talk_speaker_profile['#items']|length %}
-
-
-{%
-  set speaker_date_classes = [
-    'speaker-date',
-    num_speakers > 3 ? 'multi-line' : 'single-line'
-  ]
-%}
 
 
 <div{{ speaker_date_attributes.addClass(speaker_date_classes) }}>

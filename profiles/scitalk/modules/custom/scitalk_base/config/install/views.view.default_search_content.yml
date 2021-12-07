@@ -6,7 +6,7 @@ dependencies:
     module:
       - scitalk_base
   config:
-    - search_api.index.default_database_index
+    - search_api.index.default_talks_index
   module:
     - search_api
 id: default_search_content
@@ -14,7 +14,7 @@ label: 'Scitalk: default datbase search'
 module: views
 description: ''
 tag: ''
-base_table: search_api_index_default_database_index
+base_table: search_api_index_default_talks_index
 base_field: search_api_id
 display:
   default:
@@ -75,7 +75,7 @@ display:
       fields:
         search_api_rendered_item:
           id: search_api_rendered_item
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: search_api_rendered_item
           relationship: none
           group_type: group
@@ -130,7 +130,7 @@ display:
       filters:
         search_api_fulltext:
           id: search_api_fulltext
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: search_api_fulltext
           relationship: none
           group_type: group
@@ -175,7 +175,7 @@ display:
       sorts:
         search_api_relevance:
           id: search_api_relevance
-          table: search_api_index_default_database_index
+          table: search_api_index_default_talks_index
           field: search_api_relevance
           relationship: none
           group_type: group

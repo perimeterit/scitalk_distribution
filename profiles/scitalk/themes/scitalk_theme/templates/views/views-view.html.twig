@@ -1,0 +1,74 @@
+{#
+/**
+ * @file
+ * Custom override for a main view template.
+ * Adds classes
+ *
+ * @see template_preprocess_views_view()
+ */
+#}
+{%
+  set classes = [
+    'view',
+    'view-' ~ id|clean_class,
+    'view-display-' ~ display_id,
+    dom_id ? 'js-view-dom-id-' ~ dom_id,
+  ]
+%}
+{# Add conditional for views that use the card/table switcher #}
+{# Giving these views a custom template didn't work with ajax #}
+{% set card_view_views = ['scitalk_latest_talks', 'scitalk_talks_in_collection', 'taxonomy_term'] %}
+{% if id in card_view_views and (display_id == 'card_view') %}
+  {% include '@scitalk_theme/views/_scitalk-card-table-view.html.twig' %}
+{% else %}
+  <div{{ attributes.addClass(classes) }}>
+    {{ title_prefix }}
+    {% if title %}
+      {{ title }}
+    {% endif %}
+    {{ title_suffix }}
+    {% if header %}
+      <div class="view-header">
+        {{ header }}
+      </div>
+    {% endif %}
+    {% if exposed %}
+      <div class="view-filters">
+        {{ exposed }}
+      </div>
+    {% endif %}
+    {% if attachment_before %}
+      <div class="attachment attachment-before">
+        {{ attachment_before }}
+      </div>
+    {% endif %}
+
+    {% if rows %}
+      <div class="view-content">
+        {{ rows }}
+      </div>
+    {% elseif empty %}
+      <div class="view-empty">
+        {{ empty }}
+      </div>
+    {% endif %}
+
+    {% if pager %}
+      {{ pager }}
+    {% endif %}
+    {% if attachment_after %}
+      <div class="attachment attachment-after">
+        {{ attachment_after }}
+      </div>
+    {% endif %}
+    {% if more %}
+      {{ more }}
+    {% endif %}
+    {% if footer %}
+      <div class="view-footer">
+        {{ footer }}
+      </div>
+    {% endif %}
+  </div>
+
+{% endif %}

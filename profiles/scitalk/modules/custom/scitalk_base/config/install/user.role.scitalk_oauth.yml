@@ -10,6 +10,7 @@ weight: 3
 is_admin: null
 permissions:
   - 'administer nodes'
+  - 'create collection content'
   - 'create speaker_profile content'
   - 'create talk content'
   - 'create terms in collection'
@@ -20,8 +21,10 @@ permissions:
   - 'create terms in tags'
   - 'create terms in talk_keywords'
   - 'create terms in talk_type'
+  - 'delete any collection content'
   - 'delete any speaker_profile content'
   - 'delete any talk content'
+  - 'delete own collection content'
   - 'delete own speaker_profile content'
   - 'delete own talk content'
   - 'delete terms in collection'
@@ -32,8 +35,10 @@ permissions:
   - 'delete terms in tags'
   - 'delete terms in talk_keywords'
   - 'delete terms in talk_type'
+  - 'edit any collection content'
   - 'edit any speaker_profile content'
   - 'edit any talk content'
+  - 'edit own collection content'
   - 'edit own speaker_profile content'
   - 'edit own talk content'
   - 'edit terms in collection'
@@ -44,3 +49,5 @@ permissions:
   - 'edit terms in tags'
   - 'edit terms in talk_keywords'
   - 'edit terms in talk_type'
+  - 'view media'
+

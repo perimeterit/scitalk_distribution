@@ -49,7 +49,7 @@ third_party_settings:
     allow_custom: false
     enabled: false
 _core:
-  default_config_hash: 5huQmXXyEJM6IHVqEXujflq7mSLQX56kvtAr08v_sKI
+  default_config_hash: a1MF71C06X_9b6xcdKN_8yqgspc2XPxo-CwGouRcw3I
 id: node.speaker_profile.search_result
 targetEntityType: node
 bundle: speaker_profile

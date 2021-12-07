@@ -15,6 +15,8 @@ install:
   - color
   - comment
   - config
+  - config_update
+  - config_update_ui
   - contact
   - contextual
   - datetime
@@ -27,6 +29,7 @@ install:
   - field_ui
   - file
   - filter
+  - group
   - help
   - image
   - inline_form_errors
@@ -75,12 +78,17 @@ install:
   - search_api_solr
   - simple_oauth
   - recaptcha
+  - recaptcha_v3
   - id_link_formatter
   - layout_builder
   - date_all_day
+  - date_popup
   - scitalk_base
   - scitalk_media
   - scitalk_video
+  - twig_tweak
+  - views_ajax_history
+  - google_analytics
 themes:
   - seven
   - stable

@@ -1,12 +1,14 @@
+uuid: fe6c3b5a-ca8f-46b6-9c86-47c57f5f00da
 langcode: en
 status: true
 dependencies:
-  module:
-    - media
-    - scitalk_media
   enforced:
     module:
-      - scitalk_media    
+      - scitalk_media
+  module:
+    - media
+_core:
+  default_config_hash: Z1lBUoc19iMqZC-LfSp4Eq8_Ak0nX1SSBWSH-vYvdjc
 id: media.field_media_scitalk_arxiv
 field_name: field_media_scitalk_arxiv
 entity_type: media

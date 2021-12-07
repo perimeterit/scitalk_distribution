@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_repo_institution_full_name
+    - group.type.source_repository
+id: group.source_repository.field_repo_institution_full_name
+field_name: field_repo_institution_full_name
+entity_type: group
+bundle: source_repository
+label: 'Institution Full Name'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

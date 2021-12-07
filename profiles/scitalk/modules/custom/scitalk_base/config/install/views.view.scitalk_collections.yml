@@ -1,24 +1,23 @@
+uuid: bf6893d9-1353-4fcb-b972-8838dfb3a3b3
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.taxonomy_term.card
-    - core.entity_view_mode.taxonomy_term.teaser
-    - system.menu.main
-    - taxonomy.vocabulary.collection
+    - core.entity_view_mode.node.teaser
+    - node.type.collection
   module:
     - datetime
-    - taxonomy
+    - node
     - user
 _core:
-  default_config_hash: sk4mpK85gZkuUbljSJ73Xt1kA2DE-V49oYnZ5JQyfzQ
+  default_config_hash: QkIbsbUU8h40uf1aw28KTiTN_aDPjw6tEKoaJzCmE6M
 id: scitalk_collections
-label: 'SciTalk: Collections'
+label: 'Scitalk: Collections'
 module: views
-description: 'List of Talk Collections'
+description: ''
 tag: ''
-base_table: taxonomy_term_field_data
-base_field: tid
+base_table: node_field_data
+base_field: nid
 display:
   default:
     display_plugin: default
@@ -52,12 +51,17 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
       pager:
-        type: mini
+        type: full
         options:
-          items_per_page: 10
+          items_per_page: 12
           offset: 0
           id: 0
           total_pages: null
+          tags:
+            previous: Previous
+            next: Next
+            first: First
+            last: Last
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -66,23 +70,25 @@ display:
             items_per_page_options_all_label: '- All -'
             offset: false
             offset_label: Offset
-          tags:
-            previous: ‹‹
-            next: ››
+          quantity: 9
       style:
         type: default
+        options:
+          grouping: {  }
+          row_class: ''
+          default_row_class: true
       row:
-        type: 'entity:taxonomy_term'
+        type: 'entity:node'
         options:
           relationship: none
           view_mode: teaser
       fields:
-        name:
-          id: name
-          table: taxonomy_term_field_data
-          field: name
-          entity_type: taxonomy_term
-          entity_field: name
+        title:
+          id: title
+          table: node_field_data
+          field: title
+          entity_type: node
+          entity_field: title
           label: ''
           alter:
             alter_text: false
@@ -95,10 +101,9 @@ display:
             html: false
           hide_empty: false
           empty_zero: false
-          type: string
           settings:
             link_to_entity: true
-          plugin_id: term_name
+          plugin_id: field
           relationship: none
           group_type: group
           admin_label: ''
@@ -114,6 +119,7 @@ display:
           empty: ''
           hide_alter_empty: true
           click_sort_column: value
+          type: string
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -124,14 +130,13 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          convert_spaces: false
       filters:
         status:
           value: '1'
-          table: taxonomy_term_field_data
+          table: node_field_data
           field: status
           plugin_id: boolean
-          entity_type: taxonomy_term
+          entity_type: node
           entity_field: status
           id: status
           expose:
@@ -139,14 +144,14 @@ display:
             operator_limit_selection: false
             operator_list: {  }
           group: 1
-        vid:
-          id: vid
-          table: taxonomy_term_field_data
-          field: vid
+        type:
+          id: type
+          table: node_field_data
+          field: type
           value:
             collection: collection
-          entity_type: taxonomy_term
-          entity_field: vid
+          entity_type: node
+          entity_field: type
           plugin_id: bundle
           expose:
             operator_limit_selection: false
@@ -154,7 +159,7 @@ display:
       sorts:
         field_collection_date_end_value:
           id: field_collection_date_end_value
-          table: taxonomy_term__field_collection_date
+          table: node__field_collection_date
           field: field_collection_date_end_value
           relationship: none
           group_type: group
@@ -165,24 +170,20 @@ display:
             label: ''
           granularity: second
           plugin_id: datetime
-      title: Collections
-      header:
-        area:
-          id: area
-          table: views
-          field: area
-          plugin_id: text
+      header: {  }
       footer: {  }
       empty: {  }
       relationships: {  }
       arguments: {  }
       display_extenders: {  }
+      title: Collections
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
+        - 'user.node_grants:view'
         - user.permissions
       tags: {  }
   block_1:
@@ -192,93 +193,60 @@ display:
     position: 2
     display_options:
       display_extenders: {  }
-      pager:
-        type: some
+      style:
+        type: html_list
         options:
-          items_per_page: 10
-          offset: 0
+          grouping: {  }
+          row_class: ''
+          default_row_class: false
+          type: ul
+          wrapper_class: ''
+          class: 'display-list term-grid'
       defaults:
+        style: false
+        row: false
         pager: false
         use_more: false
         use_more_always: false
         use_more_text: false
-        style: false
-        row: false
-        header: false
-      use_more: true
-      use_more_always: true
-      use_more_text: 'More Collections'
-      style:
-        type: html_list
-        options:
-          row_class: ''
-          default_row_class: false
-          uses_fields: false
-          type: ul
-          wrapper_class: ''
-          class: 'display-list card-grid'
       row:
-        type: 'entity:taxonomy_term'
+        type: fields
         options:
-          relationship: none
-          view_mode: card
-      header:
-        area:
-          id: area
-          table: views
-          field: area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: false
-          tokenize: false
-          content:
-            value: '<h2><a href="/collections">Collections</a></h2>'
-            format: basic_html
-          plugin_id: text
+          default_field_elements: false
+          inline: {  }
+          separator: ''
+          hide_empty: false
+      pager:
+        type: some
+        options:
+          items_per_page: 9
+          offset: 0
+      use_more: true
+      use_more_always: false
+      use_more_text: 'More Collections'
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
+        - 'user.node_grants:view'
         - user.permissions
       tags: {  }
-  scitalk_collection_listing:
+  page_1:
     display_plugin: page
-    id: scitalk_collection_listing
-    display_title: 'Collection List'
+    id: page_1
+    display_title: Page
     position: 1
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        ajax_history: {  }
       path: collections
-      display_description: ''
-      menu:
-        type: normal
-        title: Collections
-        description: ''
-        expanded: false
-        parent: ''
-        weight: -47
-        context: '0'
-        menu_name: main
-      style:
-        type: default
-        options: {  }
-      defaults:
-        style: false
-        row: false
-        header: false
-      row:
-        type: 'entity:taxonomy_term'
-        options:
-          relationship: none
-          view_mode: teaser
-      header: {  }
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
+        - 'user.node_grants:view'
         - user.permissions
       tags: {  }

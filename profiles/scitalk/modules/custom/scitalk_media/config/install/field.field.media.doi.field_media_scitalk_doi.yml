@@ -9,7 +9,7 @@ field_name: field_media_scitalk_doi
 entity_type: media
 bundle: doi
 label: Reference
-description: ''
+description: 'Enter the DOI. The remaining fields on this form will be filled from the Crossref site once you save the form. '
 required: true
 translatable: true
 default_value: {  }
