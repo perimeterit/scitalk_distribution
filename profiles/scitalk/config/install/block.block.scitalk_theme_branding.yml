@@ -7,11 +7,11 @@ dependencies:
   theme:
     - scitalk_theme
 _core:
-  default_config_hash: S-5fcH8HGP34X6QbyyjXDoKF0fJ_VOP28pLgA3Xy9s8
+  default_config_hash: fPpBS0BfIE8Ka6c90TIGcnaU1cF-Q9kC6SPKl-9WY7g
 id: scitalk_theme_branding
 theme: scitalk_theme
 region: header
-weight: -7
+weight: -8
 provider: null
 plugin: system_branding_block
 settings:

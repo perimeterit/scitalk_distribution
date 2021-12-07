@@ -1,16 +1,18 @@
 uuid: 35e4d914-2ed3-4924-a301-c610a9d61983
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - node
     - scitalk_base
   theme:
     - scitalk_theme
+_core:
+  default_config_hash: racBwVZ8sxPbslJ-nScmKaOMhrc1CpWXsy8hUFzZgzk
 id: scitalksocialmediashareblock
 theme: scitalk_theme
-region: page_header
-weight: 0
+region: page_title
+weight: -5
 provider: null
 plugin: scitalk_social_media_share_block
 settings:

@@ -1,15 +1,18 @@
+uuid: 8561630c-3438-40f8-a2b4-bd880ebf7e47
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - node
     - scitalk_base
   theme:
     - scitalk_theme
+_core:
+  default_config_hash: z7Bt_S2gZJZr3BcN5N8GSRsOfSI7o9dS7hK37D7Ucpk
 id: scitalkcitationsblock
 theme: scitalk_theme
-region: page_header
-weight: 0
+region: page_title
+weight: -6
 provider: null
 plugin: scitalk_citations_block
 settings:
