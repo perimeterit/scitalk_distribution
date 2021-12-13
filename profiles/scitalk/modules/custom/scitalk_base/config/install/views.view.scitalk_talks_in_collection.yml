@@ -1,10 +1,9 @@
-uuid: ad2dc64d-e577-4d64-8469-8a72e05cec16
+uuid: b2a936e4-11e5-4c07-b8c0-728bbefdc121
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.horizontal_card
-    - core.entity_view_mode.node.mini_teaser
     - field.storage.node.field_sp_display_name
     - field.storage.node.field_talk_abstract
     - field.storage.node.field_talk_date
@@ -20,7 +19,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: n8G_dfQgwvX1MjJ2rSVuZih-MaFv3s9ZEqcVJv6GRF0
+  default_config_hash: oSeZi5xS2GoDygEv94OIelobghTDoisQjZrS8hK4Krc
 id: scitalk_talks_in_collection
 label: 'SciTalk: Talks in collection'
 module: views
@@ -434,7 +433,7 @@ display:
       arguments: {  }
       display_extenders: {  }
       use_ajax: true
-      css_class: advanced-search-form
+      css_class: view-display
     cache_metadata:
       max-age: -1
       contexts:
@@ -1089,7 +1088,8 @@ display:
     display_title: 'Related Talks'
     position: 4
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        ajax_history: {  }
       title: 'Related Talks'
       defaults:
         title: false
@@ -1186,13 +1186,13 @@ display:
           default_row_class: false
           uses_fields: false
           type: ul
-          wrapper_class: item-list
+          wrapper_class: ''
           class: display-list
       row:
         type: 'entity:node'
         options:
           relationship: none
-          view_mode: mini_teaser
+          view_mode: horizontal_card
     cache_metadata:
       max-age: -1
       contexts:

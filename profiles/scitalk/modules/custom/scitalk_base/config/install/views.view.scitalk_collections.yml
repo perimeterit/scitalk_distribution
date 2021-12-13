@@ -1,16 +1,17 @@
-uuid: bf6893d9-1353-4fcb-b972-8838dfb3a3b3
+uuid: 46140aaf-adc8-480c-9e29-a0d75dd5e7de
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - node.type.collection
+    - system.menu.main
   module:
     - datetime
     - node
     - user
 _core:
-  default_config_hash: QkIbsbUU8h40uf1aw28KTiTN_aDPjw6tEKoaJzCmE6M
+  default_config_hash: q6_ukrJoI_UY_j9M1unAppSbF2AEwubSrIlPCQTI2bM
 id: scitalk_collections
 label: 'Scitalk: Collections'
 module: views
@@ -241,6 +242,15 @@ display:
       display_extenders:
         ajax_history: {  }
       path: collections
+      menu:
+        type: normal
+        title: Collections
+        description: ''
+        expanded: false
+        parent: ''
+        weight: -49
+        context: '0'
+        menu_name: main
     cache_metadata:
       max-age: -1
       contexts:

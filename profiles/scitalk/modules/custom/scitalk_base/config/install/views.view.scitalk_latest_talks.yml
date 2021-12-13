@@ -75,7 +75,7 @@ display:
               plugin_id: default
               advanced:
                 combine: true
-                combine_rewrite: "Date Desc|Date Newest first\r\nDate Asc|Date Oldest first\r\nTitle Asc|Title A -> Z\r\nTitle Desc|Title Z -> A\r\nCombined Speaker(s) Asc| Speakers A > Z\r\nCombined Speaker(s) Desc| Speakers Z -> A"
+                combine_rewrite: "Date Desc|Date - New to Old\r\nDate Asc|Date - Old to New\r\nTitle Asc|Title A to Z\r\nTitle Desc|Title Z to A\r\nCombined Speaker(s) Asc| Speaker - A to Z\r\nCombined Speaker(s) Desc| Speaker Z to A"
                 reset: false
                 reset_label: ''
                 collapsible: false
@@ -88,6 +88,14 @@ display:
                   sort_options: false
                   rewrite:
                     filter_rewrite_values: '- Any -|All Talk Types'
+                  collapsible: false
+                  is_secondary: false
+              field_scientific_area:
+                plugin_id: default
+                advanced:
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: ''
                   collapsible: false
                   is_secondary: false
       pager:
@@ -1176,7 +1184,8 @@ display:
           entity_type: node
           plugin_id: search_api
       arguments: {  }
-      display_extenders: {  }
+      display_extenders:
+        ajax_history: {  }
       css_class: advanced-view-display
       filter_groups:
         operator: AND
