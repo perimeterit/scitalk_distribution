@@ -24,7 +24,7 @@ dialog {
 
   background: #fff;
   box-shadow: 2px 2px 6px rgba(42,42,42,0.2);
-  padding: var(--gutter--big);
+  padding: var(--gutter-big);
 }
 .modal {
   position: fixed;
@@ -42,7 +42,7 @@ dialog {
 @media all and (min-width: 960px) {
   .modal,
   .image-modal {
-    padding: calc(1.5 * var(--gutter--big));
+    padding: calc(1.5 * var(--gutter-big));
   }
   .modal {
     left: 25%;

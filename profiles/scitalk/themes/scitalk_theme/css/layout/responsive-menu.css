@@ -19,7 +19,7 @@
   grid-template-columns: 1fr 1fr;
   grid-gap: .5em;
   position: absolute;
-  top: 2em;
+  top: 1rem;
   right: var(--responsive-padding)
 }
 .mobile-toggle-icons button {
@@ -38,7 +38,7 @@
       height: 2rem;
       width: 2rem;
     }
-@media all and (min-width: 767px) {
+@media all and (min-width: 959px) {
   .mobile-toggle-icons {
     display: none;
   }

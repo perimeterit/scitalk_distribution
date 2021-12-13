@@ -13,8 +13,9 @@
   grid-template-columns: 1fr 1fr;
   grid-gap: .5em;
   position: absolute;
-  top: 2em;
+  top: 1rem;
   right: var(--responsive-padding);
+
   & button {
     background: transparent;
     cursor: pointer;
@@ -36,7 +37,7 @@
     }
   }
 }
-@media all and (min-width: 767px) {
+@media all and (min-width: 959px) {
   .mobile-toggle-icons {
     display: none;
   }

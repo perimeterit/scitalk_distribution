@@ -63,24 +63,16 @@
    </section>
 
   <div class="content-wrapper fixwidth">
-    <section class="page-header-wrapper">
-        {{ page.page_title }}
-        {{ page_header_view }}
-        {{ page.page_header }}
-    </section>
+    {# In the Talks content type the page title is rendered in the node template #}
+    {% if page.page_title and (node.bundle != 'talk') %}
+      {{ page.page_title }}
+    {% endif %}
 
     <main role="main" class="main-content ">
       <a id="main-content" tabindex="-1"></a>
       {{ page.admin }}
       {{ page.content }}
-      {% if page.sidebar %}
-        <aside role="complementary" class="page-sidebar" >
-          {{ page.sidebar }}
-        </aside>
-      {% endif %}
-
     </main>
-
     {{ page.content_bottom }}
   </div>
 </div>

@@ -30,7 +30,7 @@ select,
 textarea {
   background: #fff;
   border: .1em solid #999;
-
+  box-shadow: 0 0 0.1rem white;
   max-width: 100%;
   padding: .6em .8em;
 

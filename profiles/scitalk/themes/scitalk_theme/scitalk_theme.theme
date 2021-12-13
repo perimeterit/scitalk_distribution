@@ -21,19 +21,6 @@ use Drupal\views\Views;
 function scitalk_theme_preprocess_html(&$variables) {
 
 }
-
-
-/**
- * Implements hook_preprocess_HOOK().
- * Alters variables for regions.
- */
-function scitalk_theme_preprocess_region(&$variables) {
-  $region = $variables['region'];
-  if (($region == 'middle_highlight') || ($region == 'content_bottom')) {
-    $variables['attributes']['class'][] = 'fixwidth';
-  }
-}
-
 /**
  * Implements hook_preprocess_HOOK().
  * Alters variables for page template.
@@ -51,10 +38,6 @@ function scitalk_theme_preprocess_page(&$variables) {
       $node = \Drupal::routeMatch()->getParameter('node');
     } else if ($routename == 'entity.node.preview') {
       $node = \Drupal::routeMatch()->getParameter('node_preview');
-    }
-    if (isset($node) && (($node->getType() == 'talk') || ($node->getType() == 'speaker_profile'))) {
-      $page_header_markup = \Drupal::entityTypeManager()->getViewBuilder('node')->view($node, 'page_header');
-      $variables['page_header_view'] = render($page_header_markup);
     }
   }
   // For taxonomy terms
@@ -74,29 +57,9 @@ function scitalk_theme_preprocess_page(&$variables) {
 
 /**
  * Implements hook_preprocess_HOOK().
- * Alters variables for page titles.
- */
-function scitalk_theme_preprocess_page_title(&$variables) {
-  $route = \Drupal::routeMatch();
-  $routename = $route->getRouteName();
-  if ($routename == 'entity.node.canonical') {
-    $node = \Drupal::routeMatch()->getParameter('node');
-  }
-  // Get talk number and pass as a variable
-  if (isset($node) && (($node->getType() == 'talk'))) {
-    $talk_number = $node->get('field_talk_number')->getValue();
-    $variables['talk_number'] = t('Talk #') . $talk_number[0]['value'];
-  }
-}
-/**
- * Implements hook_preprocess_HOOK().
  * Alters variables for nodes.
  */
 function scitalk_theme_preprocess_node(&$variables) {
-   $node = $variables['node'];
-
-   // Get the related talks block and
-   $variables['related_talks_block'] = views_embed_view('scitalk_talks_in_collection', 'related_talks');
 }
 
 /**
@@ -123,8 +86,25 @@ function scitalk_theme_preprocess_block(&$variables) {
 /*
  * Implements hook_preprocess_HOOK() for media entities.
  */
+function scitalk_theme_preprocess_field(&$variables) {
+  // For entity reference fields, add a class for the type of entity
+  $field_name = $variables['field_name'];
+  if ($variables['field_type'] == 'entity_reference') {
+    // First figure out what kind of reference this is
+    $field_definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions('node', 'talk');
+    $field_handler = $field_definitions[$field_name]->getSetting('handler');
+    $field_handler_parts = explode(':',$field_handler);
+    if (isset($field_handler_parts[1])) {
+      $variables['attributes']['class'][] = 'entity-reference--' . str_replace('_','-',$field_handler_parts[1]);
+    }
+  }
+}
+/*
+ * Implements hook_preprocess_HOOK() for media entities.
+ */
 function scitalk_theme_preprocess_media(&$variables) {
   $variables['bundle'] = $variables['media']->bundle();
+
 }
 
 /*

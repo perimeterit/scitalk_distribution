@@ -2,18 +2,6 @@
 /**
  * Modal dialogs for Citations
 */
-.citations-label {
-  display: flex;
-  align-items: center;
-  padding: .5em 1em;
-}
-.citations-label svg {
-  fill: var(--color-primary--foreground);
-  height: 2em;
-  width: 2em;
-
-  margin-right: .5em;
-}
 
 /*
  * Tabs
@@ -29,35 +17,34 @@
 /* Tab labels */
 .citations-tab-labels {
   display: flex;
-}
-.citations-tab-labels li {
-  margin-right: .2em;
-}
-.citations-tab-labels a {
-  border: none;
-  cursor: pointer;
-  padding: .3em 0.6em;
-  color: var(--color-primary);
-}
-.citations-tab-labels a:hover,
-.citations-tab-labels a:focus,
-.citations-tab-labels a[aria-selected="true"] {
-  background: transparent;
-  color: inherit;
-}
-.citations-tab-labels a[aria-selected="true"]:after {
-  content: '';
-  display: block;
-  width: 1.5em;
-  height: 1.5em;
+  & li {
+    margin-right: .2em;
+  }
+  & a {
+    border: none;
+    cursor: pointer;
+    padding: .3em 0.6em;
+    color: var(--color-primary);
+  }
+  & a:matches(:hover,:focus),
+  & a[aria-selected="true"] {
+    background: transparent;
+    color: inherit;
+  }
+  & a[aria-selected="true"]:after {
+    content: '';
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
 
-  background: var(--color-lt-grey);
-  margin: 0;
-  transform: rotate(45deg);
-  position: relative;
-  left: calc(50% - .8em);
-  bottom: -3.3em;
-  margin-top: -2.9em;
+    background: var(--color-lt-grey);
+    margin: 0;
+    transform: rotate(45deg);
+    position: relative;
+    left: calc(50% - .8em);
+    bottom: -3.5rem;
+    margin-top: -2.9em;
+  }
 }
 
 /* Tab content */

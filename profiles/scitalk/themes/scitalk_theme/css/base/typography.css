@@ -1,6 +1,5 @@
 /**
  * Basic typography
- * Font family will be set in the fonts.css file
 
  */
 html {
@@ -21,7 +20,7 @@ h1, h2, h3, h4, h5, ol, ul, dl, table, blockquote, p, .form-item, fieldset, deta
 }
 h1, h2, h3 {
   font-weight: 500;
-  line-height: 1.3rem;
+  line-height: 1.8rem;
 }
 h1 { font-size: 1.5rem; }
 h2 { font-size: 1.125rem; }

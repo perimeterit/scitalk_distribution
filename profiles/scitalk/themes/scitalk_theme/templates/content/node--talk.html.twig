@@ -8,8 +8,12 @@
  */
 #}
 {% block content %}
-    {{ content.field_talk_thumbnail }}
-  <div class="content">
+  {% if view_mode == 'teaser' and content.field_talk_abstract.0['#text']|length > 200 %}
+    {% set show_show_more = TRUE %}
+    {% set content_classes = ['collapse-abstract'] %}
+  {% endif %}
+  {{ content.field_talk_thumbnail }}
+  <div{{ content_attributes.addClass(content_classes,'content node-content') }}>
     {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
     <div class="speakers">
       {% include '@scitalk_theme/includes/speaker-fields.twig' %}
@@ -19,6 +23,9 @@
     </div>
     {% if view_mode == 'teaser' %}
       {{ content.field_talk_abstract }}
+      {% if show_show_more == TRUE %}
+        <button class="show-more show" aria-hidden="hidden" data-hide-text="{{'Hide'}}" data-show-text="{{'Show more'}}">{{'Show more'|t}}</button>
+      {% endif %}
     {% endif %}
   </div>
 {% endblock %}

@@ -61,14 +61,19 @@
   }
 }
 
+.site-name {
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1em;
+  letter-spacing: .07rem;
+  text-decoration: none;
+}
 /* Mobile header layout */
 @media all and (max-width: 959.99px) {
   .region-header {
-    padding-top: 1em;
-    padding-bottom: 0;
     & .block-system-branding-block {
-      margin-bottom: 1em;
       & img {
+        display: block;
         max-height: 4em;
         max-width: auto;
         width: auto;
@@ -77,7 +82,7 @@
     & .search-block-form {
       background: var(--color-dk-grey);
       display: flex;
-      margin: 0 calc(-1 * var(--responsive-padding));
+      margin: 1rem calc(-1 * var(--responsive-padding)) -1rem;
       height: 0;
       width: calc(100% + (2 * var(--responsive-padding)));
       overflow: hidden;
@@ -129,7 +134,8 @@
   }
   .content-wrapper {
     max-width: 1000px;
-    padding-right:
+    margin-bottom: var(--vertical-padding);
+    padding-right: 0;
   }
   .left-nav-wrapper {
     background: var(--color-lt-grey);
@@ -169,15 +175,32 @@
  * Footer
 */
 .site-footer {
+  background: var(--color-default-text);
+  color: white;
   border-top: 1px solid var(--lt-grey);
-  padding-top: var(--vertical-padding);
-  padding-bottom: var(--vertical-padding);
+  padding: var(--vertical-padding) 0;
+
+  & a {
+    color: white;
+  }
+  & .menu {
+    display: flex;
+    & li {
+      margin-right: .5rem;
+    }
+    & a {
+      padding: .2rem;
+      &:matches(:hover,:focus) {
+        text-decoration: underline;
+      }
+    }
+  }
 }
 .region-footer {
   max-width: var(--max-width);
   margin: 0 auto;
 }
-@media all and (max-width: 66em) {
+@media all and (max-width: 960px) {
   .region-footer {
     padding-left: var(--responsive-padding);
     padding-right: var(--responsive-padding);

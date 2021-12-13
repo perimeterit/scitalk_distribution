@@ -44,6 +44,32 @@
       }
     }
   };
+
+  /**
+   * Teaser hide/show toggle
+  */
+  Drupal.behaviors.toggleAbstract = {
+    attach: function (context, settings) {
+      // Remove any paragraphs contianing only a nbsp
+      $('.field--name-field-talk-abstract p').filter(function(){
+         return this.innerHTML == '&nbsp;';
+      }).remove();
+
+      // Toggle the full content
+      $('.node.teaser .show-more', context).click(function() {
+        var show_text = $(this).html();
+        if ($(this).hasClass('show')) {
+          $(this).html($(this).attr('data-hide-text'));
+        }
+        if ($(this).hasClass('hide')) {
+          $(this).html($(this).attr('data-show-text'));
+        }
+        $(this).parents('.node-content').toggleClass('collapse-abstract').toggleClass('show-abstract');
+        $(this).toggleClass('show').toggleClass('hide');
+
+      })
+    }
+  };
   /**
    * Related talks
   */

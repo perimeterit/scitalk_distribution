@@ -1,5 +1,5 @@
 
- @import url('https://fonts.googleapis.com/css?family=Ubuntu:300, 400,500&display=swap');
+ @import url('https://fonts.googleapis.com/css?family=Ubuntu:300,400,500&display=swap');
 /**
  * To customize the Scitalk theme, copy thise file to a subtheme and customize as needed
  */
@@ -16,8 +16,8 @@
   --color-primary--foreground: #fff;
   --color-secondary: #4759CB;
   --color-secondary--foreground: #fff;
-  --color-lt-grey: #eee;
-  --color-med-grey: #747474;
+  --color-lt-grey: #f0f0f0;
+  --color-md-grey: #e1e1e1;
   --color-dk-grey: #333;
  }
 :root {

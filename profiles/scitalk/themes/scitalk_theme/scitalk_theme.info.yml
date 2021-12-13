@@ -13,7 +13,6 @@ regions:
   left_nav: 'Left side navbar'
   admin: 'Admin tools'
   page_title: 'Page Title'
-  page_header: 'Page Header'
   content: 'Content'
   content_bottom: 'Content bottom'
   footer: 'Footer'

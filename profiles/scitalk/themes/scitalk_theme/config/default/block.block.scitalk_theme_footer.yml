@@ -9,11 +9,11 @@ dependencies:
   theme:
     - scitalk_theme
 _core:
-  default_config_hash: fioTFgXyDtQUcNSRmKKLWQdBrWhsoX-xmmY2d_UJ8NM
+  default_config_hash: Bs_XE5d54VNJm-wtEk4RdYYow5XXAtMhmqFEXT9Wtgk
 id: scitalk_theme_footer
 theme: scitalk_theme
 region: footer
-weight: -1
+weight: -8
 provider: null
 plugin: 'system_menu_block:footer'
 settings:

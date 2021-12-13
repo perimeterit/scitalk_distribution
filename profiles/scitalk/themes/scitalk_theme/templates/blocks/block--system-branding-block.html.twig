@@ -19,15 +19,9 @@
       <img src="{{ site_logo }}" alt="{{ 'Home'|t }}" />
     </a>
   {% endif %}
-  {% if site_name or site_slogan %}
-     {{ attach_library('stardust/site-name-slogan') }}
-  {% endif %}
   {% if site_name %}
-    {% set site_name_parts = site_name|split(' ') %}
     <a href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home" class="site-name">
-      {% for site_name_part in site_name_parts %}
-        <span class="site_name_part">{{ site_name_part }}</span>
-      {% endfor %}
+      {{ site_name }}
     </a>
   {% endif %}
   {% if site_slogan %}

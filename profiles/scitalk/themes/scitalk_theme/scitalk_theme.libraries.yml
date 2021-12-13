@@ -29,6 +29,7 @@ global:
       css/components/taxonomy.css: {}
       css/components/tables.css: {}
       css/components/talks.css: {}
+      css/components/talks--full.css: {}
       css/components/views.css: {}
       js/jquery-responsive-tables/css/responsive-tables.min.css: {}
   js:

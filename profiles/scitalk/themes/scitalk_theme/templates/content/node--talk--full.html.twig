@@ -17,18 +17,17 @@
 %}
 
 <article{{ attributes.addClass(classes) }}>
-  <div class="video">
-    {{ content.field_talk_video }}
-  </div>
-  <div class="content-wrapper">
-    <div class="content">
-      {{ content|without('links', 'field_talk_video') }}
+  {{ content.field_talk_number }}
+  {{ content.field_talk_video }}
+  <div class="node--content">
+    {{ drupal_region('page_title') }}
+    <div class="speakers">
+      {% include '@scitalk_theme/includes/speaker-fields.twig' %}
     </div>
-    <aside class="sidebar">
-      <div class="related-talks-view">
-        {{ related_talks_block }}
-      </div>
-    </aside>
+    {{ content|without('field_talk_number','field_talk_video', 'field_talk_speaker_profile',  'field_talk_speakers_text') }}
   </div>
-  {{ content.links }}
 </article>
+
+<aside class="related-talks-view">
+  {{ drupal_view('scitalk_talks_in_collection', 'related_talks')}}
+</aside>
