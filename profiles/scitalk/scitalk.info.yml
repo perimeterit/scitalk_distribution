@@ -92,6 +92,4 @@ install:
 themes:
   - seven
   - stable
-  - starbase
-  - stardust
   - scitalk_theme
