@@ -59,7 +59,9 @@
 
 <div class="page-wrapper">
   <div class="left-nav-wrapper">
-    {% if page.left_nav.exposedformscitalk_advanced_searchadvanced_search_2 %}
+    {% if page.left_nav.exposedformscitalk_advanced_searchadvanced_search
+     or page.left_nav.exposedformscitalk_advanced_searchadvanced_search_2
+    %}
       <button class="open-advanced-search" aria-expanded="false" aria-controls="views-exposed-form-scitalk-advanced-search-advanced-search">
         <svg><use href="#advanced-search" /></svg>
         {{ 'Advanced search'|t }}
