@@ -2073,7 +2073,7 @@ display:
         sorts: true
         exposed_form: true
         use_ajax: false
-      title: ''
+      title: Talks
       fields:
         search_api_rendered_item:
           id: search_api_rendered_item

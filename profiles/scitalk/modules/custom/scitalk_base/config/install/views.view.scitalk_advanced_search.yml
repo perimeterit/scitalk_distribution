@@ -1,4 +1,4 @@
-uuid: 94e5ce5a-fce4-4efb-a6ed-e0eee29a0bd0
+uuid: 40757c74-ec73-4bcd-ad93-811e2a3177f8
 langcode: en
 status: true
 dependencies:
@@ -12,6 +12,7 @@ dependencies:
     - field.storage.node.field_talk_type
     - field.storage.node.field_talk_video_url
     - search_api.index.default_talks_index
+    - taxonomy.vocabulary.scientific_area
     - taxonomy.vocabulary.subjects
     - taxonomy.vocabulary.talk_type
   module:
@@ -21,7 +22,7 @@ dependencies:
     - link
     - search_api
 _core:
-  default_config_hash: aNPgVvCs7PLWV6HrTj35RnCU4-V9NRm6nWQDbtcBshw
+  default_config_hash: ILsGL_ONAWK1hO4GWSwe1aheuNHIYdaDujQ4t4Pi9SM
 id: scitalk_advanced_search
 label: 'Scitalk: Advanced search'
 module: views
@@ -88,16 +89,18 @@ display:
                     filter_rewrite_values: ''
                   collapsible: false
                   is_secondary: false
-              field_sp_display_name_1:
-                plugin_id: default
-                advanced:
-                  collapsible: false
-                  is_secondary: false
-              field_talk_subject:
+              search_api_fulltext_2:
                 plugin_id: default
                 advanced:
                   rewrite:
                     filter_rewrite_values: ''
+                  collapsible: false
+                  is_secondary: false
+              field_scientific_area:
+                plugin_id: default
+                advanced:
+                  rewrite:
+                    filter_rewrite_values: '- Any -|All Scientific Areas'
                   collapsible: false
                   is_secondary: false
               field_talk_date:
@@ -995,7 +998,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: '<span class="info-icon"></span><span class="visually-hidden">{{ "View details"|t}}</span>'
+            text: '<span class="icon"><span class="visually-hidden">{{ "View details"|t}}</span></span>'
             make_link: true
             path: ''
             absolute: false
@@ -1387,26 +1390,23 @@ display:
           hierarchy: false
           error_message: true
           plugin_id: search_api_term
-        field_talk_source:
-          id: field_talk_source
+        search_api_fulltext_1:
+          id: search_api_fulltext_1
           table: search_api_index_default_talks_index
-          field: field_talk_source
+          field: search_api_fulltext
           relationship: none
           group_type: group
           admin_label: ''
-          operator: '='
-          value:
-            min: ''
-            max: ''
-            value: ''
+          operator: or
+          value: ''
           group: 1
           exposed: true
           expose:
-            operator_id: field_talk_source_op
+            operator_id: search_api_fulltext_1_op
             label: Source
             description: ''
             use_operator: false
-            operator: field_talk_source_op
+            operator: search_api_fulltext_1_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: field_talk_source
@@ -1420,8 +1420,6 @@ display:
               scitalk_oauth: '0'
               talk_editor: '0'
             placeholder: ''
-            min_placeholder: ''
-            max_placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -1434,7 +1432,11 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          plugin_id: search_api_text
+          parse_mode: terms
+          min_length: null
+          fields:
+            - title_2
+          plugin_id: search_api_fulltext
         status:
           id: status
           table: search_api_index_default_talks_index
@@ -1506,7 +1508,7 @@ display:
           group_type: group
           admin_label: ''
           order: ASC
-          exposed: false
+          exposed: true
           expose:
             label: Title
           plugin_id: search_api
@@ -1522,7 +1524,7 @@ display:
           expose:
             label: Speaker
           plugin_id: search_api
-      title: ''
+      title: 'Search Results'
       header: {  }
       footer: {  }
       empty:
@@ -1590,7 +1592,7 @@ display:
           enable_history: true
       path: search-talks
       display_description: ''
-      exposed_block: false
+      exposed_block: true
       defaults:
         filters: false
         filter_groups: false
@@ -1602,7 +1604,7 @@ display:
         row: false
         exposed_form: true
         use_ajax: false
-      title: 'Search Results'
+      title: 'Advanced Search Results'
       fields:
         search_api_rendered_item:
           id: search_api_rendered_item
@@ -1677,7 +1679,7 @@ display:
           group_type: group
           admin_label: ''
           empty: false
-          content: 'Displaying @start - @end'
+          content: '@start - @end of @total Results'
           plugin_id: result
       style:
         type: html_list
@@ -1777,6 +1779,8 @@ display:
               scitalk_oauth: '0'
               talk_editor: '0'
             placeholder: ''
+            expose_fields: false
+            searched_fields_id: ''
           is_grouped: false
           group_info:
             label: ''
@@ -1842,10 +1846,10 @@ display:
           fields:
             - field_sp_display_name_1
           plugin_id: search_api_fulltext
-        field_talk_subject:
-          id: field_talk_subject
+        field_scientific_area:
+          id: field_scientific_area
           table: search_api_index_default_talks_index
-          field: field_talk_subject
+          field: field_scientific_area
           relationship: none
           group_type: group
           admin_label: ''
@@ -1854,14 +1858,14 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_talk_subject_op
-            label: Subject
+            operator_id: field_scientific_area_op
+            label: 'Scientific Area'
             description: ''
             use_operator: false
-            operator: field_talk_subject_op
+            operator: field_scientific_area_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: talk_subject
+            identifier: field_scientific_area
             required: false
             remember: false
             multiple: false
@@ -1887,8 +1891,8 @@ display:
           reduce_duplicates: false
           type: select
           limit: true
-          vid: subjects
-          hierarchy: true
+          vid: scientific_area
+          hierarchy: false
           error_message: true
           plugin_id: search_api_term
         field_talk_date:
@@ -2038,26 +2042,23 @@ display:
           hierarchy: false
           error_message: true
           plugin_id: search_api_term
-        field_talk_source:
-          id: field_talk_source
+        search_api_fulltext_1:
+          id: search_api_fulltext_1
           table: search_api_index_default_talks_index
-          field: field_talk_source
+          field: search_api_fulltext
           relationship: none
           group_type: group
           admin_label: ''
-          operator: '='
-          value:
-            min: ''
-            max: ''
-            value: ''
+          operator: or
+          value: ''
           group: 1
           exposed: true
           expose:
-            operator_id: field_talk_source_op
+            operator_id: search_api_fulltext_1_op
             label: Source
             description: ''
             use_operator: false
-            operator: field_talk_source_op
+            operator: search_api_fulltext_1_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: field_talk_source
@@ -2071,8 +2072,6 @@ display:
               scitalk_oauth: '0'
               talk_editor: '0'
             placeholder: ''
-            min_placeholder: ''
-            max_placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -2085,7 +2084,11 @@ display:
             default_group: All
             default_group_multiple: {  }
             group_items: {  }
-          plugin_id: search_api_string
+          parse_mode: terms
+          min_length: null
+          fields:
+            - title_2
+          plugin_id: search_api_fulltext
         status:
           id: status
           table: search_api_index_default_talks_index
@@ -2160,83 +2163,8 @@ display:
         css_class: false
         sorts: true
         use_ajax: false
-      title: ''
+      title: 'Search Results'
       fields:
-        field_talk_video_url:
-          id: field_talk_video_url
-          table: search_api_datasource_default_talks_index_entity_node
-          field: field_talk_video_url
-          relationship: none
-          group_type: group
-          admin_label: ''
-          label: 'Video URL'
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: uri
-          type: link
-          settings:
-            trim_length: 80
-            url_only: false
-            url_plain: false
-            rel: '0'
-            target: '0'
-          group_column: ''
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          field_rendering: true
-          fallback_handler: search_api
-          fallback_options:
-            link_to_item: false
-            use_highlighting: false
-            multi_type: separator
-            multi_separator: ', '
-          entity_type: node
-          plugin_id: search_api_field
         title:
           id: title
           table: search_api_index_default_talks_index
@@ -2249,7 +2177,7 @@ display:
           alter:
             alter_text: false
             text: ''
-            make_link: true
+            make_link: false
             path: '{{ field_talk_video_url }}'
             absolute: false
             external: false
@@ -2288,7 +2216,7 @@ display:
           click_sort_column: value
           type: string
           settings:
-            link_to_entity: false
+            link_to_entity: true
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -2917,7 +2845,6 @@ display:
         - 'config:field.storage.node.field_talk_date'
         - 'config:field.storage.node.field_talk_speakers_text'
         - 'config:field.storage.node.field_talk_type'
-        - 'config:field.storage.node.field_talk_video_url'
         - 'config:search_api.index.default_talks_index'
   basic_search:
     display_plugin: page
@@ -2999,8 +2926,6 @@ display:
               scitalk_oauth: '0'
               talk_editor: '0'
             placeholder: ''
-            expose_fields: false
-            searched_fields_id: ''
           is_grouped: false
           group_info:
             label: ''
@@ -3076,7 +3001,7 @@ display:
           order: ASC
           exposed: false
           expose:
-            label: ''
+            label: Relevance
           plugin_id: search_api
     cache_metadata:
       max-age: -1
@@ -3117,7 +3042,7 @@ display:
         sorts: true
         exposed_form: false
         use_ajax: false
-      title: ''
+      title: '<none>'
       fields:
         search_api_rendered_item:
           id: search_api_rendered_item
@@ -3210,10 +3135,10 @@ display:
           text_input_required_format: basic_html
           bef:
             general:
-              autosubmit: false
+              autosubmit: true
               autosubmit_exclude_textfield: false
               autosubmit_textfield_delay: 500
-              autosubmit_hide: false
+              autosubmit_hide: true
               input_required: false
               allow_secondary: false
               secondary_label: 'Advanced options'
