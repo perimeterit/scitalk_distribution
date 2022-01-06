@@ -13,7 +13,7 @@ label,
 h4.label {
   display: block;
   font-size: 1em;
-  font-weight: 600;
+  font-weight: 500;
 }
 label.label-inline:after {
   content: ':';
@@ -35,6 +35,12 @@ textarea {
     box-shadow: 0 0 0 .1rem rgba(87,85,217,.2);
     outline: none;
   }
+}
+input[type="date"] {
+  font-family: var(--font-family-primary);
+}
+::-webkit-calendar-picker-indicator {
+  margin: 0;
 }
 textarea {
   font-size: 1em;
@@ -168,12 +174,4 @@ a.node-preview-backlink {
   pointer-events: none;
   margin-left: -1.8em;
   vertical-align: middle;
-}
-/* Views exposed form */
-.views-exposed-form form {
-  display: flex;
-  align-items: center;
-}
-.views-exposed-form .form-item {
-  margin-right: 1em;
 }

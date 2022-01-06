@@ -2,49 +2,122 @@
  * Advanced search form (filters)
 */
 
+.open-advanced-search {
+  background: transparent;
+  color: var(--color-defalt-text);
+  display: inline-block;
+  font-size: .85rem;
+  font-weight: 500;
+  margin-bottom: .1rem;
+  margin-top: -.1rem
+}
+
+.open-advanced-search svg {
+    height: 1.7rem;
+    width: 1.7rem;
+    vertical-align: middle;
+  }
+
+/* Search form in sidebar */
+
+.region-left-nav .views-exposed-form {
+  padding-left: 1rem;
+  padding-right: 1rem;
+  display: none;
+  text-align: left
+}
+
+.region-left-nav .views-exposed-form label {
+    font-size: .8rem;
+    font-weight: normal;
+  }
+
+/* Hiding & Showing changes */
+
+.close-advanced-search {
+  background: transparent;
+  float: right;
+  padding: .3rem;
+  margin-right: var(--responsive-padding)
+}
+
+.close-advanced-search svg {
+    color: var(--color-default-text);
+    height: 1.5rem;
+    width: 1.5rem;
+  }
+
+.close-advanced-search:hover, .close-advanced-search:focus {
+    background: transparent;
+    svg {
+      color: var(--color-secondary--foreground);
+    }
+  }
+
+.close-advanced-search[aria-expanded=true] {
+    display: block;
+  }
+
+.close-advanced-search[aria-expanded=false] {
+    display: none;
+  }
+
+.page-wrapper {
+  /* This currently only works in Firefox */
+  transition: grid-template-columns .3s
+}
+
+.adv-search-open .page-wrapper {
+    grid-template-columns: 342px auto;
+  }
+
+.adv-search-open .region-left-nav .views-exposed-form {
+      display: block;
+    }
+
+.region-left-nav .menu--main.hide {
+  display: none;
+}
+
+.responsive-menu .close-advanced-search {
+    margin-right: 0
+  }
+
+.responsive-menu .close-advanced-search svg {
+      color: white;
+    }
+
+.responsive-menu .left-nav-wrapper {
+    margin-left: calc(-1 * var(--responsive-padding));
+  }
+
+/* Form adjustments */
+
+.responsive-menu input,
+  .responsive-menu select,
+  .responsive-menu textarea {
+    border: none;
+  }
+
+.responsive-menu .form-item {
+    margin: 0 0 0.8rem;
+  }
+
+/**
+ * Advanced search results page
+*/
 
 /* Search summary */
-
 
 .search-summary {
   margin: 0 0 1em;
 }
 
-
 .advanced-view-header .search-summary {
   margin-bottom: 0;
 }
 
-
-/* Filter toggle */
-
-
-.filter-toggle {
-  background: var(--color-lt-grey) left center no-repeat;
-  color: var(--color-primary);
-  font-size: .9em;
-  padding: 0.2em 0.7em;
-  margin-left: 1em;
-}
-
-
-.filter-toggle svg {
-  height: 1em;
-  width: 1em;
-  display: inline-block;
-  vertical-align: middle;
-}
-
-
-.filter-toggle .text {
-  display: inline-block;
-  vertical-align: middle;
-  margin-left: .2em;
-}
-
-
 /* Form layout */
-
 
 @media all and (min-width: 960px) {
   .search-exposed-filters form {
@@ -57,7 +130,6 @@
   }
 }
 
-
 .search-exposed-filters .form-item {
   display: grid;
   grid-gap: 1em;
@@ -66,46 +138,34 @@
   margin: .5em 0;
 }
 
-
 .search-exposed-filters .form-item input,
 .search-exposed-filters .form-item select {
   width: 100%;
 }
 
+/* Date fields */
 
-@media all and (min-width: 600px) {
-  .date-search-wrap {
-    display: flex;
+.date-search-wrap {
+  display: flex
+}
+
+.date-search-wrap input {
+    max-width: 11em;
   }
-  .date-search-wrap input {
-    max-width: 12em;
-  }
-  .date-search-wrap .form-item:first-child {
+
+.date-search-wrap .form-item:first-child {
     margin-right: .5em;
   }
-  .date-search-wrap .form-item:last-child {
-    display: flex;
-  }
-  .date-search-wrap .form-item:last-child label {
-    margin-right: .2em;
-  }
-}
 
-
-@media all and (max-width: 599px) {
-  .date-search-wrap .form-item {
+.responsive-menu .date-search-wrap .form-item {
     max-width: 20em;
   }
-}
-
 
 /* Submit */
-
 
 .advanced-search-form + .form-actions {
   margin-top: 0;
 }
-
 
 .advanced-search-form + .form-actions .form-submit {
   background-position: 4.3em center;

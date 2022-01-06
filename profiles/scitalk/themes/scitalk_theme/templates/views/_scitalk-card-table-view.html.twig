@@ -16,8 +16,10 @@
   {{ title }}
   {{ title_suffix }}
 
-  {# Render the extra exposed filters #}
-  {{ drupal_block('views_exposed_filter_block:' ~ id ~ '-extra_filters')}}
+  {# Render the extra exposed filters (tags), but not on advanced search view#}
+  {% if (id in card_view_views and (display_id == 'card_view')) %}
+    {{ drupal_block('views_exposed_filter_block:' ~ id ~ '-extra_filters')}}
+  {% endif %}
 
   {{ header|without('result') }}
 

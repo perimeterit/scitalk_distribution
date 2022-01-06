@@ -20,6 +20,24 @@
   /**
    * View display toggle
   */
+  Drupal.behaviors.scitalk_toggleAdvancedSearch = {
+    attach: function (context, settings) {
+      $('.open-advanced-search').click(function() {
+        $('.region-left-nav .menu--main').addClass('hide');
+        $('body').delay(100).addClass('adv-search-open');
+        $('.open-advanced-search, .close-advanced-search').attr('aria-expanded','true');
+      })
+
+      $('.close-advanced-search').click(function() {
+        $('body').removeClass('adv-search-open');
+        $('.open-advanced-search, .close-advanced-search').attr('aria-expanded','false');
+        $('.region-left-nav .menu--main').removeClass('hide');
+      })
+    }
+  };
+  /**
+   * View display toggle
+  */
   Drupal.behaviors.scitalk_toggleViewDisplay = {
     attach: function (context, settings) {
 

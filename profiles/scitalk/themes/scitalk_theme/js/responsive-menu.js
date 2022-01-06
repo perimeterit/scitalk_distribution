@@ -9,7 +9,7 @@
 
      if (context == document) {
        // Get all the elements we need to put into the mobil emenu
-       nav_element = $('.region-left-nav');
+       nav_element = $('.left-nav-wrapper');
      }
      // Build the menu if the browser with is smaller than the breakpoint
      if (($(window).width() <= menu_breakpoint) && ($('.region-branding .menu-toggle').length == 0)) {
@@ -36,7 +36,7 @@
      // Put the menu back to the standard (desktop) layout
      function destroyMenu() {
        nav_element.detach();
-       nav_element.appendTo($('.left-nav-wrapper'));
+       nav_element.prependTo($('.page-wrapper'));
        $('body').removeClass('responsive-menu-active');
      }
 
