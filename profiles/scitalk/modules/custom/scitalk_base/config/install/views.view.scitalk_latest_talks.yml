@@ -127,7 +127,7 @@ display:
           default_row_class: false
           type: ul
           wrapper_class: ''
-          class: display-list
+          class: 'display-list display-wrapper'
       row:
         type: fields
       fields:
