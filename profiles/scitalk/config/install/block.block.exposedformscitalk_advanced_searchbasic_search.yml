@@ -1,4 +1,5 @@
-﻿langcode: en
+uuid: fa87ae58-4422-42d3-bbf6-dbac48a917a7
+langcode: en
 status: true
 dependencies:
   config:
@@ -7,10 +8,12 @@ dependencies:
     - views
   theme:
     - scitalk_theme
+_core:
+  default_config_hash: SaVM4CF5fF36LOj1NQj75szDhPeNsXqmnwgTnRzKSN0
 id: exposedformscitalk_advanced_searchbasic_search
 theme: scitalk_theme
 region: header
-weight: -5
+weight: -7
 provider: null
 plugin: 'views_exposed_filter_block:scitalk_advanced_search-basic_search'
 settings:
