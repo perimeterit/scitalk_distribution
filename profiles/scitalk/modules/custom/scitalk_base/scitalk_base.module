@@ -303,7 +303,7 @@ function scitalk_base_entity_access(\Drupal\Core\Entity\EntityInterface $entity,
       }
     }
   }
-  
+
   // This is not a feed or this feed does not have a group field, we don't set access.
   return AccessResult::neutral();
 }
@@ -314,7 +314,8 @@ function scitalk_base_entity_access(\Drupal\Core\Entity\EntityInterface $entity,
 function scitalk_base_views_pre_build(ViewExecutable $view) {
   // On advanced search view, remove the Source exposed filter
   // if there is only one source
-  if (($view->id() == 'scitalk_advanced_search') && ($view->current_display == 'advanced_search')) {
+  if (($view->id() == 'scitalk_advanced_search') &&
+      (($view->current_display == 'form_block') || ($view->current_display == 'advanced_search') )) {
     // Get the number of soure repository groups
     $query = \Drupal::entityQuery('group')
       ->condition('type', 'source_repository');
@@ -336,9 +337,9 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
     ];
     $view = $form_state->getStorage('view');
     $display = $view['display']['id'];
+    // Convert Talk Source field to dropdown
     if ((in_array($view['view']->id(), $view_machine_names)) &&
         ($view['display']['id'] != 'basic_search')) {
-
       // Get all the groups
       $query = \Drupal::entityQuery('group')
       ->condition('type', 'source_repository');
@@ -346,7 +347,6 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
       $group_options = ['' => 'All'];
       $group_storage =  \Drupal::entityTypeManager()->getStorage('group');
       $groups = $group_storage->loadMultiple($group_ids);
-
       if (count($groups) > 1) {
         // Create the options array with the group id and group name
         foreach ($groups as $id => $group) {
@@ -359,6 +359,8 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
         $form['field_talk_source']['#type'] = 'select';
         $form['field_talk_source']['#options'] = $group_options;
         unset($form['field_talk_source']['#size']);
+      } else {
+        $form['field_talk_source']['#access'] = FALSE;
       }
     }
   }
