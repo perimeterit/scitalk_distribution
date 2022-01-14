@@ -126,8 +126,8 @@
   .content-wrapper {
     max-width: 1000px;
     margin-bottom: var(--vertical-padding);
-    margin-right: var(--responsive-padding);
     padding: 0;
+    padding-right: var(--responsive-padding);
   }
   .left-nav-wrapper {
     background: var(--color-lt-grey);
