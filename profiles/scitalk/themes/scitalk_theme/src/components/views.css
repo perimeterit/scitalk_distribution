@@ -11,9 +11,13 @@
     font-size: .9em;
     margin-right: 1.2em;
   }
-  & .view-exposed-filters .form-item-field-scientific-area {
-    display: none;
+
+  /* All the filters have to be there in order for the exposed filters to work
+    when they are placed in a separate block */
+  & .view-exposed-filters label {
+    @mixin visually-hidden;
   }
+
 }
 /* Layout */
 @media all and (max-width: 767px) {
@@ -190,13 +194,16 @@
 /* View display adjustments */
 .view-display {
   margin-top: 1.5em;
-  & > div > .display-list,
+  & .display-wrapper,
   & .table-display .view-content {
     padding: var(--gutter-standard);
     background: var(--color-lt-grey);
   }
   &[aria-hidden="true"] {
     display: none;
+  }
+  & table {
+    margin-top: 7;
   }
 }
 @media all and (max-width: 767px) {

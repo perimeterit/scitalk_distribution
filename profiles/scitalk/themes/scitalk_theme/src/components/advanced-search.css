@@ -117,16 +117,18 @@
     grid-column: span 2;
   }
 }
-.search-exposed-filters .form-item {
-  display: grid;
-  grid-gap: 1em;
-  grid-template-columns: 7em auto;
-  align-items: center;
-  margin: .5em 0;
-}
-.search-exposed-filters .form-item input,
-.search-exposed-filters .form-item select {
-  width: 100%;
+.search-exposed-filters {
+  & .form-item {
+    display: grid;
+    grid-gap: 1em;
+    grid-template-columns: 7em auto;
+    align-items: center;
+    margin: .5em 0;
+    & input,
+    & select {
+      width: 100%;
+    }
+  }
 }
 
 /* Date fields */

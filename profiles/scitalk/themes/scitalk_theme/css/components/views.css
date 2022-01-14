@@ -13,13 +13,25 @@
   display: grid;
   margin-top: 2em;
   padding-bottom: .5em
+
 }
 .advanced-view-header .view-summary {
     font-size: .9em;
     margin-right: 1.2em;
   }
-.advanced-view-header .view-exposed-filters .form-item-field-scientific-area {
-    display: none;
+.advanced-view-header {
+
+  /* All the filters have to be there in order for the exposed filters to work
+    when they are placed in a separate block */
+
+}
+.advanced-view-header .view-exposed-filters label {
+    position: absolute !important;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    width: 1px;
+    height: 1px;
+    word-wrap: normal;
   }
 /* Layout */
 @media all and (max-width: 767px) {
@@ -204,13 +216,16 @@
 .view-display {
   margin-top: 1.5em
 }
-.view-display > div > .display-list,
+.view-display .display-wrapper,
   .view-display .table-display .view-content {
     padding: var(--gutter-standard);
     background: var(--color-lt-grey);
   }
 .view-display[aria-hidden="true"] {
     display: none;
+  }
+.view-display table {
+    margin-top: 7;
   }
 @media all and (max-width: 767px) {
   .view-display {

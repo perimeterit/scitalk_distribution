@@ -1,0 +1,38 @@
+{# Exposed search input string #}
+
+{{ 'Search results for'|t }}
+{% if exposed_input.search_api_fulltext is not empty %}
+  <em>"{{ exposed_input.search_api_fulltext }}"</em>
+{% endif %}
+
+{% if exposed_input.speaker is not empty %}
+  {{ 'by'|t }} <em>{{ exposed_input.speaker }}</em>
+{% endif %}
+
+{% if exposed_input.field_scientific_area is not empty and
+  exposed_input.field_scientific_area != "All" %}
+  {% set sa_term = drupal_entity('taxonomy_term', exposed_input.field_scientific_area) %}
+  {{ 'in'|t }} <em>{{ sa_term['#taxonomy_term'].name.0.value }}</em>
+{% endif %}
+
+{% if exposed_input.from is not empty %}
+  {{ 'from'|t }} <em>{{ exposed_input.from }}</em>
+{% endif %}
+
+{% if exposed_input.from is empty and exposed_input.to is not empty %}
+  {{ ' from the beginning '|t }}
+{% endif %}
+
+{% if exposed_input.to is not empty %}
+  {{ 'to'|t }} <em>{{ exposed_input.from }}</em>
+{% endif %}
+
+{% if exposed_input.from is not empty and exposed_input.to is empty %}
+  {{ ' to <em>today</em>'|t }}
+{% endif %}
+
+{# Need to get the term name from this tid #}
+{% if exposed_input.type is not empty and  exposed_input.type != "All" %}
+  {% set type_term = drupal_entity('taxonomy_term', exposed_input.type) %}
+  {{ 'in'|t }} <em>{{ type_term['#taxonomy_term'].name.0.value }}</em>
+{% endif %}

@@ -33,6 +33,12 @@
         $('.open-advanced-search, .close-advanced-search').attr('aria-expanded','false');
         $('.region-left-nav .menu--main').removeClass('hide');
       })
+
+      // Open by default on Search landing page
+      if ((drupalSettings.scitalk.is_search_page == 'true') &&
+        (context == document)) {
+        $('.open-advanced-search').trigger('click');
+      }
     }
   };
   /**
