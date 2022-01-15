@@ -91,7 +91,8 @@ class SciTalkThumbnailFormatter extends FormatterBase {
         if(isset($field[0])) {
           //we'll pick off the first one and use that as our thumbnail.
           foreach($field as $key => $arr) {
-            $media_entity = entity_load('media', $field[$key]['target_id']);
+            //$media_entity = entity_load('media', $field[$key]['target_id']);
+            $media_entity = \Drupal::entityTypeManager()->getStorage('media')->load($field[$key]['target_id']);
             if ($media_entity && (method_exists($media_entity, 'getSource')) && ($source = $media_entity->getSource()) && $source instanceof SciTalkVideo) {  //only care if this is the SciTalk media type
               break;
             }

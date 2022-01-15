@@ -4,7 +4,8 @@ namespace Drupal\scitalk_base\Plugin\rest\resource;
 use Drupal\rest\Plugin\ResourceBase;
 use Drupal\rest\ResourceResponse;
 use Drupal\Core\Session\AccountProxyInterface;
-use Drupal\Core\Entity\Query\QueryFactory;
+//use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Access\AccessResultReasonInterface;
 use Drupal\Core\Cache\CacheableResponseInterface;
@@ -91,7 +92,8 @@ class SciTalkResourceTalkByTalkNumber extends ResourceBase {
    * @param \Drupal\Core\Session\AccountProxyInterface $current_user
    *   A current user instance.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, $serializer_formats, LoggerInterface $logger, ConfigFactoryInterface $config_factory, PluginManagerInterface $link_relation_type_manager, QueryFactory $entity_query, AccountProxyInterface $current_user, ReferenceIDGeneratorInterface $id_generator) {
+  //public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, $serializer_formats, LoggerInterface $logger, ConfigFactoryInterface $config_factory, PluginManagerInterface $link_relation_type_manager, QueryFactory $entity_query, AccountProxyInterface $current_user, ReferenceIDGeneratorInterface $id_generator) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entity_type_manager, $serializer_formats, LoggerInterface $logger, ConfigFactoryInterface $config_factory, PluginManagerInterface $link_relation_type_manager, EntityStorageInterface $entity_query, AccountProxyInterface $current_user, ReferenceIDGeneratorInterface $id_generator) {
     parent::__construct($configuration, $plugin_id, $plugin_definition, $serializer_formats, $logger);
     $this->linkRelationTypeManager = $link_relation_type_manager;
     $this->currentUser = $current_user;
@@ -111,7 +113,8 @@ class SciTalkResourceTalkByTalkNumber extends ResourceBase {
       $container->get('logger.factory')->get('rest'),
       $container->get('config.factory'),
       $container->get('plugin.manager.link_relation_type'),
-      $container->get('entity.query'),
+      //$container->get('entity.query'),
+      $container->get('entity_type.manager'),
       $container->get('current_user'),
       $container->get('scitalk_base.reference_id_generator')
     );

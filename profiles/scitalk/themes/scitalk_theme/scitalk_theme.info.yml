@@ -2,6 +2,7 @@ name: Scitalk common theme
 type: theme
 description: 'Common theme for the Scitalk distro'
 core: 8.x
+core_version_requirement: ^8 || ^9
 base theme: starbase
 dependencies:
  - starbase

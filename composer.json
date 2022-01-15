@@ -59,7 +59,7 @@
         "drupal/twig_tweak": "2.9",
         "drupal/upgrade_status": "^3.13",
         "drupal/views_ajax_history": "^1.6",
-        "drush/drush": "^9.3",
+        "drush/drush": "^10.6",
         "kint-php/kint": "^3.3",
         "npm-asset/history.js": "^1.8",
         "oomphinc/composer-installers-extender": "^2.0",

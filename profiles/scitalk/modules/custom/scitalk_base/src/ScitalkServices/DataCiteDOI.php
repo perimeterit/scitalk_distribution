@@ -107,7 +107,7 @@ class DataCiteDOI {
       if (!empty($res = $e->getResponse()->getBody()->getContents())) {
         $err = json_decode($res);
         $msg = 'DOI create error: ' . ( $err->errors[0]->title ?? '');
-        drupal_set_message(t($msg), 'error');
+        \Drupal::messenger()->addError(t($msg));
       }
       
       \Drupal::logger('scitalk_base')->error('DOI ERROR: ' . print_r($e->getMessage() , TRUE) );
@@ -140,7 +140,7 @@ class DataCiteDOI {
       if (!empty($res = $e->getResponse()->getBody()->getContents())) {
         $err = json_decode($res);
         $msg = 'DOI update error: ' . ( $err->errors[0]->title ?? '');
-        drupal_set_message(t($msg), 'error');
+        \Drupal::messenger()->addError(t($msg));
       }
       
       \Drupal::logger('scitalk_base')->error('DOI ERROR: ' . print_r($e->getMessage() , TRUE) );

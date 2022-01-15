@@ -44,7 +44,7 @@ class CrossrefDOI {
             if (!empty($res = $e->getResponse()->getBody()->getContents())) {
                 $err = json_decode($res);
                 $msg = 'Crossref DOI Client error ' . ( $err->errors[0]->title ?? '');
-                drupal_set_message(t($msg), 'error');
+                \Drupal::messenger()->addError(t($msg));
             }
             
             \Drupal::logger('scitalk_base')->error('<pre>ERROR CONNECTING to Crossref ' . print_r($e->getMessage() , TRUE) .'</pre>');

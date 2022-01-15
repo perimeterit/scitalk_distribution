@@ -53,7 +53,8 @@ class SciTalkEmbedFormatter extends FormatterBase {
     $node = $items->getEntity();
     $field_name = $items->getName();
     $entity_id = $node->{$field_name}->target_id ?? '';
-    $media_entity = entity_load('media', $entity_id);
+    //$media_entity = entity_load('media', $entity_id);
+    $media_entity = \Drupal::entityTypeManager()->getStorage('media')->load($entity_id);
     
     
     //we're ensuring that this is a SciTalkVideo type with this IF.  However, we've got a few media types associated with SciTalk.  

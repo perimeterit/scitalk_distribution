@@ -19,7 +19,7 @@ class SciTalkEntityNumberOfTalksList extends FieldItemList implements FieldItemL
     $bundle = $entity->bundle();
  
     $entity_view_id = "node.{$bundle}.default";
-    $view_mode = \Drupal::entityManager()->getStorage('entity_view_display')->load($entity_view_id);
+    $view_mode = \Drupal::entityTypeManager()->getStorage('entity_view_display')->load($entity_view_id);
     //$visible_fields = $view_mode ? $view_mode->get('content') : [];
     $hidden_fields = $view_mode ? $view_mode->get('hidden') : [];
     
