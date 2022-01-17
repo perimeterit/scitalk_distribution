@@ -79,17 +79,13 @@
       }
     }
   }
-  .site-header-wrapper {
+  .header-wrapper {
     & .search-block-form {
-      background: var(--color-dk-grey);
       display: flex;
-      margin: 1rem calc(-1 * var(--responsive-padding)) -1rem;
-      height: 0;
       width: calc(100% + (2 * var(--responsive-padding)));
-      overflow: hidden;
-      transition: .3s height;
+      display: none;
       &.open {
-        height: 4em;
+        display: block;
       }
       & form {
         padding: .5em 1.5em;
@@ -128,7 +124,6 @@
   .content-wrapper {
     max-width: 1000px;
     margin-bottom: var(--vertical-padding);
-    padding: 0;
     padding-right: var(--responsive-padding);
   }
   .left-nav-wrapper {

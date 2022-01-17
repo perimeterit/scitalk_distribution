@@ -20,7 +20,8 @@
   grid-gap: .5em;
   position: absolute;
   top: 1rem;
-  right: var(--responsive-padding)
+  right: var(--responsive-padding);
+  z-index: 10
 }
 .mobile-toggle-icons button {
     background: transparent;

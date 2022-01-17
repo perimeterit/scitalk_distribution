@@ -15,6 +15,7 @@
   position: absolute;
   top: 1rem;
   right: var(--responsive-padding);
+  z-index: 10;
 
   & button {
     background: transparent;

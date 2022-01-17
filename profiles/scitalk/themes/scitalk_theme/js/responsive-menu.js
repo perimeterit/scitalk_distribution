@@ -92,7 +92,7 @@
           $toggle_text = $(this).children('span').html();
           $(this).children('span').html($(this).attr('data-hide-text'));
         } else {
-          // Close the menu
+          // Close the search form
           $(this).attr('aria-expanded', 'false').children('span').html($toggle_text).focus();
           $('.search-block-form').toggleClass('open');
         }

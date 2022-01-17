@@ -44,8 +44,6 @@
 #}
 <header role="banner" class="site-header">
   <div class="header-wrapper">
-  {{ page.header }}
-  {{ drupal_block('views_exposed_filter_block:scitalk_advanced_search-basic_search')}}
   <div class="mobile-toggle-icons">
     <button class="search-toggle" aria-controls="views-exposed-form-scitalk-advanced-search-basic-search" aria-expanded="false" data-hide-text=" {{ 'Hide search' |t }}">
       <span class="visually-hidden">{{ 'Show search' | t }}</span>
@@ -58,6 +56,9 @@
       </svg>
     </button>
   </div>
+  {{ page.header }}
+  {{ drupal_block('views_exposed_filter_block:scitalk_advanced_search-basic_search')}}
+
 </header>
 
 <div class="page-wrapper">
