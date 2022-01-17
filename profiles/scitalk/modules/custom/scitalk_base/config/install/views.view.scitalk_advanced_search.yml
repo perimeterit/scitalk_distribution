@@ -3586,7 +3586,8 @@ display:
     display_title: 'Basic Search'
     position: 4
     display_options:
-      display_extenders: {  }
+      display_extenders:
+        ajax_history: {  }
       display_description: ''
       filters:
         type:
@@ -3718,6 +3719,7 @@ display:
         filters: false
         filter_groups: false
         sorts: false
+        exposed_form: false
       filter_groups:
         operator: AND
         groups:
@@ -3737,6 +3739,16 @@ display:
           expose:
             label: Relevance
           plugin_id: search_api
+      exposed_form:
+        type: basic
+        options:
+          submit_button: Search
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
     cache_metadata:
       max-age: -1
       contexts:

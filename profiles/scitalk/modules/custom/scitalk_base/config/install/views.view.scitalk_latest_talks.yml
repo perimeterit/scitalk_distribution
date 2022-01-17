@@ -21,6 +21,7 @@ dependencies:
     - group
     - link
     - search_api
+    - user
 _core:
   default_config_hash: Qyr2fSycxrgVX2QRb4sL2LjsPUV-F8G6DTHGpaEQ_rM
 id: scitalk_latest_talks
@@ -38,8 +39,9 @@ display:
     position: 0
     display_options:
       access:
-        type: none
-        options: {  }
+        type: perm
+        options:
+          perm: 'access content'
       cache:
         type: tag
         options: {  }
@@ -1202,6 +1204,7 @@ display:
         - 'url.query_args:sort_order'
         - user
         - 'user.node_grants:view'
+        - user.permissions
       tags:
         - 'config:field.storage.group.field_repo_institution'
         - 'config:field.storage.node.field_sp_display_name'
@@ -1312,6 +1315,7 @@ display:
         - 'url.query_args:sort_order'
         - user
         - 'user.node_grants:view'
+        - user.permissions
       tags:
         - 'config:search_api.index.default_talks_index'
   attachment_2:
@@ -2045,6 +2049,7 @@ display:
         - 'url.query_args:sort_order'
         - user
         - 'user.node_grants:view'
+        - user.permissions
       tags:
         - 'config:field.storage.node.field_sp_display_name'
         - 'config:field.storage.node.field_talk_collection'
@@ -2170,6 +2175,7 @@ display:
         - 'url.query_args:sort_order'
         - user
         - 'user.node_grants:view'
+        - user.permissions
       tags:
         - 'config:search_api.index.default_talks_index'
   extra_filters:
@@ -2481,5 +2487,6 @@ display:
         - url.query_args
         - user
         - 'user.node_grants:view'
+        - user.permissions
       tags:
         - 'config:search_api.index.default_talks_index'
