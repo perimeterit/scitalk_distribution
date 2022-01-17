@@ -16,8 +16,10 @@
   {{ title }}
   {{ title_suffix }}
 
-  {# Render the extra exposed filters (tags) #}
-  {% if (id in card_view_views and (display_id == 'card_view')) %}
+  {# Render the extra exposed filters (tags), for views that have them #}
+
+  {% set view_extra_filters = ['scitalk_latest_talks'] %}
+  {% if (id in view_extra_filters and (display_id == 'card_view')) %}
     {{ drupal_block('views_exposed_filter_block:' ~ id ~ '-extra_filters')}}
   {% endif %}
 

@@ -20,14 +20,14 @@
 
 /* Search form in sidebar */
 
-.region-left-nav .views-exposed-form {
+.left-nav-wrapper .advanced-search-form {
   padding-left: 1rem;
   padding-right: 1rem;
   display: none;
   text-align: left
 }
 
-.region-left-nav .views-exposed-form label {
+.left-nav-wrapper .advanced-search-form label {
     font-size: .8rem;
     font-weight: normal;
   }
@@ -71,7 +71,7 @@
     grid-template-columns: 342px auto;
   }
 
-.adv-search-open .region-left-nav .views-exposed-form {
+.adv-search-open .left-nav-wrapper .advanced-search-form {
       display: block;
     }
 

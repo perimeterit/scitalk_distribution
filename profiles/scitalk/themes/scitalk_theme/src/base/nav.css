@@ -21,20 +21,21 @@ nav a {
 
 .pager {
   font-size: 1.1em;
-  margin: 2em 0;
+  margin: 1.5rem 0;
   text-align: center;
-}
-.pager li {
-  display: inline-block;
-}
-.pager a {
-  background: rgba(0,0,0,0.1);
-  padding: .4em .7em;
-  margin: 0 .2em;
-  text-decoration: none;
-}
-.pager a:hover {
-  background: rgba(0,0,0,0.2);
+  & li {
+    display: inline-block;
+  }
+  & a {
+    background: rgba(0,0,0,0.1);
+    display: block;
+    padding: .4rem .7rem;
+    margin: .4rem .2rem;
+    text-decoration: none;
+    &:matches(:hover,:focus) {
+      background: rgba(0,0,0,0.2);
+    }
+  }
 }
 .pager__item--next a:after,
 .pager__item--last a:after  {

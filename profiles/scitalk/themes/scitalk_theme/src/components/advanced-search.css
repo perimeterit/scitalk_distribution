@@ -18,7 +18,7 @@
 }
 
 /* Search form in sidebar */
-.region-left-nav .views-exposed-form {
+.left-nav-wrapper .advanced-search-form {
   padding-left: 1rem;
   padding-right: 1rem;
   display: none;
@@ -61,8 +61,8 @@
   & .page-wrapper {
     grid-template-columns: 342px auto;
   }
-  & .region-left-nav {
-    & .views-exposed-form {
+  & .left-nav-wrapper {
+    & .advanced-search-form {
       display: block;
     }
   }

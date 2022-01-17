@@ -43,7 +43,9 @@
  */
 #}
 <header role="banner" class="site-header">
+  <div class="header-wrapper">
   {{ page.header }}
+  {{ drupal_block('views_exposed_filter_block:scitalk_advanced_search-basic_search')}}
   <div class="mobile-toggle-icons">
     <button class="search-toggle" aria-controls="views-exposed-form-scitalk-advanced-search-basic-search" aria-expanded="false" data-hide-text=" {{ 'Hide search' |t }}">
       <span class="visually-hidden">{{ 'Show search' | t }}</span>
@@ -55,24 +57,24 @@
         <path d="M 0 0 L 0 2.5 L 20.65625 2.5 L 20.65625 0 L 0 0 z M 0 7.5 L 0 10 L 20.65625 10 L 20.65625 7.5 L 0 7.5 z M 0 15 L 0 17.5 L 20.65625 17.5 L 20.65625 15 L 0 15 z " />
       </svg>
     </button>
+  </div>
 </header>
 
 <div class="page-wrapper">
   <div class="left-nav-wrapper">
-    {% if page.left_nav.exposedformscitalk_advanced_searchform_block
-     or page.left_nav.exposedformscitalk_advanced_searchform_block_2
-    %}
-      <button class="open-advanced-search" aria-expanded="false" aria-controls="views-exposed-form-scitalk-advanced-search-advanced-search">
-        <svg><use href="#advanced-search" /></svg>
-        {{ 'Advanced search'|t }}
-      </button>
-      <button class="close-advanced-search" aria-expanded="false" aria-controls="views-exposed-form-scitalk-advanced-search-advanced-search">
-        <svg><use href="#close-x" /></svg>
-        <span class="visually-hidden">{{ 'Close advanced search'|t}}</span>
-      </button>
-    {% endif %}
+    <button class="open-advanced-search" aria-expanded="false" aria-controls="views-exposed-form-scitalk-advanced-search-advanced-search">
+      <svg><use href="#advanced-search" /></svg>
+      {{ 'Advanced search'|t }}
+    </button>
+    <button class="close-advanced-search" aria-expanded="false" aria-controls="views-exposed-form-scitalk-advanced-search-advanced-search">
+      <svg><use href="#close-x" /></svg>
+      <span class="visually-hidden">{{ 'Close advanced search'|t}}</span>
+    </button>
     {% if page.left_nav %}
       {{ page.left_nav}}
+      <div class='advanced-search-form'>
+        {{ drupal_block('views_exposed_filter_block:scitalk_advanced_search-form_block',wrapper=false)}}
+      </div>
     {% endif %}
   </div>
 
