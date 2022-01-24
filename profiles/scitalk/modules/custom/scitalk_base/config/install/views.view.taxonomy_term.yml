@@ -1,9 +1,10 @@
-uuid: b803916a-1f4d-4605-a77e-4c14a5af5205
+uuid: ecff45b4-6891-4f32-86bf-6c5464da53b1
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.horizontal_card
+    - core.entity_view_mode.node.teaser
     - field.storage.node.field_talk_date
     - field.storage.node.field_talk_speaker_profile
     - field.storage.node.field_talk_speakers_text
@@ -183,41 +184,20 @@ display:
             group_items: {  }
           plugin_id: boolean
       style:
-        type: default
+        type: html_list
         options:
-          grouping: {  }
           row_class: ''
-          default_row_class: true
+          default_row_class: false
           uses_fields: false
+          type: ul
+          wrapper_class: ''
+          class: 'display-list display-wrapper'
       row:
         type: 'entity:node'
         options:
           relationship: none
           view_mode: horizontal_card
-      header:
-        entity_taxonomy_term:
-          id: entity_taxonomy_term
-          table: views
-          field: entity_taxonomy_term
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: true
-          tokenize: true
-          target: '{{ raw_arguments.tid }}'
-          view_mode: full
-          bypass_access: false
-          plugin_id: entity
-        result:
-          id: result
-          table: views
-          field: result
-          relationship: none
-          group_type: group
-          admin_label: ''
-          empty: false
-          content: 'Displaying @start - @end of @total'
-          plugin_id: result
+      header: {  }
       footer: {  }
       empty: {  }
       relationships: {  }
@@ -611,7 +591,7 @@ display:
       link_url: ''
       link_display: page_1
       use_ajax: true
-      css_class: advanced-search-form
+      css_class: advanced-view-display
     cache_metadata:
       contexts:
         - 'languages:language_content'
@@ -1125,6 +1105,52 @@ display:
         - 'config:field.storage.node.field_talk_speaker_profile'
         - 'config:field.storage.node.field_talk_speakers_text'
         - 'config:field.storage.node.field_talk_type'
+  attachment_2:
+    display_plugin: attachment
+    id: attachment_2
+    display_title: 'Attachment (teasers)'
+    position: 2
+    display_options:
+      display_extenders:
+        ajax_history: {  }
+      query:
+        type: views_query
+        options: {  }
+      display_description: ''
+      displays:
+        card_view: card_view
+      style:
+        type: html_list
+        options:
+          row_class: ''
+          default_row_class: false
+          uses_fields: false
+          type: ul
+          wrapper_class: ''
+          class: 'display-list display-wrapper'
+      defaults:
+        style: false
+        row: false
+      row:
+        type: 'entity:node'
+        options:
+          relationship: none
+          view_mode: teaser
+      inherit_pager: true
+      render_pager: true
+    cache_metadata:
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - 'user.node_grants:view'
+        - user.permissions
+      max-age: -1
+      tags:
+        - 'config:field.storage.node.field_talk_date'
+        - 'config:field.storage.node.field_talk_speaker_profile'
+        - 'config:field.storage.node.field_talk_speakers_text'
+        - 'config:field.storage.node.field_talk_type'
   card_view:
     id: card_view
     display_title: 'Card view (page)'
@@ -1139,6 +1165,32 @@ display:
         ajax_history:
           enable_history: true
       display_description: ''
+      header:
+        entity_taxonomy_term:
+          id: entity_taxonomy_term
+          table: views
+          field: entity_taxonomy_term
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: true
+          tokenize: true
+          target: '{{ raw_arguments.tid }}'
+          view_mode: full
+          bypass_access: false
+          plugin_id: entity
+        result:
+          id: result
+          table: views
+          field: result
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          content: 'Displaying @start - @end of @total'
+          plugin_id: result
+      defaults:
+        header: false
     cache_metadata:
       contexts:
         - 'languages:language_content'
@@ -1157,7 +1209,7 @@ display:
     id: feed_1
     display_title: Feed
     display_plugin: feed
-    position: 2
+    position: 4
     display_options:
       query:
         type: views_query
@@ -1169,7 +1221,6 @@ display:
           offset: 0
       path: taxonomy/term/%/feed
       displays:
-        page_1: page_1
         default: '0'
       style:
         type: rss
