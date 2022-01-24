@@ -190,13 +190,6 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
       }
     }
 
-    foreach ($form['type']['#options'] as $key => &$option) {
-      if ($key == 'All') {
-        $option = t('All Types');
-         break;
-      }
-    }
-
     //in Advanced Search replace the search by repository textbox field by a dropdown
     if (!empty($form['repository_id'])) {
       $sql = "SELECT entity_id, title as repo_short_name, node__field_repo_institution.field_repo_institution_value as institution_short_name
