@@ -7,4 +7,14 @@ scitalk_jw_js:
     - jw_player/jwplayer
     - jw_player/behaviors
     - jw_player/preset
+
+
+scitalk_video_js:
+  js:
+    //vjs.zencdn.net/7.10.2/video.min.js: { type: external, minified: true }
+    js/scitalk_video_js.js: {}
+  css:
+    component:
+      //vjs.zencdn.net/7.10.2/video-js.min.css: { type: external, minified: true }
+      css/scitalk_video.css: {}
     

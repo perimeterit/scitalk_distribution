@@ -1,0 +1,42 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a formatted video field.
+ *
+ * Available variables:
+ * - items: A collection of videos.
+ * - player_attributes: Player options including the following:
+ *   - width: The width of the video (if known).
+ *   - height: The height of the video (if known).
+ *   - autoplay: Autoplay on or off
+ *
+ * @ingroup themeable
+ */
+#}
+
+{%
+  set data_setup = {
+    "playbackRates": player_attributes.playbackRates ?? [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2],
+    "controls": player_attributes.controls ?? TRUE, 
+    "aspectRatio": player_attributes.aspectRatio ?? '16:9',
+  }
+%}
+
+<div id="video_player" class="scitalk_video_player">
+  <video-js data-setup='{{ data_setup|json_encode() }}'
+    id = "scitalk_video_js"
+    class = "video-js vjs-default-skin vjs-big-play-centered" 
+    poster = "{{ player_attributes.background }}" 
+    preload = "{{ player_attributes.preload }}"
+    fluid = TRUE
+    responsive = TRUE
+    {{ player_attributes.autoplay ? 'autoplay' : '' }} 
+    {{ player_attributes.loop ? 'loop' : '' }} 
+    {{ player_attributes.muted ? 'muted' : '' }}
+    {# style="width:{{ player_attributes.width }}px;  height:{{ player_attributes.height }}px;"  #}
+  >
+    {% for item in items %}
+      <source src="{{ item }}"/>
+    {% endfor %}
+  </video-js>
+</div>

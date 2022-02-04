@@ -112,21 +112,48 @@ class SciTalkEmbedFormatter extends FormatterBase {
       ];
       
       //now embed the jwplayer.  Please refer to jw_player.module jw_player_theme() for input parameters
+      // $element[] = [
+      //   'player' => [
+      //     '#type' => 'jw_player',
+      //     '#html_id' => 'video_player',
+      //     '#file_url' => $uri,
+      //     '#file_mime' => 'video/mp4',
+      //     '#preset' => $this->getSetting('jwplayer_preset'),  
+      //     '#attached' => [   //attaching our js with jwplayer as dependencies allows this to work
+      //       'library' => ['scitalk_media/scitalk_jw_js'],
+      //     ],
+      //     '#settings' => [
+      //       'image' => $thumbnail,
+      //     ],
+      //   ]
+      // ];
+
+      //embed video.js player
       $element[] = [
-        'player' => [
-          '#type' => 'jw_player',
-          '#html_id' => 'video_player',
-          '#file_url' => $uri,
-          '#file_mime' => 'video/mp4',
-          '#preset' => $this->getSetting('jwplayer_preset'),  
-          '#attached' => [   //attaching our js with jwplayer as dependencies allows this to work
-            'library' => ['scitalk_media/scitalk_jw_js'],
-          ],
-          '#settings' => [
-            'image' => $thumbnail,
-          ],
-        ]
+        '#theme' => 'scitalk_media_videojs',
+        '#items' => [
+          'uri' => $uri,
+          'filemime' => 'video/mp4',
+        ],
+        '#attached' => [
+          'library' => ['scitalk_media/scitalk_video_js'],
+        ],
+        '#player_attributes' => [
+          // 'width' => '854',    //not using these
+          // 'height' => '480',
+          'loop' => FALSE,
+          'preload' => 'auto',     // one of: 'metadata','auto','none'
+          'hidecontrols' => FALSE,
+          'controls' => TRUE,
+          'background' => $thumbnail,
+          'aspectRatio' => "16:9",
+          'fluid' => TRUE,
+          'responsive' => TRUE,
+          'playbackRates' => [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2],
+          'muted' => FALSE,
+        ],
       ];
+      
     }
     
     //now check if this is an arxiv media type
