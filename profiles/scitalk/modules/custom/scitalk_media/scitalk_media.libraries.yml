@@ -12,6 +12,7 @@ scitalk_jw_js:
 scitalk_video_js:
   js:
     //vjs.zencdn.net/7.10.2/video.min.js: { type: external, minified: true }
+    https://unpkg.com/browse/@videojs/http-streaming@2.13.1/dist/videojs-http-streaming.min.js: { type: external, minified: true }
     js/scitalk_video_js.js: {}
   css:
     component:
