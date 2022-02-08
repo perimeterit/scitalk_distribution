@@ -35,8 +35,9 @@
     {{ player_attributes.muted ? 'muted' : '' }}
     {# style="width:{{ player_attributes.width }}px;  height:{{ player_attributes.height }}px;"  #}
   >
-    {% for item in items %}
+    <source src="{{ file_url }}" type="{{ file_mime }}"/>
+    {# {% for item in items %}
       <source src="{{ item }}"/>
-    {% endfor %}
+    {% endfor %} #}
   </video-js>
 </div>

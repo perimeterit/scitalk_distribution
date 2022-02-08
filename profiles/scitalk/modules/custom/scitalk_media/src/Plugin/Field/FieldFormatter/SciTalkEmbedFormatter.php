@@ -131,10 +131,12 @@ class SciTalkEmbedFormatter extends FormatterBase {
       //embed video.js player
       $element[] = [
         '#theme' => 'scitalk_media_videojs',
-        '#items' => [
-          'uri' => $uri,
-          'filemime' => 'video/mp4',
-        ],
+        '#file_url' => $uri,
+        '#file_mime' => 'video/mp4',
+        // '#items' => [
+        //   'uri' => $uri,
+        //   'filemime' => 'video/mp4',
+        // ],
         '#attached' => [
           'library' => ['scitalk_media/scitalk_video_js'],
         ],
