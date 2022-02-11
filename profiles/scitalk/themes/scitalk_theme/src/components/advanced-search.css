@@ -27,6 +27,10 @@
     font-size: .8rem;
     font-weight: normal;
   }
+  & .form-item-sort-bef-combine {
+    display: none;
+  }
+
 }
 
 /* Hiding & Showing changes */
@@ -81,6 +85,9 @@
   }
   & .advanced-search-form {
     padding: 0;
+    & .form-submit + .form-submit {
+      color: white;
+    }
   }
   /* Form adjustments */
   & input,
@@ -90,6 +97,10 @@
   }
   & .form-item {
     margin: 0 0 0.8rem;
+  }
+  & .bef-checkboxes,
+  & summary {
+    color: var(--color-default-text);
   }
 }
 
@@ -121,10 +132,8 @@
 }
 
 /* Multi-select checkbox dropdowns */
-
 .advanced-search-form details {
    background: white;
-
 }
 
 /* Submit */

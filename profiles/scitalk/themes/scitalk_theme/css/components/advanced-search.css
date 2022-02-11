@@ -25,11 +25,16 @@
   padding-right: 1rem;
   display: none;
   text-align: left
+
 }
 
 .left-nav-wrapper .advanced-search-form label {
     font-size: .8rem;
     font-weight: normal;
+  }
+
+.left-nav-wrapper .advanced-search-form .form-item-sort-bef-combine {
+    display: none;
   }
 
 /* Hiding & Showing changes */
@@ -90,8 +95,12 @@
     }
 
 .responsive-menu .advanced-search-form {
-    padding: 0;
+    padding: 0
   }
+
+.responsive-menu .advanced-search-form .form-submit + .form-submit {
+      color: white;
+    }
 
 .responsive-menu {
   /* Form adjustments */
@@ -105,6 +114,11 @@
 
 .responsive-menu .form-item {
     margin: 0 0 0.8rem;
+  }
+
+.responsive-menu .bef-checkboxes,
+  .responsive-menu summary {
+    color: var(--color-default-text);
   }
 
 /**
@@ -143,7 +157,6 @@
 
 .advanced-search-form details {
    background: white;
-
 }
 
 /* Submit */

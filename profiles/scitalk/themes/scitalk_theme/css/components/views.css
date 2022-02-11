@@ -18,7 +18,7 @@
     font-size: .9em;
     margin-right: 1.2em;
   }
-.advanced-view-header .form-item label,
+.advanced-view-header .form-wrapper > label,
   .advanced-view-header .form-item-sort-bef-combine label {
     position: absolute !important;
     overflow: hidden;

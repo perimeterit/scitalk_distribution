@@ -11,7 +11,7 @@
     font-size: .9em;
     margin-right: 1.2em;
   }
-  & .form-item label,
+  & .form-wrapper > label,
   & .form-item-sort-bef-combine label {
     @mixin visually-hidden;
   }

@@ -1,8 +1,8 @@
 {# Exposed search input string #}
 
-{{ 'Search results for'|t }}
+{{ 'Search results'|t }}
 {% if exposed_input.search_api_fulltext is not empty %}
-  <em>"{{ exposed_input.search_api_fulltext }}"</em>
+  {{ 'for'|t }} <em>"{{ exposed_input.search_api_fulltext }}"</em>
 {% endif %}
 
 {% if exposed_input.from is not empty %}
@@ -27,14 +27,46 @@
 
 {% if exposed_input.field_scientific_area is not empty and
   exposed_input.field_scientific_area != "All" %}
-  {# Need to make this work with multiple items. Also Terms, below#}
-  {{ kint(exposed_input.field_scientific_area)}}
-  {% set sa_term = drupal_entity('taxonomy_term', exposed_input.field_scientific_area) %}
-  {{ 'in'|t }} <em>{{ sa_term['#taxonomy_term'].name.0.value }}</em>
+  {{ 'in'|t }}
+  {% set num_terms = exposed_input.field_scientific_area|length %}
+  {% set sa_terms = [] %}
+  {% set count = 1 %}
+
+  {% for key, tid in exposed_input.field_scientific_area %}
+    {# add some connecting text for multiple values #}
+    {% if (count == num_terms) and (count != 1) %}
+      {{ 'and'|t }}
+    {% elseif (num_terms > 2) and (count < num_terms ) and (count != 1) %}
+    {{ ',' }}
+    {% endif %}
+
+    {% set sa_term = drupal_entity('taxonomy_term', tid) %}
+    <em>{{ sa_term['#taxonomy_term'].name.0.value }}</em>
+    {% set count = count + 1 %}
+  {% endfor %}
 {% endif %}
 
 {# Need to get the term name from this tid #}
 {% if exposed_input.type is not empty and  exposed_input.type != "All" %}
-  {% set type_term = drupal_entity('taxonomy_term', exposed_input.type) %}
-  {{ 'in'|t }} <em>{{ type_term['#taxonomy_term'].name.0.value }}</em>
+
+  {{ 'in'|t }}
+  {% set num_terms = exposed_input.type|length %}
+  {% set sa_terms = [] %}
+  {% set count = 1 %}
+  {% for key, tid in exposed_input.type %}
+    {# add some connecting text for multiple values #}
+    {% if (count == num_terms) and (count != 1) %}
+      {{ 'and'|t }}
+    {% elseif (num_terms > 2) and (count < num_terms ) and (count != 1) %}
+      {{ ',' }}
+    {% endif %}
+
+    {% set type_term = drupal_entity('taxonomy_term', tid) %}
+    <em>{{ type_term['#taxonomy_term'].name.0.value }}</em>
+    {% set count = count + 1 %}
+  {% endfor %}
+
+
+
+
 {% endif %}
