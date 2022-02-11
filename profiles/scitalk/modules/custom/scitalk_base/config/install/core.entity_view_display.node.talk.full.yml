@@ -45,7 +45,7 @@ third_party_settings:
       children:
         - field_talk_attachments
       parent_name: ''
-      weight: 6
+      weight: 7
       format_type: html_element
       format_settings:
         element: div
@@ -62,9 +62,6 @@ third_party_settings:
     group_talk_details:
       children:
         - field_talk_date
-        - field_talk_collection
-        - field_scientific_area
-        - field_talk_type
         - field_talk_doi
       parent_name: ''
       weight: 4
@@ -82,6 +79,27 @@ third_party_settings:
         show_empty_fields: false
       label: Details
       region: content
+    group_taxonomy:
+      children:
+        - field_talk_collection
+        - field_scientific_area
+        - field_talk_type
+      parent_name: ''
+      weight: 5
+      format_type: html_element
+      region: content
+      format_settings:
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+        id: ''
+        classes: group-taxonomy
+        show_empty_fields: false
+      label: Taxonomy
   layout_builder:
     allow_custom: false
     enabled: false
@@ -96,20 +114,20 @@ content:
     type: entity_reference_label
     weight: 13
     region: content
-    label: hidden
+    label: inline
     settings:
       link: true
     third_party_settings:
       fences:
         fences_field_tag: ul
-        fences_field_classes: inline-list
+        fences_field_classes: ''
         fences_field_item_tag: li
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
   field_talk_abstract:
     type: text_default
-    weight: 5
+    weight: 6
     region: content
     label: above
     settings: {  }
@@ -139,7 +157,7 @@ content:
         fences_label_classes: ''
   field_talk_collection:
     weight: 12
-    label: hidden
+    label: inline
     settings:
       link: true
     third_party_settings:
@@ -154,7 +172,7 @@ content:
     region: content
   field_talk_date:
     type: datetime_default
-    weight: 10
+    weight: 4
     region: content
     label: hidden
     settings:
@@ -162,7 +180,7 @@ content:
       timezone_override: ''
     third_party_settings: {  }
   field_talk_doi:
-    weight: 15
+    weight: 5
     label: inline
     settings:
       id_base_url: 'https://doi.org/'
@@ -193,7 +211,7 @@ content:
         fences_label_classes: ''
   field_talk_source_event:
     type: link
-    weight: 7
+    weight: 8
     region: content
     label: inline
     settings:
@@ -242,9 +260,9 @@ content:
       link: true
     third_party_settings:
       fences:
-        fences_field_tag: ul
-        fences_field_classes: inline-list
-        fences_field_item_tag: li
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: span
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''

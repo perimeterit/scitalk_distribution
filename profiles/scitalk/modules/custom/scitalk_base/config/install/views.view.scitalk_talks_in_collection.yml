@@ -1139,6 +1139,7 @@ display:
       inherit_exposed_filters: true
       inherit_arguments: true
       inherit_pager: true
+      render_pager: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -1363,8 +1364,8 @@ display:
           default_row_class: false
           uses_fields: false
           type: ul
-          wrapper_class: ''
-          class: display-list
+          wrapper_class: view-display
+          class: 'display-list display-wrapper'
       row:
         type: 'entity:node'
         options:
