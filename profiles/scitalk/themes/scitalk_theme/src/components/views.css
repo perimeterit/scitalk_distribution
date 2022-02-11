@@ -11,13 +11,10 @@
     font-size: .9em;
     margin-right: 1.2em;
   }
-
-  /* All the filters have to be there in order for the exposed filters to work
-    when they are placed in a separate block */
-  & .view-exposed-filters label {
+  & .form-item label,
+  & .form-item-sort-bef-combine label {
     @mixin visually-hidden;
   }
-
 }
 /* Layout */
 @media all and (max-width: 767px) {
@@ -124,7 +121,7 @@
     margin-right: .5em;
     white-space: nowrap;
   }
-  & .form-item {
+  & > .form-item {
     display: flex;
     align-items: center;
     margin: 0;
@@ -134,13 +131,27 @@
       margin-left: .6rem;
     }
   }
-
+  & details,
   & .form-select {
     border-color: transparent;
     padding: .3rem .4rem;
   }
   & .form-actions {
     margin: 0;
+  }
+  & details {
+    position: relative;
+    & > .form-checkboxes {
+      position: absolute;
+      left: 0;
+      z-index: 4;
+      background: white;
+      border: 1px solid var(--color-md-grey);
+      padding: 0 .4rem;
+      & .form-item {
+        display: flex;
+      }
+    }
   }
   & .form-submit,
   & .form-submit:hover,

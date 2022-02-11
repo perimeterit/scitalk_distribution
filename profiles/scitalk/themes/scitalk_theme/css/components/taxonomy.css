@@ -21,7 +21,7 @@
      display: inline-block;
      margin: 0.5rem;
    }
-.entity-reference--taxonomy-term a, .form-select.bef-links a {
+.field--name-field-scientific-area a, .field--name-field-talk-type a, .form-select.bef-links a {
     background: var(--color-lt-grey);
     color: var(--color-default-text);
     display: inline-block;
@@ -29,11 +29,11 @@
     padding: 0rem 0.7rem;
     text-decoration: none
   }
-.entity-reference--taxonomy-term a.bef-link--selected, .form-select.bef-links a.bef-link--selected {
+.field--name-field-scientific-area a.bef-link--selected, .field--name-field-talk-type a.bef-link--selected, .form-select.bef-links a.bef-link--selected {
       background: var(--color-primary);
       color: var(--color-primary--foreground)
     }
-.entity-reference--taxonomy-term a:hover, .entity-reference--taxonomy-term a:focus, .form-select.bef-links a:hover, .form-select.bef-links a:focus{
+.field--name-field-scientific-area a:hover, .field--name-field-scientific-area a:focus, .field--name-field-talk-type a:hover, .field--name-field-talk-type a:focus, .form-select.bef-links a:hover, .form-select.bef-links a:focus{
       background: var(--color-secondary);
       color: var(--color-secondary--foreground);
       text-decoration: none;

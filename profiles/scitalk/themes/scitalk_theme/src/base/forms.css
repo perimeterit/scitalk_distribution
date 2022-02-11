@@ -1,6 +1,7 @@
 /**
  * Theming for forms
  */
+@import "../base/mixins.css";
 
 legend {
   font-size: 1.1em;
@@ -22,7 +23,8 @@ label.label-inline:after {
 label.option { display: inline-block; }
 input,
 select,
-textarea {
+textarea,
+details {
   background: #fff;
   border: .1em solid #999;
   box-shadow: 0 0 0.1rem white;
@@ -57,7 +59,33 @@ textarea {
 textarea.text-full {
   color: #444;
 }
-
+details {
+  & summary {
+    cursor: pointer;
+      list-style-type: none;
+    font-size: .8rem;
+    &:before,
+    &:marker,
+    &:::-webkit-details-marker {
+      display: none;
+      color: green;
+    }
+    &:after {
+      @mixin caret 2px, .5em, var(--color-default-text);
+      float: right;
+      margin: 0.2rem 0 0 0.6rem;
+    }
+  }
+  & .bef-toggle {
+    display: block;
+    font-size: .8rem;
+    margin: .5rem 0;
+  }
+  & .form-item {
+    font-size: .8rem;
+    margin: .4rem 0;
+  }
+}
 /* Grouping elements */
 fieldset,
 fieldset.form-item {
@@ -124,6 +152,7 @@ label.option + .description {
 input[type=submit],
 .form-actions .form-submit {
   border: none;
+  font-family: var(--font-family-primary);
   cursor: pointer;
 }
 

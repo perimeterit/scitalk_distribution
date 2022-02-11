@@ -1,7 +1,7 @@
 /*
  * Component library CSS for admin tools
  * Theming for UI elements provided by Drupal
- * Includes tabs, messages etc.
+ * Includes tabs, message etc.
  */
 
 .region-admin .block {
@@ -54,16 +54,16 @@ li.action-links {
   margin-bottom: 1.5em;
 }
 
-/* Messages */
+/* message */
 
-.messages {
+.message {
   margin: 1.5em 0;
   padding: 1em 2em;
 }
 
-.messages:before {
+.message:before {
   content: '';
-  background: url(../../images/messages.svg) 0 0 no-repeat;
+  background: url(../../images/message.svg) 0 0 no-repeat;
   display: block;
   float: left;
   height: 35px;
@@ -72,27 +72,27 @@ li.action-links {
   margin: -3px 10px 0 -1em;
 }
 
-.messages.status {
+.message.status {
   background: hsla(99, 39%, 82%, .86);
 }
 
-.messages.status:before {
+.message.status:before {
   background-position: 0 0;
 }
 
-.messages.warning {
+.message.warning {
   background-color: hsla(49, 73%, 71%, 0.54);
 }
 
-.messages.warning:before {
+.message.warning:before {
   background-position: 0 -90px;
 }
 
-.messages.error {
+.message.error {
   background-color: hsla(0, 69%, 58%, 0.27);
 }
 
-.messages.error:before {
+.message.error:before {
   background-position: 0 -44px;
 }
 

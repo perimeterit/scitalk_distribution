@@ -1,0 +1,69 @@
+
+/* Resources */
+.field--name-field-talk-attachments li {
+  margin-bottom: 1em;
+}
+.resource-link,
+.resource-link .icon {
+  display: flex;
+}
+.resource--remote_file,
+.resource--image,
+.resource--file {
+  align-items: center;
+}
+.resource-link .icon {
+  background: var(--color-primary);
+  color: var(--color-primary--foreground);
+
+  height: 3em;
+  width: 3em;
+  margin-right: 1em;
+  padding: 1em;
+
+  align-items: center;
+  justify-content: center;
+}
+.resource-link .icon svg {
+  color: var(--color-primary--foreground);
+}
+.resource--arxiv .icon {
+  background: #b31b1b;
+}
+.resource--remote_file .icon,
+.resource--file .icon {
+  background: no-repeat transparent center center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M13,9V3.5L18.5,9M6,2C4.89,2 4,2.89 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6Z' /%3E%3C/svg%3E");
+  background-size: cover;
+  font-size: .9em;
+  height: 5em;
+  width: 4em;
+  padding: .8em 0 0;
+}
+.resource--image .icon {
+    background: none;
+    padding: 0;
+  }
+.resource--image .icon figure,
+  .resource--image .icon figure a  {
+    display: flex;
+    height: 100%;
+  }
+.resource--image .icon img {
+    object-fit: cover;
+  }
+.resource-link p {
+    margin: 0;
+  }
+.resource-link .small {
+    font-size: .8em;
+  }
+.resource-link strong {
+    font-weight: 500;
+  }
+.resource--remote_file p,
+.resource--file p {
+  display: inline;
+}
+
+/*# sourceMappingURL=resources.css.map */

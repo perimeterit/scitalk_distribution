@@ -32,7 +32,7 @@
 
 /* List of multiple speakers */
 .speaker-list {
-  display: inline;
+  display: inline-block;
   line-height: 1.5;
   & li + li {
     margin-top: .2rem;
@@ -61,41 +61,37 @@
   & .info {
     font-size: .8em;
     margin-left: -.5em;
-    & .field__label {
-      font-weight: normal;
-      &:after {
-        content: ":";
-        display: inline-block;
-        margin-right: .5rem;
-      }
-    }
-    & > * {
-      border-right: 1px solid var(--color-lt-grey);
-      padding: 0 1.2em;
-      margin-right: .5em;
-      &:last-child {
-       border: none;
-       margin-right: 0;
-      }
-    }
     & ul {
       display: inline-block;
+    }
+  }
+  & .info > * {
+    border-right: 1px solid var(--color-lt-grey);
+    padding: 0 1.2em;
+    margin-right: .5em;
+    &:last-child {
+      border: none;
+      margin-right: 0;
+    }
+  }
+  & strong.field__label {
+    font-weight: normal;
+    &:after {
+      content: ":";
+      display: inline-block;
+      margin-right: .5rem;
     }
   }
 }
 
 @media all and (min-width: 768px) {
-  .node.talk {
-    & .info {
-      display: flex;
-    }
+  .node.talk .info {
+    display: flex;
   }
 }
 @media all and (max-width: 767px) {
-  .node.talk {
-    & .info > * {
-      margin-bottom: .5rem;
-    }
+  .node.talk .info > * {
+    margin-bottom: .5rem;
   }
 }
 /**

@@ -50,12 +50,14 @@
 	padding: 1em;
   & .menu a {
     color: white;
+    font-size: 1rem;
     &:matches(:hover,:focus) {
       color: white;
     }
   }
   & .menu--close {
     background: transparent;
+    padding: .4rem;
     &:after {
      @mixin caret 2px, 1em, white;
      transform: rotate(-45deg);
@@ -64,16 +66,20 @@
 }
 
 /* Main menu in slideout */
-.responsive-menu .menu {
-  flex-direction: column;
-  margin-bottom: 2em;
-}
-.responsive-menu .menu li {
-  display: block;
-  font-size: 1.1em;
-  line-height: 2;
-  padding: .5em;
-  border-bottom: 1px solid rgba(255,255,255,0.6);
+.responsive-menu {
+  & nav {
+    outline: none !important; /* iOS is doing this for some reason */
+  }
+  & .menu {
+    flex-direction: column;
+    margin-bottom: 2em;
+    & li {
+      display: block;
+      font-size: 1.1em;
+      line-height: 2;
+      border-bottom: 1px solid rgba(255,255,255,0.6);
+    }
+  }
 }
 
 /* Slide-out positioning */

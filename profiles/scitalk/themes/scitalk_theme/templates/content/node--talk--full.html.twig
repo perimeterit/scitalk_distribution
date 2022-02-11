@@ -19,13 +19,18 @@
 <article{{ attributes.addClass(classes) }}>
   {{ content.field_talk_number }}
   {{ content.field_talk_video }}
-  <div class="node--content">
-    {{ drupal_region('page_title') }}
-    <div class="speakers">
+  {{ drupal_region('page_title') }}
+  <div class="talk-metadata">
+    <div class="speaker-date-doi">
       {% include '@scitalk_theme/includes/speaker-fields.twig' %}
+      {{ content.group_talk_details}}
     </div>
-    {{ content|without('field_talk_number','field_talk_video', 'field_talk_speaker_profile',  'field_talk_speakers_text') }}
+    <div class="taxonomy">
+      {{ content.group_taxonomy}}
+    </div>
   </div>
+  {{ content|without('field_talk_number','field_talk_video', 'group_talk_details', 'group_taxonomy', 'field_talk_speaker_profile',  'field_talk_speakers_text') }}
+
 </article>
 
 <aside class="related-talks-view">

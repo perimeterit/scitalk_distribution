@@ -13,7 +13,9 @@
      margin: 0.5rem;
    }
  }
-.entity-reference--taxonomy-term,
+
+.field--name-field-scientific-area,
+.field--name-field-talk-type,
 .form-select.bef-links {
   & a {
     background: var(--color-lt-grey);

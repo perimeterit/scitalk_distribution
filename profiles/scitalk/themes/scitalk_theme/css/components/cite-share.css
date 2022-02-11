@@ -1,0 +1,43 @@
+
+/* Cite & Share buttons */
+/*
+ * Mixins - Classes created in utilities.css
+*/
+/*
+ * to use:
+ * @mixin caret 2px, 1em, var(--color-black)
+*/
+.share-links,
+.citations-wrapper {
+  font-size: .9rem;
+}
+button.citations-label,
+button.share-label {
+  background: transparent;
+  color: var(--color-default-text);
+  display: flex;
+  align-items: center;
+  padding: .5em 1em
+}
+button.citations-label svg, button.share-label svg {
+    stroke: var(--color-default-text);
+    height: 2em;
+    width: 2em;
+    margin-right: .5em;
+  }
+button.citations-label path, button.share-label path {
+    stroke: var(--color-default-text);
+    fill: none;
+  }
+button.citations-label circle, button.share-label circle {
+    fill: transparent;
+  }
+button.citations-label:hover, button.citations-label:focus, button.share-label:hover, button.share-label:focus, .share-links:hover button.share-label, .share-links:focus button.share-label {
+  background: var(--color-primary);
+  color: var(--color-primary--foreground)
+}
+button.citations-label:hover svg, button.citations-label:focus svg, button.citations-label:hover path, button.citations-label:focus path, button.share-label:hover svg, button.share-label:focus svg, button.share-label:hover path, button.share-label:focus path, .share-links:hover button.share-label svg, .share-links:focus button.share-label svg, .share-links:hover button.share-label path, .share-links:focus button.share-label path {
+    stroke: var(--color-primary--foreground);
+  }
+
+/*# sourceMappingURL=cite-share.css.map */

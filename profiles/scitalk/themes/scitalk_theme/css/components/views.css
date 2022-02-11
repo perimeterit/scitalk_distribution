@@ -13,19 +13,13 @@
   display: grid;
   margin-top: 2em;
   padding-bottom: .5em
-
 }
 .advanced-view-header .view-summary {
     font-size: .9em;
     margin-right: 1.2em;
   }
-.advanced-view-header {
-
-  /* All the filters have to be there in order for the exposed filters to work
-    when they are placed in a separate block */
-
-}
-.advanced-view-header .view-exposed-filters label {
+.advanced-view-header .form-item label,
+  .advanced-view-header .form-item-sort-bef-combine label {
     position: absolute !important;
     overflow: hidden;
     clip: rect(1px, 1px, 1px, 1px);
@@ -151,23 +145,38 @@
     margin-right: .5em;
     white-space: nowrap;
   }
-.view-exposed-filters form .form-item {
+.view-exposed-filters form > .form-item {
     display: flex;
     align-items: center;
     margin: 0
   }
-.view-exposed-filters form .form-item + .form-item {
+.view-exposed-filters form > .form-item + .form-item {
       border-left: 1px solid var(--color-lt-grey);
       padding-left: .6rem;
       margin-left: .6rem;
     }
-.view-exposed-filters form .form-select {
+.view-exposed-filters form details,
+  .view-exposed-filters form .form-select {
     border-color: transparent;
     padding: .3rem .4rem;
   }
 .view-exposed-filters form .form-actions {
     margin: 0;
   }
+.view-exposed-filters form details {
+    position: relative
+  }
+.view-exposed-filters form details > .form-checkboxes {
+      position: absolute;
+      left: 0;
+      z-index: 4;
+      background: white;
+      border: 1px solid var(--color-md-grey);
+      padding: 0 .4rem
+    }
+.view-exposed-filters form details > .form-checkboxes .form-item {
+        display: flex;
+      }
 .view-exposed-filters form .form-submit,
   .view-exposed-filters form .form-submit:hover,
   .view-exposed-filters form .form-submit:focus {

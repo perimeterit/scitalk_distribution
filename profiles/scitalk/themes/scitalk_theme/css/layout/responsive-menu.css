@@ -51,13 +51,15 @@
 	padding: 1em
 }
 .responsive-menu .menu a {
-    color: white
+    color: white;
+    font-size: 1rem
   }
 .responsive-menu .menu a:hover, .responsive-menu .menu a:focus {
       color: white;
     }
 .responsive-menu .menu--close {
-    background: transparent
+    background: transparent;
+    padding: .4rem
   }
 .responsive-menu .menu--close:after {
      content: '';
@@ -70,17 +72,19 @@
      transform: rotate(-45deg);
    }
 /* Main menu in slideout */
+.responsive-menu nav {
+    outline: none !important; /* iOS is doing this for some reason */
+  }
 .responsive-menu .menu {
-  flex-direction: column;
-  margin-bottom: 2em;
-}
+    flex-direction: column;
+    margin-bottom: 2em
+  }
 .responsive-menu .menu li {
-  display: block;
-  font-size: 1.1em;
-  line-height: 2;
-  padding: .5em;
-  border-bottom: 1px solid rgba(255,255,255,0.6);
-}
+      display: block;
+      font-size: 1.1em;
+      line-height: 2;
+      border-bottom: 1px solid rgba(255,255,255,0.6);
+    }
 /* Slide-out positioning */
 .responsive-menu {
   position: fixed;
