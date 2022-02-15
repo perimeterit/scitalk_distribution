@@ -49,12 +49,13 @@ li.action-links {
 /* message */
 
 .message {
+  font-size: .9rem;
   margin: 1.5em 0;
-  padding: 1em 2em;
+  padding: 1.5em 2em;
 }
 .message:before {
   content: '';
-  background: url(../../images/message.svg) 0 0 no-repeat;
+  background: url(../../images/messages.svg) 0 0 no-repeat;
   display: block;
   float: left;
   height: 35px;
@@ -62,21 +63,21 @@ li.action-links {
   background-size: 35px;
   margin: -3px 10px 0 -1em;
 }
-.message.status {
+.message--status {
   background: hsla(99, 39%, 82%, .86);
 }
-.message.status:before {
+.message--status:before {
   background-position: 0 0;
 }
-.message.warning {
+.message--warning {
   background-color: hsla(49, 73%, 71%, 0.54);
 }
-.message.warning:before {
+.message--warning:before {
   background-position: 0 -90px;
 }
-.message.error {
+.message--error {
   background-color: hsla(0, 69%, 58%, 0.27);
 }
-.message.error:before {
+.message--error:before {
   background-position: 0 -44px;
 }

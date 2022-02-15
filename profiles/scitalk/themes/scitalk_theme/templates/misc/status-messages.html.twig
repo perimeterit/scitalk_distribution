@@ -19,14 +19,14 @@
  *   - class: HTML classes.
  */
 #}
-{% set classes = [
-  'messages',
-  'message--' ~ type
-]
-%}
 <div data-drupal-messages>
 {% for type, messages in message_list %}
-  <div role="contentinfo" aria-label="{{ status_headings[type] }}"{{ attributes.|without('role', 'aria-label') }}>
+  {% set classes = [
+    'message',
+    'message--' ~ type
+  ]
+  %}
+  <div role="contentinfo" aria-label="{{ type }}"{{ attributes|without('role', 'aria-label').addClass(classes) }}>
     {% if type == 'error' %}
       <div role="alert">
     {% endif %}
