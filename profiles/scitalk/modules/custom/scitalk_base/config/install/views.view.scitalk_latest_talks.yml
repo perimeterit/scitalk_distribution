@@ -1092,7 +1092,7 @@ display:
             identifier: field_scientific_area
             required: false
             remember: false
-            multiple: false
+            multiple: true
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
