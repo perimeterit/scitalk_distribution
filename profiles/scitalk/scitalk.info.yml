@@ -70,7 +70,6 @@ install:
   - inline_entity_form
   - jsonapi_extras
   - libraries
-  - jw_player
   - module_filter
   - restui
   - search_api_db

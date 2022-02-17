@@ -1,14 +1,3 @@
-scitalk_jw_js:
-  js:
-    js/scitalk_jw_js.js: {}
-  dependencies:
-    - core/jquery
-    - core/drupalSettings
-    - jw_player/jwplayer
-    - jw_player/behaviors
-    - jw_player/preset
-
-
 scitalk_video_js:
   js:
     //vjs.zencdn.net/7.10.2/video.min.js: { type: external, minified: true }
@@ -18,4 +7,3 @@ scitalk_video_js:
     component:
       //vjs.zencdn.net/7.10.2/video-js.min.css: { type: external, minified: true }
       css/scitalk_video.css: {}
-    
