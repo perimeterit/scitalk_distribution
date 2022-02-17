@@ -73,7 +73,7 @@
    * Make sure type details element is always collapsed
    * By default BEF will make this open by default if there is a selection
   */
-   Drupal.behaviors.scitalk_toggleViewDisplay = {
+   Drupal.behaviors.scitalk_fixDetailsFilter = {
     attach: function (context, settings) {
       $('.advanced-view-header details[open]').removeAttr('open');
     }
