@@ -134,11 +134,12 @@ use function GuzzleHttp\json_encode;
         
         //we need to pull the image and deposit it locally in a folder so that we can reference it locally.
         //we are in control of our media entity, so we create the field_remote_thumbnail_url field on the entity
-        $thumbnail_uri = $media->get('field_remote_thumbnail_url')->getString();
+        // $thumbnail_uri = $media->get('field_remote_thumbnail_url')->getString();
+        $thumbnail_uri = !empty($media->field_remote_thumbnail_url) ? $media->get('field_remote_thumbnail_url')->getString() : '';
         $context = stream_context_create(array(
           'http' => array('timeout' =>10),
         ));
-        $img = @file_get_contents($thumbnail_uri, false, $context);  //@ used to suppress warning.  we don't want warnings!
+        $img =  $thumbnail_uri ? @file_get_contents($thumbnail_uri, false, $context) : '';  //@ used to suppress warning.  we don't want warnings!
         
         if($img === FALSE) { //404 errors should be trapped like this
           return FALSE;

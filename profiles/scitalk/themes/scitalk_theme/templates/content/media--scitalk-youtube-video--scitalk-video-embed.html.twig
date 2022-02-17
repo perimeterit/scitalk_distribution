@@ -1,0 +1,30 @@
+
+{% set thumb = content.field_remote_thumbnail_url ? content.field_remote_thumbnail_url.0['#context'].value : ''%}
+{% set video_file = content.field_media_scitalk_video.0['#context'].value %}
+{% set file_mime = 'video/youtube' %}
+
+{%
+  set data_setup = {
+    "playbackRates": [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2],
+    "controls": TRUE, 
+    "aspectRatio": '16:9',
+    "techOrder": ["youtube"]
+  }
+%}
+
+<div id="video_player" class="scitalk_video_player">
+  <video-js data-setup='{{ data_setup|json_encode() }}'
+    id = "scitalk_video_js"
+    class = "video-js vjs-default-skin vjs-big-play-centered" 
+    poster = "{{ thumb }}" 
+    preload = FALSE
+    fluid = TRUE
+    responsive = TRUE
+    {# {{ player_attributes.autoplay ? 'autoplay' : '' }} 
+    {{ player_attributes.loop ? 'loop' : '' }} 
+    {{ player_attributes.muted ? 'muted' : '' }} #}
+    {# style="width:{{ player_attributes.width }}px;  height:{{ player_attributes.height }}px;"  #}
+  >
+    <source src="{{ video_file }}" type="{{ file_mime }}"/>
+  </video-js>
+</div>

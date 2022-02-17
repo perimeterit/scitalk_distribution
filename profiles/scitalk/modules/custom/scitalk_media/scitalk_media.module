@@ -37,7 +37,6 @@ function scitalk_media_theme() {
       'variables' => ['path' => NULL, 'source' => 'interimHD', 'html_id'=> '', 'width' => 350, 'height' => 250, 'file_url' => '', 'file_mime' => 'video/avi', 'attributes' => []]
     ],
     'scitalk_media_videojs' => [
-      // 'variables' => ['items' => NULL, 'player_attributes' => NULL]
       'variables' => ['file_url' => '', 'file_mime' => 'video/mp4', 'player_attributes' => NULL]
     ],
   ];

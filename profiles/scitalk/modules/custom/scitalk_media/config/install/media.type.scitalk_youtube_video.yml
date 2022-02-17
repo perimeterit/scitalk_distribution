@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - scitalk_media
+id: scitalk_youtube_video
+label: 'SciTalk YouTube Video'
+description: 'SciTalk YouTube Video Types'
+source: scitalk_video
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  source_field: field_media_scitalk_video
+  generate_thumbnails: true
+  scitalk_video_source: ''
+field_map: {  }
+

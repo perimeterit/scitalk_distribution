@@ -96,20 +96,20 @@ class SciTalkEmbedFormatter extends FormatterBase {
           break;
       }
       
-      $element[] = [
-        '#theme' => $theme,
-        '#path' => $uri,
-        '#file_url' => $uri, // here's a good test URI: 'http://techslides.com/demos/sample-videos/small.mp4'
-        '#file_mime' => 'video/mp4',
-        '#html_id' => 'video-display',
-        '#source' => $conf['scitalk_video_source'],
-        '#attributes' => [
-          'class' => ['scitalk-video', ],
-          'data-conversation' => 'none',
-          'lang' => 'en',
-          'video-attributes' => $video_attributes,
-        ],
-      ];
+      // $element[] = [
+      //   '#theme' => $theme,
+      //   '#path' => $uri,
+      //   '#file_url' => $uri, // here's a good test URI: 'http://techslides.com/demos/sample-videos/small.mp4'
+      //   '#file_mime' => 'video/mp4',
+      //   '#html_id' => 'video-display',
+      //   '#source' => $conf['scitalk_video_source'],
+      //   '#attributes' => [
+      //     'class' => ['scitalk-video', ],
+      //     'data-conversation' => 'none',
+      //     'lang' => 'en',
+      //     'video-attributes' => $video_attributes,
+      //   ],
+      // ];
       
       //now embed the jwplayer.  Please refer to jw_player.module jw_player_theme() for input parameters
       // $element[] = [
@@ -231,33 +231,33 @@ class SciTalkEmbedFormatter extends FormatterBase {
     
     //determine if we should be even showing the jw player options as this is only for video types
     //best thing to do is simply show a checkbox with the presets for jw being shown only when checked.
-    $form['requirejw'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Use JW Player to show media?'),
-      '#description' => $this->t('When checked, this signals the formatter to use JW Player to show the media referenced in the URI Field.'),
-      '#default_value' =>  boolval($this->getSetting('requirejw')),
-      '#attributes' => ['class' => ['requirejw']],
-    ];
+    // $form['requirejw'] = [
+    //   '#type' => 'checkbox',
+    //   '#title' => $this->t('Use JW Player to show media?'),
+    //   '#description' => $this->t('When checked, this signals the formatter to use JW Player to show the media referenced in the URI Field.'),
+    //   '#default_value' =>  boolval($this->getSetting('requirejw')),
+    //   '#attributes' => ['class' => ['requirejw']],
+    // ];
     
-    $presets = Jw_player::loadMultiple();
-    $options = [];
-    if (!empty($presets)) {
-      foreach ($presets as $type => $type_info) {
-        $options[$type] = $type_info->label();
-      }
-      $form['jwplayer_preset'] = [
-        '#title' => t('Select preset'),
-        '#type' => 'select',
-        '#empty_option' => t('- No preset selected -'),
-        '#default_value' => $this->getSetting('jwplayer_preset') ?: 'none',
-        '#options' => $options,
-        '#states' => array(
-          'visible' => array(
-            '.requirejw' => array('checked' => TRUE),
-          ),
-        ),
-      ];
-    }
+    // $presets = Jw_player::loadMultiple();
+    // $options = [];
+    // if (!empty($presets)) {
+    //   foreach ($presets as $type => $type_info) {
+    //     $options[$type] = $type_info->label();
+    //   }
+    //   $form['jwplayer_preset'] = [
+    //     '#title' => t('Select preset'),
+    //     '#type' => 'select',
+    //     '#empty_option' => t('- No preset selected -'),
+    //     '#default_value' => $this->getSetting('jwplayer_preset') ?: 'none',
+    //     '#options' => $options,
+    //     '#states' => array(
+    //       'visible' => array(
+    //         '.requirejw' => array('checked' => TRUE),
+    //       ),
+    //     ),
+    //   ];
+    // }
     
     return $form;
   }
@@ -297,21 +297,21 @@ class SciTalkEmbedFormatter extends FormatterBase {
       }
     }
     
-    if($this->getSetting('requirejw') == 1) {
-      if($this->getSetting('jwplayer_preset') == '') {
-        $summary[] = $this->t('No JW Player preset chosen. Default presets will be used.');
-      }
-      else {
-        $presets = Jw_player::loadMultiple();
-        $options = [];
-        if (!empty($presets)) {
-          foreach ($presets as $type => $type_info) {
-            $options[$type] = $type_info->label();
-          }
-        }
-        $summary[] = $this->t('JW Player Preset: ') . $options[$this->getSetting('jwplayer_preset')];
-      }
-    }
+    // if($this->getSetting('requirejw') == 1) {
+    //   if($this->getSetting('jwplayer_preset') == '') {
+    //     $summary[] = $this->t('No JW Player preset chosen. Default presets will be used.');
+    //   }
+    //   else {
+    //     $presets = Jw_player::loadMultiple();
+    //     $options = [];
+    //     if (!empty($presets)) {
+    //       foreach ($presets as $type => $type_info) {
+    //         $options[$type] = $type_info->label();
+    //       }
+    //     }
+    //     $summary[] = $this->t('JW Player Preset: ') . $options[$this->getSetting('jwplayer_preset')];
+    //   }
+    // }
     
     return $summary;
   }

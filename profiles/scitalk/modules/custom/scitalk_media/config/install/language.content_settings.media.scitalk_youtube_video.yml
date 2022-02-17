@@ -1,0 +1,11 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.scitalk_youtube_video
+id: media.scitalk_youtube_video
+target_entity_type_id: media
+target_bundle: scitalk_youtube_video
+default_langcode: site_default
+language_alterable: false
+
