@@ -43,3 +43,18 @@
   border-bottom: $weight solid $color;
   transform: rotate(45deg);
 }
+
+@define-mixin tag {
+  background: var(--color-lt-grey);
+  color: var(--color-default-text);
+  display: inline-block;
+  line-height: 1.6rem;
+  padding: 0rem 0.7rem;
+  text-decoration: none;
+}
+
+@define-mixin tag-hover {
+  background: var(--color-secondary);
+  color: var(--color-secondary--foreground);
+  text-decoration: none;
+}

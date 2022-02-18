@@ -1,0 +1,238 @@
+@import "../base/mixins.css";
+/**
+ * View header
+*/
+.advanced-view-header {
+  border-bottom: 1px solid var(--color-lt-grey);
+  display: grid;
+  margin-top: 2em;
+  padding-bottom: .5em;
+  & .view-summary {
+    font-size: .9em;
+    margin-right: 1.2em;
+  }
+  & .form-item-field-talk-type > label,
+  & .form-item-sort-bef-combine label {
+    @mixin visually-hidden;
+  }
+}
+/* Layout */
+@media all and (max-width: 767px) {
+  .advanced-view-header {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: .2rem;
+    & .view-summary {
+      padding-left: .5rem;
+    }
+    &  .view-display-toggle {
+      display: none;
+    }
+    & .view-exposed-filters {
+      margin: 0;
+      grid-column: span 2;
+    }
+    & .pager {
+      display: flex;
+      justify-content: flex-end;
+      padding-right: .5rem;
+    }
+  }
+}
+@media all and (min-width: 768px) {
+  .advanced-view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    & .views-tiny-pager {
+      margin-right: auto;
+    }
+  }
+  .view-exposed-filters form {
+    justify-content: center;
+  }
+  .view-display-toggle {
+    text-align: right;
+  }
+}
+
+/*
+ * Tiny pager
+ * Can't alter the output for this properly, so have to fake it
+ */
+.views-tiny-pager {
+  & .pager {
+    margin: 0;
+  }
+  & .pager__items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    max-width: 3rem;
+  }
+  /* Hide remaining pager elements we don't want here */
+  & .pager__item--ellipsis,
+  & .pager__item--last,
+  & .pager__item--first {
+    display: none;
+  }
+  & a {
+    background: transparent;
+    padding: .2em;
+    &:matches(:hover,:focus) {
+      background: transparent;
+    }
+  }
+  & .pager__item {
+    margin: 0;
+    & span {
+      display: none;
+    }
+  }
+  & .pager__item--previous a:before,
+  & .pager__item--next a:after {
+    @mixin caret 2px, .5em, var(--color-default-text);
+    transform: rotate(135deg);
+  }
+  & .pager__item--next a:after {
+    transform: rotate(-45deg);
+  }
+  /* Fake a disabled previous button if we're on the first page
+   And a disabled next button if we're on the last page */
+  & .pager__items > .pager__item--ellipsis:first-child {
+    display: block;
+    color: transparent;
+    height: 1em;
+    width: 1em;
+    margin-top: -.6rem;
+    &:before  {
+      @mixin caret 2px, .5em, var(--color-default-text);
+      transform: rotate(135deg);
+      opacity: .4;
+    }
+  }
+}
+
+/* Exposed filters */
+.view-exposed-filters form {
+  display: flex;
+  align-items: center;
+  & label {
+    margin-right: .5em;
+    white-space: nowrap;
+  }
+  & > .form-item {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    & + .form-item {
+      border-left: 1px solid var(--color-lt-grey);
+      padding-left: .6rem;
+      margin-left: .6rem;
+    }
+  }
+  & details,
+  & .form-select {
+    border-color: transparent;
+    padding: .3rem .4rem;
+  }
+  & .form-actions {
+    margin: 0;
+  }
+  & details {
+    position: relative;
+    & > .form-checkboxes {
+      position: absolute;
+      left: 0;
+      z-index: 4;
+      background: white;
+      border: 1px solid var(--color-md-grey);
+      padding: 0 .4rem;
+      & .form-item {
+        display: flex;
+      }
+    }
+  }
+  & .form-submit,
+  & .form-submit:hover,
+  & .form-submit:focus {
+    background: center center no-repeat;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%23333' d='M14,8H11V14H6V8H3L8.5,2L14,8M15.5,22L21,16H18V10H13V16H10L15.5,22Z' /%3E%3C/svg%3E");
+    background-size: 1.6em;
+    color: transparent;
+    width: 2em;
+    padding: 0.8em 0;
+  }
+}
+
+/*
+ * Display switcher
+*/
+.view-display-toggle {
+  & ul {
+    display: flex;
+  }
+  & li {
+    margin-left: .5em;
+  }
+  & a {
+    cursor: pointer;
+  }
+  & button {
+    background: transparent;
+    border-bottom: 2px solid transparent;
+    color: var(--color-default-text);
+    display: flex;
+    align-items: center;
+    padding: 0.2em 0.3em;
+    & svg {
+      height: 1.5em;
+      width: 1.5em;
+    }
+    &:matches(:hover,:focus) {
+      background: var(--color-lt-grey);
+      border-bottom-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+  }
+}
+@media all and (min-width: 768px) {
+  .view-display-toggle ul {
+    justify-content: flex-end;
+  }
+}
+
+/* View display adjustments */
+.view-display {
+  margin-top: 1.5em;
+  & .display-wrapper,
+  & .table-display .view-content {
+    padding: var(--gutter-standard);
+    background: var(--color-lt-grey);
+  }
+  &[aria-hidden="true"] {
+    display: none;
+  }
+  & table {
+    margin-top: 7;
+  }
+}
+@media all and (max-width: 767px) {
+  .view-display {
+    margin-left: calc(-1 * var(--responsive-padding));
+    margin-right: calc(-1 * var(--responsive-padding));
+  }
+}
+.info-icon {
+  background: no-repeat center center;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z' /%3E%3C/svg%3E");
+  height: 1.8em;
+  width: 1.8em;
+  display: block;
+}
+table.jrt {
+  width: 100%;
+}
+.views-field-field-talk-date {
+  white-space: nowrap;
+}

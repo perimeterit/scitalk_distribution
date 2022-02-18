@@ -1,0 +1,50 @@
+@import "../base/mixins.css";
+/**
+ * Display header checkbox filters like links
+ */
+.view-header-filters {
+  & fieldset {
+    border: none;
+    padding: 0;
+  }
+  & .bef-checkboxes {
+    & .form-item {
+      display: inline-block;
+      margin: .4rem;
+    }
+    & label {
+      @mixin tag;
+      cursor: pointer;
+      font-size: .9rem;
+      margin-left: -1.8rem;
+      &:matches(:hover,:focus) {
+        @mixin tag-hover;
+      }
+    }
+    & input {
+      visibility: hidden;
+      &:checked {
+        & + label {
+          @mixin tag-hover;
+          &:after {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%23ffffff' d='M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z' /%3E%3C/svg%3E");
+            content: '';
+            display: inline-block;
+            height: 1rem;
+            width: 1rem;
+            margin: -.2rem -.2rem 0 .5rem;
+            vertical-align: middle;
+          }
+        }
+      }
+    }
+  }
+}
+
+.form-select.bef-links {
+  @mixin tag;
+  &.bef-link--selected {
+    background: var(--color-primary);
+    color: var(--color-primary--foreground)
+  }
+}

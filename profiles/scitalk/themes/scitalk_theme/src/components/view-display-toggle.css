@@ -1,0 +1,59 @@
+@import "../base/mixins.css";
+/*
+ * Display switcher
+*/
+.view-display-toggle {
+  & ul {
+    display: flex;
+  }
+  & li {
+    margin-left: .5em;
+  }
+  & a {
+    cursor: pointer;
+  }
+  & button {
+    background: transparent;
+    border-bottom: 2px solid transparent;
+    color: var(--color-default-text);
+    display: flex;
+    align-items: center;
+    padding: 0.2em 0.3em;
+    & svg {
+      height: 1.5em;
+      width: 1.5em;
+    }
+    &:matches(:hover,:focus) {
+      background: var(--color-lt-grey);
+      border-bottom-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+  }
+}
+@media all and (min-width: 768px) {
+  .view-display-toggle ul {
+    justify-content: flex-end;
+  }
+}
+
+/* View display adjustments */
+.view-display {
+  margin-top: 1.5em;
+  & .display-wrapper,
+  & .table-display .view-content {
+    padding: var(--gutter-standard);
+    background: var(--color-lt-grey);
+  }
+  &[aria-hidden="true"] {
+    display: none;
+  }
+  & table {
+    margin-top: 7;
+  }
+}
+@media all and (max-width: 767px) {
+  .view-display {
+    margin-left: calc(-1 * var(--responsive-padding));
+    margin-right: calc(-1 * var(--responsive-padding));
+  }
+}

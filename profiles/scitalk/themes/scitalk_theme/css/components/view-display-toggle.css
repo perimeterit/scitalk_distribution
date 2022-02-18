@@ -1,0 +1,64 @@
+/*
+ * Mixins - Classes created in utilities.css
+*/
+/*
+ * to use:
+ * @mixin caret 2px, 1em, var(--color-black)
+*/
+/*
+ * Display switcher
+*/
+.view-display-toggle ul {
+    display: flex;
+  }
+.view-display-toggle li {
+    margin-left: .5em;
+  }
+.view-display-toggle a {
+    cursor: pointer;
+  }
+.view-display-toggle button {
+    background: transparent;
+    border-bottom: 2px solid transparent;
+    color: var(--color-default-text);
+    display: flex;
+    align-items: center;
+    padding: 0.2em 0.3em
+  }
+.view-display-toggle button svg {
+      height: 1.5em;
+      width: 1.5em;
+    }
+.view-display-toggle button:hover, .view-display-toggle button:focus {
+      background: var(--color-lt-grey);
+      border-bottom-color: var(--color-primary);
+      color: var(--color-primary);
+    }
+@media all and (min-width: 768px) {
+  .view-display-toggle ul {
+    justify-content: flex-end;
+  }
+}
+/* View display adjustments */
+.view-display {
+  margin-top: 1.5em
+}
+.view-display .display-wrapper,
+  .view-display .table-display .view-content {
+    padding: var(--gutter-standard);
+    background: var(--color-lt-grey);
+  }
+.view-display[aria-hidden="true"] {
+    display: none;
+  }
+.view-display table {
+    margin-top: 7;
+  }
+@media all and (max-width: 767px) {
+  .view-display {
+    margin-left: calc(-1 * var(--responsive-padding));
+    margin-right: calc(-1 * var(--responsive-padding));
+  }
+}
+
+/*# sourceMappingURL=view-display-toggle.css.map */

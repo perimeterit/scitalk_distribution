@@ -15,23 +15,11 @@
  }
 
 .field--name-field-scientific-area,
-.field--name-field-talk-type,
-.form-select.bef-links {
+.field--name-field-talk-type {
   & a {
-    background: var(--color-lt-grey);
-    color: var(--color-default-text);
-    display: inline-block;
-    line-height: 1.6rem;
-    padding: 0rem 0.7rem;
-    text-decoration: none;
-    &.bef-link--selected {
-      background: var(--color-primary);
-      color: var(--color-primary--foreground)
-    }
-    &:matches(:hover,:focus){
-      background: var(--color-secondary);
-      color: var(--color-secondary--foreground);
-      text-decoration: none;
+    @mixin tag;
+    &:matches(:hover,:focus) {
+      @mixin tag-hover;
     }
   }
 }

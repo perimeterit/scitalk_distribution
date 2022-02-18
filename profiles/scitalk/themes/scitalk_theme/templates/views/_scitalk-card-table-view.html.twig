@@ -20,7 +20,9 @@
 
   {% set view_extra_filters = ['scitalk_latest_talks'] %}
   {% if (id in view_extra_filters and (display_id == 'card_view')) %}
-    {{ drupal_block('views_exposed_filter_block:' ~ id ~ '-extra_filters')}}
+    <div class="view-header-filters">
+      {{ drupal_block('views_exposed_filter_block:' ~ id ~ '-extra_filters')}}
+    </div>
   {% endif %}
 
   {# Render the search summary if this is a search view #}

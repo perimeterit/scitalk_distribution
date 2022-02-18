@@ -32,6 +32,9 @@ global:
       css/components/tables.css: {}
       css/components/talks.css: {}
       css/components/talks--full.css: {}
+      css/components/view-display-header.css: {}
+      css/components/view-display-toggle.css: {}
+      css/components/views-checkbox-filter.css: {}
       css/components/views.css: {}
       js/jquery-responsive-tables/css/responsive-tables.min.css: {}
   js:
