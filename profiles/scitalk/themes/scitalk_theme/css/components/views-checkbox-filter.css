@@ -12,6 +12,14 @@
     border: none;
     padding: 0;
   }
+.view-header-filters .fieldset--field-talk-type {
+    position: absolute !important;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    width: 1px;
+    height: 1px;
+    word-wrap: normal;
+  }
 .view-header-filters .bef-checkboxes .form-item {
       display: inline-block;
       margin: .4rem;

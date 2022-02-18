@@ -7,6 +7,9 @@
     border: none;
     padding: 0;
   }
+  & .fieldset--field-talk-type {
+    @mixin visually-hidden;
+  }
   & .bef-checkboxes {
     & .form-item {
       display: inline-block;

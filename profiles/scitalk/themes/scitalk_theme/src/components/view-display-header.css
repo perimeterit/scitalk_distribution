@@ -12,7 +12,8 @@
     margin-right: 1.2em;
   }
   & .form-item-field-talk-type > label,
-  & .form-item-sort-bef-combine label {
+  & .form-item-sort-bef-combine label,
+  & .form-item.fieldset--field-scientific-area {
     @mixin visually-hidden;
   }
 }
