@@ -96,13 +96,16 @@ display:
                 select_all_none_nested: false
                 display_inline: false
               field_scientific_area:
-                plugin_id: default
+                plugin_id: bef
                 advanced:
                   sort_options: false
                   rewrite:
                     filter_rewrite_values: ''
                   collapsible: false
                   is_secondary: false
+                select_all_none: false
+                select_all_none_nested: false
+                display_inline: true
       pager:
         type: full
         options:
@@ -2446,6 +2449,55 @@ display:
           hierarchy: false
           error_message: true
           plugin_id: search_api_term
+        field_talk_type:
+          id: field_talk_type
+          table: search_api_index_default_talks_index
+          field: field_talk_type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          operator: or
+          value: {  }
+          group: 1
+          exposed: true
+          expose:
+            operator_id: field_talk_type_op
+            label: 'Talk Type'
+            description: ''
+            use_operator: false
+            operator: field_talk_type_op
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: field_talk_type
+            required: false
+            remember: false
+            multiple: true
+            remember_roles:
+              authenticated: authenticated
+              anonymous: '0'
+              administrator: '0'
+              scitalk_oauth: '0'
+              talk_editor: '0'
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          type: select
+          limit: true
+          vid: talk_type
+          hierarchy: false
+          error_message: true
+          plugin_id: search_api_term
       filter_groups:
         operator: AND
         groups:
@@ -2485,13 +2537,16 @@ display:
                 select_all_none_nested: false
                 display_inline: false
               field_talk_type:
-                plugin_id: default
+                plugin_id: bef
                 advanced:
                   sort_options: false
                   rewrite:
                     filter_rewrite_values: ''
                   collapsible: false
                   is_secondary: false
+                select_all_none: false
+                select_all_none_nested: false
+                display_inline: false
     cache_metadata:
       max-age: -1
       contexts:
