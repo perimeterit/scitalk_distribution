@@ -4,7 +4,7 @@
       attach: function (context, settings) {
         $('#video_player', context).once().each(function() {
   
-          const options = {};
+          const options = null; //{};
           videojs('scitalk_video_js', options, function() {
             const search = window.location.search;
             const params = new URLSearchParams(search);
