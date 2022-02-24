@@ -17,7 +17,6 @@
   {{ title_suffix }}
 
   {# Render the extra exposed filters (tags), for views that have them #}
-
   {% set view_extra_filters = ['scitalk_latest_talks'] %}
   {% if (id in view_extra_filters and (display_id == 'card_view')) %}
     <div class="view-header-filters">
@@ -48,7 +47,7 @@
       <div class="view-exposed-filters">
         {# All the filters need to be set up in the view, so the filters
           placed in blocks work. But we only want to show some of them here #}
-        {{ exposed|without('search_api_fulltext','field_talk_source','speaker','from','to') }}
+        {{ exposed|without('search_api_fulltext','field_talk_source','field_scientific_area','field_scientific_area_collapsible','speaker','from','to') }}
       </div>
         {% include '@scitalk_theme/includes/view-toggle.twig' %}
     </div>

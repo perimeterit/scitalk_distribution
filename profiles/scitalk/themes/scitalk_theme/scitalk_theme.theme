@@ -152,10 +152,15 @@ function scitalk_theme_preprocess_views_view(&$variables) {
 
 /**
  * Implements hook_preprocess_HOOK().
- * Alters variables for views.
+ * Alters variables for fieldsets.
  */
 function scitalk_theme_preprocess_fieldset(&$variables) {
   $variables['attributes']['class'][] = 'fieldset--' . str_replace('_','-',$variables['element']['#name']);
+
+}
+function scitalk_theme_preprocess_details(&$variables) {
+ $variables['attributes']['class'][] = 'details--' . str_replace('_','-',strtolower($variables['element']['#title']));
+
 }
 /*
  Implements hook_form_alter()

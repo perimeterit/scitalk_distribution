@@ -19,8 +19,7 @@
     margin-right: 1.2em;
   }
 .advanced-view-header .form-item-field-talk-type > label,
-  .advanced-view-header .form-item-sort-bef-combine label,
-  .advanced-view-header .form-item.fieldset--field-scientific-area {
+  .advanced-view-header .form-item-sort-bef-combine label  {
     position: absolute !important;
     overflow: hidden;
     clip: rect(1px, 1px, 1px, 1px);
@@ -45,10 +44,11 @@
       margin: 0;
       grid-column: span 2;
     }
-    .advanced-view-header .pager {
+    .advanced-view-header .views-tiny-pager .pager {
       display: flex;
       justify-content: flex-end;
       padding-right: .5rem;
+      margin-top: -1rem;
     }
 }
 @media all and (min-width: 768px) {

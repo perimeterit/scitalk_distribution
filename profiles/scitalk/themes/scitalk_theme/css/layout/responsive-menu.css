@@ -44,110 +44,126 @@
     display: none;
   }
 }
-/* Vertical menu that slides from the left or right */
-.responsive-menu {
-  background: var(--color-default-text);
-  color: white;
-	padding: 1em
-}
-.responsive-menu .menu a {
-    color: white;
-    font-size: 1rem
+/* Nav wrapper theming.*/
+@media all and (max-width: 959px) {
+  .left-nav-wrapper {
+    background: var(--color-secondary);
+    color: var(--color-secondary--foreground);
+  	padding: 1em
   }
-.responsive-menu .menu a:hover, .responsive-menu .menu a:focus {
+    .left-nav-wrapper .menu {
+      margin-bottom: 2em
+    }
+      .left-nav-wrapper .menu li {
+        display: block;
+        font-size: 1.1em;
+        line-height: 2;
+        border-bottom: 1px solid rgba(255,255,255,0.6);
+      }
+    .left-nav-wrapper .menu a {
       color: white;
+      font-size: 1rem
     }
-.responsive-menu .menu--close {
-    background: transparent;
-    padding: .4rem
-  }
-.responsive-menu .menu--close:after {
-     content: '';
-     display: inline-block;
-     height: 1em;
-     width: 1em;
-     border-right: 2px solid white;
-     border-bottom: 2px solid white;
-     transform: rotate(45deg);
-     transform: rotate(-45deg);
-   }
-/* Main menu in slideout */
-.responsive-menu nav {
-    outline: none !important; /* iOS is doing this for some reason */
-  }
-.responsive-menu .menu {
-    flex-direction: column;
-    margin-bottom: 2em
-  }
-.responsive-menu .menu li {
+      .left-nav-wrapper .menu a:hover, .left-nav-wrapper .menu a:focus {
+        color: white;
+      }
+    .left-nav-wrapper .menu--close {
+      background: transparent;
       display: block;
-      font-size: 1.1em;
-      line-height: 2;
-      border-bottom: 1px solid rgba(255,255,255,0.6);
+      padding: .4rem
     }
+      .left-nav-wrapper .menu--close:after {
+       content: '';
+       display: inline-block;
+       height: 1em;
+       width: 1em;
+       border-right: 2px solid white;
+       border-bottom: 2px solid white;
+       transform: rotate(45deg);
+       transform: rotate(-45deg);
+     }
+    .left-nav-wrapper nav {
+      outline: none !important; /* iOS is doing this for some reason */
+    }
+    .left-nav-wrapper .advanced-search-form .form-submit + .form-submit,
+    .left-nav-wrapper .close-advanced-search svg {
+      color: var(--color-secondary--foreground);
+    } 
+    .left-nav-wrapper details {
+      color: var(--color-default-text);
+    }
+}
+@media all and (min-width: 960px) {
+  .left-nav-wrapper .menu--close {
+    display: none;
+  }
+}
 /* Slide-out positioning */
-.responsive-menu {
-  position: fixed;
-	width: 80vw;
-	height: 100vh;
-	top: 0;
-	z-index: 1000;
+@media all and (max-width: 959.99px) {
+  .left-nav-wrapper {
+    position: fixed;
+  	width: 80vw;
+  	height: 100vh;
+  	top: 0;
+  	z-index: 1000;
+  	right: -80vw;
+    overflow-y: auto;
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .menu--open .left-nav-wrapper {
+  	right: 0px;
+  }
+
+  /* Make everything slide right/left */
+  .left-nav-wrapper,
+  body {
+    transition: all 0.3s ease;
+  }
+  body {
+   	overflow-x: hidden;
+    left: 0;
+    position: relative;
+  }
+  body.menu--push_right.menu--open {
+   	left: -70vw;
+  }
+  .menu--push_left.menu--open {
+   	left: 70vw;
+  }
 }
-.menu--push_left {
-	left: -80vw;
-}
-.menu--push_right {
-	right: -80vw;
-}
-.menu--push_left.menu--open {
-	left: 0px;
-}
-.menu--push_right.menu--open {
-	right: 0px;
-}
-/* Make everything slide right/left */
-.responsive-menu,
-body {
-  transition: all 0.3s ease;
-}
-body {
- 	overflow-x: hidden;
-  left: 0;
-  position: relative;
-}
-body.menu--push_right.menu--open {
- 	left: -70vw;
-}
-.menu--push_left.menu--open {
- 	left: 70vw;
-}
-/* Dropdowns */
-.responsive-menu li.expanded {
-  position: relative;
-}
-.responsive-menu li.expanded > *:first-child {
-  max-width: calc(100% - 3.2rem);
-}
-.responsive-menu li.expanded .menu-trigger {
-  position: absolute;
-  right: 0;
-  top: 0;
-  padding: 0;
-}
-.responsive-menu li.expanded svg {
-  padding: 1rem;
-  width: 3.2rem;
-}
-.responsive-menu li.expanded .menu-trigger.expanded svg {
-  transform:rotate(180deg);
-}
-.responsive-menu li.expanded > ul {
-  clear: both;
-  position: static;
-  display: none;
-}
-.responsive-menu li.expanded > ul.expanded {
-  display: block;
+/*
+ * Dropdowns
+ * Need testing
+*/
+@media all and (max-width: 959.99px) {
+  .left-nav-wrapper li.expanded {
+    position: relative;
+  }
+  .left-nav-wrapper li.expanded > *:first-child {
+    max-width: calc(100% - 3.2rem);
+  }
+  .left-nav-wrapper li.expanded .menu-trigger {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 0;
+  }
+  .left-nav-wrapper li.expanded svg {
+    padding: 1rem;
+    width: 3.2rem;
+  }
+  .left-nav-wrapper li.expanded .menu-trigger.expanded svg {
+    transform:rotate(180deg);
+  }
+  .left-nav-wrapper li.expanded > ul {
+    clear: both;
+    position: static;
+    display: none;
+  }
+  .left-nav-wrapper li.expanded > ul.expanded {
+    display: block;
+  }
 }
 
 /*# sourceMappingURL=responsive-menu.css.map */

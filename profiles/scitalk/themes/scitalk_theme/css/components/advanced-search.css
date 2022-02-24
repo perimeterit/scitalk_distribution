@@ -149,9 +149,11 @@
     margin-right: .5em;
   }
 
-.responsive-menu .date-search-wrap .form-item {
-    max-width: 20em;
+@media all and (max-width: 400px) {
+  .date-search-wrap {
+    display: block;
   }
+}
 
 /* Multi-select checkbox dropdowns */
 
