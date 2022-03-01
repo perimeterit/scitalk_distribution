@@ -47,7 +47,7 @@
       <div class="view-exposed-filters">
         {# All the filters need to be set up in the view, so the filters
           placed in blocks work. But we only want to show some of them here #}
-        {{ exposed|without('search_api_fulltext','field_talk_source','field_scientific_area','field_scientific_area_collapsible','speaker','from','to') }}
+        {{ exposed|without('text','field_talk_source','area','area_collapsible','field_scientific_area_collapsible','speaker','from','to') }}
       </div>
         {% include '@scitalk_theme/includes/view-toggle.twig' %}
     </div>
