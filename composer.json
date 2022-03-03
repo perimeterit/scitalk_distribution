@@ -77,7 +77,15 @@
     "prefer-stable": true,
     "config": {
         "sort-packages": true,
-        "vendor-dir": "./vendor"
+        "vendor-dir": "./vendor",
+        "allow-plugins": {
+            "cweagans/composer-patches": true,
+            "composer/installers": true,
+            "drupal/core-composer-scaffold": true,
+            "drupal/console-extend-plugin": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "oomphinc/composer-installers-extender": true
+        }
     },
     "autoload": {
         "classmap": [
