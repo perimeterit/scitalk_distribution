@@ -37,6 +37,9 @@ global:
       css/components/views-checkbox-filter.css: {}
       css/components/views.css: {}
       js/jquery-responsive-tables/css/responsive-tables.min.css: {}
+
+      //vjs.zencdn.net/7.10.2/video-js.min.css: { type: external, minified: true }
+      css/scitalk_video.css: {}
   js:
     js/van11y-accessible-modal-window-aria/dist/van11y-accessible-modal-window-aria.min.js: {}
     js/van11y-accessible-tab-panel-aria/dist/van11y-accessible-tab-panel-aria.min.js: {}
@@ -44,6 +47,11 @@ global:
     js/jquery.sticky/jquery.sticky.js: {}
     js/responsive-menu.js: {}
     js/global.js: {}
+
+    //vjs.zencdn.net/7.10.2/video.min.js: { type: external, minified: true }
+    # https://unpkg.com/browse/@videojs/http-streaming@2.13.1/dist/videojs-http-streaming.min.js: { type: external, minified: true }
+    https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/2.6.1/Youtube.min.js: { type: external, minified: true }
+    js/scitalk_video_js.js: {}
   dependencies:
     - views/views.ajax
     - core/drupal

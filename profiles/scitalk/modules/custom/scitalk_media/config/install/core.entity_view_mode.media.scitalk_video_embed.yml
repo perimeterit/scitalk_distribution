@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.scitalk_video_embed
+label: 'SciTalk Video Embed'
+targetEntityType: media
+cache: true
+

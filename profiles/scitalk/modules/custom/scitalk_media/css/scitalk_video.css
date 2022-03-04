@@ -1,0 +1,26 @@
+.video-js .vjs-icon-copy-url {
+    cursor: pointer;
+    flex: none;
+}
+
+.video-js .vjs-icon-copy-url .vjs-icon-placeholder, .vjs-icon-icon-copy-url-enter {
+    font-family: VideoJS;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.video-js .vjs-icon-copy-url .vjs-icon-placeholder:before, .vjs-icon-icon-copy-url-enter:before {
+    content: '';
+    background-size: 28px 28px;
+    background-image: url('../images/icons/link_copy_white.svg');
+    background-repeat: no-repeat;
+    background-color: transparent;
+}
+
+.video-js button:hover {
+    background-color: transparent;
+}
+
+.video-js button.vjs-big-play-button:hover {
+    background-color: #f15173 !important;
+}
