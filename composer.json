@@ -54,7 +54,7 @@
         "drupal/restui": "^1.18",
         "drupal/search_api": "^1.15",
         "drupal/search_api_solr": "^4.0",
-        "drupal/simple_oauth": "^4.3",
+        "drupal/simple_oauth": "^5.2",
         "drupal/starbase": "1.x-dev",
         "drupal/twig_tweak": "2.9",
         "drupal/upgrade_status": "^3.13",
@@ -79,7 +79,15 @@
     "prefer-stable": true,
     "config": {
         "sort-packages": true,
-        "vendor-dir": "./vendor"
+        "vendor-dir": "./vendor",
+        "allow-plugins": {
+            "composer/installers": true,
+            "cweagans/composer-patches": true,
+            "drupal/console-extend-plugin": true,
+            "drupal/core-composer-scaffold": true,
+            "oomphinc/composer-installers-extender": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     },
     "autoload": {
         "classmap": [
