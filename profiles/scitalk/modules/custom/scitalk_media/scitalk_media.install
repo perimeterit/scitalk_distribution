@@ -1,6 +1,7 @@
 <?php
 
 use Drupal\Core\Config\FileStorage;
+Use Drupal\Core\File\FileSystemInterface;
 
 /**
  * @file
@@ -13,9 +14,11 @@ use Drupal\Core\Config\FileStorage;
 function scitalk_media_install() {
   $source = drupal_get_path('module', 'scitalk_media') . '/images/icons';
   $destination = \Drupal::config('media.settings')->get('icon_base_uri');
-  file_prepare_directory($destination, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+  //file_prepare_directory($destination, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+  \Drupal::service('file_system')->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
 
-  $files = file_scan_directory($source, '/.*\.(svg|png|jpg|jpeg|gif)$/');
+  //$files = file_scan_directory($source, '/.*\.(svg|png|jpg|jpeg|gif)$/');
+  $files = \Drupal::service('file_system')->scanDirectory($source, '/.*\.(svg|png|jpg|jpeg|gif)$/');
   foreach ($files as $file) {
     // When reinstalling the media module we don't want to copy the icons when
     // they already exist. The icons could be replaced (by a contrib module or
@@ -24,7 +27,8 @@ function scitalk_media_install() {
     // referenced somewhere else. Since showing an error that it was not
     // possible to copy the files is also confusing, we silently do nothing.
     if (!file_exists($destination . DIRECTORY_SEPARATOR . $file->filename)) {
-      file_unmanaged_copy($file->uri, $destination, FILE_EXISTS_ERROR);
+      //file_unmanaged_copy($file->uri, $destination, FILE_EXISTS_ERROR);
+      \Drupal::service('file_system')->copy($file->uri, $destination, FileSystemInterface::EXISTS_ERROR);
     }
   }
 }
@@ -36,7 +40,7 @@ function scitalk_media_requirements($phase) {
   $requirements = [];
   if ($phase == 'install') {
     $destination = \Drupal::config('media.settings')->get('icon_base_uri');
-    file_prepare_directory($destination, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
+    \Drupal::service('file_system')->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
     $is_writable = is_writable($destination);
     $is_directory = is_dir($destination);
     if (!$is_writable || !$is_directory) {
@@ -67,7 +71,7 @@ function scitalk_media_update_8101(&$sandbox) {
 
     //create DOI media type
     $media_type_files = $source->listAll('media.type');
-    $media_type = \Drupal::entityManager()->getStorage('media_type');
+    $media_type = \Drupal::entityTypeManager()->getStorage('media_type');
     foreach ($media_type_files as $media_type_yml) {
       $media_type_id = str_replace('media.type.','',$media_type_yml);
       if (!$media_type->load($media_type_id)) 
@@ -80,7 +84,7 @@ function scitalk_media_update_8101(&$sandbox) {
 
   //save field storages
   $field_storage_files = $source->listAll('field.storage');
-  $storage_config = \Drupal::entityManager()->getStorage('field_storage_config');
+  $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
   foreach ($field_storage_files as $field_storage_yml) {
     $field_storage_id = str_replace('field.storage.','',$field_storage_yml);
     if (!$storage_config->load($field_storage_id)) 
@@ -93,7 +97,7 @@ function scitalk_media_update_8101(&$sandbox) {
 
   //create fields
   $field_files = $source->listAll('field.field.media');
-  $field_config = \Drupal::entityManager()->getStorage('field_config');
+  $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
   foreach ($field_files as $field_yml) {
     $field_id = str_replace('field.field.','',$field_yml);
     if (!$field_config->load($field_id)) 
@@ -107,7 +111,7 @@ function scitalk_media_update_8101(&$sandbox) {
 
   //create entity form
   $entity_form_files = $source->listAll('core.entity_form_display.media');
-  $entity_form = \Drupal::entityManager()->getStorage('entity_form_display');
+  $entity_form = \Drupal::entityTypeManager()->getStorage('entity_form_display');
   foreach ($entity_form_files as $entity_form_yml) {
     $entity_form_id = str_replace('core.entity_form_display.','',$entity_form_yml); 
     $org_entity_form = $entity_form->load($entity_form_id);
@@ -121,7 +125,7 @@ function scitalk_media_update_8101(&$sandbox) {
 
   //create entity views
   $entity_view_files = $source->listAll('core.entity_view_display.media');
-  $view_display = \Drupal::entityManager()->getStorage('entity_view_display');
+  $view_display = \Drupal::entityTypeManager()->getStorage('entity_view_display');
   foreach ($entity_view_files as $view_yml) {
     $view_display_id = str_replace('core.entity_view_display.','',$view_yml); 
     $org_view_display = $view_display->load($view_display_id);

@@ -2,6 +2,7 @@ name: SciTalk Base
 type: module
 description: Scitalk base module, API for Talks and Media
 core: 8.x
+core_version_requirement: ^8 || ^9
 configure: scitalk_base.settings
 package: SciTalk
 dependencies:

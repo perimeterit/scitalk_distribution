@@ -4,6 +4,7 @@ use Drupal\node\Entity\Node;
 use Drupal\file\Entity;
 use Drupal\media\Entity\Media;
 use Drupal\taxonomy\Entity\Term;
+Use Drupal\Core\File\FileSystemInterface;
 //use Drupal\media_entity\Entity\Media;
 
 /**
@@ -120,7 +121,7 @@ function scitalk_demo_uninstall() {
 
     }
 
-    drupal_set_message( "Deleted Scitalk Demo content!\n");
+    \Drupal::messenger()->addMessage( "Deleted Scitalk Demo content!\n");
 }
 
 /*
@@ -187,7 +188,7 @@ function scitalk_demo_create_demo_talks() {
     
 
     $video = file_get_contents(__DIR__ . '/media/BigBuckBunny_320x180.mp4');
-    $file = file_save_data($video, 'public://BigBuckBunny_320x180.mp4', FILE_EXISTS_REPLACE);
+    $file = file_save_data($video, 'public://BigBuckBunny_320x180.mp4', FileSystemInterface::EXISTS_REPLACE);
 
     //create a media entity for the video to attach to the node below
     $image_media = Media::create([
@@ -255,7 +256,7 @@ function scitalk_demo_create_demo_talks() {
     foreach ($talks as $talk) {
         $node = Node::create($talk);
         $node->save();
-        drupal_set_message( "Created Talk: " . $node->getTitle() . "\n");
+        \Drupal::messenger()->addMessage( "Created Talk: " . $node->getTitle() . "\n");
     }
 
 }
@@ -265,10 +266,10 @@ function scitalk_demo_create_demo_talks() {
  */
 function scitalk_demo_create_demo_speaker_profiles() {
     $pythagoras = file_get_contents(__DIR__ . '/media/Pythagoras.jpg');
-    $pythagoras_file = file_save_data($pythagoras, 'public://Pythagoras.jpg', FILE_EXISTS_REPLACE);
+    $pythagoras_file = file_save_data($pythagoras, 'public://Pythagoras.jpg', FileSystemInterface::EXISTS_REPLACE);
 
     $plato = file_get_contents(__DIR__ . '/media/Plato.jpg');
-    $plato_file = file_save_data($plato, 'public://Plato.jpg', FILE_EXISTS_REPLACE);
+    $plato_file = file_save_data($plato, 'public://Plato.jpg', FileSystemInterface::EXISTS_REPLACE);
 
     $speakers = [
         [
@@ -319,7 +320,7 @@ function scitalk_demo_create_demo_speaker_profiles() {
         $node = Node::create($speaker);
         $node->save();
         $speaker_ids[] = $node->id();
-        drupal_set_message( "Created Speaker Profile: " . $node->getTitle() . "\n");
+        \Drupal::messenger()->addMessage( "Created Speaker Profile: " . $node->getTitle() . "\n");
       }
 
       return $speaker_ids;

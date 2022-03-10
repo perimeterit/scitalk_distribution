@@ -179,7 +179,8 @@ use function GuzzleHttp\json_encode;
               }
             }
 
-            $file_temp = file_save_data($img, 'public://scitalk-thumbs/' . $thumbnail_filename, FILE_EXISTS_REPLACE);
+            //$file_temp = file_save_data($img, 'public://scitalk-thumbs/' . $thumbnail_filename, FILE_EXISTS_REPLACE);
+            $file_temp = file_save_data($img, 'public://scitalk-thumbs/' . $thumbnail_filename, FileSystemInterface::EXISTS_REPLACE);
             return 'public://scitalk-thumbs/' . $thumbnail_filename;
           }
           else {

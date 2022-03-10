@@ -52,7 +52,7 @@ sites/*/translations
 
 /ddev_drush_settings.php
 
-#ignre ddev
+#ignore ddev and vscode remote container settings
 /.ddev
 /.devcontainer
 

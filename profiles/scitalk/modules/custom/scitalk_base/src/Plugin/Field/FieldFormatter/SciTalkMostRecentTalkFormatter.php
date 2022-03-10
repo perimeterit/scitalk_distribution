@@ -31,21 +31,40 @@
           $entity_id = array_shift($entity_id);
         }
 
+        // $elements[] = [
+        //     '#lazy_builder' => [
+        //       static::class . '::fetchMostRecentTalkDate',
+        //       [
+        //         $entity_id,
+        //       ],
+        //     ],
+        //     '#create_placeholder' => TRUE,
+        //     '#cache' => [
+        //       'contexts' => [
+        //         //'user',
+        //         'url',
+        //       ],
+        //     ],
+        // ];
+
+        //Drupal 9 integration issued this error:
+        //    #lazy_builder value 'non-empty-string' at key '0' is invalid.
+        //so replacing static::class with SciTalkMostRecentTalkFormatter::class seemed to fix the error
         $elements[] = [
-            '#lazy_builder' => [
-              static::class . '::fetchMostRecentTalkDate',
-              [
-                $entity_id,
-              ],
+          '#lazy_builder' => [
+            SciTalkMostRecentTalkFormatter::class . '::fetchMostRecentTalkDate',
+            [
+              $entity_id,
             ],
-            '#create_placeholder' => TRUE,
-            '#cache' => [
-              'contexts' => [
-                //'user',
-                'url',
-              ],
+          ],
+          '#create_placeholder' => TRUE,
+          '#cache' => [
+            'contexts' => [
+              //'user',
+              'url',
             ],
-          ];
+          ],
+      ];
 
       }
 
