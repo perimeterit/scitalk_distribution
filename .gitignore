@@ -54,6 +54,7 @@ sites/*/translations
 
 #ignre ddev
 /.ddev
+/.devcontainer
 
 # Ignore default text files
 robots.txt

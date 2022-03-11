@@ -1,10 +1,9 @@
-scitalk_jw_js:
+scitalk_video_js:
   js:
-    js/scitalk_jw_js.js: {}
-  dependencies:
-    - core/jquery
-    - core/drupalSettings
-    - jw_player/jwplayer
-    - jw_player/behaviors
-    - jw_player/preset
-    
+    //vjs.zencdn.net/7.10.2/video.min.js: { type: external, minified: true }
+    https://unpkg.com/browse/@videojs/http-streaming@2.13.1/dist/videojs-http-streaming.min.js: { type: external, minified: true }
+    js/scitalk_video_js.js: {}
+  css:
+    component:
+      //vjs.zencdn.net/7.10.2/video-js.min.css: { type: external, minified: true }
+      css/scitalk_video.css: {}

@@ -6,7 +6,7 @@ base theme: stable
 
 libraries:
  - scitalk_theme/global
- - scitalk_theme/responsive-menu
+ - scitalk_theme/video-player
 
 regions:
   header: 'Header'

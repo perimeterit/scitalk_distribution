@@ -7,7 +7,6 @@ use Drupal\media\Entity\MediaType;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\jw_player\Entity\Jw_player;
 use Drupal\scitalk_media\Plugin\media\Source\SciTalkVideo;
 use Drupal\scitalk_media\Plugin\media\Source\SciTalkArXiv;
 
@@ -95,38 +94,35 @@ class SciTalkEmbedFormatter extends FormatterBase {
           $video_attributes = [];  //we don't know what this is, so leave it as-is.
           break;
       }
-      
+
+      //embed video.js player
       $element[] = [
-        '#theme' => $theme,
-        '#path' => $uri,
-        '#file_url' => $uri, // here's a good test URI: 'http://techslides.com/demos/sample-videos/small.mp4'
+        '#theme' => 'scitalk_media_videojs',
+        '#file_url' => $uri,
         '#file_mime' => 'video/mp4',
-        '#html_id' => 'video-display',
-        '#source' => $conf['scitalk_video_source'],
-        '#attributes' => [
-          'class' => ['scitalk-video', ],
-          'data-conversation' => 'none',
-          'lang' => 'en',
-          'video-attributes' => $video_attributes,
+        // '#items' => [
+        //   'uri' => $uri,
+        //   'filemime' => 'video/mp4',
+        // ],
+        '#attached' => [
+          'library' => ['scitalk_media/scitalk_video_js'],
+        ],
+        '#player_attributes' => [
+          // 'width' => '854',    //not using these
+          // 'height' => '480',
+          'loop' => FALSE,
+          'preload' => 'auto',     // one of: 'metadata','auto','none'
+          'hidecontrols' => FALSE,
+          'controls' => TRUE,
+          'background' => $thumbnail,
+          'aspectRatio' => "16:9",
+          'fluid' => TRUE,
+          'responsive' => TRUE,
+          'playbackRates' => [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2],
+          'muted' => FALSE,
         ],
       ];
       
-      //now embed the jwplayer.  Please refer to jw_player.module jw_player_theme() for input parameters
-      $element[] = [
-        'player' => [
-          '#type' => 'jw_player',
-          '#html_id' => 'video_player',
-          '#file_url' => $uri,
-          '#file_mime' => 'video/mp4',
-          '#preset' => $this->getSetting('jwplayer_preset'),  
-          '#attached' => [   //attaching our js with jwplayer as dependencies allows this to work
-            'library' => ['scitalk_media/scitalk_jw_js'],
-          ],
-          '#settings' => [
-            'image' => $thumbnail,
-          ],
-        ]
-      ];
     }
     
     //now check if this is an arxiv media type
@@ -199,37 +195,6 @@ class SciTalkEmbedFormatter extends FormatterBase {
       '#default_value' => $this->getSetting('uri_field'),
     ];
     
-    
-    //determine if we should be even showing the jw player options as this is only for video types
-    //best thing to do is simply show a checkbox with the presets for jw being shown only when checked.
-    $form['requirejw'] = [
-      '#type' => 'checkbox',
-      '#title' => $this->t('Use JW Player to show media?'),
-      '#description' => $this->t('When checked, this signals the formatter to use JW Player to show the media referenced in the URI Field.'),
-      '#default_value' =>  boolval($this->getSetting('requirejw')),
-      '#attributes' => ['class' => ['requirejw']],
-    ];
-    
-    $presets = Jw_player::loadMultiple();
-    $options = [];
-    if (!empty($presets)) {
-      foreach ($presets as $type => $type_info) {
-        $options[$type] = $type_info->label();
-      }
-      $form['jwplayer_preset'] = [
-        '#title' => t('Select preset'),
-        '#type' => 'select',
-        '#empty_option' => t('- No preset selected -'),
-        '#default_value' => $this->getSetting('jwplayer_preset') ?: 'none',
-        '#options' => $options,
-        '#states' => array(
-          'visible' => array(
-            '.requirejw' => array('checked' => TRUE),
-          ),
-        ),
-      ];
-    }
-    
     return $form;
   }
   
@@ -265,22 +230,6 @@ class SciTalkEmbedFormatter extends FormatterBase {
       }
       else {
         $summary[] = $this->t('There is no field label for the URI field! The machine name is ') . $this->getSetting('uri_field');
-      }
-    }
-    
-    if($this->getSetting('requirejw') == 1) {
-      if($this->getSetting('jwplayer_preset') == '') {
-        $summary[] = $this->t('No JW Player preset chosen. Default presets will be used.');
-      }
-      else {
-        $presets = Jw_player::loadMultiple();
-        $options = [];
-        if (!empty($presets)) {
-          foreach ($presets as $type => $type_info) {
-            $options[$type] = $type_info->label();
-          }
-        }
-        $summary[] = $this->t('JW Player Preset: ') . $options[$this->getSetting('jwplayer_preset')];
       }
     }
     

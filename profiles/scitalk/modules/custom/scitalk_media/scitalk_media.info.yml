@@ -4,7 +4,6 @@ description: Entity for storing SciTalk related media (Videos and ArXiv)
 core: 8.x
 package: SciTalk
 dependencies:
-  - jw_player:jw_player
   - drupal:language
   - media_library:media_library
   - id_link_formatter:id_link_formatter

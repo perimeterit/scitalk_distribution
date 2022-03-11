@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.media_library
+    - field.field.media.scitalk_youtube_video.field_media_scitalk_video
+    - image.style.medium
+    - media.type.scitalk_youtube_video
+  module:
+    - image
+id: media.scitalk_youtube_video.media_library
+targetEntityType: media
+bundle: scitalk_youtube_video
+mode: media_library
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_style: medium
+      image_link: ''
+    weight: 0
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  field_media_scitalk_video: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  uid: true
+

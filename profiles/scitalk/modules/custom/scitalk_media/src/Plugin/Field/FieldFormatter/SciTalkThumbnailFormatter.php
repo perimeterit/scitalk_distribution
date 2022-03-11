@@ -7,7 +7,6 @@ use Drupal\media\Entity\MediaType;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\jw_player\Entity\Jw_player;
 use Drupal\scitalk_media\Plugin\media\Source\SciTalkVideo;
 use Drupal\scitalk_media\Plugin\media\Source\SciTalkArXiv;
 use Drupal\file\Entity\File;
