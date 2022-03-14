@@ -24,6 +24,7 @@
   width: 100% !important;
 }
 .field--name-field-talk-video {
+  clear: both;
   margin-bottom: var(--gutter-standard);
 }
 
