@@ -7,7 +7,7 @@ core_version_requirement: ^8 || ^9
 
 libraries:
  - scitalk_theme/global
- - scitalk_theme/responsive-menu
+ - scitalk_theme/video-player
 
 regions:
   header: 'Header'
