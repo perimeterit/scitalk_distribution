@@ -54,7 +54,7 @@
         "drupal/search_api": "^1.15",
         "drupal/search_api_solr": "^4.0",
         "drupal/simple_oauth": "^5.2",
-        "drupal/twig_tweak": "2.9",
+        "drupal/twig_tweak": "^3.1",
         "drupal/views_ajax_history": "^1.6",
         "drush/drush": "^10.6",
         "kint-php/kint": "^3.3",
@@ -137,9 +137,6 @@
                 "drupal/core": {
                         "fix aliased fields contraints validation issues when using JSON API Extras": "https://raw.githubusercontent.com/perimeterit/scitalk/f6ed0b64fe78903c40009be5e2712eeb5ad18067/patches/fix-aliased-fields-constraint-validations-3059720-9.patch",
                         "patch to support bundle computed field in Layout builder": "https://www.drupal.org/files/issues/2019-02-22/layoutbuilder-bundlecomputedfieldsfix-3034979-1-8.7x.patch"
-                },
-                "drupal/twig_tweak": {
-                  "TypeError on drupalBlock twig extension" : "https://www.drupal.org/files/issues/2020-01-23/typerror_drupalblock_3108210.patch"
                 },
                 "drupal/better_exposed_filters": {
                   "Fatal error: [] operator not supported for strings when option 'Allow multiple selections' is enabled": "https://www.drupal.org/files/issues/2022-02-17/bef_multiple_selection-2870296-7.patch"
