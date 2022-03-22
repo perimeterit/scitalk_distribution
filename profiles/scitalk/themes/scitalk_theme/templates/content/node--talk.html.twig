@@ -12,7 +12,9 @@
     {% set show_show_more = TRUE %}
     {% set content_classes = ['collapse-abstract'] %}
   {% endif %}
-  {{ content.field_talk_thumbnail }}
+  {% block thumbnail %}
+    {{ content.field_talk_thumbnail }}
+  {% endblock %}
   <div{{ content_attributes.addClass(content_classes,'content node-content') }}>
     {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
     {% include '@scitalk_theme/includes/speaker-fields.twig' %}
