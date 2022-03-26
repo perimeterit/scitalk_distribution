@@ -151,7 +151,7 @@
     padding: 0.7rem 1rem;
     &:matches(:hover,:focus) {
       background: var(--color-secondary);
-      color: var(--color-primary--foreground);
+      color: var(--color-secondary--foreground);
     }
   }
   & .active-trail a {

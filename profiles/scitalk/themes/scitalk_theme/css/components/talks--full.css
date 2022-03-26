@@ -24,10 +24,23 @@
   margin-bottom: 1rem;
 
 }
-/* Video player */
-.jwplayer {
-  width: 100% !important;
+/* Video url/video player */
+.field--name-field-talk-video-url {
+  background-color: var(--color-lt-grey);
+  clear: both;
+  margin-bottom: 1.5rem;
+  padding: .8rem 1rem;
+  display: flex;
+  align-items: center
 }
+.field--name-field-talk-video-url h2:after {
+      content: ':';
+      display: inline-block;
+      margin-right: .5rem;
+    }
+.field--name-field-talk-video-url h2 + a {
+    display: flex-item;
+  }
 .field--name-field-talk-video {
   clear: both;
   margin-bottom: var(--gutter-standard);

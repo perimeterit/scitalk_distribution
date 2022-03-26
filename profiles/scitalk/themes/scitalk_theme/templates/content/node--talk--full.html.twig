@@ -18,7 +18,10 @@
 
 <article{{ attributes.addClass(classes) }}>
   {{ content.field_talk_number }}
-  {{ content.field_talk_video }}
+  {% block video %}
+    {{ content.field_talk_video }}
+    {{ content.field_talk_video_url }}
+  {% endblock %}
   {{ drupal_region('page_title') }}
   <div class="talk-metadata">
     <div class="speaker-date-doi">
@@ -29,7 +32,7 @@
       {{ content.group_taxonomy}}
     </div>
   </div>
-  {{ content|without('field_talk_number','field_talk_video', 'group_talk_details', 'group_taxonomy', 'field_talk_speaker_profile',  'field_talk_speakers_text') }}
+  {{ content|without('field_talk_number','field_talk_video', 'field_talk_video_url', 'group_talk_details', 'group_taxonomy', 'field_talk_speaker_profile',  'field_talk_speakers_text') }}
 
 </article>
 
