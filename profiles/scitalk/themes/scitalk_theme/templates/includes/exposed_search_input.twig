@@ -48,7 +48,6 @@
 
 {# Need to get the term name from this tid #}
 {% if exposed_input.type is not empty and  exposed_input.type != "All" %}
-
   {{ 'in'|t }}
   {% set num_terms = exposed_input.type|length %}
   {% set sa_terms = [] %}
@@ -65,8 +64,10 @@
     <em>{{ type_term['#taxonomy_term'].name.0.value }}</em>
     {% set count = count + 1 %}
   {% endfor %}
+{% endif %}
 
-
-
-
+{% if exposed_input.field_talk_source is not empty and
+  exposed_input.source != "All" %}
+  {{ 'from'|t }}
+  <em>{{ exposed_input.field_talk_source}}</em>
 {% endif %}

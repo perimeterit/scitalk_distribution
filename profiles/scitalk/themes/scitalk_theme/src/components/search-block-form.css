@@ -1,10 +1,15 @@
 /*
  *  Standard search form
  */
+ @import "../base/mixins.css";
+
 .search-block-form {
   & form {
      display: flex;
-   }
+  }
+  & label {
+    @mixin visually-hidden;
+  }
   & .form-item,
   & .form-actions {
     margin: 0;

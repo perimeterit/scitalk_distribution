@@ -23,6 +23,7 @@
       height: 1.5em;
       width: 1.5em;
     }
+    &.active,
     &:matches(:hover,:focus) {
       background: var(--color-lt-grey);
       border-bottom-color: var(--color-primary);

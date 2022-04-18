@@ -1,14 +1,29 @@
 /*
  *  Standard search form
  */
-.search-block-form form {
+ /*
+ * Mixins - Classes created in utilities.css
+*/
+ /*
+ * to use:
+ * @mixin caret 2px, 1em, var(--color-black)
+*/
+ .search-block-form form {
      display: flex;
-   }
-.search-block-form .form-item,
+  }
+ .search-block-form label {
+    position: absolute !important;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    width: 1px;
+    height: 1px;
+    word-wrap: normal;
+  }
+ .search-block-form .form-item,
   .search-block-form .form-actions {
     margin: 0;
   }
-.search-block-form .form-submit, .search-block-form .form-submit:hover, .search-block-form .form-submit:focus {
+ .search-block-form .form-submit, .search-block-form .form-submit:hover, .search-block-form .form-submit:focus {
     box-shadow: none;
     color: transparent;
     background-position: center center;

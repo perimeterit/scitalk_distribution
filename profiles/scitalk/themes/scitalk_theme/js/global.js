@@ -48,10 +48,12 @@
     attach: function (context, settings) {
 
       $('button.switch-display', context).click(function() {
+        $('button.switch-display.active').removeClass('active');
         var target = $(this).data('target');
         $('.view-display').addClass('hidden');
         $('.view-display[data-display=' + target + ']').removeClass('hidden');
         $(this).parents('.adv-view-wrapper').attr('data-show-display', target);
+        $(this).addClass('active');
       });
 
       // Add a wrapper that will persist when page is changed via ajax

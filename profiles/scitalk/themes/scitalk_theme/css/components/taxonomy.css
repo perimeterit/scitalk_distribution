@@ -34,6 +34,10 @@
       color: var(--color-secondary--foreground);
       text-decoration: none;
     }
+.field--name-field-talk-collection li:not(:last-child):after {
+    content: ',';
+    display: inline-block;
+  }
 /* Full term display */
 .taxonomy-term.full {
   margin-bottom: var(--vertical-padding);
