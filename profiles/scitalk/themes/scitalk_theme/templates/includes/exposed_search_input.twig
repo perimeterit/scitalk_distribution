@@ -66,8 +66,8 @@
   {% endfor %}
 {% endif %}
 
-{% if exposed_input.field_talk_source is not empty and
+{% if exposed_input.source is not empty and
   exposed_input.source != "All" %}
   {{ 'from'|t }}
-  <em>{{ exposed_input.field_talk_source}}</em>
+  <em>{{ exposed_input.source}}</em>
 {% endif %}

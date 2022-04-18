@@ -356,17 +356,16 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
           $group_title = $group->get('label')->getValue();
           $group_options[$group_title[0]['value']] = $group_title[0]['value'];
         }
-
         // Convert this field to a select field
-        $form['field_talk_source']['#default_value'] =   'All';
+        $form['source']['#default_value'] =   'All';
 
-        $form['field_talk_source']['#type'] = 'select';
-        $form['field_talk_source']['#options'] = $group_options;
+        $form['source']['#type'] = 'select';
+        $form['source']['#options'] = $group_options;
 
         // Unset the size value so it doesn't display as a textfield
-        unset($form['field_talk_source']['#size']);
+        unset($form['source']['#size']);
       } else {
-        $form['field_talk_source']['#access'] = FALSE;
+        $form['source']['#access'] = FALSE;
       }
     }
   }
