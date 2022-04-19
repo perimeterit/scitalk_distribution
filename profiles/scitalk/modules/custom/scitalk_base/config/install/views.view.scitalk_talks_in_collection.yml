@@ -1085,6 +1085,9 @@ display:
       attachment_position: before
       displays:
         card_view: card_view
+      inherit_exposed_filters: true
+      inherit_pager: true
+      render_pager: true
     cache_metadata:
       max-age: -1
       contexts:
