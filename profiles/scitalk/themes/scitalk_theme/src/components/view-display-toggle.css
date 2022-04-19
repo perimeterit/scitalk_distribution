@@ -52,6 +52,7 @@
     margin-top: 7;
   }
 }
+
 @media all and (max-width: 767px) {
   .view-display {
     margin-left: calc(-1 * var(--responsive-padding));
