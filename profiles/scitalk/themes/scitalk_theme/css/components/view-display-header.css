@@ -147,10 +147,14 @@
     white-space: nowrap;
   }
 .view-exposed-filters form > .form-item {
-    display: flex;
+    display: none;
     align-items: center;
     margin: 0
   }
+.view-exposed-filters form > .form-item.type,
+    .view-exposed-filters form > .form-item.form-item-sort-bef-combine {
+      display: flex;
+    }
 .view-exposed-filters form > .form-item + .form-item {
       border-left: 1px solid var(--color-lt-grey);
       padding-left: .6rem;

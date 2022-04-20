@@ -96,7 +96,6 @@
         }
         & .form-text {
           flex: 1 0 auto;
-          font-size: 1em;
           width: 100%;
         }
         & .form-actions {

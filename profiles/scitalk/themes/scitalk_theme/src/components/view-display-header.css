@@ -122,9 +122,13 @@
     white-space: nowrap;
   }
   & > .form-item {
-    display: flex;
+    display: none;
     align-items: center;
     margin: 0;
+    &.type,
+    &.form-item-sort-bef-combine {
+      display: flex;
+    }
     & + .form-item {
       border-left: 1px solid var(--color-lt-grey);
       padding-left: .6rem;

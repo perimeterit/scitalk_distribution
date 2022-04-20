@@ -47,11 +47,14 @@
   Drupal.behaviors.scitalk_toggleViewDisplay = {
     attach: function (context, settings) {
 
+
       $('button.switch-display', context).click(function() {
+        $('button.switch-display.active').removeClass('active');
         var target = $(this).data('target');
         $('.view-display').addClass('hidden');
         $('.view-display[data-display=' + target + ']').removeClass('hidden');
         $(this).parents('.adv-view-wrapper').attr('data-show-display', target);
+        $(this).addClass('active');
       });
 
       // Add a wrapper that will persist when page is changed via ajax
@@ -65,6 +68,11 @@
         var target = $('.adv-view-wrapper').attr('data-show-display');
         $('.view-display').addClass('hidden');
         $('.view-display[data-display=' + target + ']').removeClass('hidden');
+
+        // And that the right button is highlighted
+        $('button.switch-display.active').removeClass('active');
+        $('button.switch-display[data-target="' + target + '"]').addClass('active');
+
       }
     }
   };

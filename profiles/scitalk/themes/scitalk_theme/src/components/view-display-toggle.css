@@ -23,6 +23,7 @@
       height: 1.5em;
       width: 1.5em;
     }
+    &.active,
     &:matches(:hover,:focus) {
       background: var(--color-lt-grey);
       border-bottom-color: var(--color-primary);
@@ -51,6 +52,7 @@
     margin-top: 7;
   }
 }
+
 @media all and (max-width: 767px) {
   .view-display {
     margin-left: calc(-1 * var(--responsive-padding));

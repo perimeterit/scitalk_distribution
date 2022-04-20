@@ -36,7 +36,7 @@ dependencies:
     - id_link_formatter
     - layout_builder
     - link
-    - scitalk_media
+    - media
     - text
     - user
 third_party_settings:
@@ -45,7 +45,7 @@ third_party_settings:
       children:
         - field_talk_attachments
       parent_name: ''
-      weight: 7
+      weight: 8
       format_type: html_element
       format_settings:
         element: div
@@ -64,7 +64,7 @@ third_party_settings:
         - field_talk_date
         - field_talk_doi
       parent_name: ''
-      weight: 4
+      weight: 5
       format_type: html_element
       format_settings:
         element: div
@@ -85,7 +85,7 @@ third_party_settings:
         - field_scientific_area
         - field_talk_type
       parent_name: ''
-      weight: 5
+      weight: 6
       format_type: html_element
       region: content
       format_settings:
@@ -127,7 +127,7 @@ content:
         fences_label_classes: ''
   field_talk_abstract:
     type: text_default
-    weight: 6
+    weight: 7
     region: content
     label: above
     settings: {  }
@@ -162,9 +162,9 @@ content:
       link: true
     third_party_settings:
       fences:
-        fences_field_tag: div
-        fences_field_classes: ''
-        fences_field_item_tag: none
+        fences_field_tag: ul
+        fences_field_classes: display-list
+        fences_field_item_tag: li
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
@@ -211,7 +211,7 @@ content:
         fences_label_classes: ''
   field_talk_source_event:
     type: link
-    weight: 8
+    weight: 9
     region: content
     label: inline
     settings:
@@ -223,7 +223,7 @@ content:
     third_party_settings: {  }
   field_talk_speaker_profile:
     type: entity_reference_label
-    weight: 2
+    weight: 3
     region: content
     label: hidden
     settings:
@@ -238,7 +238,7 @@ content:
         fences_label_classes: ''
   field_talk_speakers_text:
     type: string
-    weight: 3
+    weight: 4
     region: content
     label: hidden
     settings:
@@ -267,14 +267,13 @@ content:
         fences_label_tag: strong
         fences_label_classes: ''
   field_talk_video:
-    type: scitalk_embed
+    type: media_thumbnail
     weight: 1
     region: content
     label: hidden
     settings:
-      uri_field: media.pirsa_interim_hd.field_media_scitalk_video
-      requirejw: '1'
-      jwplayer_preset: scitalk_preset
+      image_style: ''
+      image_link: ''
     third_party_settings:
       fences:
         fences_field_tag: div
@@ -282,6 +281,25 @@ content:
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: div
+        fences_label_classes: ''
+  field_talk_video_url:
+    type: link
+    weight: 2
+    region: content
+    label: inline
+    settings:
+      trim_length: 100
+      url_only: false
+      url_plain: false
+      rel: '0'
+      target: '0'
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: h2
         fences_label_classes: ''
 hidden:
   feeds_item: true
@@ -291,7 +309,6 @@ hidden:
   field_talk_source_repository: true
   field_talk_subject: true
   field_talk_thumbnail: true
-  field_talk_video_url: true
   field_talk_viewable_online: true
   langcode: true
   links: true

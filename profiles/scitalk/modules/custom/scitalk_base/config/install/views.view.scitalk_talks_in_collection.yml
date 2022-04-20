@@ -1,4 +1,4 @@
-uuid: b2a936e4-11e5-4c07-b8c0-728bbefdc121
+uuid: ad2dc64d-e577-4d64-8469-8a72e05cec16
 langcode: en
 status: true
 dependencies:
@@ -14,14 +14,13 @@ dependencies:
     - field.storage.node.field_talk_type
     - node.type.talk
   module:
-    - better_exposed_filters
     - datetime
     - image
     - node
     - text
     - user
 _core:
-  default_config_hash: oSeZi5xS2GoDygEv94OIelobghTDoisQjZrS8hK4Krc
+  default_config_hash: n8G_dfQgwvX1MjJ2rSVuZih-MaFv3s9ZEqcVJv6GRF0
 id: scitalk_talks_in_collection
 label: 'SciTalk: Talks in collection'
 module: views
@@ -52,37 +51,15 @@ display:
           query_comment: ''
           query_tags: {  }
       exposed_form:
-        type: bef
+        type: basic
         options:
           submit_button: Apply
-          reset_button: true
+          reset_button: false
           reset_button_label: Reset
           exposed_sorts_label: 'Sort by'
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
-          text_input_required: 'Select any filter and click on Apply to see results'
-          text_input_required_format: basic_html
-          bef:
-            general:
-              autosubmit: true
-              autosubmit_exclude_textfield: false
-              autosubmit_textfield_delay: 500
-              autosubmit_hide: true
-              input_required: false
-              allow_secondary: false
-              secondary_label: 'Advanced options'
-              secondary_open: false
-            sort:
-              plugin_id: default
-              advanced:
-                combine: true
-                combine_rewrite: ''
-                reset: false
-                reset_label: ''
-                collapsible: false
-                collapsible_label: 'Sort options'
-                is_secondary: false
       pager:
         type: mini
         options:
@@ -450,45 +427,20 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          order: ASC
-          exposed: true
+          order: DESC
+          exposed: false
           expose:
-            label: Date
+            label: ''
           granularity: second
           plugin_id: datetime
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: true
-          expose:
-            label: Title
-          entity_type: node
-          entity_field: title
-          plugin_id: standard
-        field_sp_display_name_value:
-          id: field_sp_display_name_value
-          table: node__field_sp_display_name
-          field: field_sp_display_name_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: true
-          expose:
-            label: Speaker
-          plugin_id: standard
       title: 'Talks in Collection'
       header: {  }
       footer: {  }
       empty: {  }
       relationships: {  }
       arguments: {  }
-      display_extenders: {  }
+      display_extenders:
+        ajax_history: {  }
       use_ajax: true
       css_class: advanced-view-display
     cache_metadata:
@@ -497,8 +449,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-        - 'url.query_args:sort_by'
-        - 'url.query_args:sort_order'
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -1027,7 +977,7 @@ display:
           plugin_id: entity_link
       inherit_pager: true
       render_pager: true
-      css_class: 'advanced-view-display table-display'
+      css_class: 'advanced-search-form table-display'
     cache_metadata:
       max-age: -1
       contexts:
@@ -1035,8 +985,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - 'url.query_args:sort_by'
-        - 'url.query_args:sort_order'
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -1047,7 +995,7 @@ display:
   attachment_2:
     display_plugin: attachment
     id: attachment_2
-    display_title: 'Attachment (teasers)'
+    display_title: 'Talks in Collection (teaser display)'
     position: 2
     display_options:
       display_extenders:
@@ -1120,13 +1068,11 @@ display:
           quantity: 9
       title: 'Talks in Collection'
       header: {  }
-      displays:
-        card_view: card_view
       style:
         type: html_list
         options:
           row_class: ''
-          default_row_class: false
+          default_row_class: true
           uses_fields: false
           type: ul
           wrapper_class: ''
@@ -1136,8 +1082,10 @@ display:
         options:
           relationship: none
           view_mode: teaser
+      attachment_position: before
+      displays:
+        card_view: card_view
       inherit_exposed_filters: true
-      inherit_arguments: true
       inherit_pager: true
       render_pager: true
     cache_metadata:
@@ -1147,8 +1095,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - 'url.query_args:sort_by'
-        - 'url.query_args:sort_order'
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -1241,8 +1187,6 @@ display:
           empty: false
           content: 'Displaying @start - @end of @total'
           plugin_id: result
-      allow:
-        items_per_page: false
     cache_metadata:
       max-age: -1
       contexts:
@@ -1250,8 +1194,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - 'url.query_args:sort_by'
-        - 'url.query_args:sort_order'
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -1274,7 +1216,6 @@ display:
         pager: false
         style: false
         row: false
-        sorts: false
       arguments:
         field_scientific_area_target_id:
           id: field_scientific_area_target_id
@@ -1371,54 +1312,12 @@ display:
         options:
           relationship: none
           view_mode: horizontal_card
-      sorts:
-        field_talk_date_value:
-          id: field_talk_date_value
-          table: node__field_talk_date
-          field: field_talk_date_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: DESC
-          exposed: false
-          expose:
-            label: Date
-          granularity: second
-          plugin_id: datetime
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: true
-          expose:
-            label: Title
-          entity_type: node
-          entity_field: title
-          plugin_id: standard
-        field_sp_display_name_value:
-          id: field_sp_display_name_value
-          table: node__field_sp_display_name
-          field: field_sp_display_name_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: true
-          expose:
-            label: Speaker
-          plugin_id: standard
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url
-        - 'url.query_args:sort_by'
-        - 'url.query_args:sort_order'
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -1440,7 +1339,6 @@ display:
         arguments: false
         style: false
         row: false
-        sorts: false
       display_description: ''
       arguments:
         field_talk_speaker_profile_target_id:
@@ -1478,53 +1376,19 @@ display:
           not: false
           plugin_id: numeric
       style:
-        type: default
-        options: {  }
+        type: html_list
+        options:
+          row_class: ''
+          default_row_class: true
+          uses_fields: false
+          type: ul
+          wrapper_class: view-display
+          class: 'display-list display-wrapper'
       row:
         type: 'entity:node'
         options:
           relationship: none
           view_mode: horizontal_card
-      sorts:
-        field_talk_date_value:
-          id: field_talk_date_value
-          table: node__field_talk_date
-          field: field_talk_date_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: DESC
-          exposed: false
-          expose:
-            label: 'Date (field_talk_date)'
-          granularity: second
-          plugin_id: datetime
-        title:
-          id: title
-          table: node_field_data
-          field: title
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: true
-          expose:
-            label: Title
-          entity_type: node
-          entity_field: title
-          plugin_id: standard
-        field_sp_display_name_value:
-          id: field_sp_display_name_value
-          table: node__field_sp_display_name
-          field: field_sp_display_name_value
-          relationship: none
-          group_type: group
-          admin_label: ''
-          order: ASC
-          exposed: true
-          expose:
-            label: Speaker
-          plugin_id: standard
     cache_metadata:
       max-age: -1
       contexts:
@@ -1532,8 +1396,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - 'url.query_args:sort_by'
-        - 'url.query_args:sort_order'
         - 'user.node_grants:view'
         - user.permissions
       tags:
