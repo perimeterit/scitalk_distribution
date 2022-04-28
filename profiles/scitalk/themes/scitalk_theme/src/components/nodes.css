@@ -1,0 +1,146 @@
+
+/* Common view mode theming */
+
+.node {
+  &.horizontal-card,
+  &.teaser {
+    background: white;
+    box-shadow: -2px 2px 2px 0 rgba(99, 104, 115, 0.1);
+    padding: 1.5em var(--gutter-standard) 1em;
+    margin-bottom: var(--gutter-standard);
+  }
+
+  & .info {
+    font-size: .8em;
+    margin-left: -.5em;
+    & ul {
+      display: inline-block;
+    }
+  }
+  & .info > * {
+    border-right: 1px solid var(--color-lt-grey);
+    padding: 0 1.2em;
+    margin-right: .5em;
+    &:last-child {
+      border: none;
+      margin-right: 0;
+    }
+  }
+  & strong.field__label {
+    font-weight: normal;
+    &:after {
+      content: ":";
+      display: inline-block;
+      margin-right: .5rem;
+    }
+  }
+}
+
+@media all and (min-width: 768px) {
+  .node .info {
+    display: flex;
+  }
+}
+@media all and (max-width: 767px) {
+  .node .info > * {
+    margin-bottom: .5rem;
+  }
+}
+/**
+ * Hozitontal card view mode
+*/
+.node.horizontal-card {
+  display: flex;
+  line-height: 1.7em;
+  & > a {
+    flex: 0 0 140px;
+    & + .content {
+      margin-left: 1em;
+    }
+  }
+  & h3 {
+    margin: 0 0 .5em;
+  }
+  & h3 a,
+  & .speaker-name-institution a {
+    text-decoration: none;
+    &:matches(:hover,:focus) {
+      text-decoration: underline;
+    }
+  }
+}
+@media all and (max-width: 600px) {
+  .node.horizontal-card > a {
+    display: none;
+    & + .content {
+      margin-left: 0;
+    }
+  }
+}
+/**
+ * Teaser view mode
+*/
+.node.teaser {
+  display: flex;
+  & > a {
+    flex: 0 0 auto;
+    margin-right: var(--gutter-standard);
+  }
+  & h2 {
+    text-transform: none;
+    margin: 0 0 .3em;
+    & a {
+      text-decoration: none;
+      &:matches(:hover,:focus) {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+/* Hide/show abstract (teasers) */
+.field--name-field-talk-abstract {
+  transition: max-height .3s;
+  margin-bottom: 1rem;
+}
+.collapse-abstract {
+  & .field--name-field-talk-abstract {
+    max-height: 6.5rem;
+    overflow: hidden;
+    position: relative;
+    &:after {
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+      content: '';
+      display: block;
+      width: 100%;
+      height: 3rem;
+      position: absolute;
+      bottom: 0;
+    }
+  }
+}
+.show-abstract {
+  & .field--name-field-talk-abstract {
+    max-height: 100%;
+  }
+}
+button.show-more {
+  background: transparent;
+  color: var(--color-default-text);
+  font-size: .85rem;
+  font-weight: 500;
+  &:before {
+    font-size: 1.8rem;
+    display: inline-block;
+    margin-right: .5rem;
+    vertical-align: middle;
+  }
+  &.show:before {
+    content: '+';
+    margin-top: -0.3rem;
+  }
+  &.hide:before {
+    content: '\2013';
+    margin-top: -.5rem;
+  }
+}
