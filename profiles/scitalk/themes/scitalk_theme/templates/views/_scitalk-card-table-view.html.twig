@@ -17,7 +17,7 @@
   {{ title_suffix }}
 
   {# Render the extra exposed filters (tags), for views that have them #}
-  {% set view_extra_filters = ['scitalk_latest_talks'] %}
+  {% set view_extra_filters = ['scitalk_latest_talks', 'scitalk_collections'] %}
   {% if (id in view_extra_filters and (display_id == 'card_view')) %}
     <div class="view-header-filters">
       {{ drupal_block('views_exposed_filter_block:' ~ id ~ '-extra_filters')}}
@@ -34,7 +34,7 @@
   {{ header|without('result') }}
 
   {% set top_pager = pager %}
-  {% if rows[0]['#rows']|length > 0 %}
+  {% if (rows[0]['#rows']|length > 0) and (id != "scitalk_collection_children")  %}
     <div class="advanced-view-header">
       <div class="view-summary">
         {{ header.result }}

@@ -1,0 +1,46 @@
+{#
+/**
+ * @file
+ * Custom override for a the scitalk collection children view.
+ * Adds classes
+ *
+ * @see template_preprocess_views_view()
+ */
+#}
+{%
+  set classes = [
+    'view',
+    'view-' ~ id|clean_class,
+    'view-display-' ~ display_id,
+    dom_id ? 'js-view-dom-id-' ~ dom_id,
+  ]
+%}
+{% set view_mode = view.field.rendered_entity.options.view_mode %}
+<div{{ attributes.addClass(classes) }} class="collection-children"
+   id="collection-children--{{ view_mode }}--{{ view.args.0}}" aria-hidden="true">
+  {{ title_prefix }}
+  {% if title %}
+    {{ title }}
+  {% endif %}
+  {{ title_suffix }}
+  {% if header %}
+    <div class="view-header">
+      {{ header }}
+    </div>
+  {% endif %}
+
+  {% if rows %}
+    <div class="view-content">
+      {{ rows }}
+    </div>
+  {% endif %}
+
+  {% if pager %}
+    {{ pager }}
+  {% endif %}
+
+  {% if more %}
+    {{ more }}
+  {% endif %}
+
+</div>

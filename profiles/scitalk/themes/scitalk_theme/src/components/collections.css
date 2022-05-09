@@ -2,101 +2,152 @@
  * Component CSS for Collections/Taxonomy
 */
 
-/* Grid list of terms on the home page  */
+@import "../base/mixins.css";
 
-.view-scitalk-collections .term-grid {
-  display: grid;
-  grid-gap: 1em;
-}
-@media all and (min-width: 600px) {
-  .view-scitalk-collections .term-grid {
-    grid-template-columns: 1fr;
+/* Exposed type filter on Collections view */
+.bef-exposed-form .form-item-field-collection-type-target-id {
+  & label {
+    @mixin visually-hidden;
+  }
+
+  & .form-select.bef-links {
+    background: transparent;
+    display: block;
+    & ul {
+      display: flex;
+      text-align: center;
+    }
   }
 }
-@media all and (min-width: 960px) {
-  .view-scitalk-collections .term-grid {
-    grid-template-columns: 1fr 1fr 1fr;
+
+.bef-link {
+  border-bottom: 2px solid transparent;
+  font-size: 1.2em;
+  font-weight: 600;
+  padding: .5em 1.8em;
+
+  & strong {
+    display: block;
+    color: var(--color-dk-grey);
+  }
+
+  & a {
+    color: inherit;
+    display: block;
+    text-decoration: none;
+  }
+
+  &:matches(:hover,:focus),
+  &.bef-link--selected {
+    background: var(--color-lt-grey);
+    border-bottom: 2px solid var(--color-primary);
   }
 }
 
-.view-scitalk-collections .term-grid li {
-  display: grid;
-}
-.view-scitalk-collections .term-grid li a {
-  display: block;
-  color: white;
-  padding: 0.8em 1em;
-  text-decoration: none;
-}
-.view-scitalk-collections .term-grid li:nth-child(even) a {
-  background: var(--color-secondary);
-  color: var(--color-secondary--foreground);
-}
-.view-scitalk-collections .term-grid li:nth-child(odd) a {
-  background: var(--color-primary);
-  color: var(--color-primary--foreground);
-}
-.view-scitalk-collections .term-grid li:nth-child(even) a:hover,
-.view-scitalk-collections .term-grid li:nth-child(even) a:focus {
-  background: var(--color-primary);
-  color: var(--color-primary--foreground);
-}
-.view-scitalk-collections .term-grid li:nth-child(odd) a:hover,
-.view-scitalk-collections .term-grid li:nth-child(odd) a:focus {
-  background: var(--color-secondary);
-  color: var(--color-secondary--foreground);
+/* Collection node adjustments */
+
+.node.collection {
+  width: 100%;
 }
 
-/**
- * Page header view mode
-*/
-.node.collection.page-header a {
-  color: #fff;
-  text-decoration: none;
-}
-.node.collection.page-header a:hover {
-  text-decoration: underline;
-}
-.node.collection.page-header .field--name-field-collection-organizers .field__label {
+.field--name-field-parent-collection {
+  font-size: .9em;
   font-weight: 500;
-}
-.node.collection.page-header .field--name-field-collection-organizers .field__label:after {
-  content: ':';
-  display: inline-block;
-}
-.node.collection.page-header .field--name-field-collection-organizers.inline-list li:last-child {
-  margin-right: .3em;
+  margin: 0 0 .5em;
+  & a {
+    text-decoration: none;
+  }
 }
 
-/*
- * Full page
-*/
-.node.collection.full > .content .field {
-  margin-bottom: 1em;
-}
-.node.collection.full .view-scitalk-talks-in-collection {
-  margin-top: 2em;
+/* Layered box shadows */
+.collection-wrapper {
+   position: relative;
+   display: flex;
+   margin-left: 20px;
+
+   &.collection-has-children {
+     margin-bottom: calc(var(--gutter-standard) + 10px);
+
+     & .node.collection {
+       margin: 0;
+       position: relative;
+       z-index: 2;
+     }
+     & .info {
+       margin-bottom: .5rem;
+     }
+     &:after,
+     &:before {
+       box-shadow: -2px 2px 2px 0 rgba(99, 104, 115, 0.15);
+       position: relative;
+       background: white;
+       content: '';
+       display: flex;
+       width: 100%;
+       height: 100%;
+       position: absolute;
+       top: 5px;
+       left: -5px;
+       z-index: 1;
+     }
+     &:after {
+       top: 10px;
+       left: -10px;
+       z-index: 0
+     }
+   }
 }
 
-/**
- * Other view modes
-*/
-.node.collection:not(.full) h2 a,
-.node.collection:not(.full) h3 a {
-  text-decoration: none;
+/* Expanded views */
+.collection-wrapper + .collection-children {
+  margin-left: 2rem;
 }
-.node.collection:not(.full) h2 a:hover,
-.node.collection:not(.full) h2 a:focus,
-.node.collection:not(.full) h3 a:hover,
-.node.collection:not(.full) h3 a:focus {
-  text-decoration: underline;
+
+/* Collapse icons */
+
+.toggle-children {
+  background: var(--color-lt-grey);
+  color: var(--color-primary);
+  font-size: .9em;
+  margin-top: .5rem;
+  padding: 0.4em .5em;
+
+  &:after {
+    @mixin caret 2px, .5em, var(--color-primary);
+    margin: -0.5rem .2rem 0 0.3rem;
+  }
+
+  &:matches(:hover,:focus) {
+    background: var(--color-secondary);
+    color: var(--color-secondary--foreground);
+    &:after {
+      border-color: var(--color-secondary--foreground);
+    }
+  }
 }
-.node.collection.horizontal-card {
-  border-bottom: 0.1rem solid #e1e1e1;
-  line-height: 1.7em;
-  margin: 1.5em 0;
-  padding-bottom: 1.5em;
-}
-.node.collection.horizontal-card h3 {
-  margin-bottom: 0;
+
+/* View alterations  */
+.view-scitalk-collection-children {
+  & > .view-content > div > h3 {
+    display: none;
+  }
+
+  margin-bottom: 2rem;
+  margin-left: 2rem;
+
+  &[aria-hidden='true'] {
+    display: none;
+  }
+
+  & > .more-link {
+    margin-top: -1rem 1rem 0 0;
+    text-decoration: none;
+    text-transform: none;
+
+    &:after {
+      @mixin caret 2px, .5em, var(--color-primary);
+      transform: rotate(-45deg);
+      margin-left: 1rem;
+    }
+  }
 }

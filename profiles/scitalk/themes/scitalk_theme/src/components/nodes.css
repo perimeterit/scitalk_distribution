@@ -12,7 +12,7 @@
 
   & .info {
     font-size: .8em;
-    margin-left: -.5em;
+    margin-left: -1em;
     & ul {
       display: inline-block;
     }

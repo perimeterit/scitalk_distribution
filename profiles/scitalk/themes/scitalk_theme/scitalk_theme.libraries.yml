@@ -23,6 +23,7 @@ global:
       css/components/citations.css: {}
       css/components/collections.css: {}
       css/components/modals.css: {}
+      css/components/nodes.css: {}
       css/components/resources.css: {}
       css/components/search-block-form.css: {}
       css/components/share-links.css: {}
@@ -42,9 +43,9 @@ global:
     js/van11y-accessible-tab-panel-aria/dist/van11y-accessible-tab-panel-aria.min.js: {}
     js/jquery-responsive-tables/js/jquery.responsive-tables.js: {}
     js/jquery.sticky/jquery.sticky.js: {}
+    js/load-collection-talks.js: {}
     js/responsive-menu.js: {}
     js/global.js: {}
-
   dependencies:
     - views/views.ajax
     - core/drupal

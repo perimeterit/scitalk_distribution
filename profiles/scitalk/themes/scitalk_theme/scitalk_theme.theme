@@ -60,8 +60,48 @@ function scitalk_theme_preprocess_page(&$variables) {
  * Alters variables for nodes.
  */
 function scitalk_theme_preprocess_node(&$variables) {
+
+  $node = $variables['node'];
+  $nodetype = $node->getType();
+  $nid = $node->id();
+
+  // For Collections, get count of child collections and talks
+  if ($nodetype == 'collection') {
+    // Get counts of child collections
+    $variables['count_child_collections'] = \Drupal::entityQuery('node')
+      ->condition('status', 1)
+      ->condition('type', 'collection')
+      ->condition('field_parent_collection.entity:node.nid', $nid)
+      ->count()->execute();
+
+    // Get counts of talks in collection
+    $variables['count_talks_in_collection'] = \Drupal::entityQuery('node')
+      ->condition('status', 1)
+      ->condition('type', 'talk')
+      ->condition('field_talk_collection.entity:node.nid', $nid)
+      ->count()->execute();
+  }
+
 }
 
+/**
+ * Implements hook_preprocess_HOOK().
+ * Alters variables for nodes.
+ */
+function scitalk_theme_preprocess_bef_links(&$variables) {
+
+  // Get count of items from count_child_collections view.
+  foreach($variables['links'] as $key=>$item) {
+    $view = Views::getView('scitalk_collections');
+    // Get results for this filter value
+    $view->setDisplay('card_view');
+    $view->setItemsPerPage(0);
+    $exposed_filters = ['field_collection_type_target_id' => $key];
+    $view->setExposedInput($exposed_filters);
+    $view->execute();
+    $variables['element'][$key]['#result_count'] = count($view->result);
+  }
+}
 /**
  * Implements hook_preprocess_HOOK() for blocks.
  */

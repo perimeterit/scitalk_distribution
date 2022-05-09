@@ -14,7 +14,11 @@
   ]
 %}
 
-<div class="collection-wrapper {{count_talks_in_collection > 0 ? 'collection-has-children'}}">
+{% if count_talks_in_collection or count_child_collections %}
+  {% set collection_has_children = TRUE %}
+{% endif %}
+
+<div class="collection-wrapper {{ collection_has_children ? 'collection-has-children'}}">
   <article{{ attributes.addClass(classes) }}>
     {% if view_mode == 'teaser' and content.field_collection_description.0['#text']|length > 200 %}
       {% set show_show_more = TRUE %}
@@ -27,21 +31,38 @@
       {{ content.field_parent_collection }}
       {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
       <div class="info">
+        {# Output number of talks & child collections #}
+        {% if collection_has_children %}
+          <div class="collection-child-count">
 
-        {% if count_talks_in_collection %}
-           <strong>{{ count_talks_in_collection }}
-            {{ count_talks_in_collection == 1 ? 'Talk'|t : 'Talks'|t }}
-          </strong>
-        {% endif %}
-        {% if count_talks_in_collection and count_child_collections %}
-          {{ 'and '}}
-        {% endif %}
-        {% if count_child_collections %}
-           {{ count_child_collections }}
-           {{ count_child_collections == 1 ? 'sub-collection'|t : 'sub-collections'|t }}
+          {% if count_talks_in_collection %}
+             {% if count_talks_in_collection == 1 %}
+                {% set talks_label = 'talk'|t %}
+             {% else %}
+                 {% set talks_label = 'talks'|t %}
+             {% endif %}
+            <strong>{{ count_talks_in_collection ~ ' ' ~ talks_label ~ ' ' }}</strong>
+          {% endif %}
+
+          {% if count_talks_in_collection and count_child_collections %}
+            {% set combinator = 'and'|t %}
+            {{ combinator }}
+          {% endif %}
+
+          {% if count_child_collections %}
+             {{ count_child_collections }}
+             {% if count_child_collections == 1 %}
+                {% set collections_label = 'sub-collection'|t %}
+             {% else %}
+                 {% set collections_label = 'sub-collections'|t %}
+             {% endif %}
+
+             {{ collections_label }}
+          {% endif %}
+          </div>
         {% endif %}
 
-        {{ content|without('links','field_collection_description') }}
+        {{ content|without('links','field_collection_description', 'field_parent_collection') }}
       </div>
       {% if view_mode == 'teaser' %}
         {{ content.field_collection_description }}
@@ -50,17 +71,11 @@
         {% endif %}
       {% endif %}
 
-        <button class="show-children" data-node-id="{{ node.id }}">
-          <span class="visually-hidden">{{ 'Load child talks and sub-collections'|t }}
+      {% if collection_has_children %}
+        <button class="toggle-children" data-collection-id="{{view_mode}}--{{ node.id }}" aria-expanded="false" aria-controls="collection-children--{{ view_mode }}--{{node.id}}">
+           <span class="label-prefix">{{ 'Show'|t }}</span> {{ talks_label ~ ' ' ~ combinator ~ ' ' ~ collections_label }}
         </button>
+      {% endif %}
     </div>
   </article>
 </div>
-
-<button class="hide-children">
-  <span class="visually-hidden">{{ 'Hide child talks and collections'|t }}</span>
-</button>
-
-{% if (count_talks_in_collection > 1) or (count_child_collections > 1) %}
-  <div class="js-view-dom-id-collection-children-{{node.id}} collection-children"></div>
-{% endif %}
