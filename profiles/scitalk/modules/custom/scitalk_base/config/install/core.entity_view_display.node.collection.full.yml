@@ -82,7 +82,7 @@ content:
     type: string
     region: content
   field_collection_source_repo:
-    weight: 3
+    weight: 4
     label: hidden
     settings:
       link: true
@@ -96,6 +96,14 @@ content:
         fences_label_classes: ''
     type: entity_reference_label
     region: content
+  field_parent_collection:
+    type: entity_reference_label
+    weight: 3
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
 hidden:
   feeds_item: true
   field_collection_event_url: true
@@ -104,7 +112,6 @@ hidden:
   field_collection_short_desc: true
   field_collection_subject: true
   field_collection_type: true
-  field_parent_collection: true
   langcode: true
   links: true
   scitalk_most_recent_talk: true
