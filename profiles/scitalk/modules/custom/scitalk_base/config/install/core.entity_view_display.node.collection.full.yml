@@ -1,9 +1,9 @@
-uuid: 6a3e49c5-fb94-403b-b1be-bb91cf95b009
+uuid: f926e2e7-24b8-4cca-9d67-8ba4118786b5
 langcode: en
-status: false
+status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.full
     - field.field.node.collection.feeds_item
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
@@ -18,26 +18,30 @@ dependencies:
     - field.field.node.collection.field_parent_collection
     - node.type.collection
   module:
-    - datetime_range
+    - date_all_day
     - fences
+    - layout_builder
     - text
     - user
+third_party_settings:
+  layout_builder:
+    allow_custom: false
+    enabled: false
 _core:
-  default_config_hash: 4vDQm0Djn9FheK0nXECHXIYPmVTX87_CpGWd2TsuKD0
-id: node.collection.teaser
+  default_config_hash: zuGoXJ8Jl-TLkB2-3ET53mWgmmfx04QXZ3VkXd4H6eg
+id: node.collection.full
 targetEntityType: node
 bundle: collection
-mode: teaser
+mode: full
 content:
   field_collection_date:
-    type: daterange_default
-    weight: 1
-    region: content
-    label: inline
+    weight: 0
+    label: hidden
     settings:
       timezone_override: ''
       format_type: medium
       separator: '-'
+      date_only_format: medium
     third_party_settings:
       fences:
         fences_field_tag: div
@@ -46,18 +50,25 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
+    type: daterange_all_day_default
+    region: content
   field_collection_description:
     type: text_default
     weight: 2
     region: content
     label: hidden
     settings: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
   field_collection_number:
-    type: string
-    weight: 0
-    region: content
-    label: inline
+    weight: 1
+    label: visually_hidden
     settings:
       link_to_entity: false
     third_party_settings:
@@ -68,19 +79,13 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-  links:
-    weight: 4
+    type: string
     region: content
-    settings: {  }
-    third_party_settings: {  }
-  scitalk_number_of_talks:
-    label: inline
+  field_collection_source_repo:
     weight: 3
-    region: content
-    type: number_integer
+    label: hidden
     settings:
-      thousand_separator: ''
-      prefix_suffix: true
+      link: true
     third_party_settings:
       fences:
         fences_field_tag: div
@@ -89,16 +94,19 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
+    type: entity_reference_label
+    region: content
 hidden:
   feeds_item: true
   field_collection_event_url: true
   field_collection_organizers: true
   field_collection_public_viewable: true
   field_collection_short_desc: true
-  field_collection_source_repo: true
   field_collection_subject: true
   field_collection_type: true
   field_parent_collection: true
   langcode: true
+  links: true
   scitalk_most_recent_talk: true
+  scitalk_number_of_talks: true
   search_api_excerpt: true

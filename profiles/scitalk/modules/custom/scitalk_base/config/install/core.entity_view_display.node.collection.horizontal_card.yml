@@ -1,6 +1,6 @@
 uuid: ac87c1a3-db60-4a58-bbe6-0d1da381fa20
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.horizontal_card
@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.collection.field_collection_source_repo
     - field.field.node.collection.field_collection_subject
     - field.field.node.collection.field_collection_type
+    - field.field.node.collection.field_parent_collection
     - node.type.collection
   module:
     - date_all_day
@@ -108,6 +109,7 @@ hidden:
   field_collection_short_desc: true
   field_collection_source_repo: true
   field_collection_subject: true
+  field_parent_collection: true
   langcode: true
   scitalk_most_recent_talk: true
   scitalk_number_of_talks: true
