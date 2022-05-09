@@ -18,6 +18,10 @@
       text-align: center;
     }
   }
+
+  & + .form-item-sort-bef-combine {
+    display: none;
+  }
 }
 
 .bef-link {
@@ -115,6 +119,7 @@
   &:after {
     @mixin caret 2px, .5em, var(--color-primary);
     margin: -0.5rem .2rem 0 0.3rem;
+    vertical-align: middle;
   }
 
   &:matches(:hover,:focus) {
@@ -144,10 +149,10 @@
     text-decoration: none;
     text-transform: none;
 
-    &:after {
-      @mixin caret 2px, .5em, var(--color-primary);
+    & a:after {
+      @mixin caret 2px, .5em, var(--color-primary--foreground);
       transform: rotate(-45deg);
-      margin-left: 1rem;
+      margin-left: 0.5rem;
     }
   }
 }

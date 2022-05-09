@@ -32,6 +32,10 @@
       text-align: center;
     }
 
+.bef-exposed-form .form-item-field-collection-type-target-id + .form-item-sort-bef-combine {
+    display: none;
+  }
+
 .bef-link {
   border-bottom: 2px solid transparent;
   font-size: 1.2em;
@@ -139,6 +143,7 @@
     border-bottom: 2px solid var(--color-primary);
     transform: rotate(45deg);
     margin: -0.5rem .2rem 0 0.3rem;
+    vertical-align: middle;
   }
 
 .toggle-children:hover, .toggle-children:focus {
@@ -172,16 +177,16 @@
     text-transform: none
   }
 
-.view-scitalk-collection-children > .more-link:after {
+.view-scitalk-collection-children > .more-link a:after {
       content: '';
       display: inline-block;
       height: .5em;
       width: .5em;
-      border-right: 2px solid var(--color-primary);
-      border-bottom: 2px solid var(--color-primary);
+      border-right: 2px solid var(--color-primary--foreground);
+      border-bottom: 2px solid var(--color-primary--foreground);
       transform: rotate(45deg);
       transform: rotate(-45deg);
-      margin-left: 1rem;
+      margin-left: 0.5rem;
     }
 
 /*# sourceMappingURL=collections.css.map */
