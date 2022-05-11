@@ -12,7 +12,8 @@
     border: none;
     padding: 0;
   }
-.view-header-filters .fieldset--field-talk-type {
+.view-header-filters legend,
+  .view-header-filters .fieldset--field-talk-type {
     position: absolute !important;
     overflow: hidden;
     clip: rect(1px, 1px, 1px, 1px);
