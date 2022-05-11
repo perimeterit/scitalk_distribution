@@ -13,7 +13,7 @@ dependencies:
     - field.storage.node.field_talk_video_url
     - search_api.index.default_talks_index
     - system.menu.main
-    - taxonomy.vocabulary.scientific_area
+    - taxonomy.vocabulary.subjects
     - taxonomy.vocabulary.talk_type
   module:
     - better_exposed_filters
@@ -96,6 +96,17 @@ display:
                 select_all_none_nested: false
                 display_inline: false
               field_scientific_area:
+                plugin_id: bef
+                advanced:
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: ''
+                  collapsible: false
+                  is_secondary: false
+                select_all_none: false
+                select_all_none_nested: false
+                display_inline: true
+              field_talk_subject:
                 plugin_id: bef
                 advanced:
                   sort_options: false
@@ -1076,10 +1087,10 @@ display:
           hierarchy: false
           error_message: true
           plugin_id: search_api_term
-        field_scientific_area:
-          id: field_scientific_area
+        field_talk_subject:
+          id: field_talk_subject
           table: search_api_index_default_talks_index
-          field: field_scientific_area
+          field: field_talk_subject
           relationship: none
           group_type: group
           admin_label: ''
@@ -1088,14 +1099,14 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_scientific_area_op
-            label: 'Scientific Area'
+            operator_id: field_talk_subject_op
+            label: Subject
             description: ''
             use_operator: false
-            operator: field_scientific_area_op
+            operator: field_talk_subject_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_scientific_area
+            identifier: field_talk_subject
             required: false
             remember: false
             multiple: true
@@ -1121,7 +1132,7 @@ display:
           reduce_duplicates: false
           type: select
           limit: true
-          vid: scientific_area
+          vid: subjects
           hierarchy: false
           error_message: true
           plugin_id: search_api_term
@@ -2197,8 +2208,8 @@ display:
       display_description: ''
       exposed_block: true
       defaults:
-        filters: false
-        filter_groups: false
+        filters: true
+        filter_groups: true
         title: false
         fields: false
         header: false
@@ -2320,188 +2331,6 @@ display:
           expose:
             label: Speaker
           plugin_id: search_api
-      filters:
-        type:
-          id: type
-          table: search_api_index_default_talks_index
-          field: type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: or
-          value:
-            talk: talk
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          plugin_id: search_api_options
-        status:
-          id: status
-          table: search_api_index_default_talks_index
-          field: status
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: '='
-          value: '1'
-          group: 1
-          exposed: false
-          expose:
-            operator_id: ''
-            label: ''
-            description: ''
-            use_operator: false
-            operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          plugin_id: search_api_boolean
-        field_scientific_area:
-          id: field_scientific_area
-          table: search_api_index_default_talks_index
-          field: field_scientific_area
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_scientific_area_op
-            label: 'Scientific Area'
-            description: ''
-            use_operator: false
-            operator: field_scientific_area_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_scientific_area
-            required: false
-            remember: false
-            multiple: true
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              scitalk_oauth: '0'
-              talk_editor: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          type: select
-          limit: true
-          vid: scientific_area
-          hierarchy: false
-          error_message: true
-          plugin_id: search_api_term
-        field_talk_type:
-          id: field_talk_type
-          table: search_api_index_default_talks_index
-          field: field_talk_type
-          relationship: none
-          group_type: group
-          admin_label: ''
-          operator: or
-          value: {  }
-          group: 1
-          exposed: true
-          expose:
-            operator_id: field_talk_type_op
-            label: 'Talk Type'
-            description: ''
-            use_operator: false
-            operator: field_talk_type_op
-            operator_limit_selection: false
-            operator_list: {  }
-            identifier: field_talk_type
-            required: false
-            remember: false
-            multiple: true
-            remember_roles:
-              authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              scitalk_oauth: '0'
-              talk_editor: '0'
-            reduce: false
-          is_grouped: false
-          group_info:
-            label: ''
-            description: ''
-            identifier: ''
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
-          reduce_duplicates: false
-          type: select
-          limit: true
-          vid: talk_type
-          hierarchy: false
-          error_message: true
-          plugin_id: search_api_term
-      filter_groups:
-        operator: AND
-        groups:
-          1: AND
       exposed_form:
         type: bef
         options:
@@ -2525,17 +2354,6 @@ display:
               secondary_label: 'Advanced options'
               secondary_open: false
             filter:
-              field_scientific_area:
-                plugin_id: bef
-                advanced:
-                  sort_options: false
-                  rewrite:
-                    filter_rewrite_values: '- Any -|All Scientific Areas'
-                  collapsible: false
-                  is_secondary: false
-                select_all_none: false
-                select_all_none_nested: false
-                display_inline: false
               field_talk_type:
                 plugin_id: bef
                 advanced:
@@ -2547,6 +2365,28 @@ display:
                 select_all_none: false
                 select_all_none_nested: false
                 display_inline: false
+              field_talk_subject:
+                plugin_id: bef
+                advanced:
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: ''
+                  collapsible: false
+                  is_secondary: false
+                select_all_none: false
+                select_all_none_nested: false
+                display_inline: true
+              field_scientific_area:
+                plugin_id: bef
+                advanced:
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: '- Any -|All Scientific Areas'
+                  collapsible: false
+                  is_secondary: false
+                select_all_none: false
+                select_all_none_nested: false
+                display_inline: true
     cache_metadata:
       max-age: -1
       contexts:

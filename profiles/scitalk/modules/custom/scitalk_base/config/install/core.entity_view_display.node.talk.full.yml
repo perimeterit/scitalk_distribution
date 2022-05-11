@@ -81,9 +81,10 @@ third_party_settings:
       region: content
     group_taxonomy:
       children:
+        - field_talk_source_repository
         - field_talk_collection
-        - field_scientific_area
         - field_talk_type
+        - field_talk_subject
       parent_name: ''
       weight: 6
       format_type: html_element
@@ -110,21 +111,6 @@ targetEntityType: node
 bundle: talk
 mode: full
 content:
-  field_scientific_area:
-    type: entity_reference_label
-    weight: 13
-    region: content
-    label: inline
-    settings:
-      link: true
-    third_party_settings:
-      fences:
-        fences_field_tag: ul
-        fences_field_classes: ''
-        fences_field_item_tag: li
-        fences_field_item_classes: ''
-        fences_label_tag: strong
-        fences_label_classes: ''
   field_talk_abstract:
     type: text_default
     weight: 7
@@ -156,7 +142,7 @@ content:
         fences_label_tag: div
         fences_label_classes: ''
   field_talk_collection:
-    weight: 12
+    weight: 6
     label: inline
     settings:
       link: true
@@ -180,7 +166,7 @@ content:
       timezone_override: ''
     third_party_settings: {  }
   field_talk_doi:
-    weight: 5
+    weight: 6
     label: inline
     settings:
       id_base_url: 'https://doi.org/'
@@ -221,6 +207,21 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
+  field_talk_source_repository:
+    type: entity_reference_label
+    weight: 5
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
   field_talk_speaker_profile:
     type: entity_reference_label
     weight: 3
@@ -251,9 +252,24 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
+  field_talk_subject:
+    type: entity_reference_label
+    weight: 8
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings:
+      fences:
+        fences_field_tag: ul
+        fences_field_classes: ''
+        fences_field_item_tag: li
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
   field_talk_type:
     type: entity_reference_label
-    weight: 14
+    weight: 7
     region: content
     label: inline
     settings:
@@ -304,10 +320,9 @@ content:
 hidden:
   feeds_item: true
   field_embargo_date: true
+  field_scientific_area: true
   field_talk_keywords: true
   field_talk_location: true
-  field_talk_source_repository: true
-  field_talk_subject: true
   field_talk_thumbnail: true
   field_talk_viewable_online: true
   langcode: true
