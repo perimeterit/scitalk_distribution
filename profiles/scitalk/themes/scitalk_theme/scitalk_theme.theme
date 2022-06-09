@@ -13,6 +13,7 @@ use Drupal\Core\Url;
 use Drupal\Core\Link;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
+use Drupal\node\Entity\Node;
 use Drupal\views\Views;
 
 /**
@@ -62,6 +63,27 @@ function scitalk_theme_preprocess_page(&$variables) {
   }
 }
 
+/**
+ * Implements hook_preprocess_HOOK().
+ * Alters variables for page title template.
+ */
+function scitalk_theme_preprocess_page_title(&$variables) {
+  $route = \Drupal::routeMatch();
+  $routename = $route->getRouteName();
+
+  if ($routename == 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node->getType() == 'collection') {
+      $parent_collection_field = $node->get('field_parent_collection')->getValue();
+      $parent_collection_node = Node::load($parent_collection_field[0]['target_id']);
+      $variables['parent_collection_title'] = $parent_collection_node->getTitle();
+      $variables['parent_collection_id'] = $parent_collection_field[0]['target_id'];
+    }
+
+  }
+
+  // For collection nodes, get the parent colleciton field.
+}
 /**
  * Implements hook_preprocess_HOOK().
  * Alters variables for nodes.
@@ -131,27 +153,17 @@ function scitalk_theme_preprocess_block(&$variables) {
 }
 
 /*
- * Implements hook_preprocess_HOOK() for media entities.
+ * Implements hook_preprocess_HOOK() for fields.
  */
 function scitalk_theme_preprocess_field(&$variables) {
-  // For entity reference fields, add a class for the type of entity
   $field_name = $variables['field_name'];
-  // if ($variables['field_type'] == 'entity_reference') {
-  //   // First figure out what kind of reference this is
-  //   $field_definitions = \Drupal::service('entity_field.manager')->getFieldDefinitions('node', 'talk');
-  //   $field_handler = $field_definitions[$field_name]->getSetting('handler');
-  //   $field_handler_parts = explode(':',$field_handler);
-  //   if (isset($field_handler_parts[1])) {
-  //     $variables['attributes']['class'][] = 'entity-reference--' . str_replace('_','-',$field_handler_parts[1]);
-  //   }
-  // }
+
 }
 /*
  * Implements hook_preprocess_HOOK() for media entities.
  */
 function scitalk_theme_preprocess_media(&$variables) {
   $variables['bundle'] = $variables['media']->bundle();
-
 }
 
 /*

@@ -15,12 +15,21 @@
   ]
 %}
 
+{% if count_talks_in_collection or count_child_collections %}
+  {% set collection_has_children = TRUE %}
+{% endif %}
+
 <article{{ attributes.addClass(classes) }}>
   {% block content %}
     {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
+    <div class="info">
+      {# Output number of talks & child collections #}
+      {% embed "@scitalk_theme/includes/collection-child-count.twig" %}{% endembed %}
 
+      {{ content|without('links','field_collection_description', 'field_parent_collection') }}
+    </div>
     <div class="content">
-      {{ content }}
+      {{ content.field_collection_description }}
     </div>
     {{ drupal_view('scitalk_talks_in_collection','card_view') }}
   {% endblock %}
