@@ -1,6 +1,13 @@
 /**
  * Advanced search form (filters)
 */
+/*
+ * Mixins - Classes created in utilities.css
+*/
+/*
+ * to use:
+ * @mixin caret 2px, 1em, var(--color-black)
+*/
 .open-advanced-search {
   background: transparent;
   color: var(--color-defalt-text);
@@ -30,7 +37,7 @@
 .left-nav-wrapper .advanced-search-form .form-item-sort-bef-combine {
     display: none;
   }
-/* Hiding & Showing changes */
+/* Hiding & Showing form section */
 .close-advanced-search {
   background: transparent;
   float: right;
@@ -95,6 +102,18 @@
   .responsive-menu summary {
     color: var(--color-default-text);
   }
+/* Swapping the forms based on the section type */
+.search-type-select {
+  width: 100%;
+}
+.search-form.closed {
+  position: absolute !important;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  width: 1px;
+  height: 1px;
+  word-wrap: normal;
+}
 /**
  * Advanced search results page
 */

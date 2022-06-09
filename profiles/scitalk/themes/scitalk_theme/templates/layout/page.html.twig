@@ -74,8 +74,28 @@
     </button>
     {% if page.left_nav %}
       {{ page.left_nav}}
-      <div class='advanced-search-form'>
+      <div class='advanced-search-form' data-search-section='{{ search_section}}'>
+
+        <form id="search-type-select-form">
+          <label for="search-type-select">{{ 'Searching'|t }}</label>
+          <select id="search-type-select">
+            <!-- Need to find a way to output the selected attribute for the one that should be selected -->
+            <!-- Maybe js would be easier? -->
+            <option value="talks" {% if search_section == 'talks' %}selected{% endif %}>{{ 'Talks'|t }}</option>
+            <option value="collections"{% if search_section == 'collections' %}selected{% endif %}>{{ 'Collections'|t }}</option>
+          </select>
+        </form>
+        <div class="search-form search-form--talks {{ search_section != 'talks' ? 'closed' }}">
+          {# this is throwing an error on the collections search page for some reason
+            Maybe because the values sent for the exposed filter sare wrong? because theyare different fields ?
+            Might need to check url keyword replacements
+          #}
         {{ drupal_block('views_exposed_filter_block:scitalk_advanced_search-form_block',wrapper=false)}}
+        </div>
+
+        <div class="search-form search-form--collections {{ search_section != 'collections' ? 'closed' }}">
+          {{ drupal_block('views_exposed_filter_block:scitalk_search_collections-form_block',wrapper=false)}}
+        </div>
       </div>
     {% endif %}
   </div>

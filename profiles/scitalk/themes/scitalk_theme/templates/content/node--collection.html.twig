@@ -22,11 +22,10 @@
   <article{{ attributes.addClass(classes) }}>
     {% if view_mode == 'teaser' and content.field_collection_description.0['#text']|length > 200 %}
       {% set show_show_more = TRUE %}
-      {% set content_classes = ['collapse-abstract'] %}
+      {% set content_classes = ['collapse-abstract', 'has-collapse'] %}
     {% endif %}
-    {% block thumbnail %}
-      {{ content.field_talk_thumbnail }}
-    {% endblock %}
+    {{ drupal_view('scitalk_talks_in_collection', 'collection_thumbnail', node.id, node.id) }}
+
     <div{{ content_attributes.addClass(content_classes,'content node-content') }}>
       {{ content.field_parent_collection }}
       {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
@@ -34,7 +33,6 @@
         {# Output number of talks & child collections #}
         {% if collection_has_children %}
           <div class="collection-child-count">
-
           {% if count_talks_in_collection %}
              {% if count_talks_in_collection == 1 %}
                 {% set talks_label = 'talk'|t %}
@@ -56,7 +54,6 @@
              {% else %}
                  {% set collections_label = 'sub-collections'|t %}
              {% endif %}
-
              {{ collections_label }}
           {% endif %}
           </div>
@@ -79,3 +76,9 @@
     </div>
   </article>
 </div>
+
+{% if collection_has_children %}
+  <div id="collection-children--{{view_mode}}--{{node.id}}" class="collection-children" aria-hidden="true">
+    {{ drupal_view('scitalk_collection_children', 'card_view', node.id, node.id) }}
+  </div>
+{% endif %}

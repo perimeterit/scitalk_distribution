@@ -62,8 +62,16 @@
 /* Collection node adjustments */
 
 .node.collection {
-  width: 100%;
+  width: 100%
 }
+
+.node.collection > .views-element-container {
+    flex: 0 0 200px;
+  }
+
+.node.collection > .content {
+    margin-left: 1em;
+  }
 
 .field--name-field-parent-collection {
   font-size: .9em;
@@ -157,6 +165,10 @@
 
 /* View alterations  */
 
+.collection-children[aria-hidden='true'] {
+  display: none;
+}
+
 .view-scitalk-collection-children > .view-content > div > h3 {
     display: none;
   }
@@ -166,10 +178,6 @@
   margin-bottom: 2rem;
   margin-left: 2rem
 }
-
-.view-scitalk-collection-children[aria-hidden='true'] {
-    display: none;
-  }
 
 .view-scitalk-collection-children > .more-link {
     margin-top: -1rem 1rem 0 0;

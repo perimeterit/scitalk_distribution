@@ -30,7 +30,6 @@ function scitalk_theme_preprocess_page(&$variables) {
   // Get the route to find out what type of page this is
   $route = \Drupal::routeMatch();
   $routename = $route->getRouteName();
-
   // For talks and speakers (nodes)
   if (($routename == 'entity.node.canonical') || ($routename == 'entity.node.preview')) {
     // If the node object exists:
@@ -40,17 +39,25 @@ function scitalk_theme_preprocess_page(&$variables) {
       $node = \Drupal::routeMatch()->getParameter('node_preview');
     }
   }
-  // For taxonomy terms
-  else if ($routename = 'entity.taxonomy_term.canonical') {
-    $term_id = $route->getRawParameter('taxonomy_term');
-    if ($term_id != NULL) {
-      $term = Term::load($term_id);
-    }
 
-    // This is doing that thing where it gets all the fields from the default view mode not the view mode requested.
-    if (isset($term) && ($term->bundle() == 'collection')) {
-      $view = \Drupal::entityTypeManager()->getViewBuilder('taxonomy_term')->view($term, 'page_header');
-      $variables['page_header_view'] = render($view);
+  // Negotiate the page type or section, to set the search mode
+  $route_parts = explode('.',$routename);
+  if ($route_parts[1] == 'node') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    $nodetype = $node->getType();
+    if ($nodetype == 'collection') {
+      // speakers will work like this when implemented
+      $variables['search_section'] = $nodetype . 's';
+    } else {
+      $variables['search_section'] = 'talks';
+    }
+  }
+  else if ($route_parts[0] == 'view') {
+    $view_name = explode('_', $route_parts[1]);
+    if (($view_name[1] == 'collections') || ($view_name[2] == 'collections')) {
+      $variables['search_section'] = 'collections';
+    } else {
+      $variables['search_section'] = 'talks';
     }
   }
 }
@@ -184,10 +191,11 @@ function scitalk_theme_preprocess_group(&$variables) {
 function scitalk_theme_preprocess_views_view(&$variables) {
   $view = $variables['view'];
   // For search view, get exposed input and make it available in the template
-  if ($view->id() == 'scitalk_advanced_search') {
+  if (($view->id() == 'scitalk_advanced_search') || ($view->id() == 'scitalk_search_collections') ) {
     $exposed_input = $view->getExposedInput();
     $variables['exposed_input'] = $view->getExposedInput();
   }
+
 }
 
 /**

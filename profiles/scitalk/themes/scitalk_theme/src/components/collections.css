@@ -49,9 +49,16 @@
 }
 
 /* Collection node adjustments */
-
 .node.collection {
   width: 100%;
+
+  & > .views-element-container {
+    flex: 0 0 200px;
+  }
+
+  & > .content {
+    margin-left: 1em;
+  }
 }
 
 .field--name-field-parent-collection {
@@ -132,6 +139,10 @@
 }
 
 /* View alterations  */
+.collection-children[aria-hidden='true'] {
+  display: none;
+}
+
 .view-scitalk-collection-children {
   & > .view-content > div > h3 {
     display: none;
@@ -139,10 +150,6 @@
 
   margin-bottom: 2rem;
   margin-left: 2rem;
-
-  &[aria-hidden='true'] {
-    display: none;
-  }
 
   & > .more-link {
     margin-top: -1rem 1rem 0 0;

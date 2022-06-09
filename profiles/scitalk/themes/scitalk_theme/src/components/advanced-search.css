@@ -1,6 +1,8 @@
 /**
  * Advanced search form (filters)
 */
+@import "../base/mixins.css";
+
 .open-advanced-search {
   background: transparent;
   color: var(--color-defalt-text);
@@ -32,7 +34,7 @@
 
 }
 
-/* Hiding & Showing changes */
+/* Hiding & Showing form section */
 .close-advanced-search {
   background: transparent;
   float: right;
@@ -101,6 +103,15 @@
   & summary {
     color: var(--color-default-text);
   }
+}
+
+/* Swapping the forms based on the section type */
+.search-type-select {
+  width: 100%;
+}
+
+.search-form.closed {
+  @mixin visually-hidden;
 }
 
 /**

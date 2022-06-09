@@ -45,6 +45,7 @@ global:
     js/jquery.sticky/jquery.sticky.js: {}
     js/load-collection-talks.js: {}
     js/responsive-menu.js: {}
+    js/search-form.js: {}
     js/global.js: {}
   dependencies:
     - views/views.ajax

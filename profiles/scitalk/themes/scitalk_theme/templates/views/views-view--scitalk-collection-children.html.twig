@@ -15,9 +15,7 @@
     dom_id ? 'js-view-dom-id-' ~ dom_id,
   ]
 %}
-{% set view_mode = view.field.rendered_entity.options.view_mode %}
-<div{{ attributes.addClass(classes) }} class="collection-children"
-   id="collection-children--{{ view_mode }}--{{ view.args.0}}" aria-hidden="true">
+<div{{ attributes.addClass(classes) }}>
   {{ title_prefix }}
   {% if title %}
     {{ title }}
@@ -42,5 +40,4 @@
   {% if more %}
     {{ more }}
   {% endif %}
-
 </div>
