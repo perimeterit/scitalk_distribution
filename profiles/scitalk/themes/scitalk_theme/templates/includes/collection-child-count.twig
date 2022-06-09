@@ -1,11 +1,6 @@
 {% if collection_has_children %}
   <div class="collection-child-count">
   {% if count_talks_in_collection %}
-     {% if count_talks_in_collection == 1 %}
-        {% set talks_label = 'talk'|t %}
-     {% else %}
-         {% set talks_label = 'talks'|t %}
-     {% endif %}
     <strong>{{ count_talks_in_collection ~ ' ' ~ talks_label ~ ' ' }}</strong>
   {% endif %}
 
@@ -16,11 +11,6 @@
 
   {% if count_child_collections %}
      {{ count_child_collections }}
-     {% if count_child_collections == 1 %}
-        {% set collections_label = 'sub-collection'|t %}
-     {% else %}
-         {% set collections_label = 'sub-collections'|t %}
-     {% endif %}
      {{ collections_label }}
   {% endif %}
   </div>

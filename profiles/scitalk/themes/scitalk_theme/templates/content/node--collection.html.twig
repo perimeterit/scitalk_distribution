@@ -16,6 +16,16 @@
 
 {% if count_talks_in_collection or count_child_collections %}
   {% set collection_has_children = TRUE %}
+  {% if count_talks_in_collection == 1 %}
+     {% set talks_label = 'talk'|t %}
+  {% elseif count_talks_in_collection > 1 %}
+      {% set talks_label = 'talks'|t %}
+  {% endif %}
+  {% if count_child_collections == 1 %}
+     {% set collections_label = 'sub-collection'|t %}
+  {% elseif count_child_collections > 1  %}
+      {% set collections_label = 'sub-collections'|t %}
+  {% endif %}
 {% endif %}
 
 <div class="collection-wrapper {{ collection_has_children ? 'collection-has-children'}}">
