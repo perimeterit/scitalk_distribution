@@ -75,9 +75,12 @@ function scitalk_theme_preprocess_page_title(&$variables) {
     $node = \Drupal::routeMatch()->getParameter('node');
     if ($node->getType() == 'collection') {
       $parent_collection_field = $node->get('field_parent_collection')->getValue();
-      $parent_collection_node = Node::load($parent_collection_field[0]['target_id']);
-      $variables['parent_collection_title'] = $parent_collection_node->getTitle();
-      $variables['parent_collection_id'] = $parent_collection_field[0]['target_id'];
+      if (isset($parent_collection_field[0]['target_id'])) {
+      $parent_collection_id = $parent_collection_field[0]['target_id'];
+        $parent_collection_node = Node::load($parent_collection_id);
+        $variables['parent_collection_title'] = $parent_collection_node->getTitle();
+        $variables['parent_collection_id'] = $parent_collection_id;
+      }
     }
 
   }

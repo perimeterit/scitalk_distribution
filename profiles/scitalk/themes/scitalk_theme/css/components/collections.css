@@ -143,7 +143,7 @@
     margin-left: 1em;
   }
 
-.node.collection.full .content {
+.node.collection.full > .content {
     margin: 1rem 0;
   }
 

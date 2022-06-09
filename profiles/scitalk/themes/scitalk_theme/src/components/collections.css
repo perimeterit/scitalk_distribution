@@ -121,7 +121,7 @@
 }
 
 .node.collection.full {
-  & .content {
+  & > .content {
     margin: 1rem 0;
   }
 }
