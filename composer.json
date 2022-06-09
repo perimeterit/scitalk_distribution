@@ -143,9 +143,6 @@
             "Views: AJAX pager doesn't work with exposed filter which has a default value": "https://www.drupal.org/files/issues/2019-12-13/core-views_ajax_pager_default_value_for_exposed_filter-3100826-2-D88.patch",
             "ManyToOneHelper ignores group configuration for some cases": "https://www.drupal.org/files/issues/2021-08-18/2559961-105.patch"
           },
-          "drupal/twig_tweak": {
-            "TypeError on drupalBlock twig extension" : "https://www.drupal.org/files/issues/2020-01-23/typerror_drupalblock_3108210.patch"
-          },
           "drupal/better_exposed_filters": {
             "Fatal error: [] operator not supported for strings when option 'Allow multiple selections' is enabled": "https://www.drupal.org/files/issues/2022-02-17/bef_multiple_selection-2870296-7.patch"
           }
