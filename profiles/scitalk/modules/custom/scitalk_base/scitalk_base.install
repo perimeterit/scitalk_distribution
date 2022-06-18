@@ -807,6 +807,38 @@ function scitalk_base_update_8109(&$sandbox) {
   
 }
 
+/**
+*  Add Duration to Talks
+*/
+function scitalk_base_update_8110(&$sandbox) {
+    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $source      = new FileStorage($config_path);
+
+    //add Duration field storage
+    $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+    $field_storage_yml =  'field.storage.node.field_talk_duration';
+    $field_storage_id = 'node.field_talk_duration';
+    $loaded_storage_config = $storage_config->load($field_storage_id);
+    if (empty($loaded_storage_config))
+    {
+        $storage_config_yml = $source->read($field_storage_yml);
+        $storage_config->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created Duration field storage');
+    }
+
+    //add FIELD Duration
+    $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
+    $field_yml = 'field.field.node.talk.field_talk_duration';
+    $field_id = 'node.talk.field_talk_duration';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created Duration field');
+    }
+}
+
 
 
 
