@@ -179,6 +179,11 @@
     vertical-align: middle;
   }
 
+.toggle-children[aria-expanded='true']:after {
+    transform: rotate(-135deg);
+    margin-top: .1rem;
+  }
+
 .toggle-children:hover, .toggle-children:focus {
     background: var(--color-secondary);
     color: var(--color-secondary--foreground)

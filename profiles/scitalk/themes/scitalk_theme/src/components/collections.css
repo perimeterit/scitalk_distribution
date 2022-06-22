@@ -149,6 +149,11 @@
     vertical-align: middle;
   }
 
+  &[aria-expanded='true']:after {
+    transform: rotate(-135deg);
+    margin-top: .1rem;
+  }
+
   &:matches(:hover,:focus) {
     background: var(--color-secondary);
     color: var(--color-secondary--foreground);

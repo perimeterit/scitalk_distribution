@@ -7,10 +7,9 @@
       var collection_id = $(this).data('collection-id');
       // If it's currently closed
       if ($(this).attr('aria-expanded') == 'false') {
-        // Close the other ones
-        $(".collection-children").attr('aria-hidden', 'true');
         // Expand this one
         $(this).attr('aria-expanded', 'true');
+        console.log('Show ' + collection_id);
         $(this).children('span').html('Hide');
         $('#collection-children--' + collection_id).attr('aria-hidden','false');
       }
@@ -18,6 +17,7 @@
       else {
         $(this).attr('aria-expanded', 'false');
         $(this).children('span').html('Show');
+        console.log('Hide ' + collection_id);
         $('#collection-children--' + collection_id).attr('aria-hidden','true');
       }
     })
