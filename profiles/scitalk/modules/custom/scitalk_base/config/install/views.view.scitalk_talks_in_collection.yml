@@ -13,7 +13,6 @@ dependencies:
     - field.storage.node.field_talk_speakers_text
     - field.storage.node.field_talk_thumbnail
     - field.storage.node.field_talk_type
-    - node.type.collection
     - node.type.talk
   module:
     - datetime
@@ -420,7 +419,6 @@ display:
           admin_label: ''
           operator: in
           value:
-            collection: collection
             talk: talk
           group: 1
           exposed: false

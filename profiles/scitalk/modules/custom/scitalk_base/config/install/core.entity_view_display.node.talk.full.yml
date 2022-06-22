@@ -36,7 +36,7 @@ dependencies:
     - id_link_formatter
     - layout_builder
     - link
-    - media
+    - scitalk_media
     - text
     - user
 third_party_settings:
@@ -283,13 +283,14 @@ content:
         fences_label_tag: strong
         fences_label_classes: ''
   field_talk_video:
-    type: media_thumbnail
+    type: scitalk_embed
     weight: 1
     region: content
     label: hidden
     settings:
-      image_style: ''
-      image_link: ''
+      uri_field: media.pirsa_interim_hd.field_media_scitalk_video
+      jwplayer_preset: ''
+      requirejw: 0
     third_party_settings:
       fences:
         fences_field_tag: div
