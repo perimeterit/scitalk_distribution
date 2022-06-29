@@ -59,6 +59,7 @@
     }
   }
   & h3 {
+    line-height: 1.4;
     margin: 0 0 .5em;
   }
   & h3 a,

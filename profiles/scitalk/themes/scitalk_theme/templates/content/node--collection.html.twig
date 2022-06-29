@@ -54,6 +54,9 @@
 
       {% if collection_has_children %}
         <button class="toggle-children" data-collection-id="{{view_mode}}--{{ node.id }}" aria-expanded="false" aria-controls="collection-children--{{ view_mode }}--{{node.id}}">
+          {% if count_talks_in_collection and count_child_collections %}
+            {% set combinator = 'and'|t %}
+          {% endif %}
            <span class="label-prefix">{{ 'Show'|t }}</span> {{ talks_label ~ ' ' ~ combinator ~ ' ' ~ collections_label }}
         </button>
       {% endif %}
