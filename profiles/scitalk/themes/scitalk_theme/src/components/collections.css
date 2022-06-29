@@ -144,6 +144,7 @@
 @media all and (max-width: 600px) {
   .node.collection.horizontal-card,
   .node.collection.teaser {
+    width: 100%;
     & > .views-element-container {
       display: none;
     }

@@ -165,6 +165,10 @@
 }
 
 @media all and (max-width: 600px) {
+  .node.collection.horizontal-card,
+  .node.collection.teaser {
+    width: 100%
+  }
     .node.collection.horizontal-card > .views-element-container, .node.collection.teaser > .views-element-container {
       display: none;
     }
