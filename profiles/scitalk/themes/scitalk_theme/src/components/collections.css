@@ -219,3 +219,9 @@
     }
   }
 }
+
+@media all and (max-width: 600px) {
+  .view-scitalk-collection-children {
+    margin-left: 0;
+  }
+}

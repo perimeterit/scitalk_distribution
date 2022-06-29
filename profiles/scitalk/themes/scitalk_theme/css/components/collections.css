@@ -258,4 +258,10 @@
       margin-left: 0.5rem;
     }
 
+@media all and (max-width: 600px) {
+  .view-scitalk-collection-children {
+    margin-left: 0;
+  }
+}
+
 /*# sourceMappingURL=collections.css.map */
