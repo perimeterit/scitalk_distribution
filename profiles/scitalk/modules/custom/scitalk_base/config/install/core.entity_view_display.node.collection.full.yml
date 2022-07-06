@@ -19,6 +19,7 @@ dependencies:
     - node.type.collection
   module:
     - date_all_day
+    - feeds
     - fences
     - layout_builder
     - text
@@ -34,6 +35,14 @@ targetEntityType: node
 bundle: collection
 mode: full
 content:
+  feeds_item:
+    type: feeds_item_url
+    weight: 7
+    region: content
+    label: hidden
+    settings:
+      url_plain: false
+    third_party_settings: {  }
   field_collection_date:
     weight: 0
     label: hidden
@@ -54,9 +63,9 @@ content:
     region: content
   field_collection_description:
     type: text_default
-    weight: 2
+    weight: 4
     region: content
-    label: hidden
+    label: inline
     settings: {  }
     third_party_settings:
       fences:
@@ -82,7 +91,7 @@ content:
     type: string
     region: content
   field_collection_source_repo:
-    weight: 4
+    weight: 6
     label: hidden
     settings:
       link: true
@@ -96,22 +105,49 @@ content:
         fences_label_classes: ''
     type: entity_reference_label
     region: content
-  field_parent_collection:
+  field_collection_subject:
     type: entity_reference_label
     weight: 3
     region: content
-    label: above
+    label: inline
+    settings:
+      link: true
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: tag
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
+  field_collection_type:
+    type: entity_reference_label
+    weight: 2
+    region: content
+    label: inline
+    settings:
+      link: true
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: tag
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
+  field_parent_collection:
+    type: entity_reference_label
+    weight: 5
+    region: content
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
 hidden:
-  feeds_item: true
   field_collection_event_url: true
   field_collection_organizers: true
   field_collection_public_viewable: true
   field_collection_short_desc: true
-  field_collection_subject: true
-  field_collection_type: true
   langcode: true
   links: true
   scitalk_most_recent_talk: true

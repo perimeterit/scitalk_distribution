@@ -6,8 +6,8 @@ dependencies:
     - core.entity_view_mode.node.horizontal_card
     - core.entity_view_mode.node.teaser
     - field.storage.node.field_collection_date
+    - field.storage.node.field_collection_subject
     - field.storage.node.field_collection_type
-    - field.storage.node.field_scientific_area
     - node.type.collection
     - system.menu.main
     - taxonomy.vocabulary.collection_type
@@ -100,10 +100,10 @@ display:
           id: 0
           total_pages: null
           tags:
-            previous: '‹ Previous'
-            next: 'Next ›'
-            first: '« First'
-            last: 'Last »'
+            previous: Previous
+            next: Next
+            first: First
+            last: Last
           expose:
             items_per_page: false
             items_per_page_label: 'Items per page'
@@ -123,12 +123,10 @@ display:
           wrapper_class: ''
           class: 'display-list display-wrapper'
       row:
-        type: fields
+        type: 'entity:node'
         options:
-          default_field_elements: false
-          inline: {  }
-          separator: ''
-          hide_empty: false
+          relationship: none
+          view_mode: horizontal_card
       fields:
         rendered_entity:
           id: rendered_entity
@@ -445,6 +443,7 @@ display:
         - 'config:core.entity_view_display.node.talk.search_index'
         - 'config:core.entity_view_display.node.talk.search_result'
         - 'config:core.entity_view_display.node.talk.teaser'
+        - 'config:core.entity_view_display.node.talk.thumbnail'
   attachment_1:
     display_plugin: attachment
     id: attachment_1
@@ -548,7 +547,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Collection Date'
+          label: Date
           exclude: false
           alter:
             alter_text: false
@@ -590,10 +589,10 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: daterange_default
+          type: daterange_custom
           settings:
             timezone_override: ''
-            format_type: medium
+            date_format: 'Y&#8209;m&#8209;d'
             separator: '-'
           group_column: value
           group_columns: {  }
@@ -606,14 +605,14 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
-        field_scientific_area:
-          id: field_scientific_area
-          table: node__field_scientific_area
-          field: field_scientific_area
+        field_collection_type:
+          id: field_collection_type
+          table: node__field_collection_type
+          field: field_collection_type
           relationship: none
           group_type: group
           admin_label: ''
-          label: 'Scientific Area'
+          label: Type
           exclude: false
           alter:
             alter_text: false
@@ -669,6 +668,134 @@ display:
           separator: ', '
           field_api_classes: false
           plugin_id: field
+        field_collection_subject:
+          id: field_collection_subject
+          table: node__field_collection_subject
+          field: field_collection_subject
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Subject
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
+        title_1:
+          id: title_1
+          table: node_field_data
+          field: title
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: Title
+          exclude: false
+          alter:
+            alter_text: true
+            text: '<span class="info-icon"></span><span class="visually-hidden">{{ "View details"|t}}</span>'
+            make_link: true
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          entity_type: node
+          entity_field: title
+          plugin_id: field
     cache_metadata:
       max-age: -1
       contexts:
@@ -682,7 +809,8 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.node.field_collection_date'
-        - 'config:field.storage.node.field_scientific_area'
+        - 'config:field.storage.node.field_collection_subject'
+        - 'config:field.storage.node.field_collection_type'
   attachment_2:
     display_plugin: attachment
     id: attachment_2
@@ -711,12 +839,10 @@ display:
           wrapper_class: ''
           class: 'display-list display-wrapper'
       row:
-        type: fields
+        type: 'entity:node'
         options:
-          default_field_elements: false
-          inline: {  }
-          separator: ''
-          hide_empty: false
+          relationship: none
+          view_mode: teaser
       display_description: ''
       inherit_exposed_filters: true
       inherit_pager: true
@@ -922,6 +1048,7 @@ display:
         - 'config:core.entity_view_display.node.talk.search_index'
         - 'config:core.entity_view_display.node.talk.search_result'
         - 'config:core.entity_view_display.node.talk.teaser'
+        - 'config:core.entity_view_display.node.talk.thumbnail'
   card_view:
     display_plugin: page
     id: card_view
@@ -989,6 +1116,7 @@ display:
         - 'config:core.entity_view_display.node.talk.search_index'
         - 'config:core.entity_view_display.node.talk.search_result'
         - 'config:core.entity_view_display.node.talk.teaser'
+        - 'config:core.entity_view_display.node.talk.thumbnail'
   extra_filters:
     display_plugin: page
     id: extra_filters
