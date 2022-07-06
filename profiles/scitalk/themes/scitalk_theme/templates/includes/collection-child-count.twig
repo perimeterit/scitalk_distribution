@@ -1,0 +1,17 @@
+{% if collection_has_children %}
+  <div class="collection-child-count">
+  {% if count_talks_in_collection %}
+    <strong>{{ count_talks_in_collection ~ ' ' ~ talks_label ~ ' ' }}</strong>
+  {% endif %}
+
+  {% if count_talks_in_collection and count_child_collections %}
+    {% set combinator = 'and'|t %}
+    {{ combinator }}
+  {% endif %}
+
+  {% if count_child_collections %}
+     {{ count_child_collections }}
+     {{ collections_label }}
+  {% endif %}
+  </div>
+{% endif %}

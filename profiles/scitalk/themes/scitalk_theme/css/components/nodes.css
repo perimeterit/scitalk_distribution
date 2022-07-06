@@ -1,0 +1,190 @@
+
+/* Common view mode theming */
+
+.node.horizontal-card,
+  .node.teaser {
+    background: white;
+    box-shadow: -2px 2px 2px 0 rgba(99, 104, 115, 0.1);
+    padding: 1.5em var(--gutter-standard) 1em;
+    margin-bottom: var(--gutter-standard);
+  }
+
+.node .info {
+    font-size: .8em;
+    margin-left: -1em
+  }
+
+.node .info ul {
+      display: inline-block;
+    }
+
+.node .info > * {
+    border-right: 1px solid var(--color-lt-grey);
+    padding: 0 1.2em;
+    margin-right: .5em
+  }
+
+.node .info > *:last-child {
+      border: none;
+      margin-right: 0;
+    }
+
+.node strong.field__label {
+    font-weight: normal
+  }
+
+.node strong.field__label:after {
+      content: ":";
+      display: inline-block;
+      margin-right: .5rem;
+    }
+
+@media all and (min-width: 768px) {
+  .node .info {
+    display: flex;
+    align-items: center;
+  }
+}
+
+@media all and (max-width: 767px) {
+  .node .info > * {
+    margin-bottom: .5rem;
+  }
+}
+
+/**
+ * Hozitontal card view mode
+*/
+
+.node.horizontal-card {
+  display: flex;
+  line-height: 1.7em
+}
+
+.node.horizontal-card > a {
+    flex: 0 0 140px
+  }
+
+.node.horizontal-card > a + .content {
+      margin-left: 1em;
+    }
+
+.node.horizontal-card h3 {
+    line-height: 1.4;
+    margin: 0 0 .5em;
+  }
+
+.node.horizontal-card h3 a,
+  .node.horizontal-card .speaker-name-institution a {
+    text-decoration: none
+  }
+
+.node.horizontal-card h3 a:hover, .node.horizontal-card h3 a:focus, .node.horizontal-card .speaker-name-institution a:hover, .node.horizontal-card .speaker-name-institution a:focus {
+      text-decoration: underline;
+    }
+
+@media all and (max-width: 600px) {
+  .node.horizontal-card > a {
+    display: none
+  }
+    .node.horizontal-card > a + .content {
+      margin-left: 0;
+    }
+}
+
+/**
+ * Teaser view mode
+*/
+
+.node.teaser {
+  display: flex
+}
+
+.node.teaser > a {
+    flex: 0 0 auto;
+    margin-right: var(--gutter-standard);
+  }
+
+.node.teaser h2 {
+    text-transform: none;
+    margin: 0 0 .3em
+  }
+
+.node.teaser h2 a {
+      text-decoration: none
+    }
+
+.node.teaser h2 a:hover, .node.teaser h2 a:focus {
+        text-decoration: underline;
+      }
+
+/* Hide/show abstract (teasers) */
+
+.node-content.has-collapse .field--name-field-collection-description,
+  .node-content.has-collapse .field--name-field-talk-abstract {
+    position: relative
+  }
+
+.node-content.has-collapse .field--name-field-collection-description:after, .node-content.has-collapse .field--name-field-talk-abstract:after {
+      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
+      content: '';
+      display: block;
+      width: 100%;
+      height: 3rem;
+      position: absolute;
+      bottom: 0;
+      opacity: 1;
+      transition: .3s opacity 1s;
+    }
+
+.field--name-field-collection-description,
+.field--name-field-talk-abstract {
+  transition: max-height .3s;
+  margin-bottom: 1rem
+}
+
+.field--name-field-collection-description p:first-child, .field--name-field-talk-abstract p:first-child {
+    margin-top: 0;
+  }
+
+.collapse-abstract .field--name-field-talk-abstract,
+  .collapse-abstract .field--name-field-collection-description {
+    max-height: 6.5rem;
+    overflow: hidden;
+    position: relative;
+  }
+
+.node-content.show-abstract .field--name-field-talk-abstract,
+  .node-content.show-abstract .field--name-field-collection-description {
+    max-height: 100%
+  }
+
+.node-content.show-abstract .field--name-field-talk-abstract:after, .node-content.show-abstract .field--name-field-collection-description:after {
+      opacity: 0;
+    }
+
+button.show-more {
+  background: transparent;
+  color: var(--color-default-text);
+  font-size: .85rem;
+  font-weight: 500
+}
+
+button.show-more:before {
+    font-size: 1.8rem;
+    display: inline-block;
+    margin-right: .5rem;
+    vertical-align: middle;
+  }
+
+button.show-more.show:before {
+    content: '+';
+    margin-top: -0.3rem;
+  }
+
+button.show-more.hide:before {
+    content: '\2013';
+    margin-top: -.5rem;
+  }
+
+/*# sourceMappingURL=nodes.css.map */

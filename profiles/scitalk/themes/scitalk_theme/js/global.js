@@ -20,38 +20,16 @@
   /**
    * View display toggle
   */
-  Drupal.behaviors.scitalk_toggleAdvancedSearch = {
-    attach: function (context, settings) {
-      $('.open-advanced-search').click(function() {
-        $('.region-left-nav .menu--main').addClass('hide');
-        $('body').delay(100).addClass('adv-search-open');
-        $('.open-advanced-search, .close-advanced-search').attr('aria-expanded','true');
-      })
-
-      $('.close-advanced-search').click(function() {
-        $('body').removeClass('adv-search-open');
-        $('.open-advanced-search, .close-advanced-search').attr('aria-expanded','false');
-        $('.region-left-nav .menu--main').removeClass('hide');
-      })
-
-      // Open by default on Search landing page
-      if ((drupalSettings.scitalk.is_search_page == 'true') &&
-        (context == document)) {
-        $('.open-advanced-search').trigger('click');
-      }
-    }
-  };
-  /**
-   * View display toggle
-  */
   Drupal.behaviors.scitalk_toggleViewDisplay = {
     attach: function (context, settings) {
 
       $('button.switch-display', context).click(function() {
+        $('button.switch-display.active').removeClass('active');
         var target = $(this).data('target');
         $('.view-display').addClass('hidden');
         $('.view-display[data-display=' + target + ']').removeClass('hidden');
         $(this).parents('.adv-view-wrapper').attr('data-show-display', target);
+        $(this).addClass('active');
       });
 
       // Add a wrapper that will persist when page is changed via ajax
@@ -65,6 +43,11 @@
         var target = $('.adv-view-wrapper').attr('data-show-display');
         $('.view-display').addClass('hidden');
         $('.view-display[data-display=' + target + ']').removeClass('hidden');
+
+        // And that the right button is highlighted
+        $('button.switch-display.active').removeClass('active');
+        $('button.switch-display[data-target="' + target + '"]').addClass('active');
+
       }
     }
   };
@@ -78,7 +61,6 @@
       $('.advanced-view-header details[open]').removeAttr('open');
     }
   };
-
 
   /**
    * Teaser hide/show toggle

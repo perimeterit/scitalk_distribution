@@ -41,8 +41,13 @@ nav a {
   }
 
 .pager a:hover, .pager a:focus {
-      background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.2);
     }
+
+.pager .is-active a {
+    background: var(--color-primary);
+    color: var(--color-primary--foreground);
+  }
 
 .pager__item--next a:after,
 .pager__item--last a:after  {

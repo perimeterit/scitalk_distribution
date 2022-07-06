@@ -337,9 +337,10 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
     ];
     $view = $form_state->getStorage('view');
     $display = $view['display']['id'];
-    // Convert Talk Source field to dropdown
+    // In advanced search form, convert Source Repository field to dropdown
     if ((in_array($view['view']->id(), $view_machine_names)) &&
         ($view['display']['id'] != 'basic_search')) {
+
       // Get all the groups
       $query = \Drupal::entityQuery('group')
       ->condition('type', 'source_repository');
@@ -347,20 +348,24 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
       $group_options = ['' => 'All'];
       $group_storage =  \Drupal::entityTypeManager()->getStorage('group');
       $groups = $group_storage->loadMultiple($group_ids);
+
+
       if (count($groups) > 1) {
         // Create the options array with the group id and group name
         foreach ($groups as $id => $group) {
           $group_title = $group->get('label')->getValue();
-          $group_options[$id] = $group_title[0]['value'];
+          $group_options[$group_title[0]['value']] = $group_title[0]['value'];
         }
+        // Convert this field to a select field
+        $form['source']['#default_value'] =   'All';
 
-        $form['field_talk_source']['#default_value'] =   'All';
+        $form['source']['#type'] = 'select';
+        $form['source']['#options'] = $group_options;
 
-        $form['field_talk_source']['#type'] = 'select';
-        $form['field_talk_source']['#options'] = $group_options;
-        unset($form['field_talk_source']['#size']);
+        // Unset the size value so it doesn't display as a textfield
+        unset($form['source']['#size']);
       } else {
-        $form['field_talk_source']['#access'] = FALSE;
+        $form['source']['#access'] = FALSE;
       }
     }
   }

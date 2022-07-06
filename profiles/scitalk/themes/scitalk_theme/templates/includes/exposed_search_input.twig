@@ -1,23 +1,48 @@
-{# Exposed search input string #}
+{# Exposed search input string - for Talks or Collections #}
 
 {{ 'Search results'|t }}
-{% if exposed_input.text is not empty %}
-  {{ 'for'|t }} <em>"{{ exposed_input.text }}"</em>
+{# rewrite for collections #}
+{% if exposed_input.collection_text %}
+  {% set text = exposed_input.collection_text %}
+  {% set title = exposed_input.collection_title %}
+  {% set type = exposed_input.collection_type %}
+  {% set from = exposed_input.collection_from %}
+  {% set to = exposed_input.collection_to %}
+{% else %}
+  {% set text = exposed_input.text %}
+  {% set title = exposed_input.title %}
+  {% set type = exposed_input.type %}
+  {% set from = exposed_input.from %}
+  {% set to = exposed_input.to %}
 {% endif %}
 
-{% if exposed_input.from is not empty %}
-  {{ 'from'|t }} <em>{{ exposed_input.from }}</em>
+
+{% if text is not empty %}
+  {{ 'for'|t }} <em>"{{ text }}"</em>
 {% endif %}
 
-{% if exposed_input.from is empty and exposed_input.to is not empty %}
+{% if title is not empty %}
+  {% if text is not empty %}
+    {{ 'and'|t }}
+  {% else %}
+    {{ 'for'|t }}
+  {% endif %}
+   <em>"{{ title }}"</em>
+{% endif %}
+
+{% if from is not empty %}
+  {{ 'from'|t }} <em>{{ from }}</em>
+{% endif %}
+
+{% if from is empty and to is not empty %}
   {{ ' from the beginning '|t }}
 {% endif %}
 
-{% if exposed_input.to is not empty %}
-  {{ 'to'|t }} <em>{{ exposed_input.from }}</em>
+{% if to is not empty %}
+  {{ 'to'|t }} <em>{{ from }}</em>
 {% endif %}
 
-{% if exposed_input.from is not empty and exposed_input.to is empty %}
+{% if from is not empty and to is empty %}
   {{ ' to <em>today</em>'|t }}
 {% endif %}
 
@@ -47,13 +72,12 @@
 {% endif %}
 
 {# Need to get the term name from this tid #}
-{% if exposed_input.type is not empty and  exposed_input.type != "All" %}
-
+{% if type is not empty and type != "All" %}
   {{ 'in'|t }}
-  {% set num_terms = exposed_input.type|length %}
+  {% set num_terms = type|length %}
   {% set sa_terms = [] %}
   {% set count = 1 %}
-  {% for key, tid in exposed_input.type %}
+  {% for key, tid in type %}
     {# add some connecting text for multiple values #}
     {% if (count == num_terms) and (count != 1) %}
       {{ 'and'|t }}
@@ -65,8 +89,10 @@
     <em>{{ type_term['#taxonomy_term'].name.0.value }}</em>
     {% set count = count + 1 %}
   {% endfor %}
+{% endif %}
 
-
-
-
+{% if exposed_input.source is not empty and
+  exposed_input.source != "All" %}
+  {{ 'from'|t }}
+  <em>{{ exposed_input.source}}</em>
 {% endif %}

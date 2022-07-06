@@ -96,7 +96,6 @@
         }
         & .form-text {
           flex: 1 0 auto;
-          font-size: 1em;
           width: 100%;
         }
         & .form-actions {
@@ -151,7 +150,7 @@
     padding: 0.7rem 1rem;
     &:matches(:hover,:focus) {
       background: var(--color-secondary);
-      color: var(--color-primary--foreground);
+      color: var(--color-secondary--foreground);
     }
   }
   & .active-trail a {

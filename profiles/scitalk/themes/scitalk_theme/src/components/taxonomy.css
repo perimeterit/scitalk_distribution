@@ -14,6 +14,8 @@
    }
  }
 
+.tag,
+.field--name-field-talk-subject,
 .field--name-field-scientific-area,
 .field--name-field-talk-type {
   & a {
@@ -21,6 +23,13 @@
     &:matches(:hover,:focus) {
       @mixin tag-hover;
     }
+  }
+}
+
+.field--name-field-talk-collection {
+  & li:not(:last-child):after {
+    content: ',';
+    display: inline-block;
   }
 }
 

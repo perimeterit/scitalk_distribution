@@ -29,7 +29,7 @@
       height: 1.5em;
       width: 1.5em;
     }
-.view-display-toggle button:hover, .view-display-toggle button:focus {
+.view-display-toggle button.active, .view-display-toggle button:hover, .view-display-toggle button:focus {
       background: var(--color-lt-grey);
       border-bottom-color: var(--color-primary);
       color: var(--color-primary);

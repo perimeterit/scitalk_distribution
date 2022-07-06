@@ -1,3 +1,4 @@
+uuid: 77215574-0aa1-4c9c-a514-7fe73faee756
 langcode: en
 status: true
 dependencies:
@@ -13,12 +14,15 @@ dependencies:
     - field.field.node.collection.field_collection_source_repo
     - field.field.node.collection.field_collection_subject
     - field.field.node.collection.field_collection_type
+    - field.field.node.collection.field_parent_collection
     - node.type.collection
   module:
     - date_all_day
     - link
     - path
     - text
+_core:
+  default_config_hash: rRXfW4ombXun7f-qhH_rXh5fb49OeR_S-FlwVFa27Fk
 id: node.collection.default
 targetEntityType: node
 bundle: collection
@@ -26,7 +30,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 14
+    weight: 15
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -115,16 +119,26 @@ content:
     third_party_settings: {  }
     type: entity_reference_autocomplete
     region: content
+  field_parent_collection:
+    type: entity_reference_autocomplete
+    weight: 11
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 12
+    weight: 13
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
   path:
     type: path
-    weight: 17
+    weight: 18
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -132,21 +146,21 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 15
+    weight: 16
     region: content
     third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 11
+    weight: 12
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 16
+    weight: 17
     region: content
     third_party_settings: {  }
   title:
@@ -159,7 +173,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 13
+    weight: 14
     settings:
       match_operator: CONTAINS
       size: 60
@@ -169,4 +183,3 @@ content:
     third_party_settings: {  }
 hidden:
   feeds_item: true
-

@@ -15,14 +15,32 @@
   ]
 %}
 
+{% if count_talks_in_collection or count_child_collections %}
+  {% set collection_has_children = TRUE %}
+  {% if count_talks_in_collection == 1 %}
+     {% set talks_label = 'talk'|t %}
+  {% elseif count_talks_in_collection > 1 %}
+      {% set talks_label = 'talks'|t %}
+  {% endif %}
+  {% if count_child_collections == 1 %}
+     {% set collections_label = 'sub-collection'|t %}
+  {% elseif count_child_collections > 1  %}
+      {% set collections_label = 'sub-collections'|t %}
+  {% endif %}
+{% endif %}
+
 <article{{ attributes.addClass(classes) }}>
   {% block content %}
     {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
+    <div class="info">
+      {# Output number of talks & child collections #}
+      {% embed "@scitalk_theme/includes/collection-child-count.twig" %}{% endembed %}
 
-    <div class="content">
-      {{ content }}
+      {{ content|without('links','field_collection_description', 'field_parent_collection') }}
     </div>
-    {# drupal_view is from Twig Tweak #}
+    <div class="content">
+      {{ content.field_collection_description }}
+    </div>
     {{ drupal_view('scitalk_talks_in_collection','card_view') }}
   {% endblock %}
 </article>

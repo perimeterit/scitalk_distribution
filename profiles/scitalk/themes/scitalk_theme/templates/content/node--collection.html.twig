@@ -1,0 +1,71 @@
+{#
+/**
+ * @file
+ * Custom theme implementation to display a Collection node.
+ *
+ * @ingroup themeable
+ */
+#}
+{%
+  set classes = [
+    'node',
+    node.bundle|clean_class,
+    view_mode ? view_mode|clean_class,
+  ]
+%}
+
+{% if count_talks_in_collection or count_child_collections %}
+  {% set collection_has_children = TRUE %}
+  {% if count_talks_in_collection == 1 %}
+     {% set talks_label = 'talk'|t %}
+  {% elseif count_talks_in_collection > 1 %}
+      {% set talks_label = 'talks'|t %}
+  {% endif %}
+  {% if count_child_collections == 1 %}
+     {% set collections_label = 'sub-collection'|t %}
+  {% elseif count_child_collections > 1  %}
+      {% set collections_label = 'sub-collections'|t %}
+  {% endif %}
+{% endif %}
+
+<div class="collection-wrapper {{ collection_has_children ? 'collection-has-children'}}">
+  <article{{ attributes.addClass(classes) }}>
+    {% if view_mode == 'teaser' and content.field_collection_description.0['#text']|length > 200 %}
+      {% set show_show_more = TRUE %}
+      {% set content_classes = ['collapse-abstract', 'has-collapse'] %}
+    {% endif %}
+    {{ drupal_view('scitalk_talks_in_collection', 'collection_thumbnail', node.id, node.id) }}
+
+    <div{{ content_attributes.addClass(content_classes,'content node-content') }}>
+      {{ content.field_parent_collection }}
+      {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
+      <div class="info">
+        {# Output number of talks & child collections #}
+        {% embed "@scitalk_theme/includes/collection-child-count.twig" %}{% endembed %}
+
+        {{ content|without('links','field_collection_description', 'field_parent_collection') }}
+      </div>
+      {% if view_mode == 'teaser' %}
+        {{ content.field_collection_description }}
+        {% if show_show_more == TRUE %}
+          <button class="show-more show" aria-hidden="hidden" data-hide-text="{{'Hide'}}" data-show-text="{{'Show more'}}">{{'Show more'|t}}</button>
+        {% endif %}
+      {% endif %}
+
+      {% if collection_has_children %}
+        <button class="toggle-children" data-collection-id="{{view_mode}}--{{ node.id }}" aria-expanded="false" aria-controls="collection-children--{{ view_mode }}--{{node.id}}">
+          {% if count_talks_in_collection and count_child_collections %}
+            {% set combinator = 'and'|t %}
+          {% endif %}
+           <span class="label-prefix">{{ 'Show'|t }}</span> {{ talks_label ~ ' ' ~ combinator ~ ' ' ~ collections_label }}
+        </button>
+      {% endif %}
+    </div>
+  </article>
+</div>
+
+{% if collection_has_children %}
+  <div id="collection-children--{{view_mode}}--{{node.id}}" class="collection-children" aria-hidden="true">
+    {{ drupal_view('scitalk_collection_children', 'card_view', node.id, node.id) }}
+  </div>
+{% endif %}

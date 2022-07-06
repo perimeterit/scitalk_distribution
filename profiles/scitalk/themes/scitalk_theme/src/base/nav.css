@@ -33,8 +33,13 @@ nav a {
     margin: .4rem .2rem;
     text-decoration: none;
     &:matches(:hover,:focus) {
-      background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.2);
     }
+  }
+
+  & .is-active a {
+    background: var(--color-primary);
+    color: var(--color-primary--foreground);
   }
 }
 .pager__item--next a:after,
