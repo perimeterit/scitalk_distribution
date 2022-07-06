@@ -136,6 +136,9 @@
         border-right: 1px solid var(--color-md-grey);
         padding-right: var(--gutter-standard);
       }
+      .group-taxonomy .field:nth-child(3):last-child {
+        border-right: none;
+      }
 }
 @media all and (max-width: 767px) {
   .date-doi {

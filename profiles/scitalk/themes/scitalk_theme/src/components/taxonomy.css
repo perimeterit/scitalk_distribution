@@ -14,7 +14,8 @@
    }
  }
 
- .field--name-field-talk-subject,
+.tag,
+.field--name-field-talk-subject,
 .field--name-field-scientific-area,
 .field--name-field-talk-type {
   & a {

@@ -39,6 +39,7 @@
 @media all and (min-width: 768px) {
   .node .info {
     display: flex;
+    align-items: center;
   }
 }
 @media all and (max-width: 767px) {

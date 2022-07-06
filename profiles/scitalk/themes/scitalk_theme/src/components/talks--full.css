@@ -146,6 +146,9 @@
         border-right: 1px solid var(--color-md-grey);
         padding-right: var(--gutter-standard);
       }
+      &:nth-child(3):last-child {
+        border-right: none;
+      }
     }
   }
 }
