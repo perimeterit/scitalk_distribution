@@ -152,6 +152,9 @@
 }
 
 .node.collection.full {
+  & .info .field--type-entity-reference  {
+    display: flex;
+  }
   & > .content {
     margin: 1rem 0;
   }
