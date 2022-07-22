@@ -29,3 +29,20 @@
   padding-left: var(--responsive-padding);
   padding-right: var(--responsive-padding);
 }
+
+/* Three column grid */
+
+.grid-4col,
+.grid-3col {
+  display: grid;
+  grid-gap: var(--gutter-standard);
+  grid-template-columns: 1fr 1fr;
+}
+@media all and (min-width: 960px) {
+  .grid-4col {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .grid-3col {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+}

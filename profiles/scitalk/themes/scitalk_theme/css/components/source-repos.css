@@ -1,18 +1,57 @@
 /**
  * Component CSS for Source Repositories
 */
+.view-source-repositories {
+  margin-top: var(--vertical-padding);
+}
+.group--source-repository.group--card .group-content {
+    margin-top: 1em;
+  }
+.group--source-repository.group--card a {
+    display: grid;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2em;
+    font-weight: bold;
+    line-height: 1.1;
+    text-align: center;
+    text-decoration: none;
+  }
+.group--source-repository.group--card .field--name-field-source-repo-logo img {
+    display: block;
+    max-height: 100%;
+    width: auto;
+    margin: 0 auto;
+    max-width: 200px;
+  }
+.group--source-repository.group--card .field--name-field-repo-institution-full-name {
+    font-weight: 400;
+    margin: .5rem 0;
+  }
+.no-talks-collections {
+  display: flex;
+  line-height: 1;
+  font-size: .9rem
+}
+.no-talks-collections li:nth-child(2) {
+    border-left: 1px solid;
+    margin-left: .5em;
+    padding-left: .5em;
+  }
 /* Teaser view mode (used on repositories view ) */
 @media all and (min-width: 768px) {
   .group--source-repository.group--card {
     display: grid;
-    grid-template-rows: 10em 1fr;
+    grid-template-rows: 10em 1fr
   }
-  .group--source-repository.group--card .field--name-field-source-repo-logo {
-    display: flex;
-    align-items: center;
-    height: 100%;
-    overflow: hidden;
-  }
+
+    .group--source-repository.group--card .field--name-field-source-repo-logo {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      overflow: hidden;
+    }
 }
 @media all and (max-width: 500px) {
   .view-source-repositories .grid-4col {
@@ -20,41 +59,11 @@
   }
   .group--source-repository.group--card {
     max-width: 350px;
-    margin: 0 auto 3em;
+    margin: 0 auto 3em
   }
-  .group--source-repository.group--card .field--name-field-source-repo-logo {
-    margin: 0 auto;
-  }
-}
-.group--source-repository.group--card .group-content {
-  margin-top: 1em;
-}
-.group--source-repository.group--card a {
-  display: grid;
-  align-items: center;
-  justify-content: center;
-
-  font-size: 2em;
-  font-weight: bold;
-  line-height: 1.1;
-  text-align: center;
-  text-decoration: none;
-}
-.group--source-repository.group--card .field--name-field-source-repo-logo img {
-  display: block;
-  max-height: 100%;
-  width: auto;
-  margin: 0 auto;
-  max-width: 200px;
-}
-.no-talks-collections {
-  display: flex;
-  line-height: 1;
-}
-.no-talks-collections li:nth-child(2) {
-  border-left: 1px solid;
-  margin-left: .5em;
-  padding-left: .5em;
+    .group--source-repository.group--card .field--name-field-source-repo-logo {
+      margin: 0 auto;
+    }
 }
 /* Full view mode */
 .visit-repo-button {
