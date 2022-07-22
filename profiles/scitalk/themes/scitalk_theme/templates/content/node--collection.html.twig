@@ -34,7 +34,10 @@
       {% set show_show_more = TRUE %}
       {% set content_classes = ['collapse-abstract', 'has-collapse'] %}
     {% endif %}
-    {{ drupal_view('scitalk_talks_in_collection', 'collection_thumbnail', node.id, node.id) }}
+    
+    {% block thumbnail %}
+      {{ drupal_view('scitalk_talks_in_collection', 'collection_thumbnail', node.id, node.id) }}
+    {% endblock %}
 
     <div{{ content_attributes.addClass(content_classes,'content node-content') }}>
       {{ content.field_parent_collection }}
