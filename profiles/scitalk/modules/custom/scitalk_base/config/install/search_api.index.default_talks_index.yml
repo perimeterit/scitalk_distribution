@@ -1,4 +1,4 @@
-uuid: dad7a9a0-29a8-491f-8140-26832428d8de
+uuid: 666a0cf6-4fd5-49b2-82fb-4eb6db44ee5e
 langcode: en
 status: true
 dependencies:
@@ -17,16 +17,20 @@ dependencies:
     - field.storage.node.field_talk_abstract
     - field.storage.node.body
     - field.storage.node.field_talk_collection
+    - field.storage.node.field_collection_date
+    - field.storage.node.field_collection_type
     - field.storage.node.field_talk_date
+    - field.storage.node.field_collection_description
     - field.storage.node.field_sp_display_name
     - field.storage.node.field_sp_first_name
+    - field.storage.node.field_scientific_area
     - field.storage.node.field_talk_source_repository
-    - field.storage.node.field_sp_speaker_profile
     - field.storage.node.field_talk_speaker_profile
+    - field.storage.node.field_sp_speaker_profile
     - field.storage.node.field_talk_subject
     - field.storage.node.field_talk_number
     - field.storage.node.field_talk_type
-    - search_api.server.database_server
+    - search_api.server.platform_solr
 third_party_settings:
   search_api_solr:
     finalize: false
@@ -83,6 +87,30 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.body
+  field_collection_date:
+    label: 'Collection Date'
+    datasource_id: 'entity:node'
+    property_path: field_collection_date
+    type: date
+    dependencies:
+      config:
+        - field.storage.node.field_collection_date
+  field_collection_description:
+    label: Description
+    datasource_id: 'entity:node'
+    property_path: field_collection_description
+    type: text
+    dependencies:
+      config:
+        - field.storage.node.field_collection_description
+  field_collection_type:
+    label: 'Collection Type'
+    datasource_id: 'entity:node'
+    property_path: field_collection_type
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_collection_type
   field_repo_institution:
     label: 'Source Repository � Group � Institution'
     datasource_id: 'entity:node'
@@ -110,6 +138,14 @@ field_settings:
     dependencies:
       config:
         - field.storage.group.field_repo_institution_full_name
+  field_scientific_area:
+    label: 'Scientific Area'
+    datasource_id: 'entity:node'
+    property_path: field_scientific_area
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_scientific_area
   field_source_repo_full_name:
     label: 'Repository Full Name'
     datasource_id: 'entity:group'
@@ -189,7 +225,7 @@ field_settings:
     label: Source
     datasource_id: 'entity:node'
     property_path: field_talk_source_repository
-    type: string
+    type: text
     dependencies:
       config:
         - field.storage.node.field_talk_source_repository
@@ -262,7 +298,7 @@ field_settings:
     label: Title
     datasource_id: 'entity:node'
     property_path: title
-    type: string
+    type: text
     dependencies:
       module:
         - node
@@ -309,6 +345,7 @@ datasource_settings:
 processor_settings:
   add_url: {  }
   aggregated_field: {  }
+  entity_type: {  }
   highlight:
     highlight: always
     highlight_partial: true
@@ -319,6 +356,7 @@ processor_settings:
     suffix: '</strong>'
     weights:
       postprocess_query: 0
+    excerpt_always: false
   html_filter:
     all_fields: false
     fields:
@@ -365,4 +403,5 @@ tracker_settings:
 options:
   index_directly: true
   cron_limit: 50
-server: database_server
+  track_changes_in_references: true
+server: platform_solr

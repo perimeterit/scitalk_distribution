@@ -72,11 +72,12 @@ display:
               allow_secondary: false
               secondary_label: 'Advanced options'
               secondary_open: false
+              reset_button_always_show: false
             sort:
               plugin_id: default
               advanced:
                 combine: true
-                combine_rewrite: ''
+                combine_rewrite: "Collection Date Asc|Date Oldest First\r\nCollection Date Desc|Date Newset First\r\nTitle Asc|Title A -> Z\r\nTitle Desc|Title Z -> A"
                 reset: false
                 reset_label: ''
                 collapsible: false

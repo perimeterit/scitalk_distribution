@@ -24,3 +24,4 @@ dependencies:
   - group:group
   - group:gnode
   - better_exposed_filters:better_exposed_filters
+  - views_field_view
