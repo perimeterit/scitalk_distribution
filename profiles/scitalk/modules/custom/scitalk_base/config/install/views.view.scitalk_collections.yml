@@ -85,7 +85,7 @@ display:
                 is_secondary: false
             filter:
               field_collection_type_target_id:
-                plugin_id: bef_links
+                plugin_id: bef
                 advanced:
                   sort_options: false
                   rewrite:
@@ -93,6 +93,8 @@ display:
                   collapsible: false
                   is_secondary: false
                 select_all_none: false
+                select_all_none_nested: false
+                display_inline: false
       pager:
         type: full
         options:
