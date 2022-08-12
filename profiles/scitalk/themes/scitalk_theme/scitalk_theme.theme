@@ -62,6 +62,10 @@ function scitalk_theme_preprocess_page(&$variables) {
       $variables['search_section'] = 'talks';
     }
   }
+  else {
+    $variables['search_section'] = 'talks';
+  }
+
 }
 
 /**
@@ -119,20 +123,21 @@ function scitalk_theme_preprocess_node(&$variables) {
 
 /**
  * Implements hook_preprocess_HOOK().
- * Alters variables for nodes.
+ * Alters variables for bef radios
+ * For Collection type field, get the count of items for that taxonomy term
  */
-function scitalk_theme_preprocess_bef_links(&$variables) {
-
-  // Get count of items from count_child_collections view.
-  foreach($variables['links'] as $key=>$item) {
-    $view = Views::getView('scitalk_collections');
-    // Get results for this filter value
-    $view->setDisplay('card_view');
-    $view->setItemsPerPage(0);
-    $exposed_filters = ['field_collection_type_target_id' => $key];
-    $view->setExposedInput($exposed_filters);
-    $view->execute();
-    $variables['element'][$key]['#result_count'] = count($view->result);
+function scitalk_theme_preprocess_bef_radios(&$variables) {
+  if ($variables['element']['#name'] == 'field_collection_type_target_id') {
+    foreach ($variables['children'] as $key => $child) {
+      // Get count of results for this term
+      $view = Views::getView('scitalk_collections');
+      $view->setDisplay('card_view');
+      $view->setItemsPerPage(0);
+      $exposed_filters = ['field_collection_type_target_id' => $child];
+      $view->setExposedInput($exposed_filters);
+      $view->execute();
+      $variables['element'][$child]['#field_prefix'] = count($view->result);
+    }
   }
 }
 /**
@@ -161,8 +166,8 @@ function scitalk_theme_preprocess_block(&$variables) {
  */
 function scitalk_theme_preprocess_field(&$variables) {
   $field_name = $variables['field_name'];
-
 }
+
 /*
  * Implements hook_preprocess_HOOK() for media entities.
  */
@@ -224,8 +229,12 @@ function scitalk_theme_preprocess_fieldset(&$variables) {
 }
 function scitalk_theme_preprocess_details(&$variables) {
  $variables['attributes']['class'][] = 'details--' . str_replace('_','-',strtolower($variables['element']['#title']));
-
 }
+
+function scitalk_theme_preprocess_form_element_label(&$variables) {
+  // dsm($variables);
+}
+
 /*
  Implements hook_form_alter()
  */

@@ -5,18 +5,11 @@
 @import "../base/mixins.css";
 
 /* Exposed type filter on Collections view */
-.bef-exposed-form .form-item-field-collection-type-target-id {
-  & label {
-    @mixin visually-hidden;
-  }
+.bef-exposed-form .fieldset--field-collection-type-target-id {
 
-  & .form-select.bef-links {
-    background: transparent;
-    display: block;
-    & ul {
-      display: flex;
-      text-align: center;
-    }
+  & .form-radios {
+    display: flex;
+    text-align: center;
   }
 
   & + .form-item-sort-bef-combine {
@@ -25,49 +18,83 @@
 }
 
 @media all and (max-width: 600px) {
-  .bef-exposed-form .form-item-field-collection-type-target-id {
-    & ul {
+  .bef-exposed-form .fieldset--field-collection-type-target-id {
+    & .form-radios {
       flex-direction: column;
-      & li {
-        display: block;
-      }
     }
   }
 }
-.bef-link {
-  border-bottom: 2px solid transparent;
-  font-size: 1.2em;
-  font-weight: 600;
-  padding: .5em 1.8em;
 
-  & strong {
+.block--scitalk-collections-extra-filters .form-radios .form-item {
+  font-size: 1em;
+  position: relative;
+  margin: 0 1rem;
+
+  & .field-prefix {
     display: block;
+    font-size: 1.125em;
+    font-weight: 400;
     color: var(--color-dk-grey);
+
+    margin-bottom: -2rem;
+    margin-top: .5rem;
+    opacity: .9;
+    position: relative;
+    top: .3rem;
+    z-index: 4;
   }
 
-  & a {
+  & label {
     color: inherit;
     display: block;
     text-decoration: none;
+
+    cursor: pointer;
+    margin-top: -2.7rem;
+    padding: 0 1rem;
+    position: relative;
+    z-index: 4;
   }
 
-  &:matches(:hover,:focus),
-  &.bef-link--selected {
-    background: var(--color-lt-grey);
-    border-bottom: 2px solid var(--color-primary);
-  }
-}
+  & input {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    border: none;
+    margin: 0;
+    padding: .5em 2.2em;
+    height: 5.5em;
+    width: 100%;
 
+    position: relative;
+    z-index: 0;
 
-@media all and (max-width: 600px) {
-  .bef-link {
-    padding: .5em .8em;
-    & a {
-      display: flex;
-      gap: .5rem;
+    &:matches(:hover, :focus, :checked) {
+      background: var(--color-lt-grey);
+      border: none;
+      border-bottom: 2px solid var(--color-primary);
+    }
+    &:matches(:focus) {
+      border: 2px solid var(--color-primary);
     }
   }
 }
+
+@media all and (max-width: 600px) {
+  .bef-exposed-form .fieldset--field-collection-type-target-id .form-radios  {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 1rem 0;
+    font-size: .9em;
+    & .form-item {
+      margin: 0;
+    }
+    & input {
+      padding: .5em 1.8em;
+    }
+  }
+}
+
 /* Layered box shadows */
 .collection-wrapper {
    position: relative;
@@ -106,6 +133,12 @@
      }
    }
 }
+@media all and (max-width: 600px) {
+  .collection-wrapper {
+    margin-left: 10px;
+  }
+}
+
 
 /* Expanded views */
 .collection-wrapper + .collection-children {

@@ -21,6 +21,9 @@
     background: transparent;
     cursor: pointer;
     padding: 0;
+    display: grid;
+    align-items: center;
+    justify-content: center;
     &:matches(:hover,:focus) {
       background: none;
     }
@@ -81,7 +84,7 @@
     & .advanced-search-form .form-submit + .form-submit,
     & .close-advanced-search svg {
       color: var(--color-secondary--foreground);
-    } 
+    }
     & details {
       color: var(--color-default-text);
     }

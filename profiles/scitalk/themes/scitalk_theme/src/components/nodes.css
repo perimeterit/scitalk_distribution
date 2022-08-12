@@ -42,11 +42,6 @@
     align-items: center;
   }
 }
-@media all and (max-width: 767px) {
-  .node .info > * {
-    margin-bottom: .5rem;
-  }
-}
 /**
  * Hozitontal card view mode
 */
