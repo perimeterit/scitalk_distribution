@@ -50,14 +50,14 @@
   {{ 'by'|t }} <em>{{ exposed_input.speaker }}</em>
 {% endif %}
 
-{% if exposed_input.area is not empty and
-  exposed_input.area != "All" %}
+{% if exposed_input.field_talk_subject is not empty and
+  exposed_input.field_talk_subject != "All" %}
   {{ 'in'|t }}
-  {% set num_terms = exposed_input.area|length %}
+  {% set num_terms = exposed_input.field_talk_subject|length %}
   {% set sa_terms = [] %}
   {% set count = 1 %}
 
-  {% for key, tid in exposed_input.area %}
+  {% for key, tid in exposed_input.field_talk_subject %}
     {# add some connecting text for multiple values #}
     {% if (count == num_terms) and (count != 1) %}
       {{ 'and'|t }}
