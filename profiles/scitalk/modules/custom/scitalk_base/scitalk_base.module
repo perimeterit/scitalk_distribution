@@ -243,6 +243,22 @@ function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
 }
 
 /**
+ * Implements hook_ENTITY_TYPE_delete()
+ */
+function scitalk_base_node_delete(Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->getType() == 'talk') {
+    if (_scitalk_base_use_doi($entity)) {
+      //when deleting a Talk, try to delete its DOI from remote
+      $talk_doi = $entity->field_talk_doi->value ?? '';
+      if (!empty($talk_doi)) {
+        $doi = \Drupal::service('scitalk_base.datacite_dois');
+        $doi->delete($talk_doi);
+      }
+    }
+  }
+}
+
+/**
  * Implements hook_ENTITY_TYPE_presave()
  */
 function scitalk_base_taxonomy_term_presave(Drupal\taxonomy\Entity\Term $taxonomy) {
