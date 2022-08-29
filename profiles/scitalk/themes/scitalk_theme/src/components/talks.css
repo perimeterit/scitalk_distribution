@@ -106,16 +106,6 @@
       margin-left: 1em;
     }
   }
-  & h3 {
-    margin: 0 0 .5em;
-  }
-  & h3 a,
-  & .speaker-name-institution a {
-    text-decoration: none;
-    &:matches(:hover,:focus) {
-      text-decoration: underline;
-    }
-  }
 }
 @media all and (max-width: 600px) {
   .node.talk.horizontal-card > a {
@@ -130,18 +120,10 @@
 */
 .node.talk.teaser {
   display: flex;
+
   & > a {
     flex: 0 0 auto;
     margin-right: var(--gutter-standard);
   }
-  & h2 {
-    text-transform: none;
-    margin: 0 0 .3em;
-    & a {
-      text-decoration: none;
-      &:matches(:hover,:focus) {
-        text-decoration: underline;
-      }
-    }
-  }
+
 }

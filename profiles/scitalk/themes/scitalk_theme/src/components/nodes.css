@@ -89,16 +89,6 @@
     flex: 0 0 auto;
     margin-right: var(--gutter-standard);
   }
-  & h2 {
-    text-transform: none;
-    margin: 0 0 .3em;
-    & a {
-      text-decoration: none;
-      &:matches(:hover,:focus) {
-        text-decoration: underline;
-      }
-    }
-  }
 }
 
 /* Hide/show abstract (teasers) */

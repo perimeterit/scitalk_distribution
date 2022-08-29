@@ -121,19 +121,6 @@
       margin-left: 1em;
     }
 
-.node.talk.horizontal-card h3 {
-    margin: 0 0 .5em;
-  }
-
-.node.talk.horizontal-card h3 a,
-  .node.talk.horizontal-card .speaker-name-institution a {
-    text-decoration: none
-  }
-
-.node.talk.horizontal-card h3 a:hover, .node.talk.horizontal-card h3 a:focus, .node.talk.horizontal-card .speaker-name-institution a:hover, .node.talk.horizontal-card .speaker-name-institution a:focus {
-      text-decoration: underline;
-    }
-
 @media all and (max-width: 600px) {
   .node.talk.horizontal-card > a {
     display: none
@@ -149,24 +136,12 @@
 
 .node.talk.teaser {
   display: flex
+
 }
 
 .node.talk.teaser > a {
     flex: 0 0 auto;
     margin-right: var(--gutter-standard);
   }
-
-.node.talk.teaser h2 {
-    text-transform: none;
-    margin: 0 0 .3em
-  }
-
-.node.talk.teaser h2 a {
-      text-decoration: none
-    }
-
-.node.talk.teaser h2 a:hover, .node.talk.teaser h2 a:focus {
-        text-decoration: underline;
-      }
 
 /*# sourceMappingURL=talks.css.map */

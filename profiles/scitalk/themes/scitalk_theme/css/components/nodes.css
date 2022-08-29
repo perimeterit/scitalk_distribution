@@ -108,19 +108,6 @@
     margin-right: var(--gutter-standard);
   }
 
-.node.teaser h2 {
-    text-transform: none;
-    margin: 0 0 .3em
-  }
-
-.node.teaser h2 a {
-      text-decoration: none
-    }
-
-.node.teaser h2 a:hover, .node.teaser h2 a:focus {
-        text-decoration: underline;
-      }
-
 /* Hide/show abstract (teasers) */
 
 .node-content.has-collapse .field--name-field-collection-description,
