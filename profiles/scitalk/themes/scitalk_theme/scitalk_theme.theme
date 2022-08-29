@@ -125,7 +125,7 @@ function scitalk_theme_preprocess_node(&$variables) {
   $route = \Drupal::routeMatch()->getRouteObject();
   $view_id = $route->getDefault('view_id');
   if (isset($view_id)) {
-    $variables['is_view_page'] == TRUE;
+    $variables['is_view_page'] = TRUE;
   }
 
 }
