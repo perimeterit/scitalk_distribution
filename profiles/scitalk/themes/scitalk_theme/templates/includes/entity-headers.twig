@@ -8,8 +8,8 @@
 {% endif %}
 
 {% if not page and (view_mode != 'page_header') %}
-  <{{hl}}{{ title_attributes }}>
+  <h{{hl}}{{ title_attributes }}>
       <a href="{{ url }}" rel="bookmark">{{ label }}</a>
-  </{{hl}}>
+  </h{{hl}}>
 {% endif %}
 {{ title_suffix }}
