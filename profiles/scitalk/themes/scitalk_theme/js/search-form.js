@@ -1,8 +1,6 @@
-
 (function ($, Drupal, drupalSettings) {
   Drupal.behaviors.scitalk_toggleAdvancedSearch = {
     attach: function (context, settings) {
-
 
       // Open advanced search form
       $('.open-advanced-search').click(function() {
@@ -18,7 +16,7 @@
       })
 
       // Open by default on Search landing page
-      if ((drupalSettings.scitalk.is_search_page == 'true') &&
+      if ((drupalSettings.scitalk_theme.is_search_page == 'true') &&
         (context == document)) {
         $('.open-advanced-search').trigger('click');
       }
@@ -28,6 +26,14 @@
           $('.search-form').addClass('closed');
           $('.search-form--' + this.value).removeClass('closed');
       });
+
+
+      // On Source Repo pages, pre-populate Source field
+      if ((drupalSettings.scitalk_theme.group_name).length > 0) {
+        $('#views-exposed-form-scitalk-advanced-search-form-block #edit-source')
+            .val(drupalSettings.scitalk_theme.group_name[0]['value']);
+      }
+
     }
   };
 })(jQuery, Drupal, drupalSettings);

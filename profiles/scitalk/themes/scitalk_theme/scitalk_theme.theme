@@ -68,6 +68,7 @@ function scitalk_theme_preprocess_page(&$variables) {
 
 }
 
+
 /**
  * Implements hook_preprocess_HOOK().
  * Alters variables for page title template.
@@ -119,6 +120,14 @@ function scitalk_theme_preprocess_node(&$variables) {
       ->count()->execute();
   }
 
+  // Find out if this is a page view
+  // Used to change the header level depending on whether this is a page view
+  $route = \Drupal::routeMatch()->getRouteObject();
+  $view_id = $route->getDefault('view_id');
+  if (isset($view_id)) {
+    $variables['is_view_page'] == TRUE;
+  }
+
 }
 
 /**
@@ -163,7 +172,7 @@ function scitalk_theme_preprocess_block(&$variables) {
     $plugin_parts = explode(':',$plugin_id);
     $variables['attributes']['class'][] = 'block--' . str_replace('_','-',$plugin_parts[1]);
   }
-  
+
   // Add search form classes to search exposed form, for default search view & solr search view
   if (($variables['derivative_plugin_id'] == 'default_search_content-page_2') ||
    ($variables['derivative_plugin_id'] == 'scitalk_advanced_search-basic_search')) {
@@ -214,6 +223,11 @@ function scitalk_theme_preprocess_group(&$variables) {
       $collections_count = $collections_view->total_rows;
       $variables['collections_view_count'] = $collections_count;
     }
+
+   // Send the group id and name to Javascript, used to set the default source
+   // On the advanced search form.
+   $variables['#attached']['drupalSettings']['scitalk_theme']['group_name'] = $group->label->getValue();
+
 }
 
 /**
@@ -240,10 +254,6 @@ function scitalk_theme_preprocess_fieldset(&$variables) {
 }
 function scitalk_theme_preprocess_details(&$variables) {
  $variables['attributes']['class'][] = 'details--' . str_replace('_','-',strtolower($variables['element']['#title']));
-}
-
-function scitalk_theme_preprocess_form_element_label(&$variables) {
-  // dsm($variables);
 }
 
 /*
@@ -333,8 +343,8 @@ function scitalk_theme_page_attachments_alter(array &$page) {
   $route = \Drupal::routeMatch();
   $routename = $route->getRouteName();
   $search_terms = \Drupal::request()->query->get('search_api_fulltext');
-  $page['#attached']['drupalSettings']['scitalk']['is_search_page'] = 'false';
+  $page['#attached']['drupalSettings']['scitalk_theme']['is_search_page'] = 'false';
   if ($routename == 'view.scitalk_advanced_search.advanced_search') {
-    $page['#attached']['drupalSettings']['scitalk']['is_search_page'] = 'true';
+    $page['#attached']['drupalSettings']['scitalk_theme']['is_search_page'] = 'true';
   }
 }
