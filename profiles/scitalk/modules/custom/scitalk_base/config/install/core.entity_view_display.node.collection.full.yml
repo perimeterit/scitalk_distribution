@@ -8,7 +8,6 @@ dependencies:
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
     - field.field.node.collection.field_collection_event_url
-    - field.field.node.collection.field_collection_location
     - field.field.node.collection.field_collection_number
     - field.field.node.collection.field_collection_organizers
     - field.field.node.collection.field_collection_public_viewable
@@ -66,7 +65,7 @@ content:
     type: text_default
     weight: 4
     region: content
-    label: hidden
+    label: inline
     settings: {  }
     third_party_settings:
       fences:
@@ -93,7 +92,7 @@ content:
     region: content
   field_collection_source_repo:
     weight: 6
-    label: hidden
+    label: inline
     settings:
       link: true
     third_party_settings:
@@ -146,7 +145,6 @@ content:
     third_party_settings: {  }
 hidden:
   field_collection_event_url: true
-  field_collection_location: true
   field_collection_organizers: true
   field_collection_public_viewable: true
   field_collection_short_desc: true

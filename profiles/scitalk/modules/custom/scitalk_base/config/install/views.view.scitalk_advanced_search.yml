@@ -75,7 +75,7 @@ display:
               plugin_id: default
               advanced:
                 combine: true
-                combine_rewrite: "Relevance Asc|\r\nRelevance Desc|Relevance\r\nDate Asc|Date Oldest First\r\nDate Desc|Date Newset First\r\nTitle Asc|Title A -> Z\r\nTitle Desc|Title Z -> A"
+                combine_rewrite: "Relevance Asc|\r\nRelevance Desc|Relevance\r\nDate Asc|Date Oldest First\r\nDate Desc|Date Newest First\r\nTitle Asc|Title A -> Z\r\nTitle Desc|Title Z -> A"
                 reset: false
                 reset_label: ''
                 collapsible: false
