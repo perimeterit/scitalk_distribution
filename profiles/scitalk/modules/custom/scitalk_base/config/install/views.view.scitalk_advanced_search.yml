@@ -1008,7 +1008,7 @@ display:
           alter:
             alter_text: true
             text: '<span class="icon"><span class="visually-hidden">{{ "View details"|t}}</span></span>'
-            make_link: true
+            make_link: false
             path: ''
             absolute: false
             external: false

@@ -1879,7 +1879,7 @@ display:
           alter:
             alter_text: true
             text: '<span class="info-icon"></span><span class="visually-hidden">{{ "View details"|t}}</span>'
-            make_link: true
+            make_link: false
             path: ''
             absolute: false
             external: false
