@@ -6,7 +6,6 @@ dependencies:
     module:
       - scitalk_base
   module:
-    - search_api_solr
     - group
     - node
     - search_api
@@ -30,7 +29,7 @@ dependencies:
     - field.storage.node.field_talk_subject
     - field.storage.node.field_talk_number
     - field.storage.node.field_talk_type
-    - search_api.server.platform_solr
+    - search_api.server.database_server
 third_party_settings:
   search_api_solr:
     finalize: false
@@ -404,4 +403,4 @@ options:
   index_directly: true
   cron_limit: 50
   track_changes_in_references: true
-server: platform_solr
+server: database_server
