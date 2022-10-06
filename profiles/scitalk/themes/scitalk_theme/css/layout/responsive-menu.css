@@ -26,7 +26,10 @@
 .mobile-toggle-icons button {
     background: transparent;
     cursor: pointer;
-    padding: 0
+    padding: 0;
+    display: grid;
+    align-items: center;
+    justify-content: center
   }
 .mobile-toggle-icons button:hover, .mobile-toggle-icons button:focus {
       background: none;
@@ -88,7 +91,7 @@
     .left-nav-wrapper .advanced-search-form .form-submit + .form-submit,
     .left-nav-wrapper .close-advanced-search svg {
       color: var(--color-secondary--foreground);
-    } 
+    }
     .left-nav-wrapper details {
       color: var(--color-default-text);
     }

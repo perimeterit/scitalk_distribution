@@ -13,6 +13,12 @@
  */
 #}
 {{ title_prefix }}
+{% if parent_collection_title %}
+  <a href="{{ path('entity.node.canonical', {'node': parent_collection_id}) }}" class="parent-collection-link">
+    {{ parent_collection_title}}
+  </a>
+{% endif %}
+
 {% if title %}
   <h1{{ title_attributes }}>{{ drupal_title() }}</h1>
 {% endif %}

@@ -121,19 +121,6 @@
       margin-left: 1em;
     }
 
-.node.talk.horizontal-card h3 {
-    margin: 0 0 .5em;
-  }
-
-.node.talk.horizontal-card h3 a,
-  .node.talk.horizontal-card .speaker-name-institution a {
-    text-decoration: none
-  }
-
-.node.talk.horizontal-card h3 a:hover, .node.talk.horizontal-card h3 a:focus, .node.talk.horizontal-card .speaker-name-institution a:hover, .node.talk.horizontal-card .speaker-name-institution a:focus {
-      text-decoration: underline;
-    }
-
 @media all and (max-width: 600px) {
   .node.talk.horizontal-card > a {
     display: none
@@ -149,75 +136,12 @@
 
 .node.talk.teaser {
   display: flex
+
 }
 
 .node.talk.teaser > a {
     flex: 0 0 auto;
     margin-right: var(--gutter-standard);
-  }
-
-.node.talk.teaser h2 {
-    text-transform: none;
-    margin: 0 0 .3em
-  }
-
-.node.talk.teaser h2 a {
-      text-decoration: none
-    }
-
-.node.talk.teaser h2 a:hover, .node.talk.teaser h2 a:focus {
-        text-decoration: underline;
-      }
-
-/* Hide/show abstract (teasers) */
-
-.field--name-field-talk-abstract {
-  transition: max-height .3s;
-  margin-bottom: 1rem;
-}
-
-.collapse-abstract .field--name-field-talk-abstract {
-    max-height: 6.5rem;
-    overflow: hidden;
-    position: relative
-  }
-
-.collapse-abstract .field--name-field-talk-abstract:after {
-      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
-      content: '';
-      display: block;
-      width: 100%;
-      height: 3rem;
-      position: absolute;
-      bottom: 0;
-    }
-
-.show-abstract .field--name-field-talk-abstract {
-    max-height: 100%;
-  }
-
-button.show-more {
-  background: transparent;
-  color: var(--color-default-text);
-  font-size: .85rem;
-  font-weight: 500
-}
-
-button.show-more:before {
-    font-size: 1.8rem;
-    display: inline-block;
-    margin-right: .5rem;
-    vertical-align: middle;
-  }
-
-button.show-more.show:before {
-    content: '+';
-    margin-top: -0.3rem;
-  }
-
-button.show-more.hide:before {
-    content: '\2013';
-    margin-top: -.5rem;
   }
 
 /*# sourceMappingURL=talks.css.map */

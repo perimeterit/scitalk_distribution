@@ -1,4 +1,4 @@
-uuid: cfa994ae-1878-43e8-a02f-606ca77244ea
+uuid: 066be3d0-a274-4036-b219-d98fd546000a
 langcode: en
 status: true
 dependencies:
@@ -41,7 +41,7 @@ third_party_settings:
       children:
         - field_talk_attachments
       parent_name: ''
-      weight: 14
+      weight: 24
       format_type: html_element
       format_settings:
         element: div
@@ -58,7 +58,7 @@ third_party_settings:
     group_talk_details:
       children: {  }
       parent_name: ''
-      weight: 8
+      weight: 23
       format_type: html_element
       format_settings:
         element: div
@@ -79,21 +79,6 @@ targetEntityType: node
 bundle: talk
 mode: default
 content:
-  field_scientific_area:
-    type: entity_reference_label
-    weight: 5
-    region: content
-    label: hidden
-    settings:
-      link: true
-    third_party_settings:
-      fences:
-        fences_field_tag: ul
-        fences_field_classes: inline-list
-        fences_field_item_tag: li
-        fences_field_item_classes: ''
-        fences_label_tag: strong
-        fences_label_classes: ''
   field_talk_abstract:
     weight: 6
     label: hidden
@@ -169,6 +154,14 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
+  field_talk_subject:
+    type: entity_reference_label
+    weight: 5
+    region: content
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
   field_talk_thumbnail:
     type: scitalk_thumbnail_formatter
     weight: 0
@@ -188,6 +181,7 @@ content:
 hidden:
   feeds_item: true
   field_embargo_date: true
+  field_scientific_area: true
   field_talk_attachments: true
   field_talk_collection: true
   field_talk_doi: true
@@ -195,7 +189,6 @@ hidden:
   field_talk_location: true
   field_talk_source_event: true
   field_talk_source_repository: true
-  field_talk_subject: true
   field_talk_type: true
   field_talk_video: true
   field_talk_video_url: true

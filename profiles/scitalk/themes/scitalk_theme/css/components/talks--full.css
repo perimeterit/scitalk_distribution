@@ -47,15 +47,18 @@
 }
 /* Page title region & buttons */
 .node.talk.full .region-page-title {
-  display: grid;
-  align-items: start;
-}
+    display: grid;
+    align-items: start;
+  }
+.node.talk.full .speakers {
+    margin-bottom: .5rem;
+  }
 @media all and (min-width: 768px) {
     .node.talk.full .region-page-title {
       grid-template-columns: auto 6rem 6rem;
     }
     .node.talk.full h1 {
-      margin: 0 0 1rem;
+      margin: 0 0 .8rem;
     }
     .node.talk.full .block-pagetitle {
       margin-right: var(--gutter-standard);
@@ -84,21 +87,16 @@
 .node.talk.full .talk-metadata:last-child, .node.talk.full .field--name-field-talk-abstract:last-child, .node.talk.full .field--name-field-talk-resources:last-child {
       margin-bottom: 0;
     }
-.node.talk.full .info {
-    display: flex;
-    margin: 2rem 0 0 .2rem
+.node.talk.full .date-doi {
+    margin-top: .5rem;
   }
-.node.talk.full .info div:first-child {
-      padding-left: 0;
-    }
 .node.talk.full .group-taxonomy {
-    display: block;
-    margin-top: 0;
+    margin: 1rem 0 0 .5rem;
   }
 .node.talk.full .talk-metadata .field {
     margin-bottom: .8rem
   }
-.node.talk.full .talk-metadata .field.field--name-field-scientific-area {
+.node.talk.full .talk-metadata .field.field--name-field-talk-subject {
      margin-bottom: .67rem;
     }
 .group-taxonomy {
@@ -108,27 +106,42 @@
     display: flex;
   }
 .group-taxonomy .field__label {
-    flex: 0 0 6rem;
     font-weight: normal;
+    white-space: nowrap;
+  }
+.group-taxonomy ul {
+    margin: 0;
+    padding: 0;
   }
 .group-taxonomy li {
-    display: inline-block;
+    display: inline;
     margin-bottom: .4rem;
   }
+.group-taxonomy .field--name-field-talk-subject a,
+  .group-taxonomy .field--name-field-talk-type a {
+    margin-bottom: .5rem;
+  }
 @media all and (min-width: 768px) {
-  .talk-metadata {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: var(--gutter-standard);
-  }
   .group-taxonomy {
-    border-left: 1px solid var(--color-md-grey);
-    padding-left: var(--gutter-standard);
-    margin-left: calc(-.5 * var(--gutter-standard));
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 0 var(--gutter-standard);
+    align-items: start;
+    justify-content: start
   }
+      .group-taxonomy .field:nth-child(-n + 2 ) {
+        padding-bottom: .8rem;
+      }
+      .group-taxonomy .field:nth-child(odd) {
+        border-right: 1px solid var(--color-md-grey);
+        padding-right: var(--gutter-standard);
+      }
+      .group-taxonomy .field:nth-child(3):last-child {
+        border-right: none;
+      }
 }
 @media all and (max-width: 767px) {
-  .speaker-date-doi {
+  .date-doi {
     border-bottom: 1px solid var(--color-md-grey);
     margin-bottom: 2rem;
     padding-bottom: 1rem;

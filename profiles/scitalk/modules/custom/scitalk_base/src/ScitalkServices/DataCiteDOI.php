@@ -67,6 +67,15 @@ class DataCiteDOI {
   }
 
   /**
+   * Delete DOI by id
+   *
+   * @param string doi
+   */
+  public function delete($doi) {
+    return $this->deleteDOI($doi);
+  }
+
+  /**
    * Fetch DOI by id
    *
    * @param string doi
@@ -147,6 +156,33 @@ class DataCiteDOI {
     }
     finally {
       return $doi_id;
+    }
+
+  }
+
+  private function deleteDOI($doi_id) {
+    $url = $this->doi_api_url . $doi_id;
+    $client = \Drupal::httpClient();
+
+    $params = [
+      'auth' => [$this->datacite_user,$this->datacite_pwd]
+    ];
+
+    try {
+      $request = $client->delete($url, $params);
+
+      $msg = "DOI {$doi_id} deleted.";
+      drupal_set_message(t($msg), 'notice');
+    }
+    catch (ClientException | RequestException | ConnectException | GuzzleException | BadResponseException | ServerException $e) {
+      if (!empty($res = $e->getResponse()->getBody()->getContents())) {
+        $err = json_decode($res);
+        $msg = 'DOI delete error: ' . ( $err->errors[0]->title ?? '');
+        $msg .= "<br>(Perhaps DOI {$doi_id} has already been Registered and cannot be deleted)";
+        drupal_set_message(t($msg), 'error');
+      }
+
+      \Drupal::logger('scitalk_base')->error('DOI ERROR: ' . print_r($e->getMessage() , TRUE) );
     }
 
   }

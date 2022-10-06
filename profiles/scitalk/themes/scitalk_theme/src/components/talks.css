@@ -106,16 +106,6 @@
       margin-left: 1em;
     }
   }
-  & h3 {
-    margin: 0 0 .5em;
-  }
-  & h3 a,
-  & .speaker-name-institution a {
-    text-decoration: none;
-    &:matches(:hover,:focus) {
-      text-decoration: underline;
-    }
-  }
 }
 @media all and (max-width: 600px) {
   .node.talk.horizontal-card > a {
@@ -130,65 +120,10 @@
 */
 .node.talk.teaser {
   display: flex;
+
   & > a {
     flex: 0 0 auto;
     margin-right: var(--gutter-standard);
   }
-  & h2 {
-    text-transform: none;
-    margin: 0 0 .3em;
-    & a {
-      text-decoration: none;
-      &:matches(:hover,:focus) {
-        text-decoration: underline;
-      }
-    }
-  }
-}
 
-/* Hide/show abstract (teasers) */
-.field--name-field-talk-abstract {
-  transition: max-height .3s;
-  margin-bottom: 1rem;
-}
-.collapse-abstract {
-  & .field--name-field-talk-abstract {
-    max-height: 6.5rem;
-    overflow: hidden;
-    position: relative;
-    &:after {
-      background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%);
-      content: '';
-      display: block;
-      width: 100%;
-      height: 3rem;
-      position: absolute;
-      bottom: 0;
-    }
-  }
-}
-.show-abstract {
-  & .field--name-field-talk-abstract {
-    max-height: 100%;
-  }
-}
-button.show-more {
-  background: transparent;
-  color: var(--color-default-text);
-  font-size: .85rem;
-  font-weight: 500;
-  &:before {
-    font-size: 1.8rem;
-    display: inline-block;
-    margin-right: .5rem;
-    vertical-align: middle;
-  }
-  &.show:before {
-    content: '+';
-    margin-top: -0.3rem;
-  }
-  &.hide:before {
-    content: '\2013';
-    margin-top: -.5rem;
-  }
 }

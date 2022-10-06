@@ -72,9 +72,8 @@
     & .block-system-branding-block {
       & img {
         display: block;
-        max-height: 4em;
-        max-width: auto;
-        width: auto;
+        max-width: calc(100% - 5.2rem);
+        height: auto;
       }
     }
   }

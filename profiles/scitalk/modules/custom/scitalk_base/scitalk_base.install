@@ -839,6 +839,39 @@ function scitalk_base_update_8110(&$sandbox) {
     }
 }
 
+/**
+*  Add Location to Collection
+*/
+function scitalk_base_update_8111(&$sandbox) {
+    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $source      = new FileStorage($config_path);
+
+    //add collection Location field storage
+    $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+    $field_storage_yml =  'field.storage.node.field_collection_location';
+    $field_storage_id = 'node.field_collection_location';
+    $loaded_storage_config = $storage_config->load($field_storage_id);
+    if (empty($loaded_storage_config))
+    {
+        $storage_config_yml = $source->read($field_storage_yml);
+        $storage_config->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created Collection Location field storage');
+    }
+
+    //add FIELD collection Location
+    $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
+    $field_yml = 'field.field.node.collection.field_collection_location';
+    $field_id = 'node.talk.field_collection_location';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created Collection Location field');
+    }
+}
+
+
 
 
 

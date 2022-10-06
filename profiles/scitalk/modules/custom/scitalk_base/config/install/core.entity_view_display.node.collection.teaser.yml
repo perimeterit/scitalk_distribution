@@ -1,6 +1,6 @@
-uuid: 2ce712c8-e851-4741-9dbd-70b274c7d592
+uuid: 6a3e49c5-fb94-403b-b1be-bb91cf95b009
 langcode: en
-status: true
+status: false
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
@@ -15,6 +15,7 @@ dependencies:
     - field.field.node.collection.field_collection_source_repo
     - field.field.node.collection.field_collection_subject
     - field.field.node.collection.field_collection_type
+    - field.field.node.collection.field_parent_collection
     - node.type.collection
   module:
     - datetime_range
@@ -97,6 +98,7 @@ hidden:
   field_collection_source_repo: true
   field_collection_subject: true
   field_collection_type: true
+  field_parent_collection: true
   langcode: true
   scitalk_most_recent_talk: true
   search_api_excerpt: true
