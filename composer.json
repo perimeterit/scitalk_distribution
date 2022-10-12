@@ -24,7 +24,7 @@
         "cweagans/composer-patches": "^1.6",
         "drupal/admin_toolbar": "^3.1",
         "drupal/backup_migrate": "^5.0",
-        "drupal/better_exposed_filters": "^5.1",
+        "drupal/better_exposed_filters": "5.1",
         "drupal/config_ignore": "^2.3",
         "drupal/console": "^1.0.2",
         "drupal/consumers": "^1.10",
