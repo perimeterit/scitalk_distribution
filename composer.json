@@ -20,8 +20,9 @@
        }
     ],
     "require": {
-        "composer/installers": "^1.2",
-        "cweagans/composer-patches": "^1.6",
+        "php": ">=7.4",
+        "composer/installers": "^1.9",
+        "cweagans/composer-patches": "^1.7",
         "drupal/admin_toolbar": "^3.1",
         "drupal/backup_migrate": "^5.0",
         "drupal/better_exposed_filters": "^5.1",
@@ -30,7 +31,7 @@
         "drupal/consumers": "^1.10",
         "drupal/copyright_block": "^1.0@RC",
         "drupal/core": "^9.0",
-        "drupal/core-composer-scaffold": "^8.8",
+        "drupal/core-composer-scaffold": "^9.4",
         "drupal/date_all_day": "1.x-dev",
         "drupal/date_popup": "^1.1",
         "drupal/devel": "^4.0",
@@ -65,11 +66,11 @@
         "oomphinc/composer-installers-extender": "^2.0",
         "symfony/event-dispatcher": "3.4.35|~4.0",
         "vlucas/phpdotenv": "^5.5",
-        "webflo/drupal-finder": "^1.0.0",
+        "webflo/drupal-finder": "^1.2",
         "webmozart/path-util": "^2.3"
     },
     "require-dev": {
-        "drupal/core-dev": "^9.0",
+        "drupal/core-dev": "^9.4",
         "symfony/debug": "^4.4"
     },
     "conflict": {
