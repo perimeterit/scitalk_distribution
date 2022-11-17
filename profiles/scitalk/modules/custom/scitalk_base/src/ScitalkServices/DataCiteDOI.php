@@ -172,14 +172,14 @@ class DataCiteDOI {
       $request = $client->delete($url, $params);
 
       $msg = "DOI {$doi_id} deleted.";
-      drupal_set_message(t($msg), 'notice');
+      \Drupal::messenger()->addMessage(t($msg));
     }
     catch (ClientException | RequestException | ConnectException | GuzzleException | BadResponseException | ServerException $e) {
       if (!empty($res = $e->getResponse()->getBody()->getContents())) {
         $err = json_decode($res);
         $msg = 'DOI delete error: ' . ( $err->errors[0]->title ?? '');
         $msg .= "<br>(Perhaps DOI {$doi_id} has already been Registered and cannot be deleted)";
-        drupal_set_message(t($msg), 'error');
+        \Drupal::messenger()->addError(t($msg));
       }
 
       \Drupal::logger('scitalk_base')->error('DOI ERROR: ' . print_r($e->getMessage() , TRUE) );
