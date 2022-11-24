@@ -25,7 +25,7 @@ class CollectionTalksStats {
     /**
      * return the number of talks under a Collection or Series
      */
-    private function fetchNumberOfTalks($nid) {
+    public function fetchNumberOfTalks($nid) {
         $entity = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
         $bundle = $entity->bundle();
         
@@ -41,7 +41,7 @@ class CollectionTalksStats {
      /**
     * return the date for the most recent talk under a Collection
     */
-   private static function fetchMostRecentTalkDate($nid) {
+   public static function fetchMostRecentTalkDate($nid) {
         $entity = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
         $bundle = $entity->bundle();
 
