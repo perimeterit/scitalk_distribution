@@ -7,7 +7,6 @@ class CollectionTalksStats {
    
     public function update(EntityInterface $entity) {
         $collection_nid = $entity->get('field_talk_collection')->target_id ?? '';
-        \Drupal::logger('scitalk_base')->notice('<pre><code>Up here '. print_r($entity->toArray(), TRUE) . '</code></pre>');
 
         if (empty($collection_nid)) {
             return;
@@ -21,11 +20,6 @@ class CollectionTalksStats {
         $collection->set('field_collection_last_talk_date', $most_recent_talk);
 
         $collection->save();
-
-        \Drupal::logger('scitalk_base')->notice(
-            '<pre><code>Update Number of talks: '.$number_of_talks . ', most recent: '. $most_recent_talk .  print_r($entity->toArray(), TRUE) . 
-            '</code></pre>'
-        );
     }
 
     /**
