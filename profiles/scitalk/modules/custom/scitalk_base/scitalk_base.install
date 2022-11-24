@@ -871,8 +871,58 @@ function scitalk_base_update_8111(&$sandbox) {
     }
 }
 
+/**
+*  Add Collection's Number of Talks and Most recent Talk Date fields
+*/
+function scitalk_base_update_8112(&$sandbox) {
+    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $source      = new FileStorage($config_path);
 
+    //add collection Number of Talks field storage
+    $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+    $field_storage_yml =  'field.storage.node.field_collection_number_of_talks';
+    $field_storage_id = 'node.field_collection_number_of_talks';
+    $loaded_storage_config = $storage_config->load($field_storage_id);
+    if (empty($loaded_storage_config))
+    {
+        $storage_config_yml = $source->read($field_storage_yml);
+        $storage_config->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created Collection Number of Talks field storage');
+    }
 
+    //add FIELD collection Number of Talks
+    $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
+    $field_yml = 'field.field.node.collection.field_collection_number_of_talks';
+    $field_id = 'node.collection.field_collection_number_of_talks';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created Collection Number of Talks field');
+    }
 
+    //add collection Latest Talk Date field storage
+    $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+    $field_storage_yml =  'field.storage.node.field_collection_last_talk_date';
+    $field_storage_id = 'node.field_collection_last_talk_date';
+    $loaded_storage_config = $storage_config->load($field_storage_id);
+    if (empty($loaded_storage_config))
+    {
+        $storage_config_yml = $source->read($field_storage_yml);
+        $storage_config->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created Collection Most recent Talk Date field storage');
+    }
 
-
+    //add FIELD collection Latest Talk Date
+    $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
+    $field_yml = 'field.field.node.collection.field_collection_last_talk_date';
+    $field_id = 'node.collection.field_collection_last_talk_date';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created Collection Most recent Talk Date field');
+    }
+}

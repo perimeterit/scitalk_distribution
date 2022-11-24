@@ -6,4 +6,7 @@ services:
   class: Drupal\scitalk_base\ScitalkServices\DataCiteDOI
 
  scitalk_base.crossref_dois:
-  class: Drupal\scitalk_base\ScitalkServices\CrossrefDOI 
+  class: Drupal\scitalk_base\ScitalkServices\CrossrefDOI
+
+ scitalk_base.talks_in_collection_stats:
+  class: Drupal\scitalk_base\ScitalkServices\CollectionTalksStats

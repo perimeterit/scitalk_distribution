@@ -59,46 +59,6 @@ function scitalk_base_entity_base_field_info(\Drupal\Core\Entity\EntityTypeInter
 }
 
 /**
- * Implements hook_entity_bundle_field_info
- */
-function scitalk_base_entity_bundle_field_info(\Drupal\Core\Entity\EntityTypeInterface $entity_type, $bundle, array $base_field_definitions) {
-  //create computed field to display the number of talks under a Collection or Series
-  if ($entity_type->id() == 'node' && in_array($bundle, ['collection'])) {
-    $fields['scitalk_number_of_talks'] = BaseFieldDefinition::create('integer')
-    ->setLabel(t('Number of Talks'))
-    ->setDescription(t('Number of Talks in a Collection or Series.'))
-    ->setDefaultValue(0)
-    ->setInitialValue(0)
-    ->setComputed(TRUE)
-    ->setClass('\Drupal\scitalk_base\Plugin\Field\SciTalkEntityNumberOfTalksList')
-    ->setDisplayConfigurable('view', TRUE)
-    ->setDisplayOptions('view', [
-      'label' => 'inline',
-      'weight' => -1,
-      'region' => 'disabled',
-      'type' => 'scitalk_number_of_talks_formatter',
-    ]);
-
-    $fields['scitalk_most_recent_talk'] = BaseFieldDefinition::create('datetime')
-    ->setLabel(t('Most recent Talk'))
-    ->setDescription(t('Date of the most recent Talks in a Collection or Series.'))
-    ->setDefaultValue(NULL)
-    ->setInitialValue(NULL)
-    ->setComputed(TRUE)
-    ->setClass('\Drupal\scitalk_base\Plugin\Field\SciTalkMostRecentTalkList')
-    ->setDisplayConfigurable('view', TRUE)
-    ->setDisplayOptions('view', [
-      'label' => 'inline',
-      'weight' => -2,
-      'region' => 'disabled',
-      'type' => 'scitalk_most_recent_talk_formatter',
-    ]);
-
-    return $fields;
-  }
-}
-
-/**
  * Implements hook_entity_bundle_field_info_alter
  */
 function scitalk_base_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Entity\EntityTypeInterface $entity_type, $bundle) {
@@ -229,6 +189,12 @@ function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
     }
   }
 
+  //if the talk is part of a Collection then update the Collection stats (number of talks, latest talk)
+  if ($entity->getType() == 'talk') {
+    $collectionTalksStats = \Drupal::service('scitalk_base.talks_in_collection_stats');
+    $collectionTalksStats->update($entity);
+  }
+
   if (_scitalk_base_use_doi($entity)) {
     //when creating a new Talk, create a DOI
     $talk_doi = $entity->field_talk_doi->value ?? '';
@@ -247,6 +213,11 @@ function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
  */
 function scitalk_base_node_delete(Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity->getType() == 'talk') {
+
+    //if the talk is part of a Collection then update the Collection stats (number of talks, latest talk)
+    $collectionTalksStats = \Drupal::service('scitalk_base.talks_in_collection_stats');
+    $collectionTalksStats->update($entity);
+
     if (_scitalk_base_use_doi($entity)) {
       //when deleting a Talk, try to delete its DOI from remote
       $talk_doi = $entity->field_talk_doi->value ?? '';
