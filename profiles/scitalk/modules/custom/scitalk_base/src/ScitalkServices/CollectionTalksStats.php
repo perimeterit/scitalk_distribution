@@ -5,21 +5,28 @@ use Drupal\Core\Entity\EntityInterface;
 
 class CollectionTalksStats {
    
+    /**
+     * find the Collection(s) a Talk is part of and then update the number of talks and most recent talk date fields for the Collection(s)
+     */
     public function update(EntityInterface $entity) {
-        $collection_nid = $entity->get('field_talk_collection')->target_id ?? '';
+        $collections = $entity->get('field_talk_collection') ?? NULL;
 
-        if (empty($collection_nid)) {
+        if (empty($collections)) {
             return;
         }
 
-        $number_of_talks = $this->fetchNumberOfTalks($collection_nid);
-        $most_recent_talk = $this->fetchMostRecentTalkDate($collection_nid);
+        foreach ($collections as $coll) {
+            $collection_nid = $coll->target_id ?? '';
 
-        $collection = \Drupal::entityTypeManager()->getStorage('node')->load($collection_nid);
-        $collection->set('field_collection_number_of_talks', $number_of_talks);
-        $collection->set('field_collection_last_talk_date', $most_recent_talk);
+            $number_of_talks = $this->fetchNumberOfTalks($collection_nid);
+            $most_recent_talk = $this->fetchMostRecentTalkDate($collection_nid);
 
-        $collection->save();
+            $collection = \Drupal::entityTypeManager()->getStorage('node')->load($collection_nid);
+            $collection->set('field_collection_number_of_talks', $number_of_talks);
+            $collection->set('field_collection_last_talk_date', $most_recent_talk);
+
+            $collection->save();
+        }
     }
 
     /**
