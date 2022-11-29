@@ -142,7 +142,7 @@ class ReferenceIDGenerator implements ReferenceIDGeneratorInterface {
     
     }
     
-    \Drupal::logger('scitalk_base')->notice('New %source %voc "%number" created', array('%source' => $source_name, '%voc' => ucfirst($vocabulary_name), '%number'  => $return_number));
+    \Drupal::logger('scitalk_base')->notice('New %source "%number" created', array('%source' => $source_name, '%number'  => $return_number));
     return $return_number;
   }
 

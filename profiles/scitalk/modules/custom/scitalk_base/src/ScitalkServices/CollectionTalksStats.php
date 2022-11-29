@@ -22,10 +22,12 @@ class CollectionTalksStats {
             $most_recent_talk = $this->fetchMostRecentTalkDate($collection_nid);
 
             $collection = \Drupal::entityTypeManager()->getStorage('node')->load($collection_nid);
-            $collection->set('field_collection_number_of_talks', $number_of_talks);
-            $collection->set('field_collection_last_talk_date', $most_recent_talk);
+            if (!empty($collection)) {
+                $collection->set('field_collection_number_of_talks', $number_of_talks);
+                $collection->set('field_collection_last_talk_date', $most_recent_talk);
 
-            $collection->save();
+                $collection->save();
+            }
         }
     }
 
@@ -33,9 +35,6 @@ class CollectionTalksStats {
      * return the number of talks under a Collection or Series
      */
     public function fetchNumberOfTalks($nid) {
-        $entity = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
-        $bundle = $entity->bundle();
-        
         //query number of talks for a collection
         $query_count = \Drupal::entityQuery('node')
             ->condition('type', 'talk')
@@ -49,9 +48,6 @@ class CollectionTalksStats {
     * return the date for the most recent talk under a Collection
     */
    public static function fetchMostRecentTalkDate($nid) {
-        $entity = \Drupal::entityTypeManager()->getStorage('node')->load($nid);
-        $bundle = $entity->bundle();
-
         //query most recent talk for a collection or series 
         $query = \Drupal::entityQuery('node')
             ->condition('type', 'talk')
