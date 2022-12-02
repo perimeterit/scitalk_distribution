@@ -14,6 +14,8 @@
   ]
 %}
 
+{% set count_talks_in_collection = content.field_collection_number_of_talks['#items'].0.value %}
+
 {% if count_talks_in_collection or count_child_collections %}
   {% set collection_has_children = TRUE %}
   {% if count_talks_in_collection == 1 %}
@@ -34,7 +36,7 @@
       {% set show_show_more = TRUE %}
       {% set content_classes = ['collapse-abstract', 'has-collapse'] %}
     {% endif %}
-    
+
     {% block thumbnail %}
       {{ drupal_view('scitalk_talks_in_collection', 'collection_thumbnail', node.id, node.id) }}
     {% endblock %}
@@ -46,7 +48,7 @@
         {# Output number of talks & child collections #}
         {% embed "@scitalk_theme/includes/collection-child-count.twig" %}{% endembed %}
 
-        {{ content|without('links','field_collection_description', 'field_parent_collection') }}
+        {{ content|without('links','field_collection_description', 'field_parent_collection','field_collection_number_of_talks') }}
       </div>
       {% if view_mode == 'teaser' %}
         {{ content.field_collection_description }}

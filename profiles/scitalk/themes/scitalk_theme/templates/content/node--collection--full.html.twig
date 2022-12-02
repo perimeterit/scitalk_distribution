@@ -14,6 +14,7 @@
     view_mode ? view_mode|clean_class,
   ]
 %}
+{% set count_talks_in_collection = content.field_collection_number_of_talks['#items'].0.value %}
 
 {% if count_talks_in_collection or count_child_collections %}
   {% set collection_has_children = TRUE %}
@@ -36,7 +37,7 @@
       {# Output number of talks & child collections #}
       {% embed "@scitalk_theme/includes/collection-child-count.twig" %}{% endembed %}
 
-      {{ content|without('links','field_collection_description', 'field_parent_collection') }}
+      {{ content|without('links','field_collection_description', 'field_parent_collection', 'field_collection_number_of_talks') }}
     </div>
     <div class="content">
       {{ content.field_collection_description }}
