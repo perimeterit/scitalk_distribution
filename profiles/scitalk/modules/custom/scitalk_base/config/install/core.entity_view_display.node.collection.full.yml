@@ -8,7 +8,10 @@ dependencies:
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
     - field.field.node.collection.field_collection_event_url
+    - field.field.node.collection.field_collection_last_talk_date
+    - field.field.node.collection.field_collection_location
     - field.field.node.collection.field_collection_number
+    - field.field.node.collection.field_collection_number_of_talks
     - field.field.node.collection.field_collection_organizers
     - field.field.node.collection.field_collection_public_viewable
     - field.field.node.collection.field_collection_short_desc
@@ -26,8 +29,8 @@ dependencies:
     - user
 third_party_settings:
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 _core:
   default_config_hash: zuGoXJ8Jl-TLkB2-3ET53mWgmmfx04QXZ3VkXd4H6eg
 id: node.collection.full
@@ -37,14 +40,14 @@ mode: full
 content:
   feeds_item:
     type: feeds_item_url
-    weight: 7
-    region: content
     label: hidden
     settings:
       url_plain: false
     third_party_settings: {  }
+    weight: 7
+    region: content
   field_collection_date:
-    weight: 0
+    type: daterange_all_day_default
     label: hidden
     settings:
       timezone_override: ''
@@ -59,12 +62,10 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    type: daterange_all_day_default
+    weight: 0
     region: content
   field_collection_description:
     type: text_default
-    weight: 4
-    region: content
     label: inline
     settings: {  }
     third_party_settings:
@@ -75,8 +76,10 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
+    weight: 4
+    region: content
   field_collection_number:
-    weight: 1
+    type: string
     label: visually_hidden
     settings:
       link_to_entity: false
@@ -88,10 +91,19 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    type: string
+    weight: 1
+    region: content
+  field_collection_number_of_talks:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 8
     region: content
   field_collection_source_repo:
-    weight: 6
+    type: entity_reference_label
     label: inline
     settings:
       link: true
@@ -103,27 +115,25 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    type: entity_reference_label
+    weight: 6
     region: content
   field_collection_subject:
     type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: tag
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
     weight: 3
     region: content
-    label: inline
-    settings:
-      link: true
-    third_party_settings:
-      fences:
-        fences_field_tag: div
-        fences_field_classes: tag
-        fences_field_item_tag: none
-        fences_field_item_classes: ''
-        fences_label_tag: strong
-        fences_label_classes: ''
   field_collection_type:
     type: entity_reference_label
-    weight: 2
-    region: content
     label: inline
     settings:
       link: true
@@ -135,16 +145,20 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
+    weight: 2
+    region: content
   field_parent_collection:
     type: entity_reference_label
-    weight: 5
-    region: content
     label: inline
     settings:
       link: true
     third_party_settings: {  }
+    weight: 5
+    region: content
 hidden:
   field_collection_event_url: true
+  field_collection_last_talk_date: true
+  field_collection_location: true
   field_collection_organizers: true
   field_collection_public_viewable: true
   field_collection_short_desc: true

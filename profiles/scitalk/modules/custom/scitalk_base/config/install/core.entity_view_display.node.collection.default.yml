@@ -7,7 +7,10 @@ dependencies:
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
     - field.field.node.collection.field_collection_event_url
+    - field.field.node.collection.field_collection_last_talk_date
+    - field.field.node.collection.field_collection_location
     - field.field.node.collection.field_collection_number
+    - field.field.node.collection.field_collection_number_of_talks
     - field.field.node.collection.field_collection_organizers
     - field.field.node.collection.field_collection_public_viewable
     - field.field.node.collection.field_collection_short_desc
@@ -29,7 +32,7 @@ bundle: collection
 mode: default
 content:
   field_collection_date:
-    weight: 1
+    type: daterange_all_day_default
     label: hidden
     settings:
       timezone_override: ''
@@ -44,12 +47,10 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    type: daterange_all_day_default
+    weight: 1
     region: content
   field_collection_description:
     type: text_default
-    weight: 3
-    region: content
     label: hidden
     settings: {  }
     third_party_settings:
@@ -60,8 +61,10 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
+    weight: 3
+    region: content
   field_collection_number:
-    weight: 2
+    type: string
     label: visually_hidden
     settings:
       link_to_entity: false
@@ -73,10 +76,17 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    type: string
+    weight: 2
+    region: content
+  field_collection_number_of_talks:
+    type: number_unformatted
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 5
     region: content
   field_collection_source_repo:
-    weight: 4
+    type: entity_reference_label
     label: hidden
     settings:
       link: true
@@ -88,12 +98,10 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    type: entity_reference_label
+    weight: 4
     region: content
   field_parent_collection:
     type: entity_reference_label
-    weight: 0
-    region: content
     label: visually_hidden
     settings:
       link: true
@@ -105,9 +113,13 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: none
         fences_label_classes: ''
+    weight: 0
+    region: content
 hidden:
   feeds_item: true
   field_collection_event_url: true
+  field_collection_last_talk_date: true
+  field_collection_location: true
   field_collection_organizers: true
   field_collection_public_viewable: true
   field_collection_short_desc: true
