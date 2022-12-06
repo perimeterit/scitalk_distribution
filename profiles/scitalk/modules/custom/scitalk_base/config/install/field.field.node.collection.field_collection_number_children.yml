@@ -1,0 +1,24 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_collection_number_children
+    - node.type.collection
+id: node.collection.field_collection_number_children
+field_name: field_collection_number_children
+entity_type: node
+bundle: collection
+label: 'Number of Subcollections'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  min: 0
+  max: null
+  prefix: ''
+  suffix: ''
+field_type: integer

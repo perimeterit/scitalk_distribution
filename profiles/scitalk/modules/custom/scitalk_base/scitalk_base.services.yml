@@ -10,3 +10,6 @@ services:
 
  scitalk_base.talks_in_collection_stats:
   class: Drupal\scitalk_base\ScitalkServices\CollectionTalksStats
+
+ scitalk_base.collection_children_stats:
+  class: Drupal\scitalk_base\ScitalkServices\CollectionSubcollectionsStats

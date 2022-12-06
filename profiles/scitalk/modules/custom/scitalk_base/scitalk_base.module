@@ -195,6 +195,12 @@ function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
     $collectionTalksStats->update($entity);
   }
 
+  //if the Collections is part of another Collection then update the parent Collection stats (number of talks, latest talk)
+  if ($entity->getType() == 'collection') {
+    $subCollectionsStats = \Drupal::service('scitalk_base.collection_children_stats');
+    $subCollectionsStats->update($entity);
+  }
+
   if (_scitalk_base_use_doi($entity)) {
     //when creating a new Talk, create a DOI
     $talk_doi = $entity->field_talk_doi->value ?? '';
@@ -226,6 +232,12 @@ function scitalk_base_node_delete(Drupal\Core\Entity\EntityInterface $entity) {
         $doi->delete($talk_doi);
       }
     }
+  }
+
+  //if the Collections is part of another Collection then update the parent Collection stats (number of talks, latest talk)
+  if ($entity->getType() == 'collection') {
+    $subCollectionsStats = \Drupal::service('scitalk_base.collection_children_stats');
+    $subCollectionsStats->update($entity);
   }
 }
 
