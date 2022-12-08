@@ -1,3 +1,23 @@
+{# get values for talks and collections #}
+{% set count_talks_in_collection = content.field_collection_number_of_talks['#items'].0.value %}
+{% set count_child_collections = content.field_collection_number_children['#items'].0.value %}
+
+{# change text labels depending on counts #}
+{% if count_talks_in_collection or count_child_collections %}
+  {% set collection_has_children = TRUE %}
+  {% if count_talks_in_collection == 1 %}
+     {% set talks_label = 'talk'|t %}
+  {% elseif count_talks_in_collection > 1 %}
+      {% set talks_label = 'talks'|t %}
+  {% endif %}
+  {% if count_child_collections == 1 %}
+     {% set collections_label = 'sub-collection'|t %}
+  {% elseif count_child_collections > 1  %}
+      {% set collections_label = 'sub-collections'|t %}
+  {% endif %}
+{% endif %}
+
+{# Output #}
 {% if collection_has_children %}
   <div class="collection-child-count">
   {% if count_talks_in_collection %}
