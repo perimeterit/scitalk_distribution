@@ -103,31 +103,13 @@ function scitalk_theme_preprocess_node(&$variables) {
   $nodetype = $node->getType();
   $nid = $node->id();
 
-  // For Collections, get count of child collections and talks
-  if ($nodetype == 'collection') {
-    // Get counts of child collections
-    $variables['count_child_collections'] = \Drupal::entityQuery('node')
-      ->condition('status', 1)
-      ->condition('type', 'collection')
-      ->condition('field_parent_collection.entity:node.nid', $nid)
-      ->count()->execute();
-
-    // Get counts of talks in collection
-    $variables['count_talks_in_collection'] = \Drupal::entityQuery('node')
-      ->condition('status', 1)
-      ->condition('type', 'talk')
-      ->condition('field_talk_collection.entity:node.nid', $nid)
-      ->count()->execute();
-  }
-
-  // Find out if this is a page view
-  // Used to change the header level depending on whether this is a page view
+  // Find out if this is a Views page
+  // Used to change the header level
   $route = \Drupal::routeMatch()->getRouteObject();
   $view_id = $route->getDefault('view_id');
   if (isset($view_id)) {
     $variables['is_view_page'] = TRUE;
   }
-
 }
 
 /**
