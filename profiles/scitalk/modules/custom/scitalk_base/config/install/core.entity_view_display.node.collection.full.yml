@@ -11,6 +11,7 @@ dependencies:
     - field.field.node.collection.field_collection_last_talk_date
     - field.field.node.collection.field_collection_location
     - field.field.node.collection.field_collection_number
+    - field.field.node.collection.field_collection_number_children
     - field.field.node.collection.field_collection_number_of_talks
     - field.field.node.collection.field_collection_organizers
     - field.field.node.collection.field_collection_public_viewable
@@ -92,6 +93,15 @@ content:
         fences_label_tag: strong
         fences_label_classes: ''
     weight: 1
+    region: content
+  field_collection_number_children:
+    type: number_integer
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 9
     region: content
   field_collection_number_of_talks:
     type: number_integer

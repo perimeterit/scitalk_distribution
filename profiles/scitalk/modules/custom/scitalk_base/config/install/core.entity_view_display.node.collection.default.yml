@@ -10,6 +10,7 @@ dependencies:
     - field.field.node.collection.field_collection_last_talk_date
     - field.field.node.collection.field_collection_location
     - field.field.node.collection.field_collection_number
+    - field.field.node.collection.field_collection_number_children
     - field.field.node.collection.field_collection_number_of_talks
     - field.field.node.collection.field_collection_organizers
     - field.field.node.collection.field_collection_public_viewable
@@ -78,11 +79,32 @@ content:
         fences_label_classes: ''
     weight: 2
     region: content
+  field_collection_number_children:
+    type: number_unformatted
+    label: hidden
+    settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
+    weight: 6
+    region: content
   field_collection_number_of_talks:
     type: number_unformatted
     label: hidden
     settings: {  }
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
     weight: 5
     region: content
   field_collection_source_repo:
