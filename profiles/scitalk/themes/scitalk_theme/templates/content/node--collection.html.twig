@@ -13,6 +13,12 @@
     view_mode ? view_mode|clean_class,
   ]
 %}
+{% set count_talks_in_collection = content.field_collection_number_of_talks['#items'].0.value %}
+{% set count_child_collections = content.field_collection_number_children['#items'].0.value %}
+
+{% if count_talks_in_collection or count_child_collections %}
+  {% set collection_has_children = TRUE %}
+{% endif %}
 
 <div class="collection-wrapper {{ collection_has_children ? 'collection-has-children'}}">
   <article{{ attributes.addClass(classes) }}>
@@ -30,9 +36,14 @@
       {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
       <div class="info">
         {# Output number of talks & child collections #}
-        {% embed "@scitalk_theme/includes/collection-child-count.twig" %}{% endembed %}
 
-        {{ content|without('links','field_collection_description', 'field_parent_collection') }}
+      <div class="collection-child-count">
+        {% embed "@scitalk_theme/includes/collection-child-count.twig" with {
+          show_count: true
+          }%}{% endembed %}
+      </div>
+
+        {{ content|without('links','field_collection_description', 'field_parent_collection', 'field_collection_number_of_talks', 'field_collection_number_children') }}
       </div>
       {% if view_mode == 'teaser' %}
         {{ content.field_collection_description }}
@@ -43,10 +54,9 @@
 
       {% if collection_has_children %}
         <button class="toggle-children" data-collection-id="{{view_mode}}--{{ node.id }}" aria-expanded="false" aria-controls="collection-children--{{ view_mode }}--{{node.id}}">
-          {% if count_talks_in_collection and count_child_collections %}
-            {% set combinator = 'and'|t %}
-          {% endif %}
-           <span class="label-prefix">{{ 'Show'|t }}</span> {{ talks_label ~ ' ' ~ combinator ~ ' ' ~ collections_label }}
+        <span class="label-prefix">{{ 'Show'|t }}</span>
+        {% embed "@scitalk_theme/includes/collection-child-count.twig" %}{% endembed %}
+
         </button>
       {% endif %}
     </div>
