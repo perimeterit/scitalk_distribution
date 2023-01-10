@@ -215,6 +215,23 @@ function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
 }
 
 /**
+ * Implements hook_ENTITY_TYPE_presave()
+ */
+function scitalk_base_node_update(\Drupal\Core\Entity\EntityInterface $entity) {
+  //if the talk is part of a Collection then update the Collection stats (number of talks, latest talk)
+  if ($entity->getType() == 'talk') {
+    $collectionTalksStats = \Drupal::service('scitalk_base.talks_in_collection_stats');
+    $collectionTalksStats->update($entity);
+  }
+
+  //if the Collections is part of another Collection then update the parent Collection stats (number of talks, latest talk)
+  if ($entity->getType() == 'collection') {
+    $subCollectionsStats = \Drupal::service('scitalk_base.collection_children_stats');
+    $subCollectionsStats->update($entity);
+  }
+}
+
+/**
  * Implements hook_ENTITY_TYPE_delete()
  */
 function scitalk_base_node_delete(Drupal\Core\Entity\EntityInterface $entity) {
