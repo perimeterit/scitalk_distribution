@@ -1,3 +1,4 @@
+uuid: 267cb9b5-314b-43fd-b30c-4b4f463f8b7a
 langcode: en
 status: true
 dependencies:
@@ -6,6 +7,8 @@ dependencies:
     - media.type.scitalk_youtube_video
   module:
     - path
+_core:
+  default_config_hash: wwS0ITPa9DTOfUfLVgD7BgOw-qjaDoKbB_eo87hEqw8
 id: media.scitalk_youtube_video.default
 targetEntityType: media
 bundle: scitalk_youtube_video
@@ -18,13 +21,13 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_media_scitalk_video:
+    type: string_textfield
     weight: 0
+    region: content
     settings:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: string_textfield
-    region: content
   langcode:
     type: language_select
     weight: 2
@@ -48,20 +51,19 @@ content:
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 100
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
     weight: 5
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: content
     third_party_settings: {  }
 hidden: {  }
-

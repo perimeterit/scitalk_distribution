@@ -1,9 +1,12 @@
+uuid: 8617d976-c91c-4660-96de-bc40ee30762a
 langcode: en
 status: true
 dependencies:
   config:
     - field.field.media.scitalk_youtube_video.field_media_scitalk_video
     - media.type.scitalk_youtube_video
+_core:
+  default_config_hash: sYwmZ7bYTn3AyLWGdTQyap5xT8TOMD6-MTM4BYPLB0g
 id: media.scitalk_youtube_video.default
 targetEntityType: media
 bundle: scitalk_youtube_video
@@ -24,4 +27,3 @@ hidden:
   search_api_excerpt: true
   thumbnail: true
   uid: true
-
