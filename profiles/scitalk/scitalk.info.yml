@@ -61,6 +61,7 @@ install:
   - views_ui
   - admin_toolbar
   - admin_toolbar_tools
+  - auto_entitylabel
   - backup_migrate
   - consumers
   - copyright_block
@@ -91,6 +92,6 @@ install:
   - views_field_view
   - google_analytics
 themes:
-  - seven
+  - claro
   - stable
   - scitalk_theme

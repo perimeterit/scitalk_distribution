@@ -23,6 +23,7 @@
         "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.7",
         "drupal/admin_toolbar": "^3.1",
+        "drupal/auto_entitylabel": "^3.0",
         "drupal/backup_migrate": "^5.0",
         "drupal/better_exposed_filters": "^5.1",
         "drupal/config_ignore": "^2.3",
