@@ -1,0 +1,10 @@
+uuid: dac08ae0-32c8-4691-a416-ed0816ec56e0
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.embedded
+label: Embedded
+targetEntityType: node
+cache: true

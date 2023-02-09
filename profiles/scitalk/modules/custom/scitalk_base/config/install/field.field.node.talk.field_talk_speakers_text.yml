@@ -1,14 +1,17 @@
+uuid: 621522c2-0058-4c8c-8feb-d6e5bb1bb1c6
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_talk_speakers_text
     - node.type.talk
+_core:
+  default_config_hash: zyleuqt9SNwwtPWtyYfkuvUXnKU0WXS2EnmvT1KfbGo
 id: node.talk.field_talk_speakers_text
 field_name: field_talk_speakers_text
 entity_type: node
 bundle: talk
-label: Speaker(s)
+label: 'Speaker(s) (text)'
 description: ''
 required: false
 translatable: false

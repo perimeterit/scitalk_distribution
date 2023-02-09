@@ -1,8 +1,9 @@
-uuid: daa313ca-a7a6-4cd8-abda-47981413bd9a
+uuid: ca9080c0-4f97-4601-a55c-ebe598f39721
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.node.embedded
     - field.field.node.speaker_profile.feeds_item
     - field.field.node.speaker_profile.field_sp_display_name
     - field.field.node.speaker_profile.field_sp_external_id
@@ -21,7 +22,6 @@ dependencies:
     - field_group
     - image
     - link
-    - path
     - text
 third_party_settings:
   field_group:
@@ -96,17 +96,11 @@ third_party_settings:
         required_fields: true
 _core:
   default_config_hash: Kpf7wTOQ-WPxuFAN8VcnMmb-E34Y3vdSMcVpl0jvpDU
-id: node.speaker_profile.default
+id: node.speaker_profile.embedded
 targetEntityType: node
 bundle: speaker_profile
-mode: default
+mode: embedded
 content:
-  created:
-    type: datetime_timestamp
-    weight: 4
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   field_sp_display_name:
     type: string_textfield
     weight: 4
@@ -197,26 +191,6 @@ content:
       placeholder_url: ''
       placeholder_title: ''
     third_party_settings: {  }
-  langcode:
-    type: language_select
-    weight: 2
-    region: content
-    settings:
-      include_locked: true
-    third_party_settings: {  }
-  path:
-    type: path
-    weight: 5
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  status:
-    type: boolean_checkbox
-    weight: 6
-    region: content
-    settings:
-      display_label: true
-    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 0
@@ -225,17 +199,12 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  uid:
-    type: entity_reference_autocomplete
-    weight: 3
-    region: content
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
 hidden:
+  created: true
   feeds_item: true
+  langcode: true
+  path: true
   promote: true
+  status: true
   sticky: true
+  uid: true

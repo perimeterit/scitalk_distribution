@@ -1,10 +1,14 @@
+uuid: 7330d8fd-d501-4a5a-ab17-96379c617d1a
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_talk_video
+    - media.type.scitalk_youtube_video
     - media.type.video
     - node.type.talk
+_core:
+  default_config_hash: qEh3y05LTFhX-7UK0OE7tbkd6qbcDC4E2_8AwkBiqh8
 id: node.talk.field_talk_video
 field_name: field_talk_video
 entity_type: node
@@ -19,9 +23,11 @@ settings:
   handler: 'default:media'
   handler_settings:
     target_bundles:
+      scitalk_youtube_video: scitalk_youtube_video
       video: video
     sort:
       field: _none
+      direction: ASC
     auto_create: false
-    auto_create_bundle: file
+    auto_create_bundle: scitalk_youtube_video
 field_type: entity_reference

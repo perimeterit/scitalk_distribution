@@ -2,13 +2,6 @@ uuid: 666a0cf6-4fd5-49b2-82fb-4eb6db44ee5e
 langcode: en
 status: true
 dependencies:
-  enforced:
-    module:
-      - scitalk_base
-  module:
-    - group
-    - node
-    - search_api
   config:
     - field.storage.group.field_repo_institution_full_name
     - field.storage.group.field_repo_institution
@@ -22,32 +15,39 @@ dependencies:
     - field.storage.node.field_collection_description
     - field.storage.node.field_sp_display_name
     - field.storage.node.field_sp_first_name
+    - field.storage.node.field_sp_last_name
     - field.storage.node.field_scientific_area
     - field.storage.node.field_talk_source_repository
     - field.storage.node.field_talk_speaker_profile
+    - field.storage.node.field_talk_speakers_text
     - field.storage.node.field_sp_speaker_profile
     - field.storage.node.field_talk_subject
     - field.storage.node.field_talk_number
     - field.storage.node.field_talk_type
     - search_api.server.database_server
+  module:
+    - search_api_solr
+    - group
+    - node
+    - search_api
+  enforced:
+    module:
+      - scitalk_base
 third_party_settings:
   search_api_solr:
     finalize: false
     commit_before_finalize: false
     commit_after_finalize: false
-    multilingual:
-      limit_to_content_language: false
-      include_language_independent: true
     highlighter:
       maxAnalyzedChars: 51200
       fragmenter: gap
+      usePhraseHighlighter: true
+      highlightMultiTerm: true
+      preserveMulti: false
       regex:
         slop: 0.5
         pattern: blank
         maxAnalyzedChars: 10000
-      usePhraseHighlighter: true
-      highlightMultiTerm: true
-      preserveMulti: false
       highlight:
         mergeContiguous: false
         requireFieldMatch: false
@@ -71,6 +71,9 @@ third_party_settings:
       index_prefix: ''
       collection: ''
       timezone: ''
+    multilingual:
+      limit_to_content_language: false
+      include_language_independent: true
 _core:
   default_config_hash: wmCY96teGgUFR_5uyCab0NY35fCdjJPkhKAatkjKg20
 id: default_talks_index
@@ -86,6 +89,16 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.body
+  combined_speakers:
+    label: 'Combined Speakers'
+    property_path: aggregated_field
+    type: string
+    configuration:
+      type: concat
+      fields:
+        - 'entity:node/field_sp_display_name'
+        - 'entity:node/field_talk_speaker_profile'
+        - 'entity:node/field_talk_speakers_text'
   field_collection_date:
     label: 'Collection Date'
     datasource_id: 'entity:node'
@@ -162,7 +175,7 @@ field_settings:
       config:
         - field.storage.node.field_sp_display_name
   field_sp_display_name_1:
-    label: 'Speaker Profile � Content � Display Name'
+    label: 'Speaker > Display Name'
     datasource_id: 'entity:node'
     property_path: 'field_talk_speaker_profile:entity:field_sp_display_name'
     type: text
@@ -180,6 +193,14 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_sp_first_name
+  field_sp_last_name:
+    label: 'Last Name'
+    datasource_id: 'entity:node'
+    property_path: field_sp_last_name
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_sp_last_name
   field_sp_speaker_profile:
     label: 'Speaker Profile'
     datasource_id: 'entity:node'
@@ -229,13 +250,21 @@ field_settings:
       config:
         - field.storage.node.field_talk_source_repository
   field_talk_speaker_profile:
-    label: 'Speaker Profile'
+    label: 'Speaker(s) (reference field)'
     datasource_id: 'entity:node'
     property_path: field_talk_speaker_profile
     type: integer
     dependencies:
       config:
         - field.storage.node.field_talk_speaker_profile
+  field_talk_speakers_text:
+    label: 'Speaker(s) (text field)'
+    datasource_id: 'entity:node'
+    property_path: field_talk_speakers_text
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_talk_speakers_text
   field_talk_subject:
     label: Subject
     datasource_id: 'entity:node'
@@ -276,15 +305,6 @@ field_settings:
     dependencies:
       module:
         - node
-  speaker_combined:
-    label: 'Combined Speaker(s)'
-    property_path: aggregated_field
-    type: string
-    configuration:
-      type: concat
-      fields:
-        - 'entity:node/field_sp_speaker_profile'
-        - 'entity:node/field_talk_speakers_text'
   status:
     label: Published
     datasource_id: 'entity:node'
@@ -344,19 +364,23 @@ datasource_settings:
 processor_settings:
   add_url: {  }
   aggregated_field: {  }
+  auto_aggregated_fulltext_field: {  }
   entity_type: {  }
   highlight:
-    highlight: always
-    highlight_partial: true
-    excerpt: true
-    excerpt_length: 256
-    exclude_fields: {  }
-    prefix: '<strong>'
-    suffix: '</strong>'
     weights:
       postprocess_query: 0
+    prefix: '<strong>'
+    suffix: '</strong>'
+    excerpt: true
     excerpt_always: false
+    excerpt_length: 256
+    exclude_fields: {  }
+    highlight: always
+    highlight_partial: true
   html_filter:
+    weights:
+      preprocess_index: -15
+      preprocess_query: -15
     all_fields: false
     fields:
       - body
@@ -375,10 +399,10 @@ processor_settings:
       h3: 2
       strong: 2
       u: 1
-    weights:
-      preprocess_index: -15
-      preprocess_query: -15
   ignorecase:
+    weights:
+      preprocess_index: -20
+      preprocess_query: -20
     all_fields: false
     fields:
       - body
@@ -387,9 +411,6 @@ processor_settings:
       - field_sp_speaker_profile
       - field_talk_abstract
       - title
-    weights:
-      preprocess_index: -20
-      preprocess_query: -20
   language_with_fallback: {  }
   rendered_item: {  }
   reverse_entity_references: {  }
@@ -400,7 +421,7 @@ tracker_settings:
   default:
     indexing_order: fifo
 options:
-  index_directly: true
   cron_limit: 50
+  index_directly: true
   track_changes_in_references: true
 server: database_server

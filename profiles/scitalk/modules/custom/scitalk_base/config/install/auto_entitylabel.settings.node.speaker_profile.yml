@@ -1,0 +1,9 @@
+status: 1
+pattern: '[node:field_sp_display_name] '
+escape: false
+preserve_titles: false
+save: true
+chunk: 50
+dependencies:
+  config:
+    - node.type.speaker_profile

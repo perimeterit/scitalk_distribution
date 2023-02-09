@@ -1,3 +1,4 @@
+uuid: 8ed66ffb-b95b-4612-af96-300e39c31351
 langcode: en
 status: true
 dependencies:
@@ -6,6 +7,8 @@ dependencies:
     - node.type.speaker_profile
   module:
     - link
+_core:
+  default_config_hash: 07BJtV5E9pFwqN7r9tmrSR623cLG74hLGbIGCLERgnw
 id: node.speaker_profile.field_sp_web_profile_url
 field_name: field_sp_web_profile_url
 entity_type: node
@@ -17,6 +20,6 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  link_type: 17
-  title: 1
+  title: 0
+  link_type: 16
 field_type: link

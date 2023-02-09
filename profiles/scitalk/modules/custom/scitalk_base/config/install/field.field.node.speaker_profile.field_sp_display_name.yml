@@ -1,16 +1,19 @@
+uuid: a591c672-9154-46fd-8ca4-0322dd0a8ba4
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.node.field_sp_display_name
     - node.type.speaker_profile
+_core:
+  default_config_hash: LelaETuBr6v6r0zJnsUUlkH5NZtGgFXaUMcmmASmebI
 id: node.speaker_profile.field_sp_display_name
 field_name: field_sp_display_name
 entity_type: node
 bundle: speaker_profile
 label: 'Display Name'
-description: ''
-required: false
+description: 'Name to be used for display on the site. May be different from first name + Last name.  This name will be used for display across the site and as the title for the Speaker page.'
+required: true
 translatable: false
 default_value: {  }
 default_value_callback: ''

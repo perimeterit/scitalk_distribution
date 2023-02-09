@@ -1,3 +1,4 @@
+uuid: b0d01486-3399-4cc1-a437-abe10061b4e5
 langcode: en
 status: true
 dependencies:
@@ -6,6 +7,8 @@ dependencies:
     - node.type.talk
   module:
     - link
+_core:
+  default_config_hash: mO3zhemVchQz1lJZiA-QxrLmHbYnPPQRuqdY6bQTDw4
 id: node.talk.field_talk_video_url
 field_name: field_talk_video_url
 entity_type: node
@@ -17,6 +20,6 @@ translatable: false
 default_value: {  }
 default_value_callback: ''
 settings:
-  link_type: 17
-  title: 1
+  title: 0
+  link_type: 16
 field_type: link

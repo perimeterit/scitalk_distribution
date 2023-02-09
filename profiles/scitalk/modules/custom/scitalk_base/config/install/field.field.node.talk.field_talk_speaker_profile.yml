@@ -1,3 +1,4 @@
+uuid: f7a31010-9b50-4a0a-b346-211c62f23869
 langcode: en
 status: true
 dependencies:
@@ -5,11 +6,13 @@ dependencies:
     - field.storage.node.field_talk_speaker_profile
     - node.type.speaker_profile
     - node.type.talk
+_core:
+  default_config_hash: 2DhE9KZhLUnE9oknrInbXQQK3lPYQxh-Q_W5ZgIZtqY
 id: node.talk.field_talk_speaker_profile
 field_name: field_talk_speaker_profile
 entity_type: node
 bundle: talk
-label: 'Speaker Profile'
+label: Speaker(s)
 description: ''
 required: false
 translatable: false
@@ -22,6 +25,7 @@ settings:
       speaker_profile: speaker_profile
     sort:
       field: _none
+      direction: ASC
     auto_create: false
     auto_create_bundle: ''
 field_type: entity_reference

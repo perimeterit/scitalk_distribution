@@ -1,0 +1,23 @@
+uuid: d06d0309-2c2c-4547-b277-22235750c92e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.feeds_item
+    - node.type.speaker_profile
+  module:
+    - feeds
+id: node.speaker_profile.feeds_item
+field_name: feeds_item
+entity_type: node
+bundle: speaker_profile
+label: 'Feeds item'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:feeds_feed'
+  handler_settings: {  }
+field_type: feeds_item
