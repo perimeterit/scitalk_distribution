@@ -17,6 +17,15 @@ nav a {
   text-decoration: none;
 }
 
+/* External links */
+
+a.external {
+  background: right center no-repeat;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23666'%3E%3Ctitle%3Eopen-in-new%3C/title%3E%3Cpath d='M14,3V5H17.59L7.76,14.83L9.17,16.24L19,6.41V10H21V3M19,19H5V5H12V3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V12H19V19Z' /%3E%3C/svg%3E");
+  background-size: 1rem;
+  padding-right: 1.2rem;
+}
+
 /* Pagers */
 
 .pager {
@@ -27,13 +36,13 @@ nav a {
     display: inline-block;
   }
   & a {
-    background: rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.1);
     display: block;
-    padding: .4rem .7rem;
-    margin: .4rem .2rem;
+    padding: 0.4rem 0.7rem;
+    margin: 0.4rem 0.2rem;
     text-decoration: none;
-    &:matches(:hover,:focus) {
-    background: rgba(0,0,0,0.2);
+    &:matches(:hover, :focus) {
+      background: rgba(0, 0, 0, 0.2);
     }
   }
 
@@ -43,19 +52,19 @@ nav a {
   }
 }
 .pager__item--next a:after,
-.pager__item--last a:after  {
-  content: '\00BB';
+.pager__item--last a:after {
+  content: "\00BB";
   display: inline;
 }
 .pager__item--previous a:before,
-.pager__item--first a:before{
-  content: '\00AB';
+.pager__item--first a:before {
+  content: "\00AB";
   display: inline;
 }
 
 /* Views mini pager */
 .mini-pager {
-  background: rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.1);
   display: flex;
   justify-content: space-between;
   overflow: auto;
@@ -63,7 +72,7 @@ nav a {
 }
 .mini-pager > * {
   flex-basis: 33%;
-  padding: .4em;
+  padding: 0.4em;
 }
 .mini-pager .pager-current {
   display: block;
@@ -81,21 +90,21 @@ nav a {
 }
 .mini-pager .pager-prev a:before,
 .mini-pager .pager-next a:after {
-  content: '';
+  content: "";
   background: url(../images/angle-icons.svg) no-repeat;
   background-size: 3.2em;
   height: 1.2em;
   width: 1.2em;
-  opacity: .5;
+  opacity: 0.5;
   flex: 0 0 1.2em;
 }
 .mini-pager .pager-prev a:before {
   background-position: 0.2em -5.1em;
-  margin-right: .3em;
+  margin-right: 0.3em;
 }
 .mini-pager .pager-next a:after {
   background-position: 0.4em -3.1em;
-  margin-left: .3em;
+  margin-left: 0.3em;
 }
 
 /* Links */
@@ -108,8 +117,8 @@ nav a {
   display: inline-block;
 }
 .links li a {
-  font-size: .9em;
-  padding: .2em .5em;
+  font-size: 0.9em;
+  padding: 0.2em 0.5em;
   text-decoration: none;
   text-transform: lowercase;
 }

@@ -4,6 +4,14 @@
  * Includes tabs, message etc.
  */
 
+/* Toolbar adjustment */
+
+.toolbar {
+  font-weight: normal;
+}
+
+/* Admin region  */
+
 .region-admin .block {
   margin: 20px 0;
 }
@@ -27,21 +35,20 @@
   border-bottom: none;
 
   color: #424242;
-  font-size: .9em;
+  font-size: 0.9em;
   line-height: 1.4em;
   text-decoration: none;
 
   display: block;
-  padding: .3em .9em;
-
+  padding: 0.3em 0.9em;
 }
 .tabs.primary a.is-active {
-  background: rgba(0,0,0,0.1);
+  background: rgba(0, 0, 0, 0.1);
 }
 .tabs.primary a:focus,
 .tabs.primary a:hover {
-  background: rgba(0,0,0,0.2);
-  color: rgba(0,0,0,0.6);
+  background: rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.6);
 }
 li.action-links {
   margin-bottom: 1.5em;
@@ -49,12 +56,12 @@ li.action-links {
 /* message */
 
 .message {
-  font-size: .9rem;
+  font-size: 0.9rem;
   margin: 1.5em 0;
   padding: 1.5em 2em;
 }
 .message:before {
-  content: '';
+  content: "";
   background: url(../../images/messages.svg) 0 0 no-repeat;
   display: block;
   float: left;
@@ -64,7 +71,7 @@ li.action-links {
   margin: -3px 10px 0 -1em;
 }
 .message--status {
-  background: hsla(99, 39%, 82%, .86);
+  background: hsla(99, 39%, 82%, 0.86);
 }
 .message--status:before {
   background-position: 0 0;
