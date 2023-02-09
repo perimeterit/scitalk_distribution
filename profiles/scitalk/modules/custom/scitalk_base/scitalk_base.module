@@ -346,6 +346,15 @@ function scitalk_base_views_pre_build(ViewExecutable $view) {
  * Implements hook_form_alter().
  */
 function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // Attach JavaScript library to speaker node forms
+  if (($form_id == 'node_speaker_profile_form') ||
+      ($form_id == 'node_speaker_profile_edit_form') ||
+      ($form_id == 'node_talk_form')) {
+    // Autofills Display name with First name + Last name
+    $form['#attached']['library'][] = 'scitalk_base/speaker_autofill';
+  }
+
+  // Alter views exposed form
   if($form_id == 'views_exposed_form') {
 
     $view_machine_names = [
@@ -364,7 +373,6 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
       $group_options = ['' => 'All'];
       $group_storage =  \Drupal::entityTypeManager()->getStorage('group');
       $groups = $group_storage->loadMultiple($group_ids);
-
 
       if (count($groups) > 1) {
         // Create the options array with the group id and group name

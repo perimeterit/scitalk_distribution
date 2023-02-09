@@ -1,0 +1,3 @@
+speaker_autofill:
+  js:
+    js/scitalk_autofill_speaker.js: {}
