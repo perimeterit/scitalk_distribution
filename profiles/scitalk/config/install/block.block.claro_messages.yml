@@ -1,12 +1,15 @@
+uuid: c485a369-02f9-4a2f-9d00-24a23ea2caea
 langcode: en
 status: true
 dependencies:
   module:
     - system
   theme:
-    - seven
-id: seven_messages
-theme: seven
+    - claro
+_core:
+  default_config_hash: '-Ac3ISpIT0PQ-whzD7_dw0SdKi6dAbRFNWdSjOiVDqg'
+id: claro_messages
+theme: claro
 region: highlighted
 weight: 0
 provider: null
@@ -14,6 +17,6 @@ plugin: system_messages_block
 settings:
   id: system_messages_block
   label: 'Status messages'
-  provider: system
   label_display: '0'
+  provider: system
 visibility: {  }

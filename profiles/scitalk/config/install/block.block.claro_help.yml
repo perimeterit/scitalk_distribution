@@ -1,12 +1,15 @@
+uuid: 31b20d3e-c316-48f9-987b-d51ca296ae62
 langcode: en
 status: true
 dependencies:
   module:
     - help
   theme:
-    - seven
-id: seven_help
-theme: seven
+    - claro
+_core:
+  default_config_hash: jccFSSVqV0WCDb6NtML1VWAWTtDbZ-zn5YgTRMgMrIM
+id: claro_help
+theme: claro
 region: help
 weight: 0
 provider: null
@@ -14,6 +17,6 @@ plugin: help_block
 settings:
   id: help_block
   label: Help
-  provider: help
   label_display: '0'
+  provider: help
 visibility: {  }
