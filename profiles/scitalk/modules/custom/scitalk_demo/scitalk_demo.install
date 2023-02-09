@@ -53,7 +53,7 @@ function scitalk_demo_uninstall() {
     $result = \Drupal::entityQuery("taxonomy_term")
       ->condition('uuid', ['4e0c75bc-c3df-4677-a8f7-6631374cf154','c3adfe86-86cd-479a-a10d-e637af9b30d4', 'f4a60b73-cf2d-4e3f-a1c8-34b2dd33dfc3'], 'IN')
       ->execute();
-    
+
     $storage_handler = \Drupal::entityTypeManager()->getStorage("taxonomy_term");
     $entities = $storage_handler->loadMultiple($result);
 
@@ -62,7 +62,7 @@ function scitalk_demo_uninstall() {
     {
       $storage_handler->delete($entities);
     }
-    
+
     //for the media in Talks find the files to delete
     if (!empty($media_ids))
     {
@@ -131,15 +131,15 @@ function scitalk_demo_create_demo_talks() {
     $tz = \Drupal::currentUser()->getTimezone();
     $tomorrow = date('Y-m-d\TH:i:s', (time() + (1 * 24 * 60 * 60)) );
     $after_tomorrow = date('Y-m-d\TH:i:s', (time() + (2 * 24 * 60 * 60)) );
-    
+
     $tomorrow_dt = new \Drupal\Core\Datetime\DrupalDateTime($tomorrow, $tz);
     $tomorrow_dt->setTimezone(new \DateTimeZone("UTC"));
     $tomorrow_ds = $tomorrow_dt->format("Y-m-d\TH:i:s");
-    
+
     $after_tomorrow_dt = new \Drupal\Core\Datetime\DrupalDateTime($tomorrow, $tz);
     $after_tomorrow_dt->setTimezone(new \DateTimeZone("UTC"));
     $after_tomorrow_ds = $after_tomorrow_dt->format("Y-m-d\TH:i:s");
-  
+
     //create speaker profiles first
     $speakers = scitalk_demo_create_demo_speaker_profiles();
 
@@ -152,7 +152,7 @@ function scitalk_demo_create_demo_talks() {
     ]);
     $term_sci_series->save();
     $term_sci_series = $term_sci_series->id();
-    
+
     $term_conference = Term::create([
       'uuid' =>  "c3adfe86-86cd-479a-a10d-e637af9b30d4",
       'name' => 'Example Conference',
@@ -161,7 +161,7 @@ function scitalk_demo_create_demo_talks() {
     ]);
     $term_conference->save();
     $term_conference = $term_conference->id();
-    
+
     $term_collection = Term::create([
       'uuid' =>  "f4a60b73-cf2d-4e3f-a1c8-34b2dd33dfc3",
       'name' => 'Example Collection Type',
@@ -170,7 +170,7 @@ function scitalk_demo_create_demo_talks() {
     ]);
     $term_collection->save();
     $term_collection = $term_collection->id();
-    
+
     //create a collection
     $collection = [
       "uuid" =>  "d6f9a028-b37f-4e3e-baa1-70565455098d",
@@ -181,11 +181,11 @@ function scitalk_demo_create_demo_talks() {
         'end_value' => $after_tomorrow_ds,
         ],
       "field_collection_short_desc" => "An Example Collection",
-      
+
     ];
     $collection_node = Node::create($collection);
     $collection_node->save();
-    
+
 
     $video = file_get_contents(__DIR__ . '/media/BigBuckBunny_320x180.mp4');
     $file = file_save_data($video, 'public://BigBuckBunny_320x180.mp4', FileSystemInterface::EXISTS_REPLACE);
@@ -205,7 +205,7 @@ function scitalk_demo_create_demo_talks() {
 
     $image_media->save();
 
-    
+
 
     $talks = [
         [
@@ -282,6 +282,7 @@ function scitalk_demo_create_demo_speaker_profiles() {
             ],
             "field_sp_display_name" => "Pythagoras",
             "field_sp_first_name" => "Pythagoras",
+            "field_sp_last_name" => "of Samos",
             "field_sp_profile_thumbnail" => [
                 'target_id' => $pythagoras_file->id(),
                 "alt" => "Pythagoras"
@@ -302,6 +303,7 @@ function scitalk_demo_create_demo_speaker_profiles() {
             ],
             "field_sp_display_name" => "Plato",
             "field_sp_first_name" => "Plato",
+            "field_sp_last_name" => "of Athens",
             "field_sp_profile_thumbnail" => [
                 'target_id' => $plato_file->id(),
                 "alt" => "Plato"
