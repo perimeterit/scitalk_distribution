@@ -75,7 +75,7 @@ third_party_settings:
       limit_to_content_language: false
       include_language_independent: true
 _core:
-  default_config_hash: wmCY96teGgUFR_5uyCab0NY35fCdjJPkhKAatkjKg20
+  default_config_hash: 2XLiuqTJhtSZMQfwlOVReqViWzfWlGTVUh4WB1kbSeQ
 id: default_talks_index
 name: 'Default Talks index'
 description: ''
@@ -175,7 +175,7 @@ field_settings:
       config:
         - field.storage.node.field_sp_display_name
   field_sp_display_name_1:
-    label: 'Speaker > Display Name'
+    label: 'Speaker(s) > Display Name'
     datasource_id: 'entity:node'
     property_path: 'field_talk_speaker_profile:entity:field_sp_display_name'
     type: text
@@ -201,6 +201,17 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_sp_last_name
+  field_sp_last_name_1:
+    label: 'Speaker(s) >  Last Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_talk_speaker_profile:entity:field_sp_last_name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_sp_last_name
+        - field.storage.node.field_talk_speaker_profile
+      module:
+        - node
   field_sp_speaker_profile:
     label: 'Speaker Profile'
     datasource_id: 'entity:node'

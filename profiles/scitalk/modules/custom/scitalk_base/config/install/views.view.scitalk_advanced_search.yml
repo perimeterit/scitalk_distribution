@@ -21,7 +21,7 @@ dependencies:
     - link
     - search_api
 _core:
-  default_config_hash: cBZNaHexUw4j9E8rwIIDP5MPTwOP-QfnXKRVz9S0VyQ
+  default_config_hash: lXLuXr3nVi4ispmAwsZzrJT8ar6tAisnDMMWtFtI_II
 id: scitalk_advanced_search
 label: 'Scitalk: Advanced search'
 module: views
@@ -894,7 +894,7 @@ display:
               plugin_id: default
               advanced:
                 combine: true
-                combine_rewrite: "Relevance Asc|\r\nRelevance Desc|Relevance\r\nDate Asc|Date Oldest First\r\nDate Desc|Date Newest First\r\nTitle Asc|Title A -> Z\r\nTitle Desc|Title Z -> A\r\nLast Name Asc|Speaker A -> Z\r\nLast Name Desc|Speaker Z -> A"
+                combine_rewrite: "Relevance Asc|\r\nRelevance Desc|Relevance\r\nDate Asc|Date Oldest First\r\nDate Desc|Date Newest First\r\nTitle Asc|Title A -> Z\r\nTitle Desc|Title Z -> A\r\nSpeaker Last Name Asc|Speaker A -> Z\r\nSpeaker Last Name Desc|Speaker Z -> A"
                 reset: false
                 reset_label: ''
                 collapsible: false
@@ -1015,18 +1015,18 @@ display:
             label: Title
             field_identifier: title
           exposed: true
-        field_sp_last_name:
-          id: field_sp_last_name
+        field_sp_last_name_1:
+          id: field_sp_last_name_1
           table: search_api_index_default_talks_index
-          field: field_sp_last_name
+          field: field_sp_last_name_1
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: search_api
           order: ASC
           expose:
-            label: 'Last Name'
-            field_identifier: field_sp_last_name
+            label: 'Speaker Last Name'
+            field_identifier: Speaker
           exposed: true
       arguments: {  }
       filters:

@@ -23,7 +23,7 @@ dependencies:
     - search_api
     - user
 _core:
-  default_config_hash: gAOrpoTp-lxsn65bklR4O4qP4r27NEUKdobWdz1cmdE
+  default_config_hash: sPL_EnuZFwBmdmWnuOQruGwnM7gqtZ5ba4vZ2TXDM0E
 id: scitalk_latest_talks
 label: 'Scitalk: Latest Talks (new)'
 module: views
@@ -896,7 +896,7 @@ display:
               plugin_id: default
               advanced:
                 combine: true
-                combine_rewrite: "Date Desc|Date - New to Old\r\nDate Asc|Date - Old to New\r\nTitle Asc|Title A to Z\r\nTitle Desc|Title Z to A\r\nLast Name Asc| Speaker A to Z\r\nLast Name Desc| Speaker Z to A"
+                combine_rewrite: "Date Desc|Date - New to Old\r\nDate Asc|Date - Old to New\r\nTitle Asc|Title A ->  Z\r\nTitle Desc|Title Z ->  A\r\nSpeaker Asc|Speaker A -  Z\r\nSpeaker Desc|Speaker A -  Z"
                 reset: false
                 reset_label: ''
                 collapsible: false
@@ -973,18 +973,18 @@ display:
             label: Title
             field_identifier: title
           exposed: true
-        field_sp_last_name:
-          id: field_sp_last_name
+        field_sp_last_name_1:
+          id: field_sp_last_name_1
           table: search_api_index_default_talks_index
-          field: field_sp_last_name
+          field: field_sp_last_name_1
           relationship: none
           group_type: group
           admin_label: ''
           plugin_id: search_api
           order: ASC
           expose:
-            label: 'Last Name'
-            field_identifier: field_sp_last_name
+            label: Speaker
+            field_identifier: speaker
           exposed: true
       arguments: {  }
       filters:
