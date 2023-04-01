@@ -284,9 +284,37 @@ function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $q
       $collection_type_sort_value = 'date_asc';
     }
 
-    /* Descending is the default on the view so we only need to alter this if the value is ascending */
-    if ($collection_type_sort_value == 'date_asc') {
-      $query->orderby[0]['direction'] = "ASC";
+    //find the talk date sort field
+    $talk_date_sort_field = array_filter($query->orderby, function($sort_field){
+      return $sort_field['field'] == 'node__field_talk_date_field_talk_date_value';
+    });
+
+    //then set the sort direction to it
+    if (!empty($talk_date_sort_field)) {
+      $field_idx = array_keys($talk_date_sort_field);
+      $field_idx_val = current($field_idx);
+      $query->orderby[$field_idx_val]['direction'] = $collection_type_sort_value == 'date_asc' ? "ASC" : "DESC";
+    }
+
+    // /* Descending is the default on the view so we only need to alter this if the value is ascending */
+    // if ($collection_type_sort_value == 'date_asc') {
+    //   $query->orderby[0]['direction'] = "ASC";
+    // }
+  }
+  elseif (($view->id() == 'scitalk_collections') && (in_array($view->current_display, ['card_view']))) {
+    $collection_type_tid = $view->exposed_data['field_collection_type_target_id'];
+    $collection_type_term = Term::load($collection_type_tid);
+    if (isset($collection_type_term)) {
+      $name = $collection_type_term->get('name')->getValue();
+      $name = $collection_type_term->name->value ?? '';
+
+      //for Series increase the items per page to display and change the sort order to be by collection number
+      if ($name == 'Series') {
+        $view->setItemsPerPage(20);
+
+        //add collection number as a sort field and sort by it
+        $query->addOrderBy('node__field_collection_number','field_collection_number_value', 'ASC');
+      }
     }
   }
 }
