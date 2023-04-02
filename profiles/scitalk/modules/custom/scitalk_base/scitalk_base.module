@@ -271,7 +271,7 @@ function scitalk_base_taxonomy_term_presave(Drupal\taxonomy\Entity\Term $taxonom
 function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
   /* Alter the collection view sort order based on the value of the sort order field */
   //if (($view->id() == 'scitalk_talks_in_collection') && ($view->current_display == 'scitalk_talk_by_collection_block')) {
-  if (($view->id() == 'scitalk_talks_in_collection' || $view->id() == 'scitalk_collection_children') && (in_array($view->current_display, ['scitalk_talk_by_collection_block', 'card_view', 'attachment_1']))) {
+  if (($view->id() == 'scitalk_talks_in_collection' || $view->id() == 'scitalk_collection_children') && (in_array($view->current_display, ['scitalk_talk_by_collection_block', 'card_view', 'attachment_1', 'attachment_2']))) {
     $collection_node = Node::load($view->args[0]);
     $collection_type_field = $collection_node->get('field_collection_type')->getValue();
     $collection_type_tid = $collection_type_field[0]['target_id'] ?? 0;
