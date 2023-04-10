@@ -4,14 +4,12 @@ status: true
 dependencies:
   config:
     - media.type.remote_file
-    - media.type.remote_video
     - node.type.collection
     - node.type.speaker_profile
     - node.type.talk
     - taxonomy.vocabulary.collection_type
     - taxonomy.vocabulary.scientific_area
     - taxonomy.vocabulary.subjects
-    - taxonomy.vocabulary.tags
     - taxonomy.vocabulary.talk_keywords
     - taxonomy.vocabulary.talk_type
   module:
