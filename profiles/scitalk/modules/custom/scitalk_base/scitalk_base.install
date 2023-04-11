@@ -959,3 +959,37 @@ function scitalk_base_update_8113(&$sandbox) {
     }
 
 }
+
+/**
+*  Add Repository Talks Prefix field to Source Repository Group
+*/
+function scitalk_base_update_8114(&$sandbox) {
+    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $source      = new FileStorage($config_path);
+
+    //add FIELD STORAGE for Source Repository Prefix
+    //\Drupal::entityManager()->getStorage will be deprecated, use \Drupal::entityTypeManager()->getStorage instead
+    $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+    $field_storage_yml = 'field.storage.group.field_repo_talks_prefix';
+    $field_storage_id = 'group.field_repo_talks_prefix';
+    $loaded_storage_config = $storage_config->load($field_storage_id);
+    if (empty($loaded_storage_config))
+    {
+        $storage_config_yml = $source->read($field_storage_yml);
+        $storage_config->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created Repository Talks Prefix field storage');
+    }
+
+    //add FIELD Repo Prefix
+    $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
+    $field_yml = 'field.field.group.source_repository.field_repo_talks_prefix';
+    $field_id = 'group.source_repository.field_repo_talks_prefix';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created Repository Talks Prefix field');
+    }
+
+}

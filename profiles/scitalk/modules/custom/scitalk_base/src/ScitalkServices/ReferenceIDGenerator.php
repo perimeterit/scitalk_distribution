@@ -15,7 +15,11 @@ class ReferenceIDGenerator implements ReferenceIDGeneratorInterface {
 
     switch($type) {
       case 'talk':
-        $return_number = $this->getNewReferenceValue($type, $source_name);
+        $talk_date = $entity->get('field_talk_date')->value ?? date('Y-m-d');
+        $year = date('y', strtotime($talk_date));
+        $month = date('m', strtotime($talk_date));
+
+        $return_number = $this->getNewReferenceValue($type, $source_name, $year, $month);
         break;
 
       case 'collection':
@@ -28,10 +32,17 @@ class ReferenceIDGenerator implements ReferenceIDGeneratorInterface {
   }
 
   //create talk number
-  private function getNewReferenceValue($type, $source_name) {
+  private function getNewReferenceValue($type, $source_name, $year, $month) {
+    //create talk numbers with pattern of YYMM#### (year, month and running number padded with 0s), e.g. 23040001
+    $prefix = str_pad($year, 2, "0", STR_PAD_LEFT) . str_pad($month, 2, "0", STR_PAD_LEFT);
+    $prefix_search = $prefix . '%';
+
     $node_query = \Drupal::entityQuery('node');
-    $node_query->condition('status', 1)
-      ->condition('type', $type);
+    $node_query
+      // ->condition('status', 1)
+      ->condition('type', $type)
+      ->condition('field_talk_number', $prefix_search, 'LIKE')
+      ;
 
     if (empty($source_name)) {
       $node_query->notExists('field_talk_source_repository.entity.label');
@@ -57,7 +68,7 @@ class ReferenceIDGenerator implements ReferenceIDGeneratorInterface {
     }
       
     $last_number = 1;
-    $new_reference_number = str_pad($last_number, 6, "0", STR_PAD_LEFT);
+    $new_reference_number = $prefix  . str_pad($last_number, 4, "0", STR_PAD_LEFT);
 
     \Drupal::logger('scitalk_base')->notice('New %source talk number "%number" created', array('%source' => $source_name, '%number'  => $new_reference_number, '%type' => $type));
 
