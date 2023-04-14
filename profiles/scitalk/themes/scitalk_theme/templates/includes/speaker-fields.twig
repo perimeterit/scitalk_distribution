@@ -8,7 +8,7 @@
 {% elseif content.field_talk_speaker_profile.0 %}
   {% set speakers = content.field_talk_speaker_profile['#items'] %}
 {% elseif content.field_talk_speakers_text.0 %}
-  {% set speakers = content.field_talk_speakers_text.getvalue %}
+  {% set speakers = content.field_talk_speakers_text['#items'] %}
 {% endif %}
 
 {% if (speakers|length == 1) %}
