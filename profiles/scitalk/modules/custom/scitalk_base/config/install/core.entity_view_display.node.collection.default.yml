@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.field.node.collection.feeds_item
+    - field.field.node.collection.field_academic_year
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
     - field.field.node.collection.field_collection_event_url
@@ -26,7 +27,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: zuGoXJ8Jl-TLkB2-3ET53mWgmmfx04QXZ3VkXd4H6eg
+  default_config_hash: ToT2e7hUlZhdkiMY-J_Jw6IU7w7kSXW5hskww-vFTQg
 id: node.collection.default
 targetEntityType: node
 bundle: collection
@@ -139,6 +140,7 @@ content:
     region: content
 hidden:
   feeds_item: true
+  field_academic_year: true
   field_collection_event_url: true
   field_collection_last_talk_date: true
   field_collection_location: true

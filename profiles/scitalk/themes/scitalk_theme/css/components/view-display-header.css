@@ -12,14 +12,14 @@
   border-bottom: 1px solid var(--color-lt-grey);
   display: grid;
   margin-top: 2em;
-  padding-bottom: .5em
+  padding-bottom: 0.5em
 }
 .advanced-view-header .view-summary {
-    font-size: .9em;
+    font-size: 0.9em;
     margin-right: 1.2em;
   }
 .advanced-view-header .form-item-field-talk-type > label,
-  .advanced-view-header .form-item-sort-bef-combine label  {
+  .advanced-view-header .form-item-sort-bef-combine label {
     position: absolute !important;
     overflow: hidden;
     clip: rect(1px, 1px, 1px, 1px);
@@ -32,12 +32,12 @@
   .advanced-view-header {
     display: grid;
     grid-template-columns: auto auto;
-    grid-gap: .2rem
+    grid-gap: 0.2rem
   }
     .advanced-view-header .view-summary {
-      padding-left: .5rem;
+      padding-left: 0.5rem;
     }
-    .advanced-view-header  .view-display-toggle {
+    .advanced-view-header .view-display-toggle {
       display: none;
     }
     .advanced-view-header .view-exposed-filters {
@@ -47,7 +47,7 @@
     .advanced-view-header .views-tiny-pager .pager {
       display: flex;
       justify-content: flex-end;
-      padding-right: .5rem;
+      padding-right: 0.5rem;
       margin-top: -1rem;
     }
 }
@@ -90,7 +90,7 @@
   }
 .views-tiny-pager a {
     background: transparent;
-    padding: .2em
+    padding: 0.2em
   }
 .views-tiny-pager a:hover, .views-tiny-pager a:focus {
       background: transparent;
@@ -105,8 +105,8 @@
   .views-tiny-pager .pager__item--next a:after {
     content: '';
     display: inline-block;
-    height: .5em;
-    width: .5em;
+    height: 0.5em;
+    width: 0.5em;
     border-right: 2px solid var(--color-default-text);
     border-bottom: 2px solid var(--color-default-text);
     transform: rotate(45deg);
@@ -124,18 +124,18 @@
     color: transparent;
     height: 1em;
     width: 1em;
-    margin-top: -.6rem
+    margin-top: -0.6rem
   }
-.views-tiny-pager .pager__items > .pager__item--ellipsis:first-child:before  {
+.views-tiny-pager .pager__items > .pager__item--ellipsis:first-child:before {
       content: '';
       display: inline-block;
-      height: .5em;
-      width: .5em;
+      height: 0.5em;
+      width: 0.5em;
       border-right: 2px solid var(--color-default-text);
       border-bottom: 2px solid var(--color-default-text);
       transform: rotate(45deg);
       transform: rotate(135deg);
-      opacity: .4;
+      opacity: 0.4;
     }
 /* Exposed filters */
 .view-exposed-filters form {
@@ -143,7 +143,7 @@
   align-items: center
 }
 .view-exposed-filters form label {
-    margin-right: .5em;
+    margin-right: 0.5em;
     white-space: nowrap;
   }
 .view-exposed-filters form > .form-item {
@@ -151,19 +151,20 @@
     align-items: center;
     margin: 0
   }
-.view-exposed-filters form > .form-item.type,
+.view-exposed-filters form > .form-item.year,
+    .view-exposed-filters form > .form-item.type,
     .view-exposed-filters form > .form-item.form-item-sort-bef-combine {
       display: flex;
     }
 .view-exposed-filters form > .form-item + .form-item {
       border-left: 1px solid var(--color-lt-grey);
-      padding-left: .6rem;
-      margin-left: .6rem;
+      padding-left: 0.6rem;
+      margin-left: 0.6rem;
     }
 .view-exposed-filters form details,
   .view-exposed-filters form .form-select {
     border-color: transparent;
-    padding: .3rem .4rem;
+    padding: 0.3rem 0.4rem;
   }
 .view-exposed-filters form .form-actions {
     margin: 0;
@@ -171,27 +172,18 @@
 .view-exposed-filters form details {
     position: relative
   }
-.view-exposed-filters form details > .form-checkboxes {
+.view-exposed-filters form details > .form-checkboxes,
+    .view-exposed-filters form details .form-radios {
       position: absolute;
       left: 0;
       z-index: 4;
       background: white;
       border: 1px solid var(--color-md-grey);
-      padding: 0 .4rem
+      padding: 0 0.4rem
     }
-.view-exposed-filters form details > .form-checkboxes .form-item {
+.view-exposed-filters form details > .form-checkboxes .form-item, .view-exposed-filters form details .form-radios .form-item {
         display: flex;
       }
-.view-exposed-filters form .form-submit,
-  .view-exposed-filters form .form-submit:hover,
-  .view-exposed-filters form .form-submit:focus {
-    background: center center no-repeat;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' style='width:24px;height:24px' viewBox='0 0 24 24'%3E%3Cpath fill='%23333' d='M14,8H11V14H6V8H3L8.5,2L14,8M15.5,22L21,16H18V10H13V16H10L15.5,22Z' /%3E%3C/svg%3E");
-    background-size: 1.6em;
-    color: transparent;
-    width: 2em;
-    padding: 0.8em 0;
-  }
 /*
  * Display switcher
 */
@@ -199,7 +191,7 @@
     display: flex;
   }
 .view-display-toggle li {
-    margin-left: .5em;
+    margin-left: 0.5em;
   }
 .view-display-toggle a {
     cursor: pointer;

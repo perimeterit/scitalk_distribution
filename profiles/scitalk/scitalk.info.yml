@@ -89,6 +89,7 @@ install:
   - twig_tweak
   - views_ajax_history
   - views_contextual_filters_or
+  - selective_better_exposed_filters
   - views_field_view
   - google_analytics
 themes:

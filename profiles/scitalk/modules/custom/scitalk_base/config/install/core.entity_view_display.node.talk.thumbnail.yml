@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.thumbnail
     - field.field.node.talk.feeds_item
+    - field.field.node.talk.field_academic_year
     - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
     - field.field.node.talk.field_talk_abstract
@@ -12,6 +13,7 @@ dependencies:
     - field.field.node.talk.field_talk_collection
     - field.field.node.talk.field_talk_date
     - field.field.node.talk.field_talk_doi
+    - field.field.node.talk.field_talk_duration
     - field.field.node.talk.field_talk_keywords
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
@@ -26,24 +28,28 @@ dependencies:
     - field.field.node.talk.field_talk_video_url
     - field.field.node.talk.field_talk_viewable_online
     - node.type.talk
-  enforced:
-    module:
-      - scitalk_base
   module:
     - fences
     - field_group
     - layout_builder
     - scitalk_media
     - user
+  enforced:
+    module:
+      - scitalk_base
 third_party_settings:
   field_group:
     group_talk_resources:
       children:
         - field_talk_attachments
+      label: Resources
       parent_name: ''
+      region: hidden
       weight: 24
       format_type: html_element
       format_settings:
+        classes: ''
+        id: ''
         element: div
         show_label: true
         label_element: h2
@@ -51,16 +57,16 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
-        id: ''
-        classes: ''
-      label: Resources
-      region: hidden
     group_talk_details:
       children: {  }
+      label: Details
       parent_name: ''
+      region: hidden
       weight: 23
       format_type: html_element
       format_settings:
+        classes: ''
+        id: ''
         element: div
         show_label: true
         label_element: h2
@@ -68,15 +74,11 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
-        id: ''
-        classes: ''
-      label: Details
-      region: hidden
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 _core:
-  default_config_hash: YZIPc_CJIBOqNVEWETptkDqEgAC3sFBB0bTgrn0nsKU
+  default_config_hash: cWtSK8Qj4oWEaN1n9FuzBmvnY-8qI5JyUSXZpSOoqd8
 id: node.talk.thumbnail
 targetEntityType: node
 bundle: talk
@@ -84,8 +86,6 @@ mode: thumbnail
 content:
   field_talk_thumbnail:
     type: scitalk_thumbnail_formatter
-    weight: 0
-    region: content
     label: hidden
     settings:
       which_thumb: media
@@ -98,8 +98,11 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
+    weight: 0
+    region: content
 hidden:
   feeds_item: true
+  field_academic_year: true
   field_embargo_date: true
   field_scientific_area: true
   field_talk_abstract: true
@@ -107,6 +110,7 @@ hidden:
   field_talk_collection: true
   field_talk_date: true
   field_talk_doi: true
+  field_talk_duration: true
   field_talk_keywords: true
   field_talk_location: true
   field_talk_number: true

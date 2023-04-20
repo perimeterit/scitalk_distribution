@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.page_header
     - field.field.node.talk.feeds_item
+    - field.field.node.talk.field_academic_year
     - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
     - field.field.node.talk.field_talk_abstract
@@ -12,6 +13,7 @@ dependencies:
     - field.field.node.talk.field_talk_collection
     - field.field.node.talk.field_talk_date
     - field.field.node.talk.field_talk_doi
+    - field.field.node.talk.field_talk_duration
     - field.field.node.talk.field_talk_keywords
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
@@ -26,41 +28,41 @@ dependencies:
     - field.field.node.talk.field_talk_video_url
     - field.field.node.talk.field_talk_viewable_online
     - node.type.talk
-  enforced:
-    module:
-      - scitalk_base
   module:
     - datetime
     - fences
     - field_group
     - user
+  enforced:
+    module:
+      - scitalk_base
 third_party_settings:
   field_group:
     group_share:
       children: {  }
+      label: 'Share & Favourite'
       parent_name: ''
+      region: hidden
       weight: 2
       format_type: html_element
       format_settings:
-        id: ''
         classes: share-favourite
+        id: ''
         element: div
         show_label: true
         label_element: h3
         attributes: ''
         effect: none
         speed: fast
-      label: 'Share & Favourite'
-      region: hidden
 _core:
-  default_config_hash: cxlxqxUUf5EHoSengOi9i2lZSi1UhOmEWiCe2fXjtPk
+  default_config_hash: dyH_tzRFSzBIHGOx7bzI8iCDMXpTXYMBZeEFag5NhCI
 id: node.talk.page_header
 targetEntityType: node
 bundle: talk
 mode: page_header
 content:
   field_talk_date:
-    weight: 1
+    type: datetime_default
     label: hidden
     settings:
       timezone_override: ''
@@ -73,10 +75,10 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
-    type: datetime_default
+    weight: 1
     region: content
   field_talk_speaker_profile:
-    weight: 0
+    type: entity_reference_entity_view
     label: hidden
     settings:
       view_mode: speaker_name_institution
@@ -89,16 +91,18 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
-    type: entity_reference_entity_view
+    weight: 0
     region: content
 hidden:
   feeds_item: true
+  field_academic_year: true
   field_embargo_date: true
   field_scientific_area: true
   field_talk_abstract: true
   field_talk_attachments: true
   field_talk_collection: true
   field_talk_doi: true
+  field_talk_duration: true
   field_talk_keywords: true
   field_talk_location: true
   field_talk_number: true
