@@ -4,11 +4,13 @@ use \Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\group\Entity\Group;
-use Drupal\scitalk_base\ScitalkServices\ReferenceIDGeneratorInterface;
 use Drupal\views\Plugin\views\query\QueryPluginBase;
 use Drupal\views\ViewExecutable;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\node\Entity\Node;
+
+// use Drupal\scitalk_base\ScitalkServices\ReferenceIDGeneratorInterface;
+use Drupal\scitalk_base\Plugin\Field\SciTalkPrefixedTalkNumberList;
 
 /**
  * Implements hook_theme().
@@ -55,6 +57,30 @@ function scitalk_base_entity_base_field_info(\Drupal\Core\Entity\EntityTypeInter
   }
 
   if ($entity_type->id() == 'taxonomy_term') {
+  }
+}
+
+/**
+ * Implements hook_entity_bundle_field_info
+ */
+function scitalk_base_entity_bundle_field_info(\Drupal\Core\Entity\EntityTypeInterface $entity_type, $bundle, array $base_field_definitions) {
+  //create computed field to display talk numbers prefixed with a source repository predefined talk prefix
+  if ($entity_type->id() == 'node' && in_array($bundle, ['talk'])) {
+    $fields['scitalk_prefixed_talk_number'] = BaseFieldDefinition::create('string')
+    ->setLabel(t('Prefixed Talk Number'))
+    ->setDescription(t('Talk Number prefixed with an Institution specific prefix.'))
+    ->setComputed(TRUE)
+    ->setDefaultValue(NULL)
+    ->setClass(SciTalkPrefixedTalkNumberList::class)
+    ->setDisplayConfigurable('view', TRUE)
+    ->setDisplayOptions('view', [
+      'label' => 'hidden',
+      'weight' => -1,
+      'region' => 'disabled',
+      'type' => 'string',
+    ]);
+
+    return $fields;
   }
 }
 
