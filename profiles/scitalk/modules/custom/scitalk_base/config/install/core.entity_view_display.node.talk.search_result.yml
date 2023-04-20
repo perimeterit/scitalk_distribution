@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.search_result
     - field.field.node.talk.feeds_item
+    - field.field.node.talk.field_academic_year
     - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
     - field.field.node.talk.field_talk_abstract
@@ -12,6 +13,7 @@ dependencies:
     - field.field.node.talk.field_talk_collection
     - field.field.node.talk.field_talk_date
     - field.field.node.talk.field_talk_doi
+    - field.field.node.talk.field_talk_duration
     - field.field.node.talk.field_talk_keywords
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
@@ -26,24 +28,28 @@ dependencies:
     - field.field.node.talk.field_talk_video_url
     - field.field.node.talk.field_talk_viewable_online
     - node.type.talk
-  enforced:
-    module:
-      - scitalk_base
   module:
     - fences
     - field_group
     - layout_builder
     - text
     - user
+  enforced:
+    module:
+      - scitalk_base
 third_party_settings:
   field_group:
     group_talk_resources:
       children:
         - field_talk_attachments
+      label: Resources
       parent_name: ''
+      region: hidden
       weight: 10
       format_type: html_element
       format_settings:
+        classes: ''
+        id: ''
         element: div
         show_label: true
         label_element: h2
@@ -51,10 +57,6 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
-        id: ''
-        classes: ''
-      label: Resources
-      region: hidden
     group_talk_details:
       children:
         - field_combination_example
@@ -65,10 +67,14 @@ third_party_settings:
         - field_talk_source_event
         - field_talk_speaker_profile
         - field_talk_thumbnail
+      label: Details
       parent_name: ''
+      region: hidden
       weight: 11
       format_type: html_element
       format_settings:
+        classes: ''
+        id: ''
         element: div
         show_label: true
         label_element: h2
@@ -76,15 +82,11 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
-        id: ''
-        classes: ''
-      label: Details
-      region: hidden
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 _core:
-  default_config_hash: 3ucj2hi3cd877oNDrg4R2j2IwezDVQaqx7-3svDnAcc
+  default_config_hash: aCBVwGdMjFi6mbWDq6HeG_zIhXF-pqhzJYA-WTyTr48
 id: node.talk.search_result
 targetEntityType: node
 bundle: talk
@@ -92,8 +94,6 @@ mode: search_result
 content:
   field_talk_abstract:
     type: text_trimmed
-    weight: 0
-    region: content
     label: inline
     settings:
       trim_length: 200
@@ -105,19 +105,23 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
-  search_api_excerpt:
-    weight: 1
+    weight: 0
     region: content
+  search_api_excerpt:
     settings: {  }
     third_party_settings: {  }
+    weight: 1
+    region: content
 hidden:
   feeds_item: true
+  field_academic_year: true
   field_embargo_date: true
   field_scientific_area: true
   field_talk_attachments: true
   field_talk_collection: true
   field_talk_date: true
   field_talk_doi: true
+  field_talk_duration: true
   field_talk_keywords: true
   field_talk_location: true
   field_talk_number: true

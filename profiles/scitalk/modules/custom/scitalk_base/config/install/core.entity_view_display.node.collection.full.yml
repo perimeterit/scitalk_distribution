@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.full
     - field.field.node.collection.feeds_item
+    - field.field.node.collection.field_academic_year
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
     - field.field.node.collection.field_collection_event_url
@@ -33,7 +34,7 @@ third_party_settings:
     enabled: false
     allow_custom: false
 _core:
-  default_config_hash: zuGoXJ8Jl-TLkB2-3ET53mWgmmfx04QXZ3VkXd4H6eg
+  default_config_hash: l60VqUPFvSkWACMznZeATNHCuNm5x3_LigvAp1iyy00
 id: node.collection.full
 targetEntityType: node
 bundle: collection
@@ -166,6 +167,7 @@ content:
     weight: 5
     region: content
 hidden:
+  field_academic_year: true
   field_collection_event_url: true
   field_collection_last_talk_date: true
   field_collection_location: true

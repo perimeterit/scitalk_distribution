@@ -5,6 +5,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.full
     - field.field.node.talk.feeds_item
+    - field.field.node.talk.field_academic_year
     - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
     - field.field.node.talk.field_talk_abstract
@@ -105,7 +106,7 @@ third_party_settings:
     enabled: false
     allow_custom: false
 _core:
-  default_config_hash: YZIPc_CJIBOqNVEWETptkDqEgAC3sFBB0bTgrn0nsKU
+  default_config_hash: F_Xqqrqlwp909-f1hLY6vKo7NhdOTTGOLcggGndt0NA
 id: node.talk.full
 targetEntityType: node
 bundle: talk
@@ -319,6 +320,7 @@ content:
     region: content
 hidden:
   feeds_item: true
+  field_academic_year: true
   field_embargo_date: true
   field_scientific_area: true
   field_talk_duration: true

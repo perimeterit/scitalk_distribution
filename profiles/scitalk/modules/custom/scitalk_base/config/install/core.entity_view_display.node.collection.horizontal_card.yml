@@ -5,10 +5,15 @@ dependencies:
   config:
     - core.entity_view_mode.node.horizontal_card
     - field.field.node.collection.feeds_item
+    - field.field.node.collection.field_academic_year
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
     - field.field.node.collection.field_collection_event_url
+    - field.field.node.collection.field_collection_last_talk_date
+    - field.field.node.collection.field_collection_location
     - field.field.node.collection.field_collection_number
+    - field.field.node.collection.field_collection_number_children
+    - field.field.node.collection.field_collection_number_of_talks
     - field.field.node.collection.field_collection_organizers
     - field.field.node.collection.field_collection_public_viewable
     - field.field.node.collection.field_collection_short_desc
@@ -24,17 +29,17 @@ dependencies:
     - user
 third_party_settings:
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 _core:
-  default_config_hash: QR0e-ZoFkDGCMYQXxyYe3OHxqgtpxf0xxm0D0y77Hdg
+  default_config_hash: IjksR_2Lv-FC-Bl4TprdUl_CY4c7T-A2U5oElwY8yUM
 id: node.collection.horizontal_card
 targetEntityType: node
 bundle: collection
 mode: horizontal_card
 content:
   field_collection_date:
-    weight: 0
+    type: daterange_all_day_default
     label: hidden
     settings:
       timezone_override: ''
@@ -49,10 +54,10 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    type: daterange_all_day_default
+    weight: 0
     region: content
   field_collection_number:
-    weight: 3
+    type: string
     label: inline
     settings:
       link_to_entity: false
@@ -64,10 +69,10 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    type: string
+    weight: 3
     region: content
   field_collection_organizers:
-    weight: 2
+    type: entity_reference_label
     label: inline
     settings:
       link: true
@@ -79,10 +84,10 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    type: entity_reference_label
+    weight: 2
     region: content
   field_collection_type:
-    weight: 1
+    type: entity_reference_label
     label: inline
     settings:
       link: true
@@ -94,17 +99,22 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    type: entity_reference_label
+    weight: 1
     region: content
   links:
-    weight: 4
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 4
+    region: content
 hidden:
   feeds_item: true
+  field_academic_year: true
   field_collection_description: true
   field_collection_event_url: true
+  field_collection_last_talk_date: true
+  field_collection_location: true
+  field_collection_number_children: true
+  field_collection_number_of_talks: true
   field_collection_public_viewable: true
   field_collection_short_desc: true
   field_collection_source_repo: true

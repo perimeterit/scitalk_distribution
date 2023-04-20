@@ -5,10 +5,15 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.collection.feeds_item
+    - field.field.node.collection.field_academic_year
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
     - field.field.node.collection.field_collection_event_url
+    - field.field.node.collection.field_collection_last_talk_date
+    - field.field.node.collection.field_collection_location
     - field.field.node.collection.field_collection_number
+    - field.field.node.collection.field_collection_number_children
+    - field.field.node.collection.field_collection_number_of_talks
     - field.field.node.collection.field_collection_organizers
     - field.field.node.collection.field_collection_public_viewable
     - field.field.node.collection.field_collection_short_desc
@@ -23,7 +28,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: 4vDQm0Djn9FheK0nXECHXIYPmVTX87_CpGWd2TsuKD0
+  default_config_hash: PONt2D_pc6MawBSshRh3KL8tM50QH0hRAi3tw0RuWIA
 id: node.collection.teaser
 targetEntityType: node
 bundle: collection
@@ -31,8 +36,6 @@ mode: teaser
 content:
   field_collection_date:
     type: daterange_default
-    weight: 1
-    region: content
     label: inline
     settings:
       timezone_override: ''
@@ -46,17 +49,17 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
+    weight: 1
+    region: content
   field_collection_description:
     type: text_default
-    weight: 2
-    region: content
     label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 2
+    region: content
   field_collection_number:
     type: string
-    weight: 0
-    region: content
     label: inline
     settings:
       link_to_entity: false
@@ -68,16 +71,16 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-  links:
-    weight: 4
+    weight: 0
     region: content
+  links:
     settings: {  }
     third_party_settings: {  }
-  scitalk_number_of_talks:
-    label: inline
-    weight: 3
+    weight: 4
     region: content
+  scitalk_number_of_talks:
     type: number_integer
+    label: inline
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -89,9 +92,16 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
+    weight: 3
+    region: content
 hidden:
   feeds_item: true
+  field_academic_year: true
   field_collection_event_url: true
+  field_collection_last_talk_date: true
+  field_collection_location: true
+  field_collection_number_children: true
+  field_collection_number_of_talks: true
   field_collection_organizers: true
   field_collection_public_viewable: true
   field_collection_short_desc: true
