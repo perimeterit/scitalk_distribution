@@ -1,0 +1,35 @@
+uuid: 8850d3b0-8b3a-48ec-88f1-438bb9043972
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.academic_year.field_academic_year_dates
+    - taxonomy.vocabulary.academic_year
+  module:
+    - datetime_range
+    - text
+id: taxonomy_term.academic_year.default
+targetEntityType: taxonomy_term
+bundle: academic_year
+mode: default
+content:
+  description:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_academic_year_dates:
+    type: daterange_default
+    label: above
+    settings:
+      timezone_override: ''
+      format_type: medium
+      separator: '-'
+    third_party_settings: {  }
+    weight: 1
+    region: content
+hidden:
+  langcode: true
+  search_api_excerpt: true

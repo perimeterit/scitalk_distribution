@@ -1,0 +1,21 @@
+uuid: 7a1441fe-ff64-43ae-a35d-c50bbf5cfb20
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_academic_year_dates
+    - taxonomy.vocabulary.academic_year
+  module:
+    - datetime_range
+id: taxonomy_term.academic_year.field_academic_year_dates
+field_name: field_academic_year_dates
+entity_type: taxonomy_term
+bundle: academic_year
+label: 'Date range'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: daterange
