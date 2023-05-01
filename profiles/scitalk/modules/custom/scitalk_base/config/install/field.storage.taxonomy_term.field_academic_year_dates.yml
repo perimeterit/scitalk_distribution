@@ -10,7 +10,7 @@ field_name: field_academic_year_dates
 entity_type: taxonomy_term
 type: daterange
 settings:
-  datetime_type: datetime
+  datetime_type: date
 module: datetime_range
 locked: false
 cardinality: 1
