@@ -23,6 +23,7 @@ use Drupal\group\Entity\Group;
  * )
  */
 class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterface {
+    private $currentUser;
 
     /**
      * Constructs a new SciTalkCitations object.
@@ -60,24 +61,29 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
         $talk_number = $doi = $url = $talk_date = $lang = $year = $title = $site_name = $publisher = $repo = '';
         $speakers = $keywords = [];
 
-        $pirsa = $this->getContextValue('node');
-        if ($pirsa instanceof \Drupal\node\NodeInterface) {
+        $scitalk = $this->getContextValue('node');
+        if ($scitalk instanceof \Drupal\node\NodeInterface) {
             $config = \Drupal::config('system.site');
             $datacite_config = \Drupal::config('scitalk_base.settings');
 
             //use the site name as prefix for the BiTeX id e.g. "@misc{ pirsa_19100012,  ..."
             $site_name = str_replace(' ', '_', strtolower($config->get('name')));
 
-            $title = $pirsa->title->value ?? '';
-            $talk_number = $pirsa->field_talk_number->value ?? '';
-            $talk_date = $pirsa->field_talk_date->value ?? '';
+            $title = $scitalk->title->value ?? '';
+
+            $orig_talk_number = $scitalk->field_talk_number->value ?? '';
+            $prefixed_talk_number = $scitalk->scitalk_prefixed_talk_number->value ?? '';
+            //we'll use the prefixed talk number in citations:
+            $talk_number = $prefixed_talk_number;
+
+            $talk_date = $scitalk->field_talk_date->value ?? '';
             $talk_date_formatted = $talk_date ? date('M. d, Y', strtotime($talk_date)) : '';
             $year = $talk_date ? date('Y', strtotime($talk_date)) : '';
             $month = $talk_date ? strtolower(date('M', strtotime($talk_date))) : '';
-            $doi = $pirsa->field_talk_doi->value ?? '';
-            //$url = $pirsa->field_talk_source_event->uri;
-            $url = $pirsa->field_talk_video_url->uri ?? $pirsa->toUrl()->setAbsolute()->toString(true)->getGeneratedUrl() ?? '' ;
-            $lang = $pirsa->langcode->value ?? '';
+            $doi = $scitalk->field_talk_doi->value ?? '';
+            //$url = $scitalk->field_talk_source_event->uri;
+            $url = $scitalk->field_talk_video_url->uri ?? $scitalk->toUrl()->setAbsolute()->toString(true)->getGeneratedUrl() ?? '' ;
+            $lang = $scitalk->langcode->value ?? '';
 
             //use for publisher the entry in "DataCite Creator Institution" from the Scitalk configuration form:
             $doi_on = (bool)$datacite_config->get('use_doi') ?? FALSE;
@@ -88,15 +94,21 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
             // use long Institution name from the groups, falling back to the Publishing Institution (from Scitalks config) and if that is also empty, falling back to the site name.
             $repository = $publisher ?: $config->get('name');
 
-            $repo_id = $pirsa->get('field_talk_source_repository')->target_id ?? '';
+            $repo_id = $scitalk->get('field_talk_source_repository')->target_id ?? '';
             if (!empty($repo_id)) {
                 $repo = Group::load($repo_id);
                 $repository = $repo->field_repo_institution_full_name->value ?? $repository;
                 $publisher = $repo->field_repo_institution_full_name->value ?? $publisher;
             }
 
-            $talk_prefix = $datacite_config->get('datacite_talk_prefix') ?? '';
-            $talk_prefix = empty($talk_prefix) ? 'Talk #' : $talk_prefix;
+            // $talk_prefix = $datacite_config->get('datacite_talk_prefix') ?? '';
+            // $talk_prefix = empty($talk_prefix) ? 'Talk #' : $talk_prefix;
+            //if the talk is not prefixed then we'll add a "Talk #" prefix in the Bibtex note:
+            $talk_prefix = '';
+            $base_talk_prefix = \Drupal::service('scitalk_base.talk_prefix')->get($scitalk);
+            if (empty($base_talk_prefix) && ($orig_talk_number == $prefixed_talk_number)) {
+                $talk_prefix = 'Talk #';
+            }
 
             //for the BibTex "note" field: if using DOI then grab the "Persistent Domain" value, else use this site base url
             $base_url = \Drupal::request()->getSchemeAndHttpHost();
@@ -123,17 +135,17 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
                     'display_name' => $sp->field_sp_display_name->value
                 ];
 
-            }, $pirsa->field_talk_speaker_profile->referencedEntities());
+            }, $scitalk->field_talk_speaker_profile->referencedEntities());
 
             //get scientific areas
             $sa = array_map(function($sa) {
                 return $sa->name->value;
-            }, $pirsa->field_scientific_area->referencedEntities());
+            }, $scitalk->field_scientific_area->referencedEntities());
 
             //get talk keywords
             $kws = array_map(function($kw) {
                 return $kw->name->value;
-            }, $pirsa->field_talk_keywords->referencedEntities());
+            }, $scitalk->field_talk_keywords->referencedEntities());
 
             //Citations keywords are scientific areas and talk keywords
             $keywords = array_unique( array_merge($sa, $kws) );

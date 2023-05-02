@@ -13,3 +13,6 @@ services:
 
  scitalk_base.collection_children_stats:
   class: Drupal\scitalk_base\ScitalkServices\CollectionSubcollectionsStats
+
+ scitalk_base.talk_prefix:
+  class: Drupal\scitalk_base\ScitalkServices\TalkPrefix

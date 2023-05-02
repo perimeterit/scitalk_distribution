@@ -40,7 +40,8 @@ function scitalk_base_theme($existing, $type, $theme, $path) {
         'repository' => '',
         'talk_prefix' => '',
         'persistent_url' => '',
-        'bibtex_note' => ''
+        'bibtex_note' => '',
+        'scitalk_prefixed_talk_number' => '' //calculated field for talk numbers
       ],
       'template' => 'block--scitalk-citations'
     ],
