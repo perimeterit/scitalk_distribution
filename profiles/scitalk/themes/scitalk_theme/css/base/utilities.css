@@ -1,32 +1,31 @@
 /**
- * Utility c (useful classes)
+ * Utility classes
  */
+
 /*
  * "Display" list: removes list markers, margins, and left padding.
  */
+
 .display-list,
- .inline-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
 .inline-list {
   margin: 0;
   padding: 0;
   list-style: none;
 }
-.inline-list > li {
-  display: inline;
-  margin-right: .3em;
-}
-.inline-list li:last-child {
+
+.inline-list {
   margin: 0;
+  padding: 0;
+  list-style: none
 }
-.inline-list.add-commas li:after {
-  content: ',';
-  margin-left: -.3em;
-}
-.inline-list.add-commas li:last-child:after {
-  content: '';
-}
+
+.inline-list > li {
+    display: inline;
+    margin-right: 0.3em
+  }
+
+.inline-list > li:last-child {
+      margin: 0;
+    }
+
 /*# sourceMappingURL=utilities.css.map */

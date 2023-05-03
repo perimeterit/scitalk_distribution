@@ -4,7 +4,8 @@
 @import "../base/mixins.css";
 
 /* Talk number  */
-.node.talk.full > .field--name-field-talk-number {
+.node.talk.full > .field--name-field-talk-number,
+.node.talk.full > .field--name-scitalk-prefixed-talk-number {
   background: var(--color-lt-grey);
   color: var(--color-default-text);
   display: inline-block;
@@ -13,11 +14,10 @@
   text-decoration: none;
 
   font-weight: 500;
-  font-size: .9rem;
+  font-size: 0.9rem;
 
   float: right;
   margin-bottom: 1rem;
-
 }
 /* Video url/video player */
 
@@ -25,14 +25,14 @@
   background-color: var(--color-lt-grey);
   clear: both;
   margin-bottom: 1.5rem;
-  padding: .8rem 1rem;
+  padding: 0.8rem 1rem;
   display: flex;
   align-items: center;
   & h2 {
     &:after {
-      content: ':';
+      content: ":";
       display: inline-block;
-      margin-right: .5rem;
+      margin-right: 0.5rem;
     }
   }
   & h2 + a {
@@ -51,7 +51,7 @@
     align-items: start;
   }
   & .speakers {
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
   }
 }
 
@@ -61,7 +61,7 @@
       grid-template-columns: auto 6rem 6rem;
     }
     & h1 {
-      margin: 0 0 .8rem;
+      margin: 0 0 0.8rem;
     }
     & .block-pagetitle {
       margin-right: var(--gutter-standard);
@@ -94,21 +94,21 @@
     }
   }
   & .date-doi {
-    margin-top: .5rem;
+    margin-top: 0.5rem;
   }
   & .group-taxonomy {
-    margin: 1rem 0 0 .5rem;
+    margin: 1rem 0 0 0.5rem;
   }
   & .talk-metadata .field {
-    margin-bottom: .8rem;
+    margin-bottom: 0.8rem;
     &.field--name-field-talk-subject {
-     margin-bottom: .67rem;
+      margin-bottom: 0.67rem;
     }
   }
 }
 
 .group-taxonomy {
-  font-size: .8em;
+  font-size: 0.8em;
   & .field {
     display: flex;
   }
@@ -122,14 +122,13 @@
   }
   & li {
     display: inline;
-    margin-bottom: .4rem;
+    margin-bottom: 0.4rem;
   }
   & .field--name-field-talk-subject a,
   & .field--name-field-talk-type a {
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
   }
 }
-
 
 @media all and (min-width: 768px) {
   .group-taxonomy {
@@ -139,8 +138,8 @@
     align-items: start;
     justify-content: start;
     & .field {
-      &:nth-child(-n + 2 ) {
-        padding-bottom: .8rem;
+      &:nth-child(-n + 2) {
+        padding-bottom: 0.8rem;
       }
       &:nth-child(odd) {
         border-right: 1px solid var(--color-md-grey);
@@ -173,6 +172,6 @@
 }
 
 .talk-add {
-  padding: .5em 1em;
+  padding: 0.5em 1em;
   margin-bottom: 1em;
 }

@@ -17,7 +17,7 @@
 %}
 
 <article{{ attributes.addClass(classes) }}>
-  {{ content.field_talk_number }}
+  {{ content.scitalk_prefixed_talk_number}}
   {% block video %}
     {{ content.field_talk_video }}
     {{ content.field_talk_video_url }}
@@ -26,7 +26,8 @@
   {{ drupal_region('page_title') }}
   {% include '@scitalk_theme/includes/speaker-fields.twig' %}
 
-  {{ content|without('field_talk_number','field_talk_video', 'field_talk_video_url', 'field_talk_speaker_profile',  'field_talk_speakers_text') }}
+
+  {{ content|without('field_talk_number','scitalk_prefixed_talk_number','field_talk_video', 'field_talk_video_url', 'field_talk_speaker_profile',  'field_talk_speakers_text') }}
 
 </article>
 

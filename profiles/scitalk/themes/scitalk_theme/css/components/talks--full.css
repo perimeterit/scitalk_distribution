@@ -9,7 +9,8 @@
  * @mixin caret 2px, 1em, var(--color-black)
 */
 /* Talk number  */
-.node.talk.full > .field--name-field-talk-number {
+.node.talk.full > .field--name-field-talk-number,
+.node.talk.full > .field--name-scitalk-prefixed-talk-number {
   background: var(--color-lt-grey);
   color: var(--color-default-text);
   display: inline-block;
@@ -18,25 +19,24 @@
   text-decoration: none;
 
   font-weight: 500;
-  font-size: .9rem;
+  font-size: 0.9rem;
 
   float: right;
   margin-bottom: 1rem;
-
 }
 /* Video url/video player */
 .field--name-field-talk-video-url {
   background-color: var(--color-lt-grey);
   clear: both;
   margin-bottom: 1.5rem;
-  padding: .8rem 1rem;
+  padding: 0.8rem 1rem;
   display: flex;
   align-items: center
 }
 .field--name-field-talk-video-url h2:after {
-      content: ':';
+      content: ":";
       display: inline-block;
-      margin-right: .5rem;
+      margin-right: 0.5rem;
     }
 .field--name-field-talk-video-url h2 + a {
     display: flex-item;
@@ -51,14 +51,14 @@
     align-items: start;
   }
 .node.talk.full .speakers {
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
   }
 @media all and (min-width: 768px) {
     .node.talk.full .region-page-title {
       grid-template-columns: auto 6rem 6rem;
     }
     .node.talk.full h1 {
-      margin: 0 0 .8rem;
+      margin: 0 0 0.8rem;
     }
     .node.talk.full .block-pagetitle {
       margin-right: var(--gutter-standard);
@@ -88,19 +88,19 @@
       margin-bottom: 0;
     }
 .node.talk.full .date-doi {
-    margin-top: .5rem;
+    margin-top: 0.5rem;
   }
 .node.talk.full .group-taxonomy {
-    margin: 1rem 0 0 .5rem;
+    margin: 1rem 0 0 0.5rem;
   }
 .node.talk.full .talk-metadata .field {
-    margin-bottom: .8rem
+    margin-bottom: 0.8rem
   }
 .node.talk.full .talk-metadata .field.field--name-field-talk-subject {
-     margin-bottom: .67rem;
+      margin-bottom: 0.67rem;
     }
 .group-taxonomy {
-  font-size: .8em
+  font-size: 0.8em
 }
 .group-taxonomy .field {
     display: flex;
@@ -115,11 +115,11 @@
   }
 .group-taxonomy li {
     display: inline;
-    margin-bottom: .4rem;
+    margin-bottom: 0.4rem;
   }
 .group-taxonomy .field--name-field-talk-subject a,
   .group-taxonomy .field--name-field-talk-type a {
-    margin-bottom: .5rem;
+    margin-bottom: 0.5rem;
   }
 @media all and (min-width: 768px) {
   .group-taxonomy {
@@ -129,8 +129,8 @@
     align-items: start;
     justify-content: start
   }
-      .group-taxonomy .field:nth-child(-n + 2 ) {
-        padding-bottom: .8rem;
+      .group-taxonomy .field:nth-child(-n + 2) {
+        padding-bottom: 0.8rem;
       }
       .group-taxonomy .field:nth-child(odd) {
         border-right: 1px solid var(--color-md-grey);
@@ -158,7 +158,7 @@
     margin: 0;
   }
 .talk-add {
-  padding: .5em 1em;
+  padding: 0.5em 1em;
   margin-bottom: 1em;
 }
 
