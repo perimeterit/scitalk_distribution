@@ -9,6 +9,7 @@ use Drupal\Core\Session\AccountInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\node\NodeInterface;
 use Drupal\group\Entity\Group;
+use Drupal\Core\Url;
 
 /**
  * Provides a 'SciTalks Citations' Block.
@@ -62,7 +63,7 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
         $speakers = $keywords = [];
 
         $scitalk = $this->getContextValue('node');
-        if ($scitalk instanceof \Drupal\node\NodeInterface) {
+        if ($scitalk instanceof NodeInterface) {
             $config = \Drupal::config('system.site');
             $datacite_config = \Drupal::config('scitalk_base.settings');
 
@@ -105,13 +106,16 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
             // $talk_prefix = empty($talk_prefix) ? 'Talk #' : $talk_prefix;
             //if the talk is not prefixed then we'll add a "Talk #" prefix in the Bibtex note:
             $talk_prefix = '';
-            $base_talk_prefix = \Drupal::service('scitalk_base.talk_prefix')->get($scitalk);
-            if (empty($base_talk_prefix) && ($orig_talk_number == $prefixed_talk_number)) {
-                $talk_prefix = 'Talk #';
-            }
+            //decided not to prefix talks with this text, but instead show the full path to the talk - so comment this block for now:
+            // $base_talk_prefix = \Drupal::service('scitalk_base.talk_prefix')->get($scitalk);
+            // if (empty($base_talk_prefix) && ($orig_talk_number == $prefixed_talk_number)) {
+            //     $talk_prefix = 'Talk #';
+            // }
 
             //for the BibTex "note" field: if using DOI then grab the "Persistent Domain" value, else use this site base url
-            $base_url = \Drupal::request()->getSchemeAndHttpHost();
+            // $base_url = \Drupal::request()->getSchemeAndHttpHost();
+            //use instead the path the current talk:
+            $base_url = Url::fromRoute('<current>', array(), array('absolute' => 'true'))->toString();
             if ($doi_on) {
                 $base_url = $datacite_config->get('datacite_alternate_indentifier') ?? $base_url;
             }
