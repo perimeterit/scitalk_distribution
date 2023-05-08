@@ -16,3 +16,6 @@ services:
 
  scitalk_base.talk_prefix:
   class: Drupal\scitalk_base\ScitalkServices\TalkPrefix
+
+ scitalk_base.talk_academic_year:
+  class: Drupal\scitalk_base\ScitalkServices\TalkAcademicYear
