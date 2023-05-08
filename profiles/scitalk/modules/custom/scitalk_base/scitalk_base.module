@@ -187,6 +187,10 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
           }
         }
       }
+
+      $academic_year = \Drupal::service('scitalk_base.talk_academic_year');
+      $academic_year_tid = $academic_year->get($entity);
+      $entity->set('field_academic_year', $academic_year_tid);
     }
   }
 }
