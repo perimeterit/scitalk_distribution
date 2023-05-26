@@ -1,0 +1,13 @@
+diff --git a/src/Plugin/better_exposed_filters/filter/SelectiveFilterBase.php b/src/Plugin/better_exposed_filters/filter/SelectiveFilterBase.php
+index 48792fa..f50524d 100644
+--- a/src/Plugin/better_exposed_filters/filter/SelectiveFilterBase.php
++++ b/src/Plugin/better_exposed_filters/filter/SelectiveFilterBase.php
+@@ -185,6 +185,8 @@ abstract class SelectiveFilterBase {
+               )
+             ) {
+               $element['#access'] = FALSE;
++              // Hide collapsible details element
++              unset($form[$identifier . '_collapsible']);
+             }
+           }
+         }
