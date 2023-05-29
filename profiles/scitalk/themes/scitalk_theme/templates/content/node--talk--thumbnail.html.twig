@@ -8,5 +8,6 @@
  */
 #}
 <div{{ attributes.addClass(classes) }}>
-  {{ content }}
+  {{ content|without('scitalk_prefixed_talk_number') }}
 </div>
+
