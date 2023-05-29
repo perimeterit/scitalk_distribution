@@ -374,7 +374,7 @@ display:
           sort_asc_label: Asc
           sort_desc_label: Desc
           text_input_required: 'Select any filter and click on Apply to see results'
-          text_input_required_format: null
+          text_input_required_format: basic_html
           bef:
             general:
               autosubmit: false
@@ -386,11 +386,21 @@ display:
               secondary_label: 'Advanced options'
               secondary_open: false
               reset_button_always_show: false
-            sort:
-              plugin_id: default
             filter:
               field_academic_year_target_id:
-                plugin_id: default
+                plugin_id: bef
+                advanced:
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: ''
+                  collapsible: true
+                  is_secondary: false
+                select_all_none: false
+                select_all_none_nested: false
+                display_inline: false
+                options_show_only_used: 1
+                options_show_only_used_filtered: 0
+                options_hide_when_empty: 1
       access:
         type: perm
         options:
@@ -529,7 +539,7 @@ display:
             identifier: field_academic_year_target_id
             required: false
             remember: false
-            multiple: false
+            multiple: true
             remember_roles:
               authenticated: authenticated
               anonymous: '0'
