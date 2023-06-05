@@ -1,0 +1,25 @@
+diff --git a/src/Plugin/better_exposed_filters/filter/SelectiveFilterBase.php b/src/Plugin/better_exposed_filters/filter/SelectiveFilterBase.php
+index 48792fa..ffbdfc3 100644
+--- a/src/Plugin/better_exposed_filters/filter/SelectiveFilterBase.php
++++ b/src/Plugin/better_exposed_filters/filter/SelectiveFilterBase.php
+@@ -185,11 +185,20 @@ abstract class SelectiveFilterBase {
+               )
+             ) {
+               $element['#access'] = FALSE;
++              // Hide collapsible details element
++              unset($form[$identifier . '_collapsible']);
+             }
+           }
++          else {
++            // In this case the options are empty because the taxonomy is empty
++            // Hide collapsible details element
++            unset($form[$identifier . '_collapsible']);
++          }
+         }
+         elseif (!empty($settings['options_hide_when_empty'])) {
+           $element['#access'] = FALSE;
++          // Hide collapsible details element
++          unset($form[$identifier . '_collapsible']);
+         }
+       }
+       else {
