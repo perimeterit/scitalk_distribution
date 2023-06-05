@@ -151,7 +151,7 @@
                   "TypeError: Argument 1 passed to Drupal\\simple_oauth\\Repositories\\ScopeRepository::scopeFactory() must implement interface Drupal\\user\\RoleInterface" : "https://www.drupal.org/files/issues/2019-02-12/3032371-3.patch"
                 },
                 "drupal/selective_better_exposed_filters": {
-                  "Hide details collapsible if form element is empty" : "https://raw.githubusercontent.com/perimeterit/scitalk_distribution/427b8b246208b4acac2a1d38dec2fd64fcf16673/patches/3360778-hide-collapsible-details.patch"
+                  "Hide details collapsible if form element is empty" : "https://raw.githubusercontent.com/perimeterit/scitalk_distribution/master/patches/3360778-hide-collapsible-details-element.patch"
                 }
         }
     }
