@@ -29,7 +29,7 @@
         "drupal/config_ignore": "^2.3",
         "drupal/console": "^1.0.2",
         "drupal/consumers": "^1.10",
-        "drupal/copyright_block": "^1.0@RC",
+        "drupal/copyright_block": "^2.0",
         "drupal/core": "^9.0",
         "drupal/core-composer-scaffold": "^9.4",
         "drupal/date_all_day": "1.x-dev",
@@ -152,6 +152,9 @@
                 },
                 "drupal/selective_better_exposed_filters": {
                   "Hide details collapsible if form element is empty" : "https://raw.githubusercontent.com/perimeterit/scitalk_distribution/master/patches/3360778-hide-collapsible-details-element.patch"
+                },
+                "drupal/copyright_block": {
+                    "Remove deprecated core key that breaks site": "https://www.drupal.org/files/issues/2023-05-08/copyright_block-fix-core-version-3357937.patch"
                 }
         }
     }
