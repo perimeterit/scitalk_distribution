@@ -12,7 +12,7 @@ table.jrt {
   white-space: nowrap;
 }
 /* Recent content views */
-.view-recent-content .tag {
+.view-scitalk-taxonomy .tag a {
     font-weight: 400;
     padding: 0.3rem 1rem;
   }

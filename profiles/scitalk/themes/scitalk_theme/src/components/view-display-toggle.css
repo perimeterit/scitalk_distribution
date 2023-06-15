@@ -44,6 +44,7 @@
   & .table-display .view-content {
     background: var(--color-lt-grey);
     padding: var(--gutter-standard);
+    padding-bottom: 1px;
     margin: 0 var(--responsive-padding)
   }
   &[aria-hidden="true"] {

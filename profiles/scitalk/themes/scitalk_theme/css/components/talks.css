@@ -54,13 +54,6 @@
 
 /* Common view mode theming */
 
-.node.talk:not(.full) {
-    background: white;
-    box-shadow: -2px 2px 2px 0 rgba(99, 104, 115, 0.1);
-    padding: 1.5em var(--gutter-standard) 1em;
-    margin-bottom: var(--gutter-standard);
-  }
-
 .node.talk .info {
     font-size: .8em;
     margin-left: -.5em
@@ -135,12 +128,19 @@
 
 .node.talk.teaser {
   display: flex
-
 }
 
 .node.talk.teaser > a {
     flex: 0 0 auto;
     margin-right: var(--gutter-standard);
+  }
+
+/**
+ * M8ni-Teaser view mode
+*/
+
+.node.talk.mini-teaser h3 a {
+    text-decoration: none;
   }
 
 /*# sourceMappingURL=talks.css.map */
