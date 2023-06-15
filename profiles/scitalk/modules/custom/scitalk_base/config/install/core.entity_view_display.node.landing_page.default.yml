@@ -1,0 +1,136 @@
+uuid: 6e8ea7f6-743c-47d2-b699-9e6b727e4db6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.landing_page.body
+    - field.field.node.landing_page.layout_builder__layout
+    - node.type.landing_page
+    - views.view.scitalk_catch_up
+    - views.view.scitalk_recent_content
+    - views.view.scitalk_taxonomy
+  module:
+    - layout_builder
+    - layout_discovery
+    - text
+    - user
+    - views
+third_party_settings:
+  layout_builder:
+    enabled: true
+    allow_custom: true
+    sections:
+      -
+        layout_id: layout_onecol
+        layout_settings:
+          label: ''
+        components:
+          c90cfd99-7ace-4248-9e97-a23caa671edb:
+            uuid: c90cfd99-7ace-4248-9e97-a23caa671edb
+            region: content
+            configuration:
+              id: 'field_block:node:landing_page:body'
+              label_display: '0'
+              context_mapping:
+                entity: layout_builder.entity
+              formatter:
+                type: text_default
+                label: hidden
+                settings: {  }
+                third_party_settings: {  }
+            weight: 3
+            additional: {  }
+          a9ca8ac5-25bc-4e5d-b3c7-02f49ecb859a:
+            uuid: a9ca8ac5-25bc-4e5d-b3c7-02f49ecb859a
+            region: content
+            configuration:
+              id: 'views_exposed_filter_block:scitalk_catch_up-form_block'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: 'Catch Up'
+            weight: 2
+            additional: {  }
+          3887b2c9-e5e3-4269-921e-577c856c2aa9:
+            uuid: 3887b2c9-e5e3-4269-921e-577c856c2aa9
+            region: content
+            configuration:
+              id: 'views_block:scitalk_taxonomy-block_1'
+              label: View
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: View
+              items_per_page: none
+            weight: 4
+            additional: {  }
+          6f4fe35f-ec05-4dee-a599-c7d1a347c97e:
+            uuid: 6f4fe35f-ec05-4dee-a599-c7d1a347c97e
+            region: content
+            configuration:
+              id: 'views_block:scitalk_taxonomy-block_2'
+              label: 'Talks In'
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: 'Talks In'
+              items_per_page: none
+            weight: 5
+            additional: {  }
+        third_party_settings: {  }
+      -
+        layout_id: layout_twocol_section
+        layout_settings:
+          label: ''
+          context_mapping: {  }
+          column_widths: 50-50
+        components:
+          50a9acda-19e5-4755-9001-6bd3f8316698:
+            uuid: 50a9acda-19e5-4755-9001-6bd3f8316698
+            region: first
+            configuration:
+              id: 'views_block:scitalk_recent_content-block_2'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 0
+            additional: {  }
+          be3ae0b1-1bdc-47db-811d-a7b42717872b:
+            uuid: be3ae0b1-1bdc-47db-811d-a7b42717872b
+            region: second
+            configuration:
+              id: 'views_block:scitalk_recent_content-collections'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 0
+            additional: {  }
+        third_party_settings: {  }
+id: node.landing_page.default
+targetEntityType: node
+bundle: landing_page
+mode: default
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  langcode: true
+  layout_builder__layout: true
+  search_api_excerpt: true
