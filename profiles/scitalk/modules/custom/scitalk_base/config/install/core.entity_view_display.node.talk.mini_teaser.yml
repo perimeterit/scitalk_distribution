@@ -1,6 +1,6 @@
 uuid: 0659060b-1746-459b-b090-2251cd678d43
 langcode: en
-status: false
+status: true
 dependencies:
   config:
     - core.entity_view_mode.node.mini_teaser
@@ -32,7 +32,6 @@ dependencies:
     - datetime
     - fences
     - field_group
-    - scitalk_media
     - user
   enforced:
     module:
@@ -45,7 +44,7 @@ third_party_settings:
       label: Resources
       parent_name: ''
       region: hidden
-      weight: 18
+      weight: 22
       format_type: html_element
       format_settings:
         classes: ''
@@ -59,7 +58,6 @@ third_party_settings:
         speed: fast
     group_talk_details:
       children:
-        - field_talk_collection
         - field_talk_doi
         - field_talk_location
         - field_talk_number
@@ -67,7 +65,7 @@ third_party_settings:
       label: Details
       parent_name: ''
       region: hidden
-      weight: 19
+      weight: 23
       format_type: html_element
       format_settings:
         classes: ''
@@ -80,12 +78,20 @@ third_party_settings:
         effect: none
         speed: fast
 _core:
-  default_config_hash: Obkqzt9IcIMARmI49ZhEQXKkU4x1wD9K_08VC76gioc
+  default_config_hash: fwL_2rLZ_wa2OgvJ_G7ygWzRfafJGfsJw_WC_BtL16I
 id: node.talk.mini_teaser
 targetEntityType: node
 bundle: talk
 mode: mini_teaser
 content:
+  field_talk_collection:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
   field_talk_date:
     type: datetime_default
     label: hidden
@@ -100,7 +106,7 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
-    weight: 2
+    weight: 1
     region: content
   field_talk_speaker_profile:
     type: entity_reference_entity_view
@@ -118,22 +124,6 @@ content:
         fences_label_classes: ''
     weight: 0
     region: content
-  field_talk_thumbnail:
-    type: scitalk_thumbnail_formatter
-    label: hidden
-    settings:
-      which_thumb: media
-      which_style: thumbnail
-    third_party_settings:
-      fences:
-        fences_field_tag: figure
-        fences_field_classes: ''
-        fences_field_item_tag: none
-        fences_field_item_classes: ''
-        fences_label_tag: none
-        fences_label_classes: ''
-    weight: 1
-    region: content
 hidden:
   feeds_item: true
   field_academic_year: true
@@ -141,7 +131,6 @@ hidden:
   field_scientific_area: true
   field_talk_abstract: true
   field_talk_attachments: true
-  field_talk_collection: true
   field_talk_doi: true
   field_talk_duration: true
   field_talk_keywords: true
@@ -151,10 +140,12 @@ hidden:
   field_talk_source_repository: true
   field_talk_speakers_text: true
   field_talk_subject: true
+  field_talk_thumbnail: true
   field_talk_type: true
   field_talk_video: true
   field_talk_video_url: true
   field_talk_viewable_online: true
   langcode: true
   links: true
+  scitalk_prefixed_talk_number: true
   search_api_excerpt: true

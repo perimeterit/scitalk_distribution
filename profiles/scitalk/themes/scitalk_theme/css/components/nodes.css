@@ -1,8 +1,7 @@
 
 /* Common view mode theming */
 
-.node.horizontal-card,
-  .node.teaser {
+.node:not(.full) {
     background: white;
     box-shadow: -2px 2px 2px 0 rgba(99, 104, 115, 0.1);
     padding: 1.5em var(--gutter-standard) 1em;
@@ -10,25 +9,20 @@
 
   }
 
-.node.horizontal-card h2,
-    .node.horizontal-card h3,
-    .node.teaser h2,
-    .node.teaser h3 {
+.node:not(.full) h2,
+    .node:not(.full) h3 {
       font-size: 1rem;
       line-height: 1.4;
       margin: 0 0 .5em;
     }
 
-.node.horizontal-card h2 a,
-    .node.horizontal-card h3 a,
-    .node.horizontal-card .speaker-name-institution a,
-    .node.teaser h2 a,
-    .node.teaser h3 a,
-    .node.teaser .speaker-name-institution a {
+.node:not(.full) h2 a,
+    .node:not(.full) h3 a,
+    .node:not(.full) .speaker-name-institution a {
       text-decoration: none
     }
 
-.node.horizontal-card h2 a:hover, .node.horizontal-card h2 a:focus, .node.horizontal-card h3 a:hover, .node.horizontal-card h3 a:focus, .node.horizontal-card .speaker-name-institution a:hover, .node.horizontal-card .speaker-name-institution a:focus, .node.teaser h2 a:hover, .node.teaser h2 a:focus, .node.teaser h3 a:hover, .node.teaser h3 a:focus, .node.teaser .speaker-name-institution a:hover, .node.teaser .speaker-name-institution a:focus {
+.node:not(.full) h2 a:hover, .node:not(.full) h2 a:focus, .node:not(.full) h3 a:hover, .node:not(.full) h3 a:focus, .node:not(.full) .speaker-name-institution a:hover, .node:not(.full) .speaker-name-institution a:focus {
         text-decoration: underline;
       }
 

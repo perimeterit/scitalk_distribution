@@ -45,8 +45,9 @@
 }
 .view-display .display-wrapper,
   .view-display .table-display .view-content {
-    padding: var(--gutter-standard);
     background: var(--color-lt-grey);
+    padding: var(--gutter-standard);
+    margin: 0 var(--responsive-padding)
   }
 .view-display[aria-hidden="true"] {
     display: none;

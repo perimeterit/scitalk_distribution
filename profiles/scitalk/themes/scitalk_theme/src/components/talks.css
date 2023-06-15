@@ -50,8 +50,7 @@
 /* Common view mode theming */
 
 .node.talk {
-  &.horizontal-card,
-  &.teaser {
+  &:not(.full) {
     background: white;
     box-shadow: -2px 2px 2px 0 rgba(99, 104, 115, 0.1);
     padding: 1.5em var(--gutter-standard) 1em;
@@ -65,6 +64,7 @@
       display: inline-block;
     }
   }
+
   & .info > * {
     border-right: 1px solid var(--color-lt-grey);
     padding: 0 1.2em;

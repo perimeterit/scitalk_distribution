@@ -17,7 +17,8 @@
 .tag,
 .field--name-field-talk-subject,
 .field--name-field-scientific-area,
-.field--name-field-talk-type {
+.field--name-field-talk-type,
+.mini-teaser .field--name-field-talk-collection {
   & a {
     @mixin tag;
     &:matches(:hover,:focus) {
@@ -36,4 +37,10 @@
 /* Full term display */
 .taxonomy-term.full {
   margin-bottom: var(--vertical-padding);
+}
+
+/* View of taxonomy terms; used on home page */
+
+.view-scitalk-taxonomyy {
+  margin: 2rem;
 }

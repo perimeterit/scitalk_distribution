@@ -1,0 +1,46 @@
+/*
+ * Component CSS for Catch-up form
+*/
+
+/*
+ * Mixins - Classes created in utilities.css
+*/
+
+/*
+ * to use:
+ * @mixin caret 2px, 1em, var(--color-black)
+*/
+
+/* Catch-up form */
+
+.block--scitalk-catch-up-form-block {
+  background: var(--color-lt-grey);
+  padding: 1rem 1.5rem
+}
+
+.block--scitalk-catch-up-form-block h2 {
+    margin-top: 0;
+  }
+
+.block--scitalk-catch-up-form-block form {
+    display: flex;
+  }
+
+.block--scitalk-catch-up-form-block label {
+    position: absolute !important;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+    width: 1px;
+    height: 1px;
+    word-wrap: normal;
+  }
+
+.block--scitalk-catch-up-form-block .form-item {
+    margin: 0 1rem 0 0 ;
+  }
+
+.block--scitalk-catch-up-form-block .form-actions {
+    margin: 0;
+  }
+
+/*# sourceMappingURL=catch-up.css.map */

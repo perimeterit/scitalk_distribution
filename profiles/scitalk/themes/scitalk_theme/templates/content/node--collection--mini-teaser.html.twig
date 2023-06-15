@@ -1,0 +1,26 @@
+{#
+/**
+ * @file
+ * Custom theme implementation to display a Collection node.
+ *
+ * @ingroup themeable
+ */
+#}
+{% extends "@scitalk_theme/content/node--collection.html.twig" %}
+
+{% block content_wrapper %}
+  <article{{ attributes.addClass(classes) }}>
+    {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
+      <div class="info">
+      <div class="collection-child-count">
+        {% embed "@scitalk_theme/includes/collection-child-count.twig" with {
+          show_count: true
+          }%}{% endembed %}
+      </div>
+
+      {{ content|without('field_collection_last_talk_date','field_collection_number_children','field_collection_number_of_talks') }}
+
+      {{ content.field_collection_last_talk_date|with('#title','Last Updated'|t) }}
+    </div>
+  </article>
+{% endblock %}

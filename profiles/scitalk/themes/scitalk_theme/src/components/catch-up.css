@@ -1,0 +1,31 @@
+/*
+ * Component CSS for Catch-up form
+*/
+
+@import "../base/mixins.css";
+
+/* Catch-up form */
+
+.block--scitalk-catch-up-form-block {
+  background: var(--color-lt-grey);
+  padding: 1rem 1.5rem;
+
+  & h2 {
+    margin-top: 0;
+  }
+
+  & form {
+    display: flex;
+  }
+  & label {
+    @mixin visually-hidden;
+  }
+
+  & .form-item {
+    margin: 0 1rem 0 0 ;
+  }
+
+  & .form-actions {
+    margin: 0;
+  }
+}

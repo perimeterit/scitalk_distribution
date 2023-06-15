@@ -16,9 +16,11 @@ global:
       css/layout/layout.css: {}
       css/layout/maintenance-page.css: {}
       css/layout/responsive-menu.css: {}
+      css/layout/layout-builder.css: {}
     component:
       css/components/buttons.css: {}
       css/components/advanced-search.css: {}
+      css/components/catch-up.css: {}
       css/components/cite-share.css: {}
       css/components/citations.css: {}
       css/components/collections.css: {}

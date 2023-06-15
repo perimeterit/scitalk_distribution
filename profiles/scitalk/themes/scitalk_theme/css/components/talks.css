@@ -54,8 +54,7 @@
 
 /* Common view mode theming */
 
-.node.talk.horizontal-card,
-  .node.talk.teaser {
+.node.talk:not(.full) {
     background: white;
     box-shadow: -2px 2px 2px 0 rgba(99, 104, 115, 0.1);
     padding: 1.5em var(--gutter-standard) 1em;

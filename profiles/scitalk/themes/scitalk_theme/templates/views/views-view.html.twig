@@ -17,7 +17,7 @@
 %}
 {# Add conditional for views that use the card/table switcher #}
 {# Giving these views a custom template didn't work with ajax #}
-{% set card_view_views = ['scitalk_latest_talks', 'scitalk_talks_in_collection', 'scitalk_collections','taxonomy_term','scitalk_advanced_search', 'scitalk_search_collections', 'scitalk_talks_by_source_repo'] %}
+{% set card_view_views = ['scitalk_latest_talks', 'scitalk_catch_up', 'scitalk_talks_in_collection', 'scitalk_collections','taxonomy_term','scitalk_advanced_search', 'scitalk_search_collections', 'scitalk_talks_by_source_repo'] %}
 {% if (id in card_view_views and (display_id == 'card_view')) or
       ((id == 'scitalk_advanced_search') and (display_id == 'advanced_search')) %}
   {% embed '@scitalk_theme/views/_scitalk-card-table-view.html.twig' %}{% endembed %}

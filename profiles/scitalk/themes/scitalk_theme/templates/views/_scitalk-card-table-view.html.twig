@@ -24,6 +24,12 @@
     </div>
   {% endif %}
 
+  {% if id =="scitalk_catch_up" %}
+      <div class="view-header-filters">
+      {{ drupal_block('views_exposed_filter_block:' ~ id ~ '-form_block')}}
+    </div>
+  {% endif %}
+
   {# Render the search summary if this is a search view #}
   {% if exposed_input %}
     <p class="search-summary">

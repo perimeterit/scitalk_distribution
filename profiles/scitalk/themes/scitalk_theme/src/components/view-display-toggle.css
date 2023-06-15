@@ -42,8 +42,9 @@
   margin-top: 1.5em;
   & .display-wrapper,
   & .table-display .view-content {
-    padding: var(--gutter-standard);
     background: var(--color-lt-grey);
+    padding: var(--gutter-standard);
+    margin: 0 var(--responsive-padding)
   }
   &[aria-hidden="true"] {
     display: none;

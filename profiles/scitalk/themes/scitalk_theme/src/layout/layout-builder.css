@@ -1,0 +1,64 @@
+/*
+ * Component CSS for Layout Builder
+*/
+
+.layout {
+  & .block {
+    margin: 1rem 0;
+  }
+}
+
+/* Override core flexbox section layouts */
+
+@media all and (min-width: 768px) {
+  .layout {
+    display: grid;
+    grid-gap: var(--gutter-standard);
+  }
+  .layout__region {
+    display: grid;
+  }
+  .layout--twocol,
+  .layout--twocol-section {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .layout--twocol-section--25-75 {
+    grid-template-columns: 25% 75%;
+  }
+
+  .layout--twocol-section--75-25 {
+    grid-template-columns: 75% 25%;
+  }
+
+  .layout--twocol-section--33-67 {
+    grid-template-columns: 33% 67%;
+  }
+
+  .layout--twocol-section--67-33 {
+    grid-template-columns: 67% 33% ;
+  }
+
+  .layout--threecol .column-wrapper,
+  .layout--threecol-section {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-gap: var(--gutter-standard);
+  }
+
+  .layout--threecol-section--25-25-50 {
+    grid-template-columns: 25% 25% 50%;
+  }
+
+  .layout--fourcol-section {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-gap: var(--gutter-standard);
+  }
+}
+
+@media all and (min-width: 960px) {
+  .layout--fourcol-section {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

@@ -46,3 +46,7 @@
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
+
+.layout .block {
+  margin: 1rem 0;
+}
