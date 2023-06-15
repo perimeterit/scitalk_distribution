@@ -14,6 +14,7 @@ function scitalk_install() {
   _create_help_page();
   _create_terms_of_use_page();
   _create_accessibility_page();
+  _create_home_page();
 }
  */
 
@@ -41,6 +42,28 @@ function scitalk_create_default_pages() {
   _create_help_page();
   _create_terms_of_use_page();
   _create_accessibility_page();
+  _create_home_page();
+}
+
+/*
+ * Automatically create the home page node
+*/
+function _create_home_page() {
+  // Create a Home web page with alias 'home'.
+
+   $home = [
+        "type" => "landing_page",
+        "title" => "Home",
+        "status" => "1",
+        'path' => [
+          'alias' => '/home',
+        ],
+    ];
+
+    $node = Node::create($home);
+    $node->save();
+    \Drupal::logger('scitalk')->notice('Created content page "%page"', array('%page' => $node->title->value));
+
 }
 
 function _create_about_page() {
