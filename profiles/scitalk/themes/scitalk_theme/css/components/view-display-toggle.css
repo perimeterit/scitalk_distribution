@@ -48,7 +48,6 @@
     background: var(--color-lt-grey);
     padding: var(--gutter-standard);
     padding-bottom: 1px;
-    margin: 0 var(--responsive-padding)
   }
 .view-display[aria-hidden="true"] {
     display: none;
@@ -56,11 +55,5 @@
 .view-display table {
     margin-top: 7;
   }
-@media all and (max-width: 767px) {
-  .view-display {
-    margin-left: calc(-1 * var(--responsive-padding));
-    margin-right: calc(-1 * var(--responsive-padding));
-  }
-}
 
 /*# sourceMappingURL=view-display-toggle.css.map */

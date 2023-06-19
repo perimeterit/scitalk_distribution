@@ -15,10 +15,19 @@
 .node.speaker-profile.full {
   margin-bottom: calc(2 * var(--vertical-padding));
   overflow: auto;
-}
-.node.speaker-profile.full .field--name-field-sp-profile-thumbnail {
-  float: left;
-  margin-right: var(--gutter--standard);
-  width: 250px;
-  max-width: 40%;
+
+  & .speaker-content {
+    overflow: auto;
+  }
+
+  & .field--name-field-sp-profile-thumbnail {
+    float: left;
+    margin-right: var(--gutter--standard);
+    width: 250px;
+    max-width: 40%;
+  }
+
+  & .talks-by-speaker {
+    margin-top: var(--vertical-padding);
+  }
 }

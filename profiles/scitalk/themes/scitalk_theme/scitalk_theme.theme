@@ -141,16 +141,6 @@ function scitalk_theme_preprocess_block(&$variables) {
   $base_plugin_id = $variables['elements']['#base_plugin_id'];
   $plugin_id =  $variables['elements']['#plugin_id'];
 
-  // Change the title on the Talks by speaker view.
-  if ($variables['derivative_plugin_id'] == 'scitalk_talks_in_collection-scitalk_talk_by_speaker_block') {
-    $speaker_nid = $variables['content']['#view']->argument['field_talk_speaker_profile_target_id']->getValue('value');
-    $speaker_node = \Drupal\node\Entity\Node::load($speaker_nid);
-    if (isset($speaker_node)) {
-      $speaker_name = $speaker_node->get('field_sp_display_name')->getValue();
-      $variables['label'] = t('Talks by ') . $speaker_name[0]['value'];
-    }
-  }
-
   // Put a slightly less insane class on the views exposed form block
   if ($base_plugin_id == 'views_exposed_filter_block') {
     $plugin_parts = explode(':',$plugin_id);

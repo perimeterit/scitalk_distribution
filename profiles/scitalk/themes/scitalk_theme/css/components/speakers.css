@@ -13,13 +13,19 @@
 */
 .node.speaker-profile.full {
   margin-bottom: calc(2 * var(--vertical-padding));
-  overflow: auto;
+  overflow: auto
 }
+.node.speaker-profile.full .speaker-content {
+    overflow: auto;
+  }
 .node.speaker-profile.full .field--name-field-sp-profile-thumbnail {
-  float: left;
-  margin-right: var(--gutter--standard);
-  width: 250px;
-  max-width: 40%;
-}
+    float: left;
+    margin-right: var(--gutter--standard);
+    width: 250px;
+    max-width: 40%;
+  }
+.node.speaker-profile.full .talks-by-speaker {
+    margin-top: var(--vertical-padding);
+  }
 
 /*# sourceMappingURL=speakers.css.map */
