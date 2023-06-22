@@ -24,8 +24,11 @@
   {% endblock %}
 
   <div class="talks-by-speaker">
-    <h2>Talks by {{ label }}</h2>
-
-    {{ drupal_view('scitalk_talks_by_speaker', 'block')}}
+    {% set view = drupal_view_result('scitalk_talks_by_speaker', 'block') | length %}
+    {% if view > 0 %}
+      <h2>{{ 'Talks by'|t }} {{ label}}</h2>
+    {% endif %}
+      {{ drupal_view('scitalk_talks_by_speaker', 'block')}}
   </div>
 </article>
+
