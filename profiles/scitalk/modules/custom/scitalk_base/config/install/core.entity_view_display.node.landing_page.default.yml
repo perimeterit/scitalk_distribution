@@ -86,19 +86,6 @@ third_party_settings:
           context_mapping: {  }
           column_widths: 50-50
         components:
-          50a9acda-19e5-4755-9001-6bd3f8316698:
-            uuid: 50a9acda-19e5-4755-9001-6bd3f8316698
-            region: first
-            configuration:
-              id: 'views_block:scitalk_recent_content-block_2'
-              label: ''
-              label_display: visible
-              provider: views
-              context_mapping: {  }
-              views_label: ''
-              items_per_page: none
-            weight: 0
-            additional: {  }
           be3ae0b1-1bdc-47db-811d-a7b42717872b:
             uuid: be3ae0b1-1bdc-47db-811d-a7b42717872b
             region: second
@@ -112,7 +99,22 @@ third_party_settings:
               items_per_page: none
             weight: 0
             additional: {  }
+          1988b556-ee73-4e92-982f-e6d4a00ac934:
+            uuid: 1988b556-ee73-4e92-982f-e6d4a00ac934
+            region: first
+            configuration:
+              id: 'views_block:scitalk_recent_content-talks'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 0
+            additional: {  }
         third_party_settings: {  }
+_core:
+  default_config_hash: eTczLGuE6nZFEz5vNpFtzs48ZqpPjSapptZZwsUHBN4
 id: node.landing_page.default
 targetEntityType: node
 bundle: landing_page

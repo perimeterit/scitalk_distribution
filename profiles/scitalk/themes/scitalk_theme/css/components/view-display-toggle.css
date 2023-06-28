@@ -55,5 +55,8 @@
 .view-display table {
     margin-top: 7;
   }
+.block-views .view-display {
+  margin-top: .5rem;
+}
 
 /*# sourceMappingURL=view-display-toggle.css.map */

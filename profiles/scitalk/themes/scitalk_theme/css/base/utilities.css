@@ -21,7 +21,7 @@
 
 .inline-list > li {
     display: inline;
-    margin-right: 0.3em
+    margin-right: 0.4em
   }
 
 .inline-list > li:last-child {

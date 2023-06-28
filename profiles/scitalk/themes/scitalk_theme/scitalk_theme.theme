@@ -210,10 +210,21 @@ function scitalk_theme_preprocess_group(&$variables) {
  */
 function scitalk_theme_preprocess_views_view(&$variables) {
   $view = $variables['view'];
+  $view_id = $view->id();
   // For search view, get exposed input and make it available in the template
-  if (($view->id() == 'scitalk_advanced_search') || ($view->id() == 'scitalk_search_collections') ) {
+  if (($view_id == 'scitalk_advanced_search') || ($view_id == 'scitalk_search_collections') ) {
     $exposed_input = $view->getExposedInput();
     $variables['exposed_input'] = $view->getExposedInput();
+  }
+
+  // On recent content view, find out how many collections there are and add a class
+  // Negotiates whether the background should match the height of the left column
+
+  if (($view_id == 'scitalk_recent_content') &&
+      ($view->current_display == 'collections') &&
+      (count($variables['rows'][0]['#rows']) > 2)
+     ) {
+     $variables['attributes']['class'][] = 'fix-heights';
   }
 
 }

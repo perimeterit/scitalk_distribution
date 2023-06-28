@@ -62,3 +62,10 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
+
+/* Small override for landing page content type */
+
+.page-landing-page .layout--twocol-section .views-element-container {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}

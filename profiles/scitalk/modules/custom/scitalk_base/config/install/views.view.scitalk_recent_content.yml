@@ -10,6 +10,8 @@ dependencies:
     - datetime
     - node
     - user
+_core:
+  default_config_hash: zsFUSEXugD7d94vFHFSQ1e2uZuqF9CMhchq93gFQaDg
 id: scitalk_recent_content
 label: 'Scitalk Recent Content'
 module: views
@@ -206,31 +208,15 @@ display:
           query_tags: {  }
           contextual_filters_or: false
       relationships: {  }
-      css_class: view-display
+      css_class: 'view-display view-fix-heights'
+      use_more: true
+      use_more_always: true
+      use_more_text: 'See all talks'
+      link_display: custom_url
+      link_url: /talks
       header: {  }
       footer: {  }
       display_extenders: {  }
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - 'user.node_grants:view'
-        - user.permissions
-      tags: {  }
-  block_2:
-    id: block_2
-    display_title: 'Recent talks'
-    display_plugin: block
-    position: 1
-    display_options:
-      defaults:
-        sorts: true
-        filters: true
-        filter_groups: true
-      display_description: ''
-      display_extenders:
-        ajax_history: {  }
     cache_metadata:
       max-age: -1
       contexts:
@@ -323,9 +309,41 @@ display:
           1: AND
       defaults:
         title: false
+        use_more: false
+        use_more_always: false
+        use_more_text: false
+        link_display: false
+        link_url: false
         sorts: false
         filters: false
         filter_groups: false
+      display_description: ''
+      use_more: true
+      use_more_always: true
+      use_more_text: 'See all collections'
+      link_display: custom_url
+      link_url: /collections
+      display_extenders:
+        ajax_history: {  }
+      block_hide_empty: true
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - 'user.node_grants:view'
+        - user.permissions
+      tags: {  }
+  talks:
+    id: talks
+    display_title: 'Recent talks'
+    display_plugin: block
+    position: 1
+    display_options:
+      defaults:
+        sorts: true
+        filters: true
+        filter_groups: true
       display_description: ''
       display_extenders:
         ajax_history: {  }

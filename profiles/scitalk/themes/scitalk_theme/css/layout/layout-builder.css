@@ -61,4 +61,11 @@
   }
 }
 
+/* Small override for landing page content type */
+
+.page-landing-page .layout--twocol-section .views-element-container {
+  display: grid;
+  grid-template-rows: auto 1fr;
+}
+
 /*# sourceMappingURL=layout-builder.css.map */
