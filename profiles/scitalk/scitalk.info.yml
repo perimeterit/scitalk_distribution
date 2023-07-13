@@ -92,6 +92,7 @@ install:
   - selective_better_exposed_filters
   - views_field_view
   - google_analytics
+  - field_permissions
 themes:
   - claro
   - stable

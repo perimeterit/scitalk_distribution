@@ -993,3 +993,69 @@ function scitalk_base_update_8114(&$sandbox) {
     }
 
 }
+
+/**
+*  Add SciVideos UUID field
+*/
+function scitalk_base_update_8115(&$sandbox) {
+    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $source      = new FileStorage($config_path);
+
+    //add SciVideos UUID field storage
+    $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+    $field_storage_yml =  'field.storage.node.field_scivideos_uuid';
+    $field_storage_id = 'node.field_scivideos_uuid';
+    $loaded_storage_config = $storage_config->load($field_storage_id);
+    if (empty($loaded_storage_config))
+    {
+        $storage_config_yml = $source->read($field_storage_yml);
+        $storage_config->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created SciVideos UUID field storage');
+    }
+
+    $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
+    
+    //add FIELD SciVideos UUID to Collections
+    $field_yml = 'field.field.node.collection.field_scivideos_uuid';
+    $field_id = 'node.collection.field_scivideos_uuid';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created SciVideos UUID field for Collections');
+    }
+
+    //add FIELD SciVideos UUID to Talks
+    $field_yml = 'field.field.node.talk.field_scivideos_uuid';
+    $field_id = 'node.talk.field_scivideos_uuid';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created SciVideos UUID field for Talks');
+    }
+
+    //add FIELD SciVideos UUID to Speaker Profiles
+    $field_yml = 'field.field.node.speaker_profile.field_scivideos_uuid';
+    $field_id = 'node.speaker_profile.field_scivideos_uuid';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created SciVideos UUID field for Speaker Profiles');
+    }
+
+     //update user role
+     $user_role = \Drupal::entityTypeManager()->getStorage('user_role');
+     $user_role_scitalk = $user_role->load('scitalk_oauth');
+     if (!empty($user_role_scitalk))
+     {
+         $user_role_yml = $source->read('user.role.scitalk_oauth');
+         $entity = $user_role->updateFromStorageRecord($user_role_scitalk, $user_role_yml);
+         $entity->save();
+         \Drupal::logger('scitalk_base')->notice('Updated SciTalk User Role');
+     }
+}

@@ -1,18 +1,20 @@
-uuid: ab52b235-d905-4e8d-b15f-153e433660df
 langcode: en
 status: true
 dependencies:
   config:
     - media.type.remote_file
+    - media.type.remote_video
     - node.type.collection
     - node.type.speaker_profile
     - node.type.talk
     - taxonomy.vocabulary.collection_type
     - taxonomy.vocabulary.scientific_area
     - taxonomy.vocabulary.subjects
+    - taxonomy.vocabulary.tags
     - taxonomy.vocabulary.talk_keywords
     - taxonomy.vocabulary.talk_type
   module:
+    - field_permissions
     - media
     - node
     - taxonomy
@@ -20,7 +22,7 @@ dependencies:
     module:
       - scitalk_base
 _core:
-  default_config_hash: ZSklorFqmxFRVJNOE_gX6qFIMcT-xmAt0KWcTfMEGGI
+  default_config_hash: 9ZFK5boWvlVEb-clPJR9cZoUr6hA0RP9pOntU6oPy80
 id: scitalk_oauth
 label: 'SciTalk JSON Admin user oAuth'
 weight: 3
@@ -28,6 +30,10 @@ is_admin: null
 permissions:
   - 'administer nodes'
   - 'create collection content'
+  - 'create field_scivideos_uuid'
+  - 'create media'
+  - 'create remote_file media'
+  - 'create remote_video media'
   - 'create speaker_profile content'
   - 'create talk content'
   - 'create terms in collection_type'
@@ -51,7 +57,9 @@ permissions:
   - 'edit any collection content'
   - 'edit any speaker_profile content'
   - 'edit any talk content'
+  - 'edit field_scivideos_uuid'
   - 'edit own collection content'
+  - 'edit own field_scivideos_uuid'
   - 'edit own speaker_profile content'
   - 'edit own talk content'
   - 'edit terms in collection_type'
@@ -60,8 +68,7 @@ permissions:
   - 'edit terms in tags'
   - 'edit terms in talk_keywords'
   - 'edit terms in talk_type'
+  - 'view field_scivideos_uuid'
   - 'view media'
-  - 'create remote_file media'
-  - 'create remote_video media'
-  - 'create media'
+  - 'view own field_scivideos_uuid'
 

@@ -187,8 +187,80 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
               ':input[id="use_doi"]' => ['checked' => TRUE],
           ],
       ],
-  ];
+    ];
 
+    //SciTalks/SciVideos Integration
+    $form['enable_scivideos_integrate'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Enable SciVideos Integration?'),
+      '#default_value' => $config->get('enable_scivideos_integrate'),
+      '#description' => $this->t('Enable integration with SciVideos'),
+      '#attributes' => [
+          'id' => 'scivideos_integration',
+      ],
+    ];
+
+    $form['scivideos_api_url'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('SciVideos API URL'),
+      '#default_value' => $config->get('scivideos_api_url') ?? 'https://scivideos.org/api/',
+      '#description' => $this->t('SciVideos API URL'),
+      '#states' => [
+        'visible' => [
+            ':input[id="scivideos_integration"]' => ['checked' => TRUE],
+        ],
+        'required' => [
+          ':input[id="scivideos_integration"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
+    $form['scivideos_api_client_id'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('DataCite DOI API Client ID'),
+      '#default_value' => $config->get('scivideos_api_client_id'),
+      '#description' => $this->t('SciVideos API Client ID'),
+      '#states' => [
+        'visible' => [
+            ':input[id="scivideos_integration"]' => ['checked' => TRUE],
+        ],
+        'required' => [
+          ':input[id="scivideos_integration"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
+    $form['scivideos_api_client_secret'] = [
+      '#type' => 'password',
+      '#title' => $this->t('DataCite DOI API Client secret'),
+      '#default_value' => $config->get('scivideos_api_client_secret'),
+      '#description' => $this->t('SciVideos API Client Secret'),
+      '#states' => [
+        'visible' => [
+            ':input[id="scivideos_integration"]' => ['checked' => TRUE],
+        ],
+        'required' => [
+          ':input[id="scivideos_integration"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
+    $form['scivideos_api_client_scope'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('DataCite DOI API Client scope'),
+      '#default_value' => $config->get('scivideos_api_client_scope'),
+      '#description' => $this->t('SciVideos API Client scope'),
+      '#states' => [
+        'visible' => [
+            ':input[id="scivideos_integration"]' => ['checked' => TRUE],
+        ],
+        'required' => [
+          ':input[id="scivideos_integration"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
+    
     return parent::buildForm($form, $form_state);
   }
 

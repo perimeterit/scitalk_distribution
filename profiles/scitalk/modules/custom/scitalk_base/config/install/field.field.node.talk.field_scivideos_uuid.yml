@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_scivideos_uuid
+    - node.type.talk
+id: node.talk.field_scivideos_uuid
+field_name: field_scivideos_uuid
+entity_type: node
+bundle: talk
+label: 'SciVideos UUID'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
