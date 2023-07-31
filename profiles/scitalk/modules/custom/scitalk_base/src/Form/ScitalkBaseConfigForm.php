@@ -217,7 +217,7 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
 
     $form['scivideos_api_client_id'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('DataCite DOI API Client ID'),
+      '#title' => $this->t('SciVideos Client ID'),
       '#default_value' => $config->get('scivideos_api_client_id'),
       '#description' => $this->t('SciVideos API Client ID'),
       '#states' => [
@@ -232,7 +232,7 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
 
     $form['scivideos_api_client_secret'] = [
       '#type' => 'password',
-      '#title' => $this->t('DataCite DOI API Client secret'),
+      '#title' => $this->t('SciVideos Client secret'),
       '#default_value' => $config->get('scivideos_api_client_secret'),
       '#description' => $this->t('SciVideos API Client Secret'),
       '#states' => [
@@ -247,7 +247,7 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
 
     $form['scivideos_api_client_scope'] = [
       '#type' => 'textfield',
-      '#title' => $this->t('DataCite DOI API Client scope'),
+      '#title' => $this->t('SciVideos Client scope'),
       '#default_value' => $config->get('scivideos_api_client_scope'),
       '#description' => $this->t('SciVideos API Client scope'),
       '#states' => [
@@ -281,6 +281,12 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
       ->set('datacite_creator_institution', $form_state->getValue('datacite_creator_institution'))
       ->set('datacite_creator_institution_ror', $form_state->getValue('datacite_creator_institution_ror'))
       ->set('datacite_alternate_indentifier', $form_state->getValue('datacite_alternate_indentifier'))
+      ->set('enable_scivideos_integrate', $form_state->getValue('enable_scivideos_integrate'))
+      ->set('scivideos_api_url', $form_state->getValue('scivideos_api_url'))
+      ->set('scivideos_api_client_id', $form_state->getValue('scivideos_api_client_id'))
+      ->set('scivideos_api_client_secret', $form_state->getValue('scivideos_api_client_secret'))
+      ->set('scivideos_api_client_scope', $form_state->getValue('scivideos_api_client_scope'))
+
       ->save();
 
     parent::submitForm($form, $form_state);

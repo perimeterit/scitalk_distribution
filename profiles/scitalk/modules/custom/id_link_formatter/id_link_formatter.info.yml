@@ -3,4 +3,4 @@ type: module
 description: 'Format an ID as a URL'
 core: 8.x
 package: SciTalk
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10

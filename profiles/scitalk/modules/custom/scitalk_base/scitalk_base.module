@@ -220,16 +220,30 @@ function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
     }
   }
 
+  $scivideos_integrate = _scitalk_base_scivideos_integrate($entity);
+
   //if the talk is part of a Collection then update the Collection stats (number of talks, latest talk)
   if ($entity->getType() == 'talk') {
     $collectionTalksStats = \Drupal::service('scitalk_base.talks_in_collection_stats');
     $collectionTalksStats->update($entity);
+    
+    //create this Talk in SciVideos
+    if ($scivideos_integrate) {
+      $scivideo_talk = \Drupal::service('scitalk_base.scivideos_integrate');
+      $scivideo_talk->addTalk($entity);
+    }
   }
 
   //if the Collections is part of another Collection then update the parent Collection stats (number of talks, latest talk)
   if ($entity->getType() == 'collection') {
     $subCollectionsStats = \Drupal::service('scitalk_base.collection_children_stats');
     $subCollectionsStats->update($entity);
+
+    //create this Collection in SciVideos
+    if ($scivideos_integrate) {
+      $scivideo_collection = \Drupal::service('scitalk_base.scivideos_integrate');
+      $scivideo_collection->addCollection($entity);
+    }
   }
 
   if (_scitalk_base_use_doi($entity)) {
@@ -249,16 +263,30 @@ function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
  * Implements hook_ENTITY_TYPE_presave()
  */
 function scitalk_base_node_update(\Drupal\Core\Entity\EntityInterface $entity) {
+  $scivideos_integrate = _scitalk_base_scivideos_integrate($entity);
+  
   //if the talk is part of a Collection then update the Collection stats (number of talks, latest talk)
   if ($entity->getType() == 'talk') {
     $collectionTalksStats = \Drupal::service('scitalk_base.talks_in_collection_stats');
     $collectionTalksStats->update($entity);
+
+
+    if ($scivideos_integrate) {
+      $scivideo_talk = \Drupal::service('scitalk_base.scivideos_integrate');
+      $scivideo_talk->updateTalk($entity);
+    }
   }
 
   //if the Collections is part of another Collection then update the parent Collection stats (number of talks, latest talk)
   if ($entity->getType() == 'collection') {
     $subCollectionsStats = \Drupal::service('scitalk_base.collection_children_stats');
     $subCollectionsStats->update($entity);
+
+    //update this Collection in SciVideos
+    if ($scivideos_integrate) {
+      $scivideo_collection = \Drupal::service('scitalk_base.scivideos_integrate');
+      $scivideo_collection->updateCollection($entity);
+    }
   }
 }
 
@@ -266,6 +294,8 @@ function scitalk_base_node_update(\Drupal\Core\Entity\EntityInterface $entity) {
  * Implements hook_ENTITY_TYPE_delete()
  */
 function scitalk_base_node_delete(Drupal\Core\Entity\EntityInterface $entity) {
+  $scivideos_integrate = _scitalk_base_scivideos_integrate($entity);
+
   if ($entity->getType() == 'talk') {
 
     //if the talk is part of a Collection then update the Collection stats (number of talks, latest talk)
@@ -280,12 +310,23 @@ function scitalk_base_node_delete(Drupal\Core\Entity\EntityInterface $entity) {
         $doi->delete($talk_doi);
       }
     }
+
+    if ($scivideos_integrate) {
+      $scivideo_talk = \Drupal::service('scitalk_base.scivideos_integrate');
+      $scivideo_talk->deleteTalk($entity);
+    }
   }
 
   //if the Collections is part of another Collection then update the parent Collection stats (number of talks, latest talk)
   if ($entity->getType() == 'collection') {
     $subCollectionsStats = \Drupal::service('scitalk_base.collection_children_stats');
     $subCollectionsStats->update($entity);
+
+    //delete this Collection in SciVideos
+    if ($scivideos_integrate) {
+      $scivideo_collection = \Drupal::service('scitalk_base.scivideos_integrate');
+      $scivideo_collection->deleteCollection($entity);
+    }
   }
 }
 
@@ -511,4 +552,10 @@ function _scitalk_base_use_doi(\Drupal\Core\Entity\EntityInterface $entity) {
   }
 
   return $create_doi_for_this_talk_type;
+}
+
+function _scitalk_base_scivideos_integrate(\Drupal\Core\Entity\EntityInterface $entity) {
+  $config = \Drupal::config('scitalk_base.settings');
+  $integrate = $config->get('enable_scivideos_integrate');
+  return $integrate;
 }

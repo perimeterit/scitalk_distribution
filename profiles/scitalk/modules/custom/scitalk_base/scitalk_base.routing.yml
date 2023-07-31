@@ -5,3 +5,5 @@ scitalk_base.settings:
     _title: 'SciTalk Configuration'
   requirements:
     _permission: 'administer site configuration'
+  options:
+    _admin_route: TRUE

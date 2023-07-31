@@ -19,3 +19,6 @@ services:
 
  scitalk_base.talk_academic_year:
   class: Drupal\scitalk_base\ScitalkServices\TalkAcademicYear
+ 
+ scitalk_base.scivideos_integrate:
+  class: Drupal\scitalk_base\ScitalkServices\SciVideosIntegration
