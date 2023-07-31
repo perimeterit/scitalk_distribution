@@ -201,9 +201,9 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
     ];
 
     $form['scivideos_api_url'] = [
-      '#type' => 'textfield',
+      '#type' => 'url',
       '#title' => $this->t('SciVideos API URL'),
-      '#default_value' => $config->get('scivideos_api_url') ?? 'https://scivideos.org/api/',
+      '#default_value' => $config->get('scivideos_api_url') ?? 'https://scivideos.org',
       '#description' => $this->t('SciVideos API URL'),
       '#states' => [
         'visible' => [
