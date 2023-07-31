@@ -36,11 +36,7 @@ class SciVideosIntegration {
    */
   public function addTalk( EntityInterface $entity) {
     $talk = $this->buildTalk($entity);
-
-ksm($entity->toArray(), 'create Talk entity');
-ksm($talk, 'build talk object');
    
- 
     $response = $this->talk->create($talk);
     $scivideo_talk = json_decode($response);
 
@@ -49,7 +45,6 @@ ksm($talk, 'build talk object');
       unset($entity->field_scivideos_uuid);
     }
 
-  ksm($scivideo_talk, 'got this');
     $entity->set('field_scivideos_uuid', $scivideo_talk->data->id);
     $entity->save();
 
@@ -68,14 +63,8 @@ ksm($talk, 'build talk object');
     }
 
     $talk = $this->buildTalk($entity);
-    
-    ksm($entity->toArray(), 'build talk');
-    ksm($talk, 'built');
-
     $response = $this->talk->update($talk);
     $scivideo_talk = json_decode($response);
-   
-    ksm($scivideo_talk, 'SCIVideos Integration UPDATED a remote talks');
 
     return $scivideo_talk;
 
@@ -114,7 +103,6 @@ ksm($talk, 'build talk object');
       unset($entity->field_scivideos_uuid);
     }
 
-  ksm($scivideo_collection, 'got this collection from scivideso');
     $entity->set('field_scivideos_uuid', $scivideo_collection->data->id);
     $entity->save();
 
@@ -127,7 +115,6 @@ ksm($talk, 'build talk object');
    * @param \Drupal\Core\Entity\EntityInterface entity
    */
   public function updateCollection( EntityInterface $entity) {
-    ksm($entity->toArray(), 'build this collection');
     $scivideos_uuid = $entity->field_scivideos_uuid->value ?? '';
     if (empty($scivideos_uuid)) {
       return;
@@ -168,8 +155,6 @@ ksm($talk, 'build talk object');
 
     $response = (new SpeakerProfile($this->scivideos))->create($speaker);
     $scivideo_speaker = json_decode($response);
-
-    \Drupal::logger('scitalk_base')->notice('SCIVideos Integration response from remote - Create Spealker: <pre>' . print_r($scivideo_speaker , TRUE) . '</pre>' );
 
     // set integration id
     if (!empty($entity->field_scivideos_uuid)) {
