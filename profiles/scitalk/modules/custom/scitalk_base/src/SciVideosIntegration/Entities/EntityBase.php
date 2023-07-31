@@ -105,6 +105,7 @@ class EntityBase {
         $response = '';
         // $url = $this->scivideos->getBaseUrl() . $resource_to_patch;
         $url = $this->url . $resource_to_patch;
+    // ksm($resource, 'SciVideos REMOTE CREATE/UPDATE');
         try {
             $request = $client->request($method, $url, $body);	    
             $response = $request->getBody();

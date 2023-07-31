@@ -36,7 +36,10 @@ class SciVideosIntegration {
    */
   public function addTalk( EntityInterface $entity) {
     $talk = $this->buildTalk($entity);
-   
+
+// ksm($entity->toArray(), 'create Talk entity');
+// ksm($talk, 'build talk object');
+
     $response = $this->talk->create($talk);
     $scivideo_talk = json_decode($response);
 
@@ -44,6 +47,8 @@ class SciVideosIntegration {
     if (!empty($entity->field_scivideos_uuid)) {
       unset($entity->field_scivideos_uuid);
     }
+
+  // ksm($scivideo_talk, 'got this');
 
     $entity->set('field_scivideos_uuid', $scivideo_talk->data->id);
     $entity->save();
@@ -63,8 +68,14 @@ class SciVideosIntegration {
     }
 
     $talk = $this->buildTalk($entity);
+
+    // ksm($entity->toArray(), 'build talk');
+    // ksm($talk, 'built');
+
     $response = $this->talk->update($talk);
     $scivideo_talk = json_decode($response);
+
+    // ksm($scivideo_talk, 'SCIVideos Integration UPDATED a remote talks');
 
     return $scivideo_talk;
 
@@ -103,6 +114,7 @@ class SciVideosIntegration {
       unset($entity->field_scivideos_uuid);
     }
 
+  // ksm($scivideo_collection, 'got this collection from scivideso');
     $entity->set('field_scivideos_uuid', $scivideo_collection->data->id);
     $entity->save();
 
@@ -115,6 +127,8 @@ class SciVideosIntegration {
    * @param \Drupal\Core\Entity\EntityInterface entity
    */
   public function updateCollection( EntityInterface $entity) {
+    // ksm($entity->toArray(), 'build this collection');
+
     $scivideos_uuid = $entity->field_scivideos_uuid->value ?? '';
     if (empty($scivideos_uuid)) {
       return;
@@ -155,6 +169,8 @@ class SciVideosIntegration {
 
     $response = (new SpeakerProfile($this->scivideos))->create($speaker);
     $scivideo_speaker = json_decode($response);
+
+    \Drupal::logger('scitalk_base')->notice('SCIVideos Integration response from remote - Create Spealker: <pre>' . print_r($scivideo_speaker , TRUE) . '</pre>' );
 
     // set integration id
     if (!empty($entity->field_scivideos_uuid)) {
@@ -205,6 +221,7 @@ class SciVideosIntegration {
               "field_talk_date" => $this->formatDate( $entity->field_talk_date->value ),
               "field_talk_viewable_online" => $entity->field_talk_viewable_online->value ?? FALSE,
               "field_talk_number" => $entity->field_talk_number->value,
+              "field_talk_doi" => $entity->field_talk_doi->value ?? '',
               "field_talk_speakers_text" => $entity->field_talk_speakers_text->value ?? '',
               "status" => $entity->status->value,
           ],
@@ -219,9 +236,9 @@ class SciVideosIntegration {
 
     $talk_url = $entity->toUrl()->setAbsolute()->toString(true)->getGeneratedUrl() ?? '';
     $talk["data"]["attributes"]["field_talk_video_url"] = [
-      "uri"=> $talk_url,
-      "title"=> $talk_url,
-      "options"=> ['attributes' => ['target' => '_blank'] ]
+      "uri" => $talk_url,
+      "title" => $talk_url,
+      "options" => ['attributes' => ['target' => '_blank'] ]
     ];
 
     $speakers = $entity->get('field_talk_speaker_profile')->getValue() ?? [];
@@ -247,10 +264,10 @@ class SciVideosIntegration {
 
   private function buildCollection(EntityInterface $entity) {
     $collection = [
-      "data"=> [
-        "type"=> "collection",
-        "attributes"=> [
-            "title"=> $entity->title->value,
+      "data" => [
+        "type" => "collection",
+        "attributes" => [
+            "title" => $entity->title->value,
             "field_collection_number" => $entity->field_collection_number->value ?? '',
             "field_collection_description" => [
               "value" => stripslashes(stripslashes($entity->field_collection_description->value)) ?? '',
@@ -279,8 +296,8 @@ class SciVideosIntegration {
 
     if (!empty($entity->field_collection_event_url)) {
       $collection["data"]["attributes"]["field_collection_event_url"] = [
-        "uri"=> $entity->field_collection_event_url->uri,
-        "title"=> $entity->field_collection_event_url->title,
+        "uri" => $entity->field_collection_event_url->uri,
+        "title" => $entity->field_collection_event_url->title,
         // "options"=> ['attributes' => ['target' => '_blank'] ]
       ];
     }
@@ -309,24 +326,24 @@ class SciVideosIntegration {
 
   private function buildSpeakerProfile(EntityInterface $entity) {
     $speaker_profile = [
-      "data"=> [
-            "type"=> "speaker_profile",
-            "attributes"=> [
-                "title"=> $entity->title->value,
-                "display_name"=> $entity->field_sp_display_name->value ?? '',
-                "external_id"=> $entity->field_sp_external_id->value ?? '',
-                "username"=> $entity->field_sp_username->value ?? '',
-                "first_name"=> $entity->field_sp_first_name->value ?? '',
-                "last_name"=> $entity->field_sp_last_name->value ?? '',
-                "institution_name"=> $entity->field_sp_institution_name->value ?? '',
-                "speaker_profile"=> [
-                    "value"=> $entity->field_sp_speaker_profile->value ?? '',
-                    "format"=> "basic_html",
+      "data" => [
+            "type" => "speaker_profile",
+            "attributes" => [
+                "title" => $entity->title->value,
+                "display_name" => $entity->field_sp_display_name->value ?? '',
+                "external_id" => $entity->field_sp_external_id->value ?? '',
+                "username" => $entity->field_sp_username->value ?? '',
+                "first_name" => $entity->field_sp_first_name->value ?? '',
+                "last_name" => $entity->field_sp_last_name->value ?? '',
+                "institution_name" => $entity->field_sp_institution_name->value ?? '',
+                "speaker_profile" => [
+                    "value" => $entity->field_sp_speaker_profile->value ?? '',
+                    "format" => "basic_html",
                 ],
-                "web_profile_url"=> [
-                    "uri"=> $entity->field_sp_web_profile_url->uri ?? '',
-                    "title"=> $entity->field_sp_web_profile_url->title ?? '',
-                    "options"=> ['attributes' => ['target' => '_blank'] ]
+                "web_profile_url" => [
+                    "uri" => $entity->field_sp_web_profile_url->uri ?? '',
+                    "title" => $entity->field_sp_web_profile_url->title ?? '',
+                    "options" => ['attributes' => ['target' => '_blank'] ]
                 ]
             ]
       ]
