@@ -24,6 +24,13 @@ table.jrt {
 
 /* Recent content view */
 
+.layout--twocol-section .block-views > div,
+.view-fix-heights {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+}
+
 .view-fix-heights.view-display,
   .view-fix-heights .view-content > div {
     display: flex;
@@ -31,27 +38,17 @@ table.jrt {
     flex-direction: column;
   }
 
-.view-fix-heights.view-display {
-    height: calc(100% - 2rem);
-  }
-
 .view-fix-heights .view-content {
-    flex: 1 0 calc(100% - 1.8rem);
+    height: calc(100% - 8rem);
   }
 
 .view-fix-heights .display-wrapper {
     height: 100%;
   }
 
-.view-fix-heights.fix-heights .display-wrapper {
-      display: flex;
-      align-items: start;
-      flex-direction: column
-    }
-
-.view-fix-heights.fix-heights .display-wrapper li {
-        width: 100%;
-      }
+.view-fix-heights .more-link {
+    margin-top: 2rem;
+  }
 
 /* Taxonomy view (inline list of terms) */
 

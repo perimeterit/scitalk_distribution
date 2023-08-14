@@ -887,6 +887,7 @@ display:
         groups:
           1: AND
       defaults:
+        css_class: false
         use_more: false
         use_more_always: false
         use_more_text: false
@@ -905,6 +906,7 @@ display:
           admin_label: 'field_collection_source_repo: Group'
           plugin_id: standard
           required: true
+      css_class: view-fix-heights
       display_description: ''
       use_more: true
       use_more_always: true
@@ -1135,6 +1137,7 @@ display:
           field_api_classes: false
       defaults:
         title: false
+        css_class: false
         use_more: false
         use_more_always: false
         use_more_text: false
@@ -1142,6 +1145,7 @@ display:
         link_url: false
         fields: false
         footer: false
+      css_class: view-fix-heights
       display_description: ''
       use_more: true
       use_more_always: true

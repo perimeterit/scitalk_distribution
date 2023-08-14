@@ -22,34 +22,35 @@ table.jrt {
 
 /* Recent content view */
 
-.view-fix-heights {
-  &.view-display,
-  & .view-content > div {
+@define-mixin fix-view-height-flex {
     display: flex;
     height: 100%;
     flex-direction: column;
+}
+
+.layout--twocol-section .block-views > div,
+.view-fix-heights {
+  @mixin fix-view-height-flex;
+}
+
+.view-fix-heights {
+  &.view-display,
+  & .view-content > div {
+    @mixin fix-view-height-flex;
   }
-  &.view-display {
-    height: calc(100% - 2rem);
-  }
+
   & .view-content {
-    flex: 1 0 calc(100% - 1.8rem);
+    height: calc(100% - 8rem);
   }
+
   & .display-wrapper {
     height: 100%;
   }
 
-  &.fix-heights {
-    & .display-wrapper {
-      display: flex;
-      align-items: start;
-      flex-direction: column;
-
-      & li {
-        width: 100%;
-      }
-    }
+  & .more-link {
+    margin-top: 2rem;
   }
+
 }
 
 /* Taxonomy view (inline list of terms) */
