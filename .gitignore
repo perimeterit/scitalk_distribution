@@ -56,6 +56,12 @@ sites/*/translations
 /.ddev
 /.devcontainer
 
+#Ignore docker4drupal config
+
+.docker-compose.yml
+.env
+traefik.yml
+
 # Ignore default text files
 robots.txt
 /CHANGELOG.txt
