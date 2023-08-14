@@ -6,7 +6,8 @@
 
 /* Catch-up form */
 
-.block--scitalk-catch-up-form-block {
+.block--scitalk-catch-up-form-block,
+.block--scitalk-source-catch-up-form-block {
   background: var(--color-lt-grey);
   padding: 1rem 1.5rem;
 
@@ -27,5 +28,11 @@
 
   & .form-actions {
     margin: 0;
+  }
+}
+
+.block--scitalk-source-catch-up-form-block {
+  & .form-item-catch-up-source {
+    @mixin visually-hidden;
   }
 }

@@ -160,6 +160,12 @@ function scitalk_theme_preprocess_block(&$variables) {
  */
 function scitalk_theme_preprocess_field(&$variables) {
   $field_name = $variables['field_name'];
+
+  if ($field_name == 'field_source_repo_url') {
+    $group_full_name_field = $variables['element']['#object']->get('field_source_repo_full_name');
+    $group_full_name = $group_full_name_field[0]->getValue();
+    $variables['group_full_name'] =  $group_full_name['value'];
+  }
 }
 
 /*
@@ -219,14 +225,25 @@ function scitalk_theme_preprocess_views_view(&$variables) {
 
   // On recent content view, find out how many collections there are and add a class
   // Negotiates whether the background should match the height of the left column
-
   if (($view_id == 'scitalk_recent_content') &&
       ($view->current_display == 'collections') &&
       (count($variables['rows'][0]['#rows']) > 2)
      ) {
      $variables['attributes']['class'][] = 'fix-heights';
   }
+}
 
+function scitalk_theme_views_pre_render(\Drupal\views\ViewExecutable $view) {
+  // On source talks view, rewrite more link for talks display
+  if (($view->id() == 'scitalk_talks_by_source_repo') &&
+      (($view->current_display == 'talks') || ($view->current_display == 'collections'))
+      ) {
+      $group_id = $view->args[0];
+      $group = Drupal::entityTypeManager()->getStorage('group')->loadByProperties(['id' => $group_id]);
+      $group_title = $group[$group_id]->get('label')->getValue();
+      $link = '/search-' . $view->current_display . '?source=' . str_replace(' ', '+', $group_title[0]['value']);
+		  $view->display_handler->setOption("link_url", $link);
+  }
 }
 
 /**
@@ -234,11 +251,14 @@ function scitalk_theme_preprocess_views_view(&$variables) {
  * Alters variables for fieldsets.
  */
 function scitalk_theme_preprocess_fieldset(&$variables) {
-  $variables['attributes']['class'][] = 'fieldset--' . str_replace('_','-',$variables['element']['#name']);
-
+  if (isset($variables['element']['#name'])) {
+    $variables['attributes']['class'][] = 'fieldset--' . str_replace('_','-',$variables['element']['#name']);
+  }
 }
 function scitalk_theme_preprocess_details(&$variables) {
- $variables['attributes']['class'][] = 'details--' . str_replace('_','-',strtolower($variables['element']['#title']));
+ if (isset($variables['element']['#title'])) {
+  $variables['attributes']['class'][] = 'details--' . str_replace('_','-',strtolower($variables['element']['#title']));
+}
 }
 
 /*
@@ -329,7 +349,14 @@ function scitalk_theme_page_attachments_alter(array &$page) {
   $routename = $route->getRouteName();
   $search_terms = \Drupal::request()->query->get('search_api_fulltext');
   $page['#attached']['drupalSettings']['scitalk_theme']['is_search_page'] = 'false';
-  if ($routename == 'view.scitalk_advanced_search.advanced_search') {
+  $route_parts = explode('.',$routename);
+
+  $search_view_machine_names = [
+    'scitalk_advanced_search',
+    'scitalk_search_collections'
+  ];
+
+  if (in_array($route_parts[1],$search_view_machine_names)) {
     $page['#attached']['drupalSettings']['scitalk_theme']['is_search_page'] = 'true';
   }
 }

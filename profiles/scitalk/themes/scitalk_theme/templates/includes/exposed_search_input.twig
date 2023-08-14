@@ -2,7 +2,7 @@
 
 {{ 'Search results'|t }}
 {# rewrite for collections #}
-{% if exposed_input.collection_text %}
+{% if exposed_input.collection_text is defined %}
   {% set text = exposed_input.collection_text %}
   {% set title = exposed_input.collection_title %}
   {% set type = exposed_input.collection_type %}
@@ -71,7 +71,7 @@
   {% endfor %}
 {% endif %}
 
-{# Need to get the term name from this tid #}
+{# Type #}
 {% if type is not empty and type != "All" %}
   {{ 'in'|t }}
   {% set num_terms = type|length %}
@@ -85,14 +85,23 @@
       {{ ',' }}
     {% endif %}
 
+    {# Need to get the term name from this tid #}
     {% set type_term = drupal_entity('taxonomy_term', tid) %}
     <em>{{ type_term['#taxonomy_term'].name.0.value }}</em>
     {% set count = count + 1 %}
   {% endfor %}
 {% endif %}
 
+{# Source (talks) #}
 {% if exposed_input.source is not empty and
   exposed_input.source != "All" %}
   {{ 'from'|t }}
   <em>{{ exposed_input.source}}</em>
+{% endif %}
+
+{# Source (collections) #}
+{% if exposed_input.collection_source is not empty and
+  exposed_input.collection_source != "All" %}
+  {{ 'from'|t }}
+  <em>{{ exposed_input.collection_source}}</em>
 {% endif %}
