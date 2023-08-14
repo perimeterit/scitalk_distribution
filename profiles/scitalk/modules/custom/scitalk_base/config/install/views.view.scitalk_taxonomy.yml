@@ -8,6 +8,8 @@ dependencies:
   module:
     - taxonomy
     - user
+_core:
+  default_config_hash: 2yDsIEizFy_hw2ejiLjpLL0hfCisgqYXuIXPHWvuPZo
 id: scitalk_taxonomy
 label: 'Scitalk Taxonomy'
 module: views
@@ -22,7 +24,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: View
+      title: 'View Collections by Type'
       fields:
         name:
           id: name
@@ -224,6 +226,7 @@ display:
     display_plugin: block
     position: 1
     display_options:
+      title: 'View Talks by Subject'
       filters:
         status:
           id: status
@@ -285,6 +288,7 @@ display:
         groups:
           1: AND
       defaults:
+        title: false
         filters: false
         filter_groups: false
       display_description: ''
