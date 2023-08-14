@@ -4,7 +4,6 @@ namespace Drupal\scitalk_base\SciVideosIntegration\Authentication;
 use DateTime;
 use DateInterval;
 
-
 class SciVideosAuthentication {
     const TOKEN_PATH = 'oauth/token';
 
@@ -21,7 +20,7 @@ class SciVideosAuthentication {
         $this->base_url =  $config->get('scivideos_api_url');
 
         if (substr($this->base_url, -1) != '/') {
-        $this->base_url .= '/';
+            $this->base_url .= '/';
         }
 
         $this->credentials_data = [
@@ -67,7 +66,7 @@ class SciVideosAuthentication {
 
     public function getAccessToken() {
         if ($this->tokenExpired()) {
-        return $this->renewToken();
+            return $this->renewToken();
         }
         return $this->access_token;
     }
@@ -100,18 +99,17 @@ class SciVideosAuthentication {
         $url = $this->base_url . SciVideosAuthentication::TOKEN_PATH;
 
         $options = array(
-        'http' => array(
-            'header'  => "Content-type: application/x-www-form-urlencoded\r\n" .
-                        "Accept: application/vnd.api+json\r\n",
-            'method'  => 'POST',
-            'content' => http_build_query($this->credentials_data)
-        )
+            'http' => array(
+                'header'  => "Content-type: application/x-www-form-urlencoded\r\n" .
+                            "Accept: application/vnd.api+json\r\n",
+                'method'  => 'POST',
+                'content' => http_build_query($this->credentials_data)
+            )
         );
 
         $context  = stream_context_create($options);
         $result = file_get_contents($url, false, $context);
         $response = json_decode($result);
-
         return $response;
     }     
 }

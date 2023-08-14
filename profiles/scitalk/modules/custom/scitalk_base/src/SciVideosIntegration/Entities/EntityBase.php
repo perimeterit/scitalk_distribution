@@ -30,6 +30,7 @@ class EntityBase {
         return $this->fetch($filter);
     }
 
+    // public function fetch($filter = '', $stack = []) {
     public function fetch($filter = '') {
         $url = $this->url . $filter;
 
@@ -37,7 +38,18 @@ class EntityBase {
             'header'  => "Content-Type: application/vnd.api+json; charset=UTF-8"
         ];
 
-        $client = \Drupal::httpClient($params);
+        // if (!empty($stack)) {
+        //     $client = new \GuzzleHttp\Client(['handler' => $stack]);
+        //     ksm('yes');
+        // }
+        // else {
+        //     $client = \Drupal::httpClient($params);
+        // }
+
+        // $client = \Drupal::httpClient($params);
+
+        $stack = $this->getStack();
+        $client = new \GuzzleHttp\Client(['handler' => $stack]);
 
         $response = NULL;
         try {
@@ -72,6 +84,11 @@ class EntityBase {
         }
 
     }
+
+    // public function fetchWithPermission($filter = '') {
+    //     $stack = $this->getStack();
+    //     return $this->fetch($filter, $stack);
+    // }
 
     public function create($resource) {
         return $this->doSave($resource);
@@ -170,6 +187,15 @@ class EntityBase {
     
             throw new Exception('Delete SciVideos'. $response);
         }
+    }
+
+    private function getStack() {
+        $stack = new HandlerStack();
+        $stack->setHandler(new CurlHandler());
+        $stack->push($this->addHeader('Authorization', "Bearer {$this->scivideos->getAccessToken()}"));
+        $stack->push($this->addHeader('Content-Type', 'application/vnd.api+json'));
+        $stack->push($this->addHeader('Accept', 'application/vnd.api+json'));
+        return $stack;
     }
 
     private function addHeader($header, $value) {

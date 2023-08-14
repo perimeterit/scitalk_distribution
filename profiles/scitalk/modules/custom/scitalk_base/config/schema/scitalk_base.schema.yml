@@ -5,3 +5,38 @@ field.formatter.settings.scitalk_id_base_url:
     scitalk_id_base_url:
       type: string
       label: 'Text Length'
+
+scitalk_base.scitalk_base.*:
+  type: config_entity
+  label: 'SciTalk Base config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
+    site_vocabulary:
+      type: string
+      label: 'Site Vocabulary'
+    scivideos_vocabulary:
+      type: string
+      label: 'SciVideos Vocabulary'
+    term_mappings:
+      type: sequence
+      label: 'Term Mappings'
+      sequence:
+        - type: mapping
+          label: 'Term Mapping'
+          mapping:
+            site_term_id:
+              type: string
+              label: "Site Term Id"
+            scivideos_term_id:
+              type: string
+              label: 'SciVideos Term Id'
+            id:
+              type: integer
+              label: 'Mapping Id'

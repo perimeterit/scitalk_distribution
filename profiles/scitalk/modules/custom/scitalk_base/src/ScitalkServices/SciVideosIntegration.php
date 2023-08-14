@@ -10,23 +10,47 @@ use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\RequestException;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
+
 use Drupal\scitalk_base\SciVideosIntegration\Authentication\SciVideosAuthentication;
 use Drupal\scitalk_base\SciVideosIntegration\Entities\Talk;
 use Drupal\scitalk_base\SciVideosIntegration\Entities\SpeakerProfile;
 use Drupal\scitalk_base\SciVideosIntegration\Entities\Collection;
+use Drupal\scitalk_base\SciVideosIntegration\Entities\Vocabularies;
+use Drupal\scitalk_base\SciVideosIntegration\Entities\VocabularyTerms;
 
 class SciVideosIntegration {
 
+  private $configFactory;
   private $scivideos;
   private $speakerProfile;
   private $talk;
   private $collection;
 
-  public function __construct() {
+  public function __construct(ConfigFactoryInterface $config_factory) {
+    $this->configFactory = $config_factory;
+
     $this->scivideos = SciVideosAuthentication::getInstance();
     $this->talk = new Talk($this->scivideos);
     $this->speakerProfile = new SpeakerProfile($this->scivideos);
     $this->collection = new Collection($this->scivideos);
+  }
+
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('tempstore.private')
+    );
+  }
+
+  public function fetchVocabularies() {
+    $vobularies = new Vocabularies($this->scivideos);
+    return $vobularies->fetch();
+  }
+
+  public function fetchVocabularyTerms($vocabulary_name) {
+    $vobularies = new VocabularyTerms($this->scivideos, $vocabulary_name);
+    return $vobularies->fetch();
   }
 
   /**
@@ -432,6 +456,10 @@ class SciVideosIntegration {
   }
 
   private function mapTalkType($talk_type = []) {
+    //need to load config by vocabulary types?? subjects, collection_type, talk_types... 
+    // $config_file = "scitalk_base.scitalk_base.{$mapping_type}";
+    // $config = $this->configFactory->get($config_file);
+
     return ['data' => []];
   }
 

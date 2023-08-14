@@ -1,3 +1,18 @@
 speaker_autofill:
   js:
     js/scitalk_autofill_speaker.js: {}
+
+scitalk_base:
+  version: 0.1
+  css:
+    component:
+      css/scitalk_base.css: {}
+  js:
+    js/scitalk_base_configs.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/jquery.once
+    - core/jquery.intrinsic
+    - core/drupalSettings
+    - core/drupal.ajax

@@ -7,3 +7,11 @@ scitalk_base.settings:
     _permission: 'administer site configuration'
   options:
     _admin_route: TRUE
+scitalk_base.scitalk_base_fields_mapping:
+  # path: '/admin/config/scitalk_base/fields/{mapping_type}'
+  path: '/admin/structure/scitalk_base/fields/{mapping_type}'
+  defaults:
+    _form: '\Drupal\scitalk_base\Form\SciTalkBaseFieldsMapping'
+    _title: 'SciTalk Base Fields Mapping'
+  requirements:
+    _access: 'TRUE'

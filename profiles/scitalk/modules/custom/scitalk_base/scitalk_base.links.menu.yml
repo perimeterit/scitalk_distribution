@@ -4,3 +4,11 @@ scitalk_base.settings:
   description: 'Manage SciTalk Base Settings'
   parent: system.admin_config_development
   weight: 99
+
+# SciTalk Base menu items definition
+entity.scitalk_base.collection:
+  title: 'SciTalk Base Mappings'
+  route_name: entity.scitalk_base.collection
+  description: 'List SciTalk Base Mappings'
+  parent: system.admin_structure
+  weight: 99

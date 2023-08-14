@@ -1,0 +1,5 @@
+entity.scitalk_base.add_form:
+  route_name: entity.scitalk_base.add_form
+  title: 'Add a Vocabulary Mapping to SciVideos'
+  appears_on:
+    - entity.scitalk_base.collection

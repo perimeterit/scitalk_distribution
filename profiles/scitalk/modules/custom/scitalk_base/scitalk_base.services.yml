@@ -22,3 +22,4 @@ services:
  
  scitalk_base.scivideos_integrate:
   class: Drupal\scitalk_base\ScitalkServices\SciVideosIntegration
+  arguments: ['@config.factory']

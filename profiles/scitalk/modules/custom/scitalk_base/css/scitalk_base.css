@@ -1,0 +1,27 @@
+.scitalk_base_mapping_term {
+    display: flex;
+    justify-content: space-around;
+    width: 80%;
+    align-items: center;
+}
+
+.scitalk_base_mapping_term.row.even{
+    background-color: #f1f2f6;
+}
+
+.scitalk_base_config_save {
+    color: #fff !important;
+    background-color: #003cc5 !important;
+}
+
+.scitalk-base-form input#edit-label {
+    background-color: #ededed !important;
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.disable_btn {
+    color: #919297;
+    background-color: #ebebed;
+    pointer-events: none;
+}
