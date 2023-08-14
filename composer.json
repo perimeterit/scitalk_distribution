@@ -143,8 +143,8 @@
                   "fix aliased fields contraints validation issues when using JSON API Extras": "https://raw.githubusercontent.com/perimeterit/scitalk/f6ed0b64fe78903c40009be5e2712eeb5ad18067/patches/fix-aliased-fields-constraint-validations-3059720-9.patch",
                   "patch to support bundle computed field in Layout builder": "https://www.drupal.org/files/issues/2019-02-22/layoutbuilder-bundlecomputedfieldsfix-3034979-1-8.7x.patch",
                   "ManyToOneHelper ignores group configuration for some cases": "https://www.drupal.org/files/issues/2021-08-18/2559961-105.patch",
-                  "Issue #3023924: Cannot create references to/from string offsets" : "https://www.drupal.org/files/issues/2022-12-23/references_to_from_string-3023924-36.patch"
-
+                  "Issue #3023924: Cannot create references to/from string offsets" : "https://www.drupal.org/files/issues/2022-12-23/references_to_from_string-3023924-36.patch",
+                  "Issue #3336312: TypeError: Cannot access offset of type string on string" : "https://www.drupal.org/files/issues/2023-06-14/3336312.patch"
                 },
                 "drupal/better_exposed_filters": {
                   "Fatal error: [] operator not supported for strings when option 'Allow multiple selections' is enabled": "https://www.drupal.org/files/issues/2022-02-17/bef_multiple_selection-2870296-7.patch"
