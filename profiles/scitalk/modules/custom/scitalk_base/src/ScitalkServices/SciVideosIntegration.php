@@ -12,6 +12,7 @@ use GuzzleHttp\Exception\RequestException;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
+use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
 
 use Drupal\scitalk_base\SciVideosIntegration\Authentication\SciVideosAuthentication;
 use Drupal\scitalk_base\SciVideosIntegration\Entities\Talk;
@@ -43,11 +44,17 @@ class SciVideosIntegration {
     );
   }
 
+  /**
+   * fetch list of Vocabularies from SciVideos
+   */
   public function fetchVocabularies() {
     $vobularies = new Vocabularies($this->scivideos);
     return $vobularies->fetch();
   }
 
+  /**
+   * fetch list of terms under a Vocabulary from SciVideos
+   */
   public function fetchVocabularyTerms($vocabulary_name) {
     $vobularies = new VocabularyTerms($this->scivideos, $vocabulary_name);
     return $vobularies->fetch();
@@ -58,12 +65,8 @@ class SciVideosIntegration {
    *
    * @param \Drupal\Core\Entity\EntityInterface entity
    */
-  public function addTalk( EntityInterface $entity) {
+  public function addTalk(EntityInterface $entity) {
     $talk = $this->buildTalk($entity);
-
-// ksm($entity->toArray(), 'create Talk entity');
-// ksm($talk, 'build talk object');
-
     $response = $this->talk->create($talk);
     $scivideo_talk = json_decode($response);
 
@@ -71,8 +74,6 @@ class SciVideosIntegration {
     if (!empty($entity->field_scivideos_uuid)) {
       unset($entity->field_scivideos_uuid);
     }
-
-  // ksm($scivideo_talk, 'got this');
 
     $entity->set('field_scivideos_uuid', $scivideo_talk->data->id);
     $entity->save();
@@ -92,17 +93,10 @@ class SciVideosIntegration {
     }
 
     $talk = $this->buildTalk($entity);
-
-    // ksm($entity->toArray(), 'build talk');
-    // ksm($talk, 'built');
-
     $response = $this->talk->update($talk);
     $scivideo_talk = json_decode($response);
 
-    // ksm($scivideo_talk, 'SCIVideos Integration UPDATED a remote talks');
-
     return $scivideo_talk;
-
   }
 
   /**
@@ -127,7 +121,7 @@ class SciVideosIntegration {
    *
    * @param \Drupal\Core\Entity\EntityInterface entity
    */
-  public function addCollection( EntityInterface $entity) {
+  public function addCollection(EntityInterface $entity) {
     $collection = $this->buildCollection($entity);
 
     $response = $this->collection->create($collection);
@@ -138,7 +132,6 @@ class SciVideosIntegration {
       unset($entity->field_scivideos_uuid);
     }
 
-  // ksm($scivideo_collection, 'got this collection from scivideso');
     $entity->set('field_scivideos_uuid', $scivideo_collection->data->id);
     $entity->save();
 
@@ -150,9 +143,7 @@ class SciVideosIntegration {
    *
    * @param \Drupal\Core\Entity\EntityInterface entity
    */
-  public function updateCollection( EntityInterface $entity) {
-    // ksm($entity->toArray(), 'build this collection');
-
+  public function updateCollection(EntityInterface $entity) {
     $scivideos_uuid = $entity->field_scivideos_uuid->value ?? '';
     if (empty($scivideos_uuid)) {
       return;
@@ -188,7 +179,7 @@ class SciVideosIntegration {
    *
    * @param \Drupal\Core\Entity\EntityInterface entity
    */
-  public function addSpeakerProfile( EntityInterface $entity) {
+  public function addSpeakerProfile(EntityInterface $entity) {
     $speaker = $this->buildSpeakerProfile($entity);
 
     $response = (new SpeakerProfile($this->scivideos))->create($speaker);
@@ -211,7 +202,7 @@ class SciVideosIntegration {
    *
    * @param \Drupal\Core\Entity\EntityInterface entity
    */
-  public function updateSpeakerProfile( EntityInterface $entity) {
+  public function updateSpeakerProfile(EntityInterface $entity) {
     $doiObj = $this->buildTalk($entity);
     return [];
   }
@@ -226,12 +217,10 @@ class SciVideosIntegration {
   }
 
 
-  private function buildTalk($entity) {
-    $pirsa_repo_id = '08adc543-925a-4f74-a63c-91ec55b68669';
-    $pirsa_subject_id = '12f6b2f2-35d6-43b6-9529-00404e199e4a';  //Physics - for all PIRSA talks
-
-    $pirsa_url = 'http://pirsa.org/';
-
+  /**
+   * create Talk object
+   */
+  private function buildTalk(EntityInterface $entity) {
     $talk = [
       "data" => [
           "type" => "talk",
@@ -276,16 +265,50 @@ class SciVideosIntegration {
 
     //Group - Souce Repo
     $talk["data"]["relationships"]["field_talk_source_repository"] = $this->getSciVideosSourceRepository();
+    
+//     $et = $entity->get('field_talk_type');
+//     $et = $entity->get('field_talk_subject');
+//     // $et = $entity->get('field_scientific_area');
+//     // $et = $entity->get('field_talk_attachments');
+//     $e = $et->getEntity()->getEntityType();
+//     ksm($e, 'the entity type');
+//     $fd = $et->getFieldDefinition();
+//     ksm($fd, 'field def');
+
+//     $tt = $et->getFieldDefinition()->getSetting('target_type');
+//     ksm($tt, 'field def target type');
+    
+//     $tts = $et->getFieldDefinition()->getSettings();
+//     ksm($tts, 'all settngs');
+    
+//     $tt1 = $et->getFieldDefinition()->getSetting('handler_settings');
+// ksm($tt1, 'handler settings');
+
+// $htype = $tt1['target_bundles'];
+// ksm($htype, 'the target bubdles');
+
+
+// $fhandlers = $entity->get('field_talk_type')->getFieldDefinition()->getSetting('handler_settings');
+// $name = array_values($fhandlers['target_bundles']);
+// ksm($name[0], 'this one');
+//     // $ett =  \Drupal::entityTypeManager()->getStorage($tt);
+//     // ksm($ett,'storage');
+    
+//     ksm($entity->get('field_talk_type'));
+//     $entity_type_id = 'node';
+
 
     $talk["data"]["relationships"]["field_talk_type"] = $this->mapTalkType($entity->get('field_talk_type'));
-    $talk["data"]["relationships"]["field_talk_collection"] = $this->mapCollection($entity->get('field_talk_collection')->getValue());
-    // $talk["data"]["relationships"]["field_talk_subject"] = [];
-    // $talk["data"]["relationships"]["field_scientific_area"] = [];
+    $talk["data"]["relationships"]["field_talk_collection"] = $this->mapCollection($entity->get('field_talk_collection'));
+    $talk["data"]["relationships"]["field_talk_subject"] = $this->mapSubjects($entity->get('field_talk_subject'));
+    $talk["data"]["relationships"]["field_scientific_area"] = $this->mapScientificAreas($entity->get('field_scientific_area'));
 
-    \Drupal::logger('scitalk_base')->notice('the created Talk mapped object <pre>' . print_r($talk , TRUE) . '</pre>' );
     return $talk;
   }
 
+  /**
+   * create Collection object
+   */
   private function buildCollection(EntityInterface $entity) {
     $collection = [
       "data" => [
@@ -337,17 +360,19 @@ class SciVideosIntegration {
     else {  //make sure to force delete all speakers when none is set
       $collection["data"]["relationships"]["field_collection_organizers"] = [ "data" => [] ];
     }
-    
-    //Group - Souce Repo
+    // ksm($entity->get('field_collection_subject'), 'entity');
+    // ksm(get_class($entity->get('field_collection_subject')), 'type');
     $collection["data"]["relationships"]["field_collection_source_repo"] = $this->getSciVideosSourceRepository();
-
-    $collection["data"]["relationships"]["field_collection_subject"] = $this->mapSubjects($entity->get('field_collection_subject')->getValue());
-    $collection["data"]["relationships"]["field_collection_type"] = $this->mapCollectionType($entity->get('field_collection_type')->getValue());
-    $collection["data"]["relationships"]["field_parent_collection"] = $this->mapCollection($entity->get('field_parent_collection')->getValue());
+    $collection["data"]["relationships"]["field_collection_subject"] = $this->mapSubjects($entity->get('field_collection_subject'));
+    $collection["data"]["relationships"]["field_collection_type"] = $this->mapCollectionType($entity->get('field_collection_type'));
+    $collection["data"]["relationships"]["field_parent_collection"] = $this->mapCollection($entity->get('field_parent_collection'));
 
     return $collection;
   }
 
+  /**
+   * create SpeakerProfile SciVideo object
+   */
   private function buildSpeakerProfile(EntityInterface $entity) {
     $speaker_profile = [
       "data" => [
@@ -376,6 +401,9 @@ class SciVideosIntegration {
     return $speaker_profile;
   }
 
+  /**
+   * map local speakers to their SciVideos records
+   */
   private function mapSpeakers($speakers) {
     $speaker_ids = array_map(function($speaker) {
       if (empty($speaker)) {
@@ -430,6 +458,9 @@ class SciVideosIntegration {
     return [ "data" => $speakers_map ];
   }
   
+  /**
+   * date formating
+   */
   private function formatDate($utc_date = '', $format = 'Y-m-d\TH:i:sP', $timezone = '') {
     if (empty($utc_date)) {
       return '';
@@ -443,6 +474,9 @@ class SciVideosIntegration {
     return $formatter->format($timestamp, 'custom', $format, $timezone);
   }
 
+  /**
+   * create Source Repo mapping object
+   */
   private function getSciVideosSourceRepository() {
     $pirsa_repo = '08adc543-925a-4f74-a63c-91ec55b68669'; //PIRSA
     $cern_repo =  '801a572f-f652-1187-bc75-7161bc7a35df'; //CERN
@@ -455,23 +489,83 @@ class SciVideosIntegration {
     ];
   }
 
-  private function mapTalkType($talk_type = []) {
-    //need to load config by vocabulary types?? subjects, collection_type, talk_types... 
-    // $config_file = "scitalk_base.scitalk_base.{$mapping_type}";
+  private function mapTalkType(EntityReferenceFieldItemListInterface $talk_type) {
+    return $this->getMappings($talk_type, 'talk_type');
+    // $config_file = $this->getConfigMappingFile($talk_type);
+    // // $hdl = $talk_type->getFieldDefinition()->getSetting('handler_settings');
+    // // $mapping_type = array_values($hdl['target_bundles'])[0];
+
+    // // //need to load config by vocabulary types?? subjects, collection_type, talk_types... 
+    // // $config_file = "scitalk_base.scitalk_base.{$mapping_type}";
     // $config = $this->configFactory->get($config_file);
+    // $values = $talk_type->getValue();
+    // $mappings = [];
+    // $term_mappings = $config->get('term_mappings');
+    // foreach ($values as $val) {
+    //   $mapping = $this->getSciVideosMappedTermId($term_mappings, $val);
+    //   if (!empty($mapping)) {
+    //     $mappings[] = [
+    //       'type' => 'talk_type',
+    //       'id' => $mapping
+    //     ];
+    //   }
+    // }
 
-    return ['data' => []];
+    // $result = ['data' => $mappings];
+    // ksm($result, 'RESULT');
+    // return $result;
+    // return ['data' => [ $mappings ]];
   }
 
-  private function mapCollectionType($collection_types = []) {
-    return ['data' => []];
+  /**
+   * map local collection types to SciVideos objects
+   */
+  private function mapCollectionType(EntityReferenceFieldItemListInterface $collection_types) {
+    return $this->getMappings($collection_types, 'collection_type');
   }
 
-  private function mapSubjects($subjects = []) {
-    return ['data' => []];
+  /**
+   * map local subjects to SciVideos objects
+   */
+  private function mapSubjects(EntityReferenceFieldItemListInterface $subjects) {
+    return $this->getMappings($subjects, 'subjects');
   }
 
-  private function mapCollection($collections = []) {
+  /**
+   * map local scientific areas to SciVideos objects
+   */
+  private function mapScientificAreas(EntityReferenceFieldItemListInterface $sci_areas) {
+    return $this->getMappings($sci_areas, 'scientific_area');
+  }
+
+  /**
+   * create mapping objects for a specific field
+   */
+  private function getMappings(EntityReferenceFieldItemListInterface $field, string $mapping_type) {
+    $config_file = $this->getConfigMappingFile($field);
+    $config = $this->configFactory->get($config_file);
+    $values = $field->getValue();
+    $mappings = [];
+    $term_mappings = $config->get('term_mappings');
+    foreach ($values as $val) {
+      $mapping = $this->getSciVideosMappedTermId($term_mappings, $val);
+      if (!empty($mapping)) {
+        $mappings[] = [
+          'type' => $mapping_type,
+          'id' => $mapping
+        ];
+      }
+    }
+
+    return ['data' => $mappings];
+  }
+
+  /**
+   * map local collections from the site to collections in SciVideos
+   */
+  private function mapCollection(EntityReferenceFieldItemListInterface $collections_list) {
+    $collections = $collections_list->getValue();
+
     //filter out empty collection items:
     $collections =  array_filter($collections, function($itm) {
       return !empty($itm);
@@ -491,7 +585,7 @@ class SciVideosIntegration {
         return $uuid;
       }
 
-      //if not scivideo uuid, then fetch it from SciVideos using the collection number, then update parent uuid
+      //if no scivideo uuid, then fetch it from SciVideos using the collection number, then update parent uuid
       $collection_number = $collection_entity->field_collection_number->value ?? '';
       if (!empty($collection_number)) {
         $collection_search = $this->collection->fetchByCollectionNumber($collection_number);
@@ -521,15 +615,30 @@ class SciVideosIntegration {
 
     return [ "data" => $collections_map ];
   }
-  
-  // private function formatDate($date_input) {
-  //   $utc = new \DateTimeZone('UTC');
-  //   // $user_tz = date_default_timezone_get();
-  //   // $tz = new \DateTimeZone( $user_tz );
-  //   // $date = new \DateTime(  $date_input, $tz);
-  //   $date = new \DateTime($date_input, $utc);
-  
-  //   $date = $date->format("Y-m-d\TH:i:sP");
-  //   return $date;
-  // }
+
+  /**
+   * find the SciVideo mapping id for a local site term
+   */
+  private function getSciVideosMappedTermId($term_mappings, $value) {
+    $mappings = [];
+    foreach ($term_mappings as $tm) {
+      if ($tm['site_term_id'] == $value['target_id']) {
+        return $tm['scivideos_term_id'];
+      }
+    }
+    return $mappings;
+  }
+
+  /**
+   * find Configuration file for a type (taxonomy)
+   */
+  private function getConfigMappingFile($type) {
+    $hdl = $type->getFieldDefinition()->getSetting('handler_settings');
+    $mapping_type = array_values($hdl['target_bundles'])[0];
+
+    //need to load config by vocabulary types?? subjects, collection_type, talk_types... 
+    $config_file = "scitalk_base.scitalk_base.{$mapping_type}";
+    return $config_file;
+  }
+
 }

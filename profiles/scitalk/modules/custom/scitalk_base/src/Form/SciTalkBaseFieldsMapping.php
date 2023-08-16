@@ -320,10 +320,12 @@ class SciTalkBaseFieldsMapping extends FormBase {
     $tids = $query->execute();
     $terms = Term::loadMultiple($tids);
     foreach ($terms as $term) {
-      $options[$term->uuid->value] = $term->name->value;
+      // $options[$term->uuid->value] = $term->name->value;
+      $options[$term->tid->value] = $term->name->value;
     }
     return $options;
   }
+
 
   /**
    * pull SciVideos Vocabulary terms
