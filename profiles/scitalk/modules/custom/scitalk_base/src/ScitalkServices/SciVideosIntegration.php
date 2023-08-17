@@ -13,7 +13,7 @@ use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
-
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Datetime\DateFormatter;
@@ -25,12 +25,14 @@ use Drupal\scitalk_base\SciVideosIntegration\Entities\SpeakerProfile;
 use Drupal\scitalk_base\SciVideosIntegration\Entities\Collection;
 use Drupal\scitalk_base\SciVideosIntegration\Entities\Vocabularies;
 use Drupal\scitalk_base\SciVideosIntegration\Entities\VocabularyTerms;
+use Exception;
 
 class SciVideosIntegration {
 
   private $configFactory;
   private $entityTypeManager;
   private $tempStoreFactory;
+  private $messenger;
   private $dateFormatter;
 
   private $scivideos;
@@ -38,10 +40,11 @@ class SciVideosIntegration {
   private $talk;
   private $collection;
 
-  public function __construct(EntityTypeManager $entity_type_manager, ConfigFactoryInterface $config_factory, PrivateTempStoreFactory $temp_store, DateFormatter $date_formatter) {
+  public function __construct(EntityTypeManager $entity_type_manager, ConfigFactoryInterface $config_factory, PrivateTempStoreFactory $temp_store, MessengerInterface $messenger, DateFormatter $date_formatter) {
     $this->entityTypeManager = $entity_type_manager;
     $this->configFactory = $config_factory;
     $this->tempStoreFactory = $temp_store;
+    $this->messenger = $messenger;
     $this->dateFormatter = $date_formatter;
 
     $this->scivideos = SciVideosAuthentication::getInstance($this->tempStoreFactory);
@@ -55,6 +58,7 @@ class SciVideosIntegration {
       $container->get('entity_type.manager'),
       $container->get('config.factory'),
       $container->get('tempstore.private'),
+      $container->get('messenger'),
       $container->get('date.formatter')
     );
   }
@@ -84,18 +88,25 @@ class SciVideosIntegration {
    */
   public function addTalk(EntityInterface $entity) {
     $talk = $this->buildTalk($entity);
-    $response = $this->talk->create($talk);
-    $scivideo_talk = json_decode($response);
 
-    // set integration id
-    if (!empty($entity->field_scivideos_uuid)) {
-      unset($entity->field_scivideos_uuid);
+    try {
+      $response = $this->talk->create($talk);
+      $scivideo_talk = json_decode($response);
+
+      // set integration id
+      if (!empty($entity->field_scivideos_uuid)) {
+        unset($entity->field_scivideos_uuid);
+      }
+
+      $entity->set('field_scivideos_uuid', $scivideo_talk->data->id);
+      $entity->save();
+
+      return $scivideo_talk;
+
     }
-
-    $entity->set('field_scivideos_uuid', $scivideo_talk->data->id);
-    $entity->save();
-
-    return $scivideo_talk;
+    catch (Exception $ex) {
+      $this->messenger->addError("Something went wrong! " . $ex->getMessage());
+    }
   }
 
   /**
@@ -110,10 +121,16 @@ class SciVideosIntegration {
     }
 
     $talk = $this->buildTalk($entity);
-    $response = $this->talk->update($talk);
-    $scivideo_talk = json_decode($response);
 
-    return $scivideo_talk;
+    try {
+      $response = $this->talk->update($talk);
+      $scivideo_talk = json_decode($response);
+
+      return $scivideo_talk;
+    }
+    catch (Exception $ex) {
+      $this->messenger->addError("Something went wrong! " . $ex->getMessage());
+    }
   }
 
   /**
@@ -128,9 +145,15 @@ class SciVideosIntegration {
     }
 
     $talk = $this->buildTalk($entity);
-    $response = $this->talk->delete($talk);
-    $scivideo_talk = json_decode($response);
-    return $scivideo_talk;
+
+    try {
+      $response = $this->talk->delete($talk);
+      $scivideo_talk = json_decode($response);
+      return $scivideo_talk;
+    }
+    catch (Exception $ex) {
+      $this->messenger->addError("Something went wrong! " . $ex->getMessage());
+    }
   }
 
   /**
@@ -141,18 +164,24 @@ class SciVideosIntegration {
   public function addCollection(EntityInterface $entity) {
     $collection = $this->buildCollection($entity);
 
-    $response = $this->collection->create($collection);
-    $scivideo_collection = json_decode($response);
+    try {
+      $response = $this->collection->create($collection);
+      $scivideo_collection = json_decode($response);
 
-    // set integration id
-    if (!empty($entity->field_scivideos_uuid)) {
-      unset($entity->field_scivideos_uuid);
+      // set integration id
+      if (!empty($entity->field_scivideos_uuid)) {
+        unset($entity->field_scivideos_uuid);
+      }
+
+      $entity->set('field_scivideos_uuid', $scivideo_collection->data->id);
+      $entity->save();
+
+      return $scivideo_collection;
+
     }
-
-    $entity->set('field_scivideos_uuid', $scivideo_collection->data->id);
-    $entity->save();
-
-    return $scivideo_collection;
+    catch (Exception $ex) {
+      $this->messenger->addError("Something went wrong! " . $ex->getMessage());
+    }
   }
 
   /**
@@ -168,10 +197,15 @@ class SciVideosIntegration {
 
     $collection = $this->buildCollection($entity);
 
-    $response = $this->collection->update($collection);
-    $scivideo_collection = json_decode($response);
+    try {
+      $response = $this->collection->update($collection);
+      $scivideo_collection = json_decode($response);
 
-    return $scivideo_collection;
+      return $scivideo_collection;
+    }
+    catch (Exception $ex) {
+      $this->messenger->addError("Something went wrong! " . $ex->getMessage());
+    }
   }
 
   /**
@@ -186,9 +220,15 @@ class SciVideosIntegration {
     }
 
     $collection = $this->buildCollection($entity);
-    $response = $this->collection->delete($collection);
-    $scivideo_collection = json_decode($response);
-    return $scivideo_collection;
+
+    try {
+      $response = $this->collection->delete($collection);
+      $scivideo_collection = json_decode($response);
+      return $scivideo_collection;
+    }
+    catch (Exception $ex) {
+      $this->messenger->addError("Something went wrong! " . $ex->getMessage());
+    }
   }
 
   /**
@@ -198,17 +238,23 @@ class SciVideosIntegration {
    */
   public function addSpeakerProfile(EntityInterface $entity) {
     $speaker = $this->buildSpeakerProfile($entity);
-    $response = (new SpeakerProfile($this->scivideos))->create($speaker);
-    $scivideo_speaker = json_decode($response);
 
-    // set integration id
-    if (!empty($entity->field_scivideos_uuid)) {
-      unset($entity->field_scivideos_uuid);
+    try {
+      $response = (new SpeakerProfile($this->scivideos))->create($speaker);
+      $scivideo_speaker = json_decode($response);
+
+      // set integration id
+      if (!empty($entity->field_scivideos_uuid)) {
+        unset($entity->field_scivideos_uuid);
+      }
+      $entity->set('field_scivideos_uuid', $scivideo_speaker->data->id);
+      $entity->save();
+
+      return $scivideo_speaker;
     }
-    $entity->set('field_scivideos_uuid', $scivideo_speaker->data->id);
-    $entity->save();
-
-    return $scivideo_speaker;
+    catch (Exception $ex) {
+      $this->messenger->addError("Something went wrong! " . $ex->getMessage());
+    }
   }
 
   /**

@@ -219,7 +219,8 @@ class EntityBase {
           $error_msg = $error->title ?? '';
           $error_detail = $error->detail ?? '';
     
-          $msg = "ERROR!:  $status $error_msg: $error_detail";
+          $msg = 'SciVideos Integration: ' . $error_detail;
+        //   $msg = "ERROR!:  $status $error_msg: $error_detail";
         }
     
         return $msg;
