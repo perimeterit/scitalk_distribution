@@ -1,20 +1,22 @@
 <?php
 namespace Drupal\scitalk_base\SciVideosIntegration\Authentication;
 
+use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use DateTime;
 use DateInterval;
 
 class SciVideosAuthentication {
     const TOKEN_PATH = 'oauth/token';
+    const PRIVATE_STORAGE = 'scivideos_access_token';
 
     private static $instance = NULL;
     private $base_url = '';
     private $credentials_data = [];
-    private $access_token = '';
-    private $expires_in = 0;
-    private $expires_at = NULL;
+    private $private_store;
 
-    private function __construct() {
+    private function __construct(PrivateTempStoreFactory $private_store) {
+        $this->private_store = $private_store;
+
         $config = \Drupal::config('scitalk_base.settings');
 
         $this->base_url =  $config->get('scivideos_api_url');
@@ -32,33 +34,12 @@ class SciVideosAuthentication {
 
     }
 
-    public static function getInstance(): SciVideosAuthentication {
+    public static function getInstance(PrivateTempStoreFactory $private_store): SciVideosAuthentication {
         if (self::$instance == NULL || self::$instance->tokenExpired()) {
-            self::$instance = new SciVideosAuthentication();
+            self::$instance = new SciVideosAuthentication($private_store);
         }
         return self::$instance;
     }
-
-//   private function __construct($base_url = '', $credentials_grant = '') {
-//     $this->base_url = $base_url;
-//     $this->credentials_data = $credentials_grant;
-//     $this->expires_at = new DateTime();
-
-//     // $this->init($base_url, $credentials_grant);
-//   }
-
-//   public static function getInstance($base_url = '', $credentials_grant = '') {
-//     if (self::$instance == NULL || self::$instance->tokenExpired()) {
-//       self::$instance = new SciVideosAuthentication($base_url, $credentials_grant);
-//     }
-//     return self::$instance;
-//   }
-
-//   public function init($base_url, $credentials_grant) {
-//     $this->base_url = $base_url;
-//     $this->credentials_data = $credentials_grant;
-//     $this->expires_at = new DateTime();
-//   }
  
     public function getBaseUrl() {
         return $this->base_url;
@@ -66,33 +47,47 @@ class SciVideosAuthentication {
 
     public function getAccessToken() {
         if ($this->tokenExpired()) {
+            $this->private_store?->get('scitalk_base')?->delete(SciVideosAuthentication::PRIVATE_STORAGE);
             return $this->renewToken();
         }
-        return $this->access_token;
+
+        $access_token = $this->private_store?->get('scitalk_base')?->get(SciVideosAuthentication::PRIVATE_STORAGE)['token'];
+        return $access_token;
     }
 
     private function tokenExpired() {
         $now = new DateTime();
-        return $this->expires_at <= $now;
+        $tempstore = $this->private_store->get('scitalk_base');
+        if ($storage = $tempstore->get(SciVideosAuthentication::PRIVATE_STORAGE)) {
+            $expires_at = $storage['expires'];
+            return $expires_at <= $now;
+        }
+        return TRUE;
     }
 
     private function renewToken() {
-        $response = $this->authenticate();
-        $this->access_token = $response->access_token;
-        $this->expires_in = (int)$response->expires_in;
-        $this->expires_in -= 15; //i will expire it 15 secs before just in case
-        $this->setExpiresOn();
+        $tempstore = $this->private_store->get('scitalk_base');
+        if ($storage = $tempstore->get(SciVideosAuthentication::PRIVATE_STORAGE)) {
+            $access_token = $storage['token'];
+            return $access_token;
+        }
 
-        return $this->access_token;
+        $response = $this->authenticate();
+        $access_token = $response->access_token;
+
+        $expires_in = (int)$response->expires_in;
+        $expires_in -= 15; //i will expire it 15 secs before
+        $expires_at = $this->setExpiresOn($expires_in);
+
+        $tempstore->set(SciVideosAuthentication::PRIVATE_STORAGE, ['token' => $access_token, 'expires' => $expires_at]);
+        return $access_token;
     }
 
-    private function setExpiresOn() {
-        $now = new DateTime();
+    private function setExpiresOn($expires_in = 0) {
         $expires_at = new DateTime();
-        $expires_in = $this->expires_in ?? 0;
         $expires_in = $expires_in < 0 ? 0 : $expires_in;
         $expires_at->add(new DateInterval('PT'.$expires_in.'S'));
-        $this->expires_at = $expires_at; 
+        return $expires_at;
     }
 
     private function authenticate() {  

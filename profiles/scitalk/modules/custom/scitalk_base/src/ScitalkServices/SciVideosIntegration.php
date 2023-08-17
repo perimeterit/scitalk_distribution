@@ -14,6 +14,11 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
 
+use Drupal\Core\TempStore\PrivateTempStoreFactory;
+use Drupal\Core\Entity\EntityTypeManager;
+use Drupal\Core\Datetime\DateFormatter;
+use Drupal\Core\Datetime\DrupalDateTime;
+
 use Drupal\scitalk_base\SciVideosIntegration\Authentication\SciVideosAuthentication;
 use Drupal\scitalk_base\SciVideosIntegration\Entities\Talk;
 use Drupal\scitalk_base\SciVideosIntegration\Entities\SpeakerProfile;
@@ -24,15 +29,22 @@ use Drupal\scitalk_base\SciVideosIntegration\Entities\VocabularyTerms;
 class SciVideosIntegration {
 
   private $configFactory;
+  private $entityTypeManager;
+  private $tempStoreFactory;
+  private $dateFormatter;
+
   private $scivideos;
   private $speakerProfile;
   private $talk;
   private $collection;
 
-  public function __construct(ConfigFactoryInterface $config_factory) {
+  public function __construct(EntityTypeManager $entity_type_manager, ConfigFactoryInterface $config_factory, PrivateTempStoreFactory $temp_store, DateFormatter $date_formatter) {
+    $this->entityTypeManager = $entity_type_manager;
     $this->configFactory = $config_factory;
+    $this->tempStoreFactory = $temp_store;
+    $this->dateFormatter = $date_formatter;
 
-    $this->scivideos = SciVideosAuthentication::getInstance();
+    $this->scivideos = SciVideosAuthentication::getInstance($this->tempStoreFactory);
     $this->talk = new Talk($this->scivideos);
     $this->speakerProfile = new SpeakerProfile($this->scivideos);
     $this->collection = new Collection($this->scivideos);
@@ -40,7 +52,10 @@ class SciVideosIntegration {
 
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('tempstore.private')
+      $container->get('entity_type.manager'),
+      $container->get('config.factory'),
+      $container->get('tempstore.private'),
+      $container->get('date.formatter')
     );
   }
 
@@ -54,6 +69,8 @@ class SciVideosIntegration {
 
   /**
    * fetch list of terms under a Vocabulary from SciVideos
+   * 
+   * @param mixed $vocabulary_name
    */
   public function fetchVocabularyTerms($vocabulary_name) {
     $vobularies = new VocabularyTerms($this->scivideos, $vocabulary_name);
@@ -102,7 +119,7 @@ class SciVideosIntegration {
   /**
    * Delete SciVideos Talk
    *
-   * @param string doi
+   * @param \Drupal\Core\Entity\EntityInterface entity
    */
   public function deleteTalk(EntityInterface $entity) {
     $scivideos_uuid = $entity->field_scivideos_uuid->value ?? '';
@@ -160,7 +177,7 @@ class SciVideosIntegration {
   /**
    * Delete SciVideos Collection
    *
-   * @param string uuid
+   * @param \Drupal\Core\Entity\EntityInterface entity
    */
   public function deleteCollection(EntityInterface $entity) {
     $scivideos_uuid = $entity->field_scivideos_uuid->value ?? '';
@@ -181,11 +198,8 @@ class SciVideosIntegration {
    */
   public function addSpeakerProfile(EntityInterface $entity) {
     $speaker = $this->buildSpeakerProfile($entity);
-
     $response = (new SpeakerProfile($this->scivideos))->create($speaker);
     $scivideo_speaker = json_decode($response);
-
-    \Drupal::logger('scitalk_base')->notice('SCIVideos Integration response from remote - Create Spealker: <pre>' . print_r($scivideo_speaker , TRUE) . '</pre>' );
 
     // set integration id
     if (!empty($entity->field_scivideos_uuid)) {
@@ -203,7 +217,7 @@ class SciVideosIntegration {
    * @param \Drupal\Core\Entity\EntityInterface entity
    */
   public function updateSpeakerProfile(EntityInterface $entity) {
-    $doiObj = $this->buildTalk($entity);
+    $speakerObj = $this->buildTalk($entity);
     return [];
   }
 
@@ -219,6 +233,8 @@ class SciVideosIntegration {
 
   /**
    * create Talk object
+   * 
+   * @param \Drupal\Core\Entity\EntityInterface entity
    */
   private function buildTalk(EntityInterface $entity) {
     $talk = [
@@ -263,41 +279,8 @@ class SciVideosIntegration {
       $talk["data"]["relationships"]["field_talk_speaker_profile"] = [ "data" => [] ];
     }
 
-    //Group - Souce Repo
+    
     $talk["data"]["relationships"]["field_talk_source_repository"] = $this->getSciVideosSourceRepository();
-    
-//     $et = $entity->get('field_talk_type');
-//     $et = $entity->get('field_talk_subject');
-//     // $et = $entity->get('field_scientific_area');
-//     // $et = $entity->get('field_talk_attachments');
-//     $e = $et->getEntity()->getEntityType();
-//     ksm($e, 'the entity type');
-//     $fd = $et->getFieldDefinition();
-//     ksm($fd, 'field def');
-
-//     $tt = $et->getFieldDefinition()->getSetting('target_type');
-//     ksm($tt, 'field def target type');
-    
-//     $tts = $et->getFieldDefinition()->getSettings();
-//     ksm($tts, 'all settngs');
-    
-//     $tt1 = $et->getFieldDefinition()->getSetting('handler_settings');
-// ksm($tt1, 'handler settings');
-
-// $htype = $tt1['target_bundles'];
-// ksm($htype, 'the target bubdles');
-
-
-// $fhandlers = $entity->get('field_talk_type')->getFieldDefinition()->getSetting('handler_settings');
-// $name = array_values($fhandlers['target_bundles']);
-// ksm($name[0], 'this one');
-//     // $ett =  \Drupal::entityTypeManager()->getStorage($tt);
-//     // ksm($ett,'storage');
-    
-//     ksm($entity->get('field_talk_type'));
-//     $entity_type_id = 'node';
-
-
     $talk["data"]["relationships"]["field_talk_type"] = $this->mapTalkType($entity->get('field_talk_type'));
     $talk["data"]["relationships"]["field_talk_collection"] = $this->mapCollection($entity->get('field_talk_collection'));
     $talk["data"]["relationships"]["field_talk_subject"] = $this->mapSubjects($entity->get('field_talk_subject'));
@@ -308,6 +291,8 @@ class SciVideosIntegration {
 
   /**
    * create Collection object
+   * 
+   * @param \Drupal\Core\Entity\EntityInterface entity
    */
   private function buildCollection(EntityInterface $entity) {
     $collection = [
@@ -360,8 +345,7 @@ class SciVideosIntegration {
     else {  //make sure to force delete all speakers when none is set
       $collection["data"]["relationships"]["field_collection_organizers"] = [ "data" => [] ];
     }
-    // ksm($entity->get('field_collection_subject'), 'entity');
-    // ksm(get_class($entity->get('field_collection_subject')), 'type');
+
     $collection["data"]["relationships"]["field_collection_source_repo"] = $this->getSciVideosSourceRepository();
     $collection["data"]["relationships"]["field_collection_subject"] = $this->mapSubjects($entity->get('field_collection_subject'));
     $collection["data"]["relationships"]["field_collection_type"] = $this->mapCollectionType($entity->get('field_collection_type'));
@@ -372,6 +356,8 @@ class SciVideosIntegration {
 
   /**
    * create SpeakerProfile SciVideo object
+   * 
+   * @param \Drupal\Core\Entity\EntityInterface entity
    */
   private function buildSpeakerProfile(EntityInterface $entity) {
     $speaker_profile = [
@@ -403,6 +389,8 @@ class SciVideosIntegration {
 
   /**
    * map local speakers to their SciVideos records
+   * 
+   * @param mixed $speakers
    */
   private function mapSpeakers($speakers) {
     $speaker_ids = array_map(function($speaker) {
@@ -411,7 +399,7 @@ class SciVideosIntegration {
       }
 
       $target_id = $speaker['target_id'];
-      $speaker_entity = \Drupal::entityTypeManager()->getStorage('node')->load($target_id);
+      $speaker_entity = $this->entityTypeManager->getStorage('node')->load($target_id);
 
       $uuid = $speaker_entity->field_scivideos_uuid->value ?? '';
       if (!empty($uuid)) {
@@ -460,65 +448,52 @@ class SciVideosIntegration {
   
   /**
    * date formating
+   * 
+   * @param string $utc_date
+   * @param string $format
+   * @param string $timezone
    */
   private function formatDate($utc_date = '', $format = 'Y-m-d\TH:i:sP', $timezone = '') {
     if (empty($utc_date)) {
       return '';
     }
-    $formatter = \Drupal::service('date.formatter');
-    $drupal_date = new \Drupal\Core\Datetime\DrupalDateTime($utc_date, 'UTC');
+
+    $drupal_date = new DrupalDateTime($utc_date, 'UTC');
     $timestamp = strtotime($drupal_date);
     if (empty($timezone)) {
       $timezone = date_default_timezone_get();
     }
-    return $formatter->format($timestamp, 'custom', $format, $timezone);
+    return $this->dateFormatter->format($timestamp, 'custom', $format, $timezone);
   }
 
   /**
    * create Source Repo mapping object
    */
   private function getSciVideosSourceRepository() {
-    $pirsa_repo = '08adc543-925a-4f74-a63c-91ec55b68669'; //PIRSA
-    $cern_repo =  '801a572f-f652-1187-bc75-7161bc7a35df'; //CERN
+    $config = $this->configFactory->get('scitalk_base.settings');
+    $scivideos_group_uuid = $config->get('scivideos_group_uuid') ?? '';
 
     return [ 
       "data" => [
         "type" => "group--source_repository",
-        "id" => $pirsa_repo
+        "id" => $scivideos_group_uuid
       ]
     ];
   }
 
+  /**
+   * map local talk type to SciVideos objects
+   * 
+   * @param \Drupal\Core\Field\EntityReferenceFieldItemListInterface $talk_type
+   */
   private function mapTalkType(EntityReferenceFieldItemListInterface $talk_type) {
     return $this->getMappings($talk_type, 'talk_type');
-    // $config_file = $this->getConfigMappingFile($talk_type);
-    // // $hdl = $talk_type->getFieldDefinition()->getSetting('handler_settings');
-    // // $mapping_type = array_values($hdl['target_bundles'])[0];
-
-    // // //need to load config by vocabulary types?? subjects, collection_type, talk_types... 
-    // // $config_file = "scitalk_base.scitalk_base.{$mapping_type}";
-    // $config = $this->configFactory->get($config_file);
-    // $values = $talk_type->getValue();
-    // $mappings = [];
-    // $term_mappings = $config->get('term_mappings');
-    // foreach ($values as $val) {
-    //   $mapping = $this->getSciVideosMappedTermId($term_mappings, $val);
-    //   if (!empty($mapping)) {
-    //     $mappings[] = [
-    //       'type' => 'talk_type',
-    //       'id' => $mapping
-    //     ];
-    //   }
-    // }
-
-    // $result = ['data' => $mappings];
-    // ksm($result, 'RESULT');
-    // return $result;
-    // return ['data' => [ $mappings ]];
   }
 
   /**
    * map local collection types to SciVideos objects
+   * 
+   * @param \Drupal\Core\Field\EntityReferenceFieldItemListInterface $collection_types
    */
   private function mapCollectionType(EntityReferenceFieldItemListInterface $collection_types) {
     return $this->getMappings($collection_types, 'collection_type');
@@ -526,6 +501,8 @@ class SciVideosIntegration {
 
   /**
    * map local subjects to SciVideos objects
+   * 
+   * @param \Drupal\Core\Field\EntityReferenceFieldItemListInterface $subjects
    */
   private function mapSubjects(EntityReferenceFieldItemListInterface $subjects) {
     return $this->getMappings($subjects, 'subjects');
@@ -533,6 +510,8 @@ class SciVideosIntegration {
 
   /**
    * map local scientific areas to SciVideos objects
+   * 
+   * @param \Drupal\Core\Field\EntityReferenceFieldItemListInterface $sci_areas
    */
   private function mapScientificAreas(EntityReferenceFieldItemListInterface $sci_areas) {
     return $this->getMappings($sci_areas, 'scientific_area');
@@ -540,6 +519,9 @@ class SciVideosIntegration {
 
   /**
    * create mapping objects for a specific field
+   * 
+   * @param \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field
+   * @param string $mapping_type
    */
   private function getMappings(EntityReferenceFieldItemListInterface $field, string $mapping_type) {
     $config_file = $this->getConfigMappingFile($field);
@@ -562,6 +544,8 @@ class SciVideosIntegration {
 
   /**
    * map local collections from the site to collections in SciVideos
+   * 
+   * @param \Drupal\Core\Field\EntityReferenceFieldItemListInterface $collections_list
    */
   private function mapCollection(EntityReferenceFieldItemListInterface $collections_list) {
     $collections = $collections_list->getValue();
@@ -578,7 +562,7 @@ class SciVideosIntegration {
       }
 
       $target_id = $collection['target_id'];
-      $collection_entity = \Drupal::entityTypeManager()->getStorage('node')->load($target_id);
+      $collection_entity = $this->entityTypeManager->getStorage('node')->load($target_id);
 
       $uuid = $collection_entity->field_scivideos_uuid->value ?? '';
       if (!empty($uuid)) {
@@ -618,6 +602,9 @@ class SciVideosIntegration {
 
   /**
    * find the SciVideo mapping id for a local site term
+   * 
+   * @param mixed $term_mappings
+   * @param mixed $value
    */
   private function getSciVideosMappedTermId($term_mappings, $value) {
     $mappings = [];
@@ -631,8 +618,10 @@ class SciVideosIntegration {
 
   /**
    * find Configuration file for a type (taxonomy)
+   * 
+   * @param \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field
    */
-  private function getConfigMappingFile($type) {
+  private function getConfigMappingFile(EntityReferenceFieldItemListInterface $type) {
     $hdl = $type->getFieldDefinition()->getSetting('handler_settings');
     $mapping_type = array_values($hdl['target_bundles'])[0];
 

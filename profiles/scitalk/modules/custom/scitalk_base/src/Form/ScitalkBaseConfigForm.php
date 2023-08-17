@@ -260,6 +260,21 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
       ],
     ];
 
+    $form['scivideos_group_uuid'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('SciVideos Group UUID'),
+      '#default_value' => $config->get('scivideos_group_uuid'),
+      '#description' => $this->t('SciVideos Group UUID where Talks, Collections will be mapped to'),
+      '#states' => [
+        'visible' => [
+            ':input[id="scivideos_integration"]' => ['checked' => TRUE],
+        ],
+        'required' => [
+          ':input[id="scivideos_integration"]' => ['checked' => TRUE],
+        ],
+      ],
+    ];
+
     
     return parent::buildForm($form, $form_state);
   }
@@ -286,6 +301,7 @@ class ScitalkBaseConfigForm extends ConfigFormBase {
       ->set('scivideos_api_client_id', $form_state->getValue('scivideos_api_client_id'))
       ->set('scivideos_api_client_secret', $form_state->getValue('scivideos_api_client_secret'))
       ->set('scivideos_api_client_scope', $form_state->getValue('scivideos_api_client_scope'))
+      ->set('scivideos_group_uuid', $form_state->getValue('scivideos_group_uuid'))
 
       ->save();
 
