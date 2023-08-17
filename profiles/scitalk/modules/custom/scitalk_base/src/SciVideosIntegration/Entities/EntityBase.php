@@ -38,18 +38,8 @@ class EntityBase {
             'header'  => "Content-Type: application/vnd.api+json; charset=UTF-8"
         ];
 
-        // if (!empty($stack)) {
-        //     $client = new \GuzzleHttp\Client(['handler' => $stack]);
-        //     ksm('yes');
-        // }
-        // else {
-        //     $client = \Drupal::httpClient($params);
-        // }
-
-        // $client = \Drupal::httpClient($params);
-
         $stack = $this->getStack();
-        $client = new \GuzzleHttp\Client(['handler' => $stack]);
+        $client = new Client(['handler' => $stack]);
 
         $response = NULL;
         try {
@@ -66,29 +56,13 @@ class EntityBase {
       
             \Drupal::logger('scitalk_base')->error('SciVideos Fetch: ' . $url . '<br>ERROR -> ' . $response  );
             
-            throw new Exception('FETCH '. $url . $filter . '<br>'. $response);
-
-            // if (!empty($res = $e->getResponse()->getBody()->getContents())) {
-            //     $err = json_decode($res);
-            //     if ($err->errors[0]->status != 404) {//if error is other than not found then log this error
-            //         $msg = 'SciVideos Fetch: ' . ( $err->errors[0]->title ?? '');
-            //         \Drupal::logger('scitalk_base')->error($msg);
-            //     }
-            // }
-            // else {
-            //     \Drupal::logger('scitalk_base')->error('SciVideos Fetch: ' . print_r($e->getMessage() , TRUE));
-            // }
+            throw new Exception('SciVideos Fetch: '. $url . $filter . '<br>'. $response);
         }
         finally {
             return $response;
         }
 
     }
-
-    // public function fetchWithPermission($filter = '') {
-    //     $stack = $this->getStack();
-    //     return $this->fetch($filter, $stack);
-    // }
 
     public function create($resource) {
         return $this->doSave($resource);
@@ -116,13 +90,12 @@ class EntityBase {
         $stack->push($this->addHeader('Content-Type', 'application/vnd.api+json'));
         $stack->push($this->addHeader('Accept', 'application/vnd.api+json'));
     
-        $client = new \GuzzleHttp\Client(['handler' => $stack]);
-        // $client = \Drupal::httpClient(['handler' => $stack]);
+        $client = new Client(['handler' => $stack]);
     
         $response = '';
         // $url = $this->scivideos->getBaseUrl() . $resource_to_patch;
         $url = $this->url . $resource_to_patch;
-    // ksm($resource, 'SciVideos REMOTE CREATE/UPDATE');
+
         try {
             $request = $client->request($method, $url, $body);	    
             $response = $request->getBody();
@@ -143,7 +116,7 @@ class EntityBase {
             }
         
             $response .= '<br> Title:'. $resource['data']['attributes']['title'] ?? '';
-            throw new Exception('Save SciVideos'. $response);
+            throw new Exception('Save SciVideos: '. $response);
         }
     }
 
@@ -161,7 +134,7 @@ class EntityBase {
         $stack->push($this->addHeader('Content-Type', 'application/vnd.api+json'));
         $stack->push($this->addHeader('Accept', 'application/vnd.api+json'));
     
-        $client = new \GuzzleHttp\Client(['handler' => $stack]);
+        $client = new Client(['handler' => $stack]);
     
         $response = '';
         $url = $this->url . $talk_to_delete;
@@ -185,7 +158,7 @@ class EntityBase {
                 $response = $e->getMessage();
             }
     
-            throw new Exception('Delete SciVideos'. $response);
+            throw new Exception('Delete SciVideos: '. $response);
         }
     }
 
