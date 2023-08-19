@@ -32,6 +32,10 @@ class EntityBase {
 
     // public function fetch($filter = '', $stack = []) {
     public function fetch($filter = '') {
+        // if (substr($filter, 0) != '/') {
+        //     $filter = '/' . $filter;
+        // }
+
         $url = $this->url . $filter;
 
         $params = [

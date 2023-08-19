@@ -69,7 +69,6 @@ class SciTalkBaseFieldsMapping extends FormBase {
    */
   public function buildForm(array $form, FormStateInterface $form_state, $mapping_type = NULL) {
     $form['#attached']['library'][] = 'scitalk_base/scitalk_base';
-    // $form['#attached']['library'][] = 'scitalk_base/remove_mapping_row';
 
     $config_file = "scitalk_base.scitalk_base.{$mapping_type}";
     $this->config = $this->configFactory->get($config_file);
@@ -83,7 +82,7 @@ class SciTalkBaseFieldsMapping extends FormBase {
     $this->sciVideosOptions = $this->getSciVideosTermsOptions($scivideo_vocabulary);
 
     $site_name = $this->getSiteName();
-    $title = $site_name . ' to SciVideos Terms Mapping';
+    $title = $site_name . ' to SciVideos Terms Mapping (' . $mapping_type . ')';
 
     $form['field_mappings_wrapper'] = [
       '#title' => $this->t($title),

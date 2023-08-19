@@ -32,7 +32,7 @@ scitalk_base.scitalk_base.*:
           label: 'Term Mapping'
           mapping:
             site_term_id:
-              type: string
+              type: integer
               label: "Site Term Id"
             scivideos_term_id:
               type: string

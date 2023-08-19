@@ -288,6 +288,14 @@ function scitalk_base_node_update(\Drupal\Core\Entity\EntityInterface $entity) {
       $scivideo_collection->updateCollection($entity);
     }
   }
+
+  if ($entity->getType() == 'speaker_profile') {
+    //update this Speaker Profile in SciVideos
+    if ($scivideos_integrate) {
+      $scivideo_collection = \Drupal::service('scitalk_base.scivideos_integrate');
+      $scivideo_collection->updateSpeakerProfile($entity);
+    }
+  }
 }
 
 /**
@@ -326,6 +334,14 @@ function scitalk_base_node_delete(Drupal\Core\Entity\EntityInterface $entity) {
     if ($scivideos_integrate) {
       $scivideo_collection = \Drupal::service('scitalk_base.scivideos_integrate');
       $scivideo_collection->deleteCollection($entity);
+    }
+  }
+
+  if ($entity->getType() == 'speaker_profile') {
+    //try to delete this Speaker Profile in SciVideos
+    if ($scivideos_integrate) {
+      $scivideo_speaker_profile = \Drupal::service('scitalk_base.scivideos_integrate');
+      $scivideo_speaker_profile->deleteSpeakerProfile($entity);
     }
   }
 }

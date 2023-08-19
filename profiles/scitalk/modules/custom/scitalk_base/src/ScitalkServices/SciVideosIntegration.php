@@ -13,11 +13,13 @@ use GuzzleHttp\Exception\RequestException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Field\EntityReferenceFieldItemListInterface;
+use Drupal\Core\Field\FieldItemListInterface;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Core\TempStore\PrivateTempStoreFactory;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Datetime\DateFormatter;
 use Drupal\Core\Datetime\DrupalDateTime;
+use Drupal\Core\Url;
 
 use Drupal\scitalk_base\SciVideosIntegration\Authentication\SciVideosAuthentication;
 use Drupal\scitalk_base\SciVideosIntegration\Entities\Talk;
@@ -25,10 +27,10 @@ use Drupal\scitalk_base\SciVideosIntegration\Entities\SpeakerProfile;
 use Drupal\scitalk_base\SciVideosIntegration\Entities\Collection;
 use Drupal\scitalk_base\SciVideosIntegration\Entities\Vocabularies;
 use Drupal\scitalk_base\SciVideosIntegration\Entities\VocabularyTerms;
+use Drupal\scitalk_base\SciVideosIntegration\Entities\TalkKeyword;
 use Exception;
 
 class SciVideosIntegration {
-
   private $configFactory;
   private $entityTypeManager;
   private $tempStoreFactory;
@@ -39,6 +41,7 @@ class SciVideosIntegration {
   private $speakerProfile;
   private $talk;
   private $collection;
+  private $talkKeyword;
 
   public function __construct(EntityTypeManager $entity_type_manager, ConfigFactoryInterface $config_factory, PrivateTempStoreFactory $temp_store, MessengerInterface $messenger, DateFormatter $date_formatter) {
     $this->entityTypeManager = $entity_type_manager;
@@ -51,6 +54,7 @@ class SciVideosIntegration {
     $this->talk = new Talk($this->scivideos);
     $this->speakerProfile = new SpeakerProfile($this->scivideos);
     $this->collection = new Collection($this->scivideos);
+    $this->talkKeyword = new TalkKeyword($this->scivideos);
   }
 
   public static function create(ContainerInterface $container) {
@@ -219,6 +223,15 @@ class SciVideosIntegration {
       return;
     }
 
+    //check if there are any talks under this collection and if so then do not delete from SciVideos
+    $talks_under_collection_query = $this->talk->fetchTalksUnderCollectionById($scivideos_uuid);
+    $talks_under_collection = json_decode($talks_under_collection_query);
+    $number_of_talks = $talks_under_collection->meta->count ?? count($talks_under_collection->data);
+    if ($number_of_talks > 0) {
+      $this->messenger->addWarning("Please note that this Collection was not deleted from SciVideos as we found {$number_of_talks} Talk(s) under the Collection.");
+      return;
+    }
+
     $collection = $this->buildCollection($entity);
 
     try {
@@ -240,7 +253,7 @@ class SciVideosIntegration {
     $speaker = $this->buildSpeakerProfile($entity);
 
     try {
-      $response = (new SpeakerProfile($this->scivideos))->create($speaker);
+      $response = $this->speakerProfile->create($speaker);
       $scivideo_speaker = json_decode($response);
 
       // set integration id
@@ -258,22 +271,58 @@ class SciVideosIntegration {
   }
 
   /**
-   * UpdateSciVideos Speaker Profile
+   * Update SciVideos Speaker Profile
    *
    * @param \Drupal\Core\Entity\EntityInterface entity
    */
   public function updateSpeakerProfile(EntityInterface $entity) {
-    $speakerObj = $this->buildTalk($entity);
-    return [];
+    $scivideos_uuid = $entity->field_scivideos_uuid->value ?? '';
+    if (empty($scivideos_uuid)) {
+      return;
+    }
+
+    $speaker = $this->buildSpeakerProfile($entity);
+    try {
+      $response = $this->speakerProfile->update($speaker);
+      $scivideo_speaker = json_decode($response);
+      return $scivideo_speaker;
+    }
+    catch (Exception $ex) {
+      $this->messenger->addError("Something went wrong! " . $ex->getMessage());
+    }
   }
 
   /**
    * Delete SciVideos Speaker Profile
    *
-   * @param string uuid
+   * @param \Drupal\Core\Entity\EntityInterface entity
    */
-  public function deleteSpeakerProfile($uuid) {
-    return [];
+  public function deleteSpeakerProfile(EntityInterface $entity) {
+    $scivideos_uuid = $entity->field_scivideos_uuid->value ?? '';
+    if (empty($scivideos_uuid)) {
+      return;
+    }
+
+    //check if there are any talks for the speaker and if so then do not delete from SciVideos
+    $talks_for_speaker_query = $this->talk->fetchTalksBySpeakerProfileId($scivideos_uuid);
+    $talks_for_speaker = json_decode($talks_for_speaker_query);
+    $number_of_talks = $talks_for_speaker->meta->count ?? count($talks_for_speaker->data);
+    if ($number_of_talks > 0) {
+      $name = $entity->field_sp_display_name->value ?? $entity->field_sp_first_name->value;
+      $this->messenger->addWarning("Please note that this Speaker Profile was not deleted from SciVideos as we found {$number_of_talks} Talk(s) by {$name}.");
+      return;
+    }
+
+    $speaker_profile = $this->buildSpeakerProfile($entity);
+
+    try {
+      $response = $this->speakerProfile->delete($speaker_profile);
+      $scivideo_speaker_profile = json_decode($response);
+      return $scivideo_speaker_profile;
+    }
+    catch (Exception $ex) {
+      $this->messenger->addError("Something went wrong! " . $ex->getMessage());
+    }
   }
 
 
@@ -293,7 +342,6 @@ class SciVideosIntegration {
                   "format" => "basic_html"
               ],
               "field_talk_location" => $entity->field_talk_location->value ?? '',
-              "field_talk_date" => $this->formatDate( $entity->field_talk_date->value ),
               "field_talk_viewable_online" => $entity->field_talk_viewable_online->value ?? FALSE,
               "field_talk_number" => $entity->field_talk_number->value,
               "field_talk_doi" => $entity->field_talk_doi->value ?? '',
@@ -309,12 +357,31 @@ class SciVideosIntegration {
       $talk["data"]["id"] = $integration_id;
     }
 
+    if (!empty($entity->field_talk_date->value)) {
+      $talk["data"]["attributes"]["field_talk_date"] = $this->formatDate( $entity->field_talk_date->value );
+    }
+    else {
+      $talk["data"]["attributes"]["field_talk_date"] = NULL;
+    }
+
     $talk_url = $entity->toUrl()->setAbsolute()->toString(true)->getGeneratedUrl() ?? '';
     $talk["data"]["attributes"]["field_talk_video_url"] = [
       "uri" => $talk_url,
       "title" => $talk_url,
       "options" => ['attributes' => ['target' => '_blank'] ]
     ];
+
+
+    if (!empty($entity->field_talk_source_event->getValue())) {
+      $talk["data"]["attributes"]["field_talk_source_event"] = [
+        "uri" => $this->getExternalUrl($entity->field_talk_source_event),
+        "title" => $entity->field_talk_source_event->title,
+        "options"=> ['attributes' => ['target' => '_blank'] ]
+      ];
+    }
+    else {
+      $talk["data"]["attributes"]["field_talk_source_event"] = [];
+    }
 
     $speakers = $entity->get('field_talk_speaker_profile')->getValue() ?? [];
     if (!empty($speakers)) {
@@ -331,6 +398,15 @@ class SciVideosIntegration {
     $talk["data"]["relationships"]["field_talk_collection"] = $this->mapCollection($entity->get('field_talk_collection'));
     $talk["data"]["relationships"]["field_talk_subject"] = $this->mapSubjects($entity->get('field_talk_subject'));
     $talk["data"]["relationships"]["field_scientific_area"] = $this->mapScientificAreas($entity->get('field_scientific_area'));
+
+    $keywords = $entity->get('field_talk_keywords')->getValue() ?? [];
+    if (!empty($keywords)) {
+      $talk["data"]["relationships"]["field_talk_keywords"] = $this->mapKeywords($keywords);
+    }
+    else {
+      $talk["data"]["relationships"]["field_talk_keywords"] = [ "data" => [] ];
+
+    }
 
     return $talk;
   }
@@ -355,10 +431,10 @@ class SciVideosIntegration {
               "value" => $entity->field_collection_short_desc->value ?? '',
               "format" => "basic_html"
             ],
-            "field_collection_date" => [
-               "value" => $this->formatDate( $entity->field_collection_date->value ) ?? NULL,
-               "end_value" => $this->formatDate( $entity->field_collection_date->end_value ) ?? NULL,
-            ],
+            // "field_collection_date" => [
+            //    "value" => $this->formatDate( $entity->field_collection_date->value ) ?? NULL,
+            //    "end_value" => $this->formatDate( $entity->field_collection_date->end_value ) ?? NULL,
+            // ],
             "field_collection_location" => $entity->field_collection_location->value ?? '',
             "field_collection_public_viewable" => $entity->field_collection_public_viewable->value,
             "status" => $entity->status->value,
@@ -372,9 +448,18 @@ class SciVideosIntegration {
       $collection["data"]["id"] = $integration_id;
     }
 
-    if (!empty($entity->field_collection_event_url)) {
+    if (!empty($entity->field_collection_date->value)) {
+      $collection["data"]["attributes"]["field_collection_date"]["value"] = $this->formatDate( $entity->field_collection_date->value ) ?? NULL;
+      $collection["data"]["attributes"]["field_collection_date"]["end_value"] = $this->formatDate( $entity->field_collection_date->end_value ) ?? NULL;
+    }
+    else {
+      $collection["data"]["attributes"]["field_collection_date"]["value"] = NULL;
+      $collection["data"]["attributes"]["field_collection_date"]["end_value"] = NULL;
+    }
+
+    if (!empty($entity->field_collection_event_url->getValue())) {
       $collection["data"]["attributes"]["field_collection_event_url"] = [
-        "uri" => $entity->field_collection_event_url->uri,
+        "uri" => $this->getExternalUrl($entity->field_collection_event_url),
         "title" => $entity->field_collection_event_url->title,
         // "options"=> ['attributes' => ['target' => '_blank'] ]
       ];
@@ -417,6 +502,8 @@ class SciVideosIntegration {
                 "first_name" => $entity->field_sp_first_name->value ?? '',
                 "last_name" => $entity->field_sp_last_name->value ?? '',
                 "institution_name" => $entity->field_sp_institution_name->value ?? '',
+                "field_sp_orcid_id" => $entity->field_sp_orcid_id->value ?? '',
+                "status" => $entity->status->value,
                 "speaker_profile" => [
                     "value" => $entity->field_sp_speaker_profile->value ?? '',
                     "format" => "basic_html",
@@ -429,6 +516,11 @@ class SciVideosIntegration {
             ]
       ]
     ];
+
+    $integration_id = $entity->field_scivideos_uuid->value ?? '';
+    if (!empty($integration_id)) {
+      $speaker_profile["data"]["id"] = $integration_id;
+    }
 
     return $speaker_profile;
   }
@@ -589,7 +681,7 @@ class SciVideosIntegration {
   }
 
   /**
-   * map local collections from the site to collections in SciVideos
+   * map local collections from the local site to collections in SciVideos
    * 
    * @param \Drupal\Core\Field\EntityReferenceFieldItemListInterface $collections_list
    */
@@ -654,16 +746,16 @@ class SciVideosIntegration {
    */
   private function getSciVideosMappedTermId($term_mappings, $value) {
     $mappings = [];
-    foreach ($term_mappings as $tm) {
-      if ($tm['site_term_id'] == $value['target_id']) {
-        return $tm['scivideos_term_id'];
+    foreach ($term_mappings as $term) {
+      if ($term['site_term_id'] == $value['target_id']) {
+        return $term['scivideos_term_id'];
       }
     }
     return $mappings;
   }
 
   /**
-   * find Configuration file for a type (taxonomy)
+   * find the Configuration file for a type (taxonomy)
    * 
    * @param \Drupal\Core\Field\EntityReferenceFieldItemListInterface $field
    */
@@ -674,6 +766,111 @@ class SciVideosIntegration {
     //need to load config by vocabulary types?? subjects, collection_type, talk_types... 
     $config_file = "scitalk_base.scitalk_base.{$mapping_type}";
     return $config_file;
+  }
+
+  /**
+   * convert URIs to external links
+   *
+   * @param \Drupal\Core\Field\FieldItemListInterface $link
+   */
+  private function getExternalUrl(FieldItemListInterface $link) {
+    $url = Url::fromUri($link->uri, ['absolute' => TRUE])->toString() ?? '';
+    return $url;
+  }
+
+  /**
+   * map local keywords to their SciVideos records
+   *
+   * @param mixed $keywords
+   */
+  private function mapKeywords($keywords) {
+    $keyword_ids = array_map(function($keyword) {
+      if (empty($keyword)) {
+        return [];
+      }
+
+      $target_id = $keyword['target_id'];
+      $keyword_entity = $this->entityTypeManager->getStorage('taxonomy_term')->load($target_id);
+
+      //try and fetch using the keyword name
+      $name = $keyword_entity->name->value ?? '';
+      if (!empty($name)) {
+        $keyword_search = $this->talkKeyword->fetchByName($name);
+
+        $keyword_search = json_decode($keyword_search);
+        $found = $keyword_search->meta->count ?? count($keyword_search->data);
+        if ($found > 0) {
+          $uuid = current($keyword_search->data)->id;
+          return $uuid;
+        }
+      }
+
+      //otherwise, create keyword
+      $new_keyword = $this->addTalkKeyword($keyword_entity);
+      return $new_keyword->data->id ?? '';
+
+    }, $keywords);
+
+    //remove any empty
+    $keyword_ids = array_filter($keyword_ids, function($keyword) {
+        return !empty($keyword);
+    });
+
+    $keyword_ids = array_values($keyword_ids);
+
+    if (empty(current($keyword_ids))) {
+      return [ "data" => [] ];
+    }
+
+    $keywords_map = array_map(function($itm) {
+        return ["type" => "taxonomy_term--talk_keywords",
+                "id" => $itm
+        ];
+    }, $keyword_ids);
+
+    return [ "data" => $keywords_map ];
+  }
+
+  /**
+   * add SciVideos Talk Keyword
+   *
+   * @param \Drupal\Core\Entity\EntityInterface entity
+   */
+  private function addTalkKeyword(EntityInterface $entity) {
+    $keyword = $this->buildTalkKeyword($entity);
+
+    try {
+      $response = $this->talkKeyword->create($keyword);
+      $scivideo_keyword = json_decode($response);
+      return $scivideo_keyword;
+    }
+    catch (Exception $ex) {
+      $this->messenger->addError("Something went wrong! " . $ex->getMessage());
+    }
+  }
+
+  /**
+   * create Talk Keyword SciVideo object
+   *
+   * @param \Drupal\Core\Entity\EntityInterface entity
+   */
+  private function buildTalkKeyword(EntityInterface $entity) {
+    $keyword = [
+      "data" => [
+            "type" => "taxonomy_term--talk_keywords",
+            "attributes" => [
+                "title" => $entity->title->value,
+                "name" => $entity->name->value ?? '',
+                "status" => $entity->status->value ?? TRUE,
+                "description" => [
+                    "value" => $entity->description->value ?? '',
+                    "format" => "basic_html",
+                ]
+            ]
+      ]
+    ];
+
+    return $keyword;
   }
 
 }
