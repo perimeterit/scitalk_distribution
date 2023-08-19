@@ -292,8 +292,8 @@ function scitalk_base_node_update(\Drupal\Core\Entity\EntityInterface $entity) {
   if ($entity->getType() == 'speaker_profile') {
     //update this Speaker Profile in SciVideos
     if ($scivideos_integrate) {
-      $scivideo_collection = \Drupal::service('scitalk_base.scivideos_integrate');
-      $scivideo_collection->updateSpeakerProfile($entity);
+      $scivideo_speaker_profile = \Drupal::service('scitalk_base.scivideos_integrate');
+      $scivideo_speaker_profile->updateSpeakerProfile($entity);
     }
   }
 }
