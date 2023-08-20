@@ -618,7 +618,7 @@ class SciVideosIntegration {
    */
   private function formatDate($utc_date = '', $format = 'Y-m-d\TH:i:sP', $timezone = '') {
     if (empty($utc_date)) {
-      return '';
+      return NULL;
     }
 
     $drupal_date = new DrupalDateTime($utc_date, 'UTC');
