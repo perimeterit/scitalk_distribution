@@ -220,7 +220,7 @@ function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
     }
   }
 
-  $scivideos_integrate = _scitalk_base_scivideos_integrate($entity);
+  $scivideos_integrate = _scitalk_base_scivideos_integrate();
 
   //if the talk is part of a Collection then update the Collection stats (number of talks, latest talk)
   if ($entity->getType() == 'talk') {
@@ -263,7 +263,7 @@ function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
  * Implements hook_ENTITY_TYPE_presave()
  */
 function scitalk_base_node_update(\Drupal\Core\Entity\EntityInterface $entity) {
-  $scivideos_integrate = _scitalk_base_scivideos_integrate($entity);
+  $scivideos_integrate = _scitalk_base_scivideos_integrate();
   
   //if the talk is part of a Collection then update the Collection stats (number of talks, latest talk)
   if ($entity->getType() == 'talk') {
@@ -302,7 +302,7 @@ function scitalk_base_node_update(\Drupal\Core\Entity\EntityInterface $entity) {
  * Implements hook_ENTITY_TYPE_delete()
  */
 function scitalk_base_node_delete(Drupal\Core\Entity\EntityInterface $entity) {
-  $scivideos_integrate = _scitalk_base_scivideos_integrate($entity);
+  $scivideos_integrate = _scitalk_base_scivideos_integrate();
 
   if ($entity->getType() == 'talk') {
 
@@ -510,6 +510,12 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
     }
   }
 
+  //check whether these 2 entities (Collection and Speaker Profile) can be deleted from SciVideos. If not then don't allow deletion from here either
+  $validate_delete_forms = ['node_collection_delete_form', 'node_speaker_profile_delete_form'];
+  if (in_array($form_id, $validate_delete_forms)){
+    $form['#validate'][] = '_scitalk_base_delete_entity_validate';
+  }
+
 
   /*
    * The original form alter used here was to force a source repository.
@@ -570,8 +576,29 @@ function _scitalk_base_use_doi(\Drupal\Core\Entity\EntityInterface $entity) {
   return $create_doi_for_this_talk_type;
 }
 
-function _scitalk_base_scivideos_integrate(\Drupal\Core\Entity\EntityInterface $entity) {
+//check whether integration with SciVideos is enabled
+function _scitalk_base_scivideos_integrate() {
   $config = \Drupal::config('scitalk_base.settings');
   $integrate = $config->get('enable_scivideos_integrate');
   return $integrate;
+}
+
+//check whether the entity can be deleted from SciVideos
+function _scitalk_base_delete_entity_validate(&$form, FormStateInterface $form_state) {
+  $entity = $form_state->getFormObject()->getEntity();
+  $scivideos_integrate = _scitalk_base_scivideos_integrate();
+  if ($scivideos_integrate) {
+    $scivideos_service = \Drupal::service('scitalk_base.scivideos_integrate');
+    $form_id = $form_state->getValue('form_id');
+    if ($form_id == 'node_collection_delete_form') {
+      if ($number_of_talks = $scivideos_service->getNumberOfTalksUnderCollection($entity)){
+        $form_state->setError($form, "This Collection cannot be deleted since it contains {$number_of_talks} Talk(s) in SciVideos.");
+      }
+    }
+    elseif ($form_id == 'node_speaker_profile_delete_form') {
+      if ($number_of_talks = $scivideos_service->getNumberOfTalksForSpeaker($entity)){
+        $form_state->setError($form, "This Speaker Profile cannot be deleted since it is attached to {$number_of_talks} Talk(s) in SciVideos.");
+      }
+    }
+  }
 }

@@ -223,11 +223,8 @@ class SciVideosIntegration {
       return;
     }
 
-    //check if there are any talks under this collection and if so then do not delete from SciVideos
-    $talks_under_collection_query = $this->talk->fetchTalksUnderCollectionById($scivideos_uuid);
-    $talks_under_collection = json_decode($talks_under_collection_query);
-    $number_of_talks = $talks_under_collection->meta->count ?? count($talks_under_collection->data);
-    if ($number_of_talks > 0) {
+    //double test it's possible to delete the collection (it should be prevented when trying to delete in hook_form_alter)
+    if ($number_of_talks = $this->getNumberOfTalksUnderCollection($entity)) {
       $this->messenger->addWarning("Please note that this Collection was not deleted from SciVideos as we found {$number_of_talks} Talk(s) under the Collection.");
       return;
     }
@@ -303,11 +300,8 @@ class SciVideosIntegration {
       return;
     }
 
-    //check if there are any talks for the speaker and if so then do not delete from SciVideos
-    $talks_for_speaker_query = $this->talk->fetchTalksBySpeakerProfileId($scivideos_uuid);
-    $talks_for_speaker = json_decode($talks_for_speaker_query);
-    $number_of_talks = $talks_for_speaker->meta->count ?? count($talks_for_speaker->data);
-    if ($number_of_talks > 0) {
+    //double test it's possible to delete the speaker profile (it should be prevented when trying to delete in hook_form_alter)
+    if ($number_of_talks = $this->getNumberOfTalksForSpeaker($entity)) {
       $name = $entity->field_sp_display_name->value ?? $entity->field_sp_first_name->value;
       $this->messenger->addWarning("Please note that this Speaker Profile was not deleted from SciVideos as we found {$number_of_talks} Talk(s) by {$name}.");
       return;
@@ -325,6 +319,37 @@ class SciVideosIntegration {
     }
   }
 
+  /**
+   * get Number of Talks under a Collection in SciVideos
+   *
+   * @param \Drupal\Core\Entity\EntityInterface entity
+   */
+  public function getNumberOfTalksUnderCollection(EntityInterface $entity) {
+    $scivideos_uuid = $entity->field_scivideos_uuid->value ?? '';
+    if (empty($scivideos_uuid)) {
+      return 0;
+    }
+    $talks_under_collection_query = $this->talk->fetchTalksUnderCollectionById($scivideos_uuid);
+    $talks_under_collection = json_decode($talks_under_collection_query);
+    $number_of_talks = $talks_under_collection->meta->count ?? count($talks_under_collection->data);
+    return $number_of_talks;
+  }
+
+  /**
+   * get Number of Talks for a Speaker in SciVideos
+   *
+   * @param \Drupal\Core\Entity\EntityInterface entity
+   */
+  public function getNumberOfTalksForSpeaker(EntityInterface $entity) {
+    $scivideos_uuid = $entity->field_scivideos_uuid->value ?? '';
+    if (empty($scivideos_uuid)) {
+      return 0;
+    }
+    $talks_for_speaker_query = $this->talk->fetchTalksBySpeakerProfileId($scivideos_uuid);
+    $talks_for_speaker = json_decode($talks_for_speaker_query);
+    $number_of_talks = $talks_for_speaker->meta->count ?? count($talks_for_speaker->data);
+    return $number_of_talks;
+  }
 
   /**
    * create Talk object
