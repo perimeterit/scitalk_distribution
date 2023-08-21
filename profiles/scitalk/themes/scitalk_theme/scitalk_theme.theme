@@ -83,7 +83,7 @@ function scitalk_theme_preprocess_page_title(&$variables) {
     if ($node->getType() == 'collection') {
       $parent_collection_field = $node->get('field_parent_collection')->getValue();
       if (isset($parent_collection_field[0]['target_id'])) {
-      $parent_collection_id = $parent_collection_field[0]['target_id'];
+        $parent_collection_id = $parent_collection_field[0]['target_id'];
         $parent_collection_node = Node::load($parent_collection_id);
         $variables['parent_collection_title'] = $parent_collection_node->getTitle();
         $variables['parent_collection_id'] = $parent_collection_id;
@@ -153,6 +153,22 @@ function scitalk_theme_preprocess_block(&$variables) {
     $variables['attributes']['class'][] = 'search-block-form';
     $variables['title_attributes']['class'][] = 'visually-hidden';
   }
+
+  // views_block:scitalk_taxonomy-collection_type_by_source
+  // On Source home page taxonomy views, hdie the view if there is only 1 result
+  if ($plugin_id == 'views_block:scitalk_taxonomy-subjects_by_source') {
+    $view = $variables['content']['#view'];
+    if ($view->total_rows <= 1) {
+      $variables['attributes']['class'][] = 'visually-hidden';
+    }
+  }
+
+  if ($plugin_id == 'views_block:scitalk_taxonomy-collection_type_by_source') {
+    $view = $variables['content']['#view'];
+    if ($view->total_rows <= 1) {
+      $variables['attributes']['class'][] = 'visually-hidden';
+    }
+  }
 }
 
 /*
@@ -217,12 +233,19 @@ function scitalk_theme_preprocess_group(&$variables) {
 function scitalk_theme_preprocess_views_view(&$variables) {
   $view = $variables['view'];
   $view_id = $view->id();
+  $view_display = $view->current_display;
   // For search view, get exposed input and make it available in the template
   if (($view_id == 'scitalk_advanced_search') || ($view_id == 'scitalk_search_collections') ) {
     $exposed_input = $view->getExposedInput();
     $variables['exposed_input'] = $view->getExposedInput();
   }
+
 }
+
+/**
+ * Implements hook_views_pre_render().
+ * Alters views before render
+ */
 
 function scitalk_theme_views_pre_render(\Drupal\views\ViewExecutable $view) {
   // On source talks view, rewrite more link for talks display
