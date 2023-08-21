@@ -1,0 +1,21 @@
+uuid: 5bd78020-7182-4562-ae3a-1a8eaaef86de
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.layout_builder__layout
+    - group.type.source_repository
+  module:
+    - layout_builder
+id: group.source_repository.layout_builder__layout
+field_name: layout_builder__layout
+entity_type: group
+bundle: source_repository
+label: Layout
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: layout_section
