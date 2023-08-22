@@ -5,6 +5,7 @@ namespace Drupal\scitalk_base\Form;
 use Drupal\Core\Entity\EntityForm;
 use Drupal\Core\Form\FormStateInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Url;
 use Drupal\taxonomy\Entity\Vocabulary;
@@ -19,11 +20,13 @@ class SciTalkBaseForm extends EntityForm {
 
   protected $sciVideosIntegration;
   protected $tempStoreFactory;
+  protected $configFactory;
   protected $entityTypeManager;
 
-  public function __construct(SciVideosIntegration $scivideos_integration, PrivateTempStoreFactory $tempStoreFactory, EntityTypeManager $entity_type_manager,) {
+  public function __construct(SciVideosIntegration $scivideos_integration, PrivateTempStoreFactory $tempStoreFactory, ConfigFactoryInterface $config_factory, EntityTypeManager $entity_type_manager) {
     $this->sciVideosIntegration = $scivideos_integration;
     $this->tempStoreFactory = $tempStoreFactory;
+    $this->configFactory = $config_factory;
     $this->entityTypeManager = $entity_type_manager;
 
   }
@@ -35,6 +38,7 @@ class SciTalkBaseForm extends EntityForm {
     return new static(
       $container->get('scitalk_base.scivideos_integrate'),
       $container->get('tempstore.private'),
+      $container->get('config.factory'),
       $container->get('entity_type.manager')
     );
   }
@@ -193,6 +197,14 @@ class SciTalkBaseForm extends EntityForm {
    * pull SciVideos Vocabularies
    */
   private function getSciVideosVocabularyOptions() {
+    //make sure SciVideos integration has been enabled
+    $config = $this->configFactory->get('scitalk_base.settings');
+    $scivideos_integration_on = $config->get('enable_scivideos_integrate') ?? FALSE;
+    if (!$scivideos_integration_on) {
+      $this->messenger()->addError("You must first enable SciVideos Integration to use this form!");
+      return [];
+    }
+
     //check if in local storage
     $tempstore = $this->tempStoreFactory->get('scitalk_base');
     $storage = "scivideos_vocabularies_options";

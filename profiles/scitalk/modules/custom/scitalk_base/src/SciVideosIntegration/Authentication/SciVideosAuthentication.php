@@ -19,7 +19,7 @@ class SciVideosAuthentication {
 
         $config = \Drupal::config('scitalk_base.settings');
 
-        $this->base_url =  $config->get('scivideos_api_url');
+        $this->base_url =  $config->get('scivideos_api_url') ?? '';
 
         if (substr($this->base_url, -1) != '/') {
             $this->base_url .= '/';
