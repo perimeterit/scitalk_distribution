@@ -440,23 +440,6 @@ function scitalk_base_entity_access(\Drupal\Core\Entity\EntityInterface $entity,
   return AccessResult::neutral();
 }
 
-/**
- * Implements views_pre_build().
- */
-function scitalk_base_views_pre_build(ViewExecutable $view) {
-  // On advanced search view, remove the Source exposed filter
-  // if there is only one source
-  if (($view->id() == 'scitalk_advanced_search') &&
-      (($view->current_display == 'form_block') || ($view->current_display == 'advanced_search') )) {
-    // Get the number of soure repository groups
-    $query = \Drupal::entityQuery('group')
-      ->condition('type', 'source_repository');
-    $num_source_repos = $query->count()->execute();
-    if ($num_source_repos <= 1 ) {
-      unset($view->filter['search_api_fulltext_1']);
-    }
-  }
-}
 
 /**
  * Implements hook_form_alter().
@@ -475,9 +458,20 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
 
     $view_machine_names = [
       'scitalk_advanced_search',
+      'scitalk_search_collections'
     ];
+
     $view = $form_state->getStorage('view');
+    $view_id = $view['view']->id();
     $display = $view['display']['id'];
+
+    // Set the correct field id for this view
+    if ($view['view']->id() == 'scitalk_search_collections') {
+      $field_id = 'collection_source';
+    } else {
+      $field_id = 'source';
+    }
+
     // In advanced search form, convert Source Repository field to dropdown
     if ((in_array($view['view']->id(), $view_machine_names)) &&
         ($view['display']['id'] != 'basic_search')) {
@@ -496,16 +490,27 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
           $group_title = $group->get('label')->getValue();
           $group_options[$group_title[0]['value']] = $group_title[0]['value'];
         }
-        // Convert this field to a select field
-        $form['source']['#default_value'] =   'All';
 
-        $form['source']['#type'] = 'select';
-        $form['source']['#options'] = $group_options;
+        // Convert this field to a select field
+        $form[$field_id]['#default_value'] =   'All';
+
+        $form[$field_id]['#type'] = 'select';
+        $form[$field_id]['#options'] = $group_options;
 
         // Unset the size value so it doesn't display as a textfield
-        unset($form['source']['#size']);
+        unset($form[$field_id]['#size']);
       } else {
-        $form['source']['#access'] = FALSE;
+        $form[$field_id]['#access'] = FALSE;
+      }
+    }
+
+    // Alter Source catch up form to pass the source id to the contextual filter
+    if ($view_id == 'scitalk_source_catch_up') {
+      $route = \Drupal::routeMatch();
+      $routename = $route->getRouteName();
+      if ($routename == 'entity.group.canonical') {
+        $group = \Drupal::routeMatch()->getParameter('group');
+        $form['catch_up_source']['#value'] = $group->id();
       }
     }
   }

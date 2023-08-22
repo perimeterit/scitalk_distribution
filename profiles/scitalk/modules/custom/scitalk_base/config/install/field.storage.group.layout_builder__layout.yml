@@ -1,15 +1,13 @@
-uuid: cd060bc8-cd0c-40a8-a3a0-29d82631ca40
+uuid: a10f1037-9270-4c94-8582-399d0f26954b
 langcode: en
 status: true
 dependencies:
   module:
+    - group
     - layout_builder
-    - node
-_core:
-  default_config_hash: JpKJ74448LJ8THfM-k3bnABHSYD8C1sS8o8L0Vi-Q_E
-id: node.layout_builder__layout
+id: group.layout_builder__layout
 field_name: layout_builder__layout
-entity_type: node
+entity_type: group
 type: layout_section
 settings: {  }
 module: layout_builder

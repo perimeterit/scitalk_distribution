@@ -28,17 +28,18 @@
         $(".open-advanced-search").trigger("click");
       }
 
-      // Open the right search section when the select form changes
+      // Open the right search form when the select form changes
       $("#search-type-select", context).on("change", function () {
         $(".search-form").addClass("closed");
         $(".search-form--" + this.value).removeClass("closed");
       });
 
-      // On Source Repo pages, pre-populate Source field
+      // On Source Repo pages, pre-populate Source field in the search form
       if (typeof drupalSettings.scitalk_theme.group_name != "undefined") {
-        $(
-          "#views-exposed-form-scitalk-advanced-search-form-block #edit-source"
-        ).val(drupalSettings.scitalk_theme.group_name[0]["value"]);
+        var group_val = drupalSettings.scitalk_theme.group_name[0]["value"];
+        $("#views-exposed-form-scitalk-advanced-search-form-block #edit-source",
+          "#views-exposed-form-scitalk-search-collections-form-block #edit-collection-source")
+          .val(group_val);
       }
     },
   };

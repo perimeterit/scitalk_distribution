@@ -7,6 +7,8 @@ dependencies:
     - node.type.landing_page
   module:
     - layout_builder
+_core:
+  default_config_hash: z1hZuFNzLM8zgpPz5ZfBSNbJBvV25yOgqsIsEqUZVz4
 id: node.landing_page.layout_builder__layout
 field_name: layout_builder__layout
 entity_type: node

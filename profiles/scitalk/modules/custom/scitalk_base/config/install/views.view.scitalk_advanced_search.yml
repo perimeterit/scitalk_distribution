@@ -21,7 +21,7 @@ dependencies:
     - link
     - search_api
 _core:
-  default_config_hash: lXLuXr3nVi4ispmAwsZzrJT8ar6tAisnDMMWtFtI_II
+  default_config_hash: yYQavN7ahFQpKz86s1e0sRfoUH9_pbNhmyyzH1ulKZQ
 id: scitalk_advanced_search
 label: 'Scitalk: Advanced search'
 module: views
@@ -1578,13 +1578,14 @@ display:
         - 'config:field.storage.node.field_talk_type'
         - 'config:field.storage.node.field_talk_video_url'
         - 'config:search_api.index.default_talks_index'
+        - 'search_api_list:default_talks_index'
   advanced_search:
     id: advanced_search
     display_title: 'Main search page'
     display_plugin: page
     position: 1
     display_options:
-      title: 'Advanced Search Results'
+      title: 'Search Talks'
       fields:
         search_api_rendered_item:
           id: search_api_rendered_item
@@ -1716,6 +1717,7 @@ display:
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.default_talks_index'
+        - 'search_api_list:default_talks_index'
   attachment_1:
     id: attachment_1
     display_title: 'Attachment (teasers)'
@@ -2462,6 +2464,7 @@ display:
         - 'config:field.storage.node.field_talk_speakers_text'
         - 'config:field.storage.node.field_talk_type'
         - 'config:search_api.index.default_talks_index'
+        - 'search_api_list:default_talks_index'
   attachment_2:
     id: attachment_2
     display_title: 'Attachment (table)'
@@ -3339,6 +3342,7 @@ display:
         - 'config:field.storage.node.field_talk_type'
         - 'config:field.storage.node.field_talk_video_url'
         - 'config:search_api.index.default_talks_index'
+        - 'search_api_list:default_talks_index'
   basic_search:
     id: basic_search
     display_title: 'Basic Search'
@@ -3529,6 +3533,7 @@ display:
         - 'config:field.storage.node.field_talk_type'
         - 'config:field.storage.node.field_talk_video_url'
         - 'config:search_api.index.default_talks_index'
+        - 'search_api_list:default_talks_index'
   form_block:
     id: form_block
     display_title: 'Form block'
@@ -3766,6 +3771,7 @@ display:
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.default_talks_index'
+        - 'search_api_list:default_talks_index'
   sort_filters:
     id: sort_filters
     display_title: 'Advanced Search (sort filters)'
@@ -4439,3 +4445,4 @@ display:
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.default_talks_index'
+        - 'search_api_list:default_talks_index'
