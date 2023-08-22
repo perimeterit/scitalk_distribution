@@ -11,8 +11,18 @@ class CollectionTalksStats {
     public function update(EntityInterface $entity) {
         $collections = $entity->get('field_talk_collection') ?? NULL;
 
-        if (empty($collections)) {
-            return;
+        //if not attached to a collection now then check if it was previously attached to one and if so update
+        if (empty($collections->getValue())) {
+            $original_coll = $entity?->original ?? [];
+            $prev_collections = $original_coll->field_talk_collection ?? NULL;
+            $val = $prev_collections?->getValue() ?? NULL;
+            if (!empty($val)) {
+                //it was attached to a collection before, need to decrease the number of talks under the collection!
+                $collections = $prev_collections;
+            }
+            else {
+                return;
+            }
         }
 
         foreach ($collections as $coll) {

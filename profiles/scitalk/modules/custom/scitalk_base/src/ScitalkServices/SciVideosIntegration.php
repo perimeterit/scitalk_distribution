@@ -319,6 +319,25 @@ class SciVideosIntegration {
     }
   }
 
+   /**
+   * get Number of Talks under a Collection in SciVideos
+   *
+   * @param \Drupal\Core\Entity\EntityInterface entity
+   */
+  public function getCollectionChildrenStats(EntityInterface $entity): array {
+    $scivideos_uuid = $entity->field_scivideos_uuid->value ?? '';
+    if (empty($scivideos_uuid)) {
+      return 0;
+    }
+
+    $collection_query = $this->collection->fetchById($scivideos_uuid);
+    $collection = json_decode($collection_query);
+    $collection_data = $collection->data->attributes;
+    $number_of_talks = $collection_data->collection_number_of_talks ?? 0;
+    $number_of_subcollections = $collection_data->collection_number_children ?? 0;
+    return ['number_of_talks' => $number_of_talks, 'number_of_subcollections' => $number_of_subcollections];
+  }
+
   /**
    * get Number of Talks under a Collection in SciVideos
    *
@@ -329,10 +348,16 @@ class SciVideosIntegration {
     if (empty($scivideos_uuid)) {
       return 0;
     }
-    $talks_under_collection_query = $this->talk->fetchTalksUnderCollectionById($scivideos_uuid);
+
+    $talks_under_collection_query = $this->collection->fetchById($scivideos_uuid);
     $talks_under_collection = json_decode($talks_under_collection_query);
-    $number_of_talks = $talks_under_collection->meta->count ?? count($talks_under_collection->data);
+    $number_of_talks = $talks_under_collection->data->attributes->collection_number_of_talks ?? 0;
     return $number_of_talks;
+
+    // $talks_under_collection_query = $this->talk->fetchTalksUnderCollectionById($scivideos_uuid);
+    // $talks_under_collection = json_decode($talks_under_collection_query);
+    // $number_of_talks = $talks_under_collection->meta->count ?? count($talks_under_collection->data);
+    // return $number_of_talks;
   }
 
   /**
@@ -349,6 +374,28 @@ class SciVideosIntegration {
     $talks_for_speaker = json_decode($talks_for_speaker_query);
     $number_of_talks = $talks_for_speaker->meta->count ?? count($talks_for_speaker->data);
     return $number_of_talks;
+  }
+
+  /**
+   * get Number of Talks for a Speaker in SciVideos
+   *
+   * @param \Drupal\Core\Entity\EntityInterface entity
+   */
+  public function getNumberOfCollectonSubCollections(EntityInterface $entity) {
+    $scivideos_uuid = $entity->field_scivideos_uuid->value ?? '';
+    if (empty($scivideos_uuid)) {
+      return 0;
+    }
+
+    $collections_query = $this->collection->fetchById($scivideos_uuid);
+    $collections = json_decode($collections_query);
+    $number_of_collections = $collections->data->attributes->collection_number_children ?? 0;
+    return $number_of_collections;
+
+    // $subcollections_query = $this->collection->fetchCollectionChildrenById($scivideos_uuid);
+    // $subcollections = json_decode($subcollections_query);
+    // $number_of_subcollections = $subcollections->meta->count ?? count($subcollections->data);
+    // return $number_of_subcollections;
   }
 
   /**

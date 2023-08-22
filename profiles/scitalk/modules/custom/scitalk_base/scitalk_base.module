@@ -591,9 +591,33 @@ function _scitalk_base_delete_entity_validate(&$form, FormStateInterface $form_s
     $scivideos_service = \Drupal::service('scitalk_base.scivideos_integrate');
     $form_id = $form_state->getValue('form_id');
     if ($form_id == 'node_collection_delete_form') {
-      if ($number_of_talks = $scivideos_service->getNumberOfTalksUnderCollection($entity)){
-        $form_state->setError($form, "This Collection cannot be deleted since it contains {$number_of_talks} Talk(s) in SciVideos.");
+
+      // //get stats from SciVideos:
+      // $stats = $scivideos_service->getCollectionChildrenStats($entity);
+      // $number_of_talks = $stats['number_of_talks'];
+      // $number_of_subcollections = $stats['number_of_subcollections'];
+
+      //get stats from local site
+      $number_of_talks = $entity->field_collection_number_of_talks->value ?? 0;
+      $number_of_subcollections = $entity->field_collection_number_children->value ?? 0;
+      $title = $entity->title->value ?? 'This Collection';
+
+      if ($number_of_talks > 0){
+        $talk_txt = $number_of_talks == 1 ? "there is {$number_of_talks} talk" : "there are {$number_of_talks} talks";
+        $form_state->setError($form, "'{$title}' cannot be deleted since {$talk_txt} as part of this collection.");
       }
+      if ($number_of_subcollections > 0){
+        $coll_txt = $number_of_subcollections == 1 ? "there is {$number_of_subcollections} sub-collection" : "there are {$number_of_subcollections} sub-collections";
+        $form_state->setError($form, "'{$title}' cannot be deleted since {$coll_txt} as part of the collection.");
+      }
+
+      // if ($number_of_talks = $scivideos_service->getNumberOfTalksUnderCollection($entity)){
+      //   $form_state->setError($form, "This Collection cannot be deleted since it contains {$number_of_talks} Talk(s) in SciVideos.");
+      // }
+      // if ($number_of_subcollections = $scivideos_service->getNumberOfCollectonSubCollections($entity)){
+      //   ksm($number_of_subcollections);
+      //   $form_state->setError($form, "This Collection cannot be deleted since it contains {$number_of_subcollections} Sub-Collections(s) in SciVideos.");
+      // }
     }
     elseif ($form_id == 'node_speaker_profile_delete_form') {
       if ($number_of_talks = $scivideos_service->getNumberOfTalksForSpeaker($entity)){
