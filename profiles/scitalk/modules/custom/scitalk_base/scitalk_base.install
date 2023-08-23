@@ -1059,3 +1059,12 @@ function scitalk_base_update_8115(&$sandbox) {
          \Drupal::logger('scitalk_base')->notice('Updated SciTalk User Role');
      }
 }
+
+/**
+*  Update SciTalk Base entity
+*/
+function scitalk_base_update_8116(&$sandbox) {
+    $scitalk_base_entity = \Drupal::entityTypeManager()->getDefinition('scitalk_base');
+    \Drupal::entityDefinitionUpdateManager()->installEntityType($scitalk_base_entity);
+    \Drupal::logger('scitalk_base')->notice('Updated SciTalk Base entity');
+}
