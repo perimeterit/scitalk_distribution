@@ -126,7 +126,8 @@ class SciTalkBaseFieldsMapping extends FormBase {
       $rows[] = $this->getRow($form, $form_state, ['id' => $last_id++]);
     }
 
-    $add_field_text = ($terms_added > 0) ? $this->t('Map more terms') : $this->t('Add a term mapping to get started');
+    // $add_field_text = ($terms_added > 0) ? $this->t('Map more terms') : $this->t('Add a term mapping to get started');
+    $add_field_text = $this->t('Add a term mapping');
 
     $form['buttons'] = [
       '#type' => 'container',
