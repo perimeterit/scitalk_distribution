@@ -1012,6 +1012,12 @@ function scitalk_base_update_8115(&$sandbox) {
         $storage_config->create($storage_config_yml)->save();
         \Drupal::logger('scitalk_base')->notice('Created SciVideos UUID field storage');
     }
+    else {
+        $storage_config_yml = $source->read($field_storage_yml); 
+        $entity = $storage_config->updateFromStorageRecord($loaded_storage_config, $storage_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated SciVideos UUID field storage');
+    }
 
     $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
     
@@ -1025,6 +1031,12 @@ function scitalk_base_update_8115(&$sandbox) {
         $field_config->create($field_config_yml)->save();
         \Drupal::logger('scitalk_base')->notice('Created SciVideos UUID field for Collections');
     }
+    else {
+        $field_config_yml = $source->read($field_yml);
+        $entity = $field_config->updateFromStorageRecord($loaded_field_config, $field_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated SciVideos UUID field for Collections');
+    }
 
     //add FIELD SciVideos UUID to Talks
     $field_yml = 'field.field.node.talk.field_scivideos_uuid';
@@ -1036,6 +1048,12 @@ function scitalk_base_update_8115(&$sandbox) {
         $field_config->create($field_config_yml)->save();
         \Drupal::logger('scitalk_base')->notice('Created SciVideos UUID field for Talks');
     }
+    else {
+        $field_config_yml = $source->read($field_yml);
+        $entity = $field_config->updateFromStorageRecord($loaded_field_config, $field_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated SciVideos UUID field for Talks');
+    }
 
     //add FIELD SciVideos UUID to Speaker Profiles
     $field_yml = 'field.field.node.speaker_profile.field_scivideos_uuid';
@@ -1046,6 +1064,12 @@ function scitalk_base_update_8115(&$sandbox) {
         $field_config_yml = $source->read($field_yml);
         $field_config->create($field_config_yml)->save();
         \Drupal::logger('scitalk_base')->notice('Created SciVideos UUID field for Speaker Profiles');
+    }
+    else {
+        $field_config_yml = $source->read($field_yml);
+        $entity = $field_config->updateFromStorageRecord($loaded_field_config, $field_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated SciVideos UUID field for Speaker Profiles');
     }
 
      //update user role
