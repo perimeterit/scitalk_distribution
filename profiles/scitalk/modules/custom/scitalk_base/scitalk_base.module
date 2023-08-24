@@ -535,7 +535,7 @@ function scitalk_base_views_pre_render(ViewExecutable $view) {
       $group_entity = \Drupal::entityTypeManager()->getStorage('group')->load($group_id);
       $current_title = $view->getTitle();
       $group_label = $group_entity->get('label')->getValue();
-      $title = $current_title . ' ' . $group_label[0]['value'];
+      $title = $current_title . ' for ' . $group_label[0]['value'];
       $view->setTitle($title);
     }
   }
