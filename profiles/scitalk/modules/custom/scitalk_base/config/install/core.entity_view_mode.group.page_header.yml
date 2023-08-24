@@ -1,0 +1,10 @@
+uuid: a14485bb-7cb1-4a4b-b446-a252a365ad89
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.page_header
+label: 'Page header'
+targetEntityType: group
+cache: true
