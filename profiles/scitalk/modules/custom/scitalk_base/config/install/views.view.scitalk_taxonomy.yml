@@ -11,7 +11,7 @@ dependencies:
     - taxonomy
     - user
 _core:
-  default_config_hash: 35phV-F_Kks7W2PHBdS5Iay-ex5nJ6GhtiBxkqX6yUA
+  default_config_hash: bAnxx52zbQd8WJbJw2O4WmRV2qTEA959m-4f1IRNMOU
 id: scitalk_taxonomy
 label: 'Scitalk Taxonomy'
 module: views
@@ -236,6 +236,7 @@ display:
       display_description: ''
       display_extenders:
         ajax_history: {  }
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -317,6 +318,7 @@ display:
       display_description: ''
       display_extenders:
         ajax_history: {  }
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -684,7 +686,7 @@ display:
       display_description: ''
       display_extenders:
         ajax_history: {  }
-      block_hide_empty: false
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
@@ -971,6 +973,10 @@ display:
           format_plural_string: !!binary MQNAY291bnQ=
           prefix: ''
           suffix: ''
+      pager:
+        type: none
+        options:
+          offset: 0
       arguments:
         field_talk_source_repository_target_id:
           id: field_talk_source_repository_target_id
@@ -1094,6 +1100,7 @@ display:
       defaults:
         query: false
         title: false
+        pager: false
         group_by: false
         style: false
         row: false
@@ -1117,7 +1124,7 @@ display:
       display_description: ''
       display_extenders:
         ajax_history: {  }
-      block_hide_empty: false
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
