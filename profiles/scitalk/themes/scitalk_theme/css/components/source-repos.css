@@ -1,12 +1,24 @@
 /**
  * Component CSS for Source Repositories
 */
+
+/*
+ * Mixins - Classes created in utilities.css
+*/
+
+/*
+ * to use:
+ * @mixin caret 2px, 1em, var(--color-black)
+*/
+
 .view-source-repositories {
   margin-top: var(--vertical-padding);
 }
+
 .group--source-repository.group--card .group-content {
     margin-top: 1em;
   }
+
 .group--source-repository.group--card a {
     display: grid;
     align-items: center;
@@ -18,6 +30,7 @@
     text-align: center;
     text-decoration: none;
   }
+
 .group--source-repository.group--card .field--name-field-source-repo-logo img {
     display: block;
     max-height: 100%;
@@ -25,21 +38,26 @@
     margin: 0 auto;
     max-width: 200px;
   }
+
 .group--source-repository.group--card .field--name-field-repo-institution-full-name {
     font-weight: 400;
     margin: .5rem 0;
   }
+
 .no-talks-collections {
   display: flex;
   line-height: 1;
   font-size: .9rem
 }
+
 .no-talks-collections li:nth-child(2) {
     border-left: 1px solid;
     margin-left: .5em;
     padding-left: .5em;
   }
+
 /* Teaser view mode (used on repositories view ) */
+
 @media all and (min-width: 768px) {
   .group--source-repository.group--card {
     display: grid;
@@ -53,6 +71,7 @@
       overflow: hidden;
     }
 }
+
 @media all and (max-width: 500px) {
   .view-source-repositories .grid-4col {
     grid-template-columns: 1fr;
@@ -65,49 +84,107 @@
       margin: 0 auto;
     }
 }
+
 /* Full view mode */
-.visit-repo-button {
-  margin-top: 1em;
-}
-.visit-repo-button strong:after {
-  content: '';
-  display: inline-block;
-  border-bottom: 2px solid var(--color-primary--foreground);
-  border-right: 2px solid var(--color-primary--foreground);
-  transform: rotate(-45deg);
-  margin: 0.3em 0 0 .2em;
-  height: .4em;
-  width: .4em;
-  vertical-align: text-top;
-}
-/* Full display mode */
-.group--source-repository.group--full .content-wrapper {
+
+.group--source-repository.group--page-header  {
    margin-bottom: 4em;
  }
-/* Full page layout */
+
 @media all and (max-width: 500px) {
-   .group--source-repository.group--full.has-logo .field--name-field-source-repo-logo img {
+   .group--source-repository.group--page-header.has-logo .field--name-field-source-repo-logo img {
      display: block;
      margin: 0 auto;
      max-width: 80%;
      margin-bottom: 1.5em;
    }
 }
+
 @media all and (min-width: 501px) {
-  .group--source-repository.group--full.has-logo .content-wrapper {
+  .group--source-repository.group--page-header.has-logo {
     display: grid;
     grid-template-columns: 20em auto;
-    grid-gap: var(--gutter--big);
+    grid-gap: 2rem;
   }
-  .group--source-repository.group--full .field--name-field-source-repo-logo {
+  .group--source-repository.group--page-header .field--name-field-source-repo-logo {
     flex: 1 0 auto;
     max-width: 20em;
   }
 }
+
 @media all and (min-width: 501px) and (max-width: 960px) {
-  .group--source-repository.group--full.has-logo .content-wrapper {
+  .group--source-repository.group--page-header.has-logo  {
     grid-template-columns: 30% auto;
+    grid-gap: 1rem;
   }
 }
+
+/* Description overflow */
+
+.source-show-more {
+  cursor: pointer;
+  display: block;
+  margin-bottom: .5rem
+}
+
+.source-show-more:after {
+    content: '';
+    display: inline-block;
+    height: .6em;
+    width: .6em;
+    border-right: 2px solid var(--color-primary);
+    border-bottom: 2px solid var(--color-primary);
+    transform: rotate(45deg);
+    margin: 0.1rem 0 0 0.5rem;
+    vertical-align: top;
+    transition: rotate .3s, margin .3s;
+  }
+
+.source-desc-overflow {
+  height: 200px;
+  overflow: hidden;
+  position: relative
+}
+
+.source-desc-overflow.open {
+    height: auto;
+  }
+
+.source-desc-overflow:after {
+    content: '';
+    background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 50%);
+    height: 2rem;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0
+  }
+
+.source-desc-overflow.open:after {
+    background: transparent;
+  }
+
+.source-desc-overflow.open + .source-show-more:after {
+    transform: rotate(-135deg);
+    margin-top: .4rem;
+  }
+
+.visit-repo-button {
+  margin-top: 1em
+}
+
+.visit-repo-button strong:after {
+    content: '';
+    display: inline-block;
+    height: .5em;
+    width: .5em;
+    border-right: 2px solid var(--color-primary--foreground);
+    border-bottom: 2px solid var(--color-primary--foreground);
+    transform: rotate(45deg);
+    display: inline-block;
+    transform: rotate(-45deg);
+    margin: 0.3em 0 0 .2em;
+    vertical-align: text-top;
+  }
 
 /*# sourceMappingURL=source-repos.css.map */

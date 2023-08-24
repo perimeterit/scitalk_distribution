@@ -89,7 +89,6 @@ function scitalk_theme_preprocess_page_title(&$variables) {
         $variables['parent_collection_id'] = $parent_collection_id;
       }
     }
-
   }
 
   // For collection nodes, get the parent colleciton field.
@@ -156,14 +155,16 @@ function scitalk_theme_preprocess_block(&$variables) {
 
   // views_block:scitalk_taxonomy-collection_type_by_source
   // On Source home page taxonomy views, hdie the view if there is only 1 result
-  if ($plugin_id == 'views_block:scitalk_taxonomy-subjects_by_source') {
+  if (($plugin_id == 'views_block:scitalk_taxonomy-subjects_by_source') &&
+      (isset( $variables['content']['#view']))) {
     $view = $variables['content']['#view'];
     if ($view->total_rows <= 1) {
       $variables['attributes']['class'][] = 'visually-hidden';
     }
   }
 
-  if ($plugin_id == 'views_block:scitalk_taxonomy-collection_type_by_source') {
+  if (($plugin_id == 'views_block:scitalk_taxonomy-collection_type_by_source') &&
+      (isset( $variables['content']['#view']))) {
     $view = $variables['content']['#view'];
     if ($view->total_rows <= 1) {
       $variables['attributes']['class'][] = 'visually-hidden';

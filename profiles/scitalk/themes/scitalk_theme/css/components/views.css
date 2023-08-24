@@ -38,11 +38,8 @@ table.jrt {
     flex-direction: column;
   }
 
-.view-fix-heights .view-content {
-    height: calc(100% - 8rem);
-  }
-
-.view-fix-heights .display-wrapper {
+.view-fix-heights .view-content,
+  .view-fix-heights .display-wrapper {
     height: 100%;
   }
 

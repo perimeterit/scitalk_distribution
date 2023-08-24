@@ -11,7 +11,6 @@
      // Toggle the menu open/closed, from the hamburger icon or the close
      $menu_toggle_buttons = $('.menu-toggle, .menu--close', context);
      $($menu_toggle_buttons).on('click', function() {
-       console.log('toggle menu');
        if ($(this).attr('aria-expanded') == 'false') {
          // Open the menu
          $menu_toggle_buttons.attr('aria-expanded', 'true');

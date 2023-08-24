@@ -39,10 +39,7 @@ table.jrt {
     @mixin fix-view-height-flex;
   }
 
-  & .view-content {
-    height: calc(100% - 8rem);
-  }
-
+  & .view-content,
   & .display-wrapper {
     height: 100%;
   }
@@ -50,11 +47,9 @@ table.jrt {
   & .more-link {
     margin-top: 2rem;
   }
-
 }
 
 /* Taxonomy view (inline list of terms) */
-
 .view-scitalk-taxonomy {
   & .inline-list li {
     display: inline-block;
