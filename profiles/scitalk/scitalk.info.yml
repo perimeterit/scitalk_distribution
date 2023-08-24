@@ -19,6 +19,8 @@ install:
   - config_update_ui
   - contact
   - contextual
+  - ctools
+  - ctools_blocks
   - datetime
   - dblog
   - dynamic_page_cache
