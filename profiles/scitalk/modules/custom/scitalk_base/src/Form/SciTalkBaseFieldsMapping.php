@@ -216,7 +216,8 @@ class SciTalkBaseFieldsMapping extends FormBase {
    
     $values = $form_state->getValues();
     $mappings = [];
-    foreach ($values['field_mappings'] as $idx =>  $map) {
+    $fields_mapped = $values['field_mappings'] ?? [];
+    foreach ($fields_mapped as $idx =>  $map) {
       if (empty($map['site_term_map_from']) || empty($map['scivideos_term_map_to'])) {
         continue;
       }
