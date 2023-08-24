@@ -90,8 +90,6 @@ function scitalk_theme_preprocess_page_title(&$variables) {
       }
     }
   }
-
-  // For collection nodes, get the parent colleciton field.
 }
 /**
  * Implements hook_preprocess_HOOK().
