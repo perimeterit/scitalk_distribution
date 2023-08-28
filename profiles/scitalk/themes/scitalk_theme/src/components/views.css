@@ -23,9 +23,9 @@ table.jrt {
 /* Recent content view */
 
 @define-mixin fix-view-height-flex {
-    display: flex;
-    height: 100%;
-    flex-direction: column;
+  display: flex;
+  height: 100%;
+  flex-direction: column;
 }
 
 .layout--twocol-section .block-views > div,
@@ -34,18 +34,18 @@ table.jrt {
 }
 
 .view-fix-heights {
-  &.view-display,
-  & .view-content > div {
+  & .view-content,
+  & .view-content > div,
+  & .view-display {
     @mixin fix-view-height-flex;
   }
 
-  & .view-content,
-  & .display-wrapper {
-    height: 100%;
+  & .view-content {
+    height: calc(100% - 6.3rem);
   }
 
-  & .more-link {
-    margin-top: 2rem;
+  & .display-wrapper {
+    height: 100%;
   }
 }
 
