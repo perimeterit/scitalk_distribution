@@ -199,7 +199,7 @@ function scitalk_theme_preprocess_group(&$variables) {
   $group_type = $group->type->getValue();
   $group_id = $group->id->getValue();
   // For Source Repositories, get the Talks and Collections by source views
-  if ($group_type[0]['target_id'] == 'source_repository') {
+  if (($group_type[0]['target_id'] == 'source_repository') && (!empty($group_id))) {
       // Get count of talks in view
       $talks_view = Views::getView('scitalk_talks_by_source_repo');
       $talks_view->setArguments([(int)$group_id[0]['value']]);

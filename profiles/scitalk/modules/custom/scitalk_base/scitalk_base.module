@@ -451,6 +451,8 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
       $route = \Drupal::routeMatch();
       $routename = $route->getRouteName();
 
+      $exposed_input = $view['view']->getExposedInput();
+
       // On the Group home page, pass the source id to the exposed filter
       // which is actually hidden
       if ($routename == 'entity.group.canonical') {
@@ -459,8 +461,7 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
         $form['catch_up_source']['#value'] = $group_id;
       }
       // On the view page, get the group id from the arguments
-      else {
-        $exposed_input = $view['view']->getExposedInput();
+      elseif (isset($exposed_input) && !empty($exposed_input)) {
         $group_id = $exposed_input['catch_up_source'];
       }
 
