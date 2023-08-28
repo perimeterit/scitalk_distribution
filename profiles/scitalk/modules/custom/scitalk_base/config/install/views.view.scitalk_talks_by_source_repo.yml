@@ -4,19 +4,15 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.mini_teaser
-    - field.storage.node.field_collection_type
     - node.type.collection
     - node.type.talk
-    - taxonomy.vocabulary.collection_type
-    - taxonomy.vocabulary.subjects
   module:
     - datetime
     - group
     - node
-    - taxonomy
     - user
 _core:
-  default_config_hash: uBfdLo2BtgML0KeDG66cTCe8o0R542fNRBfSKJvWGME
+  default_config_hash: fd4jecwcscVitIZEklSU_vMRg8A0ayBMpxlXWpaaxew
 id: scitalk_talks_by_source_repo
 label: 'Scitalk: Talks by Source Repo'
 module: views
@@ -216,9 +212,9 @@ display:
       style:
         type: html_list
         options:
+          grouping: {  }
           row_class: ''
           default_row_class: false
-          uses_fields: false
           type: ul
           wrapper_class: view-display
           class: 'display-list display-wrapper'
