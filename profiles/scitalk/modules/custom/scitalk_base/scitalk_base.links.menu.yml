@@ -2,7 +2,7 @@ scitalk_base.settings:
   title: 'SciTalk Base'
   route_name: scitalk_base.settings
   description: 'Manage SciTalk Base Settings'
-  parent: system.admin_config_development
+  parent: system.admin_config_system
   weight: 99
 
 # SciTalk Base menu items definition

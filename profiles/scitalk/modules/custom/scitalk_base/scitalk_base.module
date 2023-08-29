@@ -616,6 +616,7 @@ function _scitalk_base_delete_entity_validate(&$form, FormStateInterface $form_s
         $form_state->setError($form, "'{$title}' cannot be deleted since {$coll_txt} as part of the collection.");
       }
 
+      //query from SciVideos:
       // if ($number_of_talks = $scivideos_service->getNumberOfTalksUnderCollection($entity)){
       //   $form_state->setError($form, "This Collection cannot be deleted since it contains {$number_of_talks} Talk(s) in SciVideos.");
       // }
@@ -625,9 +626,16 @@ function _scitalk_base_delete_entity_validate(&$form, FormStateInterface $form_s
       // }
     }
     elseif ($form_id == 'node_speaker_profile_delete_form') {
-      if ($number_of_talks = $scivideos_service->getNumberOfTalksForSpeaker($entity)){
-        $form_state->setError($form, "This Speaker Profile cannot be deleted since it is attached to {$number_of_talks} Talk(s) in SciVideos.");
+      //get talks for a Speaker from the local site
+      if ($number_of_talks = $scivideos_service->getNumberOfTalksForSpeakerLocalSite($entity)){
+        $talk_txt = $number_of_talks . ($number_of_talks == 1 ? " talk" : " talks");
+        $form_state->setError($form, "This Speaker Profile cannot be deleted since it is attached to {$talk_txt}.");
       }
+
+      //query from SciVideos:
+      // if ($number_of_talks = $scivideos_service->getNumberOfTalksForSpeakerInSciVideos($entity)){
+      //   $form_state->setError($form, "This Speaker Profile cannot be deleted since it is attached to {$number_of_talks} Talk(s) in SciVideos.");
+      // }
     }
   }
 }

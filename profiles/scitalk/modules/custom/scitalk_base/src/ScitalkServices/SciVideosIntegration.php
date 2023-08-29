@@ -301,7 +301,7 @@ class SciVideosIntegration {
     }
 
     //double test it's possible to delete the speaker profile (it should be prevented when trying to delete in hook_form_alter)
-    if ($number_of_talks = $this->getNumberOfTalksForSpeaker($entity)) {
+    if ($number_of_talks = $this->getNumberOfTalksForSpeakerInSciVideos($entity)) {
       $name = $entity->field_sp_display_name->value ?? $entity->field_sp_first_name->value;
       $this->messenger->addWarning("Please note that this Speaker Profile was not deleted from SciVideos as we found {$number_of_talks} Talk(s) by {$name}.");
       return;
@@ -365,7 +365,7 @@ class SciVideosIntegration {
    *
    * @param \Drupal\Core\Entity\EntityInterface entity
    */
-  public function getNumberOfTalksForSpeaker(EntityInterface $entity) {
+  public function getNumberOfTalksForSpeakerInSciVideos(EntityInterface $entity) {
     $scivideos_uuid = $entity->field_scivideos_uuid->value ?? '';
     if (empty($scivideos_uuid)) {
       return 0;
@@ -375,6 +375,21 @@ class SciVideosIntegration {
     $number_of_talks = $talks_for_speaker->meta->count ?? count($talks_for_speaker->data);
     return $number_of_talks;
   }
+
+   /**
+   * get Number of Talks for a Speaker in the local site
+   *
+   * @param \Drupal\Core\Entity\EntityInterface entity
+   */
+    public function getNumberOfTalksForSpeakerLocalSite(EntityInterface $entity) {
+      $tid = $entity->nid->value ?? 0;
+      $query_count = \Drupal::entityQuery('node')
+          ->condition('type', 'talk')
+          // ->condition('status', 1)
+          ->condition('field_talk_speaker_profile.target_id', $tid);
+
+      return $query_count->count()->execute() ?? 0;
+    }
 
   /**
    * get Number of Talks for a Speaker in SciVideos
@@ -437,6 +452,13 @@ class SciVideosIntegration {
     }
 
     $talk_url = $entity->toUrl()->setAbsolute()->toString(true)->getGeneratedUrl() ?? '';
+    //on create, if there's no repository group set on the site then the above $talk_url points to links like this: 'https://site.com/node/123'
+    //this code will catch those cases and set the url to point to the talk alias:
+    if ((strpos($talk_url, 'node/') !== 0) && empty($entity->get('field_talk_source_repository')->target_id)  ) {
+      $base_path = Url::fromRoute('<front>', [], ['absolute' => TRUE])->toString();
+      $talk_url = $base_path . $entity->field_talk_number->value ?? '';
+    }
+
     $talk["data"]["attributes"]["field_talk_video_url"] = [
       "uri" => $talk_url,
       "title" => $talk_url,
@@ -931,7 +953,7 @@ class SciVideosIntegration {
       "data" => [
             "type" => "taxonomy_term--talk_keywords",
             "attributes" => [
-                "title" => $entity->title->value,
+                "title" => $entity->title->value ?? '',
                 "name" => $entity->name->value ?? '',
                 "status" => $entity->status->value ?? TRUE,
                 "description" => [
