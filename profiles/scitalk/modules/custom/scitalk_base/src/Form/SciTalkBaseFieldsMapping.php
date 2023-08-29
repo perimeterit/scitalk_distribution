@@ -348,7 +348,9 @@ class SciTalkBaseFieldsMapping extends FormBase {
       $options[$term->id] = $term->attributes->name;
     }
 
-    $tempstore->set($storage, $options);
+    //store these terms for a day
+    $one_day = 86400;
+    $tempstore->set($storage, $options, $one_day);
 
     return $options;
   }
