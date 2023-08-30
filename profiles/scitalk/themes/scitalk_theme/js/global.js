@@ -87,6 +87,34 @@
       })
     }
   };
+
+  /*
+   * Source landing page - make longer text hide overflow
+  */
+  Drupal.behaviors.toggleSourceDesc = {
+    attach: function (context, settings) {
+      var source_desc_el = $('.group--source-repository.group--page-header .source-description', context);
+      var source_desc_height = source_desc_el.height();
+      var show_more_text = 'Show more';
+      var hide_more_text = 'Show less';
+      if (source_desc_height > 300) {
+        source_desc_el.addClass('source-desc-overflow');
+        source_desc_el.after('<a class="source-show-more">' + show_more_text + '</a>');
+      }
+
+      var toggle_el = once('sourceDescription','a.source-show-more', context);
+      $(toggle_el, context).click(function() {
+        source_desc_el.toggleClass('open');
+        if ((source_desc_el).hasClass('open')) {
+          $(this).html(hide_more_text);
+        } else {
+          $(this).html(show_more_text);
+        }
+      });
+
+    }
+  };
+
   /**
    * Related talks
   */
@@ -121,7 +149,6 @@
     while ($(scrollTarget).scrollTop() === 0 && $(scrollTarget).parent()) {
       scrollTarget = $(scrollTarget).parent();
     }
-    console.log(scrollTarget);
 
 
     // Only scroll upward.

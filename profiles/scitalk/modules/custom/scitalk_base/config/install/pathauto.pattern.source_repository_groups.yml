@@ -4,11 +4,13 @@ status: true
 dependencies:
   module:
     - group
+_core:
+  default_config_hash: nSxKrcEiXKIX4T_E89wYiSFDCNMA-UtJ_6-nbf6R9IU
 id: source_repository_groups
 label: 'Source Repository Groups'
 type: 'canonical_entities:group'
 pattern: 'source-repository/[group:title]'
 selection_criteria: {  }
 selection_logic: and
-weight: 0
+weight: -7
 relationships: {  }

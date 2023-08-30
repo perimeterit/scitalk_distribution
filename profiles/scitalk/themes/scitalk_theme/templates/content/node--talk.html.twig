@@ -23,7 +23,7 @@
     {% include '@scitalk_theme/includes/speaker-fields.twig' %}
 
     <div class="info">
-      {{ content|without('links','field_talk_thumbnail', 'field_talk_speaker_profile', 'field_talk_speakers_text','field_talk_abstract') }}
+      {{ content|without('links','field_talk_thumbnail', 'field_talk_number','field_talk_speaker_profile', 'field_talk_speakers_text','field_talk_abstract') }}
     </div>
 
     {% if view_mode == 'teaser' %}

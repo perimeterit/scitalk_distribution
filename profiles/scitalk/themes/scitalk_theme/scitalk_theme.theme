@@ -89,10 +89,7 @@ function scitalk_theme_preprocess_page_title(&$variables) {
         $variables['parent_collection_id'] = $parent_collection_id;
       }
     }
-
   }
-
-  // For collection nodes, get the parent colleciton field.
 }
 /**
  * Implements hook_preprocess_HOOK().
@@ -156,14 +153,16 @@ function scitalk_theme_preprocess_block(&$variables) {
 
   // views_block:scitalk_taxonomy-collection_type_by_source
   // On Source home page taxonomy views, hdie the view if there is only 1 result
-  if ($plugin_id == 'views_block:scitalk_taxonomy-subjects_by_source') {
+  if (($plugin_id == 'views_block:scitalk_taxonomy-subjects_by_source') &&
+      (isset( $variables['content']['#view']))) {
     $view = $variables['content']['#view'];
     if ($view->total_rows <= 1) {
       $variables['attributes']['class'][] = 'visually-hidden';
     }
   }
 
-  if ($plugin_id == 'views_block:scitalk_taxonomy-collection_type_by_source') {
+  if (($plugin_id == 'views_block:scitalk_taxonomy-collection_type_by_source') &&
+      (isset( $variables['content']['#view']))) {
     $view = $variables['content']['#view'];
     if ($view->total_rows <= 1) {
       $variables['attributes']['class'][] = 'visually-hidden';
@@ -200,7 +199,7 @@ function scitalk_theme_preprocess_group(&$variables) {
   $group_type = $group->type->getValue();
   $group_id = $group->id->getValue();
   // For Source Repositories, get the Talks and Collections by source views
-  if ($group_type[0]['target_id'] == 'source_repository') {
+  if (($group_type[0]['target_id'] == 'source_repository') && (!empty($group_id))) {
       // Get count of talks in view
       $talks_view = Views::getView('scitalk_talks_by_source_repo');
       $talks_view->setArguments([(int)$group_id[0]['value']]);

@@ -151,6 +151,9 @@
                 "drupal/better_exposed_filters": {
                   "Fatal error: [] operator not supported for strings when option 'Allow multiple selections' is enabled": "https://www.drupal.org/files/issues/2022-02-17/bef_multiple_selection-2870296-7.patch"
                 },
+                "drupal/group": {
+                  "Issue #3174615: EntityMalformedException: The 'group' entity cannot have a URI as it does not have an ID": "https://www.drupal.org/files/issues/2020-10-02/group-check_if_in_preview-3174615-2.patch"
+                },
                 "drupal/simple_oauth": {
                   "TypeError: Argument 1 passed to Drupal\\simple_oauth\\Repositories\\ScopeRepository::scopeFactory() must implement interface Drupal\\user\\RoleInterface" : "https://www.drupal.org/files/issues/2019-02-12/3032371-3.patch"
                 },

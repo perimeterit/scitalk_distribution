@@ -440,7 +440,6 @@ function scitalk_base_entity_access(\Drupal\Core\Entity\EntityInterface $entity,
   return AccessResult::neutral();
 }
 
-
 /**
  * Implements hook_form_alter().
  */
@@ -456,14 +455,15 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
   // Alter views exposed form
   if($form_id == 'views_exposed_form') {
 
+    $view = $form_state->getStorage('view');
+    $view_id = $view['view']->id();
+    $display = $view['display']['id'];
+
+    // In advanced search form, convert Source Repository field to dropdown
     $view_machine_names = [
       'scitalk_advanced_search',
       'scitalk_search_collections'
     ];
-
-    $view = $form_state->getStorage('view');
-    $view_id = $view['view']->id();
-    $display = $view['display']['id'];
 
     // Set the correct field id for this view
     if ($view['view']->id() == 'scitalk_search_collections') {
@@ -472,7 +472,6 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
       $field_id = 'source';
     }
 
-    // In advanced search form, convert Source Repository field to dropdown
     if ((in_array($view['view']->id(), $view_machine_names)) &&
         ($view['display']['id'] != 'basic_search')) {
 
@@ -504,14 +503,43 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
       }
     }
 
-    // Alter Source catch up form to pass the source id to the contextual filter
+    // Alter Source catch up view
     if ($view_id == 'scitalk_source_catch_up') {
       $route = \Drupal::routeMatch();
       $routename = $route->getRouteName();
+
+      $exposed_input = $view['view']->getExposedInput();
+
+      // On the Group home page, pass the source id to the exposed filter
+      // which is actually hidden
       if ($routename == 'entity.group.canonical') {
         $group = \Drupal::routeMatch()->getParameter('group');
-        $form['catch_up_source']['#value'] = $group->id();
+        $group_id = $group->id();
+        $form['catch_up_source']['#value'] = $group_id;
       }
+      // On the view page, get the group id from the arguments
+      elseif (isset($exposed_input) && !empty($exposed_input)) {
+        $group_id = $exposed_input['catch_up_source'];
+      }
+
+      // Set the values for the subject form to match those in the taxonomy view
+      if (isset($group_id)) {
+
+        $subject_options = ['All' => t('All')];
+
+        // Get the taxonomy view for this source
+        $subjects_view = \Drupal\views\Views::getView('scitalk_taxonomy');
+        $subjects_view->setDisplay('subjects_by_source');
+        $subjects_view->setArguments([$group_id]);
+        $subjects_view->execute();
+
+        foreach ($subjects_view->result as $key=>$row) {
+          $subject_options[$row->tid] = $row->taxonomy_term_field_data_name;
+        }
+
+        $form['subject']['#options'] = $subject_options;
+      }
+
     }
   }
 
@@ -558,6 +586,24 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
 //                       }
 //                     }
 //                   }
+}
+
+/*
+ ** Implements hook_views_pre_render();
+ */
+function scitalk_base_views_pre_render(ViewExecutable $view) {
+  // For Source Catch-up view, set the page title to include the group name
+  if ($view->id() == 'scitalk_source_catch_up' && $view->current_display == 'card_view') {
+    $exposed_input = $view->getExposedInput();
+    $group_id = $exposed_input['catch_up_source'];
+    if (isset($group_id)) {
+      $group_entity = \Drupal::entityTypeManager()->getStorage('group')->load($group_id);
+      $current_title = $view->getTitle();
+      $group_label = $group_entity->get('label')->getValue();
+      $title = $current_title . ' for ' . $group_label[0]['value'];
+      $view->setTitle($title);
+    }
+  }
 }
 
 //check whether to create/update DOIs for this type of entity Talk

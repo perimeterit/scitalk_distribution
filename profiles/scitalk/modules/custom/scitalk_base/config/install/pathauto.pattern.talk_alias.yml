@@ -1,11 +1,14 @@
+uuid: 096a4bb0-ff0e-42de-bc6a-a8d01d958a62
 langcode: en
 status: true
 dependencies:
+  module:
+    - node
   enforced:
     module:
       - scitalk_base
-  module:
-    - node
+_core:
+  default_config_hash: f_Vqwgw3ZmdIsuZ7MCpy7yL8ohOXJLxgOSEayTWltM8
 id: talk_alias
 label: 'Talk alias'
 type: 'canonical_entities:node'
@@ -13,12 +16,12 @@ pattern: '[node:field_talk_source_repository:entity:title]/[node:field_talk_numb
 selection_criteria:
   417d3adb-d9df-48c0-a7f2-4bd99795b3a9:
     id: node_type
-    bundles:
-      talk: talk
     negate: false
+    uuid: 417d3adb-d9df-48c0-a7f2-4bd99795b3a9
     context_mapping:
       node: node
-    uuid: 417d3adb-d9df-48c0-a7f2-4bd99795b3a9
+    bundles:
+      talk: talk
 selection_logic: and
-weight: 0
+weight: -6
 relationships: {  }

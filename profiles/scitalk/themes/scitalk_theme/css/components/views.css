@@ -31,23 +31,20 @@ table.jrt {
   flex-direction: column;
 }
 
-.view-fix-heights.view-display,
-  .view-fix-heights .view-content > div {
+.view-fix-heights .view-content,
+  .view-fix-heights .view-content > div,
+  .view-fix-heights .view-display {
     display: flex;
     height: 100%;
     flex-direction: column;
   }
 
 .view-fix-heights .view-content {
-    height: calc(100% - 8rem);
+    height: calc(100% - 6.3rem);
   }
 
 .view-fix-heights .display-wrapper {
     height: 100%;
-  }
-
-.view-fix-heights .more-link {
-    margin-top: 2rem;
   }
 
 /* Taxonomy view (inline list of terms) */

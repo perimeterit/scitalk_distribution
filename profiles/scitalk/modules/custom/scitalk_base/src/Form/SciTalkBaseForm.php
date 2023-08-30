@@ -49,6 +49,7 @@ class SciTalkBaseForm extends EntityForm {
   public function form(array $form, FormStateInterface $form_state) {
     $form = parent::form($form, $form_state);
     $form['#attached']['library'][] = 'scitalk_base/scitalk_base';
+    $form['#title'] = t('Add a Vocabulary Mapping to SciVideos');
 
     $scitalk_base = $this->entity;
     $form['label'] = [

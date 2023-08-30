@@ -11,7 +11,7 @@ dependencies:
     - node
     - user
 _core:
-  default_config_hash: zsFUSEXugD7d94vFHFSQ1e2uZuqF9CMhchq93gFQaDg
+  default_config_hash: JGnYXjEbXYOSC1VvvZRfq_9x96gE2-B8v5eiIHvFGtY
 id: scitalk_recent_content
 label: 'Scitalk Recent Content'
 module: views
@@ -191,7 +191,7 @@ display:
           default_row_class: true
           uses_fields: false
           type: ul
-          wrapper_class: ''
+          wrapper_class: view-display
           class: 'display-list display-wrapper'
       row:
         type: 'entity:node'

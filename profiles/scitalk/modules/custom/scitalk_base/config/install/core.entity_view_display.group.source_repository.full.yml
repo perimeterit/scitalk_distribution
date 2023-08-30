@@ -15,7 +15,9 @@ dependencies:
     - group.type.source_repository
     - views.view.scitalk_source_catch_up
     - views.view.scitalk_talks_by_source_repo
+    - views.view.scitalk_taxonomy
   module:
+    - ctools
     - fences
     - image
     - layout_builder
@@ -29,82 +31,23 @@ third_party_settings:
     allow_custom: true
     sections:
       -
-        layout_id: layout_twocol_section
+        layout_id: layout_onecol
         layout_settings:
-          label: ''
+          label: 'Page Header'
           context_mapping: {  }
-          column_widths: 33-67
         components:
-          6f799e6a-d2b7-419e-84ce-dc3f492423af:
-            uuid: 6f799e6a-d2b7-419e-84ce-dc3f492423af
-            region: first
+          444f9e6e-cc56-42be-9d46-07311ff730b3:
+            uuid: 444f9e6e-cc56-42be-9d46-07311ff730b3
+            region: content
             configuration:
-              id: 'field_block:group:source_repository:field_source_repo_logo'
+              id: 'entity_view:group'
+              label: 'Entity view (Group)'
               label_display: '0'
+              provider: ctools
+              view_mode: page_header
               context_mapping:
                 entity: layout_builder.entity
-              formatter:
-                type: image
-                label: hidden
-                settings:
-                  image_link: ''
-                  image_style: ''
-                  image_loading:
-                    attribute: lazy
-                third_party_settings:
-                  fences:
-                    fences_field_tag: figure
-                    fences_field_classes: ''
-                    fences_field_item_tag: none
-                    fences_field_item_classes: ''
-                    fences_label_tag: div
-                    fences_label_classes: ''
             weight: 0
-            additional: {  }
-          e434ed2e-891c-48e8-a243-fd6ee2424095:
-            uuid: e434ed2e-891c-48e8-a243-fd6ee2424095
-            region: second
-            configuration:
-              id: 'field_block:group:source_repository:field_description'
-              label_display: '0'
-              context_mapping:
-                entity: layout_builder.entity
-              formatter:
-                type: text_default
-                label: hidden
-                settings: {  }
-                third_party_settings: {  }
-            weight: 1
-            additional: {  }
-          5da0293d-8506-4b31-baf6-1c663c4a3268:
-            uuid: 5da0293d-8506-4b31-baf6-1c663c4a3268
-            region: second
-            configuration:
-              id: 'field_block:group:source_repository:field_source_repo_url'
-              label: URL
-              label_display: '0'
-              provider: layout_builder
-              context_mapping:
-                entity: layout_builder.entity
-                view_mode: view_mode
-              formatter:
-                type: link
-                label: hidden
-                settings:
-                  trim_length: 80
-                  url_only: true
-                  url_plain: true
-                  rel: '0'
-                  target: '0'
-                third_party_settings:
-                  fences:
-                    fences_field_tag: none
-                    fences_field_classes: ''
-                    fences_field_item_tag: none
-                    fences_field_item_classes: ''
-                    fences_label_tag: div
-                    fences_label_classes: ''
-            weight: 2
             additional: {  }
         third_party_settings: {  }
       -
@@ -113,32 +56,6 @@ third_party_settings:
           label: 'Search tools'
           context_mapping: {  }
         components:
-          09eb40af-7020-4a9f-a4b7-f38c493a04e6:
-            uuid: 09eb40af-7020-4a9f-a4b7-f38c493a04e6
-            region: content
-            configuration:
-              id: 'views_block:scitalk_talks_by_source_repo-block_2'
-              label: ''
-              label_display: visible
-              provider: views
-              context_mapping: {  }
-              views_label: ''
-              items_per_page: none
-            weight: 3
-            additional: {  }
-          b8bfa713-d612-450c-ac75-23bfd14a8a76:
-            uuid: b8bfa713-d612-450c-ac75-23bfd14a8a76
-            region: content
-            configuration:
-              id: 'views_block:scitalk_talks_by_source_repo-block_1'
-              label: ''
-              label_display: visible
-              provider: views
-              context_mapping: {  }
-              views_label: ''
-              items_per_page: none
-            weight: 4
-            additional: {  }
           2a2b620b-8f2e-450e-8b15-58dca19cdca5:
             uuid: 2a2b620b-8f2e-450e-8b15-58dca19cdca5
             region: content
@@ -148,8 +65,34 @@ third_party_settings:
               label_display: visible
               provider: views
               context_mapping: {  }
-              views_label: ''
+              views_label: 'Catch Up'
             weight: 2
+            additional: {  }
+          c326862f-916b-49de-8f0d-9bd14a1c9e20:
+            uuid: c326862f-916b-49de-8f0d-9bd14a1c9e20
+            region: content
+            configuration:
+              id: 'views_block:scitalk_taxonomy-subjects_by_source'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 3
+            additional: {  }
+          d2c4c37a-3f1f-4fc3-b55e-c23c4903853e:
+            uuid: d2c4c37a-3f1f-4fc3-b55e-c23c4903853e
+            region: content
+            configuration:
+              id: 'views_block:scitalk_taxonomy-collection_type_by_source'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 4
             additional: {  }
         third_party_settings: {  }
       -
@@ -187,7 +130,7 @@ third_party_settings:
             additional: {  }
         third_party_settings: {  }
 _core:
-  default_config_hash: mS2hgWtanVbTW6MpqPqUuLcPljHeveaN-whJ-MZ3lbE
+  default_config_hash: Pgrw5pnOe09FwOTb_OLtlGq0ZhH8Rx1j0gT-1-WYu1A
 id: group.source_repository.full
 targetEntityType: group
 bundle: source_repository

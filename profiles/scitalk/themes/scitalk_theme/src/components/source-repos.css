@@ -1,6 +1,9 @@
 /**
  * Component CSS for Source Repositories
 */
+
+@import "../base/mixins.css";
+
 .view-source-repositories {
   margin-top: var(--vertical-padding);
 }
@@ -73,33 +76,13 @@
   }
 }
 
-
-
 /* Full view mode */
-
-.visit-repo-button {
-  margin-top: 1em;
-}
-.visit-repo-button strong:after {
-  content: '';
-  display: inline-block;
-  border-bottom: 2px solid var(--color-primary--foreground);
-  border-right: 2px solid var(--color-primary--foreground);
-  transform: rotate(-45deg);
-  margin: 0.3em 0 0 .2em;
-  height: .4em;
-  width: .4em;
-  vertical-align: text-top;
-}
-
-/* Full display mode */
-
- .group--source-repository.group--full .content-wrapper {
+ .group--source-repository.group--page-header  {
    margin-bottom: 4em;
  }
-/* Full page layout */
+
 @media all and (max-width: 500px) {
-   .group--source-repository.group--full.has-logo .field--name-field-source-repo-logo img {
+   .group--source-repository.group--page-header.has-logo .field--name-field-source-repo-logo img {
      display: block;
      margin: 0 auto;
      max-width: 80%;
@@ -107,18 +90,73 @@
    }
 }
 @media all and (min-width: 501px) {
-  .group--source-repository.group--full.has-logo .content-wrapper {
+  .group--source-repository.group--page-header.has-logo {
     display: grid;
     grid-template-columns: 20em auto;
-    grid-gap: var(--gutter--big);
+    grid-gap: 2rem;
   }
-  .group--source-repository.group--full .field--name-field-source-repo-logo {
+  .group--source-repository.group--page-header .field--name-field-source-repo-logo {
     flex: 1 0 auto;
     max-width: 20em;
   }
 }
 @media all and (min-width: 501px) and (max-width: 960px) {
-  .group--source-repository.group--full.has-logo .content-wrapper {
+  .group--source-repository.group--page-header.has-logo  {
     grid-template-columns: 30% auto;
+    grid-gap: 1rem;
+  }
+}
+
+/* Description overflow */
+.source-show-more {
+  cursor: pointer;
+  display: block;
+  margin-bottom: .5rem;
+
+  &:after {
+    @mixin caret 2px, .6em, var(--color-primary);
+    margin: 0.1rem 0 0 0.5rem;
+    vertical-align: top;
+    transition: rotate .3s, margin .3s;
+  }
+}
+
+.source-desc-overflow {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+
+  &.open {
+    height: auto;
+  }
+
+  &:after {
+    content: '';
+    background: linear-gradient(rgba(255, 255, 255, 0) 0%, rgb(255, 255, 255) 50%);
+    height: 2rem;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0
+  }
+
+  &.open:after {
+    background: transparent;
+  }
+
+  &.open + .source-show-more:after {
+    transform: rotate(-135deg);
+    margin-top: .4rem;
+  }
+}
+
+.visit-repo-button {
+  margin-top: 1em;
+  & strong:after {
+    @mixin caret 2px, .5em, var(--color-primary--foreground);
+    display: inline-block;
+    transform: rotate(-45deg);
+    margin: 0.3em 0 0 .2em;
+    vertical-align: text-top;
   }
 }
