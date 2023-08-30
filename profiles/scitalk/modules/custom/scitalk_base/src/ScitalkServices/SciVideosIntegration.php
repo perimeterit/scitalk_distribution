@@ -335,7 +335,8 @@ class SciVideosIntegration {
     $collection_data = $collection->data->attributes;
     $number_of_talks = $collection_data->collection_number_of_talks ?? 0;
     $number_of_subcollections = $collection_data->collection_number_children ?? 0;
-    return ['number_of_talks' => $number_of_talks, 'number_of_subcollections' => $number_of_subcollections];
+    $title = $collection_data->title ?? 'This Collection';
+    return ['number_of_talks' => $number_of_talks, 'number_of_subcollections' => $number_of_subcollections, 'title' => $title];
   }
 
   /**
