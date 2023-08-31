@@ -223,11 +223,12 @@ class SciVideosIntegration {
       return;
     }
 
-    //double test it's possible to delete the collection (it should be prevented when trying to delete in hook_form_alter)
-    if ($number_of_talks = $this->getNumberOfTalksUnderCollection($entity)) {
-      $this->messenger->addWarning("Please note that this Collection was not deleted from SciVideos as we found {$number_of_talks} Talk(s) under the Collection.");
-      return;
-    }
+    // //already doing this from '_scitalk_base_delete_entity_validate' in scitalk_base.module
+    // //double test it's possible to delete the collection (it should be prevented when trying to delete in hook_form_alter)
+    // if ($number_of_talks = $this->getNumberOfTalksUnderCollection($entity)) {
+    //   $this->messenger->addWarning("Please note that this Collection was not deleted from SciVideos as we found {$number_of_talks} Talk(s) under the Collection.");
+    //   return;
+    // }
 
     $collection = $this->buildCollection($entity);
 
@@ -300,12 +301,13 @@ class SciVideosIntegration {
       return;
     }
 
-    //double test it's possible to delete the speaker profile (it should be prevented when trying to delete in hook_form_alter)
-    if ($number_of_talks = $this->getNumberOfTalksForSpeakerInSciVideos($entity)) {
-      $name = $entity->field_sp_display_name->value ?? $entity->field_sp_first_name->value;
-      $this->messenger->addWarning("Please note that this Speaker Profile was not deleted from SciVideos as we found {$number_of_talks} Talk(s) by {$name}.");
-      return;
-    }
+    // //doing this already in "_scitalk_base_delete_entity_validate" from the scitalk_base.module:
+    // //double test it's possible to delete the speaker profile (it should be prevented when trying to delete in hook_form_alter)
+    // if ($number_of_talks = $this->getNumberOfTalksForSpeakerInSciVideos($entity)) {
+    //   $name = $entity->field_sp_display_name->value ?? $entity->field_sp_first_name->value;
+    //   $this->messenger->addWarning("Please note that this Speaker Profile was not deleted from SciVideos as we found {$number_of_talks} Talk(s) by {$name}.");
+    //   return;
+    // }
 
     $speaker_profile = $this->buildSpeakerProfile($entity);
 
@@ -320,7 +322,7 @@ class SciVideosIntegration {
   }
 
    /**
-   * get Number of Talks under a Collection in SciVideos
+   * get all stats under a Collection including number of talks and number of subcollections from SciVideos
    *
    * @param \Drupal\Core\Entity\EntityInterface entity
    */

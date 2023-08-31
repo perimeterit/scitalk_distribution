@@ -543,7 +543,7 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
     }
   }
 
-  //check whether these 2 entities (Collection and Speaker Profile) can be deleted from SciVideos. If not then don't allow deletion from here either
+  //check whether these 2 entities (Collection and Speaker Profile) can be deleted from SciVideos. If not then don't allow deletion from local site either
   $validate_delete_forms = ['node_collection_delete_form', 'node_speaker_profile_delete_form'];
   if (in_array($form_id, $validate_delete_forms)){
     $form['#validate'][] = '_scitalk_base_delete_entity_validate';
