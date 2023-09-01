@@ -1100,7 +1100,7 @@ display:
           group_info:
             label: 'Date Range'
             description: ''
-            identifier: date
+            identifier: catch_up_date
             optional: false
             widget: select
             multiple: false
