@@ -20,7 +20,7 @@ install:
   - contact
   - contextual
   - ctools
-  - ctools_blocks
+  - ctools_block
   - datetime
   - dblog
   - dynamic_page_cache
