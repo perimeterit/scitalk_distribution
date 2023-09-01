@@ -20,7 +20,7 @@ dependencies:
     - search_api
     - user
 _core:
-  default_config_hash: z0qpakNL2EohJTH944NtQdM1hYODa8veciu6UmCjGKs
+  default_config_hash: LbZfHBvbK-laiXw45ZKpZv_M3lXaUbjlbeMplUFPjAk
 id: scitalk_source_catch_up
 label: 'Scitalk: Source Catch Up'
 module: views
@@ -918,7 +918,7 @@ display:
                     filter_rewrite_values: ''
                   collapsible: false
                   is_secondary: false
-                options_show_only_used: 1
+                options_show_only_used: 0
                 options_show_only_used_filtered: 0
                 options_hide_when_empty: 1
               field_talk_source:
@@ -2432,74 +2432,10 @@ display:
               tags: default
               talk_keywords: default
               talk_type: default
-      exposed_form:
-        type: bef
-        options:
-          submit_button: 'Do Catch up'
-          reset_button: false
-          reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
-          expose_sort_order: true
-          sort_asc_label: Asc
-          sort_desc_label: Desc
-          text_input_required: 'Select any filter and click on Apply to see results'
-          text_input_required_format: basic_html
-          bef:
-            general:
-              autosubmit: true
-              autosubmit_exclude_textfield: false
-              autosubmit_textfield_delay: 500
-              autosubmit_hide: true
-              input_required: false
-              allow_secondary: false
-              secondary_label: 'Advanced options'
-              secondary_open: false
-              reset_button_always_show: false
-            sort:
-              plugin_id: default
-              advanced:
-                combine: true
-                combine_rewrite: "Date Desc|Date - New to Old\r\nDate Asc|Date - Old to New\r\nTitle Asc|Title A ->  Z\r\nTitle Desc|Title Z ->  A\r\nSpeaker Asc|Speaker A -  Z\r\nSpeaker Desc|Speaker Z -  A"
-                reset: false
-                reset_label: ''
-                collapsible: false
-                collapsible_label: 'Sort options'
-                is_secondary: false
-            filter:
-              field_talk_date:
-                plugin_id: default
-                advanced:
-                  rewrite:
-                    filter_rewrite_values: ''
-                  collapsible: false
-                  is_secondary: false
-                options_show_only_used: false
-                options_show_only_used_filtered: false
-                options_hide_when_empty: false
-              field_talk_subject:
-                plugin_id: default
-                advanced:
-                  sort_options: false
-                  rewrite:
-                    filter_rewrite_values: ''
-                  collapsible: false
-                  is_secondary: false
-                options_show_only_used: 1
-                options_show_only_used_filtered: 0
-                options_hide_when_empty: 1
-              field_talk_source:
-                plugin_id: default
-                advanced:
-                  placeholder_text: ''
-                  collapsible: false
-                  is_secondary: false
-                options_show_only_used: false
-                options_show_only_used_filtered: false
-                options_hide_when_empty: false
       defaults:
         title: false
         use_ajax: false
-        exposed_form: false
+        exposed_form: true
         fields: false
         sorts: true
         filters: true
