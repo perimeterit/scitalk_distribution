@@ -17,20 +17,22 @@
 
   & form {
     display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
   }
+
   & label {
     @mixin visually-hidden;
   }
 
   & .form-item {
-    margin: 0 1rem 0 0 ;
+    margin: 0;
   }
 
   & .form-actions {
     margin: 0;
   }
 }
-
 .block--scitalk-source-catch-up-form-block {
   & .form-item-catch-up-source {
     @mixin visually-hidden;

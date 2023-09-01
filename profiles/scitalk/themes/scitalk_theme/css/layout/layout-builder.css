@@ -8,11 +8,12 @@
 
 /* Override core flexbox section layouts */
 
+.layout {
+  display: grid;
+  grid-gap: var(--gutter-standard);
+}
+
 @media all and (min-width: 768px) {
-  .layout {
-    display: grid;
-    grid-gap: var(--gutter-standard);
-  }
   .layout__region {
     display: grid;
   }
