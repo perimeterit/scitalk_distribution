@@ -25,6 +25,8 @@
 
 .block--scitalk-catch-up-form-block form, .block--scitalk-source-catch-up-form-block form {
     display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
   }
 
 .block--scitalk-catch-up-form-block label, .block--scitalk-source-catch-up-form-block label {
@@ -37,7 +39,7 @@
   }
 
 .block--scitalk-catch-up-form-block .form-item, .block--scitalk-source-catch-up-form-block .form-item {
-    margin: 0 1rem 0 0 ;
+    margin: 0;
   }
 
 .block--scitalk-catch-up-form-block .form-actions, .block--scitalk-source-catch-up-form-block .form-actions {
