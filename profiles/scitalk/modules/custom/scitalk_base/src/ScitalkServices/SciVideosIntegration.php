@@ -417,6 +417,55 @@ class SciVideosIntegration {
   }
 
   /**
+   * Link a local entity with its SciVideos corresponding entity
+   *
+   * @param \Drupal\Core\Entity\EntityInterface entity
+   * @param string $entity_identifier
+   * @param bool $update
+   */
+  public function linkToSciVideos(EntityInterface $entity, $entity_indentifier = '', $update = FALSE) {
+    $scivideos_uuid = $entity->field_scivideos_uuid->value ?? '';
+    if (empty($scivideos_uuid)) {
+      $intentifier_value = $entity->{$entity_indentifier}->value ?? '';
+      $method_call = $this->getCallable($entity_indentifier);
+      $entity_search = $method_call($intentifier_value);
+      $entity_search = json_decode($entity_search);
+      $found = $entity_search->meta->count ?? count($entity_search->data);
+      if ($found > 0) {
+        $uuid = current($entity_search->data)->id;
+        $entity->set('field_scivideos_uuid', $uuid);
+        if ($update) {
+          $entity->save();  //update this entity scivideo uuid
+        }
+      }
+    }
+    return $entity;
+  }
+
+ /**
+   * return a callable function to update a SciVideo entity depending on what field is being used
+   *
+   * @param \Drupal\Core\Entity\EntityInterface entity
+   * @param string $entity_identifier
+   * @return callable
+   */
+  private function getCallable($field_indentifier): callable {
+    $method = [];
+    switch ($field_indentifier) {
+      case 'field_talk_number':
+        $method = [$this->talk, 'fetchByTalkNumber'];
+        break;
+      case 'field_collection_number':
+        $method = [$this->collection, 'fetchByCollectionNumber'];
+        break;
+      case 'field_sp_external_id':
+        $method = [$this->speakerProfile, 'fetchByExternalID'];
+        break;
+    }
+    return $method;
+  }
+
+  /**
    * create Talk object
    * 
    * @param \Drupal\Core\Entity\EntityInterface entity
@@ -521,7 +570,7 @@ class SciVideosIntegration {
             "title" => $entity->title->value,
             "field_collection_number" => $entity->field_collection_number->value ?? '',
             "field_collection_description" => [
-              "value" => stripslashes(stripslashes($entity->field_collection_description->value)) ?? '',
+              "value" => stripslashes(stripslashes(($entity->field_collection_description->value ?? ''))) ?? '',
               "format" => "basic_html"
             ],
             "field_collection_short_desc" => [
@@ -558,7 +607,7 @@ class SciVideosIntegration {
       $collection["data"]["attributes"]["field_collection_event_url"] = [
         "uri" => $this->getExternalUrl($entity->field_collection_event_url),
         "title" => $entity->field_collection_event_url->title,
-        // "options"=> ['attributes' => ['target' => '_blank'] ]
+        "options"=> ['attributes' => ['target' => '_blank'] ]
       ];
     }
     else {
