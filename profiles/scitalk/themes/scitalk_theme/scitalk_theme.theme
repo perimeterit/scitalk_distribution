@@ -21,7 +21,7 @@ use Drupal\views\Views;
  */
 function scitalk_theme_preprocess(&$variables) {
 
-  $vars['#cache']['max-age'] = 0;
+  $variables['#cache']['max-age'] = 0;
 }
 /**
  * Implements hook_preprocess_HOOK().
