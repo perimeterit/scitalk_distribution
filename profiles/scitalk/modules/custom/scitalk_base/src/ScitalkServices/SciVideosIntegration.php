@@ -439,7 +439,7 @@ class SciVideosIntegration {
         }
       }
     }
-    return $entity;
+    return $entity_search;
   }
 
  /**

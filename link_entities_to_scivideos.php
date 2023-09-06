@@ -59,16 +59,25 @@ class LinkEntitiesToSciVideos {
         $entity_ids = $query->execute();
     
         //split the talk ids into chunk so that we don't run out of memory when running the script on large data:
+        $ctr = 0;
         $entity_ids_chunk = array_chunk($entity_ids, 1000);
         foreach ($entity_ids_chunk as $chunk) {
             $entities = \Drupal::entityTypeManager()->getStorage('node')->loadMultiple($chunk);
             foreach ($entities as $entity) {
-                echo "Linking {$entity->{$field_identifier}->value} -> {$entity->field_scivideos_uuid->value}";
+                $etitle = $entity->title->value ?? '';
+                $eidentifier = $entity->{$field_identifier}->value;
+                $ctr++;
+                echo " {$ctr} - ({$eidentifier}) '{$etitle}' -> ";
                 if (empty($entity->field_scivideos_uuid->value)) {
                     $res = $this->scivideos_service->linkToSciVideos($entity, $field_identifier, $run_live);
-                    // $res = $this->scivideos_service->{$call}($entity, $run_live);
-                    if (!empty($res->field_scivideos_uuid->value)) {
-                        echo $run_live ? "...SUCCESSFULLY linked with SciTalks" : "...will be linked to SciVideos";
+                    $data = current($res->data) ?? [];
+                    $uuid = $data->id ?? '';
+                    if (!empty($uuid)) {
+                        $res_title = $data->attributes->title ?? '';
+                        $field = str_replace(['field_sp_', 'field_'], ['', ''], $field_identifier);
+                        $res_id = $data->attributes->{$field} ?? '';
+                        $txt = "linked with SciVideos to ({$res_id}) '{$res_title}'";
+                        echo $run_live ? "...SUCCESSFULLY {$txt}" : "...will be {$txt}";
                     }
                     else {
                         echo "...NOT FOUND in SciVideos";
