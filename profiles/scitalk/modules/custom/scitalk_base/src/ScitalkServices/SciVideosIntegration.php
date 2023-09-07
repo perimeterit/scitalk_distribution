@@ -329,7 +329,7 @@ class SciVideosIntegration {
   public function getCollectionChildrenStats(EntityInterface $entity): array {
     $scivideos_uuid = $entity->field_scivideos_uuid->value ?? '';
     if (empty($scivideos_uuid)) {
-      return 0;
+      return ['number_of_talks' => 0, 'number_of_subcollections' => 0, 'title' => ''];
     }
 
     $collection_query = $this->collection->fetchById($scivideos_uuid);
