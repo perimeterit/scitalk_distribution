@@ -457,7 +457,7 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
 
     $view = $form_state->getStorage('view');
     $view_id = $view['view']->id();
-    $display = $view['display']['id'];
+    $view_display = $view['display']['id'];
 
     // In advanced search form, convert Source Repository field to dropdown
     $view_machine_names = [
@@ -473,7 +473,7 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
     }
 
     if ((in_array($view['view']->id(), $view_machine_names)) &&
-        ($view['display']['id'] != 'basic_search')) {
+        ($view_display != 'basic_search')) {
 
       // Get all the groups
       $query = \Drupal::entityQuery('group')
@@ -503,6 +503,16 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
       }
     }
 
+    // Alter Talks in Collection view to hide academic year filter if there
+    // Is only one value.
+    if (($view_id == 'scitalk_talks_in_collection') && ($view_display == 'card_view')) {
+      $academic_year_options = count($form['field_academic_year_target_id']['#options']);
+      if ($academic_year_options <= 1) {
+        unset($form['field_academic_year_target_id']);
+        unset($form['field_academic_year_target_id_collapsible']);
+      }
+    }
+
     // Alter Source catch up view
     if ($view_id == 'scitalk_source_catch_up') {
       $route = \Drupal::routeMatch();
@@ -517,8 +527,10 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
         $group_id = $group->id();
         $form['catch_up_source']['#value'] = $group_id;
       }
+
       // On the view page, get the group id from the arguments
-      elseif (isset($exposed_input) && !empty($exposed_input)) {
+      elseif (isset($exposed_input) && !empty($exposed_input) &&
+            !empty($exposed_input['catch_up_source'])) {
         $group_id = $exposed_input['catch_up_source'];
       }
 
@@ -595,13 +607,15 @@ function scitalk_base_views_pre_render(ViewExecutable $view) {
   // For Source Catch-up view, set the page title to include the group name
   if ($view->id() == 'scitalk_source_catch_up' && $view->current_display == 'card_view') {
     $exposed_input = $view->getExposedInput();
-    $group_id = $exposed_input['catch_up_source'];
-    if (isset($group_id)) {
-      $group_entity = \Drupal::entityTypeManager()->getStorage('group')->load($group_id);
-      $current_title = $view->getTitle();
-      $group_label = $group_entity->get('label')->getValue();
-      $title = $current_title . ' for ' . $group_label[0]['value'];
-      $view->setTitle($title);
+    if (!empty($exposed_input['catch_up_source'])) {
+      $group_id = $exposed_input['catch_up_source'];
+      if (isset($group_id)) {
+        $group_entity = \Drupal::entityTypeManager()->getStorage('group')->load($group_id);
+        $current_title = $view->getTitle();
+        $group_label = $group_entity->get('label')->getValue();
+        $title = $current_title . ' for ' . $group_label[0]['value'];
+        $view->setTitle($title);
+      }
     }
   }
 }
