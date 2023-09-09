@@ -44,6 +44,7 @@ class LinkEntitiesToSciVideos {
             return;
         }
 
+        //we only have 3 entities to link (Talk, Collection and Speaker Profile) and they are identified by these 3 fields:
         $field_identifier = $entity_type == 'talk' ?  'field_talk_number' : ($entity_type == 'collection' ? 'field_collection_number' : 'field_sp_external_id');
 
         $memory_cache = \Drupal::service('entity.memory_cache');
@@ -58,7 +59,7 @@ class LinkEntitiesToSciVideos {
         }
         $entity_ids = $query->execute();
     
-        //split the talk ids into chunk so that we don't run out of memory when running the script on large data:
+        //split the entity ids into chunk so that we don't run out of memory when running the script on a large data set:
         $ctr = 0;
         $entity_ids_chunk = array_chunk($entity_ids, 1000);
         foreach ($entity_ids_chunk as $chunk) {

@@ -425,9 +425,14 @@ class SciVideosIntegration {
    */
   public function linkToSciVideos(EntityInterface $entity, $entity_indentifier = '', $update = FALSE) {
     $scivideos_uuid = $entity->field_scivideos_uuid->value ?? '';
+    $entity_search = [ "data" => [] ];
     if (empty($scivideos_uuid)) {
       $intentifier_value = $entity->{$entity_indentifier}->value ?? '';
-      $method_call = $this->getCallable($entity_indentifier);
+      //find the appropiate function to fetch the entity in question from SciVideos
+      $method_call = $this->getSciVideosFetchFunction($entity_indentifier);
+      if (empty($method_call)) {
+        return $entity_search;
+      }
       $entity_search = $method_call($intentifier_value);
       $entity_search = json_decode($entity_search);
       $found = $entity_search->meta->count ?? count($entity_search->data);
@@ -443,14 +448,14 @@ class SciVideosIntegration {
   }
 
  /**
-   * return a callable function to update a SciVideo entity depending on what field is being used
+   * return a callable function to fetch a SciVideos entity depending on what field is being used
    *
    * @param \Drupal\Core\Entity\EntityInterface entity
    * @param string $entity_identifier
-   * @return callable
+   * @return callable|NULL
    */
-  private function getCallable($field_indentifier): callable {
-    $method = [];
+  private function getSciVideosFetchFunction($field_indentifier): ?callable {
+    $method = NULL;
     switch ($field_indentifier) {
       case 'field_talk_number':
         $method = [$this->talk, 'fetchByTalkNumber'];
