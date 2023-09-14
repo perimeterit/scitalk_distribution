@@ -1092,3 +1092,26 @@ function scitalk_base_update_8116(&$sandbox) {
     \Drupal::entityDefinitionUpdateManager()->installEntityType($scitalk_base_entity);
     \Drupal::logger('scitalk_base')->notice('Updated SciTalk Base entity');
 }
+
+/**
+*  Add Subjects pathauto pattern and update pathauto.settings to convert to lowercase
+*/
+function scitalk_base_update_8117(&$sandbox) {
+    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $source      = new FileStorage($config_path);
+
+    //set Convert token values to lowercase
+    \Drupal::configFactory()->getEditable('pathauto.settings')->set('case', TRUE)->save(TRUE);
+    \Drupal::logger('scitalk_base')->notice('Updated pathauto.settings');
+
+    //create pathauto pattern for vocabularies
+    $pathauto_config = \Drupal::entityTypeManager()->getStorage('pathauto_pattern');
+    //add pathauto collection alias pattern
+    if (!$pathauto_config->load('vocabularies'))
+    {
+        $pathauto_config_yml = $source->read('pathauto.pattern.vocabularies');
+        $pathauto_config->create($pathauto_config_yml)->save();
+
+        \Drupal::logger('scitalk_base')->notice('Created pathauto alias: pathauto.pattern.vocabularies');
+    }
+}

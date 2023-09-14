@@ -1,0 +1,27 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: vocabularies
+label: Vocabularies
+type: 'canonical_entities:taxonomy_term'
+pattern: '[term:vocabulary:name]/[term:name]'
+selection_criteria:
+  6c6f62b4-c8a9-4dfb-bdb8-21345f7ef542:
+    id: 'entity_bundle:taxonomy_term'
+    negate: false
+    uuid: 6c6f62b4-c8a9-4dfb-bdb8-21345f7ef542
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    bundles:
+      academic_year: academic_year
+      collection_type: collection_type
+      scientific_area: scientific_area
+      subjects: subjects
+      tags: tags
+      talk_keywords: talk_keywords
+      talk_type: talk_type
+selection_logic: and
+weight: -5
+relationships: {  }
