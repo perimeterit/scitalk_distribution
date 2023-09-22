@@ -21,7 +21,7 @@ dependencies:
     - search_api
     - views_field_view
 _core:
-  default_config_hash: MwMw3Ayke8JsfkKbKV4MjCotKhLjaS0ZZIis-c-qO2c
+  default_config_hash: 2vBDQa2qrPx9FbAMLskl5ISlrPKZI0kuAIIsigvj5fo
 id: scitalk_search_collections
 label: 'Scitalk: Search collections'
 module: views
@@ -871,88 +871,52 @@ display:
           row_class: ''
           default_row_class: true
           columns:
-            field_talk_video_url: field_talk_video_url
             title: title
-            field_talk_speaker_profile: field_talk_speaker_profile
-            field_talk_speakers_text: field_talk_speakers_text
-            field_talk_date: field_talk_date
-            field_talk_series: field_talk_series
-            field_talk_collection: field_talk_collection
-            nothing_1: nothing_1
-            field_talk_type: field_talk_type
-            field_repo_institution: field_repo_institution
-            field_talk_source_repository: field_talk_source_repository
+            field_collection_date: field_collection_date
+            field_collection_type: field_collection_type
+            field_collection_subject: field_collection_subject
             title_1: title_1
+            field_collection_source_repo: field_collection_source_repo
+            collection_source_fulltext: collection_source_fulltext
           default: '-1'
           info:
-            field_talk_video_url:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
             title:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_talk_speaker_profile:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_talk_speakers_text:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_talk_date:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_talk_series:
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_talk_collection:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            nothing_1:
-              sortable: true
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_talk_type:
               sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_repo_institution:
-              sortable: true
-              default_sort_order: asc
+            field_collection_date:
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
-            field_talk_source_repository:
+            field_collection_type:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_collection_subject:
               align: ''
               separator: ''
               empty_column: false
               responsive: ''
             title_1:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_collection_source_repo:
+              sortable: false
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            collection_source_fulltext:
+              sortable: false
+              default_sort_order: asc
               align: ''
               separator: ''
               empty_column: false

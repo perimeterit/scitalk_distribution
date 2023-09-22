@@ -21,7 +21,7 @@ dependencies:
     - link
     - search_api
 _core:
-  default_config_hash: yYQavN7ahFQpKz86s1e0sRfoUH9_pbNhmyyzH1ulKZQ
+  default_config_hash: 7w5lJJDB1yU7MvVAONANlUQ0x-Qz8L1mOfAmBGFbaO4
 id: scitalk_advanced_search
 label: 'Scitalk: Advanced search'
 module: views
@@ -1461,6 +1461,8 @@ display:
           row_class: ''
           default_row_class: true
           columns:
+            field_talk_video_url: field_talk_video_url
+            nid: nid
             title: title
             field_sp_display_name_1: field_sp_display_name_1
             field_talk_speakers_text: field_sp_display_name_1
@@ -1470,11 +1472,20 @@ display:
             field_talk_type: field_talk_type
             title_1: title_1
             title_2: title_2
-            search_api_relevance: search_api_relevance
           default: '-1'
           info:
+            field_talk_video_url:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            nid:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             title:
-              sortable: true
+              sortable: false
               default_sort_order: asc
               align: ''
               separator: ''
@@ -1524,13 +1535,6 @@ display:
               empty_column: false
               responsive: ''
             title_2:
-              sortable: false
-              default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            search_api_relevance:
               sortable: false
               default_sort_order: asc
               align: ''
@@ -2619,7 +2623,7 @@ display:
             set_precision: false
             precision: 0
             decimal: .
-            separator: ','
+            separator: ''
             format_plural: false
             format_plural_string: !!binary MQNAY291bnQ=
             prefix: ''

@@ -7,9 +7,11 @@ dependencies:
     - field.field.group.source_repository.field_description
     - field.field.group.source_repository.field_repo_institution
     - field.field.group.source_repository.field_repo_institution_full_name
+    - field.field.group.source_repository.field_repo_talks_prefix
     - field.field.group.source_repository.field_source_repo_full_name
     - field.field.group.source_repository.field_source_repo_logo
     - field.field.group.source_repository.field_source_repo_url
+    - field.field.group.source_repository.layout_builder__layout
     - group.type.source_repository
   module:
     - fences
@@ -17,8 +19,8 @@ dependencies:
     - layout_builder
 third_party_settings:
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 _core:
   default_config_hash: fFwDG5ta_SpPcRMhS5YDHPd-I6u1DDqB7_RnQYy_1kY
 id: group.source_repository.card
@@ -26,27 +28,14 @@ targetEntityType: group
 bundle: source_repository
 mode: card
 content:
-  field_repo_institution_full_name:
-    type: string
-    weight: 1
-    region: content
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings:
-      fences:
-        fences_field_tag: p
-        fences_field_classes: ''
-        fences_field_item_tag: none
-        fences_field_item_classes: ''
-        fences_label_tag: strong
-        fences_label_classes: ''
   field_source_repo_logo:
-    weight: 0
+    type: image
     label: hidden
     settings:
-      image_style: ''
       image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
     third_party_settings:
       fences:
         fences_field_tag: figure
@@ -55,16 +44,19 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
-    type: image
+    weight: 0
     region: content
 hidden:
   changed: true
   created: true
   field_description: true
   field_repo_institution: true
+  field_repo_institution_full_name: true
+  field_repo_talks_prefix: true
   field_source_repo_full_name: true
   field_source_repo_url: true
   label: true
   langcode: true
+  layout_builder__layout: true
   search_api_excerpt: true
   uid: true
