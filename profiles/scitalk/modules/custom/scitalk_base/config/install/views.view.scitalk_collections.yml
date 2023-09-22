@@ -20,7 +20,7 @@ dependencies:
     - user
     - views_field_view
 _core:
-  default_config_hash: q6_ukrJoI_UY_j9M1unAppSbF2AEwubSrIlPCQTI2bM
+  default_config_hash: Iq2OyRJsq6-xu9YW6cRcKPv2T3kE2x1cvukQ0nZipHE
 id: scitalk_collections
 label: 'Scitalk: Collections'
 module: views
