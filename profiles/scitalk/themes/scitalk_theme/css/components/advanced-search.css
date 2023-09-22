@@ -22,13 +22,16 @@
     width: 1.7rem;
     vertical-align: middle;
   }
+.open-advanced-search:is(:hover,:focus) {
+    background: rgba(42,42,42,0.35);
+    color: var(--color-defalt-text);
+  }
 /* Search form in sidebar */
 .left-nav-wrapper .advanced-search-form {
   padding-left: 1rem;
   padding-right: 1rem;
   display: none;
   text-align: left
-
 }
 .left-nav-wrapper .advanced-search-form label {
     font-size: .8rem;
@@ -42,21 +45,21 @@
   background: transparent;
   float: right;
   padding: .3rem;
-  margin-right: var(--responsive-padding)
+  margin-right: var(--responsive-padding);
+  display: flex;
+  align-items: center;
+  justify-content: center
 }
 .close-advanced-search svg {
     color: var(--color-default-text);
     height: 1.5rem;
     width: 1.5rem;
   }
-.close-advanced-search:hover, .close-advanced-search:focus {
-    background: transparent;
-    svg {
-      color: var(--color-secondary--foreground);
-    }
+.close-advanced-search:is(:hover,:focus) {
+    background: rgba(42,42,42,0.35);
   }
 .close-advanced-search[aria-expanded=true] {
-    display: block;
+    display: flex;
   }
 .close-advanced-search[aria-expanded=false] {
     display: none;
@@ -65,13 +68,13 @@
   /* This currently only works in Firefox */
   transition: grid-template-columns .3s
 }
-.adv-search-open .page-wrapper {
+body.adv-search-open .page-wrapper {
     grid-template-columns: 342px auto;
   }
-.adv-search-open .left-nav-wrapper .advanced-search-form {
+body.adv-search-open .left-nav-wrapper .advanced-search-form {
       display: block;
     }
-.region-left-nav .menu--main.hide {
+.region-left-nav.adv-search-open .menu--main {
   display: none;
 }
 /* In the mobile menu */

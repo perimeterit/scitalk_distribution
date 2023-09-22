@@ -16,6 +16,10 @@
     width: 1.7rem;
     vertical-align: middle;
   }
+  &:is(:hover,:focus) {
+    background: rgba(42,42,42,0.35);
+    color: var(--color-defalt-text);
+  }
 }
 
 /* Search form in sidebar */
@@ -31,7 +35,6 @@
   & .form-item-sort-bef-combine {
     display: none;
   }
-
 }
 
 /* Hiding & Showing form section */
@@ -40,19 +43,20 @@
   float: right;
   padding: .3rem;
   margin-right: var(--responsive-padding);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   & svg {
     color: var(--color-default-text);
     height: 1.5rem;
     width: 1.5rem;
   }
-  &:matches(:hover,:focus) {
-    background: transparent;
-    svg {
-      color: var(--color-secondary--foreground);
-    }
+  &:is(:hover,:focus) {
+    background: rgba(42,42,42,0.35);
   }
   &[aria-expanded=true] {
-    display: block;
+    display: flex;
   }
   &[aria-expanded=false] {
     display: none;
@@ -62,7 +66,8 @@
   /* This currently only works in Firefox */
   transition: grid-template-columns .3s
 }
-.adv-search-open {
+
+body.adv-search-open {
   & .page-wrapper {
     grid-template-columns: 342px auto;
   }
@@ -72,7 +77,8 @@
     }
   }
 }
-.region-left-nav .menu--main.hide {
+
+.region-left-nav.adv-search-open .menu--main {
   display: none;
 }
 

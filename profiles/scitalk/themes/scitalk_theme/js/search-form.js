@@ -3,7 +3,7 @@
     attach: function (context, settings) {
       // Open advanced search form
       $(".open-advanced-search").click(function () {
-        $(".region-left-nav .menu--main").addClass("hide");
+        $(".region-left-nav").addClass("adv-search-open");
         $("body").delay(100).addClass("adv-search-open");
         $(".open-advanced-search, .close-advanced-search").attr(
           "aria-expanded",
@@ -17,7 +17,7 @@
           "aria-expanded",
           "false"
         );
-        $(".region-left-nav .menu--main").removeClass("hide");
+        $(".region-left-nav").removeClass("adv-search-open");
       });
 
       // Open by default on Search landing page
