@@ -454,10 +454,10 @@ display:
         options: {  }
       empty: {  }
       sorts:
-        field_talk_date_value:
-          id: field_talk_date_value
-          table: node__field_talk_date
-          field: field_talk_date_value
+        field_collection_date_value:
+          id: field_collection_date_value
+          table: node__field_collection_date
+          field: field_collection_date_value
           relationship: none
           group_type: group
           admin_label: ''
@@ -468,10 +468,10 @@ display:
             field_identifier: ''
           exposed: false
           granularity: second
-        field_collection_last_talk_date_value:
-          id: field_collection_last_talk_date_value
-          table: node__field_collection_last_talk_date
-          field: field_collection_last_talk_date_value
+        field_talk_date_value:
+          id: field_talk_date_value
+          table: node__field_talk_date
+          field: field_talk_date_value
           relationship: none
           group_type: group
           admin_label: ''
