@@ -76,7 +76,7 @@ third_party_settings:
       limit_to_content_language: false
       include_language_independent: true
 _core:
-  default_config_hash: 9FEn9Yu8cIYMkpYJcOst-kjS4ELf3m_16DByUma1WJg
+  default_config_hash: Zp0n968eUAfnLSajkHd6tYqBStUOL0Jf484ipvw7mOI
 id: default_talks_index
 name: 'Default Talks index'
 description: ''
@@ -369,6 +369,12 @@ field_settings:
     dependencies:
       module:
         - node
+  url:
+    label: URI
+    property_path: search_api_url
+    type: string
+    configuration:
+      absolute: false
 datasource_settings:
   'entity:group':
     bundles:
