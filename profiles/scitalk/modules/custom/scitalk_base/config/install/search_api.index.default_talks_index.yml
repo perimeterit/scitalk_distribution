@@ -3,27 +3,26 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.group.field_repo_institution_full_name
-    - field.storage.group.field_repo_institution
-    - field.storage.group.field_source_repo_full_name
-    - field.storage.node.field_talk_abstract
     - field.storage.node.body
-    - field.storage.node.field_talk_collection
-    - field.storage.node.field_collection_date
     - field.storage.node.field_collection_source_repo
-    - field.storage.node.field_collection_type
-    - field.storage.node.field_talk_date
+    - field.storage.node.field_collection_date
     - field.storage.node.field_collection_description
-    - field.storage.node.field_sp_display_name
+    - field.storage.node.field_collection_type
+    - field.storage.group.field_repo_institution
+    - field.storage.node.field_talk_source_repository
+    - field.storage.group.field_repo_institution_full_name
+    - field.storage.node.field_scientific_area
+    - field.storage.group.field_source_repo_full_name
     - field.storage.node.field_sp_first_name
     - field.storage.node.field_sp_last_name
-    - field.storage.node.field_scientific_area
-    - field.storage.node.field_talk_source_repository
     - field.storage.node.field_talk_speaker_profile
-    - field.storage.node.field_talk_speakers_text
     - field.storage.node.field_sp_speaker_profile
-    - field.storage.node.field_talk_subject
+    - field.storage.node.field_talk_abstract
+    - field.storage.node.field_talk_collection
+    - field.storage.node.field_talk_date
     - field.storage.node.field_talk_number
+    - field.storage.node.field_talk_speakers_text
+    - field.storage.node.field_talk_subject
     - field.storage.node.field_talk_type
     - search_api.server.database_server
   module:
@@ -185,25 +184,6 @@ field_settings:
     dependencies:
       config:
         - field.storage.group.field_source_repo_full_name
-  field_sp_display_name:
-    label: 'Display Name'
-    datasource_id: 'entity:node'
-    property_path: field_sp_display_name
-    type: string
-    dependencies:
-      config:
-        - field.storage.node.field_sp_display_name
-  field_sp_display_name_1:
-    label: 'Speaker(s) > Display Name'
-    datasource_id: 'entity:node'
-    property_path: 'field_talk_speaker_profile:entity:field_sp_display_name'
-    type: text
-    dependencies:
-      config:
-        - field.storage.node.field_sp_display_name
-        - field.storage.node.field_talk_speaker_profile
-      module:
-        - node
   field_sp_first_name:
     label: 'First Name'
     datasource_id: 'entity:node'
@@ -420,7 +400,6 @@ processor_settings:
     all_fields: false
     fields:
       - body
-      - field_sp_display_name
       - field_sp_first_name
       - field_sp_speaker_profile
       - field_talk_abstract
@@ -444,8 +423,6 @@ processor_settings:
       - field_repo_institution
       - field_repo_institution_full_name
       - field_source_repo_full_name
-      - field_sp_display_name
-      - field_sp_display_name_1
       - field_sp_first_name
       - field_sp_last_name
       - field_sp_last_name_1
