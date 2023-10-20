@@ -1,25 +1,26 @@
 services:
- scitalk_base.reference_id_generator:
-  class: Drupal\scitalk_base\ScitalkServices\ReferenceIDGenerator
+  scitalk_base.reference_id_generator:
+    class: Drupal\scitalk_base\ScitalkServices\ReferenceIDGenerator
 
- scitalk_base.datacite_dois:
-  class: Drupal\scitalk_base\ScitalkServices\DataCiteDOI
+  scitalk_base.datacite_dois:
+    class: Drupal\scitalk_base\ScitalkServices\DataCiteDOI
 
- scitalk_base.crossref_dois:
-  class: Drupal\scitalk_base\ScitalkServices\CrossrefDOI
+  scitalk_base.crossref_dois:
+    class: Drupal\scitalk_base\ScitalkServices\CrossrefDOI
 
- scitalk_base.talks_in_collection_stats:
-  class: Drupal\scitalk_base\ScitalkServices\CollectionTalksStats
+  scitalk_base.talks_in_collection_stats:
+    class: Drupal\scitalk_base\ScitalkServices\CollectionTalksStats
 
- scitalk_base.collection_children_stats:
-  class: Drupal\scitalk_base\ScitalkServices\CollectionSubcollectionsStats
+  scitalk_base.collection_children_stats:
+    class: Drupal\scitalk_base\ScitalkServices\CollectionSubcollectionsStats
 
- scitalk_base.talk_prefix:
-  class: Drupal\scitalk_base\ScitalkServices\TalkPrefix
+  scitalk_base.talk_prefix:
+    class: Drupal\scitalk_base\ScitalkServices\TalkPrefix
 
- scitalk_base.talk_academic_year:
-  class: Drupal\scitalk_base\ScitalkServices\TalkAcademicYear
- 
- scitalk_base.scivideos_integrate:
-  class: Drupal\scitalk_base\ScitalkServices\SciVideosIntegration
-  arguments: ['@entity_type.manager', '@config.factory', '@tempstore.private', '@messenger', '@date.formatter']
+  scitalk_base.talk_academic_year:
+    class: Drupal\scitalk_base\ScitalkServices\TalkAcademicYear
+
+  scitalk-base.feeds_alter_talks:
+    class: Drupal\scitalk_base\EventSubscriber\FeedAlterTalks
+    tags:
+      - { name: event_subscriber }
