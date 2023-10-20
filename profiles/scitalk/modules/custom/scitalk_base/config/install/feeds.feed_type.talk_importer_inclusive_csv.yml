@@ -217,8 +217,8 @@ mappings:
     settings:
       language: ''
       reference_by: name
-      autocreate: '1'
-      autocreate_bundle: arxiv
+      autocreate: 1
+      autocreate_bundle: file
   -
     target: field_talk_date
     map:
@@ -326,8 +326,8 @@ mappings:
     settings:
       language: ''
       reference_by: name
-      autocreate: '1'
-      autocreate_bundle: scitalk_youtube_video
+      autocreate: 1
+      autocreate_bundle: video
   -
     target: field_talk_video_url
     map:
