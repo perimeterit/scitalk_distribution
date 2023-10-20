@@ -1,9 +1,10 @@
+uuid: 5d8564ec-9c4a-4db4-ac82-fa5a591a5daf
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.speaker_name_institution
-    - field.field.node.speaker_profile.field_sp_display_name
+    - field.field.node.speaker_profile.feeds_item
     - field.field.node.speaker_profile.field_sp_external_id
     - field.field.node.speaker_profile.field_sp_first_name
     - field.field.node.speaker_profile.field_sp_institution_name
@@ -20,10 +21,10 @@ dependencies:
     - user
 third_party_settings:
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 _core:
-  default_config_hash: bMYQ0ATeCqeMsE-2E-R6349wBZCWESL35GtYH0Fix4k
+  default_config_hash: KERnixOFpf4YoFkYqy-AkH6O_I6xJxAtbaN5QvgXXsU
 id: node.speaker_profile.speaker_name_institution
 targetEntityType: node
 bundle: speaker_profile
@@ -31,8 +32,6 @@ mode: speaker_name_institution
 content:
   field_sp_institution_name:
     type: string
-    weight: 0
-    region: content
     label: hidden
     settings:
       link_to_entity: false
@@ -44,8 +43,10 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
+    weight: 0
+    region: content
 hidden:
-  field_sp_display_name: true
+  feeds_item: true
   field_sp_external_id: true
   field_sp_first_name: true
   field_sp_last_name: true

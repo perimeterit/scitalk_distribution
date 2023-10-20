@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - field.field.node.speaker_profile.feeds_item
-    - field.field.node.speaker_profile.field_sp_display_name
     - field.field.node.speaker_profile.field_sp_external_id
     - field.field.node.speaker_profile.field_sp_first_name
     - field.field.node.speaker_profile.field_sp_institution_name
@@ -45,6 +44,7 @@ third_party_settings:
       children:
         - field_sp_first_name
         - field_sp_last_name
+        - title
         - field_sp_display_name
         - field_sp_institution_name
       label: Info
@@ -95,7 +95,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: Kpf7wTOQ-WPxuFAN8VcnMmb-E34Y3vdSMcVpl0jvpDU
+  default_config_hash: G2zn7kYjGjKBuO8QHMtNJPz4AS_h5yBXhW-PiNW7irw
 id: node.speaker_profile.default
 targetEntityType: node
 bundle: speaker_profile
@@ -106,14 +106,6 @@ content:
     weight: 4
     region: content
     settings: {  }
-    third_party_settings: {  }
-  field_sp_display_name:
-    type: string_textfield
-    weight: 4
-    region: content
-    settings:
-      size: 40
-      placeholder: ''
     third_party_settings: {  }
   field_sp_external_id:
     type: string_textfield
@@ -133,7 +125,7 @@ content:
     third_party_settings: {  }
   field_sp_institution_name:
     type: string_textfield
-    weight: 5
+    weight: 6
     region: content
     settings:
       size: 40
@@ -219,7 +211,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 0
+    weight: 4
     region: content
     settings:
       size: 60

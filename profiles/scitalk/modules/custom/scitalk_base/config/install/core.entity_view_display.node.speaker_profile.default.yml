@@ -1,8 +1,9 @@
+uuid: 9d1d1646-a7e5-41da-b64b-13a5a7938a0d
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.speaker_profile.field_sp_display_name
+    - field.field.node.speaker_profile.feeds_item
     - field.field.node.speaker_profile.field_sp_external_id
     - field.field.node.speaker_profile.field_sp_first_name
     - field.field.node.speaker_profile.field_sp_institution_name
@@ -22,26 +23,28 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: 3Mtr8LUwkUnMuqC9i_-MYUHEG59FxSAhOfTjqQm6cs8
+  default_config_hash: MxsH2lfhU4nSjprrqVema1Avrs0EJkFWxuvuNu4NenM
 id: node.speaker_profile.default
 targetEntityType: node
 bundle: speaker_profile
 mode: default
 content:
   field_sp_orcid_id:
-    weight: 3
+    type: string
     label: inline
     settings:
       link_to_entity: false
     third_party_settings: {  }
-    type: string
+    weight: 3
     region: content
   field_sp_profile_thumbnail:
-    weight: 0
+    type: image
     label: hidden
     settings:
-      image_style: scitalk_profile_thumbnail
       image_link: ''
+      image_style: scitalk_profile_thumbnail
+      image_loading:
+        attribute: lazy
     third_party_settings:
       fences:
         fences_field_tag: figure
@@ -50,17 +53,17 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
-    type: image
+    weight: 0
     region: content
   field_sp_speaker_profile:
-    weight: 1
+    type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 1
     region: content
   field_sp_web_profile_url:
-    weight: 2
+    type: link
     label: hidden
     settings:
       trim_length: 80
@@ -69,15 +72,15 @@ content:
       rel: ''
       target: ''
     third_party_settings: {  }
-    type: link
+    weight: 2
     region: content
   links:
-    weight: 4
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 4
+    region: content
 hidden:
-  field_sp_display_name: true
+  feeds_item: true
   field_sp_external_id: true
   field_sp_first_name: true
   field_sp_institution_name: true

@@ -1,9 +1,10 @@
+uuid: 8d0a33ec-38df-4499-a665-6c65ca2f5aa4
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
-    - field.field.node.speaker_profile.field_sp_display_name
+    - field.field.node.speaker_profile.feeds_item
     - field.field.node.speaker_profile.field_sp_external_id
     - field.field.node.speaker_profile.field_sp_first_name
     - field.field.node.speaker_profile.field_sp_institution_name
@@ -18,19 +19,19 @@ dependencies:
   module:
     - user
 _core:
-  default_config_hash: 52u5MAzOmx46Cr6Yg-YtVSlw16QNP9JwQvB5RW-utSo
+  default_config_hash: XIJiZcltfa7Boz8equwp8_oGPDIvZGWXn9j9k_MPHTA
 id: node.speaker_profile.teaser
 targetEntityType: node
 bundle: speaker_profile
 mode: teaser
 content:
   links:
-    weight: 100
     settings: {  }
     third_party_settings: {  }
+    weight: 100
     region: content
 hidden:
-  field_sp_display_name: true
+  feeds_item: true
   field_sp_external_id: true
   field_sp_first_name: true
   field_sp_institution_name: true

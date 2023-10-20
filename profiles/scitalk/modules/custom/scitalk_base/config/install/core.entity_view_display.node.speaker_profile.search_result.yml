@@ -1,9 +1,10 @@
+uuid: 9fa7dbd8-9072-415c-b917-ceab612049dd
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.search_result
-    - field.field.node.speaker_profile.field_sp_display_name
+    - field.field.node.speaker_profile.feeds_item
     - field.field.node.speaker_profile.field_sp_external_id
     - field.field.node.speaker_profile.field_sp_first_name
     - field.field.node.speaker_profile.field_sp_institution_name
@@ -30,11 +31,14 @@ third_party_settings:
         - field_sp_orcid_id
         - field_sp_web_profile_url
         - links
+      label: 'Speaker info'
       parent_name: ''
+      region: hidden
       weight: 10
       format_type: html_element
-      region: hidden
       format_settings:
+        classes: content
+        id: ''
         element: div
         show_label: false
         label_element: h3
@@ -42,14 +46,11 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
-        id: ''
-        classes: content
-      label: 'Speaker info'
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 _core:
-  default_config_hash: a1MF71C06X_9b6xcdKN_8yqgspc2XPxo-CwGouRcw3I
+  default_config_hash: BrGNO-1k1KVlYrNppJfNdkB9F5vSOlNLxyy8EVq2gc8
 id: node.speaker_profile.search_result
 targetEntityType: node
 bundle: speaker_profile
@@ -57,8 +58,6 @@ mode: search_result
 content:
   field_sp_speaker_profile:
     type: text_trimmed
-    weight: 0
-    region: content
     label: hidden
     settings:
       trim_length: 200
@@ -70,13 +69,15 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
-  search_api_excerpt:
-    weight: 1
+    weight: 0
     region: content
+  search_api_excerpt:
     settings: {  }
     third_party_settings: {  }
+    weight: 1
+    region: content
 hidden:
-  field_sp_display_name: true
+  feeds_item: true
   field_sp_external_id: true
   field_sp_first_name: true
   field_sp_institution_name: true
