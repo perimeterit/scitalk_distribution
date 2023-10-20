@@ -1,4 +1,4 @@
-uuid: 59de1864-7011-4ec1-b1d9-e36be12473e2
+uuid: bdfbd8ae-708c-4944-8957-8508dcd3ef22
 langcode: en
 status: true
 dependencies:
@@ -25,30 +25,43 @@ dependencies:
     - field.field.node.talk.field_talk_video_url
     - node.type.talk
   module:
-    - feeds_ex
+    - feeds_log
     - feeds_tamper
     - node
 third_party_settings:
   feeds_tamper:
     tampers: {  }
+  feeds_log:
+    status: true
+    operations:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+      cleaned: cleaned
+    items:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+    source: true
 _core:
   default_config_hash: F4AmsGfrH_Brs74SUSHcgh9IHK5VimjCFl9wYx_tdAk
-id: talk_importer_no_dependencies
-label: 'Talk Importer - create dependencies'
-description: 'Talk importer that generates stubs for series, collections and profiles.'
+label: 'Talk Importer - All-in-one (CSV)'
+id: talk_importer_inclusive_csv
+description: 'Talk importer that can generate stubs for collections and speaker profiles (optional). Upload data in CSV format'
 help: ''
-import_period: 86400
+import_period: -1
 fetcher: upload
 fetcher_configuration:
-  allowed_extensions: 'txt csv tsv xml opml json'
+  allowed_extensions: csv
   directory: 'public://feeds'
-parser: jsonpath
+parser: csv
 parser_configuration:
-  context:
-    value: '$.*'
-  source_encoding:
-    - auto
-  display_errors: false
+  delimiter: ','
+  no_headers: false
   line_limit: 100
 processor: 'entity:node'
 processor_configuration:
@@ -65,99 +78,131 @@ processor_configuration:
   owner_feed_author: true
   owner_id: 1
 custom_sources:
-  '':
-    value: ''
-    label: ''
-    machine_name: ''
-  _abstract:
-    value: $.abstract
-    label: $.abstract
-    machine_name: _abstract
-  _attachments:
-    value: $.attachments
-    label: $.attachments
-    machine_name: _attachments
+  _talk_number:
+    value: talk_number
+    label: talk_number
+    machine_name: _talk_number
+    type: csv
   _title:
-    value: $.title
-    label: $.title
+    value: title
+    label: title
     machine_name: _title
-  _collection:
-    value: $.collection
-    label: $.collection
-    machine_name: _collection
+    type: csv
+  _abstract:
+    value: abstract
+    label: abstract
+    machine_name: _abstract
+    type: csv
   _date:
-    value: $.date
-    label: $.date
+    value: date
+    label: date
     machine_name: _date
+    type: csv
+  _attachments:
+    value: attachments
+    label: attachments
+    machine_name: _attachments
+    type: csv
+  _collection:
+    value: collection
+    label: collection
+    machine_name: _collection
+    type: csv
   _doi:
-    value: $.doi
-    label: $.doi
+    value: doi
+    label: doi
     machine_name: _doi
+    type: csv
   _embargo_date:
     value: $embargo_date
     label: $embargo_date
     machine_name: _embargo_date
+    type: csv
   _keywords:
-    value: $.keywords
-    label: $.keywords
+    value: keywords
+    label: keywords
     machine_name: _keywords
+    type: csv
   _location:
-    value: $.location
-    label: $.location
+    value: location
+    label: location
     machine_name: _location
+    type: csv
   _speaker_profiles:
-    value: $.speaker_profiles
-    label: $.speaker_profiles
+    value: speaker_profiles
+    label: speaker_profiles
     machine_name: _speaker_profiles
+    type: csv
   _scientific_area:
-    value: $.scientific_area
-    label: $.scientific_area
+    value: scientific_area
+    label: scientific_area
     machine_name: _scientific_area
+    type: csv
   _series:
-    value: $.series
-    label: $.series
+    value: series
+    label: series
     machine_name: _series
+    type: csv
   _source_event:
-    value: $.source_event
-    label: $.source_event
+    value: source_event
+    label: source_event
     machine_name: _source_event
+    type: csv
   _source_event_link:
-    value: $.source_event_link
-    label: $.source_event_link
+    value: source_event_link
+    label: source_event_link
     machine_name: _source_event_link
+    type: csv
   _speakers:
-    value: $.speakers
-    label: $.speakers
+    value: speakers
+    label: speakers
     machine_name: _speakers
+    type: csv
   _subject:
-    value: $.subject
-    label: $.subject
+    value: subject
+    label: subject
     machine_name: _subject
-  _talk_number:
-    value: $.talk_number
-    label: $.talk_number
-    machine_name: _talk_number
+    type: csv
   _talk_thumbnail:
-    value: $.talk_thumbnail
-    label: $.talk_thumbnail
+    value: talk_thumbnail
+    label: talk_thumbnail
     machine_name: _talk_thumbnail
+    type: csv
   _talk_type:
-    value: $.talk_type
-    label: $.talk_type
+    value: talk_type
+    label: talk_type
     machine_name: _talk_type
+    type: csv
   _video:
-    value: $.video
-    label: $.video
+    value: video
+    label: video
     machine_name: _video
+    type: csv
   prefixed_talk_number:
     value: prefixed_talk_number
     label: prefixed_talk_number
     machine_name: prefixed_talk_number
+    type: csv
   _video_url:
-    value: $.video_url
-    label: $.video_url
+    value: video_url
+    label: video_url
     machine_name: video_url
+    type: csv
 mappings:
+  -
+    target: field_talk_number
+    map:
+      value: _talk_number
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: title
+    map:
+      value: _title
+    settings:
+      language: null
+    unique: {  }
   -
     target: field_talk_abstract
     map:
@@ -174,13 +219,6 @@ mappings:
       reference_by: name
       autocreate: '1'
       autocreate_bundle: arxiv
-  -
-    target: title
-    map:
-      value: _title
-    settings:
-      language: null
-    unique: {  }
   -
     target: field_talk_date
     map:
@@ -260,13 +298,6 @@ mappings:
       reference_by: name
       autocreate: '1'
       autocreate_bundle: subjects
-  -
-    target: field_talk_number
-    map:
-      value: _talk_number
-    settings:
-      language: null
-    unique: {  }
   -
     target: field_talk_thumbnail
     map:

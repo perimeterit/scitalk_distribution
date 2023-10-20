@@ -1,4 +1,4 @@
-uuid: 59de1864-7011-4ec1-b1d9-e36be12473e2
+uuid: c8c78e68-a980-4362-b9da-5d3eae58b476
 langcode: en
 status: true
 dependencies:
@@ -26,22 +26,42 @@ dependencies:
     - node.type.talk
   module:
     - feeds_ex
+    - feeds_log
     - feeds_tamper
     - node
 third_party_settings:
   feeds_tamper:
     tampers: {  }
+  feeds_log:
+    status: true
+    operations:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+      cleaned: cleaned
+    items:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+    source: true
 _core:
   default_config_hash: F4AmsGfrH_Brs74SUSHcgh9IHK5VimjCFl9wYx_tdAk
-id: talk_importer_no_dependencies
-label: 'Talk Importer - create dependencies'
-description: 'Talk importer that generates stubs for series, collections and profiles.'
+label: 'Talk Importer - All-in-one (JSON)'
+id: talk_importer_inclusive_json
+description: 'Talk importer that can generate stubs for collections and speaker profiles (optional). Link to feed in JSON format'
 help: ''
 import_period: 86400
-fetcher: upload
+fetcher: http
 fetcher_configuration:
-  allowed_extensions: 'txt csv tsv xml opml json'
-  directory: 'public://feeds'
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
 parser: jsonpath
 parser_configuration:
   context:

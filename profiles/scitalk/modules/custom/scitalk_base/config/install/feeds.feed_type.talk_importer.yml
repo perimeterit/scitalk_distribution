@@ -1,12 +1,16 @@
+uuid: 4391b1c2-54f8-4a2f-b014-2c5a40cae73f
 langcode: en
 status: true
 dependencies:
   config:
     - core.base_field_override.node.talk.title
+    - field.field.node.talk.feeds_item
+    - field.field.node.talk.field_academic_year
     - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
     - field.field.node.talk.field_talk_abstract
     - field.field.node.talk.field_talk_attachments
+    - field.field.node.talk.field_talk_collection
     - field.field.node.talk.field_talk_date
     - field.field.node.talk.field_talk_doi
     - field.field.node.talk.field_talk_keywords
@@ -18,206 +22,192 @@ dependencies:
     - field.field.node.talk.field_talk_subject
     - field.field.node.talk.field_talk_thumbnail
     - field.field.node.talk.field_talk_type
+    - field.field.node.talk.field_talk_video
     - field.field.node.talk.field_talk_video_url
     - field.field.node.talk.field_talk_viewable_online
     - node.type.talk
   module:
     - feeds_ex
+    - feeds_log
+    - feeds_tamper
     - node
-id: talk_importer
+third_party_settings:
+  feeds_log:
+    status: true
+    operations:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+      cleaned: cleaned
+    items:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+    source: true
+  feeds_tamper:
+    tampers:
+      e6a0eecf-d201-4ebf-9c26-9954e13f888b:
+        separator: ','
+        limit: null
+        uuid: e6a0eecf-d201-4ebf-9c26-9954e13f888b
+        plugin: explode
+        source: _keywords
+        weight: 0
+        label: Explode
+      198c912d-316f-4f6e-8d42-8ecaecace046:
+        separator: ','
+        limit: null
+        uuid: 198c912d-316f-4f6e-8d42-8ecaecace046
+        plugin: explode
+        source: _collection
+        weight: 0
+        label: Explode
+      8fe46b9f-a2c1-4bfd-87ae-3bffb7edaaec:
+        separator: ','
+        limit: null
+        uuid: 8fe46b9f-a2c1-4bfd-87ae-3bffb7edaaec
+        plugin: explode
+        source: _subject
+        weight: 0
+        label: Explode
+      312397e6-0413-48f5-8053-b67f5787d169:
+        separator: ','
+        limit: null
+        uuid: 312397e6-0413-48f5-8053-b67f5787d169
+        plugin: explode
+        source: _scientific_area
+        weight: 0
+        label: Explode
+_core:
+  default_config_hash: OgRn8peOG8pgpm546s9QUgbYLejJIJEIkBeGdmzDdVQ
 label: 'Talk Importer'
+id: talk_importer
 description: 'An importer that can generate a talk'
 help: ''
-import_period: -1
-fetcher: http
+import_period: 86400
+fetcher: upload
 fetcher_configuration:
-  auto_detect_feeds: false
-  use_pubsubhubbub: false
-  always_download: true
-  fallback_hub: ''
-  request_timeout: 30
+  allowed_extensions: 'txt csv tsv xml opml json'
+  directory: 'public://feeds'
 parser: jsonpath
 parser_configuration:
   context:
     value: '$.*'
-  sources:
-    _abstract:
-      label: $.abstract
-      value: $.abstract
-    _attachments:
-      label: $.attachments
-      value: $.attachments
-    _title:
-      label: $.title
-      value: $.title
-    _collection:
-      label: $.collection
-      value: $.collection
-    _date:
-      label: $.date
-      value: $.date
-    _doi:
-      label: $.doi
-      value: $.doi
-    _embargo_date:
-      label: $embargo_date
-      value: $embargo_date
-    _keywords:
-      label: $.keywords
-      value: $.keywords
-    _location:
-      label: $.location
-      value: $.location
-    _speaker_profiles:
-      label: $.speaker_profiles
-      value: $.speaker_profiles
-    _scientific_area:
-      label: $.scientific_area
-      value: $.scientific_area
-    _series:
-      label: $.series
-      value: $.series
-    _source_event:
-      label: $.source_event
-      value: $.source_event
-    _source_event_link:
-      label: $.source_event
-      value: $.source_event
-    _speakers:
-      label: $.speakers
-      value: $.speakers
-    _subject:
-      label: $.subject
-      value: $.subject
-    _talk_number:
-      label: $.talk_number
-      value: $.talk_number
-    _talk_thumbnail:
-      label: $.talk_thumbnail
-      value: $.talk_thumbnail
-    _talk_type:
-      label: $.talk_type
-      value: $.talk_type
-    _video:
-      label: $.video
-      value: $.video
-    _viewable_online:
-      label: $.viewable_online
-      value: $.viewable_online
-  display_errors: false
   source_encoding:
     - auto
-  debug_mode: false
+  display_errors: false
   line_limit: 100
 processor: 'entity:node'
 processor_configuration:
-  langcode: en
-  update_existing: 0
-  update_non_existent: _keep
-  expire: -1
-  owner_feed_author: false
-  owner_id: 1
-  authorize: false
-  skip_hash_check: false
   values:
     type: talk
+  langcode: en
+  insert_new: 1
+  update_existing: 2
+  update_non_existent: _keep
+  skip_hash_check: false
+  authorize: true
+  revision: false
+  expire: -1
+  owner_feed_author: true
+  owner_id: 1
 custom_sources:
-  abstract:
-    label: abstract
-    value: abstract
-    machine_name: abstract
   '':
-    label: ''
     value: ''
+    label: ''
     machine_name: ''
-  profile:
-    label: profile
-    value: profile
-    machine_name: profile
   _abstract:
-    label: $.abstract
     value: $.abstract
+    label: $.abstract
     machine_name: _abstract
   _attachments:
-    label: $.attachments
     value: $.attachments
+    label: $.attachments
     machine_name: _attachments
   _title:
-    label: $.title
     value: $.title
+    label: $.title
     machine_name: _title
   _collection:
-    label: $.collection
     value: $.collection
+    label: $.collection
     machine_name: _collection
   _date:
-    label: $.date
     value: $.date
+    label: $.date
     machine_name: _date
   _doi:
-    label: $.doi
     value: $.doi
+    label: $.doi
     machine_name: _doi
   _embargo_date:
-    label: $embargo_date
     value: $embargo_date
+    label: $embargo_date
     machine_name: _embargo_date
   _keywords:
-    label: $.keywords
     value: $.keywords
+    label: $.keywords
     machine_name: _keywords
   _location:
-    label: $.location
     value: $.location
+    label: $.location
     machine_name: _location
   _speaker_profiles:
-    label: $.speaker_profiles
     value: $.speaker_profiles
+    label: $.speaker_profiles
     machine_name: _speaker_profiles
   _scientific_area:
-    label: $.scientific_area
     value: $.scientific_area
+    label: $.scientific_area
     machine_name: _scientific_area
-  _series:
-    label: $.series
-    value: $.series
-    machine_name: _series
   _source_event:
-    label: $.source_event
     value: $.source_event
+    label: $.source_event
     machine_name: _source_event
   _source_event_link:
-    label: $.source_event
-    value: $.source_event
+    value: $.source_event_link
+    label: $.source_event_link
     machine_name: _source_event_link
   _speakers:
-    label: $.speakers
     value: $.speakers
+    label: $.speakers
     machine_name: _speakers
   _subject:
-    label: $.subject
     value: $.subject
+    label: $.subject
     machine_name: _subject
   _talk_number:
-    label: $.talk_number
     value: $.talk_number
+    label: $.talk_number
     machine_name: _talk_number
   _talk_thumbnail:
-    label: $.talk_thumbnail
     value: $.talk_thumbnail
+    label: $.talk_thumbnail
     machine_name: _talk_thumbnail
   _talk_type:
-    label: $.talk_type
     value: $.talk_type
+    label: $.talk_type
     machine_name: _talk_type
   _video:
-    label: $.video
     value: $.video
+    label: $.video
     machine_name: _video
-  _viewable_online:
-    label: $.viewable_online
-    value: $.viewable_online
-    machine_name: _viewable_online
+  prefixed_talk_number:
+    value: prefixed_talk_number
+    label: prefixed_talk_number
+    machine_name: prefixed_talk_number
+  _video_url:
+    value: $.video_url
+    label: $.video_url
+    machine_name: video_url
+  _academic_year:
+    value: $.academic_year
+    label: $.academic_year
+    machine_name: _academic_year
 mappings:
   -
     target: field_talk_abstract
@@ -233,14 +223,15 @@ mappings:
     settings:
       language: ''
       reference_by: name
-      autocreate: '1'
+      autocreate: 1
+      autocreate_bundle: remote_file
   -
     target: title
     map:
       value: _title
-    unique: {  }
     settings:
       language: null
+    unique: {  }
   -
     target: field_talk_date
     map:
@@ -252,9 +243,9 @@ mappings:
     target: field_talk_doi
     map:
       value: _doi
-    unique: {  }
     settings:
       language: null
+    unique: {  }
   -
     target: field_embargo_date
     map:
@@ -270,22 +261,24 @@ mappings:
       language: ''
       reference_by: name
       autocreate: '1'
+      autocreate_bundle: talk_keywords
   -
     target: field_talk_location
     map:
       value: _location
-    unique: {  }
     settings:
       language: null
+    unique: {  }
   -
     target: field_talk_speaker_profile
     map:
       target_id: _speaker_profiles
     settings:
-      language: null
+      language: ''
       reference_by: title
-      autocreate: false
-      feeds_item: false
+      feeds_item: guid
+      autocreate: 0
+      autocreate_bundle: speaker_profile
   -
     target: field_scientific_area
     map:
@@ -294,20 +287,21 @@ mappings:
       language: ''
       reference_by: name
       autocreate: '1'
+      autocreate_bundle: scientific_area
   -
     target: field_talk_source_event
     map:
-      uri: _source_event
-      title: _source_event_link
+      uri: _source_event_link
+      title: _source_event
     settings:
       language: null
   -
     target: field_talk_speakers_text
     map:
       value: _speakers
-    unique: {  }
     settings:
       language: null
+    unique: {  }
   -
     target: field_talk_subject
     map:
@@ -315,14 +309,15 @@ mappings:
     settings:
       language: null
       reference_by: name
-      autocreate: false
+      autocreate: '1'
+      autocreate_bundle: subjects
   -
     target: field_talk_number
     map:
       value: _talk_number
-    unique: {  }
     settings:
       language: null
+    unique: {  }
   -
     target: field_talk_thumbnail
     map:
@@ -334,6 +329,7 @@ mappings:
       reference_by: fid
       autocreate: '1'
       existing: '0'
+      autocreate_bundle: false
   -
     target: field_talk_type
     map:
@@ -342,16 +338,47 @@ mappings:
       language: ''
       reference_by: name
       autocreate: '1'
+      autocreate_bundle: talk_type
+  -
+    target: field_talk_video
+    map:
+      target_id: _video
+    settings:
+      language: ''
+      reference_by: name
+      autocreate: '1'
+      autocreate_bundle: scitalk_youtube_video
   -
     target: field_talk_video_url
     map:
-      uri: _video
-      title: _video
+      uri: _video_url
+      title: _title
     settings:
       language: null
   -
-    target: field_talk_viewable_online
+    target: feeds_item
     map:
-      value: _viewable_online
+      url: ''
+      guid: prefixed_talk_number
+    settings: {  }
+    unique:
+      guid: 1
+  -
+    target: field_talk_collection
+    map:
+      target_id: _collection
     settings:
-      language: null
+      language: ''
+      reference_by: title
+      feeds_item: guid
+      autocreate: 1
+      autocreate_bundle: collection
+  -
+    target: field_academic_year
+    map:
+      target_id: _academic_year
+    settings:
+      language: ''
+      reference_by: name
+      autocreate: 1
+      autocreate_bundle: academic_year

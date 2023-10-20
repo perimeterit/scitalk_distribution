@@ -1,183 +1,160 @@
+uuid: 271f2060-d57a-4bbb-8231-f2d478b12123
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.speaker_profile.field_sp_display_name
+    - core.base_field_override.node.speaker_profile.title
     - field.field.node.speaker_profile.field_sp_external_id
     - field.field.node.speaker_profile.field_sp_first_name
     - field.field.node.speaker_profile.field_sp_institution_name
     - field.field.node.speaker_profile.field_sp_last_name
     - field.field.node.speaker_profile.field_sp_orcid_id
-    - field.field.node.speaker_profile.field_sp_profile_thumbnail
     - field.field.node.speaker_profile.field_sp_speaker_profile
     - field.field.node.speaker_profile.field_sp_username
     - field.field.node.speaker_profile.field_sp_web_profile_url
     - node.type.speaker_profile
   module:
     - feeds_ex
+    - feeds_log
     - node
-id: speaker_profile_import
+third_party_settings:
+  feeds_log:
+    status: true
+    operations:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+      cleaned: cleaned
+    items:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+    source: true
+_core:
+  default_config_hash: x6tMmiRVQA1ZN7jl6udxbZlRLFXrE3L61bwSxDlfuws
 label: 'Speaker Profile Import'
+id: speaker_profile_import
 description: 'JSON import for speaker profiles'
 help: ''
 import_period: -1
-fetcher: http
+fetcher: upload
 fetcher_configuration:
-  auto_detect_feeds: false
-  use_pubsubhubbub: false
-  always_download: true
-  fallback_hub: ''
-  request_timeout: 30
+  allowed_extensions: 'txt csv tsv xml opml json'
+  directory: 'public://feeds'
 parser: jsonpath
 parser_configuration:
   context:
     value: '$.*'
-  sources:
-    _title:
-      label: $.title
-      value: $.title
-    _display_name:
-      label: $.display_name
-      value: $.display_name
-    _external_id:
-      label: $.external_id
-      value: $.external_id
-    _first_name:
-      label: $.first_name
-      value: $.first_name
-    _last_name:
-      label: $.last_name
-      value: $.last_name
-    _institution_name:
-      label: $.institution_name
-      value: $.institution_name
-    _orcid_id:
-      label: $.orcid_id
-      value: $.orcid_id
-    _profile:
-      label: $.profile
-      value: $.profile
-    _username:
-      label: $.username
-      value: $.username
-    _web_profile:
-      label: $.web_profile
-      value: $.web_profile
-    _thumbnail:
-      label: $.thumbnail
-      value: $.thumbnail
-  display_errors: false
   source_encoding:
     - auto
-  debug_mode: false
+  display_errors: false
   line_limit: 100
 processor: 'entity:node'
 processor_configuration:
+  values:
+    type: speaker_profile
   langcode: en
+  insert_new: 1
   update_existing: 0
   update_non_existent: _keep
+  skip_hash_check: false
+  authorize: false
+  revision: false
   expire: -1
   owner_feed_author: false
   owner_id: 1
-  authorize: false
-  skip_hash_check: false
-  values:
-    type: speaker_profile
 custom_sources:
   _title:
-    label: $.title
     value: $.title
+    label: $.title
     machine_name: _title
   _display_name:
-    label: $.display_name
     value: $.display_name
+    label: $.display_name
     machine_name: _display_name
   _external_id:
-    label: $.external_id
     value: $.external_id
+    label: $.external_id
     machine_name: _external_id
   _first_name:
-    label: $.first_name
     value: $.first_name
+    label: $.first_name
     machine_name: _first_name
   _last_name:
-    label: $.last_name
     value: $.last_name
+    label: $.last_name
     machine_name: _last_name
   _institution_name:
-    label: $.institution_name
     value: $.institution_name
+    label: $.institution_name
     machine_name: _institution_name
   _orcid_id:
-    label: $.orcid_id
     value: $.orcid_id
+    label: $.orcid_id
     machine_name: _orcid_id
   _thumbnail:
-    label: $.thumbnail
     value: $.thumbnail
+    label: $.thumbnail
     machine_name: _thumbnail
   _profile:
-    label: $.profile
     value: $.profile
+    label: $.profile
     machine_name: _profile
   _username:
-    label: $.username
     value: $.username
+    label: $.username
     machine_name: _username
   _web_profile:
-    label: $.web_profile
     value: $.web_profile
+    label: $.web_profile
     machine_name: _web_profile
 mappings:
   -
     target: title
     map:
       value: _title
-    unique: {  }
     settings:
       language: null
-  -
-    target: field_sp_display_name
-    map:
-      value: _display_name
     unique: {  }
-    settings:
-      language: null
   -
     target: field_sp_external_id
     map:
       value: _external_id
-    unique: {  }
     settings:
       language: null
+    unique: {  }
   -
     target: field_sp_first_name
     map:
       value: _first_name
-    unique: {  }
     settings:
       language: null
+    unique: {  }
   -
     target: field_sp_last_name
     map:
       value: _last_name
-    unique: {  }
     settings:
       language: null
+    unique: {  }
   -
     target: field_sp_institution_name
     map:
       value: _institution_name
-    unique: {  }
     settings:
       language: null
+    unique: {  }
   -
     target: field_sp_orcid_id
     map:
       value: _orcid_id
-    unique: {  }
     settings:
       language: null
+    unique: {  }
   -
     target: field_sp_speaker_profile
     map:
@@ -189,9 +166,9 @@ mappings:
     target: field_sp_username
     map:
       value: _username
-    unique: {  }
     settings:
       language: null
+    unique: {  }
   -
     target: field_sp_web_profile_url
     map:
@@ -210,3 +187,4 @@ mappings:
       reference_by: fid
       autocreate: '1'
       existing: '0'
+      autocreate_bundle: false

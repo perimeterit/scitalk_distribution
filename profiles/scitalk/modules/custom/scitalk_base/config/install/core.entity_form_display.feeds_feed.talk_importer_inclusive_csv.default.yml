@@ -1,0 +1,54 @@
+uuid: 83e30ea8-b366-4877-aa4d-28a51cfaeab5
+langcode: en
+status: true
+dependencies:
+  config:
+    - feeds.feed_type.talk_importer_inclusive_csv
+    - field.field.feeds_feed.talk_importer_inclusive_csv.field_feeds_group
+id: feeds_feed.talk_importer_inclusive_csv.default
+targetEntityType: feeds_feed
+bundle: talk_importer_inclusive_csv
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  feeds_log:
+    type: boolean_checkbox
+    weight: 11
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_feeds_group:
+    type: entity_reference_autocomplete
+    weight: 12
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }

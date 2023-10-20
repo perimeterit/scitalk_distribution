@@ -1,0 +1,54 @@
+uuid: 920aa297-c1f6-422b-a74c-2c9c48739654
+langcode: en
+status: true
+dependencies:
+  config:
+    - feeds.feed_type.talk_importer_inclusive_json
+    - field.field.feeds_feed.talk_importer_inclusive_json.field_feeds_group
+id: feeds_feed.talk_importer_inclusive_json.default
+targetEntityType: feeds_feed
+bundle: talk_importer_inclusive_json
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  feeds_log:
+    type: boolean_checkbox
+    weight: 11
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  field_feeds_group:
+    type: entity_reference_autocomplete
+    weight: 12
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden: {  }
