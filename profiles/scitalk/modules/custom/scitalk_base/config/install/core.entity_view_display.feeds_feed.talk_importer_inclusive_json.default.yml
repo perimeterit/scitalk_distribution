@@ -1,0 +1,61 @@
+uuid: 7efc0ef3-f466-4e58-95bb-dfdfe9fa4a19
+langcode: en
+status: true
+dependencies:
+  config:
+    - feeds.feed_type.talk_importer_inclusive_json
+    - field.field.feeds_feed.talk_importer_inclusive_json.field_feeds_group
+  module:
+    - feeds
+    - user
+id: feeds_feed.talk_importer_inclusive_json.default
+targetEntityType: feeds_feed
+bundle: talk_importer_inclusive_json
+mode: default
+content:
+  field_feeds_group:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  imported:
+    type: timestamp_ago
+    label: inline
+    settings:
+      future_format: '@interval hence'
+      past_format: '@interval ago'
+      granularity: 2
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  item_count:
+    type: number_integer
+    label: inline
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  next:
+    type: timestamp
+    label: inline
+    settings:
+      date_format: medium
+      custom_date_format: ''
+      timezone: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  source:
+    type: feeds_uri_link
+    label: inline
+    settings: {  }
+    third_party_settings: {  }
+    weight: -3
+    region: content
+hidden:
+  search_api_excerpt: true
