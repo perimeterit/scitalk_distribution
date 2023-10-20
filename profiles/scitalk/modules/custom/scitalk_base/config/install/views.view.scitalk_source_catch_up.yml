@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.group.field_repo_institution
-    - field.storage.node.field_sp_display_name
+    - field.storage.node.field_sp_speaker_profile
     - field.storage.node.field_talk_collection
     - field.storage.node.field_talk_date
     - field.storage.node.field_talk_source_repository
@@ -18,9 +18,10 @@ dependencies:
     - datetime
     - link
     - search_api
+    - text
     - user
 _core:
-  default_config_hash: LbZfHBvbK-laiXw45ZKpZv_M3lXaUbjlbeMplUFPjAk
+  default_config_hash: Frv04VfhaWGZLtCENnuRVTcqcGLQSXPZGT3TQgmCVNs
 id: scitalk_source_catch_up
 label: 'Scitalk: Source Catch Up'
 module: views
@@ -179,76 +180,6 @@ display:
           fallback_handler: search_api
           fallback_options:
             link_to_item: false
-            use_highlighting: false
-            multi_type: separator
-            multi_separator: ', '
-        field_sp_display_name_1:
-          id: field_sp_display_name_1
-          table: search_api_index_default_talks_index
-          field: field_sp_display_name_1
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: search_api_field
-          label: 'Speaker Profile » Content » Display Name (indexed field)'
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          field_rendering: false
-          fallback_handler: search_api
-          fallback_options:
-            link_to_item: true
             use_highlighting: false
             multi_type: separator
             multi_separator: ', '
@@ -918,7 +849,7 @@ display:
                     filter_rewrite_values: ''
                   collapsible: false
                   is_secondary: false
-                options_show_only_used: 0
+                options_show_only_used: 1
                 options_show_only_used_filtered: 0
                 options_hide_when_empty: 1
               field_talk_source:
@@ -1279,7 +1210,6 @@ display:
         - user.permissions
       tags:
         - 'config:field.storage.group.field_repo_institution'
-        - 'config:field.storage.node.field_sp_display_name'
         - 'config:field.storage.node.field_talk_collection'
         - 'config:field.storage.node.field_talk_date'
         - 'config:field.storage.node.field_talk_source_repository'
@@ -1628,13 +1558,14 @@ display:
             use_highlighting: false
             multi_type: separator
             multi_separator: ', '
-        field_sp_display_name_1:
-          id: field_sp_display_name_1
-          table: search_api_index_default_talks_index
-          field: field_sp_display_name_1
+        field_sp_speaker_profile:
+          id: field_sp_speaker_profile
+          table: search_api_datasource_default_talks_index_entity_node
+          field: field_sp_speaker_profile
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
           plugin_id: search_api_field
           label: Speaker(s)
           exclude: false
@@ -1678,9 +1609,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
+          type: text_default
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -1691,10 +1621,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          field_rendering: false
+          field_rendering: true
           fallback_handler: search_api
           fallback_options:
-            link_to_item: true
+            link_to_item: false
             use_highlighting: false
             multi_type: separator
             multi_separator: ', '
@@ -2231,10 +2161,11 @@ display:
           row_class: ''
           default_row_class: false
           columns:
+            nid: nid
+            field_talk_video_url: field_talk_video_url
             title: title
-            field_sp_display_name_1: field_sp_display_name_1
-            field_talk_speakers_text_1: field_sp_display_name_1
-            field_talk_speakers_text: field_talk_speakers_text
+            field_sp_speaker_profile: field_sp_speaker_profile
+            field_talk_speakers_text_1: field_sp_speaker_profile
             field_talk_date: field_talk_date
             field_talk_collection: field_talk_collection
             nothing_1: nothing_1
@@ -2243,6 +2174,16 @@ display:
             title_2: title_2
           default: '-1'
           info:
+            nid:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_talk_video_url:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             title:
               sortable: false
               default_sort_order: asc
@@ -2250,21 +2191,14 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_sp_display_name_1:
-              sortable: false
-              default_sort_order: asc
+            field_sp_speaker_profile:
               align: ''
-              separator: ', '
+              separator: ''
               empty_column: false
               responsive: ''
             field_talk_speakers_text_1:
               sortable: false
               default_sort_order: asc
-              align: ''
-              separator: ''
-              empty_column: false
-              responsive: ''
-            field_talk_speakers_text:
               align: ''
               separator: ''
               empty_column: false
@@ -2352,7 +2286,7 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags:
-        - 'config:field.storage.node.field_sp_display_name'
+        - 'config:field.storage.node.field_sp_speaker_profile'
         - 'config:field.storage.node.field_talk_collection'
         - 'config:field.storage.node.field_talk_date'
         - 'config:field.storage.node.field_talk_speakers_text'
@@ -2432,10 +2366,74 @@ display:
               tags: default
               talk_keywords: default
               talk_type: default
+      exposed_form:
+        type: bef
+        options:
+          submit_button: 'Do Catch up'
+          reset_button: false
+          reset_button_label: Reset
+          exposed_sorts_label: 'Sort by'
+          expose_sort_order: true
+          sort_asc_label: Asc
+          sort_desc_label: Desc
+          text_input_required: 'Select any filter and click on Apply to see results'
+          text_input_required_format: basic_html
+          bef:
+            general:
+              autosubmit: true
+              autosubmit_exclude_textfield: false
+              autosubmit_textfield_delay: 500
+              autosubmit_hide: true
+              input_required: false
+              allow_secondary: false
+              secondary_label: 'Advanced options'
+              secondary_open: false
+              reset_button_always_show: false
+            sort:
+              plugin_id: default
+              advanced:
+                combine: true
+                combine_rewrite: "Date Desc|Date - New to Old\r\nDate Asc|Date - Old to New\r\nTitle Asc|Title A ->  Z\r\nTitle Desc|Title Z ->  A\r\nSpeaker Asc|Speaker A -  Z\r\nSpeaker Desc|Speaker Z -  A"
+                reset: false
+                reset_label: ''
+                collapsible: false
+                collapsible_label: 'Sort options'
+                is_secondary: false
+            filter:
+              field_talk_date:
+                plugin_id: default
+                advanced:
+                  rewrite:
+                    filter_rewrite_values: ''
+                  collapsible: false
+                  is_secondary: false
+                options_show_only_used: false
+                options_show_only_used_filtered: false
+                options_hide_when_empty: false
+              field_talk_subject:
+                plugin_id: default
+                advanced:
+                  sort_options: false
+                  rewrite:
+                    filter_rewrite_values: ''
+                  collapsible: false
+                  is_secondary: false
+                options_show_only_used: 1
+                options_show_only_used_filtered: 0
+                options_hide_when_empty: 1
+              field_talk_source:
+                plugin_id: default
+                advanced:
+                  placeholder_text: ''
+                  collapsible: false
+                  is_secondary: false
+                options_show_only_used: false
+                options_show_only_used_filtered: false
+                options_hide_when_empty: false
       defaults:
         title: false
         use_ajax: false
-        exposed_form: true
+        exposed_form: false
         fields: false
         sorts: true
         filters: true

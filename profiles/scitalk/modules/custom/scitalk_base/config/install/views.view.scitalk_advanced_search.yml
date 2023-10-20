@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.group.field_repo_institution
-    - field.storage.node.field_sp_display_name
+    - field.storage.node.field_sp_speaker_profile
     - field.storage.node.field_talk_collection
     - field.storage.node.field_talk_date
     - field.storage.node.field_talk_source_repository
@@ -20,8 +20,9 @@ dependencies:
     - datetime
     - link
     - search_api
+    - text
 _core:
-  default_config_hash: 7w5lJJDB1yU7MvVAONANlUQ0x-Qz8L1mOfAmBGFbaO4
+  default_config_hash: tryatqNTAz_Dp-qEVlRIqlUN5hw_krsRen1tH6U3tdQ
 id: scitalk_advanced_search
 label: 'Scitalk: Advanced search'
 module: views
@@ -180,76 +181,6 @@ display:
           fallback_handler: search_api
           fallback_options:
             link_to_item: false
-            use_highlighting: false
-            multi_type: separator
-            multi_separator: ', '
-        field_sp_display_name_1:
-          id: field_sp_display_name_1
-          table: search_api_index_default_talks_index
-          field: field_sp_display_name_1
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: search_api_field
-          label: 'Speaker Profile � Content � Display Name (indexed field)'
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          field_rendering: false
-          fallback_handler: search_api
-          fallback_options:
-            link_to_item: true
             use_highlighting: false
             multi_type: separator
             multi_separator: ', '
@@ -1462,10 +1393,10 @@ display:
           default_row_class: true
           columns:
             field_talk_video_url: field_talk_video_url
-            nid: nid
+            search_api_url: search_api_url
             title: title
-            field_sp_display_name_1: field_sp_display_name_1
-            field_talk_speakers_text: field_sp_display_name_1
+            field_sp_speaker_profile: field_sp_speaker_profile
+            field_talk_speakers_text: field_sp_speaker_profile
             field_talk_date: field_talk_date
             field_talk_collection: field_talk_collection
             nothing_1: nothing_1
@@ -1479,7 +1410,7 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            nid:
+            search_api_url:
               align: ''
               separator: ''
               empty_column: false
@@ -1491,11 +1422,9 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
-            field_sp_display_name_1:
-              sortable: false
-              default_sort_order: asc
+            field_sp_speaker_profile:
               align: ''
-              separator: ', '
+              separator: ''
               empty_column: false
               responsive: ''
             field_talk_speakers_text:
@@ -1574,7 +1503,6 @@ display:
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.group.field_repo_institution'
-        - 'config:field.storage.node.field_sp_display_name'
         - 'config:field.storage.node.field_talk_collection'
         - 'config:field.storage.node.field_talk_date'
         - 'config:field.storage.node.field_talk_source_repository'
@@ -1797,76 +1725,6 @@ display:
           fallback_handler: search_api
           fallback_options:
             link_to_item: false
-            use_highlighting: false
-            multi_type: separator
-            multi_separator: ', '
-        field_sp_display_name_1:
-          id: field_sp_display_name_1
-          table: search_api_index_default_talks_index
-          field: field_sp_display_name_1
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: search_api_field
-          label: 'Speaker Profile � Content � Display Name (indexed field)'
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          field_rendering: false
-          fallback_handler: search_api
-          fallback_options:
-            link_to_item: true
             use_highlighting: false
             multi_type: separator
             multi_separator: ', '
@@ -2462,7 +2320,6 @@ display:
         - user
         - 'user.node_grants:view'
       tags:
-        - 'config:field.storage.node.field_sp_display_name'
         - 'config:field.storage.node.field_talk_collection'
         - 'config:field.storage.node.field_talk_date'
         - 'config:field.storage.node.field_talk_speakers_text'
@@ -2675,15 +2532,16 @@ display:
             use_highlighting: false
             multi_type: separator
             multi_separator: ', '
-        field_sp_display_name_1:
-          id: field_sp_display_name_1
-          table: search_api_index_default_talks_index
-          field: field_sp_display_name_1
+        field_sp_speaker_profile:
+          id: field_sp_speaker_profile
+          table: search_api_datasource_default_talks_index_entity_node
+          field: field_sp_speaker_profile
           relationship: none
           group_type: group
           admin_label: ''
+          entity_type: node
           plugin_id: search_api_field
-          label: Speaker(s)
+          label: 'Speaker Profile(s)'
           exclude: false
           alter:
             alter_text: false
@@ -2725,9 +2583,8 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
+          type: text_default
+          settings: {  }
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -2738,10 +2595,10 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-          field_rendering: false
+          field_rendering: true
           fallback_handler: search_api
           fallback_options:
-            link_to_item: true
+            link_to_item: false
             use_highlighting: false
             multi_type: separator
             multi_separator: ', '
@@ -3309,7 +3166,7 @@ display:
         - user
         - 'user.node_grants:view'
       tags:
-        - 'config:field.storage.node.field_sp_display_name'
+        - 'config:field.storage.node.field_sp_speaker_profile'
         - 'config:field.storage.node.field_talk_collection'
         - 'config:field.storage.node.field_talk_date'
         - 'config:field.storage.node.field_talk_speakers_text'
@@ -3499,7 +3356,6 @@ display:
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.group.field_repo_institution'
-        - 'config:field.storage.node.field_sp_display_name'
         - 'config:field.storage.node.field_talk_collection'
         - 'config:field.storage.node.field_talk_date'
         - 'config:field.storage.node.field_talk_source_repository'
