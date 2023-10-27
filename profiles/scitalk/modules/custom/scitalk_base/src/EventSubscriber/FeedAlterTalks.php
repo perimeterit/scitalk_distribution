@@ -42,8 +42,6 @@ class feedAlterTalks extends AfterParseBase {
       $group =  \Drupal::entityTypeManager()->getStorage('group')->load($group_id);
       $prefix_field = $group->get('field_repo_talks_prefix')->getValue();
 
-      dsm($group_id);
-
       // Set the source group value to the group id.
       $item->set('source_group', $group_id);
 
