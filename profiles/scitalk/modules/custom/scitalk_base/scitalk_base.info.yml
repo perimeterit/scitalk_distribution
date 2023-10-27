@@ -21,7 +21,9 @@ dependencies:
   - jsonapi_extras
   - feeds:feeds
   - feeds_ex:feeds_ex
+  - feeds_log:feeds_log
   - feeds_tamper:feeds_tamper
+  - field_persmission:field_permissions
   - group:group
   - group:gnode
   - better_exposed_filters:better_exposed_filters

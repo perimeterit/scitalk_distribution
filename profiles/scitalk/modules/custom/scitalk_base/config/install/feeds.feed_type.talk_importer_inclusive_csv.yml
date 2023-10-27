@@ -16,6 +16,7 @@ dependencies:
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
     - field.field.node.talk.field_talk_source_event
+    - field.field.node.talk.field_talk_source_repository
     - field.field.node.talk.field_talk_speaker_profile
     - field.field.node.talk.field_talk_speakers_text
     - field.field.node.talk.field_talk_subject
@@ -48,7 +49,7 @@ third_party_settings:
       failed: failed
     source: true
 _core:
-  default_config_hash: F4AmsGfrH_Brs74SUSHcgh9IHK5VimjCFl9wYx_tdAk
+  default_config_hash: RQj1ARu0n2jqaZzZAZmEDR3QVJ3i7daQbn_HNcT976s
 label: 'Talk Importer - All-in-one (CSV)'
 id: talk_importer_inclusive_csv
 description: 'Talk importer that can generate stubs for collections and speaker profiles (optional). Upload data in CSV format'
@@ -188,6 +189,11 @@ custom_sources:
     label: video_url
     machine_name: video_url
     type: csv
+  source_group:
+    value: source_group
+    label: source_group
+    machine_name: source_group
+    type: blank
 mappings:
   -
     target: field_talk_number
@@ -353,3 +359,12 @@ mappings:
       feeds_item: guid
       autocreate: 1
       autocreate_bundle: collection
+  -
+    target: field_talk_source_repository
+    map:
+      target_id: source_group
+    settings:
+      language: ''
+      reference_by: id
+      autocreate: 0
+      autocreate_bundle: source_repository

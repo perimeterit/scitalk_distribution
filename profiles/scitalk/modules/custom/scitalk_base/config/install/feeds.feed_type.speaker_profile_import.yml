@@ -15,7 +15,6 @@ dependencies:
     - node.type.speaker_profile
   module:
     - feeds_ex
-    - feeds_log
     - node
 third_party_settings:
   feeds_log:
@@ -36,24 +35,24 @@ third_party_settings:
     source: true
 _core:
   default_config_hash: x6tMmiRVQA1ZN7jl6udxbZlRLFXrE3L61bwSxDlfuws
-label: 'Speaker Profile Import'
+label: "Speaker Profile Import"
 id: speaker_profile_import
-description: 'JSON import for speaker profiles'
-help: ''
+description: "JSON import for speaker profiles"
+help: ""
 import_period: -1
 fetcher: upload
 fetcher_configuration:
-  allowed_extensions: 'txt csv tsv xml opml json'
-  directory: 'public://feeds'
+  allowed_extensions: "txt csv tsv xml opml json"
+  directory: "public://feeds"
 parser: jsonpath
 parser_configuration:
   context:
-    value: '$.*'
+    value: "$.*"
   source_encoding:
     - auto
   display_errors: false
   line_limit: 100
-processor: 'entity:node'
+processor: "entity:node"
 processor_configuration:
   values:
     type: speaker_profile
@@ -113,78 +112,68 @@ custom_sources:
     label: $.web_profile
     machine_name: _web_profile
 mappings:
-  -
-    target: title
+  - target: title
     map:
       value: _title
     settings:
       language: null
-    unique: {  }
-  -
-    target: field_sp_external_id
+    unique: {}
+  - target: field_sp_external_id
     map:
       value: _external_id
     settings:
       language: null
-    unique: {  }
-  -
-    target: field_sp_first_name
+    unique: {}
+  - target: field_sp_first_name
     map:
       value: _first_name
     settings:
       language: null
-    unique: {  }
-  -
-    target: field_sp_last_name
+    unique: {}
+  - target: field_sp_last_name
     map:
       value: _last_name
     settings:
       language: null
-    unique: {  }
-  -
-    target: field_sp_institution_name
+    unique: {}
+  - target: field_sp_institution_name
     map:
       value: _institution_name
     settings:
       language: null
-    unique: {  }
-  -
-    target: field_sp_orcid_id
+    unique: {}
+  - target: field_sp_orcid_id
     map:
       value: _orcid_id
     settings:
       language: null
-    unique: {  }
-  -
-    target: field_sp_speaker_profile
+    unique: {}
+  - target: field_sp_speaker_profile
     map:
       value: _profile
     settings:
       language: null
       format: plain_text
-  -
-    target: field_sp_username
+  - target: field_sp_username
     map:
       value: _username
     settings:
       language: null
-    unique: {  }
-  -
-    target: field_sp_web_profile_url
+    unique: {}
+  - target: field_sp_web_profile_url
     map:
       uri: _web_profile
       title: _web_profile
     settings:
       language: null
-  -
-    target: field_sp_profile_thumbnail
+  - target: field_sp_profile_thumbnail
     map:
       target_id: _thumbnail
       alt: _display_name
       title: _display_name
     settings:
-      language: ''
+      language: ""
       reference_by: fid
-      autocreate: '1'
-      existing: '0'
+      autocreate: "1"
+      existing: "0"
       autocreate_bundle: false

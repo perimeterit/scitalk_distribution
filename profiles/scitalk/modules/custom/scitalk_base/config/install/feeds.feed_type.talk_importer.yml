@@ -17,6 +17,7 @@ dependencies:
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
     - field.field.node.talk.field_talk_source_event
+    - field.field.node.talk.field_talk_source_repository
     - field.field.node.talk.field_talk_speaker_profile
     - field.field.node.talk.field_talk_speakers_text
     - field.field.node.talk.field_talk_subject
@@ -24,7 +25,6 @@ dependencies:
     - field.field.node.talk.field_talk_type
     - field.field.node.talk.field_talk_video
     - field.field.node.talk.field_talk_video_url
-    - field.field.node.talk.field_talk_viewable_online
     - node.type.talk
   module:
     - feeds_ex
@@ -83,7 +83,7 @@ third_party_settings:
         weight: 0
         label: Explode
 _core:
-  default_config_hash: OgRn8peOG8pgpm546s9QUgbYLejJIJEIkBeGdmzDdVQ
+  default_config_hash: D-2G-zOEjpXodg2VIVjfBrimHqnemxh5-acDkBZ4yk4
 label: 'Talk Importer'
 id: talk_importer
 description: 'An importer that can generate a talk'
@@ -208,6 +208,11 @@ custom_sources:
     value: $.academic_year
     label: $.academic_year
     machine_name: _academic_year
+  source_group:
+    value: source_group
+    label: source_group
+    machine_name: source_group
+    type: blank
 mappings:
   -
     target: field_talk_abstract
@@ -382,3 +387,12 @@ mappings:
       reference_by: name
       autocreate: 1
       autocreate_bundle: academic_year
+  -
+    target: field_talk_source_repository
+    map:
+      target_id: source_group
+    settings:
+      language: ''
+      reference_by: id
+      autocreate: 0
+      autocreate_bundle: source_repository

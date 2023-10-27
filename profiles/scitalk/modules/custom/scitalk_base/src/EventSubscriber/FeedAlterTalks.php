@@ -33,8 +33,8 @@ class feedAlterTalks extends AfterParseBase {
    */
   protected function alterItem(ItemInterface $item, ParseEvent $event) {
 
-    // Make feed_item unique id use the Group's Talk prefix combined with the
-    // Talk number
+    // Set the talk source repository field to the group
+    // Make feed_item unique id use the Group's Talk prefix + the Talk number
     $group_field = $event->getFeed()->get('field_feeds_group')->getValue();
 
     if (isset($group_field[0])) {
@@ -42,17 +42,22 @@ class feedAlterTalks extends AfterParseBase {
       $group =  \Drupal::entityTypeManager()->getStorage('group')->load($group_id);
       $prefix_field = $group->get('field_repo_talks_prefix')->getValue();
 
-      // If there is a prefix for this group
+      dsm($group_id);
+
+      // Set the source group value to the group id.
+      $item->set('source_group', $group_id);
+
+      // Find the prefix for this group
       if (isset($prefix_field[0])) {
         $prefix = $prefix_field[0]['value'];
       } else {
         // If not use the group id
-        $prefix = $group->get('id')->getValue() . '-';
+        $prefix = $group_id . '-';
       }
     } else {
       // If no group is set, use the prefix from scitalk base settings
       $scitalk_base_config = \Drupal::config('scitalk_base.settings');
-      $talk_prefix = $scitalk_base_config->get('datacite_talk_prefix') ?? '';
+      $prefix = $scitalk_base_config->get('datacite_talk_prefix') ?? '';
     }
 
     // Assign the prefix + talk number to the prefix talk number custom source
@@ -81,6 +86,5 @@ class feedAlterTalks extends AfterParseBase {
       $item->set('_video_url','');
 
     }
-
   }
 }
