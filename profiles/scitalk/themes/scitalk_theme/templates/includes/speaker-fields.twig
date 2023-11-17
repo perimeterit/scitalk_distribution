@@ -3,6 +3,7 @@
   (field_talk_speakers_text) in one list
 #}
 {# Merge the two fields first #}
+
 {% if content.field_talk_speakers_text.0 and content.field_talk_speaker_profile.0 %}
   {% set speakers = content.field_talk_speaker_profile['#items']|merge(content.field_talk_speakers_text['#items']) %}
 {% elseif content.field_talk_speaker_profile.0 %}
@@ -11,11 +12,13 @@
   {% set speakers = content.field_talk_speakers_text['#items'] %}
 {% endif %}
 
+
 {% if (speakers|length == 1) %}
   <div class="speakers">
-{% else %}
+{% elseif speakers|length > 1 %}
   <ul class="speakers display-list speaker-list">
 {% endif %}
+
 
 {% for speaker in speakers %}
   {% if (speakers|length > 1) %}
@@ -34,6 +37,6 @@
 
 {% if (speakers|length == 1) %}
   </div>
-{% else %}
+{% elseif speakers|length > 1 %}
   </ul>
 {% endif %}
