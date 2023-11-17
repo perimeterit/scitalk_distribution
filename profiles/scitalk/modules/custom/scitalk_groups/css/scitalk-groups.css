@@ -1,0 +1,18 @@
+/*
+   * CSS Adjustments for Group module
+  */
+
+.view-group-nodes .views-exposed-form {
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-end;
+  margin-bottom: 1rem;
+}
+
+.view-group-nodes .views-exposed-form label {
+  margin-bottom: 0.2rem;
+}
+
+.view-group-nodes .views-exposed-form .form-actions {
+  margin: calc(0.2rem + 0.7vw) 0;
+}

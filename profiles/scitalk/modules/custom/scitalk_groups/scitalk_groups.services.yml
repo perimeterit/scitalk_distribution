@@ -1,0 +1,5 @@
+services:
+  scitalk_groups.feeds_alter_talks:
+    class: Drupal\scitalk_groups\EventSubscriber\FeedAlterTalks
+    tags:
+      - { name: event_subscriber }

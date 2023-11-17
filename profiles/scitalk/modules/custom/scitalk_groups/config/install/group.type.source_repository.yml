@@ -1,0 +1,13 @@
+uuid: 06af81bf-1f64-4c47-82b0-c7c478d80ac2
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Jtbdp0VObRKQPyn3QJsOj_3QB9BkG7DEsBz84qbJXB8
+id: source_repository
+label: 'Source Repository'
+description: 'Source Repository base type'
+new_revision: true
+creator_membership: true
+creator_wizard: false
+creator_roles: {  }

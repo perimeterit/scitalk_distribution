@@ -1,0 +1,4 @@
+scitalk_groups:
+  css:
+    component:
+      css/scitalk-groups.css: {}
