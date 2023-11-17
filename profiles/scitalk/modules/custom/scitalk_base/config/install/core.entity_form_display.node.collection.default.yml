@@ -20,6 +20,7 @@ dependencies:
     - field.field.node.collection.field_collection_subject
     - field.field.node.collection.field_collection_type
     - field.field.node.collection.field_parent_collection
+    - field.field.node.collection.field_scivideos_uuid
     - node.type.collection
   module:
     - date_all_day
@@ -101,7 +102,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: XUTOmiih1pf7Fx08Z5mKRvcYlWkqoKCoCb5fZyOX8Z8
+  default_config_hash: LfapantmwxoKp2tlwNXiPQUNLIrTZXICH_mz-TFZzLI
 id: node.collection.default
 targetEntityType: node
 bundle: collection
@@ -249,9 +250,11 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
+  entitygroupfield: true
   feeds_item: true
   field_collection_last_talk_date: true
   field_collection_number_children: true
   field_collection_number_of_talks: true
+  field_scivideos_uuid: true
   promote: true
   sticky: true

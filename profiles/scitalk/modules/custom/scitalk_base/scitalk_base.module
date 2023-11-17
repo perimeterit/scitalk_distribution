@@ -8,9 +8,11 @@ use Drupal\views\Plugin\views\query\QueryPluginBase;
 use Drupal\views\ViewExecutable;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\node\Entity\Node;
+use \Drupal\Core\Cache\RefinableCacheableDependencyInterface;
 
 // use Drupal\scitalk_base\ScitalkServices\ReferenceIDGeneratorInterface;
 use Drupal\scitalk_base\Plugin\Field\SciTalkPrefixedTalkNumberList;
+use Drupal\Core\Url;
 
 /**
  * Implements hook_theme().
@@ -46,19 +48,6 @@ function scitalk_base_theme($existing, $type, $theme, $path) {
       'template' => 'block--scitalk-citations'
     ],
   ];
-}
-
-/**
- * Implements hook_entity_base_field_info
- * @param \Drupal\Core\Entity\EntityTypeInterface $entity_type
- * @return NULL[]
- */
-function scitalk_base_entity_base_field_info(\Drupal\Core\Entity\EntityTypeInterface $entity_type) {
-  if ($entity_type->id() == 'node') {
-  }
-
-  if ($entity_type->id() == 'taxonomy_term') {
-  }
 }
 
 /**
@@ -103,49 +92,13 @@ function scitalk_base_entity_bundle_field_info_alter(&$fields, \Drupal\Core\Enti
   }
 }
 
-
-/**
- * Implements hook_entity_type_alter().
- */
-function scitalk_base_entity_type_alter(array &$entity_types) {
-  //Groups manage Repository security. As a result the group is not a content type
-  //but rather a content entity.  We must add a constraint on the
-  //group entity to ensure the title doesn't breach our max length.
-  $entity_types['group']->addConstraint('RepositoryShortNameMaxLength', []);
-}
-
-
 /**
  * Implements hook_ENTITY_TYPE_presave()
  */
 function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) {
-  //For both the collection and talk, if this content is already grouped, then
-  //add the entity reference to the group in the source repository ER field.
-  //If this entity does not have a group, determine your group and fill the field
-  //as the entity will be grouped.
-  if ($entity->getType() == 'collection' || $entity->getType() == 'talk') {
-    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
-    $groups = [];
-    $groupMembershipService = \Drupal::service('group.membership_loader');
-    $userGroups = $groupMembershipService->loadByUser($user);
-    foreach ($userGroups as $grp) {
-      $groups[] = $grp->getGroup();
-      break;  //we just need the first one
-    }
 
-    if(count($groups)) { //if we have groups, using the first one only, use the ID for the ER
-      $groupID = $groups[0]->id();
-      if($entity->getType() == 'talk') {
-        if (empty($entity->get('field_talk_source_repository')->target_id)) {
-          $entity->set('field_talk_source_repository', $groupID);
-        }
-      }
-      else {
-        if (empty($entity->get('field_collection_source_repo')->target_id)) {
-          $entity->set('field_collection_source_repo', $groupID);
-        }
-      }
-    }
+  $nodetype = $entity->getType();
+  if ($nodetype == 'collection' || $nodetype == 'talk') {
 
     //collections have collection_number so create a collection number for them if none exists
     if ($entity->getType() == 'collection') {
@@ -195,38 +148,18 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
   }
 }
 
+
 /**
  * Implements hook_ENTITY_TYPE_insert()
  */
 function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
-  /*
-   * Upon insertion of a talk or collection, we bind the content
-   * to the first group the user doing the saving has access to.
-   */
-  if ($entity->getType() == 'talk' || $entity->getType() == 'collection') {
-    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
-    $groups = [];
-    $groupMembershipService = \Drupal::service('group.membership_loader');
-    $userGroups = $groupMembershipService->loadByUser($user);
-    foreach ($userGroups as $grp) {
-      $groups[] = $grp->getGroup();
-      break;  //we just need the first one
-    }
-
-    if(count($groups)) { //if we have groups, using the first one only, group this entity
-      $group = Group::load($groups[0]->id());
-      $pluginId = 'group_node:' . $entity->getType();
-      $group->addContent($entity, $pluginId);
-    }
-  }
-
   $scivideos_integrate = _scitalk_base_scivideos_integrate();
 
   //if the talk is part of a Collection then update the Collection stats (number of talks, latest talk)
   if ($entity->getType() == 'talk') {
     $collectionTalksStats = \Drupal::service('scitalk_base.talks_in_collection_stats');
     $collectionTalksStats->update($entity);
-    
+
     //create this Talk in SciVideos
     if ($scivideos_integrate) {
       $scivideo_talk = \Drupal::service('scitalk_base.scivideos_integrate');
@@ -260,16 +193,15 @@ function scitalk_base_node_insert(Drupal\Core\Entity\EntityInterface $entity) {
 }
 
 /**
- * Implements hook_ENTITY_TYPE_presave()
+ * Implements hook_ENTITY_TYPE_update()
  */
 function scitalk_base_node_update(\Drupal\Core\Entity\EntityInterface $entity) {
   $scivideos_integrate = _scitalk_base_scivideos_integrate();
-  
+
   //if the talk is part of a Collection then update the Collection stats (number of talks, latest talk)
   if ($entity->getType() == 'talk') {
     $collectionTalksStats = \Drupal::service('scitalk_base.talks_in_collection_stats');
     $collectionTalksStats->update($entity);
-
 
     if ($scivideos_integrate) {
       $scivideo_talk = \Drupal::service('scitalk_base.scivideos_integrate');
@@ -347,13 +279,6 @@ function scitalk_base_node_delete(Drupal\Core\Entity\EntityInterface $entity) {
 }
 
 /**
- * Implements hook_ENTITY_TYPE_presave()
- */
-function scitalk_base_taxonomy_term_presave(Drupal\taxonomy\Entity\Term $taxonomy) {
-
-}
-
-/**
  * Implements hook_views_query_alter()
  */
 function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
@@ -406,40 +331,6 @@ function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $q
     }
   }
 }
-
-/**
- * Implements hook_entity_access().
- */
-function scitalk_base_entity_access(\Drupal\Core\Entity\EntityInterface $entity, $operation, \Drupal\Core\Session\AccountInterface $account) {
-  $entity_type = $entity->getEntityTypeId();
-  $entity_bundle = $entity->bundle();
-  if($entity_type == 'feeds_feed') {
-    //check if our feeds entity has a group field on it and if so, check if this user is a part of that group
-    $entityFieldManager = \Drupal::service('entity_field.manager');
-    $fields = $entityFieldManager->getFieldDefinitions($entity_type, $entity_bundle);
-    if (isset($fields['field_feeds_group'])) {
-
-      //this feed bundle does indeed have a feeds group field.
-      //let's check to see if it is populated, has a value and this user is a member of it.
-
-      if(isset($entity->field_feeds_group) && $entity->field_feeds_group->target_id != '') {
-        //group is set, check if this group has this user as a member
-        $grps = \Drupal::service('group.membership_loader')->loadByUser(\Drupal::currentUser());
-        foreach ($grps as $grp) {
-          $this_group = $grp->getGroup();
-          if($this_group->id() == $entity->field_feeds_group->target_id) {
-            return AccessResult::allowed();
-          }
-        }
-        return AccessResult::forbidden();
-      }
-    }
-  }
-
-  // This is not a feed or this feed does not have a group field, we don't set access.
-  return AccessResult::neutral();
-}
-
 /**
  * Implements hook_form_alter().
  */
@@ -512,47 +403,6 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
         unset($form['field_academic_year_target_id_collapsible']);
       }
     }
-
-    // Alter Source catch up view
-    if ($view_id == 'scitalk_source_catch_up') {
-      $route = \Drupal::routeMatch();
-      $routename = $route->getRouteName();
-
-      $exposed_input = $view['view']->getExposedInput();
-
-      // On the Group home page, pass the source id to the exposed filter
-      // which is actually hidden
-      if ($routename == 'entity.group.canonical') {
-        $group = \Drupal::routeMatch()->getParameter('group');
-        $group_id = $group->id();
-        $form['catch_up_source']['#value'] = $group_id;
-      }
-
-      // On the view page, get the group id from the arguments
-      elseif (isset($exposed_input) && !empty($exposed_input) &&
-            !empty($exposed_input['catch_up_source'])) {
-        $group_id = $exposed_input['catch_up_source'];
-      }
-
-      // Set the values for the subject form to match those in the taxonomy view
-      if (isset($group_id)) {
-
-        $subject_options = ['All' => t('All')];
-
-        // Get the taxonomy view for this source
-        $subjects_view = \Drupal\views\Views::getView('scitalk_taxonomy');
-        $subjects_view->setDisplay('subjects_by_source');
-        $subjects_view->setArguments([$group_id]);
-        $subjects_view->execute();
-
-        foreach ($subjects_view->result as $key=>$row) {
-          $subject_options[$row->tid] = $row->taxonomy_term_field_data_name;
-        }
-
-        $form['subject']['#options'] = $subject_options;
-      }
-
-    }
   }
 
   //check whether these 2 entities (Collection and Speaker Profile) can be deleted from SciVideos. If not then don't allow deletion from local site either
@@ -561,63 +411,6 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
     $form['#validate'][] = '_scitalk_base_delete_entity_validate';
   }
 
-
-  /*
-   * The original form alter used here was to force a source repository.
-   * The source repository is now a Drupal Group which manages the linkages
-   * to content FROM the group to the content itself.
-   *
-   * In the initial save of content we attach the content to a source repository group
-   * if the user is a part of one.
-   */
-
-
-  //detect if this is a node form, taxonomy collection or series
-//               if( $form_id == 'node_talk_form') {
-//                     //detect if there is a single Source (Source Repository content type)
-//                     //if so, set it to the value in the form.
-
-//                     $query = \Drupal::entityQuery('node');
-//                     $query->condition('status', 1);
-//                     $query->condition('type', 'source_repository');
-//                     $entity_ids = $query->execute();
-
-//                     if(count($entity_ids) === 1) {
-//                       //only 1 repository, fill it in.
-//                       $singleSource = \Drupal\node\Entity\Node::load(current($entity_ids));
-//                       if($singleSource) {
-//                         if($form_id == 'node_talk_form') {
-//                           $form['field_talk_source']['widget'][0]['target_id']['#default_value'] = $singleSource;
-//                         }
-//                         elseif($form_id == 'taxonomy_term_collection_form') {
-//                           $form['field_collection_source']['widget'][0]['target_id']['#default_value'] = $singleSource;
-//                         }
-//                         elseif($form_id == 'taxonomy_term_series_form') {
-//                           $form['field_series_source']['widget'][0]['target_id']['#default_value'] = $singleSource;
-//                         }
-//                       }
-//                     }
-//                   }
-}
-
-/*
- ** Implements hook_views_pre_render();
- */
-function scitalk_base_views_pre_render(ViewExecutable $view) {
-  // For Source Catch-up view, set the page title to include the group name
-  if ($view->id() == 'scitalk_source_catch_up' && $view->current_display == 'card_view') {
-    $exposed_input = $view->getExposedInput();
-    if (!empty($exposed_input['catch_up_source'])) {
-      $group_id = $exposed_input['catch_up_source'];
-      if (isset($group_id)) {
-        $group_entity = \Drupal::entityTypeManager()->getStorage('group')->load($group_id);
-        $current_title = $view->getTitle();
-        $group_label = $group_entity->get('label')->getValue();
-        $title = $current_title . ' for ' . $group_label[0]['value'];
-        $view->setTitle($title);
-      }
-    }
-  }
 }
 
 //check whether to create/update DOIs for this type of entity Talk

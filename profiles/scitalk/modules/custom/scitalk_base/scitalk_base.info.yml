@@ -12,6 +12,7 @@ dependencies:
   - text:text
   - fences:fences
   - field_group:field_group
+  - scitalk_groups:scitalk_groups
   - scitalk_media:scitalk_media
   - inline_entity_form:inline_entity_form
   - search_api:search_api
