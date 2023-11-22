@@ -19,37 +19,43 @@ class feedAlterTalks extends AfterParseBase {
    */
   public function applies(ParseEvent $event) {
     $feed_id = $event->getFeed()->getType()->id();
-    $talk_feeds = [
+    $feeds = [
+      'collection_import',
       'talk_importer_no_dependencies',
       'talk_importer',
       'talk_importer_inclusive_csv',
       'talk_importer_inclusive_json'
     ];
 
-    return in_array($feed_id, $talk_feeds);
+    return in_array($feed_id, $feeds);
   }
 
   /**
-   * {@inheritdoc}
+   * Alter the feeds item on import.
+   * This will assign the node to the right group and create a unique feed ID
    */
   protected function alterItem(ItemInterface $item, ParseEvent $event) {
-
-    // Set the talk source repository field to the group
-    // Make feed_item unique id use the Group's Talk prefix + the Talk number
+    // Get the group field value from this feed
     $group_field = $event->getFeed()->get('field_feeds_group')->getValue();
     if (isset($group_field[0])) {
       $group_id = $group_field[0]['target_id'];
       $group =  \Drupal::entityTypeManager()->getStorage('group')->load($group_id);
       $prefix_field = $group->get('field_repo_talks_prefix')->getValue();
 
-      // Set the source group value to the group id.
+      // Source group is a custom field that maps to the source reference field
       $item->set('source_group', $group_id);
 
+      /**
+        * Set a unique feeds ID number using the talk prefix and talk number
+        * If the group has a talk prefix, use that plus the Talk number
+        * If that is empty, and there is a group, use the Group ID plus the Talk number
+        * If there is no group assigned, use the Scitalk base module talk prefix
+      */
       // Find the prefix for this group
       if (isset($prefix_field[0])) {
         $prefix = $prefix_field[0]['value'];
       } else {
-        // If not use the group id
+        // If it's empty use the group id
         $prefix = $group_id . '-';
       }
     } else {

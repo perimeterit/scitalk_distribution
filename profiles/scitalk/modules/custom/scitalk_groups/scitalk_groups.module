@@ -311,8 +311,12 @@ function scitalk_groups_entity_access(\Drupal\Core\Entity\EntityInterface $entit
  */
 function scitalk_groups_node_presave(\Drupal\Core\Entity\EntityInterface $entity) {
   $nodetype = $entity->getType();
-  // Make sure talks and collections are assigned to the right group,
-  // And the entity reference field matches the group.
+  /* Make sure talks and collections are assigned to the right group
+   * And the entity reference field matches the group.
+
+   * For feeds, the source reference field will be empty,
+   * and should be filled using the group reference.
+   */
   if ($nodetype == 'collection' || $nodetype == 'talk') {
     // Set a variable for the name of the reference field
     if ($nodetype == 'talk') {
