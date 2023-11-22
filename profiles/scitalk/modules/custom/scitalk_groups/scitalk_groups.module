@@ -16,6 +16,26 @@ use Drupal\Core\Url;
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Cache\CacheableMetadata;
 
+  /**
+   * Custom function to get the logged-in user's first group
+   */
+  function _scitalk_groups_get_first_group() {
+    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+    if (!empty($user)) {
+      $groupMembershipService = \Drupal::service('group.membership_loader');
+      $userGroups = $groupMembershipService->loadByUser($user);
+      if (!empty($userGroups)) {
+        foreach ($userGroups as $grp) {
+          $groups[] = $grp->getGroup();
+          break;
+        }
+        $user_group_id = $groups[0]->id();
+        dsm($user_group_id);
+        return $user_group_id;
+      }
+    }
+  }
+
 /**
  * Implements hook_preprocess_HOOK().
  */
@@ -186,7 +206,6 @@ function scitalk_groups_form_views_exposed_form_alter(&$form, FormStateInterface
     }
   }
 
-
   // Alter Source catch up view
   if ($view_id == 'scitalk_source_catch_up') {
     $route = \Drupal::routeMatch();
@@ -228,6 +247,24 @@ function scitalk_groups_form_views_exposed_form_alter(&$form, FormStateInterface
   }
 }
 
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function scitalk_groups_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $form['#submit'][] = 'scitalk_groups_user_login_form_submit';
+}
+
+/**
+ * Custom submit handler for the login form.
+ */
+function scitalk_groups_user_login_form_submit($form, FormStateInterface $form_state) {
+  // Get url for group from user group id
+  $user_group_id = _scitalk_groups_get_first_group();
+  if (!empty($user_group_id)) {
+    $url = Url::fromRoute('entity.group.canonical', ['group' => $user_group_id]);
+    $form_state->setRedirectUrl($url);
+  }
+}
 
 /**
  * Implements hook_entity_access().
@@ -369,21 +406,5 @@ function scitalk_groups_system_breadcrumb_alter(\Drupal\Core\Breadcrumb\Breadcru
     $breadcrumb = new Breadcrumb();
     $breadcrumb->setLinks($links);
     $breadcrumb->addCacheableDependency($cacheability);
-  }
-
-}
-
-/*
- * Implements Hook_user_login();
- * Redirect the user on login if they are part of a group
- */
-function scitalk_groups_user_login($account) {
-  $grps = \Drupal::service('group.membership_loader')->loadByUser($account);
-  if (!empty($grps)) {
-    $group = reset($grps);
-    $group_id = $group->getGroup()->id();
-    $url = Url::fromRoute('entity.group.canonical', ['group' => $group_id]);
-    $response = new \Symfony\Component\HttpFoundation\RedirectResponse($url->toString());
-    $response->send();
   }
 }
