@@ -25,10 +25,13 @@ id: collection_import
 description: 'Import configuration for Collection'
 help: ''
 import_period: -1
-fetcher: upload
+fetcher: http
 fetcher_configuration:
-  allowed_extensions: json
-  directory: 'public://feeds'
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
 parser: jsonpath
 parser_configuration:
   context:

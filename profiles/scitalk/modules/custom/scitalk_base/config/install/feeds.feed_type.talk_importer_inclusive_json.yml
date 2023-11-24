@@ -50,7 +50,7 @@ third_party_settings:
       failed: failed
     source: true
 _core:
-  default_config_hash: kBnwuvLm4JVDTG7BPA42CGao9URLuk-hwFy_KYp_yvA
+  default_config_hash: XkCRe02rHwVrkY_MtdZ9nxrK1J5BoeoqSG5mW51U1ac
 label: 'Talk Importer - All-in-one (JSON)'
 id: talk_importer_inclusive_json
 description: 'Talk importer that can generate stubs for collections and speaker profiles (optional). Link to feed in JSON format'

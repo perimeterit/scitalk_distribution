@@ -8,6 +8,8 @@ dependencies:
   module:
     - feeds
     - user
+_core:
+  default_config_hash: my-aV2Q3qH8Mly9LaEjlSVkiWrLmVhxcAEsE4YYBzpg
 id: feeds_feed.talk_importer_inclusive_json.default
 targetEntityType: feeds_feed
 bundle: talk_importer_inclusive_json
