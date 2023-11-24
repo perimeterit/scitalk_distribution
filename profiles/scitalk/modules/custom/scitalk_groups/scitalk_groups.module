@@ -299,9 +299,8 @@ function scitalk_groups_entity_access(\Drupal\Core\Entity\EntityInterface $entit
   return AccessResult::neutral();
 }
 
-
 /**
- * Implements hook_node_presave()
+ * Implements hook_node_insert()
  *
  * Resolves the group source references when content is added via feeds or
  * the node/add forms
@@ -309,7 +308,7 @@ function scitalk_groups_entity_access(\Drupal\Core\Entity\EntityInterface $entit
  * @param $entity
  *   The entity being saved
  */
-function scitalk_groups_node_presave(\Drupal\Core\Entity\EntityInterface $entity) {
+function scitalk_groups_node_insert(\Drupal\Core\Entity\EntityInterface $entity) {
   $nodetype = $entity->getType();
   /* Make sure talks and collections are assigned to the right group
    * And the entity reference field matches the group.
@@ -329,13 +328,13 @@ function scitalk_groups_node_presave(\Drupal\Core\Entity\EntityInterface $entity
     // Get the value of the source repo reference field.
     $repo_field_value = $entity->get($source_ref_field)->target_id;
 
-    // Get the group content id for this entity
-    $ids = \Drupal::entityQuery('group_content')
+    // Get the group ids for this entity
+    $group_ids = \Drupal::entityQuery('group_content')
       ->condition('entity_id', $entity->id())
       ->execute();
 
     // And get the groups that this id belongs to
-    $relations = \Drupal\group\Entity\GroupContent::loadMultiple($ids);
+    $relations = \Drupal\group\Entity\GroupContent::loadMultiple($group_ids);
     foreach ($relations as $rel) {
       if ($rel->getEntity()->getEntityTypeId() == 'node') {
         $group_ids[] = $rel->getGroup()->id();
