@@ -83,16 +83,19 @@ third_party_settings:
         weight: 0
         label: Explode
 _core:
-  default_config_hash: D-2G-zOEjpXodg2VIVjfBrimHqnemxh5-acDkBZ4yk4
+  default_config_hash: 1O-bq0XUkBhm8MSRSrVzlUW1WbdIW1KgVFqGQLard4s
 label: 'Talk Importer'
 id: talk_importer
 description: 'An importer that can generate a talk'
 help: ''
 import_period: 86400
-fetcher: upload
+fetcher: http
 fetcher_configuration:
-  allowed_extensions: 'txt csv tsv xml opml json'
-  directory: 'public://feeds'
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
 parser: jsonpath
 parser_configuration:
   context:
