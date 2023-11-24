@@ -21,10 +21,10 @@ dependencies:
     - field.field.node.collection.field_collection_subject
     - field.field.node.collection.field_collection_type
     - field.field.node.collection.field_parent_collection
+    - field.field.node.collection.field_scivideos_uuid
     - node.type.collection
   module:
     - date_all_day
-    - feeds
     - fences
     - layout_builder
     - text
@@ -34,20 +34,12 @@ third_party_settings:
     enabled: false
     allow_custom: false
 _core:
-  default_config_hash: l60VqUPFvSkWACMznZeATNHCuNm5x3_LigvAp1iyy00
+  default_config_hash: jPMTUY3qa5kKMC3PeF-hYMWnbDdCgCOeFDxWMtUPnG0
 id: node.collection.full
 targetEntityType: node
 bundle: collection
 mode: full
 content:
-  feeds_item:
-    type: feeds_item_url
-    label: hidden
-    settings:
-      url_plain: false
-    third_party_settings: {  }
-    weight: 7
-    region: content
   field_collection_date:
     type: daterange_all_day_default
     label: hidden
@@ -102,7 +94,7 @@ content:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 9
+    weight: 8
     region: content
   field_collection_number_of_talks:
     type: number_integer
@@ -111,7 +103,7 @@ content:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    weight: 8
+    weight: 7
     region: content
   field_collection_source_repo:
     type: entity_reference_label
@@ -167,6 +159,7 @@ content:
     weight: 5
     region: content
 hidden:
+  feeds_item: true
   field_academic_year: true
   field_collection_event_url: true
   field_collection_last_talk_date: true
@@ -174,6 +167,7 @@ hidden:
   field_collection_organizers: true
   field_collection_public_viewable: true
   field_collection_short_desc: true
+  field_scivideos_uuid: true
   langcode: true
   links: true
   scitalk_most_recent_talk: true
