@@ -45,6 +45,12 @@
     & .form-text {
       border: none;
     }
+
+    & .form-actions {
+      & input {
+        background-color: var(--color-secondary);
+      }
+    }
   }
 }
 @media all and (min-width: 959.99px) {
@@ -98,11 +104,6 @@
         & .form-text {
           flex: 1 0 auto;
           width: 100%;
-        }
-        & .form-actions {
-          & input {
-            background-color: var(--color-secondary);
-          }
         }
       }
     }

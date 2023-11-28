@@ -9,26 +9,26 @@
           "</span></button>"
       );
       // Toggle the menu open/closed, from the hamburger icon or the close
-      $menu_toggle_buttons = $(".menu-toggle, .menu--close", context);
-      $($menu_toggle_buttons).on("click", function () {
-        console.log("click");
-        if ($(this).attr("aria-expanded") == "false") {
-          // Open the menu
-          $menu_toggle_buttons.attr("aria-expanded", "true");
-          // Also moves the focus to the first link item (for screen readers)
-          $("#menu-container .menu--main").attr("tabindex", "-1").focus();
-          // Change the button text
-          $toggle_text = $(".menu-toggle span").html();
-          $(this)
-            .children("span")
-            .html($(".menu-toggle").attr("data-hide-text"));
-        } else {
-          // Close the menu
-          $menu_toggle_buttons.attr("aria-expanded", "false");
-          $(".menu-toggle").focus();
-          $menu_toggle_buttons.children("span").html($toggle_text);
-        }
-        $("body", context).toggleClass("menu--open");
+      $menu_toggle_buttons = $(".menu-toggle, .menu--close").each(function () {
+        $(once("mobile-toggle", $(this), context)).on("click", function () {
+          if ($(this).attr("aria-expanded") == "false") {
+            // Open the menu
+            $menu_toggle_buttons.attr("aria-expanded", "true");
+            // Also moves the focus to the first link item (for screen readers)
+            $("#menu-container .menu--main").attr("tabindex", "-1").focus();
+            // Change the button text
+            $toggle_text = $(".menu-toggle span").html();
+            $(this)
+              .children("span")
+              .html($(".menu-toggle").attr("data-hide-text"));
+          } else {
+            // Close the menu
+            $menu_toggle_buttons.attr("aria-expanded", "false");
+            $(".menu-toggle").focus();
+            $menu_toggle_buttons.children("span").html($toggle_text);
+          }
+          $("body", context).toggleClass("menu--open");
+        });
       });
     },
   };
@@ -36,7 +36,7 @@
   // / Search toggle
   Drupal.behaviors.scitalk_search_toggle = {
     attach: function (context, settings) {
-      $(".search-toggle", context).click(function () {
+      $(once("search-toggle", ".search-toggle", context)).click(function () {
         if ($(this).attr("aria-expanded") == "false") {
           $(this).attr("aria-expanded", "true");
           // Also moves the focus to the first link item (for screen readers)

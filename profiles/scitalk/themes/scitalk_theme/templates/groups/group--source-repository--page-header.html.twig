@@ -44,27 +44,27 @@
 ]
 %}
 <div{{ attributes.addClass(classes) }}>
-    {{ content.field_source_repo_logo}}
-    <div class="content">
-      {{ title_prefix }}
-      {% if page and not content.field_source_repo_logo.0 %}
-        <h1 class="page-title">{{ label }}</h1>
-      {% endif %}
-      {{ title_suffix }}
-      <div class="source-description">
-        {{ content|without('field_source_repo_logo','field_source_repo_full_name','field_source_repo_url') }}
-      </div>
-      {# Use the source repo full name if it is populated
-        if not use the title  #}
-      {% if content.field_source_repo_full_name['#items'].0.value %}
-        {% set repo_name = content.field_source_repo_full_name['#items'].0.value %}
-      {% else %}
-        {% set repo_name = label %}
-      {% endif %}
-      {% if content.field_source_repo_url.0 %}
-        <a class="button visit-repo-button" href="{{ content.field_source_repo_url.0}}">
-          <strong>{{ 'Visit '}} {{ repo_name }}</strong>
-        </a>
-      {% endif %}
+  {{ content.field_source_repo_logo}}
+  <div class="content">
+    {{ title_prefix }}
+    {% if page and not content.field_source_repo_logo.0 %}
+      <h1 class="page-title">{{ label }}</h1>
+    {% endif %}
+    {{ title_suffix }}
+    <div class="source-description">
+      {{ content|without('field_source_repo_logo','field_source_repo_full_name','field_source_repo_url') }}
     </div>
+    {# Use the source repo full name if it is populated
+      if not use the title  #}
+    {% if content.field_source_repo_full_name['#items'].0.value %}
+      {% set repo_name = content.field_source_repo_full_name['#items'].0.value %}
+    {% else %}
+      {% set repo_name = label %}
+    {% endif %}
+    {% if content.field_source_repo_url.0 %}
+      <a class="button visit-repo-button" href="{{ content.field_source_repo_url.0}}">
+        <strong>{{ 'Visit '}} {{ repo_name }}</strong>
+      </a>
+    {% endif %}
+  </div>
 </div>
