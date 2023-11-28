@@ -102,27 +102,6 @@ function scitalk_groups_preprocess_page_title(&$variables) {
   }
 }
 
-/**
- * Implements hook_menu_local_tasks_alter().
- */
-function scitalk_groups_menu_local_tasks_alter(&$local_actions) {
-  // Add local task link to the feeds admin page
-  $local_actions['tabs'][0]['group_feeds'] = [
-    '#theme' => 'menu_local_task',
-    '#link' => [
-      'title' => t('Feeds'),
-      'url' => Url::fromRoute('view.group_feeds.page_1'),
-      'localized_options' => [
-        'attributes' => [
-          'title' => t('Feeds'),
-        ],
-      ],
-    ],
-    '#weight' => 10,
-    '#active' => TRUE,
-  ];
-}
-
 
 /**
  * Implements hook_menu_local_actions_alter().
@@ -156,7 +135,20 @@ function scitalk_groups_menu_local_actions_alter(&$local_actions) {
       'appears_on' => ['view.group_nodes.page_1'],
       'class' => 'Drupal\Core\Menu\LocalActionDefault'
     ];
+
   }
+
+  // Add link to the group feeds page from here.
+  $local_actions['group_feeds'] = [
+    'id' => 'group_feeds',
+    'title' => t('Edit Content Feeds '),
+    'weight' => 0,
+    'route_name' => 'view.group_feeds.page_1',
+    'options'=> '',
+    'appears_on' => ['view.group_nodes.page_1'],
+    'class' => 'Drupal\Core\Menu\LocalActionDefault'
+  ];
+  dsm($local_actions);
 }
 
 /*
