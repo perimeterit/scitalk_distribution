@@ -1,11 +1,11 @@
 /*
  *  Standard search form
  */
- @import "../base/mixins.css";
+@import "../base/mixins.css";
 
 .search-block-form {
   & form {
-     display: flex;
+    display: flex;
   }
   & label {
     @mixin visually-hidden;
@@ -15,7 +15,7 @@
     margin: 0;
   }
   & .form-submit,
-  & .form-submit:matches(:hover,:focus) {
+  & .form-submit:matches(:hover, :focus) {
     box-shadow: none;
     color: transparent;
     background-position: center center;
@@ -24,6 +24,7 @@
     background-size: 1.5em;
     width: 2em;
     overflow: hidden;
+    margin: 0;
     padding: 0.8em 1.3em 0.55em;
   }
 }
