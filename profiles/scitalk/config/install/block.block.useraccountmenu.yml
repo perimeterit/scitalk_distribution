@@ -1,0 +1,25 @@
+uuid: fa58c824-df9c-415a-8b49-fd541aa89e17
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.account
+  module:
+    - system
+  theme:
+    - scitalk_theme
+id: useraccountmenu
+theme: scitalk_theme
+region: footer
+weight: -5
+provider: null
+plugin: 'system_menu_block:account'
+settings:
+  id: 'system_menu_block:account'
+  label: 'User account menu'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }
