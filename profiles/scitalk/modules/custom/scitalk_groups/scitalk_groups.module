@@ -148,7 +148,6 @@ function scitalk_groups_menu_local_actions_alter(&$local_actions) {
     'appears_on' => ['view.group_nodes.page_1'],
     'class' => 'Drupal\Core\Menu\LocalActionDefault'
   ];
-  dsm($local_actions);
 }
 
 /*
