@@ -106,6 +106,13 @@ function scitalk_groups_preprocess_page_title(&$variables) {
 /**
  * Implements hook_menu_local_actions_alter().
  */
+function scitalk_groups_menu_local_tasks_alter(&$local_tasks) {
+  unset($local_tasks['tabs'][0]['group.content']);
+}
+
+/**
+ * Implements hook_menu_local_actions_alter().
+ */
 function scitalk_groups_menu_local_actions_alter(&$local_actions) {
   // Unset the group node module "Add content" buttons.
   // This goes to /group/{{groupid}}/node/create which includes confusing language
