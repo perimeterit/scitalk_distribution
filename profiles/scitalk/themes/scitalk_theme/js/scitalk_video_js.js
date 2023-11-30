@@ -65,6 +65,32 @@
               );
   
             } catch(e){}
+
+            //adding google Analytics to record videojs events (play, pause, complete, ,time updated):
+            this.analytics({
+              events: [
+                {
+                  name: 'play',
+                  label: 'video_play',
+                  action: 'play',
+                },
+                {
+                  name: 'pause',
+                  label: 'video_pause',
+                  action: 'pause',
+                },
+                {
+                  name: 'ended',
+                  label: 'video_ended',
+                  action: 'completed', //'ended',
+                },
+                {
+                  name: 'timeupdate',
+                  action: 'time updated',
+                }
+              ]
+            });
+
           });
   
           //disable context menu on right click
