@@ -12,7 +12,6 @@ install:
   - block
   - block_content
   - breakpoint
-  - ckeditor
   - comment
   - config
   - config_update
@@ -46,7 +45,6 @@ install:
   - page_cache
   - path
   - pathauto
-  - quickedit
   - rdf
   - rest
   - search
