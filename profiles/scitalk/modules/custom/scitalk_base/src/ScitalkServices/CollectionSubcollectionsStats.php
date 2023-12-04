@@ -47,7 +47,8 @@ class CollectionSubcollectionsStats {
         $query_count = \Drupal::entityQuery('node')
             ->condition('type', 'collection')
             ->condition('status', 1)
-            ->condition('field_parent_collection.target_id', $nid);
+            ->condition('field_parent_collection.target_id', $nid)
+            ->accessCheck(TRUE);
 
         return  $query_count->count()->execute() ?? 0;
     }

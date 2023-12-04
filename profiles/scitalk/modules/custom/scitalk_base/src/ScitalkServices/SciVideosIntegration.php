@@ -389,7 +389,8 @@ class SciVideosIntegration {
       $query_count = \Drupal::entityQuery('node')
           ->condition('type', 'talk')
           // ->condition('status', 1)
-          ->condition('field_talk_speaker_profile.target_id', $tid);
+          ->condition('field_talk_speaker_profile.target_id', $tid)
+          ->accessCheck(TRUE);
 
       return $query_count->count()->execute() ?? 0;
     }

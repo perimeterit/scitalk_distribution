@@ -51,6 +51,7 @@ class ReferenceIDGenerator implements ReferenceIDGeneratorInterface {
       $node_query->condition('field_talk_source_repository.entity.label', $source_name);
     }
 
+    $node_query->accessCheck(TRUE);
     $result = $node_query->sort('field_talk_number','DESC')
      ->range(0,1)   //get just 1
      ->execute();
@@ -89,6 +90,7 @@ class ReferenceIDGenerator implements ReferenceIDGeneratorInterface {
     }
     $query->sort('field_collection_number', 'DESC')->range(0,1);   //get just 1
 
+    $query->accessCheck(TRUE);
     $entityIDs = $query->execute();
     if ($entityIDs) {
       $eid = current($entityIDs);
@@ -105,6 +107,8 @@ class ReferenceIDGenerator implements ReferenceIDGeneratorInterface {
         if (!empty($source_name)) {
           $cquery->condition($source_field, $source_name);
         }
+
+        $cquery->accessCheck(TRUE);
         $cquery->sort('field_collection_number', 'DESC')->range(0,1);   //get just 1
         $entityIDs = $cquery->execute();
         if($entityIDs) {
@@ -125,6 +129,7 @@ class ReferenceIDGenerator implements ReferenceIDGeneratorInterface {
     //now test for this number existing
     $cquery = \Drupal::entityQuery('node')->condition('type', 'collection');
     $cquery->condition('field_collection_number', $return_number);
+    $cquery->accessCheck(TRUE);
     $cquery->sort('field_collection_number', 'DESC')->range(0,1);   //get just 1
     $entityIDs = $cquery->execute();
     if ($entityIDs) {
@@ -141,6 +146,7 @@ class ReferenceIDGenerator implements ReferenceIDGeneratorInterface {
         if (!empty($source_name)) {
           $cquery->condition($source_field, $source_name);
         }
+        $cquery->accessCheck(TRUE);
         $cquery->sort('field_collection_number', 'DESC')->range(0,1);   //get just 1
         $entityIDs = $cquery->execute();
         if($entityIDs) {

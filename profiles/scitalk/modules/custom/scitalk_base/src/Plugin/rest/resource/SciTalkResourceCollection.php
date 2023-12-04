@@ -144,6 +144,7 @@ class SciTalkResourceCollection extends ResourceBase {
     $taxonomy_query = \Drupal::entityQuery('taxonomy_term')
       ->condition('vid', SciTalkResourceCollection::VOCABULARY_NAME)
       ->condition('name', $collection_id, '=')
+      ->accessCheck(TRUE)
       ->range(0,1)
       ->execute();
 
@@ -191,6 +192,7 @@ class SciTalkResourceCollection extends ResourceBase {
     $response_array = [];
     $taxonomy_query = \Drupal::entityQuery('taxonomy_term')
       ->condition('vid', SciTalkResourceCollection::VOCABULARY_NAME)
+      ->accessCheck(TRUE)
       //->range(0,1)
       ->execute();
 
@@ -387,6 +389,7 @@ class SciTalkResourceCollection extends ResourceBase {
    $taxonomy_query = \Drupal::entityQuery('taxonomy_term')
       ->condition('vid', SciTalkResourceCollection::VOCABULARY_NAME)
       ->condition('name', $collection_id, '=')
+      ->accessCheck(TRUE)
       ->range(0,1)
       ->execute();
 

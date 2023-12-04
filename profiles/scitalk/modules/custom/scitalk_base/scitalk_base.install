@@ -12,7 +12,7 @@ use Drupal\field\Entity\FieldConfig;
 *  and update other scitalk_base configs to enforce their dependency on scitalk_base module
 */
 function scitalk_base_update_8101(&$sandbox) {
-    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
     $source      = new FileStorage($config_path);
     
     //create TAXONOMY VOCABULARY Subjects
@@ -300,7 +300,7 @@ function scitalk_base_update_8101(&$sandbox) {
 *  Add Subject field for Collections and Series taxonomies
 */
 function scitalk_base_update_8102(&$sandbox) {
-    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
     $source      = new FileStorage($config_path);
 
     //add storage and field for "collection_subject"
@@ -452,7 +452,7 @@ function scitalk_base_update_8102(&$sandbox) {
 *  Add view for My Talks
 */
 function scitalk_base_update_8103(&$sandbox) {
-    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
     $source      = new FileStorage($config_path);
 
     $view_display = \Drupal::entityTypeManager()->getStorage('view');
@@ -474,7 +474,7 @@ function scitalk_base_update_8103(&$sandbox) {
     }
    
     //profile updates
-    $profile_config_path = drupal_get_path('profile', 'scitalk') . '/config/install';
+    $profile_config_path = \Drupal::service('extension.path.resolver')->getPath('profile', 'scitalk') . '/config/install';
     $source      = new FileStorage($profile_config_path);
     $system_actions = $source->listAll('system.action');
     $action_storage = \Drupal::entityTypeManager()->getStorage('action');
@@ -518,7 +518,7 @@ function scitalk_base_update_8103(&$sandbox) {
 *  Update view My Talks
 */
 function scitalk_base_update_8104(&$sandbox) {
-    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
     $source      = new FileStorage($config_path);
 
     $view_display = \Drupal::entityTypeManager()->getStorage('view');
@@ -536,7 +536,7 @@ function scitalk_base_update_8104(&$sandbox) {
 *  including renaming fields labels, adding new Institution Full Name field, updating existing Insitution field max length (Short Name)
 */
 function scitalk_base_update_8105(&$sandbox) {
-    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
     $source      = new FileStorage($config_path);
     
     //update description for source repository node type
@@ -692,7 +692,7 @@ function scitalk_base_update_8107(&$sandbox) {
 *  Add Embargo Date to Talks
 */
 function scitalk_base_update_8108(&$sandbox) {
-    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
     $source      = new FileStorage($config_path);
 
     //add Embargo Date field storage
@@ -779,7 +779,7 @@ function scitalk_base_update_8109(&$sandbox) {
     'field.storage.node.field_series_subject.yml',
   ];
   
-  $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+  $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
   $source = new FileStorage($config_path);
   $config_storage = \Drupal::service('config.storage');
   
@@ -811,7 +811,7 @@ function scitalk_base_update_8109(&$sandbox) {
 *  Add Duration to Talks
 */
 function scitalk_base_update_8110(&$sandbox) {
-    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
     $source      = new FileStorage($config_path);
 
     //add Duration field storage
@@ -843,7 +843,7 @@ function scitalk_base_update_8110(&$sandbox) {
 *  Add Location to Collection
 */
 function scitalk_base_update_8111(&$sandbox) {
-    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
     $source      = new FileStorage($config_path);
 
     //add collection Location field storage
@@ -875,7 +875,7 @@ function scitalk_base_update_8111(&$sandbox) {
 *  Add Collection's Number of Talks and Most recent Talk Date fields
 */
 function scitalk_base_update_8112(&$sandbox) {
-    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
     $source      = new FileStorage($config_path);
 
     //add collection Number of Talks field storage
@@ -931,7 +931,7 @@ function scitalk_base_update_8112(&$sandbox) {
 *  Add Collection's Number of Subcollections field
 */
 function scitalk_base_update_8113(&$sandbox) {
-    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
     $source      = new FileStorage($config_path);
 
     //add collection Number of Subcollections field storage
@@ -964,7 +964,7 @@ function scitalk_base_update_8113(&$sandbox) {
 *  Add Repository Talks Prefix field to Source Repository Group
 */
 function scitalk_base_update_8114(&$sandbox) {
-    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
     $source      = new FileStorage($config_path);
 
     //add FIELD STORAGE for Source Repository Prefix
@@ -998,7 +998,7 @@ function scitalk_base_update_8114(&$sandbox) {
 *  Add SciVideos UUID field
 */
 function scitalk_base_update_8115(&$sandbox) {
-    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
     $source      = new FileStorage($config_path);
 
     //add SciVideos UUID field storage
@@ -1097,7 +1097,7 @@ function scitalk_base_update_8116(&$sandbox) {
 *  Add Subjects pathauto pattern and update pathauto.settings to convert to lowercase
 */
 function scitalk_base_update_8117(&$sandbox) {
-    $config_path = drupal_get_path('module', 'scitalk_base') . '/config/install';
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
     $source      = new FileStorage($config_path);
 
     //set Convert token values to lowercase

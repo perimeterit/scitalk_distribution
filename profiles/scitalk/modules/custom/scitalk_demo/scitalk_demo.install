@@ -20,6 +20,7 @@ function scitalk_demo_install() {
 function scitalk_demo_uninstall() {
     $result = \Drupal::entityQuery("node")
     ->condition('uuid', ['79a2c470-e2db-461b-bd82-6b89bd74b061','b2d7977f-4e3e-4190-8ff4-00474c567c2e', '6fa7e659-1a6e-4992-8193-0cc55ab79672','d26d9386-c47e-4c27-8a95-e4950d937f3d', 'd6f9a028-b37f-4e3e-baa1-70565455098d'], 'IN')
+    ->accessCheck(TRUE)
     ->execute();
 
     $storage_handler = \Drupal::entityTypeManager()->getStorage("node");
@@ -52,6 +53,7 @@ function scitalk_demo_uninstall() {
     //For the taxonomy terms
     $result = \Drupal::entityQuery("taxonomy_term")
       ->condition('uuid', ['4e0c75bc-c3df-4677-a8f7-6631374cf154','c3adfe86-86cd-479a-a10d-e637af9b30d4', 'f4a60b73-cf2d-4e3f-a1c8-34b2dd33dfc3'], 'IN')
+      ->accessCheck(TRUE)
       ->execute();
 
     $storage_handler = \Drupal::entityTypeManager()->getStorage("taxonomy_term");
@@ -67,8 +69,9 @@ function scitalk_demo_uninstall() {
     if (!empty($media_ids))
     {
         \Drupal::logger('scitalk_demo')->notice('<pre><code>mediaIDS are ' . print_r($media_ids, TRUE) . '</code></pre>');
-         $media_result = \Drupal::entityQuery("media")
+        $media_result = \Drupal::entityQuery("media")
         ->condition('vid', $media_ids, 'IN')
+        ->accessCheck(TRUE)
         ->execute();
 
         $media_storage = \Drupal::entityTypeManager()->getStorage("media");
@@ -99,6 +102,7 @@ function scitalk_demo_uninstall() {
         \Drupal::logger('scitalk_demo')->notice('<pre><code>DEMO MEDIA file IDS ' . print_r($file_ids, TRUE) . '</code></pre>');
         $file_fids = \Drupal::entityQuery("file")
         ->condition('fid', $file_ids, 'IN')
+        ->accessCheck(TRUE)
         ->execute();
 
         $files_storage = \Drupal::entityTypeManager()->getStorage("file");
@@ -188,7 +192,7 @@ function scitalk_demo_create_demo_talks() {
 
 
     $video = file_get_contents(__DIR__ . '/media/BigBuckBunny_320x180.mp4');
-    $file = file_save_data($video, 'public://BigBuckBunny_320x180.mp4', FileSystemInterface::EXISTS_REPLACE);
+    $file = \Drupal::service('file.repository')->writeData($video, 'public://BigBuckBunny_320x180.mp4', FileSystemInterface::EXISTS_REPLACE);
 
     //create a media entity for the video to attach to the node below
     $image_media = Media::create([
@@ -266,10 +270,10 @@ function scitalk_demo_create_demo_talks() {
  */
 function scitalk_demo_create_demo_speaker_profiles() {
     $pythagoras = file_get_contents(__DIR__ . '/media/Pythagoras.jpg');
-    $pythagoras_file = file_save_data($pythagoras, 'public://Pythagoras.jpg', FileSystemInterface::EXISTS_REPLACE);
+    $pythagoras_file = \Drupal::service('file.repository')->writeData($pythagoras, 'public://Pythagoras.jpg', FileSystemInterface::EXISTS_REPLACE);
 
     $plato = file_get_contents(__DIR__ . '/media/Plato.jpg');
-    $plato_file = file_save_data($plato, 'public://Plato.jpg', FileSystemInterface::EXISTS_REPLACE);
+    $plato_file = \Drupal::service('file.repository')->writeData($plato, 'public://Plato.jpg', FileSystemInterface::EXISTS_REPLACE);
 
     $speakers = [
         [
