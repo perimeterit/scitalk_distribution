@@ -20,6 +20,17 @@ services:
   scitalk_base.talk_academic_year:
     class: Drupal\scitalk_base\ScitalkServices\TalkAcademicYear
 
+  scitalk_base.scivideos_integrate:
+    class: Drupal\scitalk_base\ScitalkServices\SciVideosIntegration
+    arguments:
+      [
+        "@entity_type.manager",
+        "@config.factory",
+        "@tempstore.private",
+        "@messenger",
+        "@date.formatter",
+      ]
+
   scitalk-base.feeds_alter_talks:
     class: Drupal\scitalk_base\EventSubscriber\FeedAlterTalks
     tags:
