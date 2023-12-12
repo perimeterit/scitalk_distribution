@@ -47,7 +47,7 @@
         "drupal/field_group": "^3.4",
         "drupal/field_permissions": "^1.2",
         "drupal/google_analytics": "^4.0",
-        "drupal/group": "^2.2",
+        "drupal/group": "^1.6",
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/jsonapi_extras": "^3.24",
         "drupal/libraries": "^4.0",
