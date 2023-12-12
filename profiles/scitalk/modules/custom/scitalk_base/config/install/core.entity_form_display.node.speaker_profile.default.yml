@@ -4,6 +4,8 @@ status: true
 dependencies:
   config:
     - field.field.node.speaker_profile.feeds_item
+    - field.field.node.speaker_profile.field_scivideos_uuid
+    - field.field.node.speaker_profile.field_sp_display_name
     - field.field.node.speaker_profile.field_sp_external_id
     - field.field.node.speaker_profile.field_sp_first_name
     - field.field.node.speaker_profile.field_sp_institution_name
@@ -32,7 +34,7 @@ third_party_settings:
       label: Speaker
       region: content
       parent_name: ''
-      weight: 1
+      weight: 0
       format_type: tabs
       format_settings:
         classes: ''
@@ -45,7 +47,6 @@ third_party_settings:
         - field_sp_first_name
         - field_sp_last_name
         - title
-        - field_sp_display_name
         - field_sp_institution_name
       label: Info
       region: content
@@ -95,7 +96,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: G2zn7kYjGjKBuO8QHMtNJPz4AS_h5yBXhW-PiNW7irw
+  default_config_hash: ilb-pd5sVZmTH6VSNDIAGh5zRFWRQ5Hk3BsqXLQB81w
 id: node.speaker_profile.default
 targetEntityType: node
 bundle: speaker_profile
@@ -103,7 +104,7 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 4
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -191,20 +192,20 @@ content:
     third_party_settings: {  }
   langcode:
     type: language_select
-    weight: 2
+    weight: 1
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
   path:
     type: path
-    weight: 5
+    weight: 4
     region: content
     settings: {  }
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 6
+    weight: 5
     region: content
     settings:
       display_label: true
@@ -219,7 +220,7 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 3
+    weight: 2
     region: content
     settings:
       match_operator: CONTAINS
@@ -229,5 +230,7 @@ content:
     third_party_settings: {  }
 hidden:
   feeds_item: true
+  field_scivideos_uuid: true
+  field_sp_display_name: true
   promote: true
   sticky: true
