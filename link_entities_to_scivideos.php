@@ -31,6 +31,7 @@ class LinkEntitiesToSciVideos {
         $types = [$entity_type];
         $query_count = \Drupal::entityQuery('node')
             ->condition('type', $types, 'IN')
+            ->accessCheck(TRUE)
             ->notExists('field_scivideos_uuid')
             ->condition('status', 1);
 
@@ -52,6 +53,7 @@ class LinkEntitiesToSciVideos {
         $query = \Drupal::entityQuery('node')
               ->condition('type', $types, 'IN')
               ->condition('status', 1)
+              ->accessCheck(TRUE)
               ->notExists('field_scivideos_uuid');
 
         if ($how_many > 0) {

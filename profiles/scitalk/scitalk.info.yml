@@ -12,6 +12,7 @@ install:
   - block
   - block_content
   - breakpoint
+  - ckeditor5
   - comment
   - config
   - config_update
