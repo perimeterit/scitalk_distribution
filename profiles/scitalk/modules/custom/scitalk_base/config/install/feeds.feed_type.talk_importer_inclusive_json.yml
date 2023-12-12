@@ -5,7 +5,6 @@ dependencies:
   config:
     - core.base_field_override.node.talk.title
     - field.field.node.talk.feeds_item
-    - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
     - field.field.node.talk.field_talk_abstract
     - field.field.node.talk.field_talk_attachments
@@ -32,7 +31,55 @@ dependencies:
     - node
 third_party_settings:
   feeds_tamper:
-    tampers: {  }
+    tampers:
+      b6e317c6-cd7d-491c-bf2f-738c97f272fa:
+        separator: ;
+        limit: null
+        uuid: b6e317c6-cd7d-491c-bf2f-738c97f272fa
+        plugin: explode
+        source: _keywords
+        weight: 0
+        label: Explode
+      61b02606-97c8-4466-8961-e5113a88ed64:
+        separator: ;
+        limit: null
+        uuid: 61b02606-97c8-4466-8961-e5113a88ed64
+        plugin: explode
+        source: _speaker_profiles
+        weight: 0
+        label: Explode
+      1b72d0b6-2926-4a30-a241-7e830e7ef98b:
+        separator: ;
+        limit: null
+        uuid: 1b72d0b6-2926-4a30-a241-7e830e7ef98b
+        plugin: explode
+        source: _scientific_area
+        weight: 0
+        label: Explode
+      03a40b04-687c-4823-93e2-5448641b19c7:
+        separator: ;
+        limit: null
+        uuid: 03a40b04-687c-4823-93e2-5448641b19c7
+        plugin: explode
+        source: _speakers
+        weight: 0
+        label: Explode
+      0332ce39-727a-4e2d-9903-ad8a5aa7eb05:
+        separator: ;
+        limit: null
+        uuid: 0332ce39-727a-4e2d-9903-ad8a5aa7eb05
+        plugin: explode
+        source: _subject
+        weight: 0
+        label: Explode
+      2c643a4f-df4f-4024-9d7c-9a74b728d1e1:
+        separator: ;
+        limit: null
+        uuid: 2c643a4f-df4f-4024-9d7c-9a74b728d1e1
+        plugin: explode
+        source: _collection
+        weight: 0
+        label: Explode
   feeds_log:
     status: true
     operations:
@@ -50,7 +97,7 @@ third_party_settings:
       failed: failed
     source: true
 _core:
-  default_config_hash: XkCRe02rHwVrkY_MtdZ9nxrK1J5BoeoqSG5mW51U1ac
+  default_config_hash: mzIj5cgl_p5ByNzsJiNvPOvHNpwhil6xqeiGKv-Ro6A
 label: 'Talk Importer - All-in-one (JSON)'
 id: talk_importer_inclusive_json
 description: 'Talk importer that can generate stubs for collections and speaker profiles (optional). Link to feed in JSON format'
@@ -222,13 +269,6 @@ mappings:
       language: null
     unique: {  }
   -
-    target: field_embargo_date
-    map:
-      value: _embargo_date
-    settings:
-      language: null
-      timezone: UTC
-  -
     target: field_talk_keywords
     map:
       target_id: _keywords
@@ -284,7 +324,7 @@ mappings:
     settings:
       language: ''
       reference_by: name
-      autocreate: '1'
+      autocreate: 0
       autocreate_bundle: subjects
   -
     target: field_talk_number
@@ -312,7 +352,7 @@ mappings:
     settings:
       language: ''
       reference_by: name
-      autocreate: '1'
+      autocreate: 0
       autocreate_bundle: talk_type
   -
     target: field_talk_video
