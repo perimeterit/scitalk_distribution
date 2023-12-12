@@ -5,6 +5,8 @@ dependencies:
   config:
     - core.entity_form_mode.node.embedded
     - field.field.node.speaker_profile.feeds_item
+    - field.field.node.speaker_profile.field_scivideos_uuid
+    - field.field.node.speaker_profile.field_sp_display_name
     - field.field.node.speaker_profile.field_sp_external_id
     - field.field.node.speaker_profile.field_sp_first_name
     - field.field.node.speaker_profile.field_sp_institution_name
@@ -44,8 +46,9 @@ third_party_settings:
       children:
         - field_sp_first_name
         - field_sp_last_name
-        - field_sp_display_name
+        - title
         - field_sp_institution_name
+        - field_sp_display_name
       label: Info
       region: content
       parent_name: group_speaker
@@ -94,7 +97,7 @@ third_party_settings:
         description: ''
         required_fields: true
 _core:
-  default_config_hash: 7vg4LEB01ZnWk1uwd9DDtx-KvM38KqFQulyglOwfezY
+  default_config_hash: AI_K2UD1Z38tcsGeM2ImVpPk1fyAZ00OneejBnfHXf4
 id: node.speaker_profile.embedded
 targetEntityType: node
 bundle: speaker_profile
@@ -184,7 +187,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 0
+    weight: 4
     region: content
     settings:
       size: 60
@@ -193,6 +196,8 @@ content:
 hidden:
   created: true
   feeds_item: true
+  field_scivideos_uuid: true
+  field_sp_display_name: true
   langcode: true
   path: true
   promote: true

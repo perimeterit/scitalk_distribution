@@ -8,6 +8,7 @@ dependencies:
     - field.field.node.talk.field_academic_year
     - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
+    - field.field.node.talk.field_scivideos_uuid
     - field.field.node.talk.field_talk_abstract
     - field.field.node.talk.field_talk_attachments
     - field.field.node.talk.field_talk_collection
@@ -48,7 +49,7 @@ third_party_settings:
       label: Resources
       parent_name: ''
       region: content
-      weight: 8
+      weight: 9
       format_type: html_element
       format_settings:
         classes: ''
@@ -82,11 +83,30 @@ third_party_settings:
         speed: fast
     group_taxonomy:
       children:
-        - field_talk_source_repository
-        - field_talk_collection
         - field_talk_type
         - field_talk_subject
       label: Taxonomy
+      parent_name: ''
+      region: content
+      weight: 7
+      format_type: html_element
+      format_settings:
+        classes: group-taxonomy
+        show_empty_fields: false
+        id: ''
+        element: div
+        show_label: false
+        label_element: h3
+        label_element_classes: ''
+        attributes: ''
+        effect: none
+        speed: fast
+    group_source:
+      children:
+        - field_talk_source_repository
+        - field_talk_source_event
+        - field_talk_collection
+      label: Source
       parent_name: ''
       region: content
       weight: 6
@@ -106,7 +126,7 @@ third_party_settings:
     enabled: false
     allow_custom: false
 _core:
-  default_config_hash: F_Xqqrqlwp909-f1hLY6vKo7NhdOTTGOLcggGndt0NA
+  default_config_hash: mpVQSM_T55D_aYGmRkKSD_xzi5pXfP25Cf6j_b9dxJA
 id: node.talk.full
 targetEntityType: node
 bundle: talk
@@ -124,7 +144,7 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: h2
         fences_label_classes: ''
-    weight: 7
+    weight: 8
     region: content
   field_talk_attachments:
     type: entity_reference_entity_view
@@ -155,7 +175,7 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    weight: 6
+    weight: 7
     region: content
   field_talk_date:
     type: datetime_default
@@ -203,10 +223,17 @@ content:
       trim_length: 80
       url_only: false
       url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    weight: 9
+      rel: '0'
+      target: '0'
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
+    weight: 6
     region: content
   field_talk_source_repository:
     type: entity_reference_label
@@ -266,7 +293,7 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    weight: 8
+    weight: 9
     region: content
   field_talk_type:
     type: entity_reference_label
@@ -281,7 +308,7 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    weight: 7
+    weight: 8
     region: content
   field_talk_video:
     type: entity_reference_entity_view
@@ -323,6 +350,7 @@ hidden:
   field_academic_year: true
   field_embargo_date: true
   field_scientific_area: true
+  field_scivideos_uuid: true
   field_talk_duration: true
   field_talk_keywords: true
   field_talk_location: true
@@ -330,4 +358,5 @@ hidden:
   field_talk_viewable_online: true
   langcode: true
   links: true
+  scitalk_prefixed_talk_number: true
   search_api_excerpt: true

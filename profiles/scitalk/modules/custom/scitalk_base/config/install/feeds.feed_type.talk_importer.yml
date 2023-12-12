@@ -6,7 +6,6 @@ dependencies:
     - core.base_field_override.node.talk.title
     - field.field.node.talk.feeds_item
     - field.field.node.talk.field_academic_year
-    - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
     - field.field.node.talk.field_talk_abstract
     - field.field.node.talk.field_talk_attachments
@@ -51,7 +50,7 @@ third_party_settings:
   feeds_tamper:
     tampers:
       e6a0eecf-d201-4ebf-9c26-9954e13f888b:
-        separator: ','
+        separator: ;
         limit: null
         uuid: e6a0eecf-d201-4ebf-9c26-9954e13f888b
         plugin: explode
@@ -59,7 +58,7 @@ third_party_settings:
         weight: 0
         label: Explode
       198c912d-316f-4f6e-8d42-8ecaecace046:
-        separator: ','
+        separator: ;
         limit: null
         uuid: 198c912d-316f-4f6e-8d42-8ecaecace046
         plugin: explode
@@ -67,7 +66,7 @@ third_party_settings:
         weight: 0
         label: Explode
       8fe46b9f-a2c1-4bfd-87ae-3bffb7edaaec:
-        separator: ','
+        separator: ;
         limit: null
         uuid: 8fe46b9f-a2c1-4bfd-87ae-3bffb7edaaec
         plugin: explode
@@ -75,7 +74,7 @@ third_party_settings:
         weight: 0
         label: Explode
       312397e6-0413-48f5-8053-b67f5787d169:
-        separator: ','
+        separator: ;
         limit: null
         uuid: 312397e6-0413-48f5-8053-b67f5787d169
         plugin: explode
@@ -89,13 +88,10 @@ id: talk_importer
 description: 'An importer that can generate a talk'
 help: ''
 import_period: 86400
-fetcher: http
+fetcher: upload
 fetcher_configuration:
-  auto_detect_feeds: false
-  use_pubsubhubbub: false
-  always_download: false
-  fallback_hub: ''
-  request_timeout: 30
+  allowed_extensions: 'txt csv tsv xml opml json'
+  directory: 'public://feeds'
 parser: jsonpath
 parser_configuration:
   context:
@@ -230,9 +226,9 @@ mappings:
       target_id: _attachments
     settings:
       language: ''
-      reference_by: name
+      reference_by: mid
       autocreate: 1
-      autocreate_bundle: remote_file
+      autocreate_bundle: file
   -
     target: title
     map:
@@ -254,13 +250,6 @@ mappings:
     settings:
       language: null
     unique: {  }
-  -
-    target: field_embargo_date
-    map:
-      value: _embargo_date
-    settings:
-      language: null
-      timezone: UTC
   -
     target: field_talk_keywords
     map:
@@ -315,9 +304,9 @@ mappings:
     map:
       target_id: _subject
     settings:
-      language: null
+      language: ''
       reference_by: name
-      autocreate: '1'
+      autocreate: 0
       autocreate_bundle: subjects
   -
     target: field_talk_number
@@ -331,7 +320,7 @@ mappings:
     map:
       target_id: _talk_thumbnail
       alt: _title
-      title: _title
+      title: ''
     settings:
       language: ''
       reference_by: fid
@@ -345,7 +334,7 @@ mappings:
     settings:
       language: ''
       reference_by: name
-      autocreate: '1'
+      autocreate: 0
       autocreate_bundle: talk_type
   -
     target: field_talk_video
@@ -379,7 +368,7 @@ mappings:
       language: ''
       reference_by: title
       feeds_item: guid
-      autocreate: 1
+      autocreate: 0
       autocreate_bundle: collection
   -
     target: field_academic_year

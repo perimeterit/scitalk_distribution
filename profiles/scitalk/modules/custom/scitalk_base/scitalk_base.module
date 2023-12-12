@@ -343,6 +343,12 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
     $form['#attached']['library'][] = 'scitalk_base/speaker_autofill';
   }
 
+  // Alter speaker profile form to add help text to the display name (title) field
+  if (($form_id == 'node_speaker_profile_form') ||
+      ($form_id == 'node_speaker_profile_edit_form')) {
+    $form['title']['widget'][0]['value']['#description'] = t('Name to be used for display on the site. May be different from first name + last name.  This name will be used for display across the site and as the title for the Speaker page.');
+  }
+
   // Alter views exposed form
   if($form_id == 'views_exposed_form') {
 

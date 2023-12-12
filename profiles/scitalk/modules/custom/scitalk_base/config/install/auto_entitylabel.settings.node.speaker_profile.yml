@@ -1,4 +1,6 @@
-status: 1
+_core:
+  default_config_hash: PrRjGtsfKTIRwHQweAVSicb3PHJ9YE1e_OzG3hOyaqA
+status: 0
 pattern: '[node:field_sp_display_name] '
 escape: false
 preserve_titles: false
