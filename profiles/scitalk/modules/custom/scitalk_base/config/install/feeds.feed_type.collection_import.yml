@@ -19,12 +19,12 @@ dependencies:
     - feeds_ex
     - node
 _core:
-  default_config_hash: suu_yIr0GwNoJ4bipXbv9kC8JablFmR_NY0nayY4sQA
+  default_config_hash: Vkryk48Z-rEyYOonsSuEQtXP6Jt61u9Be-5qo_1e6VY
 label: 'Collection Import'
 id: collection_import
 description: 'Import configuration for Collection'
 help: ''
-import_period: -1
+import_period: 86400
 fetcher: http
 fetcher_configuration:
   auto_detect_feeds: false
@@ -55,14 +55,6 @@ processor_configuration:
   owner_feed_author: false
   owner_id: 1
 custom_sources:
-  _collection_date_0_:
-    value: '$.collection_date[0]'
-    label: '$.collection_date[0]'
-    machine_name: _collection_date_0_
-  _collection_date_1_:
-    value: '$.collection_date[1]'
-    label: '$.collection_date[1]'
-    machine_name: _collection_date_1_
   _collection_number:
     value: $.collection_number
     label: $.collection_number
@@ -91,22 +83,14 @@ custom_sources:
     value: $.event_url
     label: $.event_url
     machine_name: _event_url
-  _event_url_2:
+  _event_link_name:
     value: $.event_url
     label: $.event_url
-    machine_name: _event_url_2
+    machine_name: _event_link_name
   _subject:
     value: $.subject
     label: $.subject
     machine_name: _subject
-  _collection_date_start_:
-    value: '$.collection_date[''start'']'
-    label: '$.collection_date[''start'']'
-    machine_name: _collection_date_start_
-  _collection_date_end_:
-    value: '$.collection_date[''end'']'
-    label: '$.collection_date[''end'']'
-    machine_name: _collection_date_end_
   prefixed_talk_number:
     value: prefixed_talk_number
     label: prefixed_talk_number
@@ -117,12 +101,20 @@ custom_sources:
     label: source_group
     machine_name: source_group
     type: blank
+  _start_date:
+    value: $.start_date
+    label: $.start_date
+    machine_name: _start_date
+  _end_date:
+    value: $.end_date
+    label: $.end_date
+    machine_name: _end_date
 mappings:
   -
     target: field_collection_date
     map:
-      value: _collection_date_start_
-      end_value: _collection_date_end_
+      value: _start_date
+      end_value: _end_date
     settings:
       language: null
       timezone: UTC
@@ -162,13 +154,13 @@ mappings:
   -
     target: field_collection_public_viewable
     map:
-      value: _viewable
+      value: _short_description
     settings:
       language: null
   -
     target: field_collection_short_desc
     map:
-      value: _short_description
+      value: _event_url
     settings:
       language: null
       format: plain_text
@@ -176,7 +168,7 @@ mappings:
     target: field_collection_event_url
     map:
       uri: _event_url
-      title: _event_url_2
+      title: _event_link_name
     settings:
       language: null
   -
@@ -192,7 +184,7 @@ mappings:
     target: feeds_item
     map:
       url: ''
-      guid: prefixed_talk_number
+      guid: source_group
     settings: {  }
     unique: {  }
   -
