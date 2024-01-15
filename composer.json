@@ -95,7 +95,8 @@
             "drupal/core-composer-scaffold": true,
             "oomphinc/composer-installers-extender": true,
             "drupal/core-project-message": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "php-http/discovery": true
         }
     },
     "autoload": {
@@ -153,9 +154,6 @@
                   "Issue #3336312: TypeError: Cannot access offset of type string on string" : "https://www.drupal.org/files/issues/2023-06-14/3336312.patch",
                   "Issue #2928639: Set the expiration of a key/value pair from the PrivateTempStore" : "https://www.drupal.org/files/issues/2021-07-27/2928639-26.patch",
                   "Issue #3358586: RuntimeException: Adding non-existent permissions to a role is not allowed" : "https://www.drupal.org/files/issues/2023-09-14/3358586-11.patch"
-                },
-                "drupal/group": {
-                  "Issue #3174615: Service is missing even though module is enabled": "https://www.drupal.org/files/issues/2023-10-20/service-is-missing-even-though-module-is-enabled--3330913--21.patch"
                 },
                 "drupal/simple_oauth": {
                   "TypeError: Argument 1 passed to Drupal\\simple_oauth\\Repositories\\ScopeRepository::scopeFactory() must implement interface Drupal\\user\\RoleInterface" : "https://www.drupal.org/files/issues/2019-02-12/3032371-3.patch"
