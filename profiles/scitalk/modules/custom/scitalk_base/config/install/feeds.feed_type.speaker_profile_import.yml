@@ -14,9 +14,11 @@ dependencies:
     - field.field.node.speaker_profile.field_sp_username
     - field.field.node.speaker_profile.field_sp_web_profile_url
     - node.type.speaker_profile
+  enforced:
+    module:
+    - feeds_log
   module:
     - feeds_ex
-    - feeds_log
     - node
 third_party_settings:
   feeds_log:
