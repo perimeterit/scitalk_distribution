@@ -25,7 +25,6 @@ dependencies:
     - field.field.node.talk.field_talk_video_url
     - node.type.talk
   module:
-    - feeds_log
     - feeds_tamper
     - node
 third_party_settings:
@@ -95,24 +94,6 @@ third_party_settings:
         source: _speaker_profiles
         weight: -10
         label: 'Set value or default value'
-  feeds_log:
-    status: true
-    operations:
-      created: created
-      updated: updated
-      deleted: deleted
-      skipped: skipped
-      failed: failed
-      cleaned: cleaned
-    items:
-      created: created
-      updated: updated
-      deleted: deleted
-      skipped: skipped
-      failed: failed
-    source: true
-_core:
-  default_config_hash: kGcr4-R8SskGSQtL0t6mNa4HC6yP52wWJncmXCbCkAY
 label: 'Talk Importer - All-in-one (CSV)'
 id: talk_importer_inclusive_csv
 description: 'Talk importer that can generate stubs for collections and speaker profiles (optional). Upload data in CSV format'

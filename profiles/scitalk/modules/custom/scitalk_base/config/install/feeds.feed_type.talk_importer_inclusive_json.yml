@@ -26,7 +26,6 @@ dependencies:
     - node.type.talk
   module:
     - feeds_ex
-    - feeds_log
     - feeds_tamper
     - node
 third_party_settings:
@@ -80,24 +79,6 @@ third_party_settings:
         source: _collection
         weight: 0
         label: Explode
-  feeds_log:
-    status: true
-    operations:
-      created: created
-      updated: updated
-      deleted: deleted
-      skipped: skipped
-      failed: failed
-      cleaned: cleaned
-    items:
-      created: created
-      updated: updated
-      deleted: deleted
-      skipped: skipped
-      failed: failed
-    source: true
-_core:
-  default_config_hash: mzIj5cgl_p5ByNzsJiNvPOvHNpwhil6xqeiGKv-Ro6A
 label: 'Talk Importer - All-in-one (JSON)'
 id: talk_importer_inclusive_json
 description: 'Talk importer that can generate stubs for collections and speaker profiles (optional). Link to feed in JSON format'

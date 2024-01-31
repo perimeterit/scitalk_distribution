@@ -21,6 +21,7 @@ dependencies:
   - date_all_day
   - jsonapi_extras
   - feeds:feeds
+  - feeds:feeds_log
   - feeds_ex:feeds_ex
   - feeds_tamper:feeds_tamper
   - field_persmission:field_permissions
