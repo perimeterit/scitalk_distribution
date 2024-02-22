@@ -21,7 +21,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: Frv04VfhaWGZLtCENnuRVTcqcGLQSXPZGT3TQgmCVNs
+  default_config_hash: LbZfHBvbK-laiXw45ZKpZv_M3lXaUbjlbeMplUFPjAk
 id: scitalk_source_catch_up
 label: 'Scitalk: Source Catch Up'
 module: views
@@ -1121,14 +1121,14 @@ display:
           hierarchy: false
           limit: true
           error_message: true
-        field_talk_source:
-          id: field_talk_source
+        talk_source_id:
+          id: talk_source_id
           table: search_api_index_default_talks_index
-          field: field_talk_source
+          field: talk_source_id
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: search_api_text
+          plugin_id: search_api_numeric
           operator: '='
           value:
             min: ''
@@ -1137,11 +1137,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_talk_source_op
-            label: Source
+            operator_id: talk_source_id_op
+            label: 'Talk Source > id'
             description: ''
             use_operator: false
-            operator: field_talk_source_op
+            operator: talk_source_id_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: catch_up_source
