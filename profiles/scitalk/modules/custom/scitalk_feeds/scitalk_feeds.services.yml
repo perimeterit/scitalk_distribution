@@ -1,0 +1,4 @@
+scitalk-base.feeds_alter_talks:
+  class: Drupal\scitalk_base\EventSubscriber\FeedAlterTalks
+  tags:
+    - { name: event_subscriber }

@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.collection.feeds_item
     - field.field.node.collection.field_academic_year
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
@@ -37,32 +36,32 @@ content:
     type: daterange_all_day_default
     label: hidden
     settings:
-      timezone_override: ''
+      timezone_override: ""
       format_type: medium
-      separator: '-'
+      separator: "-"
       date_only_format: medium
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 1
     region: content
   field_collection_description:
     type: text_default
     label: hidden
-    settings: {  }
+    settings: {}
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 3
     region: content
   field_collection_number:
@@ -73,39 +72,39 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 2
     region: content
   field_collection_number_children:
     type: number_unformatted
     label: hidden
-    settings: {  }
+    settings: {}
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: div
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 6
     region: content
   field_collection_number_of_talks:
     type: number_unformatted
     label: hidden
-    settings: {  }
+    settings: {}
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: div
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 5
     region: content
   field_collection_source_repo:
@@ -116,11 +115,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 4
     region: content
   field_parent_collection:
@@ -131,15 +130,14 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: p
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: none
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 0
     region: content
 hidden:
-  feeds_item: true
   field_academic_year: true
   field_collection_event_url: true
   field_collection_last_talk_date: true

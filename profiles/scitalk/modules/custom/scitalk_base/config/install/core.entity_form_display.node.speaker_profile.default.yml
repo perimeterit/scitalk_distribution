@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.speaker_profile.feeds_item
     - field.field.node.speaker_profile.field_scivideos_uuid
     - field.field.node.speaker_profile.field_sp_display_name
     - field.field.node.speaker_profile.field_sp_external_id
@@ -33,13 +32,13 @@ third_party_settings:
         - group_ids
       label: Speaker
       region: content
-      parent_name: ''
+      parent_name: ""
       weight: 0
       format_type: tabs
       format_settings:
-        classes: ''
+        classes: ""
         show_empty_fields: false
-        id: ''
+        id: ""
         direction: horizontal
         width_breakpoint: 640
     group_speaker_info:
@@ -54,11 +53,11 @@ third_party_settings:
       weight: 18
       format_type: tab
       format_settings:
-        classes: ''
+        classes: ""
         show_empty_fields: false
-        id: ''
+        id: ""
         formatter: closed
-        description: ''
+        description: ""
         required_fields: true
     group_profile:
       children:
@@ -71,11 +70,11 @@ third_party_settings:
       weight: 19
       format_type: tab
       format_settings:
-        classes: ''
+        classes: ""
         show_empty_fields: false
-        id: ''
+        id: ""
         formatter: closed
-        description: ''
+        description: ""
         required_fields: true
     group_ids:
       children:
@@ -89,11 +88,11 @@ third_party_settings:
       weight: 20
       format_type: tab
       format_settings:
-        classes: ''
+        classes: ""
         show_empty_fields: false
-        id: ''
+        id: ""
         formatter: closed
-        description: ''
+        description: ""
         required_fields: true
 _core:
   default_config_hash: ilb-pd5sVZmTH6VSNDIAGh5zRFWRQ5Hk3BsqXLQB81w
@@ -106,40 +105,40 @@ content:
     type: datetime_timestamp
     weight: 3
     region: content
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
   field_sp_external_id:
     type: string_textfield
     weight: 7
     region: content
     settings:
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
   field_sp_first_name:
     type: string_textfield
     weight: 2
     region: content
     settings:
       size: 30
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
   field_sp_institution_name:
     type: string_textfield
     weight: 6
     region: content
     settings:
       size: 40
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
   field_sp_last_name:
     type: string_textfield
     weight: 3
     region: content
     settings:
       size: 30
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
   field_sp_linked_user:
     type: entity_reference_autocomplete
     weight: 4
@@ -148,16 +147,16 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
   field_sp_orcid_id:
     type: string_textfield
     weight: 6
     region: content
     settings:
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
   field_sp_profile_thumbnail:
     type: image_image
     weight: 5
@@ -165,59 +164,59 @@ content:
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
-    third_party_settings: {  }
+    third_party_settings: {}
   field_sp_speaker_profile:
     type: text_textarea
     weight: 6
     region: content
     settings:
       rows: 5
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
   field_sp_username:
     type: string_textfield
     weight: 5
     region: content
     settings:
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
   field_sp_web_profile_url:
     type: link_default
     weight: 7
     region: content
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
+      placeholder_url: ""
+      placeholder_title: ""
+    third_party_settings: {}
   langcode:
     type: language_select
     weight: 1
     region: content
     settings:
       include_locked: true
-    third_party_settings: {  }
+    third_party_settings: {}
   path:
     type: path
     weight: 4
     region: content
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
   status:
     type: boolean_checkbox
     weight: 5
     region: content
     settings:
       display_label: true
-    third_party_settings: {  }
+    third_party_settings: {}
   title:
     type: string_textfield
     weight: 4
     region: content
     settings:
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
   uid:
     type: entity_reference_autocomplete
     weight: 2
@@ -226,10 +225,9 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
 hidden:
-  feeds_item: true
   field_scivideos_uuid: true
   field_sp_display_name: true
   promote: true

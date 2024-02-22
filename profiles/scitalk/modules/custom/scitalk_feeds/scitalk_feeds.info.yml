@@ -1,0 +1,10 @@
+name: Scitalk Feeds
+type: module
+description: Provides functionality to import content via Feeds
+package: Scitalk
+core_version_requirement: ^9 || ^10
+dependencies:
+  - scitalk_groups
+  - feeds:feeds
+  - feeds_ex:feeds_ex
+  - feeds_tamper:feeds_tamper

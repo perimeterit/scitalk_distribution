@@ -4,7 +4,6 @@ status: false
 dependencies:
   config:
     - core.entity_view_mode.node.horizontal_card
-    - field.field.node.collection.feeds_item
     - field.field.node.collection.field_academic_year
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
@@ -42,18 +41,18 @@ content:
     type: daterange_all_day_default
     label: hidden
     settings:
-      timezone_override: ''
+      timezone_override: ""
       format_type: medium
-      separator: '-'
+      separator: "-"
       date_only_format: medium
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 0
     region: content
   field_collection_number:
@@ -64,11 +63,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 3
     region: content
   field_collection_organizers:
@@ -79,11 +78,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 2
     region: content
   field_collection_type:
@@ -94,20 +93,19 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 1
     region: content
   links:
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
     weight: 4
     region: content
 hidden:
-  feeds_item: true
   field_academic_year: true
   field_collection_description: true
   field_collection_event_url: true

@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.thumbnail
-    - field.field.node.talk.feeds_item
     - field.field.node.talk.field_academic_year
     - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
@@ -43,35 +42,35 @@ third_party_settings:
       children:
         - field_talk_attachments
       label: Resources
-      parent_name: ''
+      parent_name: ""
       region: hidden
       weight: 24
       format_type: html_element
       format_settings:
-        classes: ''
-        id: ''
+        classes: ""
+        id: ""
         element: div
         show_label: true
         label_element: h2
-        label_element_classes: ''
-        attributes: ''
+        label_element_classes: ""
+        attributes: ""
         effect: none
         speed: fast
     group_talk_details:
-      children: {  }
+      children: {}
       label: Details
-      parent_name: ''
+      parent_name: ""
       region: hidden
       weight: 23
       format_type: html_element
       format_settings:
-        classes: ''
-        id: ''
+        classes: ""
+        id: ""
         element: div
         show_label: true
         label_element: h2
-        label_element_classes: ''
-        attributes: ''
+        label_element_classes: ""
+        attributes: ""
         effect: none
         speed: fast
   layout_builder:
@@ -93,15 +92,14 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: figure
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: div
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 0
     region: content
 hidden:
-  feeds_item: true
   field_academic_year: true
   field_embargo_date: true
   field_scientific_area: true

@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.page_header
-    - field.field.node.speaker_profile.feeds_item
     - field.field.node.speaker_profile.field_sp_external_id
     - field.field.node.speaker_profile.field_sp_first_name
     - field.field.node.speaker_profile.field_sp_institution_name
@@ -19,7 +18,7 @@ dependencies:
   module:
     - user
 _core:
-  default_config_hash: '-SQnRt_mT9_YtugHDzCmb_U1eG9KfAt19eR3hd--Vas'
+  default_config_hash: "-SQnRt_mT9_YtugHDzCmb_U1eG9KfAt19eR3hd--Vas"
 id: node.speaker_profile.page_header
 targetEntityType: node
 bundle: speaker_profile
@@ -33,15 +32,14 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: p
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: div
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 0
     region: content
 hidden:
-  feeds_item: true
   field_sp_external_id: true
   field_sp_first_name: true
   field_sp_last_name: true

@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.full
-    - field.field.node.talk.feeds_item
     - field.field.node.talk.field_academic_year
     - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
@@ -47,18 +46,18 @@ third_party_settings:
       children:
         - field_talk_attachments
       label: Resources
-      parent_name: ''
+      parent_name: ""
       region: content
       weight: 9
       format_type: html_element
       format_settings:
-        classes: ''
-        id: ''
+        classes: ""
+        id: ""
         element: div
         show_label: true
         label_element: h2
-        label_element_classes: ''
-        attributes: ''
+        label_element_classes: ""
+        attributes: ""
         effect: none
         speed: fast
     group_talk_details:
@@ -66,19 +65,19 @@ third_party_settings:
         - field_talk_date
         - field_talk_doi
       label: Details
-      parent_name: ''
+      parent_name: ""
       region: content
       weight: 5
       format_type: html_element
       format_settings:
         classes: info
         show_empty_fields: false
-        id: ''
+        id: ""
         element: div
         show_label: false
         label_element: h2
-        label_element_classes: ''
-        attributes: ''
+        label_element_classes: ""
+        attributes: ""
         effect: none
         speed: fast
     group_taxonomy:
@@ -86,19 +85,19 @@ third_party_settings:
         - field_talk_type
         - field_talk_subject
       label: Taxonomy
-      parent_name: ''
+      parent_name: ""
       region: content
       weight: 7
       format_type: html_element
       format_settings:
         classes: group-taxonomy
         show_empty_fields: false
-        id: ''
+        id: ""
         element: div
         show_label: false
         label_element: h3
-        label_element_classes: ''
-        attributes: ''
+        label_element_classes: ""
+        attributes: ""
         effect: none
         speed: fast
     group_source:
@@ -107,19 +106,19 @@ third_party_settings:
         - field_talk_source_event
         - field_talk_collection
       label: Source
-      parent_name: ''
+      parent_name: ""
       region: content
       weight: 6
       format_type: html_element
       format_settings:
         classes: group-taxonomy
         show_empty_fields: false
-        id: ''
+        id: ""
         element: div
         show_label: false
         label_element: h3
-        label_element_classes: ''
-        attributes: ''
+        label_element_classes: ""
+        attributes: ""
         effect: none
         speed: fast
   layout_builder:
@@ -135,15 +134,15 @@ content:
   field_talk_abstract:
     type: text_default
     label: above
-    settings: {  }
+    settings: {}
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: h2
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 8
     region: content
   field_talk_attachments:
@@ -157,9 +156,9 @@ content:
         fences_field_tag: ul
         fences_field_classes: display-list
         fences_field_item_tag: li
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: div
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 20
     region: content
   field_talk_collection:
@@ -172,33 +171,33 @@ content:
         fences_field_tag: ul
         fences_field_classes: display-list
         fences_field_item_tag: li
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 7
     region: content
   field_talk_date:
     type: datetime_default
     label: hidden
     settings:
-      timezone_override: ''
+      timezone_override: ""
       format_type: medium
-    third_party_settings: {  }
+    third_party_settings: {}
     weight: 4
     region: content
   field_talk_doi:
     type: id_url_formatter
     label: inline
     settings:
-      id_base_url: 'https://doi.org/'
+      id_base_url: "https://doi.org/"
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 6
     region: content
   field_talk_number:
@@ -209,11 +208,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 0
     region: content
   field_talk_source_event:
@@ -223,16 +222,16 @@ content:
       trim_length: 80
       url_only: false
       url_plain: false
-      rel: '0'
-      target: '0'
+      rel: "0"
+      target: "0"
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 6
     region: content
   field_talk_source_repository:
@@ -243,11 +242,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 5
     region: content
   field_talk_speaker_profile:
@@ -258,11 +257,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: span
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 3
     region: content
   field_talk_speakers_text:
@@ -273,11 +272,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: span
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 4
     region: content
   field_talk_subject:
@@ -288,11 +287,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: ul
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: li
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 9
     region: content
   field_talk_type:
@@ -303,11 +302,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: span
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 8
     region: content
   field_talk_video:
@@ -319,11 +318,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: div
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 1
     region: content
   field_talk_video_url:
@@ -333,20 +332,19 @@ content:
       trim_length: 100
       url_only: false
       url_plain: false
-      rel: '0'
-      target: '0'
+      rel: "0"
+      target: "0"
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: h2
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 2
     region: content
 hidden:
-  feeds_item: true
   field_academic_year: true
   field_embargo_date: true
   field_scientific_area: true
