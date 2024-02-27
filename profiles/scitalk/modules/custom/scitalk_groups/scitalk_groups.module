@@ -6,34 +6,31 @@
  */
 
 use Drupal\Core\Access\AccessResult;
-use \Drupal\Core\Field\BaseFieldDefinition;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\group\Entity\Group;
 use Drupal\views\ViewExecutable;
-use Drupal\node\Entity\Node;
-use Drupal\Core\Link;
 use Drupal\Core\Url;
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Cache\CacheableMetadata;
 
-  /**
-   * Custom function to get the logged-in user's first group
-   */
-  function _scitalk_groups_get_first_group() {
-    $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
-    if (!empty($user)) {
-      $groupMembershipService = \Drupal::service('group.membership_loader');
-      $userGroups = $groupMembershipService->loadByUser($user);
-      if (!empty($userGroups)) {
-        foreach ($userGroups as $grp) {
-          $groups[] = $grp->getGroup();
-          break;
-        }
-        $user_group_id = $groups[0]->id();
-        return $user_group_id;
+/**
+ * Custom function to get the logged-in user's first group
+ */
+function _scitalk_groups_get_first_group() {
+  $user = \Drupal\user\Entity\User::load(\Drupal::currentUser()->id());
+  if (!empty($user)) {
+    $groupMembershipService = \Drupal::service('group.membership_loader');
+    $userGroups = $groupMembershipService->loadByUser($user);
+    if (!empty($userGroups)) {
+      foreach ($userGroups as $grp) {
+        $groups[] = $grp->getGroup();
+        break;
       }
+      $user_group_id = $groups[0]->id();
+      return $user_group_id;
     }
   }
+}
 
 /**
  * Implements hook_preprocess_HOOK().
@@ -48,7 +45,7 @@ function scitalk_groups_preprocess_html(&$variables) {
   //  Alter html page title on Group node admin page (changes "nodes" to "content")
   if ($route == 'view.group_nodes.page_1') {
     $group_label = $params->get('group')->get('label')[0]->get('value')->getString();
-    $variables['head_title'] =  $group_label . ' ' . t('content');
+    $variables['head_title'] = $group_label . ' ' . t('content');
   }
 
   // And on the group node create pages
@@ -65,7 +62,7 @@ function scitalk_groups_preprocess_html(&$variables) {
     $group_label = $params->get('group')->get('label')[0]->get('value')->getString();
 
     // Set the page title to the group label plus the content type label
-    $variables['head_title'] =$group_label . ': ' .  t('Create ') . $content_type_label;
+    $variables['head_title'] = $group_label . ': ' . t('Create ') . $content_type_label;
   }
 }
 
@@ -97,7 +94,7 @@ function scitalk_groups_preprocess_page_title(&$variables) {
     $group_label = $params->get('group')->get('label')[0]->get('value')->getString();
 
     // Set the page title to the group label plus the content type label
-    $variables['title'] = $group_label . ': ' .  t('Create ') . $content_type_label;
+    $variables['title'] = $group_label . ': ' . t('Create ') . $content_type_label;
 
   }
 }
@@ -122,7 +119,7 @@ function scitalk_groups_menu_local_actions_alter(&$local_actions) {
   unset($local_actions['group_content.group_node_relate_page']);
 
   // Add local action with link to add content of content type talk
-  $types = array('talk','collection', 'speaker_profile');
+  $types = array('talk', 'collection', 'speaker_profile');
 
   foreach ($types as $type) {
     // Get the name of the content type from the machine name.
@@ -138,23 +135,13 @@ function scitalk_groups_menu_local_actions_alter(&$local_actions) {
       'weight' => 0,
       'route_name' => 'entity.group_content.create_form',
       'route_parameters' => ['plugin_id' => 'group_node:' . $type],
-      'options'=> '',
+      'options' => '',
       'appears_on' => ['view.group_nodes.page_1'],
       'class' => 'Drupal\Core\Menu\LocalActionDefault'
     ];
 
   }
 
-  // Add link to the group feeds page from here.
-  $local_actions['group_feeds'] = [
-    'id' => 'group_feeds',
-    'title' => t('Edit Content Feeds '),
-    'weight' => 0,
-    'route_name' => 'view.group_feeds.page_1',
-    'options'=> '',
-    'appears_on' => ['view.group_nodes.page_1'],
-    'class' => 'Drupal\Core\Menu\LocalActionDefault'
-  ];
 }
 
 /*
@@ -183,7 +170,7 @@ function scitalk_groups_views_pre_render(ViewExecutable $view) {
  * field to match the current group id
  */
 function scitalk_groups_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
-  if (($form_id == 'node_talk_form') || ($form_id ="node_collection_form")) {
+  if (($form_id == 'node_talk_form') || ($form_id = "node_collection_form")) {
     // Get the group id from the route
     $route = \Drupal::routeMatch();
     $routename = $route->getRouteName();
@@ -194,7 +181,8 @@ function scitalk_groups_form_node_form_alter(&$form, FormStateInterface $form_st
       if ($form_id == 'node_talk_form') {
         $form['field_talk_source_repository']['widget']['#default_value'] = $group_id;
         $form['field_talk_source_repository']['widget']['#disabled'] = TRUE;
-      } elseif ($form_id == 'node_collection_form') {
+      }
+      elseif ($form_id == 'node_collection_form') {
         $form['field_collection_source_repo']['widget']['#default_value'] = $group_id;
         $form['field_collection_source_repo']['widget']['#disabled'] = TRUE;
       }
@@ -242,7 +230,7 @@ function scitalk_groups_form_views_exposed_form_alter(&$form, FormStateInterface
 
     // On the view page, get the group id from the arguments
     elseif (isset($exposed_input) && !empty($exposed_input) &&
-          !empty($exposed_input['catch_up_source'])) {
+      !empty($exposed_input['catch_up_source'])) {
       $group_id = $exposed_input['catch_up_source'];
     }
 
@@ -257,7 +245,7 @@ function scitalk_groups_form_views_exposed_form_alter(&$form, FormStateInterface
       $subjects_view->setArguments([$group_id]);
       $subjects_view->execute();
 
-      foreach ($subjects_view->result as $key=>$row) {
+      foreach ($subjects_view->result as $key => $row) {
         $subject_options[$row->tid] = $row->taxonomy_term_field_data_name;
       }
 
@@ -284,42 +272,6 @@ function scitalk_groups_user_login_form_submit($form, FormStateInterface $form_s
     $url = Url::fromRoute('entity.group.canonical', ['group' => $user_group_id]);
     $form_state->setRedirectUrl($url);
   }
-}
-
-/**
- * Implements hook_entity_access().
- * Gives users access to their group's feed(s)
- */
-function scitalk_groups_entity_access(\Drupal\Core\Entity\EntityInterface $entity, $operation, \Drupal\Core\Session\AccountInterface $account) {
-  $entity_type = $entity->getEntityTypeId();
-  $entity_bundle = $entity->bundle();
-  if($entity_type == 'feeds_feed') {
-
-    // Check if our feeds entity has a group field on it
-    $entityFieldManager = \Drupal::service('entity_field.manager');
-    $fields = $entityFieldManager->getFieldDefinitions($entity_type, $entity_bundle);
-     if (isset($fields['field_feeds_group'])) {
-      // Check to see if it's populated, has a value and this user is a member of it.
-
-      if(isset($entity->field_feeds_group) && $entity->field_feeds_group->target_id != '') {
-        // Group is set, check if this group has this user as a member
-        // Get the current user's groups
-        $users_groups = \Drupal::service('group.membership_loader')->loadByUser(\Drupal::currentUser());
-        $current_feed_group = $entity->field_feeds_group->target_id;
-
-        foreach ($users_groups as $grp) {
-          $this_group = $grp->getGroup();
-          if($this_group->id() == $entity->field_feeds_group->target_id) {
-            return AccessResult::allowed();
-          }
-        }
-        return AccessResult::forbidden();
-      }
-    }
-  }
-
-  // This is not a feed or this feed does not have a group field, we don't set access.
-  return AccessResult::neutral();
 }
 
 /**
@@ -379,7 +331,6 @@ function scitalk_groups_node_insert(\Drupal\Core\Entity\EntityInterface $entity)
       // Set the reference field to match the group
       $entity->set($source_ref_field, $group_ids[0]);
     }
-
     elseif (!empty($group_ids) && !empty($repo_field_value)) {
       // Both are not empty.
       // Find out if the repo field value is not in the group ids

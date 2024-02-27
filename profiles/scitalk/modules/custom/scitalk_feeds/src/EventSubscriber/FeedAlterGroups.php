@@ -1,18 +1,19 @@
 <?php
 
-namespace Drupal\scitalk_groups\EventSubscriber;
+namespace Drupal\scitalk_feeds\EventSubscriber;
 
 use Drupal\feeds\Event\ParseEvent;
 use Drupal\feeds\EventSubscriber\AfterParseBase;
-use Drupal\feeds\Exception\SkipItemException;
-use Drupal\feeds\Feeds\Item\DynamicItem;
 use Drupal\feeds\Feeds\Item\ItemInterface;
-use Drupal\media\Entity\Media;
 
 /**
+ * Alter items on feed import for Groups
+ *  - assign to the right group on import
+ *  - prefix the talk and collection numbers with the Group's talk prefix
  * Reacts on talks being processed.
  */
-class feedAlterTalks extends AfterParseBase {
+
+class feedAlterGroups extends AfterParseBase {
 
   /**
    * {@inheritdoc}
@@ -20,11 +21,11 @@ class feedAlterTalks extends AfterParseBase {
   public function applies(ParseEvent $event) {
     $feed_id = $event->getFeed()->getType()->id();
     $feeds = [
-      'collection_import',
       'talk_importer_no_dependencies',
       'talk_importer',
       'talk_importer_inclusive_csv',
-      'talk_importer_inclusive_json'
+      'talk_importer_inclusive_json',
+      'collection_import'
     ];
 
     return in_array($feed_id, $feeds);
@@ -39,26 +40,28 @@ class feedAlterTalks extends AfterParseBase {
     $group_field = $event->getFeed()->get('field_feeds_group')->getValue();
     if (isset($group_field[0])) {
       $group_id = $group_field[0]['target_id'];
-      $group =  \Drupal::entityTypeManager()->getStorage('group')->load($group_id);
+      $group = \Drupal::entityTypeManager()->getStorage('group')->load($group_id);
       $prefix_field = $group->get('field_repo_talks_prefix')->getValue();
 
       // Source group is a custom field that maps to the source reference field
       $item->set('source_group', $group_id);
 
       /**
-        * Set a unique feeds ID number using the talk prefix and talk number
-        * If the group has a talk prefix, use that plus the Talk number
-        * If that is empty, and there is a group, use the Group ID plus the Talk number
-        * If there is no group assigned, use the Scitalk base module talk prefix
-      */
+       * Set a unique feeds ID number using the talk prefix and talk number
+       * If the group has a talk prefix, use that plus the Talk number
+       * If that is empty, and there is a group, use the Group ID plus the Talk number
+       * If there is no group assigned, use the Scitalk base module talk prefix
+       */
       // Find the prefix for this group
       if (isset($prefix_field[0])) {
         $prefix = $prefix_field[0]['value'];
-      } else {
+      }
+      else {
         // If it's empty use the group id
         $prefix = $group_id . '-';
       }
-    } else {
+    }
+    else {
       // If no group is set, use the prefix from scitalk base settings
       $scitalk_base_config = \Drupal::config('scitalk_base.settings');
       $prefix = $scitalk_base_config->get('datacite_talk_prefix') ?? '';

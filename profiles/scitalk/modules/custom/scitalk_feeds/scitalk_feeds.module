@@ -1,6 +1,62 @@
 <?php
 
+
+use Drupal\Core\Access\AccessResult;
+
 /**
  * @file
  * Primary module hooks for Scitalk Feeds module.
  */
+
+/**
+ * Implements hook_menu_local_actions_alter().
+ * Add link to the group feeds page from the group's content page
+ */
+function scitalk_feeds_menu_local_actions_alter(&$local_actions) {
+
+  $local_actions['group_feeds'] = [
+    'id' => 'group_feeds',
+    'title' => t('Edit Content Feeds '),
+    'weight' => 0,
+    'route_name' => 'view.group_feeds.page_1',
+    'options' => '',
+    'appears_on' => ['view.group_nodes.page_1'],
+    'class' => 'Drupal\Core\Menu\LocalActionDefault'
+  ];
+}
+
+/**
+ * Implements hook_entity_access().
+ * Gives users access to their group's feed(s)
+ */
+function scitalk_feeds_entity_access(\Drupal\Core\Entity\EntityInterface $entity, $operation, \Drupal\Core\Session\AccountInterface $account) {
+  $entity_type = $entity->getEntityTypeId();
+  $entity_bundle = $entity->bundle();
+  if ($entity_type == 'feeds_feed') {
+
+    // Check if our feeds entity has a group field on it
+    $entityFieldManager = \Drupal::service('entity_field.manager');
+    $fields = $entityFieldManager->getFieldDefinitions($entity_type, $entity_bundle);
+    if (isset($fields['field_feeds_group'])) {
+      // Check to see if it's populated, has a value and this user is a member of it.
+
+      if (isset($entity->field_feeds_group) && $entity->field_feeds_group->target_id != '') {
+        // Group is set, check if this group has this user as a member
+        // Get the current user's groups
+        $users_groups = \Drupal::service('group.membership_loader')->loadByUser(\Drupal::currentUser());
+        $current_feed_group = $entity->field_feeds_group->target_id;
+
+        foreach ($users_groups as $grp) {
+          $this_group = $grp->getGroup();
+          if ($this_group->id() == $entity->field_feeds_group->target_id) {
+            return AccessResult::allowed();
+          }
+        }
+        return AccessResult::forbidden();
+      }
+    }
+  }
+
+  // This is not a feed or this feed does not have a group field, we don't set access.
+  return AccessResult::neutral();
+}

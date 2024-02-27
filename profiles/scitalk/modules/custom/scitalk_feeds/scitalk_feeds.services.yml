@@ -1,4 +1,9 @@
-scitalk-base.feeds_alter_talks:
-  class: Drupal\scitalk_base\EventSubscriber\FeedAlterTalks
-  tags:
-    - { name: event_subscriber }
+services:
+  scitalk_feeds.feeds_alter_groups:
+    class: Drupal\scitalk_feeds\EventSubscriber\FeedAlterGroups
+    tags:
+      - { name: event_subscriber }
+  scitalk_feeds.feeds_alter_files:
+    class: Drupal\scitalk_feeds\EventSubscriber\FeedAlterFiles
+    tags:
+      - { name: event_subscriber }
