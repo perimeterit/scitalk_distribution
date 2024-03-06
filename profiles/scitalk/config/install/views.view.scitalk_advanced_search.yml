@@ -1073,7 +1073,7 @@ display:
             operator: combined_speakers_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: combined_speakers
+            identifier: speaker
             required: false
             remember: false
             multiple: false
