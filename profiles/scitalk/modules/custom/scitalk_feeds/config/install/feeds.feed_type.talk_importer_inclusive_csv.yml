@@ -36,7 +36,7 @@ third_party_settings:
         uuid: 3c5fa65f-b807-46f0-b6d6-929afe3aecca
         plugin: explode
         source: _collection
-        weight: 0
+        weight: -9
         label: Explode
       30da4e3e-eedc-4738-b6f7-41cc4bd16c24:
         separator: ;
@@ -44,7 +44,7 @@ third_party_settings:
         uuid: 30da4e3e-eedc-4738-b6f7-41cc4bd16c24
         plugin: explode
         source: _subject
-        weight: 0
+        weight: -9
         label: Explode
       6645e8f9-74d9-41b3-845d-1af5e4d0de72:
         separator: ;
@@ -68,7 +68,7 @@ third_party_settings:
         uuid: ef2a0cd6-4834-47e9-9fdc-51df72e1e669
         plugin: explode
         source: _scientific_area
-        weight: 0
+        weight: -9
         label: Explode
       289845be-2a09-4df8-a5a4-f9b4741f3354:
         separator: ;
@@ -76,7 +76,7 @@ third_party_settings:
         uuid: 289845be-2a09-4df8-a5a4-f9b4741f3354
         plugin: explode
         source: _speakers
-        weight: 0
+        weight: -9
         label: Explode
       0cfa6d15-b751-481a-920a-10efa20c1b2e:
         default_value: ' '
@@ -94,6 +94,40 @@ third_party_settings:
         source: _speaker_profiles
         weight: -10
         label: 'Set value or default value'
+      3dcfdfdd-f082-4f17-a3ac-fe8d7d391eb2:
+        default_value: ''
+        only_if_empty: true
+        uuid: 3dcfdfdd-f082-4f17-a3ac-fe8d7d391eb2
+        plugin: default_value
+        source: _speakers
+        weight: -10
+        label: 'Set value or default value'
+      1a9ed98b-6787-4478-b9c7-a448cef63f32:
+        default_value: ''
+        only_if_empty: true
+        uuid: 1a9ed98b-6787-4478-b9c7-a448cef63f32
+        plugin: default_value
+        source: _scientific_area
+        weight: -10
+        label: 'Set value or default value'
+      6d6110f7-6783-4d11-9a6f-7fcbc4e637aa:
+        default_value: ''
+        only_if_empty: true
+        uuid: 6d6110f7-6783-4d11-9a6f-7fcbc4e637aa
+        plugin: default_value
+        source: _subject
+        weight: -10
+        label: 'Set value or default value'
+      425f614b-ad6c-47f0-ac91-c047f706ecf7:
+        default_value: ''
+        only_if_empty: true
+        uuid: 425f614b-ad6c-47f0-ac91-c047f706ecf7
+        plugin: default_value
+        source: _collection
+        weight: -10
+        label: 'Set value or default value'
+_core:
+  default_config_hash: S4E4AfwQcf32Nq9Ui94T6YfVgIsEmzTcV2PdrsrttgQ
 label: 'Talk Importer - All-in-one (CSV)'
 id: talk_importer_inclusive_csv
 description: 'Talk importer that can generate stubs for collections and speaker profiles (optional). Upload data in CSV format'
