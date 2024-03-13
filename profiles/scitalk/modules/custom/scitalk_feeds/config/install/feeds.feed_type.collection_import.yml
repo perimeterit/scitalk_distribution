@@ -5,12 +5,13 @@ dependencies:
   config:
     - core.base_field_override.node.collection.title
     - field.field.node.collection.feeds_item
+    - field.field.node.collection.field_academic_year
     - field.field.node.collection.field_collection_date
+    - field.field.node.collection.field_collection_description
     - field.field.node.collection.field_collection_event_url
+    - field.field.node.collection.field_collection_location
     - field.field.node.collection.field_collection_number
     - field.field.node.collection.field_collection_organizers
-    - field.field.node.collection.field_collection_public_viewable
-    - field.field.node.collection.field_collection_short_desc
     - field.field.node.collection.field_collection_source_repo
     - field.field.node.collection.field_collection_subject
     - field.field.node.collection.field_collection_type
@@ -19,19 +20,16 @@ dependencies:
     - feeds_ex
     - node
 _core:
-  default_config_hash: Vkryk48Z-rEyYOonsSuEQtXP6Jt61u9Be-5qo_1e6VY
+  default_config_hash: JItei4t380cXbewJl95VMul1VsP4us6HfMiROaewc4o
 label: 'Collection Import'
 id: collection_import
 description: 'Import configuration for Collection'
 help: ''
 import_period: 86400
-fetcher: http
+fetcher: upload
 fetcher_configuration:
-  auto_detect_feeds: false
-  use_pubsubhubbub: false
-  always_download: false
-  fallback_hub: ''
-  request_timeout: 30
+  allowed_extensions: 'txt csv tsv xml opml json'
+  directory: 'public://feeds'
 parser: jsonpath
 parser_configuration:
   context:
@@ -75,10 +73,6 @@ custom_sources:
     value: $.viewable
     label: $.viewable
     machine_name: _viewable
-  _short_description:
-    value: $.short_description
-    label: $.short_description
-    machine_name: _short_description
   _event_url:
     value: $.event_url
     label: $.event_url
@@ -109,6 +103,18 @@ custom_sources:
     value: $.end_date
     label: $.end_date
     machine_name: _end_date
+  _description:
+    value: $.description
+    label: $.description
+    machine_name: _description
+  _location:
+    value: $.location
+    label: $.location
+    machine_name: _location
+  _academic_year:
+    value: $.academic_year
+    label: $.academic_year
+    machine_name: _academic_year
 mappings:
   -
     target: field_collection_date
@@ -152,19 +158,6 @@ mappings:
       autocreate: 0
       autocreate_bundle: speaker_profile
   -
-    target: field_collection_public_viewable
-    map:
-      value: _short_description
-    settings:
-      language: null
-  -
-    target: field_collection_short_desc
-    map:
-      value: _event_url
-    settings:
-      language: null
-      format: plain_text
-  -
     target: field_collection_event_url
     map:
       uri: _event_url
@@ -196,3 +189,26 @@ mappings:
       reference_by: id
       autocreate: 0
       autocreate_bundle: source_repository
+  -
+    target: field_collection_description
+    map:
+      value: _description
+    settings:
+      language: null
+      format: plain_text
+  -
+    target: field_collection_location
+    map:
+      value: _location
+    settings:
+      language: null
+    unique: {  }
+  -
+    target: field_academic_year
+    map:
+      target_id: _academic_year
+    settings:
+      language: ''
+      reference_by: name
+      autocreate: 1
+      autocreate_bundle: academic_year
