@@ -20,16 +20,19 @@ dependencies:
     - feeds_ex
     - node
 _core:
-  default_config_hash: JItei4t380cXbewJl95VMul1VsP4us6HfMiROaewc4o
+  default_config_hash: 8G2HI2A4f31C9iMzbEzOdvQoODy09WiMhBtCbt4t4hM
 label: 'Collection Import'
 id: collection_import
 description: 'Import configuration for Collection'
 help: ''
 import_period: 86400
-fetcher: upload
+fetcher: http
 fetcher_configuration:
-  allowed_extensions: 'txt csv tsv xml opml json'
-  directory: 'public://feeds'
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
 parser: jsonpath
 parser_configuration:
   context:
@@ -122,8 +125,8 @@ mappings:
       value: _start_date
       end_value: _end_date
     settings:
-      language: null
-      timezone: UTC
+      language: ''
+      timezone: __SITE__
   -
     target: field_collection_number
     map:
