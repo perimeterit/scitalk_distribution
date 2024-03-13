@@ -15,7 +15,6 @@ dependencies:
     - field.field.node.collection.field_collection_number_of_talks
     - field.field.node.collection.field_collection_organizers
     - field.field.node.collection.field_collection_public_viewable
-    - field.field.node.collection.field_collection_short_desc
     - field.field.node.collection.field_collection_source_repo
     - field.field.node.collection.field_collection_subject
     - field.field.node.collection.field_collection_type
@@ -33,7 +32,7 @@ third_party_settings:
     enabled: false
     allow_custom: false
 _core:
-  default_config_hash: jPMTUY3qa5kKMC3PeF-hYMWnbDdCgCOeFDxWMtUPnG0
+  default_config_hash: 1j5gZGF6hJ7mrTiiyzNfKVOUH0urBjVN8SIOkWR1WRI
 id: node.collection.full
 targetEntityType: node
 bundle: collection
@@ -164,7 +163,6 @@ hidden:
   field_collection_location: true
   field_collection_organizers: true
   field_collection_public_viewable: true
-  field_collection_short_desc: true
   field_scivideos_uuid: true
   langcode: true
   links: true

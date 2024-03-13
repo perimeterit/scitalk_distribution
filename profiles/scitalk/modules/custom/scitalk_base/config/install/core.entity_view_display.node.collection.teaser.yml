@@ -15,11 +15,11 @@ dependencies:
     - field.field.node.collection.field_collection_number_of_talks
     - field.field.node.collection.field_collection_organizers
     - field.field.node.collection.field_collection_public_viewable
-    - field.field.node.collection.field_collection_short_desc
     - field.field.node.collection.field_collection_source_repo
     - field.field.node.collection.field_collection_subject
     - field.field.node.collection.field_collection_type
     - field.field.node.collection.field_parent_collection
+    - field.field.node.collection.field_scivideos_uuid
     - node.type.collection
   module:
     - datetime_range
@@ -27,7 +27,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: PONt2D_pc6MawBSshRh3KL8tM50QH0hRAi3tw0RuWIA
+  default_config_hash: htPoJ6yO92m8vUbMDJqoOXa6dKtQGHmbK6Dii3UTmWs
 id: node.collection.teaser
 targetEntityType: node
 bundle: collection
@@ -102,11 +102,11 @@ hidden:
   field_collection_number_of_talks: true
   field_collection_organizers: true
   field_collection_public_viewable: true
-  field_collection_short_desc: true
   field_collection_source_repo: true
   field_collection_subject: true
   field_collection_type: true
   field_parent_collection: true
+  field_scivideos_uuid: true
   langcode: true
   scitalk_most_recent_talk: true
   search_api_excerpt: true

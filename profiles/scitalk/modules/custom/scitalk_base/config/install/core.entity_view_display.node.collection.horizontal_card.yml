@@ -15,11 +15,11 @@ dependencies:
     - field.field.node.collection.field_collection_number_of_talks
     - field.field.node.collection.field_collection_organizers
     - field.field.node.collection.field_collection_public_viewable
-    - field.field.node.collection.field_collection_short_desc
     - field.field.node.collection.field_collection_source_repo
     - field.field.node.collection.field_collection_subject
     - field.field.node.collection.field_collection_type
     - field.field.node.collection.field_parent_collection
+    - field.field.node.collection.field_scivideos_uuid
     - node.type.collection
   module:
     - date_all_day
@@ -31,7 +31,7 @@ third_party_settings:
     enabled: false
     allow_custom: false
 _core:
-  default_config_hash: IjksR_2Lv-FC-Bl4TprdUl_CY4c7T-A2U5oElwY8yUM
+  default_config_hash: gSs8aUvrIBY7ospM_cPtm5cKBCk06cY99cH6hXEEB_Y
 id: node.collection.horizontal_card
 targetEntityType: node
 bundle: collection
@@ -114,10 +114,10 @@ hidden:
   field_collection_number_children: true
   field_collection_number_of_talks: true
   field_collection_public_viewable: true
-  field_collection_short_desc: true
   field_collection_source_repo: true
   field_collection_subject: true
   field_parent_collection: true
+  field_scivideos_uuid: true
   langcode: true
   scitalk_most_recent_talk: true
   scitalk_number_of_talks: true

@@ -14,11 +14,11 @@ dependencies:
     - field.field.node.collection.field_collection_number_of_talks
     - field.field.node.collection.field_collection_organizers
     - field.field.node.collection.field_collection_public_viewable
-    - field.field.node.collection.field_collection_short_desc
     - field.field.node.collection.field_collection_source_repo
     - field.field.node.collection.field_collection_subject
     - field.field.node.collection.field_collection_type
     - field.field.node.collection.field_parent_collection
+    - field.field.node.collection.field_scivideos_uuid
     - node.type.collection
   module:
     - date_all_day
@@ -26,7 +26,7 @@ dependencies:
     - text
     - user
 _core:
-  default_config_hash: ToT2e7hUlZhdkiMY-J_Jw6IU7w7kSXW5hskww-vFTQg
+  default_config_hash: 4andqVprQnnsjWXQ1iV2OWsGk664Ktg2EOZZ0DBz2Xw
 id: node.collection.default
 targetEntityType: node
 bundle: collection
@@ -144,9 +144,9 @@ hidden:
   field_collection_location: true
   field_collection_organizers: true
   field_collection_public_viewable: true
-  field_collection_short_desc: true
   field_collection_subject: true
   field_collection_type: true
+  field_scivideos_uuid: true
   langcode: true
   links: true
   scitalk_most_recent_talk: true

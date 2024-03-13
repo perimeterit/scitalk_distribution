@@ -14,7 +14,6 @@ dependencies:
     - field.field.node.collection.field_collection_number_of_talks
     - field.field.node.collection.field_collection_organizers
     - field.field.node.collection.field_collection_public_viewable
-    - field.field.node.collection.field_collection_short_desc
     - field.field.node.collection.field_collection_source_repo
     - field.field.node.collection.field_collection_subject
     - field.field.node.collection.field_collection_type
@@ -52,7 +51,6 @@ third_party_settings:
         - field_collection_date
         - field_academic_year
         - field_collection_organizers
-        - field_collection_short_desc
         - field_collection_description
       label: "Collection Info"
       region: content
@@ -101,7 +99,7 @@ third_party_settings:
         description: ""
         required_fields: true
 _core:
-  default_config_hash: LfapantmwxoKp2tlwNXiPQUNLIrTZXICH_mz-TFZzLI
+  default_config_hash: Gkl6uoGgpMFsACwlN1EetuI7D9ZO5DmPslkT7_mcrS0
 id: node.collection.default
 targetEntityType: node
 bundle: collection
@@ -173,14 +171,6 @@ content:
     region: content
     settings:
       display_label: true
-    third_party_settings: {}
-  field_collection_short_desc:
-    type: text_textfield
-    weight: 6
-    region: content
-    settings:
-      size: 60
-      placeholder: ""
     third_party_settings: {}
   field_collection_source_repo:
     type: options_select
