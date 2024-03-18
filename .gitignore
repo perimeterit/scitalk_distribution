@@ -59,7 +59,10 @@ sites/*/translations
 #Ignore docker4drupal config
 
 .docker-compose.yml
+.compose.yml
+MakeFile
 .env
+docker.mk
 traefik.yml
 
 # Ignore default text files
