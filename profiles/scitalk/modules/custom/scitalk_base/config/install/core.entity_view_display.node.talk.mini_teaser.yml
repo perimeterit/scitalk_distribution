@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.mini_teaser
-    - field.field.node.talk.feeds_item
     - field.field.node.talk.field_academic_year
     - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
@@ -42,18 +41,18 @@ third_party_settings:
       children:
         - field_talk_attachments
       label: Resources
-      parent_name: ''
+      parent_name: ""
       region: hidden
       weight: 22
       format_type: html_element
       format_settings:
-        classes: ''
-        id: ''
+        classes: ""
+        id: ""
         element: div
         show_label: true
         label_element: h3
-        label_element_classes: ''
-        attributes: ''
+        label_element_classes: ""
+        attributes: ""
         effect: none
         speed: fast
     group_talk_details:
@@ -63,18 +62,18 @@ third_party_settings:
         - field_talk_number
         - field_talk_source_event
       label: Details
-      parent_name: ''
+      parent_name: ""
       region: hidden
       weight: 23
       format_type: html_element
       format_settings:
-        classes: ''
-        id: ''
+        classes: ""
+        id: ""
         element: div
         show_label: true
         label_element: h3
-        label_element_classes: ''
-        attributes: ''
+        label_element_classes: ""
+        attributes: ""
         effect: none
         speed: fast
 _core:
@@ -89,23 +88,23 @@ content:
     label: hidden
     settings:
       link: true
-    third_party_settings: {  }
+    third_party_settings: {}
     weight: 2
     region: content
   field_talk_date:
     type: datetime_default
     label: hidden
     settings:
-      timezone_override: ''
+      timezone_override: ""
       format_type: medium
     third_party_settings:
       fences:
         fences_field_tag: span
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: div
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 1
     region: content
   field_talk_speaker_profile:
@@ -119,13 +118,12 @@ content:
         fences_field_tag: ul
         fences_field_classes: inline-list
         fences_field_item_tag: li
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: div
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 0
     region: content
 hidden:
-  feeds_item: true
   field_academic_year: true
   field_embargo_date: true
   field_scientific_area: true

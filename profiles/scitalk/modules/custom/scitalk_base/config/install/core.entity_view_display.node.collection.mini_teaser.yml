@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.mini_teaser
-    - field.field.node.collection.feeds_item
     - field.field.node.collection.field_academic_year
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
@@ -16,11 +15,11 @@ dependencies:
     - field.field.node.collection.field_collection_number_of_talks
     - field.field.node.collection.field_collection_organizers
     - field.field.node.collection.field_collection_public_viewable
-    - field.field.node.collection.field_collection_short_desc
     - field.field.node.collection.field_collection_source_repo
     - field.field.node.collection.field_collection_subject
     - field.field.node.collection.field_collection_type
     - field.field.node.collection.field_parent_collection
+    - field.field.node.collection.field_scivideos_uuid
     - node.type.collection
   module:
     - datetime
@@ -32,7 +31,7 @@ third_party_settings:
     enabled: false
     allow_custom: false
 _core:
-  default_config_hash: 1kt1XMhwwHcsfhawOGGq3VzbDI6SsOjMBYSlDI4ixNs
+  default_config_hash: vPR8RutnuK6n6wNwvNd_s_LePRA5Zgu9qCfFtoeZi80
 id: node.collection.mini_teaser
 targetEntityType: node
 bundle: collection
@@ -42,43 +41,42 @@ content:
     type: datetime_default
     label: inline
     settings:
-      timezone_override: ''
+      timezone_override: ""
       format_type: medium
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 2
     region: content
   field_collection_number_children:
     type: number_integer
     label: above
     settings:
-      thousand_separator: ''
+      thousand_separator: ""
       prefix_suffix: true
-    third_party_settings: {  }
+    third_party_settings: {}
     weight: 1
     region: content
   field_collection_number_of_talks:
     type: number_unformatted
     label: hidden
-    settings: {  }
+    settings: {}
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: div
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 0
     region: content
 hidden:
-  feeds_item: true
   field_academic_year: true
   field_collection_date: true
   field_collection_description: true
@@ -87,11 +85,11 @@ hidden:
   field_collection_number: true
   field_collection_organizers: true
   field_collection_public_viewable: true
-  field_collection_short_desc: true
   field_collection_source_repo: true
   field_collection_subject: true
   field_collection_type: true
   field_parent_collection: true
+  field_scivideos_uuid: true
   langcode: true
   links: true
   scitalk_most_recent_talk: true

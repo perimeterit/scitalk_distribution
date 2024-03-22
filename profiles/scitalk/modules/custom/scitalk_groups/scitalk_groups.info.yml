@@ -1,9 +1,7 @@
 name: Scitalk Groups
 type: module
 description: Provides additional functionality and UX improvements for Groups.
-package: Custom
+package: SciTalk
 core_version_requirement: ^9 || ^10
 dependencies:
-  - feeds
   - group
-  

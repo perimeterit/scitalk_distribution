@@ -85,6 +85,7 @@ install:
   - date_all_day
   - date_popup
   - scitalk_base
+  - scitalk_groups
   - scitalk_media
   - scitalk_video
   - twig_tweak

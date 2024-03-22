@@ -4,7 +4,6 @@ status: false
 dependencies:
   config:
     - core.entity_view_mode.node.search_index
-    - field.field.node.talk.feeds_item
     - field.field.node.talk.field_academic_year
     - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
@@ -45,18 +44,18 @@ third_party_settings:
       children:
         - field_talk_attachments
       label: Resources
-      parent_name: ''
+      parent_name: ""
       region: content
       weight: 3
       format_type: html_element
       format_settings:
-        classes: ''
-        id: ''
+        classes: ""
+        id: ""
         element: div
         show_label: true
         label_element: h2
-        label_element_classes: ''
-        attributes: ''
+        label_element_classes: ""
+        attributes: ""
         effect: none
         speed: fast
     group_talk_details:
@@ -73,18 +72,18 @@ third_party_settings:
         - field_talk_type
         - field_talk_keywords
       label: Details
-      parent_name: ''
+      parent_name: ""
       region: content
       weight: 4
       format_type: html_element
       format_settings:
-        classes: ''
-        id: ''
+        classes: ""
+        id: ""
         element: div
         show_label: true
         label_element: h2
-        label_element_classes: ''
-        attributes: ''
+        label_element_classes: ""
+        attributes: ""
         effect: none
         speed: fast
   layout_builder:
@@ -105,25 +104,25 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: span
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 33
     region: content
   field_talk_abstract:
     type: text_default
     label: above
-    settings: {  }
+    settings: {}
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: div
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: h2
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 2
     region: content
   field_talk_attachments:
@@ -131,23 +130,23 @@ content:
     label: above
     settings:
       link: true
-    third_party_settings: {  }
+    third_party_settings: {}
     weight: 20
     region: content
   field_talk_date:
     type: datetime_default
     label: inline
     settings:
-      timezone_override: ''
+      timezone_override: ""
       format_type: html_date
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: span
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 28
     region: content
   field_talk_doi:
@@ -158,11 +157,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 31
     region: content
   field_talk_keywords:
@@ -173,11 +172,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: span
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 35
     region: content
   field_talk_location:
@@ -188,11 +187,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 27
     region: content
   field_talk_number:
@@ -203,11 +202,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 24
     region: content
   field_talk_source_event:
@@ -217,16 +216,16 @@ content:
       trim_length: 80
       url_only: false
       url_plain: false
-      rel: '0'
-      target: '0'
+      rel: "0"
+      target: "0"
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 29
     region: content
   field_talk_speaker_profile:
@@ -237,11 +236,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: span
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 25
     region: content
   field_talk_speakers_text:
@@ -249,7 +248,7 @@ content:
     label: above
     settings:
       link_to_entity: false
-    third_party_settings: {  }
+    third_party_settings: {}
     weight: 26
     region: content
   field_talk_type:
@@ -260,11 +259,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: span
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 34
     region: content
   field_talk_video:
@@ -276,11 +275,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: div
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 0
     region: content
   field_talk_video_url:
@@ -290,20 +289,19 @@ content:
       trim_length: 80
       url_only: false
       url_plain: false
-      rel: '0'
-      target: '0'
+      rel: "0"
+      target: "0"
     third_party_settings:
       fences:
         fences_field_tag: h2
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: span
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 1
     region: content
 hidden:
-  feeds_item: true
   field_academic_year: true
   field_embargo_date: true
   field_talk_collection: true

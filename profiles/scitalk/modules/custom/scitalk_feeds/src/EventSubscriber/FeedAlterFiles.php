@@ -1,20 +1,21 @@
 <?php
 
-namespace Drupal\scitalk_base\EventSubscriber;
+namespace Drupal\scitalk_feeds\EventSubscriber;
 
 use Drupal\feeds\Event\ParseEvent;
 use Drupal\feeds\EventSubscriber\AfterParseBase;
-use Drupal\feeds\Exception\SkipItemException;
-use Drupal\feeds\Feeds\Item\DynamicItem;
 use Drupal\feeds\Feeds\Item\ItemInterface;
 use Drupal\media\Entity\Media;
 use Drupal\file\Entity\File;
 use Drupal\Core\File\FileSystemInterface;
 
 /**
+ * Fixes for importing file attachments
+ *   - Copy file attachments to the file system and create a file entity
+ *   - For YouTube videos, make a Scitalk YouTube media entity
  * Reacts on talks being processed.
  */
-class feedAlterTalks extends AfterParseBase {
+class feedAlterFiles extends AfterParseBase {
 
   /**
    * {@inheritdoc}
@@ -44,7 +45,7 @@ class feedAlterTalks extends AfterParseBase {
 
     if (!empty($attachment_url)) {
       // Set the storage directory and destination for this file
-      $directory = 'public://attachments/' ;
+      $directory = 'public://attachments/';
       $destination = $directory . basename($attachment_url);
 
       // Retrieve the file
@@ -104,7 +105,7 @@ class feedAlterTalks extends AfterParseBase {
       $item->set('_video', $video_media->getName());
 
       // Then unset the video link value
-      $item->set('_video_url','');
+      $item->set('_video_url', '');
     }
   }
 }

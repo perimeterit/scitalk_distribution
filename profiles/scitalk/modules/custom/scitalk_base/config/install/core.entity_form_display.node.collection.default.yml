@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.collection.feeds_item
     - field.field.node.collection.field_academic_year
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
@@ -15,7 +14,6 @@ dependencies:
     - field.field.node.collection.field_collection_number_of_talks
     - field.field.node.collection.field_collection_organizers
     - field.field.node.collection.field_collection_public_viewable
-    - field.field.node.collection.field_collection_short_desc
     - field.field.node.collection.field_collection_source_repo
     - field.field.node.collection.field_collection_subject
     - field.field.node.collection.field_collection_type
@@ -37,13 +35,13 @@ third_party_settings:
         - group_source_info
       label: Collection
       region: content
-      parent_name: ''
+      parent_name: ""
       weight: 0
       format_type: tabs
       format_settings:
-        classes: ''
+        classes: ""
         show_empty_fields: false
-        id: ''
+        id: ""
         direction: horizontal
         width_breakpoint: 640
     group_collection_info:
@@ -53,19 +51,18 @@ third_party_settings:
         - field_collection_date
         - field_academic_year
         - field_collection_organizers
-        - field_collection_short_desc
         - field_collection_description
-      label: 'Collection Info'
+      label: "Collection Info"
       region: content
       parent_name: group_collection
       weight: 22
       format_type: tab
       format_settings:
-        classes: ''
+        classes: ""
         show_empty_fields: false
-        id: ''
+        id: ""
         formatter: closed
-        description: ''
+        description: ""
         required_fields: true
     group_metadata:
       children:
@@ -77,11 +74,11 @@ third_party_settings:
       weight: 23
       format_type: tab
       format_settings:
-        classes: ''
+        classes: ""
         show_empty_fields: false
-        id: ''
+        id: ""
         formatter: closed
-        description: ''
+        description: ""
         required_fields: true
     group_source_info:
       children:
@@ -89,20 +86,20 @@ third_party_settings:
         - field_collection_source_repo
         - field_collection_event_url
         - field_collection_location
-      label: 'Source info'
+      label: "Source info"
       region: content
       parent_name: group_collection
       weight: 24
       format_type: tab
       format_settings:
-        classes: ''
+        classes: ""
         show_empty_fields: false
-        id: ''
+        id: ""
         formatter: closed
-        description: ''
+        description: ""
         required_fields: true
 _core:
-  default_config_hash: LfapantmwxoKp2tlwNXiPQUNLIrTZXICH_mz-TFZzLI
+  default_config_hash: Gkl6uoGgpMFsACwlN1EetuI7D9ZO5DmPslkT7_mcrS0
 id: node.collection.default
 targetEntityType: node
 bundle: collection
@@ -112,52 +109,52 @@ content:
     type: datetime_timestamp
     weight: 6
     region: content
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
   field_academic_year:
     type: options_select
     weight: 4
     region: content
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
   field_collection_date:
     type: daterange_all_day
     weight: 3
     region: content
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
   field_collection_description:
     type: text_textarea
     weight: 7
     region: content
     settings:
       rows: 5
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
   field_collection_event_url:
     type: link_default
     weight: 28
     region: content
     settings:
-      placeholder_url: ''
-      placeholder_title: ''
-    third_party_settings: {  }
+      placeholder_url: ""
+      placeholder_title: ""
+    third_party_settings: {}
   field_collection_location:
     type: string_textfield
     weight: 29
     region: content
     settings:
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
   field_collection_number:
     type: string_textfield
     weight: 1
     region: content
     settings:
       size: 15
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
   field_collection_organizers:
     type: entity_reference_autocomplete
     weight: 5
@@ -166,41 +163,33 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
   field_collection_public_viewable:
     type: boolean_checkbox
     weight: 1
     region: content
     settings:
       display_label: true
-    third_party_settings: {  }
-  field_collection_short_desc:
-    type: text_textfield
-    weight: 6
-    region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
+    third_party_settings: {}
   field_collection_source_repo:
     type: options_select
     weight: 27
     region: content
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
   field_collection_subject:
     type: options_select
     weight: 4
     region: content
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
   field_collection_type:
     type: options_select
     weight: 3
     region: content
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
   field_parent_collection:
     type: entity_reference_autocomplete
     weight: 26
@@ -209,36 +198,36 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
   langcode:
     type: language_select
     weight: 3
     region: content
     settings:
       include_locked: true
-    third_party_settings: {  }
+    third_party_settings: {}
   path:
     type: path
     weight: 7
     region: content
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
   status:
     type: boolean_checkbox
     weight: 2
     region: content
     settings:
       display_label: true
-    third_party_settings: {  }
+    third_party_settings: {}
   title:
     type: string_textfield
     weight: 2
     region: content
     settings:
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
   uid:
     type: entity_reference_autocomplete
     weight: 5
@@ -247,11 +236,10 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ''
-    third_party_settings: {  }
+      placeholder: ""
+    third_party_settings: {}
 hidden:
   entitygroupfield: true
-  feeds_item: true
   field_collection_last_talk_date: true
   field_collection_number_children: true
   field_collection_number_of_talks: true

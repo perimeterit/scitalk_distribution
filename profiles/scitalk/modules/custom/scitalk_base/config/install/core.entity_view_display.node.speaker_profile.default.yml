@@ -3,7 +3,6 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.speaker_profile.feeds_item
     - field.field.node.speaker_profile.field_sp_external_id
     - field.field.node.speaker_profile.field_sp_first_name
     - field.field.node.speaker_profile.field_sp_institution_name
@@ -34,32 +33,32 @@ content:
     label: inline
     settings:
       link_to_entity: false
-    third_party_settings: {  }
+    third_party_settings: {}
     weight: 3
     region: content
   field_sp_profile_thumbnail:
     type: image
     label: hidden
     settings:
-      image_link: ''
+      image_link: ""
       image_style: scitalk_profile_thumbnail
       image_loading:
         attribute: lazy
     third_party_settings:
       fences:
         fences_field_tag: figure
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: div
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 0
     region: content
   field_sp_speaker_profile:
     type: text_default
     label: hidden
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
     weight: 1
     region: content
   field_sp_web_profile_url:
@@ -69,18 +68,17 @@ content:
       trim_length: 80
       url_only: false
       url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
+      rel: ""
+      target: ""
+    third_party_settings: {}
     weight: 2
     region: content
   links:
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
     weight: 4
     region: content
 hidden:
-  feeds_item: true
   field_sp_external_id: true
   field_sp_first_name: true
   field_sp_institution_name: true

@@ -1,0 +1,11 @@
+{
+    "name": "scitalk/scitalk_feeds",
+    "description": "Provides functionality to import content via Feeds.",
+    "type": "custom",
+    "require": {
+        "drupal/feeds": "^3.0@alpha",
+        "drupal/feeds_ex": "^1.0@alpha",
+        "drupal/feeds_log": "^2.0@alpha",
+        "drupal/feeds_tamper": "^2.0@beta"
+    }
+}

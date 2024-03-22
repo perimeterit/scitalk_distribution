@@ -1,3 +1,4 @@
+uuid: 93b5eec8-17e2-4679-a220-1a1f8396c1ce
 langcode: en
 status: true
 dependencies:
@@ -21,7 +22,7 @@ dependencies:
     - search_api
     - text
 _core:
-  default_config_hash: KunJdwlrOCNAbS8jEKdJKEItoyT8L8aRUwndiKB6Nmg
+  default_config_hash: H4a3U2IMnSkwK5qY2MpLk8Z5XjwewcqknFZLNIcWGbg
 id: scitalk_advanced_search
 label: 'Scitalk: Advanced search'
 module: views
@@ -906,19 +907,6 @@ display:
             format: basic_html
           tokenize: false
       sorts:
-        search_api_relevance:
-          id: search_api_relevance
-          table: search_api_index_default_talks_index
-          field: search_api_relevance
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: search_api
-          order: DESC
-          expose:
-            label: Relevance
-            field_identifier: search_api_relevance
-          exposed: true
         field_talk_date_1:
           id: field_talk_date_1
           table: search_api_index_default_talks_index
@@ -957,6 +945,19 @@ display:
           expose:
             label: 'Speaker Last Name'
             field_identifier: Speaker
+          exposed: true
+        search_api_relevance:
+          id: search_api_relevance
+          table: search_api_index_default_talks_index
+          field: search_api_relevance
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api
+          order: DESC
+          expose:
+            label: Relevance
+            field_identifier: search_api_relevance
           exposed: true
       arguments: {  }
       filters:
@@ -1049,14 +1050,14 @@ display:
           parse_mode: terms
           min_length: null
           fields: {  }
-        field_sp_display_name_1:
-          id: field_sp_display_name_1
+        combined_speakers:
+          id: combined_speakers
           table: search_api_index_default_talks_index
-          field: field_sp_display_name_1
+          field: combined_speakers
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: search_api_text
+          plugin_id: search_api_string
           operator: '='
           value:
             min: ''
@@ -1065,11 +1066,11 @@ display:
           group: 1
           exposed: true
           expose:
-            operator_id: field_sp_display_name_1_op
-            label: Speaker
+            operator_id: combined_speakers_op
+            label: Speaker(s)
             description: ''
             use_operator: false
-            operator: field_sp_display_name_1_op
+            operator: combined_speakers_op
             operator_limit_selection: false
             operator_list: {  }
             identifier: speaker
@@ -1084,7 +1085,7 @@ display:
               talk_editor: '0'
             min_placeholder: ''
             max_placeholder: ''
-            placeholder: Speaker
+            placeholder: ''
           is_grouped: false
           group_info:
             label: ''

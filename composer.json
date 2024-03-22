@@ -41,7 +41,6 @@
         "drupal/features": "^3.13",
         "drupal/feeds": "^3.0@beta",
         "drupal/feeds_ex": "^1.0@beta",
-        "drupal/feeds_log": "^2.0@alpha",
         "drupal/feeds_tamper": "^2.0@beta",
         "drupal/fences": "^3.0",
         "drupal/field_group": "^3.4",

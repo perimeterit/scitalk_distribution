@@ -1,11 +1,10 @@
-uuid: 4391b1c2-54f8-4a2f-b014-2c5a40cae73f
+uuid: c8c78e68-a980-4362-b9da-5d3eae58b476
 langcode: en
 status: true
 dependencies:
   config:
     - core.base_field_override.node.talk.title
     - field.field.node.talk.feeds_item
-    - field.field.node.talk.field_academic_year
     - field.field.node.talk.field_scientific_area
     - field.field.node.talk.field_talk_abstract
     - field.field.node.talk.field_talk_attachments
@@ -27,71 +26,73 @@ dependencies:
     - node.type.talk
   module:
     - feeds_ex
-    - feeds_log
     - feeds_tamper
     - node
 third_party_settings:
-  feeds_log:
-    status: true
-    operations:
-      created: created
-      updated: updated
-      deleted: deleted
-      skipped: skipped
-      failed: failed
-      cleaned: cleaned
-    items:
-      created: created
-      updated: updated
-      deleted: deleted
-      skipped: skipped
-      failed: failed
-    source: true
   feeds_tamper:
     tampers:
-      e6a0eecf-d201-4ebf-9c26-9954e13f888b:
+      b6e317c6-cd7d-491c-bf2f-738c97f272fa:
         separator: ;
         limit: null
-        uuid: e6a0eecf-d201-4ebf-9c26-9954e13f888b
+        uuid: b6e317c6-cd7d-491c-bf2f-738c97f272fa
         plugin: explode
         source: _keywords
         weight: 0
         label: Explode
-      198c912d-316f-4f6e-8d42-8ecaecace046:
+      61b02606-97c8-4466-8961-e5113a88ed64:
         separator: ;
         limit: null
-        uuid: 198c912d-316f-4f6e-8d42-8ecaecace046
+        uuid: 61b02606-97c8-4466-8961-e5113a88ed64
         plugin: explode
-        source: _collection
+        source: _speaker_profiles
         weight: 0
         label: Explode
-      8fe46b9f-a2c1-4bfd-87ae-3bffb7edaaec:
+      1b72d0b6-2926-4a30-a241-7e830e7ef98b:
         separator: ;
         limit: null
-        uuid: 8fe46b9f-a2c1-4bfd-87ae-3bffb7edaaec
-        plugin: explode
-        source: _subject
-        weight: 0
-        label: Explode
-      312397e6-0413-48f5-8053-b67f5787d169:
-        separator: ;
-        limit: null
-        uuid: 312397e6-0413-48f5-8053-b67f5787d169
+        uuid: 1b72d0b6-2926-4a30-a241-7e830e7ef98b
         plugin: explode
         source: _scientific_area
         weight: 0
         label: Explode
+      03a40b04-687c-4823-93e2-5448641b19c7:
+        separator: ;
+        limit: null
+        uuid: 03a40b04-687c-4823-93e2-5448641b19c7
+        plugin: explode
+        source: _speakers
+        weight: 0
+        label: Explode
+      0332ce39-727a-4e2d-9903-ad8a5aa7eb05:
+        separator: ;
+        limit: null
+        uuid: 0332ce39-727a-4e2d-9903-ad8a5aa7eb05
+        plugin: explode
+        source: _subject
+        weight: 0
+        label: Explode
+      2c643a4f-df4f-4024-9d7c-9a74b728d1e1:
+        separator: ;
+        limit: null
+        uuid: 2c643a4f-df4f-4024-9d7c-9a74b728d1e1
+        plugin: explode
+        source: _collection
+        weight: 0
+        label: Explode
 _core:
-  default_config_hash: 1O-bq0XUkBhm8MSRSrVzlUW1WbdIW1KgVFqGQLard4s
-label: 'Talk Importer'
-id: talk_importer
-description: 'An importer that can generate a talk'
+  default_config_hash: KjnCj-opTHXIDzxMmDIWeypP_gNeriR9HLqR0UKGflA
+label: 'Talk Importer - All-in-one (JSON)'
+id: talk_importer_inclusive_json
+description: 'Talk importer that can generate stubs for collections and speaker profiles (optional). Link to feed in JSON format'
 help: ''
 import_period: 86400
-fetcher: upload
+fetcher: http
 fetcher_configuration:
-  allowed_extensions: 'txt csv tsv xml opml json'
-  directory: 'public://feeds'
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
 parser: jsonpath
 parser_configuration:
   context:
@@ -109,7 +110,7 @@ processor_configuration:
   update_existing: 2
   update_non_existent: _keep
   skip_hash_check: false
-  authorize: true
+  authorize: false
   revision: false
   expire: -1
   owner_feed_author: true
@@ -163,6 +164,10 @@ custom_sources:
     value: $.scientific_area
     label: $.scientific_area
     machine_name: _scientific_area
+  _series:
+    value: $.series
+    label: $.series
+    machine_name: _series
   _source_event:
     value: $.source_event
     label: $.source_event
@@ -203,10 +208,6 @@ custom_sources:
     value: $.video_url
     label: $.video_url
     machine_name: video_url
-  _academic_year:
-    value: $.academic_year
-    label: $.academic_year
-    machine_name: _academic_year
   source_group:
     value: source_group
     label: source_group
@@ -226,7 +227,7 @@ mappings:
       target_id: _attachments
     settings:
       language: ''
-      reference_by: mid
+      reference_by: name
       autocreate: 1
       autocreate_bundle: file
   -
@@ -241,8 +242,8 @@ mappings:
     map:
       value: _date
     settings:
-      language: null
-      timezone: UTC
+      language: ''
+      timezone: __SITE__
   -
     target: field_talk_doi
     map:
@@ -274,7 +275,7 @@ mappings:
       language: ''
       reference_by: title
       feeds_item: guid
-      autocreate: 0
+      autocreate: 1
       autocreate_bundle: speaker_profile
   -
     target: field_scientific_area
@@ -320,7 +321,7 @@ mappings:
     map:
       target_id: _talk_thumbnail
       alt: _title
-      title: ''
+      title: _title
     settings:
       language: ''
       reference_by: fid
@@ -343,8 +344,8 @@ mappings:
     settings:
       language: ''
       reference_by: name
-      autocreate: '1'
-      autocreate_bundle: scitalk_youtube_video
+      autocreate: 1
+      autocreate_bundle: video
   -
     target: field_talk_video_url
     map:
@@ -368,17 +369,8 @@ mappings:
       language: ''
       reference_by: title
       feeds_item: guid
-      autocreate: 0
-      autocreate_bundle: collection
-  -
-    target: field_academic_year
-    map:
-      target_id: _academic_year
-    settings:
-      language: ''
-      reference_by: name
       autocreate: 1
-      autocreate_bundle: academic_year
+      autocreate_bundle: collection
   -
     target: field_talk_source_repository
     map:
