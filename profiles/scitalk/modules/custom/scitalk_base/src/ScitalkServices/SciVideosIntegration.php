@@ -578,10 +578,10 @@ class SciVideosIntegration {
               "value" => stripslashes(stripslashes(($entity->field_collection_description->value ?? ''))) ?? '',
               "format" => "basic_html"
             ],
-            "field_collection_short_desc" => [
-              "value" => $entity->field_collection_short_desc->value ?? '',
-              "format" => "basic_html"
-            ],
+            // "field_collection_short_desc" => [
+            //   "value" => $entity->field_collection_short_desc->value ?? '',
+            //   "format" => "basic_html"
+            // ],
             // "field_collection_date" => [
             //    "value" => $this->formatDate( $entity->field_collection_date->value ) ?? NULL,
             //    "end_value" => $this->formatDate( $entity->field_collection_date->end_value ) ?? NULL,
