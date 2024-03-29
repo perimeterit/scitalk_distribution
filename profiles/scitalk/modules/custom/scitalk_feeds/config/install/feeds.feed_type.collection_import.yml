@@ -18,11 +18,7 @@ dependencies:
     - node.type.collection
   module:
     - feeds_ex
-    - feeds_tamper
     - node
-third_party_settings:
-  feeds_tamper:
-    tampers: {  }
 _core:
   default_config_hash: 8G2HI2A4f31C9iMzbEzOdvQoODy09WiMhBtCbt4t4hM
 label: 'Collection Import'
@@ -129,8 +125,8 @@ mappings:
       value: _start_date
       end_value: _end_date
     settings:
-      language: ''
-      timezone: __SITE__
+      language: null
+      timezone: UTC
   -
     target: field_collection_number
     map:
