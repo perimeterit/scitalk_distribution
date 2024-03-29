@@ -17,8 +17,10 @@ dependencies:
   module:
     - feeds_ex
     - node
-label: 'Speaker Profile Import'
+_core:
+  default_config_hash: 2kesxfJ-beB7Jv7rRmN6--T87KXLabKSVv-EeARBZbI
 id: speaker_profile_import
+label: 'Speaker Profile Import'
 description: 'JSON import for speaker profiles'
 help: ''
 import_period: 86400

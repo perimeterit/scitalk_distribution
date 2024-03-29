@@ -18,7 +18,11 @@ dependencies:
     - node.type.collection
   module:
     - feeds_ex
+    - feeds_tamper
     - node
+third_party_settings:
+  feeds_tamper:
+    tampers: {  }
 _core:
   default_config_hash: 8G2HI2A4f31C9iMzbEzOdvQoODy09WiMhBtCbt4t4hM
 label: 'Collection Import'
