@@ -227,8 +227,8 @@ mappings:
     map:
       value: _date
     settings:
-      language: ''
-      timezone: __SITE__
+      language: null
+      timezone: UTC
   -
     target: field_talk_doi
     map:
