@@ -1,4 +1,3 @@
-uuid: 4391b1c2-54f8-4a2f-b014-2c5a40cae73f
 langcode: en
 status: true
 dependencies:
@@ -64,8 +63,6 @@ third_party_settings:
         source: _scientific_area
         weight: 0
         label: Explode
-_core:
-  default_config_hash: 2raMzqcv8k4bfrNsMcZxNGVRhJ49b4eaZ36ZoBlAmVQ
 label: 'Talk Importer'
 id: talk_importer
 description: 'An importer that can generate a talk'

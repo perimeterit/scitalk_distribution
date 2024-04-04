@@ -38,7 +38,7 @@ class feedAlterGroups extends AfterParseBase {
   protected function alterItem(ItemInterface $item, ParseEvent $event) {
     // Get the group field value from this feed
     $group_field = $event->getFeed()->get('field_feeds_group')->getValue();
-    if (isset ($group_field[0])) {
+    if (isset($group_field[0])) {
       $group_id = $group_field[0]['target_id'];
       $group = \Drupal::entityTypeManager()->getStorage('group')->load($group_id);
       $prefix_field = $group->get('field_repo_talks_prefix')->getValue();
@@ -53,7 +53,7 @@ class feedAlterGroups extends AfterParseBase {
        * If there is no group assigned, use the Scitalk base module talk prefix
        */
       // Find the prefix for this group
-      if (isset ($prefix_field[0])) {
+      if (isset($prefix_field[0])) {
         $prefix = $prefix_field[0]['value'];
       }
       else {
@@ -67,12 +67,18 @@ class feedAlterGroups extends AfterParseBase {
       $prefix = $scitalk_base_config->get('datacite_talk_prefix') ?? '';
     }
 
+
+    $feed_id = $event->getFeed()->getType()->id();
+
     // Assign the prefix + talk number to the prefix talk number custom source
     // This value is used for the Feeds Item unique id
-    // dsm($event);
-    // Get the right number field to alter for collections vs talks fields
-    // Need to add the prefixed talk number field to collections
-    $prefixed_talk_number = $prefix . $item->get('_talk_number');
-    $item->set('prefixed_talk_number', $prefixed_talk_number);
+    if ($feed_id == 'collection_import') {
+      $prefixed_collection_number = $prefix . $item->get('_collection_number');
+      $item->set('prefixed_collection_number', $prefixed_collection_number);
+    }
+    else {
+      $prefixed_talk_number = $prefix . $item->get('_talk_number');
+      $item->set('prefixed_talk_number', $prefixed_talk_number);
+    }
   }
 }

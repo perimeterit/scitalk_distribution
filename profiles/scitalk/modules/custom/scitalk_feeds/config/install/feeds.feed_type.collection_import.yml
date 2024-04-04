@@ -1,4 +1,3 @@
-uuid: 0b737861-8cbc-4232-9f3a-cfa75d161164
 langcode: en
 status: true
 dependencies:
@@ -19,8 +18,6 @@ dependencies:
   module:
     - feeds_ex
     - node
-_core:
-  default_config_hash: 8G2HI2A4f31C9iMzbEzOdvQoODy09WiMhBtCbt4t4hM
 label: 'Collection Import'
 id: collection_import
 description: 'Import configuration for Collection'
@@ -118,6 +115,11 @@ custom_sources:
     value: $.academic_year
     label: $.academic_year
     machine_name: _academic_year
+  prefixed_collection_number:
+    value: prefixed_collection_number
+    label: prefixed_collection_number
+    machine_name: prefixed_collection_number
+    type: blank
 mappings:
   -
     target: field_collection_date
@@ -180,7 +182,7 @@ mappings:
     target: feeds_item
     map:
       url: ''
-      guid: source_group
+      guid: prefixed_collection_number
     settings: {  }
     unique: {  }
   -
