@@ -1,4 +1,4 @@
-uuid: 93b5eec8-17e2-4679-a220-1a1f8396c1ce
+uuid: 24d81750-6cbc-4ea7-955c-b5969ca0d69e
 langcode: en
 status: true
 dependencies:
@@ -22,7 +22,7 @@ dependencies:
     - search_api
     - text
 _core:
-  default_config_hash: H4a3U2IMnSkwK5qY2MpLk8Z5XjwewcqknFZLNIcWGbg
+  default_config_hash: GQFEDDh8LGqMfj44ZgPY1_tyFlXQ3M3XrazdEGrA_uI
 id: scitalk_advanced_search
 label: 'Scitalk: Advanced search'
 module: views
@@ -890,7 +890,7 @@ display:
         type: none
         options: {  }
       cache:
-        type: none
+        type: search_api_none
         options: {  }
       empty:
         area:
@@ -907,6 +907,19 @@ display:
             format: basic_html
           tokenize: false
       sorts:
+        search_api_relevance:
+          id: search_api_relevance
+          table: search_api_index_default_talks_index
+          field: search_api_relevance
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api
+          order: DESC
+          expose:
+            label: Relevance
+            field_identifier: search_api_relevance
+          exposed: true
         field_talk_date_1:
           id: field_talk_date_1
           table: search_api_index_default_talks_index
@@ -945,19 +958,6 @@ display:
           expose:
             label: 'Speaker Last Name'
             field_identifier: Speaker
-          exposed: true
-        search_api_relevance:
-          id: search_api_relevance
-          table: search_api_index_default_talks_index
-          field: search_api_relevance
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: search_api
-          order: DESC
-          expose:
-            label: Relevance
-            field_identifier: search_api_relevance
           exposed: true
       arguments: {  }
       filters:
@@ -1498,7 +1498,6 @@ display:
         - url.query_args
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.group.field_repo_institution'
@@ -1644,7 +1643,6 @@ display:
         - url.query_args
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.default_talks_index'
@@ -2316,7 +2314,6 @@ display:
         - url.query_args
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_talk_collection'
@@ -3162,7 +3159,6 @@ display:
         - url.query_args
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_sp_speaker_profile'
@@ -3596,7 +3592,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.default_talks_index'
@@ -4270,7 +4265,6 @@ display:
         - url.query_args
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.default_talks_index'
