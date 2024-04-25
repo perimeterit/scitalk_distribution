@@ -342,7 +342,7 @@ function scitalk_base_views_pre_build($view) {
   // For search views, unset the relevance sort if there are keywords
   // entered for text search or speakers.
   if (((($view->id() == 'scitalk_advanced_search') &&
-    (empty($exposed_input['text']) && empty($$exposed_input['speaker']))
+    (empty($exposed_input['text']) && empty($exposed_input['speaker']))
   ) || (($view->id() == 'scitalk_search_collections') &&
     (empty($exposed_input['collection_text']) && empty($exposed_input['collection_title']))
   ))
