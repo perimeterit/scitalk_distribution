@@ -27,6 +27,7 @@ dependencies:
     - node.type.talk
   module:
     - feeds_ex
+    - feeds_log
     - feeds_tamper
     - node
 third_party_settings:
@@ -64,6 +65,22 @@ third_party_settings:
         source: _scientific_area
         weight: 0
         label: Explode
+  feeds_log:
+    status: true
+    operations:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+      cleaned: cleaned
+    items:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+    source: true
 _core:
   default_config_hash: 2raMzqcv8k4bfrNsMcZxNGVRhJ49b4eaZ36ZoBlAmVQ
 label: 'Talk Importer'
@@ -227,8 +244,8 @@ mappings:
     map:
       value: _date
     settings:
-      language: null
-      timezone: UTC
+      language: ''
+      timezone: __SITE__
   -
     target: field_talk_doi
     map:

@@ -128,8 +128,8 @@ third_party_settings:
         label: 'Set value or default value'
 _core:
   default_config_hash: 5PBOTMe2hDW-esseXRV1bXUPl8J_uzbguns-c5N_Zso
-id: talk_importer_inclusive_csv
 label: 'Talk Importer - All-in-one (CSV)'
+id: talk_importer_inclusive_csv
 description: 'Talk importer that can generate stubs for collections and speaker profiles (optional). Upload data in CSV format'
 help: ''
 import_period: 86400
@@ -308,8 +308,8 @@ mappings:
     map:
       value: _date
     settings:
-      language: null
-      timezone: UTC
+      language: ''
+      timezone: __SITE__
   -
     target: field_talk_doi
     map:

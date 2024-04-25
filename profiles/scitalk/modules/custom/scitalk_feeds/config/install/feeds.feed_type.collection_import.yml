@@ -125,8 +125,8 @@ mappings:
       value: _start_date
       end_value: _end_date
     settings:
-      language: null
-      timezone: UTC
+      language: ''
+      timezone: __SITE__
   -
     target: field_collection_number
     map:
