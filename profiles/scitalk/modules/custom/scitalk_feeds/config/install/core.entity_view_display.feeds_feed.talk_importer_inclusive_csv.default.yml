@@ -9,6 +9,8 @@ dependencies:
     - feeds
     - fences
     - user
+_core:
+  default_config_hash: k9b3Y4iUG2jklDB3I4GNrupvj_ot4uykSDhElR97K3o
 id: feeds_feed.talk_importer_inclusive_csv.default
 targetEntityType: feeds_feed
 bundle: talk_importer_inclusive_csv

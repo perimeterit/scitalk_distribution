@@ -7,9 +7,10 @@ dependencies:
     - field.field.feeds_feed.talk_importer_inclusive_json.field_feeds_group
   module:
     - feeds
+    - fences
     - user
 _core:
-  default_config_hash: my-aV2Q3qH8Mly9LaEjlSVkiWrLmVhxcAEsE4YYBzpg
+  default_config_hash: ZLYCzJOKtY6RbSEWzZImfQHwt9QvkmgR9JIrPEd5RbA
 id: feeds_feed.talk_importer_inclusive_json.default
 targetEntityType: feeds_feed
 bundle: talk_importer_inclusive_json
@@ -39,7 +40,16 @@ content:
     settings:
       thousand_separator: ''
       prefix_suffix: true
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
     weight: 0
     region: content
   next:
@@ -49,6 +59,15 @@ content:
       date_format: medium
       custom_date_format: ''
       timezone: ''
+      tooltip:
+        date_format: long
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
     third_party_settings: {  }
     weight: 1
     region: content
