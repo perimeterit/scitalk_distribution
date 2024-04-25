@@ -1,4 +1,3 @@
-uuid: f040d872-d96d-444b-a823-e66ec6d45c68
 langcode: en
 status: true
 dependencies:
@@ -7,8 +6,6 @@ dependencies:
     - media.type.video
   module:
     - file
-_core:
-  default_config_hash: dQR0mYK5NNg27OigHrxZrHSsnwewnNZcPJKjKIO0cpA
 id: media.video.default
 targetEntityType: media
 bundle: video
@@ -26,7 +23,7 @@ content:
       autoplay: false
       loop: false
       multiple_file_display_type: tags
-    third_party_settings: {  }
+    third_party_settings: {}
     region: content
 hidden:
   created: true
