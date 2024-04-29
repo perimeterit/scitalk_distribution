@@ -108,6 +108,8 @@ class UniqueSeriesNumberConstraintValidator extends ConstraintValidator {
       }
       
     }
+
+    $query_count->accessCheck(TRUE);
     $query_count->count();
     
     return $query_count->execute() == 0;

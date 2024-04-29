@@ -9,248 +9,272 @@ path: node/talk
 resourceType: talk
 resourceFields:
   nid:
+    disabled: false
     fieldName: nid
     publicName: nid
     enhancer:
       id: ''
-    disabled: false
   uuid:
+    disabled: false
     fieldName: uuid
     publicName: uuid
     enhancer:
       id: ''
-    disabled: false
   vid:
+    disabled: false
     fieldName: vid
     publicName: vid
     enhancer:
       id: ''
-    disabled: false
   langcode:
+    disabled: false
     fieldName: langcode
     publicName: langcode
     enhancer:
       id: ''
-    disabled: false
   type:
+    disabled: false
     fieldName: type
     publicName: type
     enhancer:
       id: ''
-    disabled: false
   revision_timestamp:
+    disabled: false
     fieldName: revision_timestamp
     publicName: revision_timestamp
     enhancer:
       id: ''
-    disabled: false
   revision_uid:
+    disabled: false
     fieldName: revision_uid
     publicName: revision_uid
     enhancer:
       id: ''
-    disabled: false
   revision_log:
+    disabled: false
     fieldName: revision_log
     publicName: revision_log
     enhancer:
       id: ''
-    disabled: false
   status:
+    disabled: false
     fieldName: status
     publicName: status
     enhancer:
       id: ''
-    disabled: false
   uid:
+    disabled: false
     fieldName: uid
     publicName: uid
     enhancer:
       id: ''
-    disabled: false
   title:
+    disabled: false
     fieldName: title
     publicName: title
     enhancer:
       id: ''
-    disabled: false
   created:
+    disabled: false
     fieldName: created
     publicName: created
     enhancer:
       id: ''
-    disabled: false
   changed:
+    disabled: false
     fieldName: changed
     publicName: changed
     enhancer:
       id: ''
-    disabled: false
   promote:
+    disabled: false
     fieldName: promote
     publicName: promote
     enhancer:
       id: ''
-    disabled: false
   sticky:
+    disabled: false
     fieldName: sticky
     publicName: sticky
     enhancer:
       id: ''
-    disabled: false
   default_langcode:
+    disabled: false
     fieldName: default_langcode
     publicName: default_langcode
     enhancer:
       id: ''
-    disabled: false
   revision_default:
+    disabled: false
     fieldName: revision_default
     publicName: revision_default
     enhancer:
       id: ''
-    disabled: false
   revision_translation_affected:
+    disabled: false
     fieldName: revision_translation_affected
     publicName: revision_translation_affected
     enhancer:
       id: ''
-    disabled: false
   path:
+    disabled: false
     fieldName: path
     publicName: path
     enhancer:
       id: ''
-    disabled: false
-  scitalk_bogus_field_type:
-    fieldName: scitalk_bogus_field_type
-    publicName: scitalk_bogus_field_type
-    enhancer:
-      id: ''
-    disabled: false
   menu_link:
+    disabled: false
     fieldName: menu_link
     publicName: menu_link
     enhancer:
       id: ''
+  feeds_item:
     disabled: false
-  field_combination_example:
-    fieldName: field_combination_example
-    publicName: combination_example
+    fieldName: feeds_item
+    publicName: feeds_item
     enhancer:
       id: ''
+  field_academic_year:
     disabled: false
+    fieldName: field_academic_year
+    publicName: field_academic_year
+    enhancer:
+      id: ''
+  field_embargo_date:
+    disabled: false
+    fieldName: field_embargo_date
+    publicName: field_embargo_date
+    enhancer:
+      id: ''
   field_scientific_area:
+    disabled: false
     fieldName: field_scientific_area
     publicName: scientific_area
     enhancer:
       id: ''
+  field_scivideos_uuid:
     disabled: false
+    fieldName: field_scivideos_uuid
+    publicName: field_scivideos_uuid
+    enhancer:
+      id: ''
   field_talk_abstract:
+    disabled: false
     fieldName: field_talk_abstract
     publicName: talk_abstract
     enhancer:
       id: ''
-    disabled: false
   field_talk_attachments:
+    disabled: false
     fieldName: field_talk_attachments
     publicName: talk_attachments
     enhancer:
       id: ''
-    disabled: false
   field_talk_collection:
+    disabled: false
     fieldName: field_talk_collection
     publicName: talk_collection
     enhancer:
       id: ''
-    disabled: false
   field_talk_date:
+    disabled: false
     fieldName: field_talk_date
     publicName: talk_date
     enhancer:
       id: ''
-    disabled: false
   field_talk_doi:
+    disabled: false
     fieldName: field_talk_doi
     publicName: talk_doi
     enhancer:
       id: ''
+  field_talk_duration:
     disabled: false
+    fieldName: field_talk_duration
+    publicName: field_talk_duration
+    enhancer:
+      id: ''
   field_talk_keywords:
+    disabled: false
     fieldName: field_talk_keywords
     publicName: talk_keywords
     enhancer:
       id: ''
-    disabled: false
   field_talk_location:
+    disabled: false
     fieldName: field_talk_location
     publicName: talk_location
     enhancer:
       id: ''
-    disabled: false
   field_talk_number:
+    disabled: false
     fieldName: field_talk_number
     publicName: talk_number
     enhancer:
       id: ''
-    disabled: false
-  field_talk_series:
-    fieldName: field_talk_series
-    publicName: talk_series
-    enhancer:
-      id: ''
-    disabled: false
   field_talk_source_event:
+    disabled: false
     fieldName: field_talk_source_event
     publicName: talk_source_event
     enhancer:
       id: ''
+  field_talk_source_repository:
     disabled: false
-  field_talk_speaker_profile:
-    fieldName: field_talk_speaker_profile
-    publicName: talk_speaker_profile
+    fieldName: field_talk_source_repository
+    publicName: field_talk_source_repository
     enhancer:
       id: ''
-    disabled: false
   field_talk_speakers_text:
+    disabled: false
     fieldName: field_talk_speakers_text
     publicName: talk_speakers_text
     enhancer:
       id: ''
+  field_talk_speaker_profile:
     disabled: false
+    fieldName: field_talk_speaker_profile
+    publicName: talk_speaker_profile
+    enhancer:
+      id: ''
   field_talk_subject:
+    disabled: false
     fieldName: field_talk_subject
     publicName: talk_subject
     enhancer:
       id: ''
-    disabled: false
   field_talk_thumbnail:
+    disabled: false
     fieldName: field_talk_thumbnail
     publicName: talk_thumbnail
     enhancer:
       id: ''
-    disabled: false
   field_talk_type:
+    disabled: false
     fieldName: field_talk_type
     publicName: talk_type
     enhancer:
       id: ''
-    disabled: false
   field_talk_video:
+    disabled: false
     fieldName: field_talk_video
     publicName: talk_video
     enhancer:
       id: ''
-    disabled: false
   field_talk_video_url:
+    disabled: false
     fieldName: field_talk_video_url
     publicName: talk_video_url
     enhancer:
       id: ''
-    disabled: false
   field_talk_viewable_online:
+    disabled: false
     fieldName: field_talk_viewable_online
     publicName: talk_viewable_online
     enhancer:
       id: ''
+  scitalk_prefixed_talk_number:
     disabled: false
+    fieldName: scitalk_prefixed_talk_number
+    publicName: scitalk_prefixed_talk_number
+    enhancer:
+      id: ''

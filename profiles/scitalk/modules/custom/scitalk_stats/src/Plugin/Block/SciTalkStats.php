@@ -86,17 +86,17 @@ class SciTalkStats extends BlockBase implements ContainerFactoryPluginInterface 
     }
 
     private function countRepositories() {
-        $query_count = \Drupal::entityQuery('node')->condition('type', 'source_repository');
+        $query_count = \Drupal::entityQuery('node')->condition('type', 'source_repository')->accessCheck(TRUE);
         return $query_count->count()->execute();
     }
 
     private function countTalks() {
-        $query_count = \Drupal::entityQuery('node')->condition('type', 'talk');
+        $query_count = \Drupal::entityQuery('node')->condition('type', 'talk')->accessCheck(TRUE);
         return $query_count->count()->execute();
     }
 
     private function countCollections() {
-        $query_count = \Drupal::entityQuery('taxonomy_term')->condition('vid', 'collection');
+        $query_count = \Drupal::entityQuery('taxonomy_term')->condition('vid', 'collection')->accessCheck(TRUE);
         return $query_count->count()->execute();
 
         // $query_count->count();

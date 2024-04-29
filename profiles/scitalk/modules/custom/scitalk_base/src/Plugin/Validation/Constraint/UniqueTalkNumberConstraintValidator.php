@@ -64,6 +64,7 @@ class UniqueTalkNumberConstraintValidator extends ConstraintValidator {
         $query_count->condition('nid', $id, '<>');
       }
   
+      $query_count->accessCheck(TRUE);
       $query_count->count();
   
       return $query_count->execute() == 0;

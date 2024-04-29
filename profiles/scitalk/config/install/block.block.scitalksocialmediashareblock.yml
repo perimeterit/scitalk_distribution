@@ -22,7 +22,7 @@ settings:
   label_display: '0'
 visibility:
   node_type:
-    id: node_type
+    id: entity_bundle:node
     bundles:
       talk: talk
     negate: false

@@ -1,3 +1,4 @@
+uuid: 15fd184d-3c66-4a33-b96d-ee542ca04c0a
 langcode: en
 status: true
 dependencies:
@@ -7,6 +8,8 @@ dependencies:
   module:
     - feeds
     - user
+_core:
+  default_config_hash: I65kag273RTQopt3muwixnCR414Sa6nxn2lgAgCiA2E
 id: feeds_feed.speaker_profile_import.default
 targetEntityType: feeds_feed
 bundle: speaker_profile_import
@@ -30,6 +33,15 @@ content:
       past_format: '@interval ago'
       granularity: 2
     third_party_settings: {  }
+  item_count:
+    label: inline
+    type: number_integer
+    weight: 0
+    region: content
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
   next:
     label: inline
     type: timestamp
@@ -39,6 +51,15 @@ content:
       date_format: medium
       custom_date_format: ''
       timezone: ''
+      tooltip:
+        date_format: long
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
     third_party_settings: {  }
   source:
     label: inline

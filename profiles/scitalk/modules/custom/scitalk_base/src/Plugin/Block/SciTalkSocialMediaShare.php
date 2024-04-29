@@ -26,6 +26,7 @@ class SciTalkSocialMediaShare extends BlockBase implements ContainerFactoryPlugi
 
     protected $request;
     protected $route;
+    protected $currentUser;
 
     /**
    * Constructs a new SciTalkSocialMediaShare object.

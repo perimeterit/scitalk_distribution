@@ -10,7 +10,7 @@ dependencies:
     - fences
     - user
 _core:
-  default_config_hash: BF_nCPBqJBR31Fvo2WZ1KW1BfNFg78vcdcGXV7UsuS0
+  default_config_hash: NBKFCDb94vtMY6WZO7PJzcoIF31B7bzxRzxMiFNNb2o
 id: feeds_feed.talk_importer.default
 targetEntityType: feeds_feed
 bundle: talk_importer
@@ -71,6 +71,15 @@ content:
       date_format: medium
       custom_date_format: ''
       timezone: ''
+      tooltip:
+        date_format: long
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
     third_party_settings:
       fences:
         fences_field_tag: div

@@ -10,7 +10,7 @@ dependencies:
     - fences
     - user
 _core:
-  default_config_hash: PmK6VSJhaeohCmo_R0K-n5_v69MEegEUe6u3uJVvYME
+  default_config_hash: 3OiCbMmndiAz0MS6yp3vBWnAcWcVnTGIOUbDSAthpVU
 id: feeds_feed.collection_import.default
 targetEntityType: feeds_feed
 bundle: collection_import
@@ -71,6 +71,15 @@ content:
       date_format: medium
       custom_date_format: ''
       timezone: ''
+      tooltip:
+        date_format: long
+        custom_date_format: ''
+      time_diff:
+        enabled: false
+        future_format: '@interval hence'
+        past_format: '@interval ago'
+        granularity: 2
+        refresh: 60
     third_party_settings:
       fences:
         fences_field_tag: div

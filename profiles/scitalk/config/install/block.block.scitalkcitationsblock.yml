@@ -24,7 +24,7 @@ settings:
     node: '@node.node_route_context:node'
 visibility:
   node_type:
-    id: node_type
+    id: entity_bundle:node
     bundles:
       talk: talk
     negate: false

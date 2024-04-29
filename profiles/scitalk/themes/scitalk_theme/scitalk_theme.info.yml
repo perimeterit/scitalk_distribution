@@ -3,7 +3,7 @@ type: theme
 description: 'Common theme for the Scitalk distro'
 core: 8.x
 base theme: stable
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 
 libraries:
  - scitalk_theme/global

@@ -375,7 +375,7 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
       // Get all the groups
       $query = \Drupal::entityQuery('group')
       ->condition('type', 'source_repository');
-      $group_ids = $query->execute();
+      $group_ids = $query->accessCheck(TRUE)->execute();
       $group_options = ['' => 'All'];
       $group_storage =  \Drupal::entityTypeManager()->getStorage('group');
       $groups = $group_storage->loadMultiple($group_ids);

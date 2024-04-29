@@ -16,6 +16,7 @@ class TalkAcademicYear {
                 ->condition('vid', 'academic_year')
                 ->condition('field_academic_year_dates.value', $talk_date, '<=')
                 ->condition('field_academic_year_dates.end_value', $talk_date, '>=')
+                ->accessCheck(TRUE)
                 ->execute();  
 
             if (!empty($academic_year)) {

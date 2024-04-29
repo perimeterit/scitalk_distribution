@@ -1,3 +1,4 @@
+uuid: c8c78e68-a980-4362-b9da-5d3eae58b476
 langcode: en
 status: true
 dependencies:
@@ -78,6 +79,8 @@ third_party_settings:
         source: _collection
         weight: 0
         label: Explode
+_core:
+  default_config_hash: KjnCj-opTHXIDzxMmDIWeypP_gNeriR9HLqR0UKGflA
 label: 'Talk Importer - All-in-one (JSON)'
 id: talk_importer_inclusive_json
 description: 'Talk importer that can generate stubs for collections and speaker profiles (optional). Link to feed in JSON format'
@@ -239,8 +242,8 @@ mappings:
     map:
       value: _date
     settings:
-      language: null
-      timezone: UTC
+      language: ''
+      timezone: __SITE__
   -
     target: field_talk_doi
     map:

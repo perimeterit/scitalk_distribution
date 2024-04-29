@@ -49,7 +49,8 @@ class CollectionTalksStats {
         $query_count = \Drupal::entityQuery('node')
             ->condition('type', 'talk')
             ->condition('status', 1)
-            ->condition('field_talk_collection.target_id', $nid);
+            ->condition('field_talk_collection.target_id', $nid)
+            ->accessCheck(TRUE);
 
         return  $query_count->count()->execute() ?? 0;
     }
@@ -62,7 +63,8 @@ class CollectionTalksStats {
         $query = \Drupal::entityQuery('node')
             ->condition('type', 'talk')
             ->condition('status', 1)
-            ->condition('field_talk_collection.target_id', $nid);
+            ->condition('field_talk_collection.target_id', $nid)
+            ->accessCheck(TRUE);
 
         $talk = $query->sort('field_talk_date','DESC')
             ->range(0,1)

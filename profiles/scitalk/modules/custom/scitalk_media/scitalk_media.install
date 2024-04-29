@@ -12,7 +12,7 @@ Use Drupal\Core\File\FileSystemInterface;
  * Implements hook_install().
  */
 function scitalk_media_install() {
-  $source = drupal_get_path('module', 'scitalk_media') . '/images/icons';
+  $source = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_media') . '/images/icons';
   $destination = \Drupal::config('media.settings')->get('icon_base_uri');
   //file_prepare_directory($destination, FILE_CREATE_DIRECTORY | FILE_MODIFY_PERMISSIONS);
   \Drupal::service('file_system')->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
@@ -66,7 +66,7 @@ function scitalk_media_requirements($phase) {
  *  this update creates DOI media type
  */
 function scitalk_media_update_8101(&$sandbox) {
-  $config_path = drupal_get_path('module', 'scitalk_media') . '/config/install';
+  $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_media') . '/config/install';
   $source      = new FileStorage($config_path);
 
     //create DOI media type

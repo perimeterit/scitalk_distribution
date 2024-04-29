@@ -23,9 +23,18 @@ content:
     region: content
     settings:
       date_format: medium
-      custom_date_format: ''
-      timezone: ''
-    third_party_settings: {  }
+      custom_date_format: ""
+      timezone: ""
+      tooltip:
+        date_format: long
+        custom_date_format: ""
+      time_diff:
+        enabled: false
+        future_format: "@interval hence"
+        past_format: "@interval ago"
+        granularity: 2
+        refresh: 60
+    third_party_settings: {}
   field_arxiv_published_date:
     type: string
     weight: 3
@@ -33,14 +42,14 @@ content:
     label: above
     settings:
       link_to_entity: false
-    third_party_settings: {  }
+    third_party_settings: {}
   field_arxiv_summary:
     type: basic_string
     weight: 2
     region: content
     label: above
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
   field_arxiv_title:
     type: string
     weight: 1
@@ -48,7 +57,7 @@ content:
     label: above
     settings:
       link_to_entity: false
-    third_party_settings: {  }
+    third_party_settings: {}
   field_arxiv_updated_date:
     type: string
     weight: 4
@@ -56,22 +65,22 @@ content:
     label: above
     settings:
       link_to_entity: false
-    third_party_settings: {  }
+    third_party_settings: {}
   field_media_scitalk_arxiv:
     type: id_url_formatter
     weight: 0
     region: content
     label: above
     settings:
-      id_base_url: 'https://arxiv.org/abs/'
-    third_party_settings: {  }
+      id_base_url: "https://arxiv.org/abs/"
+    third_party_settings: {}
   uid:
     label: hidden
     type: author
     weight: 5
     region: content
-    settings: {  }
-    third_party_settings: {  }
+    settings: {}
+    third_party_settings: {}
 hidden:
   langcode: true
   name: true

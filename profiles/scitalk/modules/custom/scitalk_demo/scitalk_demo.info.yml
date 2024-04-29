@@ -3,7 +3,7 @@ type: module
 description: Creates fake talks and speaker profiles
 core: 8.x
 package: SciTalk
-core_version_requirement: ^8 || ^9
+core_version_requirement: ^8 || ^9 || ^10
 
 dependencies:
  - scitalk:scitalk_base
