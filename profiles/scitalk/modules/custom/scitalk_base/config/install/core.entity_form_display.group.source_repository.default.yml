@@ -1,4 +1,3 @@
-uuid: 6d6f5d57-aba1-4c3a-afc7-5cdc2cc20bc6
 langcode: en
 status: true
 dependencies:
@@ -18,8 +17,6 @@ dependencies:
     - link
     - path
     - text
-_core:
-  default_config_hash: 2JxAR4mGgjqVFQtwrgKtwf7zWYHjE73pWzfKQeI7Nq0
 id: group.source_repository.default
 targetEntityType: group
 bundle: source_repository
