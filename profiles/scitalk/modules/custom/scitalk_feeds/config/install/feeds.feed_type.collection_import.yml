@@ -20,7 +20,7 @@ dependencies:
     - feeds_ex
     - node
 _core:
-  default_config_hash: 8G2HI2A4f31C9iMzbEzOdvQoODy09WiMhBtCbt4t4hM
+  default_config_hash: 5ZXut3NP2MLpn-FCVr8G08Pk2oMdTTMel0mlBG0D7-Q
 label: 'Collection Import'
 id: collection_import
 description: 'Import configuration for Collection'
@@ -88,10 +88,10 @@ custom_sources:
     value: $.subject
     label: $.subject
     machine_name: _subject
-  prefixed_talk_number:
-    value: prefixed_talk_number
-    label: prefixed_talk_number
-    machine_name: prefixed_talk_number
+  prefixed_collection_number:
+    value: prefixed_collection_number
+    label: prefixed_collection_number
+    machine_name: prefixed_collection_number
     type: blank
   source_group:
     value: source_group
@@ -125,8 +125,8 @@ mappings:
       value: _start_date
       end_value: _end_date
     settings:
-      language: ''
-      timezone: __SITE__
+      language: null
+      timezone: UTC
   -
     target: field_collection_number
     map:
@@ -180,7 +180,7 @@ mappings:
     target: feeds_item
     map:
       url: ''
-      guid: source_group
+      guid: prefixed_collection_number
     settings: {  }
     unique: {  }
   -

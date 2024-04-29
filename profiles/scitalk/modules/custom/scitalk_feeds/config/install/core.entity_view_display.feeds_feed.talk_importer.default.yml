@@ -18,18 +18,20 @@ mode: default
 content:
   field_feeds_group:
     type: entity_reference_label
-    label: above
+    label: inline
     settings:
       link: true
     third_party_settings:
       fences:
         fences_field_tag: div
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    weight: 1
+    weight: 4
     region: content
   imported:
     type: timestamp_ago
@@ -42,6 +44,8 @@ content:
       fences:
         fences_field_tag: div
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: strong
@@ -62,7 +66,7 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    weight: 0
+    weight: 1
     region: content
   next:
     type: timestamp
@@ -80,10 +84,13 @@ content:
         past_format: '@interval ago'
         granularity: 2
         refresh: 60
+        description: ''
     third_party_settings:
       fences:
         fences_field_tag: div
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: strong
