@@ -318,7 +318,7 @@ class SciTalkBaseFieldsMapping extends FormBase {
     $options = [];
     $query = $this->entityTypeManager->getStorage('taxonomy_term')->getQuery();
     $query->condition('vid', $vocabulary_name);
-    $tids = $query->execute();
+    $tids = $query->accessCheck(TRUE)->execute();
     $terms = Term::loadMultiple($tids);
     foreach ($terms as $term) {
       // $options[$term->uuid->value] = $term->name->value;
