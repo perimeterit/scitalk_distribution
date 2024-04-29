@@ -9,8 +9,6 @@ dependencies:
     - feeds
     - fences
     - user
-_core:
-  default_config_hash: k9b3Y4iUG2jklDB3I4GNrupvj_ot4uykSDhElR97K3o
 id: feeds_feed.talk_importer_inclusive_csv.default
 targetEntityType: feeds_feed
 bundle: talk_importer_inclusive_csv
@@ -18,10 +16,19 @@ mode: default
 content:
   field_feeds_group:
     type: entity_reference_label
-    label: above
+    label: inline
     settings:
       link: true
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: strong
+        fences_label_classes: ''
     weight: 3
     region: content
   imported:
