@@ -26,7 +26,6 @@ dependencies:
     - node.type.talk
   module:
     - feeds_ex
-    - feeds_log
     - feeds_tamper
     - node
 third_party_settings:
@@ -64,22 +63,6 @@ third_party_settings:
         source: _scientific_area
         weight: 0
         label: Explode
-  feeds_log:
-    status: true
-    operations:
-      created: created
-      updated: updated
-      deleted: deleted
-      skipped: skipped
-      failed: failed
-      cleaned: cleaned
-    items:
-      created: created
-      updated: updated
-      deleted: deleted
-      skipped: skipped
-      failed: failed
-    source: true
 label: "Talk Importer"
 id: talk_importer
 description: "An importer that can generate a talk"

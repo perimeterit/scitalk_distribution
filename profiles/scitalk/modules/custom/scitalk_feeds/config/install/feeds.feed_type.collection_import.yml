@@ -1,4 +1,3 @@
-uuid: 0b737861-8cbc-4232-9f3a-cfa75d161164
 langcode: en
 status: true
 dependencies:
@@ -19,20 +18,15 @@ dependencies:
   module:
     - feeds_ex
     - node
-_core:
-  default_config_hash: 5ZXut3NP2MLpn-FCVr8G08Pk2oMdTTMel0mlBG0D7-Q
 label: 'Collection Import'
 id: collection_import
 description: 'Import configuration for Collection'
 help: ''
 import_period: 86400
-fetcher: http
+fetcher: upload
 fetcher_configuration:
-  auto_detect_feeds: false
-  use_pubsubhubbub: false
-  always_download: false
-  fallback_hub: ''
-  request_timeout: 30
+  allowed_extensions: 'txt csv tsv xml opml json'
+  directory: 'public://feeds'
 parser: jsonpath
 parser_configuration:
   context:
@@ -182,7 +176,8 @@ mappings:
       url: ''
       guid: prefixed_collection_number
     settings: {  }
-    unique: {  }
+    unique:
+      guid: 1
   -
     target: field_collection_source_repo
     map:
