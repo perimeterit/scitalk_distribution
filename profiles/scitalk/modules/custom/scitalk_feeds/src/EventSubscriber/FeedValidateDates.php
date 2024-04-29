@@ -54,7 +54,7 @@ class feedValidateDates extends AfterParseBase {
       $feed_id = $event->getFeed()->getType()->id();
       $item = $result->offsetGet($i);
 
-      // For talks
+      // For talk feeds
       if ($feed_id != 'collection_import') {
         $date_value = $item->get('_date');
 
@@ -70,7 +70,6 @@ class feedValidateDates extends AfterParseBase {
       else {
         $start_date_value = $item->get('_start_date');
         $end_date_value = $item->get('_end_date');
-
         $validate_start_date = _validateDate($start_date_value);
         if ($validate_start_date == FALSE) {
           $item_number = $item->get('_collection_number');
@@ -101,19 +100,21 @@ class feedValidateDates extends AfterParseBase {
  ** Common function to check dates
  */
 function _validateDate($date) {
+
   // Test for numbers that aren't a valid date (e.g. a 5 digit number)
   // These get converted to Unix timestamps on import, so we want to
   // Make sure they are actually valid dates and not another number
-  if (strtotime($date) &&
+  if (($date == FALSE) || (empty($date)) || ($date == '')) {
+    // This is empty
+    return TRUE;
+  }
+  else if (strtotime($date) &&
     (is_numeric($date) && (strlen($date) != 10))) {
+    // A number that isn't a valid date
     return FALSE;
   }
   else if (strtotime($date)) {
     // This is valid date string
-    return TRUE;
-  }
-  else if ($date == FALSE) {
-    // This is empty
     return TRUE;
   }
   else {
