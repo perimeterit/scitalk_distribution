@@ -1,6 +1,11 @@
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.talk
+  module:
+    - file
+    - node
   enforced:
     module:
       - scitalk_base
@@ -10,5 +15,6 @@ weight: 4
 is_admin: null
 permissions:
   - 'create talk content'
+  - 'delete own files'
   - 'delete own talk content'
   - 'edit own talk content'

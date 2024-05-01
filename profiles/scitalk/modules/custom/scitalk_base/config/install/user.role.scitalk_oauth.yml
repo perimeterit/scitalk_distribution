@@ -3,24 +3,25 @@ status: true
 dependencies:
   config:
     - media.type.remote_file
+    - media.type.remote_video
     - node.type.collection
     - node.type.speaker_profile
     - node.type.talk
     - taxonomy.vocabulary.collection_type
     - taxonomy.vocabulary.scientific_area
     - taxonomy.vocabulary.subjects
+    - taxonomy.vocabulary.tags
     - taxonomy.vocabulary.talk_keywords
     - taxonomy.vocabulary.talk_type
   module:
     - field_permissions
+    - file
     - media
     - node
     - taxonomy
   enforced:
     module:
       - scitalk_base
-_core:
-  default_config_hash: 9ZFK5boWvlVEb-clPJR9cZoUr6hA0RP9pOntU6oPy80
 id: scitalk_oauth
 label: 'SciTalk JSON Admin user oAuth'
 weight: 3
@@ -44,6 +45,7 @@ permissions:
   - 'delete any speaker_profile content'
   - 'delete any talk content'
   - 'delete own collection content'
+  - 'delete own files'
   - 'delete own speaker_profile content'
   - 'delete own talk content'
   - 'delete terms in collection_type'
@@ -69,4 +71,3 @@ permissions:
   - 'view field_scivideos_uuid'
   - 'view media'
   - 'view own field_scivideos_uuid'
-
