@@ -46,7 +46,7 @@
         "drupal/field_group": "^3.4",
         "drupal/field_permissions": "^1.2",
         "drupal/google_analytics": "^4.0",
-        "drupal/group": "^1.6",
+        "drupal/group": "^2.2",
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/jsonapi_extras": "^3.24",
         "drupal/libraries": "^4.0",
@@ -127,39 +127,51 @@
             }
         },
         "installer-paths": {
-            "web/core": ["type:drupal-core"],
-            "web/libraries/{$name}": [
-               "type:drupal-library",
-               "type:bower-asset",
-               "type:npm-asset"
+            "web/core": [
+                "type:drupal-core"
             ],
-            "web/modules/contrib/{$name}": ["type:drupal-module"],
-            "web/profiles/contrib/{$name}": ["type:drupal-profile"],
-            "web/profiles/scitalk": ["perimeterit/scitalk"],
-            "web/themes/contrib/{$name}": ["type:drupal-theme"],
-            "drush/Commands/{$name}": ["type:drupal-drush"]
-          },
-          "installer-types": [
-              "bower-asset",
-              "npm-asset",
-              "drupal-library"
-          ],
+            "web/libraries/{$name}": [
+                "type:drupal-library",
+                "type:bower-asset",
+                "type:npm-asset"
+            ],
+            "web/modules/contrib/{$name}": [
+                "type:drupal-module"
+            ],
+            "web/profiles/contrib/{$name}": [
+                "type:drupal-profile"
+            ],
+            "web/profiles/scitalk": [
+                "perimeterit/scitalk"
+            ],
+            "web/themes/contrib/{$name}": [
+                "type:drupal-theme"
+            ],
+            "drush/Commands/{$name}": [
+                "type:drupal-drush"
+            ]
+        },
+        "installer-types": [
+            "bower-asset",
+            "npm-asset",
+            "drupal-library"
+        ],
         "enable-patching": true,
         "patches": {
-                "drupal/core": {
-                  "fix aliased fields contraints validation issues when using JSON API Extras": "https://raw.githubusercontent.com/perimeterit/scitalk/f6ed0b64fe78903c40009be5e2712eeb5ad18067/patches/fix-aliased-fields-constraint-validations-3059720-9.patch",
-                  "patch to support bundle computed field in Layout builder": "https://www.drupal.org/files/issues/2019-02-22/layoutbuilder-bundlecomputedfieldsfix-3034979-1-8.7x.patch",
-                  "Issue #3023924: Cannot create references to/from string offsets" : "https://www.drupal.org/files/issues/2022-12-23/references_to_from_string-3023924-36.patch",
-                  "Issue #3336312: TypeError: Cannot access offset of type string on string" : "https://www.drupal.org/files/issues/2023-06-14/3336312.patch",
-                  "Issue #2928639: Set the expiration of a key/value pair from the PrivateTempStore" : "https://www.drupal.org/files/issues/2021-07-27/2928639-26.patch",
-                  "Issue #3358586: RuntimeException: Adding non-existent permissions to a role is not allowed" : "https://www.drupal.org/files/issues/2023-09-14/3358586-11.patch"
-                },
-                "drupal/simple_oauth": {
-                  "TypeError: Argument 1 passed to Drupal\\simple_oauth\\Repositories\\ScopeRepository::scopeFactory() must implement interface Drupal\\user\\RoleInterface" : "https://www.drupal.org/files/issues/2019-02-12/3032371-3.patch"
-                },
-                "drupal/selective_better_exposed_filters": {
-                  "Hide details collapsible if form element is empty" : "https://raw.githubusercontent.com/perimeterit/scitalk_distribution/master/patches/3360778-hide-collapsible-details-element.patch"
-                }
+            "drupal/core": {
+                "fix aliased fields contraints validation issues when using JSON API Extras": "https://raw.githubusercontent.com/perimeterit/scitalk/f6ed0b64fe78903c40009be5e2712eeb5ad18067/patches/fix-aliased-fields-constraint-validations-3059720-9.patch",
+                "patch to support bundle computed field in Layout builder": "https://www.drupal.org/files/issues/2019-02-22/layoutbuilder-bundlecomputedfieldsfix-3034979-1-8.7x.patch",
+                "Issue #3023924: Cannot create references to/from string offsets": "https://www.drupal.org/files/issues/2022-12-23/references_to_from_string-3023924-36.patch",
+                "Issue #3336312: TypeError: Cannot access offset of type string on string": "https://www.drupal.org/files/issues/2023-06-14/3336312.patch",
+                "Issue #2928639: Set the expiration of a key/value pair from the PrivateTempStore": "https://www.drupal.org/files/issues/2021-07-27/2928639-26.patch",
+                "Issue #3358586: RuntimeException: Adding non-existent permissions to a role is not allowed": "https://www.drupal.org/files/issues/2023-09-14/3358586-11.patch"
+            },
+            "drupal/simple_oauth": {
+                "TypeError: Argument 1 passed to Drupal\\simple_oauth\\Repositories\\ScopeRepository::scopeFactory() must implement interface Drupal\\user\\RoleInterface": "https://www.drupal.org/files/issues/2019-02-12/3032371-3.patch"
+            },
+            "drupal/selective_better_exposed_filters": {
+                "Hide details collapsible if form element is empty": "https://raw.githubusercontent.com/perimeterit/scitalk_distribution/master/patches/3360778-hide-collapsible-details-element.patch"
+            }
         }
     }
 }
