@@ -1,4 +1,3 @@
-uuid: ad2dc64d-e577-4d64-8469-8a72e05cec16
 langcode: en
 status: true
 dependencies:
@@ -24,8 +23,6 @@ dependencies:
     - taxonomy
     - text
     - user
-_core:
-  default_config_hash: cBwbBYdqarlgKIKhigOYHEKQccYLyDhVZdcXq7-SqtY
 id: scitalk_talks_in_collection
 label: 'SciTalk: Talks in collection'
 module: views
@@ -963,7 +960,6 @@ display:
           title: ''
           default_argument_type: node
           default_argument_options: {  }
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -997,7 +993,6 @@ display:
           title: ''
           default_argument_type: node
           default_argument_options: {  }
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -1162,7 +1157,6 @@ display:
           title: ''
           default_argument_type: node
           default_argument_options: {  }
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -1196,7 +1190,6 @@ display:
           title: ''
           default_argument_type: node
           default_argument_options: {  }
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -1344,7 +1337,6 @@ display:
           title: ''
           default_argument_type: node
           default_argument_options: {  }
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -1378,7 +1370,6 @@ display:
           title: ''
           default_argument_type: node
           default_argument_options: {  }
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -1604,7 +1595,6 @@ display:
           title: ''
           default_argument_type: node
           default_argument_options: {  }
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -1638,7 +1628,6 @@ display:
           title: ''
           default_argument_type: node
           default_argument_options: {  }
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -1788,7 +1777,6 @@ display:
             limit: false
             vids: {  }
             anyall: +
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -1824,7 +1812,6 @@ display:
           title: ''
           default_argument_type: node
           default_argument_options: {  }
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true

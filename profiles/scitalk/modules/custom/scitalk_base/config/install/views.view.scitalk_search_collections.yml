@@ -1,4 +1,3 @@
-uuid: 3bc51a3c-b17b-4b2f-8264-fc0fe74de7b5
 langcode: en
 status: true
 dependencies:
@@ -19,8 +18,6 @@ dependencies:
     - datetime_range
     - search_api
     - views_field_view
-_core:
-  default_config_hash: IFV1Wu7UyafCzdutXvY4WOVwyUgQExdWSPq46GNGXqs
 id: scitalk_search_collections
 label: 'Scitalk: Search collections'
 module: views
@@ -431,7 +428,7 @@ display:
         type: none
         options: {  }
       cache:
-        type: none
+        type: search_api_none
         options: {  }
       empty:
         area:

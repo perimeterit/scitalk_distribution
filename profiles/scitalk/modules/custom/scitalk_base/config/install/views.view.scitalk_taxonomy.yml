@@ -1,4 +1,3 @@
-uuid: 972489ea-535f-49c4-8027-afb57980f8ef
 langcode: en
 status: true
 dependencies:
@@ -11,8 +10,6 @@ dependencies:
     - node
     - taxonomy
     - user
-_core:
-  default_config_hash: bAnxx52zbQd8WJbJw2O4WmRV2qTEA959m-4f1IRNMOU
 id: scitalk_taxonomy
 label: 'Scitalk Taxonomy'
 module: views
@@ -622,7 +619,6 @@ display:
           title: ''
           default_argument_type: group_id_from_url
           default_argument_options: {  }
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -1060,7 +1056,6 @@ display:
           title: ''
           default_argument_type: group_id_from_url
           default_argument_options: {  }
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true

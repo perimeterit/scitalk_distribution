@@ -1,4 +1,3 @@
-uuid: 620e6b8d-f04d-491e-9122-a5133214afbe
 langcode: en
 status: true
 dependencies:
@@ -20,8 +19,6 @@ dependencies:
     - search_api
     - text
     - user
-_core:
-  default_config_hash: LbZfHBvbK-laiXw45ZKpZv_M3lXaUbjlbeMplUFPjAk
 id: scitalk_source_catch_up
 label: 'Scitalk: Source Catch Up'
 module: views
@@ -866,7 +863,7 @@ display:
         options:
           perm: 'access content'
       cache:
-        type: none
+        type: search_api_none
         options: {  }
       empty:
         area:

@@ -1,4 +1,3 @@
-uuid: 6bca8b35-4d9e-4a45-a2fb-4ca48868362f
 langcode: en
 status: true
 dependencies:
@@ -10,8 +9,6 @@ dependencies:
     - datetime
     - node
     - user
-_core:
-  default_config_hash: JGnYXjEbXYOSC1VvvZRfq_9x96gE2-B8v5eiIHvFGtY
 id: scitalk_recent_content
 label: 'Scitalk Recent Content'
 module: views

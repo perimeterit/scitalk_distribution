@@ -1,4 +1,3 @@
-uuid: 46140aaf-adc8-480c-9e29-a0d75dd5e7de
 langcode: en
 status: true
 dependencies:
@@ -19,8 +18,6 @@ dependencies:
     - taxonomy
     - user
     - views_field_view
-_core:
-  default_config_hash: Iq2OyRJsq6-xu9YW6cRcKPv2T3kE2x1cvukQ0nZipHE
 id: scitalk_collections
 label: 'Scitalk: Collections'
 module: views

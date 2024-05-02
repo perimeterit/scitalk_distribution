@@ -1,17 +1,14 @@
-uuid: 06ebaa92-c347-4460-83b4-9808cd043c23
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.horizontal_card
     - core.entity_view_mode.node.teaser
-    - field.storage.node.field_talk_thumbnail
     - node.type.collection
     - node.type.talk
   module:
     - better_exposed_filters
     - datetime
-    - image
     - node
     - user
 id: scitalk_collection_children
@@ -339,7 +336,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: ''
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true
@@ -374,7 +370,6 @@ display:
           default_argument_type: fixed
           default_argument_options:
             argument: ''
-          default_argument_skip_url: false
           summary_options:
             base_path: ''
             count: true

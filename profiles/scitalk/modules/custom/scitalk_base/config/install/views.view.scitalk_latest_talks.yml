@@ -1,4 +1,3 @@
-uuid: 91733be7-477e-4957-8849-b957e4aab8bf
 langcode: en
 status: true
 dependencies:
@@ -23,8 +22,6 @@ dependencies:
     - search_api
     - text
     - user
-_core:
-  default_config_hash: S0_OWUyC-1TUKg2hgM3DLrg7FPo4CC8J33tDC0f1BqI
 id: scitalk_latest_talks
 label: 'Scitalk: Latest Talks (new)'
 module: views
@@ -861,7 +858,7 @@ display:
         options:
           perm: 'access content'
       cache:
-        type: none
+        type: search_api_none
         options: {  }
       empty:
         area:
