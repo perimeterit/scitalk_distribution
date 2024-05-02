@@ -1,4 +1,3 @@
-uuid: f28b7dc5-73ac-435a-8c1f-d2a584784319
 langcode: en
 status: true
 dependencies:
@@ -6,5 +5,6 @@ dependencies:
     - node
 id: node.thumbnail
 label: Thumbnail
+description: ''
 targetEntityType: node
 cache: true

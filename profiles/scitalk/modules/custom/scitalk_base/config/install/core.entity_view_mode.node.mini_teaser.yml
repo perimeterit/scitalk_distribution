@@ -1,13 +1,13 @@
-uuid: ae7ee39b-3129-4f75-8418-71cf4cea7cd3
 langcode: en
 status: true
 dependencies:
+  module:
+    - node
   enforced:
     module:
       - scitalk_base
-  module:
-    - node
 id: node.mini_teaser
 label: 'Mini Teaser'
+description: ''
 targetEntityType: node
 cache: true

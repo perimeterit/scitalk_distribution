@@ -3,9 +3,8 @@ status: true
 dependencies:
   module:
     - node
-_core:
-  default_config_hash: x4ibUqNb5To7tqyE8OO7OxwHeYfazbT2nRFROF9I3Ek
 id: node.horizontal_card
 label: 'Horizontal Card'
+description: ''
 targetEntityType: node
 cache: true

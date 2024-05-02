@@ -1,4 +1,3 @@
-uuid: 34573ec2-c2bb-4915-8ab9-f3165c573e84
 langcode: en
 status: true
 dependencies:
@@ -7,6 +6,7 @@ dependencies:
     - field.field.node.talk.field_academic_year
     - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
+    - field.field.node.talk.field_scivideos_uuid
     - field.field.node.talk.field_talk_abstract
     - field.field.node.talk.field_talk_attachments
     - field.field.node.talk.field_talk_collection
@@ -42,18 +42,18 @@ third_party_settings:
       children:
         - field_talk_attachments
       label: Resources
-      parent_name: ""
+      parent_name: ''
       region: hidden
       weight: 10
       format_type: html_element
       format_settings:
-        classes: ""
-        id: ""
+        classes: ''
+        id: ''
         element: div
         show_label: true
         label_element: h2
-        label_element_classes: ""
-        attributes: ""
+        label_element_classes: ''
+        attributes: ''
         effect: none
         speed: fast
     group_talk_details:
@@ -67,25 +67,23 @@ third_party_settings:
         - field_talk_speaker_profile
         - field_talk_thumbnail
       label: Details
-      parent_name: ""
+      parent_name: ''
       region: hidden
       weight: 11
       format_type: html_element
       format_settings:
-        classes: ""
-        id: ""
+        classes: ''
+        id: ''
         element: div
         show_label: true
         label_element: h2
-        label_element_classes: ""
-        attributes: ""
+        label_element_classes: ''
+        attributes: ''
         effect: none
         speed: fast
   layout_builder:
     enabled: false
     allow_custom: false
-_core:
-  default_config_hash: aCBVwGdMjFi6mbWDq6HeG_zIhXF-pqhzJYA-WTyTr48
 id: node.talk.search_result
 targetEntityType: node
 bundle: talk
@@ -99,22 +97,31 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ""
+        fences_field_classes: ''
         fences_field_item_tag: none
-        fences_field_item_classes: ""
+        fences_field_item_classes: ''
         fences_label_tag: div
-        fences_label_classes: ""
+        fences_label_classes: ''
     weight: 0
     region: content
+  scitalk_prefixed_talk_number:
+    label: hidden
+    weight: -1
+    region: disabled
+    type: string
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
   search_api_excerpt:
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
     weight: 1
     region: content
 hidden:
   field_academic_year: true
   field_embargo_date: true
   field_scientific_area: true
+  field_scivideos_uuid: true
   field_talk_attachments: true
   field_talk_collection: true
   field_talk_date: true

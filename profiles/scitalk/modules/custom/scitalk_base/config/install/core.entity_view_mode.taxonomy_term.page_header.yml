@@ -1,12 +1,13 @@
 langcode: en
 status: true
 dependencies:
+  module:
+    - taxonomy
   enforced:
     module:
       - scitalk_base
-  module:
-    - taxonomy
 id: taxonomy_term.page_header
 label: 'Page Header'
+description: ''
 targetEntityType: taxonomy_term
 cache: true

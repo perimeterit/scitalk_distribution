@@ -1,13 +1,13 @@
-uuid: 72b66299-8e88-49d0-8fd3-5772d205d974
 langcode: en
 status: true
 dependencies:
+  module:
+    - node
   enforced:
     module:
       - scitalk_base
-  module:
-    - node
 id: node.speaker_name_institution
-label: 'Speaker name + institution'
+label: "Speaker name + institution"
+description: ""
 targetEntityType: node
 cache: true
