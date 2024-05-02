@@ -1,13 +1,11 @@
 langcode: en
 status: true
 dependencies:
+  module:
+    - search_api_db
   enforced:
     module:
       - scitalk_base
-  module:
-    - search_api_db
-_core:
-  default_config_hash: pF1RFX28S5ICtUbWywKiwgJ7ITRfA4jez7APkzBrkD8
 id: database_server
 name: 'Database server'
 description: ''
