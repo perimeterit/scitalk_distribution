@@ -1,4 +1,3 @@
-uuid: ac87c1a3-db60-4a58-bbe6-0d1da381fa20
 langcode: en
 status: false
 dependencies:
@@ -30,8 +29,6 @@ third_party_settings:
   layout_builder:
     enabled: false
     allow_custom: false
-_core:
-  default_config_hash: gSs8aUvrIBY7ospM_cPtm5cKBCk06cY99cH6hXEEB_Y
 id: node.collection.horizontal_card
 targetEntityType: node
 bundle: collection
@@ -41,18 +38,18 @@ content:
     type: daterange_all_day_default
     label: hidden
     settings:
-      timezone_override: ""
+      timezone_override: ''
       format_type: medium
-      separator: "-"
+      separator: '-'
       date_only_format: medium
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ""
+        fences_field_classes: ''
         fences_field_item_tag: none
-        fences_field_item_classes: ""
+        fences_field_item_classes: ''
         fences_label_tag: strong
-        fences_label_classes: ""
+        fences_label_classes: ''
     weight: 0
     region: content
   field_collection_number:
@@ -63,11 +60,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ""
+        fences_field_classes: ''
         fences_field_item_tag: none
-        fences_field_item_classes: ""
+        fences_field_item_classes: ''
         fences_label_tag: strong
-        fences_label_classes: ""
+        fences_label_classes: ''
     weight: 3
     region: content
   field_collection_organizers:
@@ -78,11 +75,11 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ""
+        fences_field_classes: ''
         fences_field_item_tag: none
-        fences_field_item_classes: ""
+        fences_field_item_classes: ''
         fences_label_tag: strong
-        fences_label_classes: ""
+        fences_label_classes: ''
     weight: 2
     region: content
   field_collection_type:
@@ -93,16 +90,16 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ""
+        fences_field_classes: ''
         fences_field_item_tag: none
-        fences_field_item_classes: ""
+        fences_field_item_classes: ''
         fences_label_tag: strong
-        fences_label_classes: ""
+        fences_label_classes: ''
     weight: 1
     region: content
   links:
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
     weight: 4
     region: content
 hidden:

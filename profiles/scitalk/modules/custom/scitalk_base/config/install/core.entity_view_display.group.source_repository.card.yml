@@ -1,4 +1,3 @@
-uuid: d07b3e67-0479-4297-ab2c-a14ad0730d24
 langcode: en
 status: true
 dependencies:
@@ -21,8 +20,6 @@ third_party_settings:
   layout_builder:
     enabled: false
     allow_custom: false
-_core:
-  default_config_hash: fFwDG5ta_SpPcRMhS5YDHPd-I6u1DDqB7_RnQYy_1kY
 id: group.source_repository.card
 targetEntityType: group
 bundle: source_repository
@@ -40,6 +37,8 @@ content:
       fences:
         fences_field_tag: figure
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: div

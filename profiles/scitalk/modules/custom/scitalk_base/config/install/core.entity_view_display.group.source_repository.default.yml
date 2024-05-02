@@ -1,4 +1,3 @@
-uuid: cca1cb98-47bb-4556-b075-c6c46f4c9684
 langcode: en
 status: true
 dependencies:
@@ -6,33 +5,31 @@ dependencies:
     - field.field.group.source_repository.field_description
     - field.field.group.source_repository.field_repo_institution
     - field.field.group.source_repository.field_repo_institution_full_name
+    - field.field.group.source_repository.field_repo_talks_prefix
     - field.field.group.source_repository.field_source_repo_full_name
     - field.field.group.source_repository.field_source_repo_logo
     - field.field.group.source_repository.field_source_repo_url
+    - field.field.group.source_repository.layout_builder__layout
     - group.type.source_repository
   module:
     - fences
     - image
     - link
     - text
-_core:
-  default_config_hash: fFwDG5ta_SpPcRMhS5YDHPd-I6u1DDqB7_RnQYy_1kY
 id: group.source_repository.default
 targetEntityType: group
 bundle: source_repository
 mode: default
 content:
   field_description:
-    weight: 2
+    type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 2
     region: content
   field_repo_institution_full_name:
     type: string
-    weight: 4
-    region: content
     label: inline
     settings:
       link_to_entity: false
@@ -40,12 +37,16 @@ content:
       fences:
         fences_field_tag: div
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
+    weight: 4
+    region: content
   field_source_repo_full_name:
-    weight: 3
+    type: string
     label: inline
     settings:
       link_to_entity: false
@@ -53,30 +54,36 @@ content:
       fences:
         fences_field_tag: p
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    type: string
+    weight: 3
     region: content
   field_source_repo_logo:
-    weight: 0
+    type: image
     label: hidden
     settings:
-      image_style: ''
       image_link: ''
+      image_style: ''
+      image_loading:
+        attribute: lazy
     third_party_settings:
       fences:
         fences_field_tag: figure
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
-    type: image
+    weight: 0
     region: content
   field_source_repo_url:
-    weight: 5
+    type: link
     label: hidden
     settings:
       trim_length: 80
@@ -88,24 +95,28 @@ content:
       fences:
         fences_field_tag: none
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
-    type: link
+    weight: 5
     region: content
   label:
-    label: hidden
     type: string
-    weight: 1
-    region: content
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 1
+    region: content
 hidden:
   changed: true
   created: true
   field_repo_institution: true
+  field_repo_talks_prefix: true
   langcode: true
+  layout_builder__layout: true
   search_api_excerpt: true
   uid: true

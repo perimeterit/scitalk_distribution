@@ -1,4 +1,3 @@
-uuid: 6a3e49c5-fb94-403b-b1be-bb91cf95b009
 langcode: en
 status: false
 dependencies:
@@ -26,8 +25,6 @@ dependencies:
     - fences
     - text
     - user
-_core:
-  default_config_hash: htPoJ6yO92m8vUbMDJqoOXa6dKtQGHmbK6Dii3UTmWs
 id: node.collection.teaser
 targetEntityType: node
 bundle: collection
@@ -37,24 +34,24 @@ content:
     type: daterange_default
     label: inline
     settings:
-      timezone_override: ""
+      timezone_override: ''
       format_type: medium
-      separator: "-"
+      separator: '-'
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ""
+        fences_field_classes: ''
         fences_field_item_tag: none
-        fences_field_item_classes: ""
+        fences_field_item_classes: ''
         fences_label_tag: strong
-        fences_label_classes: ""
+        fences_label_classes: ''
     weight: 1
     region: content
   field_collection_description:
     type: text_default
     label: hidden
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
     weight: 2
     region: content
   field_collection_number:
@@ -65,32 +62,32 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ""
+        fences_field_classes: ''
         fences_field_item_tag: none
-        fences_field_item_classes: ""
+        fences_field_item_classes: ''
         fences_label_tag: strong
-        fences_label_classes: ""
+        fences_label_classes: ''
     weight: 0
     region: content
   links:
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
     weight: 4
     region: content
   scitalk_number_of_talks:
     type: number_integer
     label: inline
     settings:
-      thousand_separator: ""
+      thousand_separator: ''
       prefix_suffix: true
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ""
+        fences_field_classes: ''
         fences_field_item_tag: none
-        fences_field_item_classes: ""
+        fences_field_item_classes: ''
         fences_label_tag: strong
-        fences_label_classes: ""
+        fences_label_classes: ''
     weight: 3
     region: content
 hidden:
