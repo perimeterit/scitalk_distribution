@@ -6,10 +6,7 @@ dependencies:
 id: source_repository-member
 label: Member
 weight: -100
-internal: true
-audience: member
 group_type: source_repository
-permissions_ui: true
 permissions:
   - 'access group_node overview'
   - 'create group_node:collection content'
@@ -64,3 +61,6 @@ permissions:
   - 'view unpublished group_node:source_repository entity'
   - 'view unpublished group_node:speaker_profile entity'
   - 'view unpublished group_node:talk entity'
+admin: false
+scope: insider
+global_role: authenticated

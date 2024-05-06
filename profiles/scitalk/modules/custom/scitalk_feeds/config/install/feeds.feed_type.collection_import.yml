@@ -17,16 +17,37 @@ dependencies:
     - node.type.collection
   module:
     - feeds_ex
+    - feeds_log
     - node
+third_party_settings:
+  feeds_log:
+    status: true
+    operations:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+      cleaned: cleaned
+    items:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+    source: true
 label: 'Collection Import'
 id: collection_import
 description: 'Import configuration for Collection'
 help: ''
 import_period: 86400
-fetcher: upload
+fetcher: http
 fetcher_configuration:
-  allowed_extensions: 'txt csv tsv xml opml json'
-  directory: 'public://feeds'
+  auto_detect_feeds: false
+  use_pubsubhubbub: false
+  always_download: false
+  fallback_hub: ''
+  request_timeout: 30
 parser: jsonpath
 parser_configuration:
   context:
