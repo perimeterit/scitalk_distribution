@@ -166,6 +166,9 @@
                 "Issue #2928639: Set the expiration of a key/value pair from the PrivateTempStore": "https://www.drupal.org/files/issues/2021-07-27/2928639-26.patch",
                 "Issue #3358586: RuntimeException: Adding non-existent permissions to a role is not allowed": "https://www.drupal.org/files/issues/2023-09-14/3358586-11.patch"
             },
+            "drupal/fences": {
+              "Installing Fences as part of a profile via drush site:install causes install to fail": "https://www.drupal.org/files/issues/2024-05-11/fences-3446610-2.patch"
+            },
             "drupal/simple_oauth": {
                 "TypeError: Argument 1 passed to Drupal\\simple_oauth\\Repositories\\ScopeRepository::scopeFactory() must implement interface Drupal\\user\\RoleInterface": "https://www.drupal.org/files/issues/2019-02-12/3032371-3.patch"
             },
