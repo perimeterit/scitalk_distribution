@@ -45,6 +45,7 @@
         "drupal/fences": "^3.0",
         "drupal/field_group": "^3.4",
         "drupal/field_permissions": "^1.2",
+        "drupal/flexible_permissions": "^1.1",
         "drupal/google_analytics": "^4.0",
         "drupal/group": "^2.2",
         "drupal/inline_entity_form": "^1.0@RC",
