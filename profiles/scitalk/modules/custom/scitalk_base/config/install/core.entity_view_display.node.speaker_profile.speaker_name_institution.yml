@@ -37,6 +37,8 @@ content:
       fences:
         fences_field_tag: span
         fences_field_classes: institution
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: div

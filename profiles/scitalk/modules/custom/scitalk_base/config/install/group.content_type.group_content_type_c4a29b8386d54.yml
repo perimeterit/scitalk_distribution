@@ -8,8 +8,6 @@ dependencies:
     - gnode
     - node
 id: group_content_type_c4a29b8386d54
-label: 'Source Repository: Group node (Speaker Profile)'
-description: 'Adds <em class="placeholder">Speaker Profile</em> content to groups both publicly and privately.'
 group_type: source_repository
 content_plugin: 'group_node:speaker_profile'
 plugin_config:

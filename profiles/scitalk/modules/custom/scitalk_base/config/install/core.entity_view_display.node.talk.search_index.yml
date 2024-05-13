@@ -103,6 +103,8 @@ content:
       fences:
         fences_field_tag: div
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: span
         fences_field_item_classes: ''
         fences_label_tag: strong
@@ -117,6 +119,8 @@ content:
       fences:
         fences_field_tag: div
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: div
         fences_field_item_classes: ''
         fences_label_tag: h2
@@ -141,6 +145,8 @@ content:
       fences:
         fences_field_tag: div
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: span
         fences_field_item_classes: ''
         fences_label_tag: strong
@@ -156,6 +162,8 @@ content:
       fences:
         fences_field_tag: div
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: strong
@@ -171,6 +179,8 @@ content:
       fences:
         fences_field_tag: div
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: span
         fences_field_item_classes: ''
         fences_label_tag: strong
@@ -186,6 +196,8 @@ content:
       fences:
         fences_field_tag: div
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: strong
@@ -201,6 +213,8 @@ content:
       fences:
         fences_field_tag: div
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: strong
@@ -220,6 +234,8 @@ content:
       fences:
         fences_field_tag: div
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: strong
@@ -235,6 +251,8 @@ content:
       fences:
         fences_field_tag: div
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: span
         fences_field_item_classes: ''
         fences_label_tag: strong
@@ -258,6 +276,8 @@ content:
       fences:
         fences_field_tag: div
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: span
         fences_field_item_classes: ''
         fences_label_tag: strong
@@ -274,6 +294,8 @@ content:
       fences:
         fences_field_tag: div
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: div
@@ -293,6 +315,8 @@ content:
       fences:
         fences_field_tag: h2
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: span
         fences_field_item_classes: ''
         fences_label_tag: strong
@@ -300,13 +324,13 @@ content:
     weight: 1
     region: content
   scitalk_prefixed_talk_number:
-    label: hidden
-    weight: -1
-    region: disabled
     type: string
+    label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: -1
+    region: disabled
 hidden:
   field_academic_year: true
   field_embargo_date: true

@@ -515,14 +515,15 @@ display:
         - url.query_args
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
         - 'config:core.entity_view_display.node.collection.default'
         - 'config:core.entity_view_display.node.collection.full'
         - 'config:core.entity_view_display.node.collection.horizontal_card'
+        - 'config:core.entity_view_display.node.collection.mini_teaser'
         - 'config:core.entity_view_display.node.collection.teaser'
+        - 'config:core.entity_view_display.node.landing_page.default'
         - 'config:core.entity_view_display.node.page.default'
         - 'config:core.entity_view_display.node.page.teaser'
         - 'config:core.entity_view_display.node.speaker_profile.default'
@@ -888,7 +889,6 @@ display:
         - url
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -1108,14 +1108,15 @@ display:
         - url
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
         - 'config:core.entity_view_display.node.collection.default'
         - 'config:core.entity_view_display.node.collection.full'
         - 'config:core.entity_view_display.node.collection.horizontal_card'
+        - 'config:core.entity_view_display.node.collection.mini_teaser'
         - 'config:core.entity_view_display.node.collection.teaser'
+        - 'config:core.entity_view_display.node.landing_page.default'
         - 'config:core.entity_view_display.node.page.default'
         - 'config:core.entity_view_display.node.page.teaser'
         - 'config:core.entity_view_display.node.speaker_profile.default'
@@ -1176,14 +1177,15 @@ display:
         - url.query_args
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
         - 'config:core.entity_view_display.node.collection.default'
         - 'config:core.entity_view_display.node.collection.full'
         - 'config:core.entity_view_display.node.collection.horizontal_card'
+        - 'config:core.entity_view_display.node.collection.mini_teaser'
         - 'config:core.entity_view_display.node.collection.teaser'
+        - 'config:core.entity_view_display.node.landing_page.default'
         - 'config:core.entity_view_display.node.page.default'
         - 'config:core.entity_view_display.node.page.teaser'
         - 'config:core.entity_view_display.node.speaker_profile.default'
@@ -1505,7 +1507,6 @@ display:
         - url
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:

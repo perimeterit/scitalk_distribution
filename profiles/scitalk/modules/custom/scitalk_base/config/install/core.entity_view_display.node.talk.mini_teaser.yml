@@ -99,6 +99,8 @@ content:
       fences:
         fences_field_tag: span
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: div
@@ -115,6 +117,8 @@ content:
       fences:
         fences_field_tag: ul
         fences_field_classes: inline-list
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: li
         fences_field_item_classes: ''
         fences_label_tag: div

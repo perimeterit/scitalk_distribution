@@ -1,3 +1,4 @@
+uuid: 93b5eec8-17e2-4679-a220-1a1f8396c1ce
 langcode: en
 status: true
 dependencies:
@@ -20,6 +21,8 @@ dependencies:
     - link
     - search_api
     - text
+_core:
+  default_config_hash: H4a3U2IMnSkwK5qY2MpLk8Z5XjwewcqknFZLNIcWGbg
 id: scitalk_advanced_search
 label: 'Scitalk: Advanced search'
 module: views

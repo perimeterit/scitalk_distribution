@@ -8,8 +8,6 @@ dependencies:
     - gnode
     - node
 id: group_content_type_73ec1320d728e
-label: 'Source Repository: Group node (Talk)'
-description: 'Adds <em class="placeholder">Talk</em> content to groups both publicly and privately.'
 group_type: source_repository
 content_plugin: 'group_node:talk'
 plugin_config:
