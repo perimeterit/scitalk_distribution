@@ -1,4 +1,3 @@
-uuid: 83e30ea8-b366-4877-aa4d-28a51cfaeab5
 langcode: en
 status: true
 dependencies:
@@ -15,13 +14,6 @@ content:
     weight: 10
     region: content
     settings: {  }
-    third_party_settings: {  }
-  feeds_log:
-    type: boolean_checkbox
-    weight: 11
-    region: content
-    settings:
-      display_label: true
     third_party_settings: {  }
   field_feeds_group:
     type: entity_reference_autocomplete

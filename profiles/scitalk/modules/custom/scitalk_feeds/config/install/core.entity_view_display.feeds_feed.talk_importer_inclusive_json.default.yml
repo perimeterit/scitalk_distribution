@@ -1,4 +1,3 @@
-uuid: 7efc0ef3-f466-4e58-95bb-dfdfe9fa4a19
 langcode: en
 status: true
 dependencies:
@@ -9,8 +8,6 @@ dependencies:
     - feeds
     - fences
     - user
-_core:
-  default_config_hash: ZLYCzJOKtY6RbSEWzZImfQHwt9QvkmgR9JIrPEd5RbA
 id: feeds_feed.talk_importer_inclusive_json.default
 targetEntityType: feeds_feed
 bundle: talk_importer_inclusive_json
