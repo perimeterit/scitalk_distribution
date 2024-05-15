@@ -95,10 +95,8 @@ function scitalk_groups_preprocess_page_title(&$variables) {
 
     // Set the page title to the group label plus the content type label
     $variables['title'] = $group_label . ': ' . t('Create ') . $content_type_label;
-
   }
 }
-
 
 /**
  * Implements hook_menu_local_actions_alter().
@@ -114,6 +112,7 @@ function scitalk_groups_menu_local_actions_alter(&$local_actions) {
   // Unset the group node module "Add content" buttons.
   // This goes to /group/{{groupid}}/node/create which includes confusing language
   unset($local_actions['group_content.group_node_add_page']);
+  unset($local_actions['group_content.group_node_create_page']);
 
   // Users shouldn't be able to add existing content from here
   unset($local_actions['group_content.group_node_relate_page']);
@@ -139,6 +138,16 @@ function scitalk_groups_menu_local_actions_alter(&$local_actions) {
       'appears_on' => ['view.group_nodes.page_1'],
       'class' => 'Drupal\Core\Menu\LocalActionDefault'
     ];
+
+    // Add argument to Group Feeds path
+    // Get current group from route
+
+    $route = \Drupal::routeMatch();
+    $routename = $route->getRouteName();
+    $group = \Drupal::routeMatch()->getParameter('group');
+    if (!empty($group)) {
+      $local_actions['group_feeds']['route_parameters'] = ['group_id' => $group->id()];
+    }
 
   }
 
@@ -280,6 +289,17 @@ function scitalk_groups_user_login_form_submit($form, FormStateInterface $form_s
  * Resolves the group source references when content is added via feeds or
  * the node/add forms
  *
+ * The Group reference is separate from the Source entity reference field
+ * Depending on how the node was added (feeds, manually through node/add, or
+ * through the group add group_node these values could be different)
+ *
+ * e.g. If a person adds a node through the site's node/add page, this will
+ * assign the node to the group referenced from the Source Repository field
+ *
+ * If a node is added via a feed, this will assign the item to the group
+ * from the source refeerence field, which was populated from the feed's
+ * group reference
+ *
  * @param $entity
  *   The entity being saved
  */
@@ -289,7 +309,7 @@ function scitalk_groups_node_insert(\Drupal\Core\Entity\EntityInterface $entity)
    * And the entity reference field matches the group.
 
    * For feeds, the source reference field will be empty,
-   * and should be filled using the group reference.
+   * and should be filled using the group reference on the feed
    */
   if ($nodetype == 'collection' || $nodetype == 'talk') {
     // Set a variable for the name of the reference field
@@ -300,17 +320,16 @@ function scitalk_groups_node_insert(\Drupal\Core\Entity\EntityInterface $entity)
       $source_ref_field = 'field_collection_source_repo';
     }
 
-    // Get the value of the source repo reference field.
+    // Get the value of the source repo reference field
     $repo_field_value = $entity->get($source_ref_field)->target_id;
 
-    // Get the group ids for this entity
+    // Get the current relationships for this entity
     $group_ids = \Drupal::entityQuery('group_content')
       ->condition('entity_id', $entity->id())
       ->accessCheck(TRUE)
       ->execute();
 
-    // And get the groups that this id belongs to
-    $relations = \Drupal\group\Entity\GroupContent::loadMultiple($group_ids);
+    $relations = \Drupal\group\Entity\GroupRelationship::loadMultiple($group_ids);
     foreach ($relations as $rel) {
       if ($rel->getEntity()->getEntityTypeId() == 'node') {
         $group_ids[] = $rel->getGroup()->id();
@@ -323,7 +342,7 @@ function scitalk_groups_node_insert(\Drupal\Core\Entity\EntityInterface $entity)
       $group = Group::load($repo_field_value);
       $pluginId = 'group_node:' . $nodetype;
       if (!empty($entity->id())) {
-        $group->addContent($entity, $pluginId);
+        $group->addRelationship($entity, $pluginId);
       }
     }
 
@@ -332,18 +351,18 @@ function scitalk_groups_node_insert(\Drupal\Core\Entity\EntityInterface $entity)
       // Set the reference field to match the group
       $entity->set($source_ref_field, $group_ids[0]);
     }
+
+    // Both are not empty.
     elseif (!empty($group_ids) && !empty($repo_field_value)) {
-      // Both are not empty.
       // Find out if the repo field value is not in the group ids
       if (!in_array($repo_field_value, $group_ids)) {
         // If not, assign the node to the group matching the repo field value
         $group = Group::load($repo_field_value);
         $pluginId = 'group_node:' . $nodetype;
-        $group->addContent($entity, $pluginId);
+        $group->addRelationship($entity, $pluginId);
         \Drupal::messenger()->addMessage('This' . $nodetype . ' was assigned to the ' . $source_ref_field . 'group.');
       }
     }
-
   }
 }
 
