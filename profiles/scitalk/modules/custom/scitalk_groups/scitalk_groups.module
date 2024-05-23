@@ -12,6 +12,17 @@ use Drupal\views\ViewExecutable;
 use Drupal\Core\Url;
 use Drupal\Core\Breadcrumb\Breadcrumb;
 use Drupal\Core\Cache\CacheableMetadata;
+use \Drupal\group\Entity\GroupRelationship;
+
+
+/**
+ * Set this module to a higher weight on install
+ * Make sure this runs after group module
+ */
+function scitalk_groups_install() {
+  module_set_weight('scitalk_groups', 10);
+}
+
 
 /**
  * Custom function to get the logged-in user's first group
@@ -127,7 +138,7 @@ function scitalk_groups_menu_local_actions_alter(&$local_actions) {
       ->load($type)
       ->label();
 
-    // Add local action with link to add content of content type talk
+    // Add local action with link to add content of this content type
     $local_actions['group_node_add' . $type] = [
       'id' => 'group_node_add' . $type,
       'title' => t('Add ') . $content_type_label,
@@ -138,17 +149,12 @@ function scitalk_groups_menu_local_actions_alter(&$local_actions) {
       'appears_on' => ['view.group_nodes.page_1'],
       'class' => 'Drupal\Core\Menu\LocalActionDefault'
     ];
+  }
 
-    // Add argument to Group Feeds path
-    // Get current group from route
-
-    $route = \Drupal::routeMatch();
-    $routename = $route->getRouteName();
-    $group = \Drupal::routeMatch()->getParameter('group');
-    if (!empty($group)) {
-      $local_actions['group_feeds']['route_parameters'] = ['group_id' => $group->id()];
-    }
-
+  // Add group id as argument to Group Feeds path
+  $group = \Drupal::routeMatch()->getParameter('group');
+  if ((!empty($group)) && isset($local_actions['group_feeds'])) {
+    $local_actions['group_feeds']['route_parameters'] = ['group_id' => $group->id()];
   }
 
 }
@@ -181,8 +187,6 @@ function scitalk_groups_views_pre_render(ViewExecutable $view) {
 function scitalk_groups_form_node_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if (($form_id == 'node_talk_form') || ($form_id = "node_collection_form")) {
     // Get the group id from the route
-    $route = \Drupal::routeMatch();
-    $routename = $route->getRouteName();
     $group = \Drupal::routeMatch()->getParameter('group');
     if (!empty($group)) {
       $group_id = $group->id();
@@ -284,7 +288,7 @@ function scitalk_groups_user_login_form_submit($form, FormStateInterface $form_s
 }
 
 /**
- * Implements hook_node_insert()
+ * Implements hook_node_presave()
  *
  * Resolves the group source references when content is added via feeds or
  * the node/add forms
@@ -305,6 +309,16 @@ function scitalk_groups_user_login_form_submit($form, FormStateInterface $form_s
  */
 function scitalk_groups_node_insert(\Drupal\Core\Entity\EntityInterface $entity) {
   $nodetype = $entity->getType();
+
+  // Find out the route this came from
+  $routename = \Drupal::routeMatch()->getRouteName();
+
+  // If this came from the Group module submit form, don't do anything
+  // The groups module form submit handler will assign the node to the group
+  if ($routename == 'entity.group_content.create_form') {
+    return;
+  }
+
   /* Make sure talks and collections are assigned to the right group
    * And the entity reference field matches the group.
 
@@ -312,6 +326,39 @@ function scitalk_groups_node_insert(\Drupal\Core\Entity\EntityInterface $entity)
    * and should be filled using the group reference on the feed
    */
   if ($nodetype == 'collection' || $nodetype == 'talk') {
+    // Set a variable for the name of the reference field
+    if ($nodetype == 'talk') {
+      $source_ref_field = 'field_talk_source_repository';
+    }
+    elseif ($nodetype == 'collection') {
+      $source_ref_field = 'field_collection_source_repo';
+    }
+
+    // Get the value of the source repo reference field
+    $repo_field_value = $entity->get($source_ref_field)->target_id;
+
+    // Assign this to the group from the reference field
+    if (!empty($repo_field_value)) {
+      $group = Group::load($repo_field_value);
+      $pluginId = 'group_node:' . $nodetype;
+      if (!empty($entity->id())) {
+        $group->addRelationship($entity, $pluginId);
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_entity_udpate()
+ * Makes sure group refrences and source repo fields match
+ */
+function scitalk_groups_entity_update(\Drupal\Core\Entity\EntityInterface $entity) {
+
+  if ($entity->getEntityTypeId() == 'node') {
+    $nodetype = $entity->getType();
+  }
+
+  if ((isset($nodetype)) && ($nodetype == 'collection' || $nodetype == 'talk')) {
     // Set a variable for the name of the reference field
     if ($nodetype == 'talk') {
       $source_ref_field = 'field_talk_source_repository';
@@ -346,13 +393,15 @@ function scitalk_groups_node_insert(\Drupal\Core\Entity\EntityInterface $entity)
       }
     }
 
-    // If the group id is NOT empty, and the reference field IS empty,
+    // If the group id is NOT empty, and the reference field IS empty
     elseif (!empty($group_ids) && empty($repo_field_value)) {
       // Set the reference field to match the group
       $entity->set($source_ref_field, $group_ids[0]);
     }
 
     // Both are not empty.
+    // This is an edge case, maybe where the source repo field was manually changed
+    // Or the node was somehow assigned to the wrong group.
     elseif (!empty($group_ids) && !empty($repo_field_value)) {
       // Find out if the repo field value is not in the group ids
       if (!in_array($repo_field_value, $group_ids)) {
@@ -364,6 +413,7 @@ function scitalk_groups_node_insert(\Drupal\Core\Entity\EntityInterface $entity)
       }
     }
   }
+
 }
 
 /**
