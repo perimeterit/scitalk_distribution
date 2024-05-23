@@ -1,4 +1,3 @@
-uuid: 33310f4a-7015-45a3-a035-22625dbf9724
 langcode: en
 status: true
 dependencies:
@@ -19,8 +18,6 @@ dependencies:
     - media.type.doi
   module:
     - image
-_core:
-  default_config_hash: tvYY6kQhstfwOcc9sscpt0wmboL-zJqJ81w9vbWIANM
 id: media.doi.media_library
 targetEntityType: media
 bundle: doi
@@ -30,10 +27,12 @@ content:
     type: image
     label: hidden
     settings:
-      image_style: medium
       image_link: ''
-    weight: 0
+      image_style: medium
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   created: true

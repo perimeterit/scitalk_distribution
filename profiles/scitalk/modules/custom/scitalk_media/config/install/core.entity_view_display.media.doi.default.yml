@@ -27,128 +27,130 @@ bundle: doi
 mode: default
 content:
   created:
-    label: hidden
     type: timestamp
-    weight: 0
-    region: content
+    label: hidden
     settings:
       date_format: medium
-      custom_date_format: ""
-      timezone: ""
+      custom_date_format: ''
+      timezone: ''
       tooltip:
-        date_format: long
-        custom_date_format: ""
+        date_format: ''
+        custom_date_format: ''
       time_diff:
         enabled: false
-        future_format: "@interval hence"
-        past_format: "@interval ago"
+        future_format: '@interval hence'
+        past_format: '@interval ago'
         granularity: 2
         refresh: 60
-    third_party_settings: {}
+    third_party_settings: {  }
+    weight: 0
+    region: content
   field_doi_authors:
-    weight: 12
-    label: above
-    settings: {}
-    third_party_settings: {}
     type: basic_string
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 12
     region: content
   field_doi_date_issued:
-    weight: 9
+    type: datetime_default
     label: above
     settings:
+      timezone_override: ''
       format_type: medium
-      timezone_override: ""
-    third_party_settings: {}
-    type: datetime_default
+    third_party_settings: {  }
+    weight: 9
     region: content
   field_doi_date_published:
-    weight: 10
+    type: datetime_default
     label: above
     settings:
+      timezone_override: ''
       format_type: medium
-      timezone_override: ""
-    third_party_settings: {}
-    type: datetime_default
+    third_party_settings: {  }
+    weight: 10
     region: content
   field_doi_description:
-    weight: 8
-    label: above
-    settings: {}
-    third_party_settings: {}
     type: text_default
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    weight: 8
     region: content
   field_doi_issue:
-    weight: 15
+    type: string
     label: above
     settings:
       link_to_entity: false
-    third_party_settings: {}
-    type: string
+    third_party_settings: {  }
+    weight: 15
     region: content
   field_doi_journal_name:
-    weight: 11
+    type: string
     label: above
     settings:
       link_to_entity: false
-    third_party_settings: {}
-    type: string
+    third_party_settings: {  }
+    weight: 11
     region: content
   field_doi_page_range:
-    weight: 14
+    type: string
     label: above
     settings:
       link_to_entity: false
-    third_party_settings: {}
-    type: string
+    third_party_settings: {  }
+    weight: 14
     region: content
   field_doi_publisher:
-    weight: 16
+    type: string
     label: above
     settings:
       link_to_entity: false
-    third_party_settings: {}
-    type: string
+    third_party_settings: {  }
+    weight: 16
     region: content
   field_doi_title:
-    weight: 7
+    type: string
     label: above
     settings:
       link_to_entity: false
-    third_party_settings: {}
-    type: string
+    third_party_settings: {  }
+    weight: 7
     region: content
   field_doi_volume:
-    weight: 13
+    type: string
     label: above
     settings:
       link_to_entity: false
-    third_party_settings: {}
-    type: string
+    third_party_settings: {  }
+    weight: 13
     region: content
   field_media_scitalk_doi:
-    weight: 6
+    type: id_url_formatter
     label: above
     settings:
-      id_base_url: "http://doi.org"
-    third_party_settings: {}
-    type: id_url_formatter
+      id_base_url: 'http://doi.org'
+    third_party_settings: {  }
+    weight: 6
     region: content
   thumbnail:
     type: image
-    weight: 5
     label: hidden
     settings:
+      image_link: ''
       image_style: thumbnail
-      image_link: ""
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 5
     region: content
-    third_party_settings: {}
   uid:
-    label: hidden
     type: author
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
     weight: 0
     region: content
-    settings: {}
-    third_party_settings: {}
 hidden:
   langcode: true
   name: true

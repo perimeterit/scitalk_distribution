@@ -13,8 +13,8 @@ dependencies:
     - layout_builder
 third_party_settings:
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 id: media.arxiv.resource_link
 targetEntityType: media
 bundle: arxiv
@@ -22,8 +22,6 @@ mode: resource_link
 content:
   field_arxiv_title:
     type: string
-    weight: 2
-    region: content
     label: hidden
     settings:
       link_to_entity: false
@@ -31,14 +29,16 @@ content:
       fences:
         fences_field_tag: none
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
+    weight: 2
+    region: content
   field_media_scitalk_arxiv:
     type: string
-    weight: 0
-    region: content
     label: hidden
     settings:
       link_to_entity: false
@@ -46,18 +46,22 @@ content:
       fences:
         fences_field_tag: none
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: none
         fences_label_classes: ''
+    weight: 0
+    region: content
   name:
     type: string
-    weight: 1
-    region: content
     label: hidden
     settings:
       link_to_entity: false
     third_party_settings: {  }
+    weight: 1
+    region: content
 hidden:
   created: true
   field_arxiv_published_date: true

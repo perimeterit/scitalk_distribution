@@ -8,6 +8,8 @@ dependencies:
     - media.type.remote_file
   module:
     - image
+_core:
+  default_config_hash: 3tyr7ponQetozk1Wi5X4w-tGjB0ONU6nnCg9U-YoZtg
 id: media.remote_file.media_library
 targetEntityType: media
 bundle: remote_file
@@ -17,10 +19,12 @@ content:
     type: image
     label: hidden
     settings:
-      image_style: medium
       image_link: ''
-    weight: 0
+      image_style: medium
+      image_loading:
+        attribute: lazy
     third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   created: true
@@ -29,4 +33,3 @@ hidden:
   name: true
   search_api_excerpt: true
   uid: true
-

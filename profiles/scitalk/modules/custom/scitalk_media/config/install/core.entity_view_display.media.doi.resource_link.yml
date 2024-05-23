@@ -20,8 +20,8 @@ dependencies:
     - layout_builder
 third_party_settings:
   layout_builder:
-    allow_custom: false
     enabled: false
+    allow_custom: false
 id: media.doi.resource_link
 targetEntityType: media
 bundle: doi
@@ -29,52 +29,56 @@ mode: resource_link
 content:
   field_doi_authors:
     type: basic_string
-    weight: 3
-    region: content
     label: hidden
     settings: {  }
     third_party_settings:
       fences:
         fences_field_tag: none
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
+    weight: 3
+    region: content
   field_doi_journal_name:
     type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      fences:
+        fences_field_tag: none
+        fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
     weight: 2
     region: content
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings:
-      fences:
-        fences_field_tag: none
-        fences_field_classes: ''
-        fences_field_item_tag: none
-        fences_field_item_classes: ''
-        fences_label_tag: div
-        fences_label_classes: ''
   field_doi_title:
     type: string
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings:
+      fences:
+        fences_field_tag: none
+        fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
+        fences_field_item_tag: none
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
     weight: 0
     region: content
-    label: hidden
-    settings:
-      link_to_entity: false
-    third_party_settings:
-      fences:
-        fences_field_tag: none
-        fences_field_classes: ''
-        fences_field_item_tag: none
-        fences_field_item_classes: ''
-        fences_label_tag: div
-        fences_label_classes: ''
   field_media_scitalk_doi:
     type: string
-    weight: 1
-    region: content
     label: hidden
     settings:
       link_to_entity: false
@@ -82,10 +86,14 @@ content:
       fences:
         fences_field_tag: none
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
+    weight: 1
+    region: content
 hidden:
   created: true
   field_doi_date_issued: true
