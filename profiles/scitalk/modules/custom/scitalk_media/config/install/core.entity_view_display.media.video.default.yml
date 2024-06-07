@@ -5,6 +5,7 @@ dependencies:
     - field.field.media.video.field_media_video_file
     - media.type.video
   module:
+    - fences
     - file
 id: media.video.default
 targetEntityType: media
@@ -13,17 +14,26 @@ mode: default
 content:
   field_media_video_file:
     type: file_video
-    weight: 0
     label: visually_hidden
     settings:
-      muted: false
-      width: 640
-      height: 480
       controls: true
       autoplay: false
       loop: false
       multiple_file_display_type: tags
-    third_party_settings: {}
+      muted: false
+      width: 640
+      height: 480
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
+        fences_field_item_tag: div
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
+    weight: 0
     region: content
 hidden:
   created: true

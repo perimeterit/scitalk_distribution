@@ -17,6 +17,7 @@ dependencies:
     - media.type.doi
   module:
     - datetime
+    - fences
     - id_link_formatter
     - image
     - text
@@ -34,7 +35,7 @@ content:
       custom_date_format: ''
       timezone: ''
       tooltip:
-        date_format: ''
+        date_format: long
         custom_date_format: ''
       time_diff:
         enabled: false
@@ -58,7 +59,16 @@ content:
     settings:
       timezone_override: ''
       format_type: medium
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
+        fences_field_item_tag: div
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
     weight: 9
     region: content
   field_doi_date_published:
@@ -67,7 +77,16 @@ content:
     settings:
       timezone_override: ''
       format_type: medium
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
+        fences_field_item_tag: div
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
     weight: 10
     region: content
   field_doi_description:
@@ -141,7 +160,16 @@ content:
       image_style: thumbnail
       image_loading:
         attribute: lazy
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
+        fences_field_item_tag: div
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
     weight: 5
     region: content
   uid:

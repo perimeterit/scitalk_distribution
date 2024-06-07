@@ -10,12 +10,12 @@ bundle: scitalk_youtube_video
 mode: default
 content:
   field_media_scitalk_video:
+    type: string
     label: visually_hidden
-    weight: 0
     settings:
       link_to_entity: false
-    third_party_settings: {}
-    type: string
+    third_party_settings: {  }
+    weight: 0
     region: content
 hidden:
   created: true

@@ -3,8 +3,6 @@ status: true
 dependencies:
   module:
     - media
-_core:
-  default_config_hash: 5DrFyi_0nFamsFwY3gRvflW0307PSSkIvb6Vm8-wyHw
 id: media.resource_link
 label: 'Resource link'
 description: ''

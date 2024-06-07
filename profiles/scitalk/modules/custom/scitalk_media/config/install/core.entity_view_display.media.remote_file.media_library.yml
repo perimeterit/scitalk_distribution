@@ -7,9 +7,8 @@ dependencies:
     - image.style.medium
     - media.type.remote_file
   module:
+    - fences
     - image
-_core:
-  default_config_hash: 3tyr7ponQetozk1Wi5X4w-tGjB0ONU6nnCg9U-YoZtg
 id: media.remote_file.media_library
 targetEntityType: media
 bundle: remote_file
@@ -23,7 +22,16 @@ content:
       image_style: medium
       image_loading:
         attribute: lazy
-    third_party_settings: {  }
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
+        fences_field_item_tag: div
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
     weight: 0
     region: content
 hidden:
