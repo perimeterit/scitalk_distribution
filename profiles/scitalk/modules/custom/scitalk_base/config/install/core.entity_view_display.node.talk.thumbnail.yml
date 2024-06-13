@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.thumbnail
-    - field.field.node.talk.feeds_item
     - field.field.node.talk.field_academic_year
     - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
@@ -104,7 +103,6 @@ content:
     weight: 0
     region: content
 hidden:
-  feeds_item: true
   field_academic_year: true
   field_embargo_date: true
   field_scientific_area: true
