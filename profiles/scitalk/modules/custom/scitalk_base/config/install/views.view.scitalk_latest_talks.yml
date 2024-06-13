@@ -1,3 +1,4 @@
+uuid: 7cdfb21f-f230-4884-b29b-37613b690463
 langcode: en
 status: true
 dependencies:
@@ -22,6 +23,8 @@ dependencies:
     - search_api
     - text
     - user
+_core:
+  default_config_hash: VEBLXjUIkiuMO1xrZ_b6B-g2uBHhIcgxMVdbrWhh-Cg
 id: scitalk_latest_talks
 label: 'Scitalk: Latest Talks (new)'
 module: views
@@ -1140,7 +1143,6 @@ display:
         - url.query_args
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -1251,7 +1253,6 @@ display:
         - url
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -2187,7 +2188,6 @@ display:
         - url.query_args
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -2315,7 +2315,6 @@ display:
         - url.query_args
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -2522,7 +2521,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:

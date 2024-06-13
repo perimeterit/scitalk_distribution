@@ -1,3 +1,4 @@
+uuid: e4fc3170-beb0-4542-8c4c-6207218949bc
 langcode: en
 status: true
 dependencies:
@@ -18,6 +19,8 @@ dependencies:
     - datetime_range
     - search_api
     - views_field_view
+_core:
+  default_config_hash: De8GEOJ0nsXZ3qz1VN2d7GKeCFs7ejWNFJGS1fKe5Ps
 id: scitalk_search_collections
 label: 'Scitalk: Search collections'
 module: views
@@ -948,7 +951,6 @@ display:
         - url.query_args
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_collection_date'
@@ -1622,7 +1624,6 @@ display:
         - url.query_args
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_talk_collection'
@@ -2152,7 +2153,6 @@ display:
         - url.query_args
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_collection_date'
@@ -2429,7 +2429,6 @@ display:
         - url.query_args
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.default_talks_index'
@@ -2669,7 +2668,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.default_talks_index'

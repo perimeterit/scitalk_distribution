@@ -1,8 +1,10 @@
+uuid: ad358e39-f20a-4c11-9184-c6b25b31c547
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.thumbnail
+    - field.field.node.talk.feeds_item
     - field.field.node.talk.field_academic_year
     - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
@@ -76,6 +78,8 @@ third_party_settings:
   layout_builder:
     enabled: false
     allow_custom: false
+_core:
+  default_config_hash: 2C7eFhroW_vyQzJdJnL_WyfliTcwWJAgy94CMzqM6kA
 id: node.talk.thumbnail
 targetEntityType: node
 bundle: talk
@@ -91,21 +95,16 @@ content:
       fences:
         fences_field_tag: figure
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: div
         fences_label_classes: ''
     weight: 0
     region: content
-  scitalk_prefixed_talk_number:
-    label: hidden
-    weight: -1
-    region: disabled
-    type: string
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
 hidden:
+  feeds_item: true
   field_academic_year: true
   field_embargo_date: true
   field_scientific_area: true
@@ -130,4 +129,5 @@ hidden:
   field_talk_viewable_online: true
   langcode: true
   links: true
+  scitalk_prefixed_talk_number: true
   search_api_excerpt: true

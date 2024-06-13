@@ -1,3 +1,4 @@
+uuid: ae638561-c4bf-4c75-a4eb-abbe2ad6b188
 langcode: en
 status: true
 dependencies:
@@ -11,6 +12,8 @@ dependencies:
     - datetime
     - node
     - user
+_core:
+  default_config_hash: uNsEPn2oPh_L17YrPkJA4IgdHZpKcm1hKTehvexoALU
 id: scitalk_collection_children
 label: 'Scitalk Collection Children'
 module: views
@@ -419,15 +422,11 @@ display:
         - 'config:core.entity_view_display.node.speaker_profile.search_result'
         - 'config:core.entity_view_display.node.speaker_profile.speaker_name_institution'
         - 'config:core.entity_view_display.node.speaker_profile.teaser'
-        - 'config:core.entity_view_display.node.talk.card'
         - 'config:core.entity_view_display.node.talk.default'
         - 'config:core.entity_view_display.node.talk.full'
-        - 'config:core.entity_view_display.node.talk.horizontal_card'
         - 'config:core.entity_view_display.node.talk.mini_teaser'
-        - 'config:core.entity_view_display.node.talk.page_header'
         - 'config:core.entity_view_display.node.talk.search_index'
         - 'config:core.entity_view_display.node.talk.search_result'
-        - 'config:core.entity_view_display.node.talk.teaser'
         - 'config:core.entity_view_display.node.talk.thumbnail'
   attachment_1:
     id: attachment_1
@@ -589,15 +588,11 @@ display:
         - 'config:core.entity_view_display.node.speaker_profile.search_result'
         - 'config:core.entity_view_display.node.speaker_profile.speaker_name_institution'
         - 'config:core.entity_view_display.node.speaker_profile.teaser'
-        - 'config:core.entity_view_display.node.talk.card'
         - 'config:core.entity_view_display.node.talk.default'
         - 'config:core.entity_view_display.node.talk.full'
-        - 'config:core.entity_view_display.node.talk.horizontal_card'
         - 'config:core.entity_view_display.node.talk.mini_teaser'
-        - 'config:core.entity_view_display.node.talk.page_header'
         - 'config:core.entity_view_display.node.talk.search_index'
         - 'config:core.entity_view_display.node.talk.search_result'
-        - 'config:core.entity_view_display.node.talk.teaser'
         - 'config:core.entity_view_display.node.talk.thumbnail'
   card_view:
     id: card_view
@@ -631,13 +626,9 @@ display:
         - 'config:core.entity_view_display.node.speaker_profile.search_result'
         - 'config:core.entity_view_display.node.speaker_profile.speaker_name_institution'
         - 'config:core.entity_view_display.node.speaker_profile.teaser'
-        - 'config:core.entity_view_display.node.talk.card'
         - 'config:core.entity_view_display.node.talk.default'
         - 'config:core.entity_view_display.node.talk.full'
-        - 'config:core.entity_view_display.node.talk.horizontal_card'
         - 'config:core.entity_view_display.node.talk.mini_teaser'
-        - 'config:core.entity_view_display.node.talk.page_header'
         - 'config:core.entity_view_display.node.talk.search_index'
         - 'config:core.entity_view_display.node.talk.search_result'
-        - 'config:core.entity_view_display.node.talk.teaser'
         - 'config:core.entity_view_display.node.talk.thumbnail'
