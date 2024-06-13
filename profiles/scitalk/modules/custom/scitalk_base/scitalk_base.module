@@ -57,18 +57,18 @@ function scitalk_base_entity_bundle_field_info(\Drupal\Core\Entity\EntityTypeInt
   //create computed field to display talk numbers prefixed with a source repository predefined talk prefix
   if ($entity_type->id() == 'node' && in_array($bundle, ['talk'])) {
     $fields['scitalk_prefixed_talk_number'] = BaseFieldDefinition::create('string')
-    ->setLabel(t('Prefixed Talk Number'))
-    ->setDescription(t('Talk Number prefixed with an Institution specific prefix.'))
-    ->setComputed(TRUE)
-    ->setDefaultValue(NULL)
-    ->setClass(SciTalkPrefixedTalkNumberList::class)
-    ->setDisplayConfigurable('view', TRUE)
-    ->setDisplayOptions('view', [
-      'label' => 'hidden',
-      'weight' => -1,
-      'region' => 'disabled',
-      'type' => 'string',
-    ]);
+      ->setLabel(t('Prefixed Talk Number'))
+      ->setDescription(t('Talk Number prefixed with an Institution specific prefix.'))
+      ->setComputed(TRUE)
+      ->setDefaultValue(NULL)
+      ->setClass(SciTalkPrefixedTalkNumberList::class)
+      ->setDisplayConfigurable('view', TRUE)
+      ->setDisplayOptions('view', [
+        'label' => 'hidden',
+        'weight' => -1,
+        'region' => 'disabled',
+        'type' => 'string',
+      ]);
 
     return $fields;
   }
@@ -282,14 +282,16 @@ function scitalk_base_node_delete(Drupal\Core\Entity\EntityInterface $entity) {
  * Implements hook_views_query_alter()
  */
 function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
-  /* Alter the collection view sort order based on the value of the sort order field */
-  //if (($view->id() == 'scitalk_talks_in_collection') && ($view->current_display == 'scitalk_talk_by_collection_block')) {
-  if (($view->id() == 'scitalk_talks_in_collection' || $view->id() == 'scitalk_collection_children') && (in_array($view->current_display, ['scitalk_talk_by_collection_block', 'card_view', 'attachment_1', 'attachment_2']))) {
+  /* Alter the collection view sort order based on the value of the sort order field on this collection type */
+  if (($view->id() == 'scitalk_talks_in_collection' || $view->id() == 'scitalk_collection_children')
+    && (in_array($view->current_display, ['scitalk_talk_by_collection_block', 'card_view', 'attachment_1', 'attachment_2']))
+    && (!empty($view->args))
+  ) {
     $collection_node = Node::load($view->args[0]);
     $collection_type_field = $collection_node->get('field_collection_type')->getValue();
     $collection_type_tid = $collection_type_field[0]['target_id'] ?? 0;
     $collection_type_term = Term::load($collection_type_tid);
-    if(isset($collection_type_term->field_sort_order)) {
+    if (isset($collection_type_term->field_sort_order)) {
       $collection_type_sort = $collection_type_term->get('field_sort_order')->getValue();
       $collection_type_sort_value = $collection_type_sort[0]['value'] ?? 'date_asc';
     }
@@ -298,7 +300,7 @@ function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $q
     }
 
     //find the talk date sort field
-    $talk_date_sort_field = array_filter($query->orderby, function($sort_field){
+    $talk_date_sort_field = array_filter($query->orderby, function ($sort_field) {
       return $sort_field['field'] == 'node__field_talk_date_field_talk_date_value';
     });
 
@@ -326,7 +328,7 @@ function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $q
         $view->setItemsPerPage(0);
 
         //add collection number as a sort field and sort by it
-        $query->addOrderBy('node__field_collection_number','field_collection_number_value', 'ASC');
+        $query->addOrderBy('node__field_collection_number', 'field_collection_number_value', 'ASC');
       }
     }
   }
@@ -337,20 +339,20 @@ function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $q
 function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // Attach JavaScript library to speaker node forms
   if (($form_id == 'node_speaker_profile_form') ||
-      ($form_id == 'node_speaker_profile_edit_form') ||
-      ($form_id == 'node_talk_form')) {
+    ($form_id == 'node_speaker_profile_edit_form') ||
+    ($form_id == 'node_talk_form')) {
     // Autofills Display name with First name + Last name
     $form['#attached']['library'][] = 'scitalk_base/speaker_autofill';
   }
 
   // Alter speaker profile form to add help text to the display name (title) field
   if (($form_id == 'node_speaker_profile_form') ||
-      ($form_id == 'node_speaker_profile_edit_form')) {
+    ($form_id == 'node_speaker_profile_edit_form')) {
     $form['title']['widget'][0]['value']['#description'] = t('Name to be used for display on the site. May be different from first name + last name.  This name will be used for display across the site and as the title for the Speaker page.');
   }
 
   // Alter views exposed form
-  if($form_id == 'views_exposed_form') {
+  if ($form_id == 'views_exposed_form') {
 
     $view = $form_state->getStorage('view');
     $view_id = $view['view']->id();
@@ -365,19 +367,20 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
     // Set the correct field id for this view
     if ($view['view']->id() == 'scitalk_search_collections') {
       $field_id = 'collection_source';
-    } else {
+    }
+    else {
       $field_id = 'source';
     }
 
     if ((in_array($view['view']->id(), $view_machine_names)) &&
-        ($view_display != 'basic_search')) {
+      ($view_display != 'basic_search')) {
 
       // Get all the groups
       $query = \Drupal::entityQuery('group')
-      ->condition('type', 'source_repository');
+        ->condition('type', 'source_repository');
       $group_ids = $query->accessCheck(TRUE)->execute();
       $group_options = ['' => 'All'];
-      $group_storage =  \Drupal::entityTypeManager()->getStorage('group');
+      $group_storage = \Drupal::entityTypeManager()->getStorage('group');
       $groups = $group_storage->loadMultiple($group_ids);
 
       if (count($groups) > 1) {
@@ -388,14 +391,15 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
         }
 
         // Convert this field to a select field
-        $form[$field_id]['#default_value'] =   'All';
+        $form[$field_id]['#default_value'] = 'All';
 
         $form[$field_id]['#type'] = 'select';
         $form[$field_id]['#options'] = $group_options;
 
         // Unset the size value so it doesn't display as a textfield
         unset($form[$field_id]['#size']);
-      } else {
+      }
+      else {
         $form[$field_id]['#access'] = FALSE;
       }
     }
@@ -413,7 +417,7 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
 
   //check whether these 2 entities (Collection and Speaker Profile) can be deleted from SciVideos. If not then don't allow deletion from local site either
   $validate_delete_forms = ['node_collection_delete_form', 'node_speaker_profile_delete_form'];
-  if (in_array($form_id, $validate_delete_forms)){
+  if (in_array($form_id, $validate_delete_forms)) {
     $form['#validate'][] = '_scitalk_base_delete_entity_validate';
   }
 
@@ -426,15 +430,15 @@ function _scitalk_base_use_doi(\Drupal\Core\Entity\EntityInterface $entity) {
 
   //if DOI config is not enabled then no
   if (!$doi_enabled) {
-    return false;
+    return FALSE;
   }
 
   //if DOI config is on then check if this Talk type is configured to create DOIs
-  $create_doi_for_this_talk_type = false;
+  $create_doi_for_this_talk_type = FALSE;
   $talk_type = $entity->field_talk_type->target_id ?? 0;
   if (!empty($talk_type)) {
     $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->load($talk_type);
-    $create_doi_for_this_talk_type = $term->field_create_doi->value ?? false;
+    $create_doi_for_this_talk_type = $term->field_create_doi->value ?? FALSE;
   }
 
   return $create_doi_for_this_talk_type;
@@ -465,11 +469,11 @@ function _scitalk_base_delete_entity_validate(&$form, FormStateInterface $form_s
       // $number_of_subcollections = $entity->field_collection_number_children->value ?? 0;
       // $title = $entity->title->value ?? 'This Collection';
 
-      if ($number_of_talks > 0){
+      if ($number_of_talks > 0) {
         $talk_txt = $number_of_talks == 1 ? "there is {$number_of_talks} talk" : "there are {$number_of_talks} talks";
         $form_state->setError($form, "'{$title}' cannot be deleted since {$talk_txt} as part of this collection in SciVideos.");
       }
-      if ($number_of_subcollections > 0){
+      if ($number_of_subcollections > 0) {
         $coll_txt = $number_of_subcollections == 1 ? "there is {$number_of_subcollections} sub-collection" : "there are {$number_of_subcollections} sub-collections";
         $form_state->setError($form, "'{$title}' cannot be deleted since {$coll_txt} as part of the collection in SciVideos.");
       }
@@ -491,7 +495,7 @@ function _scitalk_base_delete_entity_validate(&$form, FormStateInterface $form_s
       // }
 
       //query from SciVideos:
-      if ($number_of_talks = $scivideos_service->getNumberOfTalksForSpeakerInSciVideos($entity)){
+      if ($number_of_talks = $scivideos_service->getNumberOfTalksForSpeakerInSciVideos($entity)) {
         $talk_txt = $number_of_talks . ($number_of_talks == 1 ? " talk" : " talks");
         $form_state->setError($form, "This Speaker Profile cannot be deleted since it is attached to {$talk_txt} in SciVideos.");
       }
