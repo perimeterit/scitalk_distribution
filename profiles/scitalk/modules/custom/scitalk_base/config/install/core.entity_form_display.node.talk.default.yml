@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_form_mode.media.embedded
-    - field.field.node.talk.feeds_item
     - field.field.node.talk.field_academic_year
     - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
@@ -385,7 +384,6 @@ content:
       placeholder: ''
     third_party_settings: {  }
 hidden:
-  feeds_item: true
   field_embargo_date: true
   field_scivideos_uuid: true
   field_talk_duration: true
