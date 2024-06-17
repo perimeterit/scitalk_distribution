@@ -37,29 +37,32 @@ function scitalk_theme_preprocess_page(&$variables) {
     // If the node object exists:
     if ($routename == 'entity.node.canonical') {
       $node = \Drupal::routeMatch()->getParameter('node');
-    } else if ($routename == 'entity.node.preview') {
+    }
+    else if ($routename == 'entity.node.preview') {
       $node = \Drupal::routeMatch()->getParameter('node_preview');
     }
   }
 
   // Negotiate the page type or section, to set the search mode
-  $route_parts = explode('.',$routename);
+  $route_parts = explode('.', $routename);
   if ($route_parts[1] == 'node') {
     $node = \Drupal::routeMatch()->getParameter('node');
     $nodetype = $node->getType();
     if ($nodetype == 'collection') {
       // speakers will work like this when implemented
       $variables['search_section'] = $nodetype . 's';
-    } else {
+    }
+    else {
       $variables['search_section'] = 'talks';
     }
   }
   else if ($route_parts[0] == 'view') {
     $view_name = explode('_', $route_parts[1]);
     if (($view_name[1] == 'collections') ||
-    (isset($view_name[2]) && ($view_name[2] == 'collections'))) {
+      (isset($view_name[2]) && ($view_name[2] == 'collections'))) {
       $variables['search_section'] = 'collections';
-    } else {
+    }
+    else {
       $variables['search_section'] = 'talks';
     }
   }
@@ -136,17 +139,17 @@ function scitalk_theme_preprocess_bef_radios(&$variables) {
 function scitalk_theme_preprocess_block(&$variables) {
 
   $base_plugin_id = $variables['elements']['#base_plugin_id'];
-  $plugin_id =  $variables['elements']['#plugin_id'];
+  $plugin_id = $variables['elements']['#plugin_id'];
 
   // Put a slightly less insane class on the views exposed form block
   if ($base_plugin_id == 'views_exposed_filter_block') {
-    $plugin_parts = explode(':',$plugin_id);
-    $variables['attributes']['class'][] = 'block--' . str_replace('_','-',$plugin_parts[1]);
+    $plugin_parts = explode(':', $plugin_id);
+    $variables['attributes']['class'][] = 'block--' . str_replace('_', '-', $plugin_parts[1]);
   }
 
   // Add search form classes to search exposed form, for default search view & solr search view
   if (($variables['derivative_plugin_id'] == 'default_search_content-page_2') ||
-   ($variables['derivative_plugin_id'] == 'scitalk_advanced_search-basic_search')) {
+    ($variables['derivative_plugin_id'] == 'scitalk_advanced_search-basic_search')) {
     $variables['attributes']['class'][] = 'search-block-form';
     $variables['title_attributes']['class'][] = 'visually-hidden';
   }
@@ -154,7 +157,7 @@ function scitalk_theme_preprocess_block(&$variables) {
   // views_block:scitalk_taxonomy-collection_type_by_source
   // On Source home page taxonomy views, hdie the view if there is only 1 result
   if (($plugin_id == 'views_block:scitalk_taxonomy-subjects_by_source') &&
-      (isset( $variables['content']['#view']))) {
+    (isset($variables['content']['#view']))) {
     $view = $variables['content']['#view'];
     if ($view->total_rows <= 1) {
       $variables['attributes']['class'][] = 'visually-hidden';
@@ -162,7 +165,7 @@ function scitalk_theme_preprocess_block(&$variables) {
   }
 
   if (($plugin_id == 'views_block:scitalk_taxonomy-collection_type_by_source') &&
-      (isset( $variables['content']['#view']))) {
+    (isset($variables['content']['#view']))) {
     $view = $variables['content']['#view'];
     if ($view->total_rows <= 1) {
       $variables['attributes']['class'][] = 'visually-hidden';
@@ -179,7 +182,7 @@ function scitalk_theme_preprocess_field(&$variables) {
   if ($field_name == 'field_source_repo_url') {
     $group_full_name_field = $variables['element']['#object']->get('field_source_repo_full_name');
     $group_full_name = $group_full_name_field[0]->getValue();
-    $variables['group_full_name'] =  $group_full_name['value'];
+    $variables['group_full_name'] = $group_full_name['value'];
   }
 }
 
@@ -198,30 +201,31 @@ function scitalk_theme_preprocess_group(&$variables) {
   $group = $variables['group'];
   $group_type = $group->type->getValue();
   $group_id = $group->id->getValue();
+
   // For Source Repositories, get the Talks and Collections by source views
   if (($group_type[0]['target_id'] == 'source_repository') && (!empty($group_id))) {
-      // Get count of talks in view
-      $talks_view = Views::getView('scitalk_talks_by_source_repo');
-      $talks_view->setArguments([(int)$group_id[0]['value']]);
-      $talks_view->get_total_rows = TRUE;
+    // Get count of talks in view
+    $talks_view = Views::getView('scitalk_talks_by_source_repo');
+    $talks_view->setArguments([(int) $group_id[0]['value']]);
+    $talks_view->get_total_rows = TRUE;
 
-      $talks_view->execute('talks');
-      $talks_count = $talks_view->total_rows;
-      $variables['talks_view_count'] = $talks_count;
+    $talks_view->execute('talks_full');
+    $talks_count = $talks_view->total_rows;
+    $variables['talks_view_count'] = $talks_count;
 
-      // Get count of collections in view
-      $collections_view = Views::getView('scitalk_talks_by_source_repo');
-      $collections_view->setArguments([(int)$group_id[0]['value']]);
-      $collections_view->get_total_rows = TRUE;
+    // Get count of collections in view
+    $collections_view = Views::getView('scitalk_talks_by_source_repo');
+    $collections_view->setArguments([(int) $group_id[0]['value']]);
+    $collections_view->get_total_rows = TRUE;
 
-      $collections_view->execute('collections');
-      $collections_count = $collections_view->total_rows;
-      $variables['collections_view_count'] = $collections_count;
-    }
+    $collections_view->execute('collections_full');
+    $collections_count = $collections_view->total_rows;
+    $variables['collections_view_count'] = $collections_count;
+  }
 
-   // Send the group id and name to Javascript, used to set the default source
-   // On the advanced search form.
-   $variables['#attached']['drupalSettings']['scitalk_theme']['group_name'] = $group->label->getValue();
+  // Send the group id and name to Javascript, used to set the default source
+  // On the advanced search form.
+  $variables['#attached']['drupalSettings']['scitalk_theme']['group_name'] = $group->label->getValue();
 
 }
 
@@ -234,7 +238,7 @@ function scitalk_theme_preprocess_views_view(&$variables) {
   $view_id = $view->id();
   $view_display = $view->current_display;
   // For search view, get exposed input and make it available in the template
-  if (($view_id == 'scitalk_advanced_search') || ($view_id == 'scitalk_search_collections') ) {
+  if (($view_id == 'scitalk_advanced_search') || ($view_id == 'scitalk_search_collections')) {
     $exposed_input = $view->getExposedInput();
     $variables['exposed_input'] = $view->getExposedInput();
   }
@@ -249,20 +253,21 @@ function scitalk_theme_preprocess_views_view(&$variables) {
 function scitalk_theme_views_pre_render(\Drupal\views\ViewExecutable $view) {
   // On source talks view, rewrite more link for talks display
   if (($view->id() == 'scitalk_talks_by_source_repo') &&
-      (($view->current_display == 'talks') || ($view->current_display == 'collections'))
-      ) {
-      $group_id = $view->args[0];
-      $group = Drupal::entityTypeManager()->getStorage('group')->loadByProperties(['id' => $group_id]);
-      $group_title = $group[$group_id]->get('label')->getValue();
+    (($view->current_display == 'talks') || ($view->current_display == 'collections'))
+  ) {
+    $group_id = $view->args[0];
+    $group = Drupal::entityTypeManager()->getStorage('group')->loadByProperties(['id' => $group_id]);
+    $group_title = $group[$group_id]->get('label')->getValue();
 
-      if ($view->current_display == 'collections') {
-        $filter_name = 'collection_source';
-      } else {
-        $filter_name = 'source';
-      }
+    if ($view->current_display == 'collections') {
+      $filter_name = 'collection_source';
+    }
+    else {
+      $filter_name = 'source';
+    }
 
-      $link = '/search-' . $view->current_display . '?' . $filter_name .'=' . str_replace(' ', '+', $group_title[0]['value']);
-		  $view->display_handler->setOption("link_url", $link);
+    $link = '/search-' . $view->current_display . '?' . $filter_name . '=' . str_replace(' ', '+', $group_title[0]['value']);
+    $view->display_handler->setOption("link_url", $link);
   }
 }
 
@@ -272,13 +277,13 @@ function scitalk_theme_views_pre_render(\Drupal\views\ViewExecutable $view) {
  */
 function scitalk_theme_preprocess_fieldset(&$variables) {
   if (isset($variables['element']['#name'])) {
-    $variables['attributes']['class'][] = 'fieldset--' . str_replace('_','-',$variables['element']['#name']);
+    $variables['attributes']['class'][] = 'fieldset--' . str_replace('_', '-', $variables['element']['#name']);
   }
 }
 function scitalk_theme_preprocess_details(&$variables) {
- if (isset($variables['element']['#title'])) {
-  $variables['attributes']['class'][] = 'details--' . str_replace('_','-',strtolower($variables['element']['#title']));
-}
+  if (isset($variables['element']['#title'])) {
+    $variables['attributes']['class'][] = 'details--' . str_replace('_', '-', strtolower($variables['element']['#title']));
+  }
 }
 
 /*
@@ -287,7 +292,7 @@ function scitalk_theme_preprocess_details(&$variables) {
 function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
 
   // Alter search form to hide form label in basic form
-  if (($form['#id'] == 'views-exposed-form-scitalk-advanced-search-basic-search'))  {
+  if (($form['#id'] == 'views-exposed-form-scitalk-advanced-search-basic-search')) {
     // Solr search.
     $form['keys']['#title_display'] = 'invisible';
     $form['keys']['#attributes']['placeholder'] = t('Search');
@@ -304,7 +309,7 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
     $form['field_scientific_area']['#title_display'] = 'invisible';
   }
   //luis: for advanced search section
-  if ($form['#id'] == 'views-exposed-form-scitalk-advanced-search-form-block')  {
+  if ($form['#id'] == 'views-exposed-form-scitalk-advanced-search-form-block') {
     $form['keys']['#title_display'] = 'invisible';
     $form['search_api_fulltext']['#attributes']['placeholder'] = t('Search');
     $form['keys']['#attributes']['placeholder'] = t('Search');
@@ -331,7 +336,7 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
       $repositories = \Drupal::database()->query($sql)->fetchAll();
       $options = [];
       foreach ($repositories as $repo) {
-          $options[$repo->entity_id] = $repo->institution_short_name . ' - ' . $repo->repo_short_name;
+        $options[$repo->entity_id] = $repo->institution_short_name . ' - ' . $repo->repo_short_name;
       }
 
       $form['repository_id'] = [
@@ -346,7 +351,7 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
   }
 
   //new default search
-  if ($form['#id'] == 'views-exposed-form-scitalk-default-advanced-search2-talks-search')  {
+  if ($form['#id'] == 'views-exposed-form-scitalk-default-advanced-search2-talks-search') {
     $form['actions']['submit']['#attributes'] = array('class' => array('do-advanced-search'));
 
     if (!empty($form['talk_subject']['#options'])) {
@@ -363,20 +368,20 @@ function scitalk_theme_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $
 /**
  * Alter page attachments
  * Send variable to DrupalSettings for advanced search page
-*/
+ */
 function scitalk_theme_page_attachments_alter(array &$page) {
   $route = \Drupal::routeMatch();
   $routename = $route->getRouteName();
   $search_terms = \Drupal::request()->query->get('search_api_fulltext');
   $page['#attached']['drupalSettings']['scitalk_theme']['is_search_page'] = 'false';
-  $route_parts = explode('.',$routename);
+  $route_parts = explode('.', $routename);
 
   $search_view_machine_names = [
     'scitalk_advanced_search',
     'scitalk_search_collections'
   ];
 
-  if (in_array($route_parts[1],$search_view_machine_names)) {
+  if (in_array($route_parts[1], $search_view_machine_names)) {
     $page['#attached']['drupalSettings']['scitalk_theme']['is_search_page'] = 'true';
   }
 }

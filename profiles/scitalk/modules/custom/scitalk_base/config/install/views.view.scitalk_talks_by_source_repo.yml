@@ -13,7 +13,7 @@ dependencies:
 id: scitalk_talks_by_source_repo
 label: 'Scitalk: Talks by Source Repo'
 module: views
-description: ''
+description: 'Used for Source landing pages and to get to the counts for the Respositories landing page'
 tag: ''
 base_table: node_field_data
 base_field: nid
@@ -278,276 +278,11 @@ display:
         - 'config:core.entity_view_display.node.talk.search_result'
         - 'config:core.entity_view_display.node.talk.teaser'
         - 'config:core.entity_view_display.node.talk.thumbnail'
-  block_1:
-    id: block_1
-    display_title: 'Talks (full, with pager)'
-    display_plugin: block
-    position: 1
-    display_options:
-      title: 'Recent Talks'
-      fields:
-        rendered_entity:
-          id: rendered_entity
-          table: node
-          field: rendered_entity
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          plugin_id: rendered_entity
-          label: ''
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          view_mode: mini_teaser
-        id:
-          id: id
-          table: groups_field_data
-          field: id
-          relationship: field_talk_source_repository
-          group_type: group
-          admin_label: ''
-          entity_type: group
-          entity_field: id
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: false
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: number_unformatted
-          settings: {  }
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-        label:
-          id: label
-          table: groups_field_data
-          field: label
-          relationship: field_talk_source_repository
-          group_type: group
-          admin_label: ''
-          entity_type: group
-          entity_field: label
-          plugin_id: field
-          label: ''
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: false
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-      pager:
-        type: full
-        options:
-          offset: 0
-          items_per_page: 12
-          total_pages: null
-          id: 0
-          tags:
-            next: 'Next ›'
-            previous: '‹ Previous'
-            first: '« First'
-            last: 'Last »'
-          expose:
-            items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
-            items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
-            offset: false
-            offset_label: Offset
-          quantity: 9
-      defaults:
-        title: false
-        css_class: false
-        pager: false
-        use_more: false
-        use_more_always: false
-        use_more_text: false
-        link_display: false
-        link_url: false
-        fields: false
-        footer: false
-      css_class: view-fix-heights
-      display_description: ''
-      use_more: true
-      use_more_always: true
-      use_more_text: 'See all talks'
-      link_display: custom_url
-      link_url: /search-talks
-      footer: {  }
-      display_extenders:
-        ajax_history: {  }
-      block_hide_empty: true
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - route
-        - url
-        - url.query_args
-        - 'user.node_grants:view'
-        - user.permissions
-      tags:
-        - 'config:core.entity_view_display.node.collection.default'
-        - 'config:core.entity_view_display.node.collection.full'
-        - 'config:core.entity_view_display.node.collection.horizontal_card'
-        - 'config:core.entity_view_display.node.collection.mini_teaser'
-        - 'config:core.entity_view_display.node.collection.teaser'
-        - 'config:core.entity_view_display.node.landing_page.default'
-        - 'config:core.entity_view_display.node.page.default'
-        - 'config:core.entity_view_display.node.page.teaser'
-        - 'config:core.entity_view_display.node.speaker_profile.default'
-        - 'config:core.entity_view_display.node.speaker_profile.page_header'
-        - 'config:core.entity_view_display.node.speaker_profile.search_result'
-        - 'config:core.entity_view_display.node.speaker_profile.speaker_name_institution'
-        - 'config:core.entity_view_display.node.speaker_profile.teaser'
-        - 'config:core.entity_view_display.node.talk.card'
-        - 'config:core.entity_view_display.node.talk.default'
-        - 'config:core.entity_view_display.node.talk.full'
-        - 'config:core.entity_view_display.node.talk.horizontal_card'
-        - 'config:core.entity_view_display.node.talk.mini_teaser'
-        - 'config:core.entity_view_display.node.talk.page_header'
-        - 'config:core.entity_view_display.node.talk.search_index'
-        - 'config:core.entity_view_display.node.talk.search_result'
-        - 'config:core.entity_view_display.node.talk.teaser'
-        - 'config:core.entity_view_display.node.talk.thumbnail'
   collections:
     id: collections
-    display_title: Collections
+    display_title: 'Collections block (5 items)'
     display_plugin: block
-    position: 3
+    position: 4
     display_options:
       title: 'Recently Updated Collections'
       sorts:
@@ -810,11 +545,301 @@ display:
         - 'config:core.entity_view_display.node.talk.search_result'
         - 'config:core.entity_view_display.node.talk.teaser'
         - 'config:core.entity_view_display.node.talk.thumbnail'
+  collections_full:
+    id: collections_full
+    display_title: 'Collections (full, with pager)'
+    display_plugin: block
+    position: 3
+    display_options:
+      title: 'Recently Updated Collections'
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 20
+          total_pages: null
+          id: 0
+          tags:
+            next: 'Next ›'
+            previous: '‹ Previous'
+            first: '« First'
+            last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
+      sorts:
+        field_collection_date_value:
+          id: field_collection_date_value
+          table: node__field_collection_date
+          field: field_collection_date_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: datetime
+          order: DESC
+          expose:
+            label: ''
+            field_identifier: field_collection_date_value
+          exposed: false
+          granularity: minute
+      arguments:
+        field_collection_source_repo_target_id:
+          id: field_collection_source_repo_target_id
+          table: node__field_collection_source_repo
+          field: field_collection_source_repo_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          default_action: default
+          exception:
+            value: all
+            title_enable: false
+            title: All
+          title_enable: false
+          title: ''
+          default_argument_type: group_id_from_url
+          default_argument_options: {  }
+          summary_options:
+            base_path: ''
+            count: true
+            override: false
+            items_per_page: 25
+          summary:
+            sort_order: asc
+            number_of_records: 0
+            format: default_summary
+          specify_validation: false
+          validate:
+            type: none
+            fail: 'not found'
+          validate_options: {  }
+          break_phrase: false
+          not: false
+      filters:
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
+          value: '1'
+          group: 1
+          expose:
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          operator: in
+          value:
+            collection: collection
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_collection_number_children_value:
+          id: field_collection_number_children_value
+          table: node__field_collection_number_children
+          field: field_collection_number_children_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          operator: '>'
+          value:
+            min: ''
+            max: ''
+            value: '1'
+          group: 2
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+        field_collection_number_of_talks_value:
+          id: field_collection_number_of_talks_value
+          table: node__field_collection_number_of_talks
+          field: field_collection_number_of_talks_value
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: numeric
+          operator: '>'
+          value:
+            min: ''
+            max: ''
+            value: '1'
+          group: 2
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            min_placeholder: ''
+            max_placeholder: ''
+            placeholder: ''
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+          2: OR
+      defaults:
+        title: false
+        css_class: false
+        pager: false
+        use_more: false
+        use_more_always: false
+        use_more_text: false
+        relationships: false
+        sorts: false
+        arguments: false
+        filters: false
+        filter_groups: false
+      relationships:
+        field_collection_source_repo:
+          id: field_collection_source_repo
+          table: node__field_collection_source_repo
+          field: field_collection_source_repo
+          relationship: none
+          group_type: group
+          admin_label: 'field_collection_source_repo: Group'
+          plugin_id: standard
+          required: true
+      css_class: view-fix-heights
+      display_description: ''
+      use_more: true
+      use_more_always: true
+      use_more_text: 'See all collections'
+      display_extenders:
+        ajax_history:
+          enable_history: true
+      block_hide_empty: true
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_interface'
+        - route
+        - url
+        - url.query_args
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:core.entity_view_display.node.collection.default'
+        - 'config:core.entity_view_display.node.collection.full'
+        - 'config:core.entity_view_display.node.collection.horizontal_card'
+        - 'config:core.entity_view_display.node.collection.mini_teaser'
+        - 'config:core.entity_view_display.node.collection.teaser'
+        - 'config:core.entity_view_display.node.landing_page.default'
+        - 'config:core.entity_view_display.node.page.default'
+        - 'config:core.entity_view_display.node.page.teaser'
+        - 'config:core.entity_view_display.node.speaker_profile.default'
+        - 'config:core.entity_view_display.node.speaker_profile.page_header'
+        - 'config:core.entity_view_display.node.speaker_profile.search_result'
+        - 'config:core.entity_view_display.node.speaker_profile.speaker_name_institution'
+        - 'config:core.entity_view_display.node.speaker_profile.teaser'
+        - 'config:core.entity_view_display.node.talk.card'
+        - 'config:core.entity_view_display.node.talk.default'
+        - 'config:core.entity_view_display.node.talk.full'
+        - 'config:core.entity_view_display.node.talk.horizontal_card'
+        - 'config:core.entity_view_display.node.talk.mini_teaser'
+        - 'config:core.entity_view_display.node.talk.page_header'
+        - 'config:core.entity_view_display.node.talk.search_index'
+        - 'config:core.entity_view_display.node.talk.search_result'
+        - 'config:core.entity_view_display.node.talk.teaser'
+        - 'config:core.entity_view_display.node.talk.thumbnail'
   talks:
     id: talks
-    display_title: Talks
+    display_title: 'Talks block (5 items)'
     display_plugin: block
-    position: 1
+    position: 2
     display_options:
       title: 'Recent Talks'
       fields:
@@ -1026,6 +1051,271 @@ display:
         - 'languages:language_interface'
         - route
         - url
+        - 'user.node_grants:view'
+        - user.permissions
+      tags:
+        - 'config:core.entity_view_display.node.collection.default'
+        - 'config:core.entity_view_display.node.collection.full'
+        - 'config:core.entity_view_display.node.collection.horizontal_card'
+        - 'config:core.entity_view_display.node.collection.mini_teaser'
+        - 'config:core.entity_view_display.node.collection.teaser'
+        - 'config:core.entity_view_display.node.landing_page.default'
+        - 'config:core.entity_view_display.node.page.default'
+        - 'config:core.entity_view_display.node.page.teaser'
+        - 'config:core.entity_view_display.node.speaker_profile.default'
+        - 'config:core.entity_view_display.node.speaker_profile.page_header'
+        - 'config:core.entity_view_display.node.speaker_profile.search_result'
+        - 'config:core.entity_view_display.node.speaker_profile.speaker_name_institution'
+        - 'config:core.entity_view_display.node.speaker_profile.teaser'
+        - 'config:core.entity_view_display.node.talk.card'
+        - 'config:core.entity_view_display.node.talk.default'
+        - 'config:core.entity_view_display.node.talk.full'
+        - 'config:core.entity_view_display.node.talk.horizontal_card'
+        - 'config:core.entity_view_display.node.talk.mini_teaser'
+        - 'config:core.entity_view_display.node.talk.page_header'
+        - 'config:core.entity_view_display.node.talk.search_index'
+        - 'config:core.entity_view_display.node.talk.search_result'
+        - 'config:core.entity_view_display.node.talk.teaser'
+        - 'config:core.entity_view_display.node.talk.thumbnail'
+  talks_full:
+    id: talks_full
+    display_title: 'Talks (full, with pager)'
+    display_plugin: block
+    position: 1
+    display_options:
+      title: 'Recent Talks'
+      fields:
+        rendered_entity:
+          id: rendered_entity
+          table: node
+          field: rendered_entity
+          relationship: none
+          group_type: group
+          admin_label: ''
+          entity_type: node
+          plugin_id: rendered_entity
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          view_mode: mini_teaser
+        id:
+          id: id
+          table: groups_field_data
+          field: id
+          relationship: field_talk_source_repository
+          group_type: group
+          admin_label: ''
+          entity_type: group
+          entity_field: id
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: false
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_unformatted
+          settings: {  }
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        label:
+          id: label
+          table: groups_field_data
+          field: label
+          relationship: field_talk_source_repository
+          group_type: group
+          admin_label: ''
+          entity_type: group
+          entity_field: label
+          plugin_id: field
+          label: ''
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: false
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: string
+          settings:
+            link_to_entity: false
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+      pager:
+        type: full
+        options:
+          offset: 0
+          items_per_page: 20
+          total_pages: null
+          id: 0
+          tags:
+            next: 'Next ›'
+            previous: '‹ Previous'
+            first: '« First'
+            last: 'Last »'
+          expose:
+            items_per_page: false
+            items_per_page_label: 'Items per page'
+            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_options_all: false
+            items_per_page_options_all_label: '- All -'
+            offset: false
+            offset_label: Offset
+          quantity: 9
+      defaults:
+        title: false
+        css_class: false
+        pager: false
+        use_more: false
+        use_more_always: false
+        use_more_text: false
+        link_display: false
+        link_url: false
+        fields: false
+        footer: false
+      css_class: view-fix-heights
+      display_description: ''
+      use_more: true
+      use_more_always: true
+      use_more_text: 'See all talks'
+      link_display: custom_url
+      link_url: /search-talks
+      footer: {  }
+      display_extenders:
+        ajax_history: {  }
+      block_hide_empty: true
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - route
+        - url
+        - url.query_args
         - 'user.node_grants:view'
         - user.permissions
       tags:
