@@ -173,6 +173,9 @@
             "drupal/simple_oauth": {
                 "TypeError: Argument 1 passed to Drupal\\simple_oauth\\Repositories\\ScopeRepository::scopeFactory() must implement interface Drupal\\user\\RoleInterface": "https://www.drupal.org/files/issues/2019-02-12/3032371-3.patch"
             },
+            "drupal/search_api_solr": {
+              "Issue #3449292: Fatal error in solr backend" : "https://www.drupal.org/files/issues/2024-06-17/search-api-solr-fatal-error-declaration-of-sleep-3449292-12.patch"
+            },
             "drupal/selective_better_exposed_filters": {
                 "Hide details collapsible if form element is empty": "https://raw.githubusercontent.com/perimeterit/scitalk_distribution/master/patches/3360778-hide-collapsible-details-element.patch"
             }
