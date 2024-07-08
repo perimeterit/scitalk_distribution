@@ -282,6 +282,7 @@ function scitalk_base_node_delete(Drupal\Core\Entity\EntityInterface $entity) {
  * Implements hook_views_query_alter()
  */
 function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $query) {
+
   /* Alter the collection view sort order based on the value of the sort order field on this collection type */
   if (($view->id() == 'scitalk_talks_in_collection' || $view->id() == 'scitalk_collection_children')
     && (in_array($view->current_display, ['scitalk_talk_by_collection_block', 'card_view', 'attachment_1', 'attachment_2']))
@@ -358,12 +359,38 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
     $view_id = $view['view']->id();
     $view_display = $view['display']['id'];
 
-    // In advanced search form, convert Source Repository field to dropdown
+    // Alter exposed form for advanced search views
+    $exposedInput = $form_state->getUserInput();
+
+    // Remove relevance sort option if there are no fulltext keywords
+    // Set what should be the default sort
+    if ($view['view']->id() == 'scitalk_search_collections') {
+      $default_sort = 'field_collection_date_DESC';
+    }
+    else {
+      $default_sort = 'field_talk_date_1_DESC';
+    }
+
+    if ((($view_id == "scitalk_advanced_search") &&
+      (empty($exposedInput['text']) && empty($exposedInput['speaker']))) ||
+      (($view_id == "scitalk_search_collections") &&
+        (empty($exposedInput['collection_text']) && empty($exposedInput['collection_title'])))
+    ) {
+
+      // Remove the relvance option
+      // This should be ignored anyway if there are no fulltext keywords.
+      unset($form['sort_bef_combine']['#options']['search_api_relevance_DESC']);
+      // Set created descending as the default
+      $form['sort_bef_combine']["#default_value"] = $default_sort;
+    }
+
     $view_machine_names = [
       'scitalk_advanced_search',
       'scitalk_search_collections'
     ];
 
+
+    // In advanced search form, convert Source Repository field to dropdown
     // Set the correct field id for this view
     if ($view['view']->id() == 'scitalk_search_collections') {
       $field_id = 'collection_source';
