@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - group.type.source_repository
-    - user.role.administrator
 _core:
   default_config_hash: XuiEo0vIj7m0cXY647zZ7gOIqSaEUkwuRK60gGFUZds
 id: source_repository-site_administr
