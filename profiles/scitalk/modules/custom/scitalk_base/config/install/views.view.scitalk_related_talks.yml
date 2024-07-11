@@ -4,7 +4,6 @@ dependencies:
   config:
     - core.entity_view_mode.node.horizontal_card
     - node.type.talk
-    - taxonomy.vocabulary.scientific_area
     - taxonomy.vocabulary.subjects
   module:
     - datetime
@@ -25,7 +24,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Related Talks'
+      title: 'Related talks'
       fields:
         title:
           id: title
@@ -185,7 +184,6 @@ display:
             node: true
             limit: true
             vids:
-              scientific_area: scientific_area
               subjects: subjects
             anyall: +
           summary_options:
@@ -271,7 +269,6 @@ display:
     display_options:
       display_extenders:
         ajax_history: {  }
-      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:
