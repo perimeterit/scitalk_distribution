@@ -1,11 +1,9 @@
-uuid: f7bc8857-984a-408b-8a3a-c4330bdb2c15
 langcode: en
 status: true
 dependencies:
   config:
     - group.type.source_repository
-_core:
-  default_config_hash: XuiEo0vIj7m0cXY647zZ7gOIqSaEUkwuRK60gGFUZds
+    - user.role.administrator
 id: source_repository-site_administr
 label: 'Site administrator'
 weight: 6
