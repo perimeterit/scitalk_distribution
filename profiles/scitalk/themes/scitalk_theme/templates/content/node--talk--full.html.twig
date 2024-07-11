@@ -31,5 +31,6 @@
 </article>
 
 <aside class="related-talks-view">
-  {{ drupal_view('scitalk_talks_in_collection', 'related_talks')}}
+  <h2>{{ 'Related Talks'|t }}</h2>
+  {{ drupal_view('scitalk_related_talks', 'block_1')}}
 </aside>
