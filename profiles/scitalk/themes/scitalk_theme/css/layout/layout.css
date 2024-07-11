@@ -53,6 +53,10 @@
       border: none;
     }
 
+.site-header .search-block-form .form-actions input {
+        background-color: var(--color-secondary);
+      }
+
 @media all and (min-width: 959.99px) {
   .header-wrapper,
   .region-header {
@@ -105,9 +109,6 @@
           flex: 1 0 auto;
           width: 100%;
         }
-          .header-wrapper .search-block-form form .form-actions input {
-            background-color: var(--color-secondary);
-          }
 }
 
 /**

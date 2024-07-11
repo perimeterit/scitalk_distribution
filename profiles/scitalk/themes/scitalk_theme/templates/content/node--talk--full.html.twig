@@ -17,7 +17,10 @@
 %}
 
 <article{{ attributes.addClass(classes) }}>
-  {{ content.scitalk_prefixed_talk_number}}
+{{ kint(content)}}
+  <span class="talk-number">
+    {{ content.group_talk_details.scitalk_prefixed_talk_number['#items'].0.value }}
+  </span>
   {% block video %}
     {{ content.field_talk_video }}
     {{ content.field_talk_video_url }}
@@ -31,6 +34,5 @@
 </article>
 
 <aside class="related-talks-view">
-  <h2>{{ 'Related Talks'|t }}</h2>
-  {{ drupal_view('scitalk_related_talks', 'block_1')}}
+  {{ drupal_block('views_block:scitalk_related_talks-block_1')}}
 </aside>

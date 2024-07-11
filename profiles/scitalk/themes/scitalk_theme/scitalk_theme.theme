@@ -179,6 +179,12 @@ function scitalk_theme_preprocess_block(&$variables) {
 function scitalk_theme_preprocess_field(&$variables) {
   $field_name = $variables['field_name'];
 
+  // Change label on Prefixed talk number field
+  if ($field_name == 'scitalk_prefixed_talk_number') {
+    $variables['label'] = t('Talk number');
+  }
+
+  // Pass group full name to source repo url field (to use as link label)
   if ($field_name == 'field_source_repo_url') {
     $group_full_name_field = $variables['element']['#object']->get('field_source_repo_full_name');
     $group_full_name = $group_full_name_field[0]->getValue();
