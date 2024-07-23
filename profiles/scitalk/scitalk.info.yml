@@ -25,7 +25,6 @@ install:
   - dblog
   - dynamic_page_cache
   - editor
-  - fences
   - field
   - field_group
   - field_ui
@@ -56,7 +55,6 @@ install:
   - taxonomy
   - text
   - toolbar
-  - tour
   - update
   - user
   - views
