@@ -4,17 +4,16 @@
 @import "../base/mixins.css";
 
 /* Talk number  */
-.node.talk.full > .field--name-field-talk-number,
-.node.talk.full > .field--name-scitalk-prefixed-talk-number {
+.node.talk.full > .talk-number {
   background: var(--color-lt-grey);
   color: var(--color-default-text);
   display: inline-block;
   line-height: 1.6rem;
-  padding: 0rem 0.7rem;
+  padding: 0.4rem 1.1rem;
   text-decoration: none;
 
   font-weight: 500;
-  font-size: 0.9rem;
+  font-size: 1.1rem;
 
   float: right;
   margin-bottom: 1rem;
