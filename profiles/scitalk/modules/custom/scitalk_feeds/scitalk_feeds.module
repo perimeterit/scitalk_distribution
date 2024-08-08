@@ -17,17 +17,18 @@ function scitalk_feeds_menu_local_actions_alter(&$local_actions) {
   // The page cache ot make sure it uses the current group id.
   // See preprocess_page function below
   $group = \Drupal::routeMatch()->getParameter('group');
-
-  $local_actions['group_feeds'] = [
-    'id' => 'group_feeds',
-    'title' => t('Edit Content Feeds '),
-    'weight' => 0,
-    'route_name' => 'view.group_feeds.page_1',
-    'appears_on' => ['view.group_nodes.page_1'],
-    'route_parameters' => ['arg_0' => $group->id()],
-    'options' => '',
-    'class' => 'Drupal\Core\Menu\LocalActionDefault'
-  ];
+  if (!empty($group)) {
+    $local_actions['group_feeds'] = [
+      'id' => 'group_feeds',
+      'title' => t('Edit Content Feeds '),
+      'weight' => 0,
+      'route_name' => 'view.group_feeds.page_1',
+      'appears_on' => ['view.group_nodes.page_1'],
+      'route_parameters' => ['arg_0' => $group->id()],
+      'options' => '',
+      'class' => 'Drupal\Core\Menu\LocalActionDefault'
+    ];
+  }
 }
 
 /*
