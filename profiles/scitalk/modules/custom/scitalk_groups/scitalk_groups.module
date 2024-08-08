@@ -151,12 +151,6 @@ function scitalk_groups_menu_local_actions_alter(&$local_actions) {
     ];
   }
 
-  // Add group id as argument to Group Feeds path
-  $group = \Drupal::routeMatch()->getParameter('group');
-  if ((!empty($group)) && isset($local_actions['group_feeds'])) {
-    $local_actions['group_feeds']['route_parameters'] = ['group_id' => $group->id()];
-  }
-
 }
 
 /*
