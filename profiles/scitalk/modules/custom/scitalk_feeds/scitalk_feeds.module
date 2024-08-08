@@ -25,6 +25,7 @@ function scitalk_feeds_menu_local_actions_alter(&$local_actions) {
     'route_name' => 'view.group_feeds.page_1',
     'appears_on' => ['view.group_nodes.page_1'],
     'route_parameters' => ['arg_0' => $group->id()],
+    'options' => '',
     'class' => 'Drupal\Core\Menu\LocalActionDefault'
   ];
 }
