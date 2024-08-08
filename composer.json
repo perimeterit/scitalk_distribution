@@ -167,6 +167,9 @@
                 "Issue #2928639: Set the expiration of a key/value pair from the PrivateTempStore": "https://www.drupal.org/files/issues/2021-07-27/2928639-26.patch",
                 "Issue #3358586: RuntimeException: Adding non-existent permissions to a role is not allowed": "https://www.drupal.org/files/issues/2023-09-14/3358586-11.patch"
             },
+            "drupal/entity_embed": {
+              "Issue #3466609 Entity Embed fails to install after Embed module update" : "https://www.drupal.org/files/issues/2024-08-07/entity_embed-embed_constructor-3466609-8.patch"
+            },
             "drupal/fences": {
               "Installing Fences as part of a profile via drush site:install causes install to fail": "https://www.drupal.org/files/issues/2024-05-11/fences-3446610-2.patch"
             },
