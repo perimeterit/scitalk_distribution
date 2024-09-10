@@ -51,7 +51,7 @@
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/jsonapi_extras": "^3.24",
         "drupal/libraries": "^4.0",
-        "drupal/module_filter": "^4.0",
+        "drupal/module_filter": "^5.0",
         "drupal/pathauto": "^1.12",
         "drupal/rdf": "^2.1",
         "drupal/recaptcha": "^3.2",
@@ -169,9 +169,6 @@
             },
             "drupal/entity_embed": {
               "Issue #3466609 Entity Embed fails to install after Embed module update" : "https://www.drupal.org/files/issues/2024-08-07/entity_embed-embed_constructor-3466609-8.patch"
-            },
-            "drupal/fences": {
-              "Installing Fences as part of a profile via drush site:install causes install to fail": "https://www.drupal.org/files/issues/2024-05-11/fences-3446610-2.patch"
             },
             "drupal/simple_oauth": {
                 "TypeError: Argument 1 passed to Drupal\\simple_oauth\\Repositories\\ScopeRepository::scopeFactory() must implement interface Drupal\\user\\RoleInterface": "https://www.drupal.org/files/issues/2019-02-12/3032371-3.patch"
