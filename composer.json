@@ -45,9 +45,9 @@
         "drupal/fences": "^3.0",
         "drupal/field_group": "^3.4",
         "drupal/field_permissions": "^1.2",
-        "drupal/flexible_permissions": "^1.1",
+        "drupal/flexible_permissions": "^2.0",
         "drupal/google_analytics": "^4.0",
-        "drupal/group": "^2.2",
+        "drupal/group": "^2.3",
         "drupal/inline_entity_form": "^1.0@RC",
         "drupal/jsonapi_extras": "^3.24",
         "drupal/libraries": "^4.0",
@@ -96,7 +96,8 @@
             "oomphinc/composer-installers-extender": true,
             "drupal/core-project-message": true,
             "phpstan/extension-installer": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "tbachert/spi": true
         }
     },
     "autoload": {
