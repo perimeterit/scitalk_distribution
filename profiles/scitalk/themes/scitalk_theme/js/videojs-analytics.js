@@ -112,7 +112,8 @@
             const analytics = function analytics(options) {
               const _this = this;
 
-              options = _video2.default.mergeOptions(defaults, options);
+              // options = _video2.default.mergeOptions(defaults, options);
+              options = _video2.default.obj.merge(defaults, options);
 
               this.ready(function () {
                 const progress = {
