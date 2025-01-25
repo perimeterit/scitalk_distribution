@@ -3,9 +3,9 @@
   Drupal.behaviors.sciTalkVideoJS = {
     attach: function (context, settings) {
       // $('#video_player', context).once().each(function() {
-      $(once("#video_player", context)).each(function () {
-        const has_video = $("#scitalk_video_js").length;
-        if (!has_video) return;
+      $(once("video_js_attached", "#video_player", context)).each(function () {
+        // const has_video = $("#scitalk_video_js").length;
+        // if (!has_video) return;
 
         const options = null; //{};
         videojs("scitalk_video_js", options, function () {
