@@ -59,12 +59,12 @@ global:
 video-player:
   css:
     component:
-      //vjs.zencdn.net/8.20.0/video-js.min.css:
+      //vjs.zencdn.net/8.21.1/video-js.min.css:
         { type: external, minified: true }
     theme:
       css/components/video-player.css: {}
   js:
-    //vjs.zencdn.net/8.20.0/video.min.js: { type: external, minified: true }
+    //vjs.zencdn.net/8.21.1/video.min.js: { type: external, minified: true }
     js/videojs-analytics.js: {}
     # https://unpkg.com/browse/@videojs/http-streaming@2.13.1/dist/videojs-http-streaming.min.js: { type: external, minified: true }
     https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/3.0.1/Youtube.min.js:
