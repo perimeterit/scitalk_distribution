@@ -41,23 +41,44 @@
           const playerInstance = this;
           //create a button in the control bar to copy url at current time
           const Button = videojs.getComponent("Button");
-          const copyUrlButton = videojs.extend(Button, {
-            constructor: function () {
-              Button.apply(this, arguments);
+
+          // const copyUrlButton = videojs.extend(Button, {
+          //   constructor: function () {
+          //     Button.apply(this, arguments);
+          //     this.addClass("normal-stream");
+          //     this.setAttribute("title", "Copy Video URL at current time");
+          //   },
+          //   handleClick: function () {
+          //     if (!playerInstance.paused()) {
+          //       playerInstance.pause();
+          //     }
+          //     copyUrlToClipboard();
+          //   },
+          //   buildCSSClass: function () {
+          //     return "vjs-icon-copy-url vjs-control vjs-button";
+          //   },
+          // });
+          // videojs.registerComponent("copyUrlButton", copyUrlButton);
+
+          //new way to extend component, see: https://videojs.com/guides/videojs-7-to-8/
+          class CopyUrlButton extends Button {
+            constructor(player, options) {
+              super(player, options);
               this.addClass("normal-stream");
               this.setAttribute("title", "Copy Video URL at current time");
-            },
-            handleClick: function () {
+            }
+            handleClick() {
               if (!playerInstance.paused()) {
                 playerInstance.pause();
               }
               copyUrlToClipboard();
-            },
-            buildCSSClass: function () {
+            }
+            buildCSSClass() {
               return "vjs-icon-copy-url vjs-control vjs-button";
-            },
-          });
-          videojs.registerComponent("copyUrlButton", copyUrlButton);
+            }
+          }
+          videojs.registerComponent("copyUrlButton", CopyUrlButton);
+
           controlBar.addChild("copyUrlButton", {});
 
           //move the button before the Picture-in-Picture button:

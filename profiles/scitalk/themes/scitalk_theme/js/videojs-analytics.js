@@ -112,7 +112,8 @@
             const analytics = function analytics(options) {
               const _this = this;
 
-              options = _video2.default.mergeOptions(defaults, options);
+              // options = _video2.default.mergeOptions(defaults, options);
+              options = _video2.default.obj.merge(defaults, options);
 
               this.ready(function () {
                 const progress = {
@@ -145,14 +146,16 @@
                   const duration = Math.round(player.duration());
                   const percent = Math.round((elapsed / duration) * 100);
 
-                  gtag("event", action, {
-                    event_category: category,
-                    view: 1,
-                    time: formatSeconds(elapsed),
-                    duration: formatSeconds(duration),
-                    percentage: percent,
-                    label: label,
-                  });
+                  if (typeof gtag !== "undefined") {
+                    gtag("event", action, {
+                      event_category: category,
+                      view: 1,
+                      time: formatSeconds(elapsed),
+                      duration: formatSeconds(duration),
+                      percentage: percent,
+                      label: label,
+                    });
+                  }
                 }
 
                 function play(player, event) {

@@ -1,4 +1,3 @@
-uuid: ae638561-c4bf-4c75-a4eb-abbe2ad6b188
 langcode: en
 status: true
 dependencies:
@@ -13,7 +12,7 @@ dependencies:
     - node
     - user
 _core:
-  default_config_hash: uNsEPn2oPh_L17YrPkJA4IgdHZpKcm1hKTehvexoALU
+  default_config_hash: S9l4Ouzsv1fCKai6zs8Rk2j5L2w1MbOU2dvL80zNO8Q
 id: scitalk_collection_children
 label: 'Scitalk Collection Children'
 module: views
@@ -205,6 +204,7 @@ display:
           order: ASC
           expose:
             label: ''
+            field_identifier: type
           exposed: false
         field_collection_date_end_value:
           id: field_collection_date_end_value
@@ -217,6 +217,7 @@ display:
           order: DESC
           expose:
             label: 'Collection Date (field_collection_date:end_value)'
+            field_identifier: field_collection_date_end_value
           exposed: false
           granularity: second
         field_talk_date_value:
@@ -230,6 +231,7 @@ display:
           order: DESC
           expose:
             label: ''
+            field_identifier: field_talk_date_value
           exposed: false
           granularity: second
       arguments:
@@ -240,7 +242,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: numeric
+          plugin_id: entity_target_id
           default_action: ignore
           exception:
             value: all
@@ -267,6 +269,7 @@ display:
           validate_options: {  }
           break_phrase: false
           not: false
+          target_entity_type_id: node
         field_parent_collection_target_id:
           id: field_parent_collection_target_id
           table: node__field_parent_collection
@@ -274,7 +277,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: numeric
+          plugin_id: entity_target_id
           default_action: ignore
           exception:
             value: all
@@ -301,6 +304,7 @@ display:
           validate_options: {  }
           break_phrase: false
           not: false
+          target_entity_type_id: node
       filters:
         status:
           id: status
@@ -394,7 +398,7 @@ display:
       use_more_always: true
       use_more_text: 'See all from this collection'
       link_display: custom_url
-      link_url: '/node/{{ arguments.field_talk_collection_target_id }}'
+      link_url: '/node/{{ raw_arguments.field_talk_collection_target_id }}'
       header: {  }
       footer: {  }
       display_extenders:
@@ -408,27 +412,7 @@ display:
         - url
         - 'user.node_grants:view'
         - user.permissions
-      tags:
-        - 'config:core.entity_view_display.node.collection.default'
-        - 'config:core.entity_view_display.node.collection.full'
-        - 'config:core.entity_view_display.node.collection.horizontal_card'
-        - 'config:core.entity_view_display.node.collection.mini_teaser'
-        - 'config:core.entity_view_display.node.collection.teaser'
-        - 'config:core.entity_view_display.node.landing_page.default'
-        - 'config:core.entity_view_display.node.page.default'
-        - 'config:core.entity_view_display.node.page.teaser'
-        - 'config:core.entity_view_display.node.speaker_profile.default'
-        - 'config:core.entity_view_display.node.speaker_profile.page_header'
-        - 'config:core.entity_view_display.node.speaker_profile.search_result'
-        - 'config:core.entity_view_display.node.speaker_profile.speaker_name_institution'
-        - 'config:core.entity_view_display.node.speaker_profile.teaser'
-        - 'config:core.entity_view_display.node.talk.default'
-        - 'config:core.entity_view_display.node.talk.full'
-        - 'config:core.entity_view_display.node.talk.horizontal_card'
-        - 'config:core.entity_view_display.node.talk.mini_teaser'
-        - 'config:core.entity_view_display.node.talk.search_index'
-        - 'config:core.entity_view_display.node.talk.search_result'
-        - 'config:core.entity_view_display.node.talk.thumbnail'
+      tags: {  }
   attachment_1:
     id: attachment_1
     display_title: 'Teaser display (attachment)'
@@ -575,27 +559,7 @@ display:
         - url
         - 'user.node_grants:view'
         - user.permissions
-      tags:
-        - 'config:core.entity_view_display.node.collection.default'
-        - 'config:core.entity_view_display.node.collection.full'
-        - 'config:core.entity_view_display.node.collection.horizontal_card'
-        - 'config:core.entity_view_display.node.collection.mini_teaser'
-        - 'config:core.entity_view_display.node.collection.teaser'
-        - 'config:core.entity_view_display.node.landing_page.default'
-        - 'config:core.entity_view_display.node.page.default'
-        - 'config:core.entity_view_display.node.page.teaser'
-        - 'config:core.entity_view_display.node.speaker_profile.default'
-        - 'config:core.entity_view_display.node.speaker_profile.page_header'
-        - 'config:core.entity_view_display.node.speaker_profile.search_result'
-        - 'config:core.entity_view_display.node.speaker_profile.speaker_name_institution'
-        - 'config:core.entity_view_display.node.speaker_profile.teaser'
-        - 'config:core.entity_view_display.node.talk.default'
-        - 'config:core.entity_view_display.node.talk.full'
-        - 'config:core.entity_view_display.node.talk.horizontal_card'
-        - 'config:core.entity_view_display.node.talk.mini_teaser'
-        - 'config:core.entity_view_display.node.talk.search_index'
-        - 'config:core.entity_view_display.node.talk.search_result'
-        - 'config:core.entity_view_display.node.talk.thumbnail'
+      tags: {  }
   card_view:
     id: card_view
     display_title: 'Horizontal Card display (embed)'
@@ -614,24 +578,4 @@ display:
         - url
         - 'user.node_grants:view'
         - user.permissions
-      tags:
-        - 'config:core.entity_view_display.node.collection.default'
-        - 'config:core.entity_view_display.node.collection.full'
-        - 'config:core.entity_view_display.node.collection.horizontal_card'
-        - 'config:core.entity_view_display.node.collection.mini_teaser'
-        - 'config:core.entity_view_display.node.collection.teaser'
-        - 'config:core.entity_view_display.node.landing_page.default'
-        - 'config:core.entity_view_display.node.page.default'
-        - 'config:core.entity_view_display.node.page.teaser'
-        - 'config:core.entity_view_display.node.speaker_profile.default'
-        - 'config:core.entity_view_display.node.speaker_profile.page_header'
-        - 'config:core.entity_view_display.node.speaker_profile.search_result'
-        - 'config:core.entity_view_display.node.speaker_profile.speaker_name_institution'
-        - 'config:core.entity_view_display.node.speaker_profile.teaser'
-        - 'config:core.entity_view_display.node.talk.default'
-        - 'config:core.entity_view_display.node.talk.full'
-        - 'config:core.entity_view_display.node.talk.horizontal_card'
-        - 'config:core.entity_view_display.node.talk.mini_teaser'
-        - 'config:core.entity_view_display.node.talk.search_index'
-        - 'config:core.entity_view_display.node.talk.search_result'
-        - 'config:core.entity_view_display.node.talk.thumbnail'
+      tags: {  }
