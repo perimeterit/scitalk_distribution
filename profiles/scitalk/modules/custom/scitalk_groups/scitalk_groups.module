@@ -347,6 +347,8 @@ function scitalk_groups_node_insert(\Drupal\Core\Entity\EntityInterface $entity)
  * Makes sure group refrences and source repo fields match
  */
 function scitalk_groups_entity_update(\Drupal\Core\Entity\EntityInterface $entity) {
+  // Feb 21, 2025 - luis: replaced the code on this function because the entityQuery that searched for groups was returning nothing.
+  // the old function is commented below this one as a reference
 
   if ($entity->getEntityTypeId() == 'node') {
     $nodetype = $entity->getType();
@@ -365,20 +367,11 @@ function scitalk_groups_entity_update(\Drupal\Core\Entity\EntityInterface $entit
 
     // Get the value of the source repo reference field
     $repo_field_value = $entity->get($source_ref_field)->target_id ?? 0;  //fall back to 0 when the nodetype is not attached to a group
+    $group_ids = [];
 
-    // Get the current relationships for this entity
-    // $group_ids = \Drupal::entityQuery('group_content')
-    //   ->condition('entity_id', $entity->id())
-    //   ->accessCheck(TRUE)
-    //   ->execute();
-    // $relations = \Drupal\group\Entity\GroupRelationship::loadMultiple($group_ids);
-
-    // Feb 21, 2025 - luis: the above commented block was crashing the site with "allowed memory size exhausted.." error.
-    // the entityQuery above was returning nothing.
-    // replacing with this block:
     $group = Group::load($repo_field_value);
     $pluginId = 'group_node:' . $nodetype;
-    //get the relations like this, to replace the above entityQuery
+    //get the relations like this, to replace the entityQuery
     $relations = $group?->getRelationshipsByEntity($entity, $pluginId) ?? [];
     foreach ($relations as $rel) {
       if ($rel->getEntity()->getEntityTypeId() == 'node') {
@@ -389,9 +382,6 @@ function scitalk_groups_entity_update(\Drupal\Core\Entity\EntityInterface $entit
     // If the group id is empty, and the reference field is not,
     // Assign this to the group from the reference field
     if (empty($group_ids) && !empty($repo_field_value)) {
-      // luis: commented this as i moved it above
-      // $group = Group::load($repo_field_value);
-      // $pluginId = 'group_node:' . $nodetype;
       if (!empty($entity->id())) {
         $group->addRelationship($entity, $pluginId);
       }
@@ -410,10 +400,6 @@ function scitalk_groups_entity_update(\Drupal\Core\Entity\EntityInterface $entit
       // Find out if the repo field value is not in the group ids
       if (!in_array($repo_field_value, $group_ids)) {
         // If not, assign the node to the group matching the repo field value
-
-        // luis: commented this as i moved it above
-        // $group = Group::load($repo_field_value);
-        // $pluginId = 'group_node:' . $nodetype;
         $group->addRelationship($entity, $pluginId);
         \Drupal::messenger()->addMessage('This' . $nodetype . ' was assigned to the ' . $source_ref_field . 'group.');
       }
@@ -421,6 +407,75 @@ function scitalk_groups_entity_update(\Drupal\Core\Entity\EntityInterface $entit
   }
 
 }
+
+// Luis, Feb 21:
+// replaced this function with the above.
+// the entityQuery here was returning nothing and everytime a talk with references to entities inside a group was being saved, it resulted
+// in a not enough memory error
+
+// function scitalk_groups_entity_update(\Drupal\Core\Entity\EntityInterface $entity) {
+
+//   if ($entity->getEntityTypeId() == 'node') {
+//     $nodetype = $entity->getType();
+//   }
+
+//   if ((isset($nodetype)) && ($nodetype == 'collection' || $nodetype == 'talk')) {
+//     // Set a variable for the name of the reference field
+//     if ($nodetype == 'talk') {
+//       $source_ref_field = 'field_talk_source_repository';
+//     }
+//     elseif ($nodetype == 'collection') {
+//       $source_ref_field = 'field_collection_source_repo';
+//     }
+
+//     // Get the value of the source repo reference field
+//     $repo_field_value = $entity->get($source_ref_field)->target_id;
+
+//     // Get the current relationships for this entity
+//     $group_ids = \Drupal::entityQuery('group_content')
+//       ->condition('entity_id', $entity->id())
+//       ->accessCheck(TRUE)
+//       ->execute();
+
+//     $relations = \Drupal\group\Entity\GroupRelationship::loadMultiple($group_ids);
+//     foreach ($relations as $rel) {
+//       if ($rel->getEntity()->getEntityTypeId() == 'node') {
+//         $group_ids[] = $rel->getGroup()->id();
+//       }
+//     }
+
+//     // If the group id is empty, and the reference field is not,
+//     // Assign this to the group from the reference field
+//     if (empty($group_ids) && !empty($repo_field_value)) {
+//       $group = Group::load($repo_field_value);
+//       $pluginId = 'group_node:' . $nodetype;
+//       if (!empty($entity->id())) {
+//         $group->addRelationship($entity, $pluginId);
+//       }
+//     }
+
+//     // If the group id is NOT empty, and the reference field IS empty
+//     elseif (!empty($group_ids) && empty($repo_field_value)) {
+//       // Set the reference field to match the group
+//       $entity->set($source_ref_field, $group_ids[0]);
+//     }
+
+//     // Both are not empty.
+//     // This is an edge case, maybe where the source repo field was manually changed
+//     // Or the node was somehow assigned to the wrong group.
+//     elseif (!empty($group_ids) && !empty($repo_field_value)) {
+//       // Find out if the repo field value is not in the group ids
+//       if (!in_array($repo_field_value, $group_ids)) {
+//         // If not, assign the node to the group matching the repo field value
+//         $group = Group::load($repo_field_value);
+//         $pluginId = 'group_node:' . $nodetype;
+//         $group->addRelationship($entity, $pluginId);
+//         \Drupal::messenger()->addMessage('This' . $nodetype . ' was assigned to the ' . $source_ref_field . 'group.');
+//       }
+//     }
+//   }
+
+// }
 
 /**
  * Implements hook_entity_type_alter().
