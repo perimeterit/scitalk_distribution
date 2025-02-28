@@ -87,9 +87,16 @@ class feedAlterFiles extends AfterParseBase {
       $item->set('_attachments', $attachment_media->id());
     }
 
+    $create_youtube = $event->getFeed()?->field_embed_youtube?->value ?? false;
+    if (!$create_youtube) {
+      return;
+    }
+
     // If video URL is from youtube, make it create a Scitalk YouTube entity
     $video_url = $item->get('_video_url');
-    if ((!empty($video_url)) && (!empty(str_contains($video_url, 'youtube')))) {
+    @preg_match_all("/^(?:https?:\/\/)?(?:(?:www\.)?youtube.com\/watch\?v=|youtu.be\/)(\w+)$/", $video_url, $matches);
+    if ((!empty($video_url)) && (!empty($matches[0]))) {
+    // if ((!empty($video_url)) && (!empty(str_contains($video_url, 'youtube')))) {
       // Create the media entity
       $video_media = Media::create([
         'bundle' => 'scitalk_youtube_video',
