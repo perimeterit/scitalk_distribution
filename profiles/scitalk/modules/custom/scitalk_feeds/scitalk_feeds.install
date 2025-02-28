@@ -1,0 +1,83 @@
+<?php
+
+use Drupal\Core\Config\FileStorage;
+
+/**
+*  Add Embed Youtube field to Talk feeds
+*/
+function scitalk_feeds_update_91001() {
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_feeds') . '/config/install';
+    $source      = new FileStorage($config_path);
+
+    //add SciVideos UUID field storage
+    $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+    $field_storage_yml =  'field.storage.feeds_feed.field_embed_youtube';
+    $field_storage_id = 'feeds_feed.field_embed_youtube';
+    $loaded_storage_config = $storage_config->load($field_storage_id);
+    if (empty($loaded_storage_config))
+    {
+        $storage_config_yml = $source->read($field_storage_yml);
+        $storage_config->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_feeds')->notice('Created Embed Youtube field storage');
+    }
+    else {
+        $storage_config_yml = $source->read($field_storage_yml); 
+        $entity = $storage_config->updateFromStorageRecord($loaded_storage_config, $storage_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_feeds')->notice('Updated Embed Youtube field storage');
+    }
+
+    $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
+    
+    //add FIELD Embed Youtube to Talk importer
+    $field_yml = 'field.field.feeds_feed.talk_importer.field_embed_youtube';
+    $field_id = 'feeds_feed.talk_importer.field_embed_youtube';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_feeds')->notice('Created Embed Youtube field for Talk importer');
+    }
+    else {
+        $field_config_yml = $source->read($field_yml);
+        $entity = $field_config->updateFromStorageRecord($loaded_field_config, $field_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_feeds')->notice('Updated Embed Youtube field for Talk importer');
+    }
+    
+    //add FIELD Embed Youtube to Talk importer inclusive csv
+    $field_yml = 'field.field.feeds_feed.talk_importer_inclusive_csv.field_embed_youtube';
+    $field_id = 'feeds_feed.talk_importer_inclusive_csv.field_embed_youtube';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_feeds')->notice('Created Embed Youtube field for Talk importer inclusive csv');
+    }
+    else {
+        $field_config_yml = $source->read($field_yml);
+        $entity = $field_config->updateFromStorageRecord($loaded_field_config, $field_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_feeds')->notice('Updated Embed Youtube field for Talk importer inclusive csv');
+    }
+    
+    //add FIELD Embed Youtube to Talk importer inclusive json
+    $field_yml = 'field.field.feeds_feed.talk_importer_inclusive_json.field_embed_youtube';
+    $field_id = 'feeds_feed.talk_importer_inclusive_json.field_embed_youtube';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_feeds')->notice('Created Embed Youtube field for Talk importer inclusive json');
+    }
+    else {
+        $field_config_yml = $source->read($field_yml);
+        $entity = $field_config->updateFromStorageRecord($loaded_field_config, $field_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_feeds')->notice('Updated Embed Youtube field for Talk importer inclusive json');
+    }
+
+}

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - feeds.feed_type.talk_importer
+    - field.storage.feeds_feed.field_embed_youtube
+id: feeds_feed.talk_importer.field_embed_youtube
+field_name: field_embed_youtube
+entity_type: feeds_feed
+bundle: talk_importer
+label: "Embed Youtube"
+description: "Specify whether a Youtube video should be created"
+required: false
+translatable: false
+default_value: {}
+default_value_callback: ""
+settings:
+  on_label: "On"
+  off_label: "Off"
+field_type: boolean
