@@ -37,7 +37,7 @@ third_party_settings:
         uuid: e6a0eecf-d201-4ebf-9c26-9954e13f888b
         plugin: explode
         source: _keywords
-        weight: 0
+        weight: -9
         label: Explode
       198c912d-316f-4f6e-8d42-8ecaecace046:
         separator: ;
@@ -45,7 +45,7 @@ third_party_settings:
         uuid: 198c912d-316f-4f6e-8d42-8ecaecace046
         plugin: explode
         source: _collection
-        weight: 0
+        weight: -9
         label: Explode
       8fe46b9f-a2c1-4bfd-87ae-3bffb7edaaec:
         separator: ;
@@ -53,7 +53,7 @@ third_party_settings:
         uuid: 8fe46b9f-a2c1-4bfd-87ae-3bffb7edaaec
         plugin: explode
         source: _subject
-        weight: 0
+        weight: -9
         label: Explode
       312397e6-0413-48f5-8053-b67f5787d169:
         separator: ;
@@ -61,8 +61,42 @@ third_party_settings:
         uuid: 312397e6-0413-48f5-8053-b67f5787d169
         plugin: explode
         source: _scientific_area
-        weight: 0
+        weight: -9
         label: Explode
+      a11e4059-af99-41e3-a168-46b4c6f6aab2:
+        default_value: ""
+        only_if_empty: true
+        uuid: a11e4059-af99-41e3-a168-46b4c6f6aab2
+        plugin: default_value
+        source: _keywords
+        weight: -10
+        label: "Set value to empty when field missing"
+      4a961233-8ad9-46a0-b0bb-16598e6353b3:
+        default_value: ""
+        only_if_empty: true
+        uuid: 4a961233-8ad9-46a0-b0bb-16598e6353b3
+        plugin: default_value
+        source: _scientific_area
+        weight: -10
+        label: "Set value to empty when field missing"
+      41f9eef7-d3d1-481e-bd96-fc6733242a2e:
+        default_value: ""
+        only_if_empty: true
+        uuid: 41f9eef7-d3d1-481e-bd96-fc6733242a2e
+        plugin: default_value
+        source: _subject
+        weight: -10
+        label: "Set value to empty when field missing"
+      a833c5f3-c85c-4db2-ad6c-d4e092b5aa00:
+        default_value: ""
+        only_if_empty: true
+        uuid: a833c5f3-c85c-4db2-ad6c-d4e092b5aa00
+        plugin: default_value
+        source: _collection
+        weight: -10
+        label: "Set value to empty when field missing"
+_core:
+  default_config_hash: 2raMzqcv8k4bfrNsMcZxNGVRhJ49b4eaZ36ZoBlAmVQ
 label: "Talk Importer"
 id: talk_importer
 description: "An importer that can generate a talk"
@@ -92,6 +126,8 @@ processor_configuration:
   update_existing: 2
   update_non_existent: _keep
   skip_hash_check: false
+  skip_validation: false
+  skip_validation_types: {}
   authorize: true
   revision: false
   expire: -1
@@ -220,8 +256,8 @@ mappings:
     map:
       value: _date
     settings:
-      language: ""
-      timezone: __SITE__
+      language: null
+      timezone: UTC
   - target: field_talk_doi
     map:
       value: _doi

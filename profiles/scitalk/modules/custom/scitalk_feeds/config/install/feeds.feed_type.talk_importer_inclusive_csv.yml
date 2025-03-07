@@ -1,4 +1,3 @@
-uuid: bdfbd8ae-708c-4944-8957-8508dcd3ef22
 langcode: en
 status: true
 dependencies:
@@ -79,70 +78,70 @@ third_party_settings:
         weight: -9
         label: Explode
       0cfa6d15-b751-481a-920a-10efa20c1b2e:
-        default_value: ' '
+        default_value: " "
         only_if_empty: true
         uuid: 0cfa6d15-b751-481a-920a-10efa20c1b2e
         plugin: default_value
         source: _keywords
         weight: -10
-        label: 'Set value or default value'
+        label: "Set value to empty when field missing"
       17031f80-573b-42bb-9828-9508e37ea20b:
-        default_value: ''
+        default_value: ""
         only_if_empty: true
         uuid: 17031f80-573b-42bb-9828-9508e37ea20b
         plugin: default_value
         source: _speaker_profiles
         weight: -10
-        label: 'Set value or default value'
-      3dcfdfdd-f082-4f17-a3ac-fe8d7d391eb2:
-        default_value: ''
+        label: "Set value to empty when field missing"
+      2178236b-e287-4a3d-a7e6-879784df2a53:
+        default_value: ""
         only_if_empty: true
-        uuid: 3dcfdfdd-f082-4f17-a3ac-fe8d7d391eb2
-        plugin: default_value
-        source: _speakers
-        weight: -10
-        label: 'Set value or default value'
-      1a9ed98b-6787-4478-b9c7-a448cef63f32:
-        default_value: ''
-        only_if_empty: true
-        uuid: 1a9ed98b-6787-4478-b9c7-a448cef63f32
+        uuid: 2178236b-e287-4a3d-a7e6-879784df2a53
         plugin: default_value
         source: _scientific_area
         weight: -10
-        label: 'Set value or default value'
-      6d6110f7-6783-4d11-9a6f-7fcbc4e637aa:
-        default_value: ''
+        label: "Set value to empty when field missing"
+      ae211ebb-69bc-4d16-9001-ae07e0459815:
+        default_value: ""
         only_if_empty: true
-        uuid: 6d6110f7-6783-4d11-9a6f-7fcbc4e637aa
+        uuid: ae211ebb-69bc-4d16-9001-ae07e0459815
+        plugin: default_value
+        source: _speakers
+        weight: -10
+        label: "Set value to empty when field missing"
+      06268a68-9cfa-4adf-8bc1-382dbc702652:
+        default_value: ""
+        only_if_empty: true
+        uuid: 06268a68-9cfa-4adf-8bc1-382dbc702652
         plugin: default_value
         source: _subject
         weight: -10
-        label: 'Set value or default value'
-      425f614b-ad6c-47f0-ac91-c047f706ecf7:
-        default_value: ''
+        label: "Set value to empty when field missing"
+      c2e8bad0-0768-4e81-922a-79a1de07d6cb:
+        default_value: ""
         only_if_empty: true
-        uuid: 425f614b-ad6c-47f0-ac91-c047f706ecf7
+        uuid: c2e8bad0-0768-4e81-922a-79a1de07d6cb
         plugin: default_value
         source: _collection
         weight: -10
-        label: 'Set value or default value'
+        label: "Set value to empty when field missing"
 _core:
-  default_config_hash: 5PBOTMe2hDW-esseXRV1bXUPl8J_uzbguns-c5N_Zso
-label: 'Talk Importer - All-in-one (CSV)'
+  default_config_hash: S4E4AfwQcf32Nq9Ui94T6YfVgIsEmzTcV2PdrsrttgQ
+label: "Talk Importer - All-in-one (CSV)"
 id: talk_importer_inclusive_csv
-description: 'Talk importer that can generate stubs for collections and speaker profiles (optional). Upload data in CSV format'
-help: ''
+description: "Talk importer that can generate stubs for collections and speaker profiles (optional). Upload data in CSV format"
+help: ""
 import_period: 86400
 fetcher: upload
 fetcher_configuration:
   allowed_extensions: csv
-  directory: 'public://feeds'
+  directory: "public://feeds"
 parser: csv
 parser_configuration:
-  delimiter: ','
+  delimiter: ","
   no_headers: false
   line_limit: 100
-processor: 'entity:node'
+processor: "entity:node"
 processor_configuration:
   values:
     type: talk
@@ -151,6 +150,8 @@ processor_configuration:
   update_existing: 2
   update_non_existent: _keep
   skip_hash_check: false
+  skip_validation: false
+  skip_validation_types: {}
   authorize: false
   revision: false
   expire: -1
@@ -273,169 +274,149 @@ custom_sources:
     machine_name: source_group
     type: blank
 mappings:
-  -
-    target: field_talk_number
+  - target: field_talk_number
     map:
       value: _talk_number
     settings:
       language: null
-    unique: {  }
-  -
-    target: title
+    unique: {}
+  - target: title
     map:
       value: _title
     settings:
       language: null
-    unique: {  }
-  -
-    target: field_talk_abstract
+    unique: {}
+  - target: field_talk_abstract
     map:
       value: _abstract
     settings:
       language: null
       format: plain_text
-  -
-    target: field_talk_attachments
+  - target: field_talk_attachments
     map:
       target_id: _attachments
     settings:
-      language: ''
+      language: ""
       reference_by: mid
       autocreate: 1
       autocreate_bundle: file
-  -
-    target: field_talk_date
+  - target: field_talk_date
     map:
       value: _date
     settings:
-      language: ''
-      timezone: __SITE__
-  -
-    target: field_talk_doi
+      language: null
+      timezone: UTC
+  - target: field_talk_doi
     map:
       value: _doi
     settings:
       language: null
-    unique: {  }
-  -
-    target: field_talk_keywords
+    unique: {}
+  - target: field_talk_keywords
     map:
       target_id: _keywords
     settings:
-      language: ''
+      language: ""
       reference_by: name
-      autocreate: '1'
+      autocreate: "1"
       autocreate_bundle: talk_keywords
-  -
-    target: field_talk_location
+  - target: field_talk_location
     map:
       value: _location
     settings:
       language: null
-    unique: {  }
-  -
-    target: field_talk_speaker_profile
+    unique: {}
+  - target: field_talk_speaker_profile
     map:
       target_id: _speaker_profiles
     settings:
-      language: ''
+      language: ""
       reference_by: title
       feeds_item: guid
       autocreate: 1
       autocreate_bundle: speaker_profile
-  -
-    target: field_scientific_area
+  - target: field_scientific_area
     map:
       target_id: _scientific_area
     settings:
-      language: ''
+      language: ""
       reference_by: name
-      autocreate: '1'
+      autocreate: "1"
       autocreate_bundle: scientific_area
-  -
-    target: field_talk_source_event
+  - target: field_talk_source_event
     map:
       uri: _source_event_link
       title: _source_event
     settings:
       language: null
-  -
-    target: field_talk_speakers_text
+  - target: field_talk_speakers_text
     map:
       value: _speakers
     settings:
       language: null
-    unique: {  }
-  -
-    target: field_talk_subject
+    unique: {}
+  - target: field_talk_subject
     map:
       target_id: _subject
     settings:
-      language: ''
+      language: ""
       reference_by: name
       autocreate: 0
       autocreate_bundle: subjects
-  -
-    target: field_talk_thumbnail
+  - target: field_talk_thumbnail
     map:
       target_id: _talk_thumbnail
       alt: _title
       title: _title
     settings:
-      language: ''
+      language: ""
       reference_by: fid
-      autocreate: '1'
-      existing: '0'
+      autocreate: "1"
+      existing: "0"
       autocreate_bundle: false
-  -
-    target: field_talk_type
+  - target: field_talk_type
     map:
       target_id: _talk_type
     settings:
-      language: ''
+      language: ""
       reference_by: name
       autocreate: 0
       autocreate_bundle: talk_type
-  -
-    target: field_talk_video
+  - target: field_talk_video
     map:
       target_id: _video
     settings:
-      language: ''
+      language: ""
       reference_by: name
       autocreate: 1
       autocreate_bundle: video
-  -
-    target: field_talk_video_url
+  - target: field_talk_video_url
     map:
       uri: _video_url
       title: _title
     settings:
       language: null
-  -
-    target: feeds_item
+  - target: feeds_item
     map:
-      url: ''
+      url: ""
       guid: prefixed_talk_number
-    settings: {  }
+    settings: {}
     unique:
       guid: 1
-  -
-    target: field_talk_collection
+  - target: field_talk_collection
     map:
       target_id: _collection
     settings:
-      language: ''
+      language: ""
       reference_by: title
       feeds_item: guid
       autocreate: 1
       autocreate_bundle: collection
-  -
-    target: field_talk_source_repository
+  - target: field_talk_source_repository
     map:
       target_id: source_group
     settings:
-      language: ''
+      language: ""
       reference_by: id
       autocreate: 0
       autocreate_bundle: source_repository
