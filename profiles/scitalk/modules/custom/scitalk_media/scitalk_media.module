@@ -112,11 +112,33 @@ function scitalk_media_media_presave(\Drupal\Core\Entity\EntityInterface $entity
     case 'scitalk_doi':
       $doi_reference = $entity->field_media_scitalk_doi->value ?? '';
       $entity->set('name', $doi_reference);
+
+      // update the search field for db/solr search
+      $searchable = [
+        (string) $doi_reference, 
+        $entity->field_doi_title->value,
+        $entity->field_doi_description->value,
+      ];
+
+      $entity->set('field_searchable_text', implode("<br>", $searchable));
       break;
 
     case 'scitalk_arxiv':
       $arxiv_id = $entity->field_media_scitalk_arxiv->value ?? '';
       $entity->set('name', $arxiv_id);
+
+      // update the search field for db/solr search
+      $searchable = [
+        (string) $arxiv_id, 
+        $entity->field_arxiv_title->value,
+        $entity->field_arxiv_summary->value,
+      ];
+      $entity->set('field_searchable_text', implode("<br>", $searchable));
+      break;
+
+    case 'scitalk_transcript':
+      $entity->set('name', 'Transcript');
+      $entity->set('field_searchable_text', $entity->field_media_scitalk_transcript->value);
       break;
   }
 }

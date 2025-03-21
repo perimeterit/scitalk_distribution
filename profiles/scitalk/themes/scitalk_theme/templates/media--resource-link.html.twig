@@ -37,6 +37,8 @@
         {% set file_name = content.field_media_scitalk_remote_file['#items'].0.value|split('/')|last %}
         {% set file_extension = file_name|split('.')|last %}
         {{ file_extension }}
+      {% elseif bundle == 'scitalk_transcription' %}
+        {{ 'Text' }}
       {% else %}
         {{ bundle }}
       {% endif %}
@@ -64,6 +66,20 @@
       {% elseif bundle == 'remote_file' %}
         {% set filename = content.name['#items'].0.value ?? content.field_media_scitalk_remote_file['#items'].0.value|split('/')|last %}
         <a href="{{ content.field_media_scitalk_remote_file['#items'].0.value }}" target="_blank">{{ filename }}</a>
+      {% elseif bundle == 'scitalk_transcription' %}
+          {% set transcript_text = content.field_media_scitalk_transcript['#items'].0.value %}
+          <div class="transcript-text-wrapper">
+            <strong>
+              <a href="#" class="transcript-label js-modal" data-modal-content-id="transcript-content" data-modal-title="{{ name }}" aria-haspopup-"dialog">
+                <span class="text">{{ 'Transcript'|t }}</span>
+              </a>
+            </strong>
+            <div id="transcript-content">
+              <div class="transcript-content-wrapper">
+                {{ transcript_text |nl2br }} 
+              </div>
+            </div>
+          </div>
       {% endif %}
     </div>
   {% endif %}

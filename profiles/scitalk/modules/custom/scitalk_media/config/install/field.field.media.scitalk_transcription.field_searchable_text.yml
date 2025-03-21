@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_searchable_text
+    - media.type.scitalk_transcription
+  module:
+    - text
+id: media.scitalk_transcription.field_searchable_text
+field_name: field_searchable_text
+entity_type: media
+bundle: scitalk_transcription
+label: "Searchable text"
+description: "This field will automatically be updated with the data from those media fields that are to be searchable."
+required: false
+translatable: false
+default_value: {}
+default_value_callback: ""
+settings:
+  allowed_formats: {}
+field_type: text_long

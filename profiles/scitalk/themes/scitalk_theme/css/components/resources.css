@@ -1,4 +1,3 @@
-
 /* Resources */
 .field--name-field-talk-attachments li {
   margin-bottom: 1em;
@@ -35,35 +34,49 @@
   background: no-repeat transparent center center;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='currentColor' d='M13,9V3.5L18.5,9M6,2C4.89,2 4,2.89 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2H6Z' /%3E%3C/svg%3E");
   background-size: cover;
-  font-size: .9em;
+  font-size: 0.9em;
   height: 5em;
   width: 4em;
-  padding: .8em 0 0;
+  padding: 0.8em 0 0;
 }
 .resource--image .icon {
-    background: none;
-    padding: 0;
-  }
+  background: none;
+  padding: 0;
+}
 .resource--image .icon figure,
-  .resource--image .icon figure a  {
-    display: flex;
-    height: 100%;
-  }
+.resource--image .icon figure a {
+  display: flex;
+  height: 100%;
+}
 .resource--image .icon img {
-    object-fit: cover;
-  }
+  object-fit: cover;
+}
 .resource-link p {
-    margin: 0;
-  }
+  margin: 0;
+}
 .resource-link .small {
-    font-size: .8em;
-  }
+  font-size: 0.8em;
+}
 .resource-link strong {
-    font-weight: 500;
-  }
+  font-weight: 500;
+}
 .resource--remote_file p,
 .resource--file p {
   display: inline;
+}
+
+.transcript-text-wrapper #transcript-content {
+  display: none;
+}
+/* #js-modal-content { */
+.transcript-content-wrapper {
+  min-width: 30vw;
+  max-height: 50vh;
+  overflow: auto;
+}
+
+.resource--scitalk_transcription .icon {
+  background: #3b772c;
 }
 
 /*# sourceMappingURL=resources.css.map */

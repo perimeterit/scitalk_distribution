@@ -9,19 +9,20 @@ dependencies:
     - media.type.file
     - media.type.image
     - media.type.remote_file
+    - media.type.scitalk_transcription
     - node.type.talk
 id: node.talk.field_talk_attachments
 field_name: field_talk_attachments
 entity_type: node
 bundle: talk
 label: Attachments
-description: ''
+description: ""
 required: false
 translatable: false
-default_value: {  }
-default_value_callback: ''
+default_value: {}
+default_value_callback: ""
 settings:
-  handler: 'default:media'
+  handler: "default:media"
   handler_settings:
     target_bundles:
       arxiv: arxiv
@@ -30,8 +31,10 @@ settings:
       file: file
       image: image
       remote_file: remote_file
+      scitalk_transcription: scitalk_transcription
     sort:
       field: _none
+      direction: ASC
     auto_create: false
     auto_create_bundle: file
 field_type: entity_reference
