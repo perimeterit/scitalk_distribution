@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - scitalk_media
+id: scitalk_transcription
+label: "SciTalk Transcription"
+description: "Scitalk/Scivideo talk transcript"
+source: scitalk_transcript
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  source_field: field_media_scitalk_transcript
+  generate_thumbnails: true
+field_map: {}

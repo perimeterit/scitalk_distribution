@@ -1115,3 +1115,22 @@ function scitalk_base_update_8117(&$sandbox) {
         \Drupal::logger('scitalk_base')->notice('Created pathauto alias: pathauto.pattern.vocabularies');
     }
 }
+
+/**
+*  Update field talk attachments to include transcription media
+*/
+function scitalk_base_update_8118(&$sandbox) {
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
+    $source      = new FileStorage($config_path);
+
+    $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
+    $field_yml = 'field.field.node.talk.field_talk_attachments';
+    $field_id = 'node.talk.field_talk_attachments';
+    $loaded_field_config = $field_config->load($field_id);
+    if (!empty($loaded_field_config)) {
+        $field_config_yml = $source->read($field_yml);
+        $entity = $field_config->updateFromStorageRecord($loaded_field_config, $field_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Talk attachments field for Talks');
+    }
+}

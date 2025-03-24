@@ -1,0 +1,23 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_media_scitalk_transcript
+    - filter.format.plain_text
+    - media.type.scitalk_transcription
+  module:
+    - text
+id: media.scitalk_transcription.field_media_scitalk_transcript
+field_name: field_media_scitalk_transcript
+entity_type: media
+bundle: scitalk_transcription
+label: "SciVideos Transcript"
+description: ""
+required: true
+translatable: true
+default_value: {}
+default_value_callback: ""
+settings:
+  allowed_formats:
+    - plain_text
+field_type: text_long

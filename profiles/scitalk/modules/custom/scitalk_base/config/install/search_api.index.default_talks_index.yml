@@ -1,35 +1,37 @@
-uuid: 666a0cf6-4fd5-49b2-82fb-4eb6db44ee5e
 langcode: en
 status: true
 dependencies:
   config:
-    - field.storage.group.field_repo_institution_full_name
     - field.storage.group.field_repo_institution
+    - field.storage.group.field_repo_institution_full_name
     - field.storage.group.field_source_repo_full_name
-    - field.storage.node.field_talk_abstract
+    - field.storage.media.field_searchable_text
     - field.storage.node.body
-    - field.storage.node.field_talk_collection
     - field.storage.node.field_collection_date
+    - field.storage.node.field_collection_description
     - field.storage.node.field_collection_source_repo
     - field.storage.node.field_collection_type
-    - field.storage.node.field_talk_date
-    - field.storage.node.field_collection_description
+    - field.storage.node.field_scientific_area
     - field.storage.node.field_sp_display_name
     - field.storage.node.field_sp_first_name
     - field.storage.node.field_sp_last_name
-    - field.storage.node.field_scientific_area
+    - field.storage.node.field_sp_speaker_profile
+    - field.storage.node.field_talk_abstract
+    - field.storage.node.field_talk_attachments
+    - field.storage.node.field_talk_collection
+    - field.storage.node.field_talk_date
+    - field.storage.node.field_talk_number
     - field.storage.node.field_talk_source_repository
     - field.storage.node.field_talk_speaker_profile
     - field.storage.node.field_talk_speakers_text
-    - field.storage.node.field_sp_speaker_profile
     - field.storage.node.field_talk_subject
-    - field.storage.node.field_talk_number
     - field.storage.node.field_talk_type
+    - search_api.server.database_server
   module:
-    - search_api_solr
     - group
+    - media
     - node
-    - search_api
+    - search_api_solr
   enforced:
     module:
       - scitalk_base
@@ -68,6 +70,7 @@ third_party_settings:
     term_modifiers:
       slop: 3
       fuzzy: 1
+      fuzzy_analyzer: true
     advanced:
       index_prefix: ""
       collection: ""
@@ -79,8 +82,6 @@ third_party_settings:
       specific_languages:
         en: "0"
       use_universal_collation: false
-_core:
-  default_config_hash: Zp0n968eUAfnLSajkHd6tYqBStUOL0Jf484ipvw7mOI
 id: default_talks_index
 name: "Default Talks index"
 description: ""
@@ -181,6 +182,25 @@ field_settings:
     dependencies:
       config:
         - field.storage.node.field_scientific_area
+  field_searchable_text:
+    label: "Searchable text"
+    datasource_id: "entity:media"
+    property_path: field_searchable_text
+    type: text
+    dependencies:
+      config:
+        - field.storage.media.field_searchable_text
+  field_searchable_text_1:
+    label: "Attachments » Media » Searchable text"
+    datasource_id: "entity:node"
+    property_path: "field_talk_attachments:entity:field_searchable_text"
+    type: text
+    dependencies:
+      config:
+        - field.storage.media.field_searchable_text
+        - field.storage.node.field_talk_attachments
+      module:
+        - media
   field_source_repo_full_name:
     label: "Repository Full Name"
     datasource_id: "entity:group"
@@ -404,6 +424,16 @@ datasource_settings:
     languages:
       default: true
       selected: {}
+  "entity:media":
+    bundles:
+      default: false
+      selected:
+        - arxiv
+        - doi
+        - scitalk_transcription
+    languages:
+      default: true
+      selected: {}
   "entity:node":
     bundles:
       default: true
@@ -448,6 +478,46 @@ processor_settings:
       h2: 3
       h3: 2
       strong: 2
+  ignore_character:
+    weights:
+      preprocess_index: -10
+      preprocess_query: -10
+    all_fields: false
+    fields:
+      - body
+      - collection_source_fulltext
+      - combined_speakers
+      - field_collection_description
+      - field_repo_institution
+      - field_repo_institution_1
+      - field_repo_institution_full_name
+      - field_searchable_text
+      - field_searchable_text_1
+      - field_source_repo_full_name
+      - field_sp_display_name
+      - field_sp_display_name_1
+      - field_sp_first_name
+      - field_sp_last_name
+      - field_sp_last_name_1
+      - field_sp_speaker_profile
+      - field_talk_abstract
+      - field_talk_number
+      - field_talk_source
+      - field_talk_speakers_text
+      - label
+      - talk_source_label
+      - title
+      - type
+      - url
+    ignorable: "['¿¡!?,.:;]"
+    ignorable_classes:
+      - Pc
+      - Pd
+      - Pe
+      - Pf
+      - Pi
+      - Po
+      - Ps
   ignorecase:
     weights:
       preprocess_index: -20
@@ -480,6 +550,7 @@ tracker_settings:
     indexing_order: fifo
 options:
   cron_limit: 50
+  delete_on_fail: true
   index_directly: true
   track_changes_in_references: true
 server: database_server
