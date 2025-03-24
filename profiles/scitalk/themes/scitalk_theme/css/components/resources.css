@@ -85,7 +85,7 @@
 .resource-link .icon a,
 .resource--arxiv .icon a,
 .resource--scitalk_transcription .icon a {
-  color: inherit;
-  text-decoration: inherit;
+  color: inherit !important;
+  text-decoration: inherit !important;
 }
 /*# sourceMappingURL=resources.css.map */
