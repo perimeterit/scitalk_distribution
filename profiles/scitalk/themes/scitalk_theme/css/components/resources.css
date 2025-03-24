@@ -13,7 +13,8 @@
 }
 .resource-link .icon {
   background: var(--color-primary);
-  color: var(--color-primary--foreground);
+  /* color: var(--color-primary--foreground); */
+  color: #fff; /* force to white here: for scivideos it was set to black  */
 
   height: 3em;
   width: 3em;
