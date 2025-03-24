@@ -23,7 +23,9 @@
   {% if content %}
     <span class="icon">
       {% if bundle == 'arxiv' %}
-        {{ 'ArXiv' }}
+        <a href="http://arxiv.org/abs/{{ content.field_media_scitalk_arxiv['#items'].0.value }}" target="_blank">
+          {{ 'ArXiv' }}
+        </a>
       {% elseif bundle == 'file' %}
         {% set file_name = content.field_media_file.0['#file'].getFileName() %}
         {% set file_extension = file_name|split('.')|last %}
@@ -36,9 +38,17 @@
       {% elseif bundle == 'remote_file' %}
         {% set file_name = content.field_media_scitalk_remote_file['#items'].0.value|split('/')|last %}
         {% set file_extension = file_name|split('.')|last %}
+        <a href="{{ content.field_media_scitalk_remote_file['#items'].0.value }}" target="_blank">
         {{ file_extension }}
+        </a>
       {% elseif bundle == 'scitalk_transcription' %}
-        {{ 'Text' }}
+        <a href="#" onclick="document.querySelector('.transcript-text-wrapper a').click();">
+          {{ 'Text' }}
+        </a>
+      {% elseif bundle == 'doi' %}
+        <a href="http://doi.org/{{ content.field_media_scitalk_doi['#items'].0.value }} " target="_blank">
+          {{ bundle }}
+        </a>
       {% else %}
         {{ bundle }}
       {% endif %}
@@ -47,11 +57,11 @@
     <div class="reference-content">
       {% if bundle == 'doi' %}
         <p class="small">{{ 'DOI: ' }} {{ content.field_media_scitalk_doi }}</p>
-        <p><strong><a href="http://doi.org/{{ content.field_media_scitalk_doi['#items'].0.value }} " target="_blank">{{ content.field_doi_title }}</a></strong></p>
+        <p><a href="http://doi.org/{{ content.field_media_scitalk_doi['#items'].0.value }} " target="_blank">{{ content.field_doi_title }}</a></p>
         {{ content|without('field_media_scitalk_doi','field_doi_title') }}
       {% elseif bundle == 'arxiv' %}
         <p class="small">{{ 'arXiv: ' }} {{ content.field_media_scitalk_arxiv }}</p>
-        <p><strong><a href="http://arxiv.org/abs/{{ content.field_media_scitalk_arxiv['#items'].0.value }}" target="_blank">{{ content.field_arxiv_title }}</a></strong></p>
+        <p><a href="http://arxiv.org/abs/{{ content.field_media_scitalk_arxiv['#items'].0.value }}" target="_blank">{{ content.field_arxiv_title }}</a></p>
         {{ content|without('field_media_scitalk_arxiv', 'name', 'field_arxiv_title') }}
       {% elseif bundle == 'image' %}
         {{ name }}
@@ -69,11 +79,9 @@
       {% elseif bundle == 'scitalk_transcription' %}
           {% set transcript_text = content.field_media_scitalk_transcript['#items'].0.value %}
           <div class="transcript-text-wrapper">
-            <strong>
               <a href="#" class="transcript-label js-modal" data-modal-content-id="transcript-content" data-modal-title="{{ name }}" aria-haspopup-"dialog">
                 <span class="text">{{ 'Transcript'|t }}</span>
               </a>
-            </strong>
             <div id="transcript-content">
               <div class="transcript-content-wrapper">
                 {{ transcript_text |nl2br }} 
