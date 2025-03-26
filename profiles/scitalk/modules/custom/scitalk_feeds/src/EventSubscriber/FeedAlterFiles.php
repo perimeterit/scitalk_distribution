@@ -10,6 +10,7 @@ use Drupal\file\Entity\File;
 use Drupal\Core\File\FileExists;
 use Drupal\Core\File\Exception\InvalidStreamWrapperException;
 use Drupal\Core\File\Exception\FileException;
+use GuzzleHttp\Exception\TransferException;
 // use Drupal\Core\File\FileSystemInterface;
 
 /**
