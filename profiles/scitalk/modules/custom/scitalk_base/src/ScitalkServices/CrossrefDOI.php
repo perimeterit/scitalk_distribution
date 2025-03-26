@@ -10,6 +10,7 @@ use GuzzleHttp\Exception\BadResponseException;
 use GuzzleHttp\Exception\RequestException;  
 
 class CrossrefDOI {
+    private $crosref_api_url;
 
     public function __construct() {
         $config = \Drupal::config('scitalk_base.settings');

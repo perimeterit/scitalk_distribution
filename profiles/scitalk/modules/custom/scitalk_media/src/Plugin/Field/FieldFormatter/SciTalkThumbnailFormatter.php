@@ -11,7 +11,8 @@ use Drupal\scitalk_media\Plugin\media\Source\SciTalkVideo;
 use Drupal\scitalk_media\Plugin\media\Source\SciTalkArXiv;
 use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
-use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\File\FileExists;
+// use Drupal\Core\File\FileSystemInterface;
 
 use Drupal\Core\Link;
 use Drupal\Core\Url;
@@ -110,8 +111,8 @@ class SciTalkThumbnailFormatter extends FormatterBase {
           $file = File::load($media_entity->thumbnail->target_id);
           //if the file exists then use it as the thumbnail otherwise use the default
           $media_thumb = $file->getFileUri() ?? '';
-          // if (!file_destination($media_thumb, FILE_EXISTS_ERROR)) {
-          if (! \Drupal::service('file_system')->getDestinationFilename($media_thumb, FileSystemInterface::EXISTS_ERROR)) {
+          // if (! \Drupal::service('file_system')->getDestinationFilename($media_thumb, FileSystemInterface::EXISTS_ERROR)) {
+          if (! \Drupal::service('file_system')->getDestinationFilename($media_thumb, FileExists::Error)) {
             $thumbnail_uri = $media_thumb;
           }
           else {

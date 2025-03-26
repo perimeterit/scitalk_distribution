@@ -7,7 +7,10 @@ use Drupal\feeds\EventSubscriber\AfterParseBase;
 use Drupal\feeds\Feeds\Item\ItemInterface;
 use Drupal\media\Entity\Media;
 use Drupal\file\Entity\File;
-use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\File\FileExists;
+use Drupal\Core\File\Exception\InvalidStreamWrapperException;
+use Drupal\Core\File\Exception\FileException;
+// use Drupal\Core\File\FileSystemInterface;
 
 /**
  * Fixes for importing file attachments
@@ -51,7 +54,8 @@ class feedAlterFiles extends AfterParseBase {
       // Retrieve the file
       try {
         $data = (string) \Drupal::httpClient()->get($attachment_url)->getBody();
-        $file = \Drupal::service('file_system')->saveData($data, $destination, FileSystemInterface::EXISTS_REPLACE);
+        // $file = \Drupal::service('file_system')->saveData($data, $destination, FileSystemInterface::EXISTS_REPLACE);
+        $file = \Drupal::service('file_system')->saveData($data, $destination, FileExists::Replace);
       }
       catch (TransferException $exception) {
         \Drupal::messenger()->addError(t('Failed to fetch file due to error "%error"', ['%error' => $exception->getMessage()]));

@@ -4,7 +4,7 @@ use Drupal\node\Entity\Node;
 use Drupal\file\Entity;
 use Drupal\media\Entity\Media;
 use Drupal\taxonomy\Entity\Term;
-Use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\File\FileExists;
 //use Drupal\media_entity\Entity\Media;
 
 /**
@@ -192,7 +192,7 @@ function scitalk_demo_create_demo_talks() {
 
 
     $video = file_get_contents(__DIR__ . '/media/BigBuckBunny_320x180.mp4');
-    $file = \Drupal::service('file.repository')->writeData($video, 'public://BigBuckBunny_320x180.mp4', FileSystemInterface::EXISTS_REPLACE);
+    $file = \Drupal::service('file.repository')->writeData($video, 'public://BigBuckBunny_320x180.mp4', FileExists::Replace);
 
     //create a media entity for the video to attach to the node below
     $image_media = Media::create([
@@ -270,10 +270,10 @@ function scitalk_demo_create_demo_talks() {
  */
 function scitalk_demo_create_demo_speaker_profiles() {
     $pythagoras = file_get_contents(__DIR__ . '/media/Pythagoras.jpg');
-    $pythagoras_file = \Drupal::service('file.repository')->writeData($pythagoras, 'public://Pythagoras.jpg', FileSystemInterface::EXISTS_REPLACE);
+    $pythagoras_file = \Drupal::service('file.repository')->writeData($pythagoras, 'public://Pythagoras.jpg', FileExists::Replace);
 
     $plato = file_get_contents(__DIR__ . '/media/Plato.jpg');
-    $plato_file = \Drupal::service('file.repository')->writeData($plato, 'public://Plato.jpg', FileSystemInterface::EXISTS_REPLACE);
+    $plato_file = \Drupal::service('file.repository')->writeData($plato, 'public://Plato.jpg', FileExists::Replace);
 
     $speakers = [
         [
