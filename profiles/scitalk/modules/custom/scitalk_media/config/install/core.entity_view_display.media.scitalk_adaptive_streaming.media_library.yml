@@ -1,0 +1,37 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.media_library
+    - field.field.media.scitalk_adaptive_streaming.field_media_scitalk_adaptive
+    - field.field.media.scitalk_adaptive_streaming.field_remote_thumbnail_url
+    - field.field.media.scitalk_adaptive_streaming.field_secondary_adaptive_url
+    - image.style.medium
+    - media.type.scitalk_adaptive_streaming
+  module:
+    - image
+id: media.scitalk_adaptive_streaming.media_library
+targetEntityType: media
+bundle: scitalk_adaptive_streaming
+mode: media_library
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_link: ""
+      image_style: medium
+      image_loading:
+        attribute: lazy
+    third_party_settings: {}
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_media_scitalk_adaptive: true
+  field_remote_thumbnail_url: true
+  field_secondary_adaptive_url: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  uid: true

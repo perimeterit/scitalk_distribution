@@ -197,6 +197,17 @@ function scitalk_theme_preprocess_field(&$variables) {
  */
 function scitalk_theme_preprocess_media(&$variables) {
   $variables['bundle'] = $variables['media']->bundle();
+  
+  //pass the video mime types to theme for adaptive videos:
+  if ($variables['bundle'] == 'scitalk_adaptive_streaming') {
+    // for now we have these adaptive video mime types:
+    $adpative_video_mime_mapping = [
+      'm3u8' => 'application/x-mpegURL',
+      'mpd' => 'application/dash+xml'
+    ];
+  
+    $variables['adpative_video_mime_mapping'] = $adpative_video_mime_mapping;
+  }
 }
 
 /*
