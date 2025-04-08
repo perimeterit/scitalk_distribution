@@ -1,0 +1,35 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.media_library
+    - field.field.media.subtitles_uploaded_file.field_media_file
+    - field.field.media.subtitles_uploaded_file.field_subtitles_language
+    - image.style.medium
+    - media.type.subtitles_uploaded_file
+  module:
+    - image
+id: media.subtitles_uploaded_file.media_library
+targetEntityType: media
+bundle: subtitles_uploaded_file
+mode: media_library
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_link: ""
+      image_style: medium
+      image_loading:
+        attribute: lazy
+    third_party_settings: {}
+    weight: 0
+    region: content
+hidden:
+  created: true
+  field_media_file: true
+  field_subtitles_language: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  uid: true

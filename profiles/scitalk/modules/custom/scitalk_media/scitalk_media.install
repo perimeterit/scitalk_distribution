@@ -224,18 +224,18 @@ function scitalk_media_update_8103() {
   $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_media') . '/config/install';
   $source      = new FileStorage($config_path);
 
-    //create DOI media type
-    $media_type_files = $source->listAll('media.type');
-    $media_type = \Drupal::entityTypeManager()->getStorage('media_type');
-    foreach ($media_type_files as $media_type_yml) {
-      $media_type_id = str_replace('media.type.','',$media_type_yml);
-      if (!$media_type->load($media_type_id))
-      {
-        $media_type_yml = $source->read($media_type_yml);
-        $media_type->create($media_type_yml)->save();
-        \Drupal::logger('scitalk_media')->notice('Create media type for '.  $media_type_id);
-      }
+  //create SciTalk Adaptive media type
+  $media_type_files = $source->listAll('media.type');
+  $media_type = \Drupal::entityTypeManager()->getStorage('media_type');
+  foreach ($media_type_files as $media_type_yml) {
+    $media_type_id = str_replace('media.type.','',$media_type_yml);
+    if (!$media_type->load($media_type_id))
+    {
+      $media_type_yml = $source->read($media_type_yml);
+      $media_type->create($media_type_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Create media type for '.  $media_type_id);
     }
+  }
 
   //save field storages
   $field_storage_files = $source->listAll('field.storage');
@@ -305,5 +305,80 @@ function scitalk_media_update_8103() {
       $entity = $field_config->updateFromStorageRecord($loaded_field_config, $field_config_yml);
       $entity->save();
       \Drupal::logger('scitalk_base')->notice('Updated Video field for Talks');
+  }
+}
+
+/**
+ *  new media for Subtitles
+ */
+function scitalk_media_update_8104() {
+  $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_media') . '/config/install';
+  $source      = new FileStorage($config_path);
+
+  //create Subtitle media type
+  $media_type_files = $source->listAll('media.type');
+  $media_type = \Drupal::entityTypeManager()->getStorage('media_type');
+  foreach ($media_type_files as $media_type_yml) {
+    $media_type_id = str_replace('media.type.','',$media_type_yml);
+    if (!$media_type->load($media_type_id))
+    {
+      $media_type_yml = $source->read($media_type_yml);
+      $media_type->create($media_type_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Create media type for '.  $media_type_id);
+    }
+  }
+
+  //save field storages
+  $field_storage_files = $source->listAll('field.storage');
+  $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+  foreach ($field_storage_files as $field_storage_yml) {
+    $field_storage_id = str_replace('field.storage.','',$field_storage_yml);
+    if (!$storage_config->load($field_storage_id))
+    {
+      $storage_config_yml = $source->read($field_storage_yml);
+      $storage_config->create($storage_config_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Create media type field storage: '.  $field_storage_id);
+    }
+  }
+
+  //create fields
+  $field_files = $source->listAll('field.field.media');
+  $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
+  foreach ($field_files as $field_yml) {
+    $field_id = str_replace('field.field.','',$field_yml);
+    if (!$field_config->load($field_id))
+    {
+      $field_config_yml = $source->read($field_yml);
+      $field_config->create($field_config_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Create media type field: '.  $field_id);
+    }
+  }
+
+  //create entity form
+  $entity_form_files = $source->listAll('core.entity_form_display.media');
+  $entity_form = \Drupal::entityTypeManager()->getStorage('entity_form_display');
+  foreach ($entity_form_files as $entity_form_yml) {
+    $entity_form_id = str_replace('core.entity_form_display.','',$entity_form_yml);
+    $org_entity_form = $entity_form->load($entity_form_id);
+    if (empty($org_entity_form))
+    {
+      $form_display_yml = $source->read($entity_form_yml);
+      $entity_form->create($form_display_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Create form: '.  $entity_form_id);
+    }
+  }
+
+  //create entity views
+  $entity_view_files = $source->listAll('core.entity_view_display.media');
+  $view_display = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+  foreach ($entity_view_files as $view_yml) {
+    $view_display_id = str_replace('core.entity_view_display.','',$view_yml);
+    $org_view_display = $view_display->load($view_display_id);
+    if (empty($org_view_display))
+    {
+      $view_display_yml = $source->read($view_yml);
+      $view_display->create($view_display_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Create view display: '.  $view_display_id);
+    }
   }
 }

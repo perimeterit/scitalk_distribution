@@ -15,6 +15,8 @@ use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\node\Entity\Node;
 use Drupal\views\Views;
+use Drupal\file\Entity\File;
+use Drupal\media\Entity\Media;
 
 /**
  * Implements hook_preprocess_HOOK() for HTML document templates.
@@ -196,10 +198,47 @@ function scitalk_theme_preprocess_field(&$variables) {
  * Implements hook_preprocess_HOOK() for media entities.
  */
 function scitalk_theme_preprocess_media(&$variables) {
-  $variables['bundle'] = $variables['media']->bundle();
+  $bundle = $variables['media']->bundle();
+  $variables['bundle'] = $bundle;
+
+  //add subtitles for video media types if available
+  $video_media_bundles = ['scitalk_adaptive_streaming', 'scitalk_youtube_video', 'video'];
+  if (in_array($bundle, $video_media_bundles)) {
+    $media = $variables['elements']['#media'];
+    $entity = Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
+      'field_talk_video' => $media->id()
+    ]);
+
+    $entity = current($entity);
+    $field_vtt_urls = $entity->field_subtitle_url->getValue() ?? [];
+
+    //if there is a vtt url set then use it, else check if a vtt file was uploaded instead
+    if (!empty($field_vtt_urls)) {
+      foreach ($field_vtt_urls as $field_vtt_url) {
+        $media = Media::load($field_vtt_url['target_id']);
+        $vtt_url = $media->field_media_scitalk_remote_file->value ?? "";
+        $label = $media->field_subtitles_language->value ?? "";
+        $lang = _iso_language_code_map($label);
+        $variables['vtts'][] =  ["src" => $vtt_url, "lang" => $lang, "label" => $label];
+      }
+    }
+    else {
+      $field_vtt_files = $entity->field_subtitle_upload_file->getValue() ?? [];
+
+      foreach ($field_vtt_files as $field_vtt_file) {
+        $media = Media::load($field_vtt_file['target_id']);
+        $fid = $media->field_media_file->target_id;
+        $file = File::load($fid);
+        $vtt_url = $file?->createFileUrl();
+        $label = $media->field_subtitles_language->value ?? "";
+        $lang = _iso_language_code_map($label);
+        $variables['vtts'][] = ["src" => $vtt_url, "lang" => $lang, "label" => $label];
+      }
+    }
+  }
   
   //pass the video mime types to theme for adaptive videos:
-  if ($variables['bundle'] == 'scitalk_adaptive_streaming') {
+  if ($bundle == 'scitalk_adaptive_streaming') {
     // for now we have these adaptive video mime types:
     $adpative_video_mime_mapping = [
       'm3u8' => 'application/x-mpegURL',
@@ -401,4 +440,259 @@ function scitalk_theme_page_attachments_alter(array &$page) {
   if (in_array($route_parts[1], $search_view_machine_names)) {
     $page['#attached']['drupalSettings']['scitalk_theme']['is_search_page'] = 'true';
   }
+}
+
+//find ISO language code
+function _iso_language_code_map($language) {
+  $mapping =  [
+    "afar" => "aa",
+    "abkhazian" => "ab",
+    "avestan" => "ae",
+    "afrikaans" => "af",
+    "akan" => "ak",
+    "amharic" => "am",
+    "aragonese" => "an",
+    "arabic" => "ar",
+    "assamese" => "as",
+    "avaric" => "av",
+    "aymara" => "ay",
+    "azerbaijani" => "az",
+    "bashkir" => "ba",
+    "belarusian" => "be",
+    "bulgarian" => "bg",
+    "bihari languages" => "bh",
+    "bislama" => "bi",
+    "bambara" => "bm",
+    "bengali" => "bn",
+    "tibetan" => "bo",
+    "breton" => "br",
+    "bosnian" => "bs",
+    "catalan; valencian" => "ca",
+    "catalan" => "ca",
+    "valencian" => "ca",
+    "chechen" => "ce",
+    "chamorro" => "ch",
+    "corsican" => "co",
+    "cree" => "cr",
+    "czech" => "cs",
+    "church slavic; old slavonic; church slavonic; old bulgarian; old church slavonic" => "cu",
+    "church slavic" => "cu",
+    "old slavonic" => "cu",
+    "church slavonic" => "cu",
+    "old bulgarian" => "cu",
+    "old church slavonic" => "cu",
+    "chuvash" => "cv",
+    "welsh" => "cy",
+    "danish" => "da",
+    "german" => "de",
+    "divehi; dhivehi; maldivian" => "dv",
+    "divehi" => "dv",
+    "dhivehi" => "dv",
+    "maldivian" => "dv",
+    "dzongkha" => "dz",
+    "ewe" => "ee",
+    "greek, modern (1453-)" => "el",
+    "english" => "en",
+    "esperanto" => "eo",
+    "spanish; castilian" => "es",
+    "spanish" => "es",
+    "castilian" => "es",
+    "estonian" => "et",
+    "basque" => "eu",
+    "persian" => "fa",
+    "fulah" => "ff",
+    "finnish" => "fi",
+    "fijian" => "fj",
+    "faroese" => "fo",
+    "french" => "fr",
+    "western frisian" => "fy",
+    "irish" => "ga",
+    "gaelic; scomttish gaelic" => "gd",
+    "gaelic" => "gd",
+    "scomttish gaelic" => "gd",
+    "galician" => "gl",
+    "guarani" => "gn",
+    "gujarati" => "gu",
+    "manx" => "gv",
+    "hausa" => "ha",
+    "hebrew" => "he",
+    "hindi" => "hi",
+    "hiri motu" => "ho",
+    "croatian" => "hr",
+    "haitian; haitian creole" => "ht",
+    "haitian" => "ht",
+    "haitian creole" => "ht",
+    "hungarian" => "hu",
+    "armenian" => "hy",
+    "herero" => "hz",
+    "interlingua (international auxiliary language association)" => "ia",
+    "indonesian" => "id",
+    "interlingue; occidental" => "ie",
+    "interlingue" => "ie",
+    "occidental" => "ie",
+    "igbo" => "ig",
+    "sichuan yi; nuosu" => "ii",
+    "sichuan yi" => "ii",
+    "nuosu" => "ii",
+    "inupiaq" => "ik",
+    "ido" => "io",
+    "icelandic" => "is",
+    "italian" => "it",
+    "inuktitut" => "iu",
+    "japanese" => "ja",
+    "javanese" => "jv",
+    "georgian" => "ka",
+    "kongo" => "kg",
+    "kikuyu; gikuyu" => "ki",
+    "kikuyu" => "ki",
+    "gikuyu" => "ki",
+    "kuanyama; kwanyama" => "kj",
+    "kuanyama" => "kj",
+    "kwanyama" => "kj",
+    "kazakh" => "kk",
+    "kalaallisut; greenlandic" => "kl",
+    "kalaallisut" => "kl",
+    "greenlandic" => "kl",
+    "central khmer" => "km",
+    "kannada" => "kn",
+    "korean" => "ko",
+    "kanuri" => "kr",
+    "kashmiri" => "ks",
+    "kurdish" => "ku",
+    "komi" => "kv",
+    "cornish" => "kw",
+    "kirghiz; kyrgyz" => "ky",
+    "kirghiz" => "ky",
+    "kyrgyz" => "ky",
+    "latin" => "la",
+    "luxembourgish; letzeburgesch" => "lb",
+    "luxembourgish" => "lb",
+    "letzeburgesch" => "lb",
+    "ganda" => "lg",
+    "limburgan; limburger; limburgish" => "li",
+    "limburgan" => "li",
+    "limburger" => "li",
+    "limburgish" => "li",
+    "lingala" => "ln",
+    "lao" => "lo",
+    "lithuanian" => "lt",
+    "luba-katanga" => "lu",
+    "latvian" => "lv",
+    "malagasy" => "mg",
+    "marshallese" => "mh",
+    "maori" => "mi",
+    "macedonian" => "mk",
+    "malayalam" => "ml",
+    "mongolian" => "mn",
+    "marathi" => "mr",
+    "malay" => "ms",
+    "maltese" => "mt",
+    "burmese" => "my",
+    "nauru" => "na",
+    "bokmål, norwegian; norwegian bokmål" => "nb",
+    "bokmål, norwegian" => "nb",
+    "norwegian bokmål" => "nb",
+    "ndebele, north; north ndebele" => "nd",
+    "ndebele, north" => "nd",
+    "north ndebele" => "nd",
+    "nepali" => "ne",
+    "ndonga" => "ng",
+    "dutch; flemish" => "nl",
+    "dutch" => "nl",
+    "flemish" => "nl",
+    "norwegian nynorsk; nynorsk, norwegian" => "nn",
+    "norwegian nynorsk" => "nn",
+    "nynorsk, norwegian" => "nn",
+    "norwegian" => "no",
+    "ndebele, south; south ndebele" => "nr",
+    "ndebele, south" => "nr",
+    "south ndebele" => "nr",
+    "navajo; navaho" => "nv",
+    "navajo" => "nv",
+    "navaho" => "nv",
+    "chichewa; chewa; nyanja" => "ny",
+    "chichewa" => "ny",
+    "chewa" => "ny",
+    "nyanja" => "ny",
+    "occitan (post 1500)" => "oc",
+    "ojibwa" => "oj",
+    "oromo" => "om",
+    "oriya" => "or",
+    "ossetian; ossetic" => "os",
+    "ossetian" => "os",
+    "ossetic" => "os",
+    "panjabi; punjabi" => "pa",
+    "panjabi" => "pa",
+    "punjabi" => "pa",
+    "pali" => "pi",
+    "polish" => "pl",
+    "pushto; pashto" => "ps",
+    "pushto" => "ps",
+    "pashto" => "ps",
+    "portuguese" => "pt",
+    "quechua" => "qu",
+    "romansh" => "rm",
+    "rundi" => "rn",
+    "romanian; moldavian; moldovan" => "ro",
+    "romanian" => "ro",
+    "moldavian" => "ro",
+    "moldovan" => "ro",
+    "russian" => "ru",
+    "kinyarwanda" => "rw",
+    "sanskrit" => "sa",
+    "sardinian" => "sc",
+    "sindhi" => "sd",
+    "northern sami" => "se",
+    "sango" => "sg",
+    "sinhala; sinhalese" => "si",
+    "sinhala" => "si",
+    "sinhalese" => "si",
+    "slovak" => "sk",
+    "slovenian" => "sl",
+    "samoan" => "sm",
+    "shona" => "sn",
+    "somali" => "so",
+    "albanian" => "sq",
+    "serbian" => "sr",
+    "swati" => "ss",
+    "sotho, southern" => "st",
+    "sundanese" => "su",
+    "swedish" => "sv",
+    "swahili" => "sw",
+    "tamil" => "ta",
+    "telugu" => "te",
+    "tajik" => "tg",
+    "thai" => "th",
+    "tigrinya" => "ti",
+    "turkmen" => "tk",
+    "tagalog" => "tl",
+    "tswana" => "tn",
+    "tonga (tonga islands)" => "to",
+    "turkish" => "tr",
+    "tsonga" => "ts",
+    "tatar" => "tt",
+    "twi" => "tw",
+    "tahitian" => "ty",
+    "uighur; uyghur" => "ug",
+    "uighur" => "ug",
+    "uyghur" => "ug",
+    "ukrainian" => "uk",
+    "urdu" => "ur",
+    "uzbek" => "uz",
+    "venda" => "ve",
+    "vietnamese" => "vi",
+    "volapük" => "vo",
+    "walloon" => "wa",
+    "wolof" => "wo",
+    "xhosa" => "xh",
+    "yiddish" => "yi",
+    "yoruba" => "yo",
+    "zhuang; chuang" => "za",
+    "zhuang" => "za",
+    "chuang" => "za",
+    "chinese" => "zh",
+    "zulu" => "zu"
+  ];
+
+  return $mapping[strtolower($language)] ?? "";
 }

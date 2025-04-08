@@ -68,6 +68,11 @@
     {% if secondary_file_name %}
       <source src="{{ secondary_video_file }}" type="{{ secondary_file_mime }}"/>
     {% endif %}
+
+    {% for vtt in vtts %}
+      {% set default = loop.first ? "default" %}
+      <track kind="caption" src="{{ vtt.src }}" srclang="{{ vtt.lang }}" label="{{ vtt.label }}" >
+    {% endfor %}
     
   </video-js>
 </div>

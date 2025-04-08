@@ -1,0 +1,12 @@
+langcode: en
+status: true
+dependencies: {}
+id: subtitles_uploaded_file
+label: "Subtitles (vtt) File"
+description: "Subtitles (vtt) File"
+source: file
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  source_field: field_media_file
+field_map: {}
