@@ -26,5 +26,10 @@
     {# style="width:{{ player_attributes.width }}px;  height:{{ player_attributes.height }}px;"  #}
   >
     <source src="{{ video_file }}" type="{{ file_mime }}"/>
+
+    {% for vtt in vtts %}
+      {% set default = loop.first ? "default" %}
+      <track kind="caption" src="{{ vtt.src }}" srclang="{{ vtt.lang }}" label="{{ vtt.label }}" >
+    {% endfor %}
   </video-js>
 </div>
