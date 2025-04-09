@@ -246,8 +246,10 @@ function scitalk_media_update_8103() {
     {
       $storage_config_yml = $source->read($field_storage_yml);
       // $storage_config->create($storage_config_yml)->save();
+      // this is how to do this when there's a list in a configuration
+      // the above line $storage_config->create() fails with lists, issuing this error:
+      // "The configuration property settings.allowed_values.0.label.0 doesn't exist":
       $ent = $storage_config->createFromStorageRecord($storage_config_yml);
-      // $ent->enforceIsNew(FALSE);
       $ent->save();
       \Drupal::logger('scitalk_media')->notice('Create media type field storage: '.  $field_storage_id);
     }
