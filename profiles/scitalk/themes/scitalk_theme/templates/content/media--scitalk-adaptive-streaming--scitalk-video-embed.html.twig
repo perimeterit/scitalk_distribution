@@ -55,7 +55,21 @@
   }
 %}
 
-<div id="video_player" class="scitalk_video_player">
+{% embed 'scitalk_media:videojs_media' with ({
+  data_setup: data_setup,
+  thumbnail: thumb,
+  subtitles: vtts
+}) %}
+  {% block video_sources %}
+    <source src="{{ primary_video_file }}" type="{{ primary_file_mime }}"/>
+    {% if secondary_file_name %}
+      <source src="{{ secondary_video_file }}" type="{{ secondary_file_mime }}"/>
+    {% endif %}
+  {% endblock %}
+{% endembed %}
+
+
+{# <div id="video_player" class="scitalk_video_player">
   <video-js data-setup='{{ data_setup|json_encode() }}'
     id = "scitalk_video_js"
     class = "video-js vjs-default-skin vjs-big-play-centered" 
@@ -75,4 +89,4 @@
     {% endfor %}
     
   </video-js>
-</div>
+</div> #}

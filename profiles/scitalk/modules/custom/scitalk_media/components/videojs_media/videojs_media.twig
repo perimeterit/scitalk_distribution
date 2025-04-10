@@ -1,0 +1,25 @@
+
+<div id="video_player" class="scitalk_video_player">
+  <video-js data-setup='{{ data_setup|json_encode() }}'
+    id = {{ video_id ?  video_id : "scitalk_video_js"}}
+    class = "video-js vjs-default-skin vjs-big-play-centered" 
+    poster = "{{ thumbnail }}" 
+    preload = FALSE
+    fluid = TRUE
+    responsive = TRUE
+  >
+    {% block video_sources %}
+        {# list here the video sources #}
+    {% endblock %}
+
+    {% set default = "" %}
+    {% for vtt in subtitles %}
+        {% if default_language %}
+            {% set default = vtt.lang == default_language ? "default" %}
+        {% endif %}
+
+      <track kind="caption" src="{{ vtt.src }}" srclang="{{ vtt.lang }}" label="{{ vtt.label }}"  {{ default }}>
+    {% endfor %}
+    
+  </video-js>
+</div>

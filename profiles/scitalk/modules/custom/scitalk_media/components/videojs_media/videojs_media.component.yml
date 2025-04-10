@@ -1,0 +1,32 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json
+name: SciTalk Videojs media
+status: stable
+props:
+  type: object
+
+  properties:
+    video_id:
+      type: string
+      title: Videojs html element id
+      description: The id for the videojs element
+    data_setup:
+      title: Videojs data setup object
+      description: The Videojs data setup object containing controls, playback rates, etc. information
+      type: object
+    thumbnail:
+      type: string
+      title: Video poster/thumbnail
+      description: The poster image to display on the Videojs player
+    default_language:
+      type: ["string", "null"]
+      title: The default subtitle language
+      description: The subtitle language to set as default when subtitles are defined
+    subtitles:
+      type: ["array", "null"]
+      title: Video subtitles/vtt sources
+      description: The poster image to display on the Videojs player
+
+slots:
+  video_sources:
+    title: Video source slot
+    description: Video source slot listing all video sources

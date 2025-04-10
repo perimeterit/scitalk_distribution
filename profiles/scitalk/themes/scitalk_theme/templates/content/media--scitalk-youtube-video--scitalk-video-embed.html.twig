@@ -12,7 +12,17 @@
   }
 %}
 
-<div id="video_player" class="scitalk_video_player">
+{% embed 'scitalk_media:videojs_media' with ({
+  data_setup: data_setup,
+  thumbnail: thumb,
+  subtitles: vtts
+}) %}
+  {% block video_sources %}
+      <source src="{{ video_file }}" type="{{ file_mime }}"/>
+  {% endblock %}
+{% endembed %}
+
+{# <div id="video_player" class="scitalk_video_player">
   <video-js data-setup='{{ data_setup|json_encode() }}'
     id = "scitalk_video_js"
     class = "video-js vjs-default-skin vjs-big-play-centered" 
@@ -20,10 +30,6 @@
     preload = FALSE
     fluid = TRUE
     responsive = TRUE
-    {# {{ player_attributes.autoplay ? 'autoplay' : '' }} 
-    {{ player_attributes.loop ? 'loop' : '' }} 
-    {{ player_attributes.muted ? 'muted' : '' }} #}
-    {# style="width:{{ player_attributes.width }}px;  height:{{ player_attributes.height }}px;"  #}
   >
     <source src="{{ video_file }}" type="{{ file_mime }}"/>
 
@@ -32,4 +38,4 @@
       <track kind="caption" src="{{ vtt.src }}" srclang="{{ vtt.lang }}" label="{{ vtt.label }}" >
     {% endfor %}
   </video-js>
-</div>
+</div> #}
