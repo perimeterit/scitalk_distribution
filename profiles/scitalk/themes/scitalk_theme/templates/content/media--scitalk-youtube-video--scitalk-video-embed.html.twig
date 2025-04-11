@@ -3,12 +3,14 @@
 {% set video_file = content.field_media_scitalk_video.0['#context'].value %}
 {% set file_mime = 'video/youtube' %}
 
+{# to turn off default youtube cc and annotations add this: "youtube": { "iv_load_policy": 3, "cc_load_policy": 3} #}
 {%
   set data_setup = {
     "playbackRates": [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2],
     "controls": TRUE, 
     "aspectRatio": '16:9',
-    "techOrder": ["youtube"]
+    "techOrder": ["youtube"],
+    "youtube": { "iv_load_policy": 3, "cc_load_policy": 3, "controls": 0 }
   }
 %}
 
