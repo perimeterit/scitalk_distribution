@@ -247,6 +247,20 @@ function scitalk_theme_preprocess_media(&$variables) {
   
     $variables['adpative_video_mime_mapping'] = $adpative_video_mime_mapping;
   }
+
+  // parse VTTs replacing times texts with links so that we could links to those times in the videos, and vice versa
+  if ($bundle == 'scitalk_transcription') {
+    $transcript_field = $variables['elements']['field_media_scitalk_transcript'] ?? [];
+    $transcript_text = $transcript_field[0]['#text'] ?? '';
+
+    if (!empty($transcript_text)) {
+      $re = "/((\d\d:)?\d{2}:\d{2}\.\d{3})\s+-->\s+((\d\d:)?\d{2}:\d{2}\.\d{3})((?:(?!\d\d:).)*|$)/ms";
+  
+      @preg_match_all($re, $transcript_text, $matches, PREG_SET_ORDER);
+      $formattted_transcript_text = _build_transcript_text($matches, $transcript_text);
+      $variables['formatted_trascript_text'] = $formattted_transcript_text;
+    }
+  }
 }
 
 /*
@@ -695,4 +709,35 @@ function _iso_language_code_map($language) {
   ];
 
   return $mapping[strtolower($language)] ?? "";
+}
+
+function _build_transcript_text($matches, $str){
+  $new_text = $str;
+  $new_text = preg_replace("/WEBVTT\s*/ms", "", $new_text);
+  foreach($matches as $res) {
+      $start = $res[1];
+      $start_time = explode(":", $start);
+      $text_block = $res[5];
+      $text_block_trimmed = trim($text_block);
+      if (count($start_time) == 2) { //mm:ss.milsec  (not hr in the time)
+          $min = $start_time[0];
+          $sec = explode(".", $start_time[1]);
+          $sec = $sec[0];
+          $min_to_secs = (int) $min * 60 + (int) $sec;
+          $display_time = "{$min}:{$sec}";
+          $link = "<div class='trans_wrap'><div class='jump_to_wrap' id='{$min_to_secs}'><button class='jump_to' value='{$min_to_secs}' aria-description='Start playing at interval {$display_time}'><div><i aria-hidden='true' class='icon-play'></i><span class='timestamp'>{$display_time}</span></div></button></div><div class='trans_text' aria-label='{$text_block_trimmed}'><span>{$text_block}</span></div></div>";
+          $new_text = str_replace($res[0], $link, $new_text);
+      }
+      elseif (count($start_time) == 3) { //hh:mm:ss.milsec
+          $hr = $start_time[0];
+          $min = $start_time[1];
+          $sec = explode(".", $start_time[2]);
+          $sec = $sec[0];
+          $hrs_to_secs = (int) $hr * 3600 + (int) $min * 60 + (int) $sec;
+          $display_time = (int) $hr > 0 ? "{$hr}:{$min}:{$sec}" : "{$min}:{$sec}";
+          $link = "<div class='trans_wrap'><div class='jump_to_wrap' id='{$hrs_to_secs}'><button class='jump_to' value='{$hrs_to_secs}' aria-description='Start playing at interval {$display_time}'><div><i aria-hidden='true' class='icon-play'></i><span class='timestamp'>{$display_time}</span></div></button></div><div class='trans_text' aria-label='{$text_block_trimmed}'><span>{$text_block}</span></div></div>";
+          $new_text = str_replace($res[0], $link, $new_text);
+      }
+  }
+  return $new_text;
 }
