@@ -1,12 +1,14 @@
 document.addEventListener("DOMContentLoaded", () => {
   const transcriptModal = document.querySelector(".transcript-modal");
   const transcriptModalBtn = document.querySelector(".transcript-modal-close");
-  let isTranscriptShowing = false;
-  const cutoffWidth = 1100;
-
+  const pageContentWrapper = document.querySelector(".content-wrapper");
+  const sideTranscriptWrapper = "video-trans-wrapper";
   const transcriptWrapper = document.getElementById(
     "formatted-transcript-text"
   );
+
+  const cutoffWidth = 1100; // width to determine whether to display left or bottom transcript section
+  let isTranscriptShowing = false;
 
   //close Transcript modal
   transcriptModalBtn.addEventListener("click", () => {
@@ -14,17 +16,11 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleTranscript.click();
   });
 
-  // toggle the side Transcript secion
+  // toggle the side Transcript section
   function toggleSideTranscript() {
-    const pageContentWrapper = document.querySelector(".content-wrapper");
-    const sideTranscriptWrapper = "video-trans-wrapper";
-    const transcriptWrapper = document.getElementById(
-      "formatted-transcript-text"
-    );
-
     // side transcript section showing - add transcript:
     if (pageContentWrapper.classList.contains(sideTranscriptWrapper)) {
-      // if big screen
+      // if big screen:
       if (window.innerWidth > cutoffWidth) {
         pageContentWrapper.append(transcriptWrapper);
 
@@ -46,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // toggle bottom Transcript section
   function toggleBottomTranscript() {
-    const transcriptModal = document.querySelector(".transcript-modal");
     const transcriptContent = document.querySelector(
       ".transcript-modal-content"
     );
@@ -61,7 +56,6 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     if (isTranscriptShowing) {
-      // pageContentWrapper.classList.toggle(sideTranscriptWrapper);
       if (window.innerWidth <= cutoffWidth) {
         // put the transcript inside the bottom modal content
         transcriptModalContent.append(transcriptWrapper);
@@ -87,7 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         }
 
-        //set the height of the content inside the modal
+        //set the height of the content inside the modal:
         const calculatedModalContentHeight =
           transcriptContent.offsetHeight -
             transcriptModalHeader.offsetHeight -
@@ -105,14 +99,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const toggleTranscript = document.getElementById("toggle_transcript");
-
   toggleTranscript.addEventListener("click", function (e) {
-    const pageContentWrapper = document.querySelector(".content-wrapper");
-    const sideTranscriptWrapper = "video-trans-wrapper";
-
     isTranscriptShowing = !isTranscriptShowing;
-    // pageContentWrapper.classList.toggle(sideTranscriptWrapper);
-
     if (isTranscriptShowing) {
       if (window.innerWidth > cutoffWidth) {
         pageContentWrapper.classList.add(sideTranscriptWrapper);
@@ -144,12 +132,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  player.on("play", () => {
-    if (offset) {
-      player.currentTime(offset);
-    }
-    offset = false;
-  });
+  // player.on("play", () => {
+  //   if (offset) {
+  //     player.currentTime(offset);
+  //   }
+  //   offset = false;
+  // });
 
   let prevHighlightedText = null;
   // get time updates from the video player
@@ -179,11 +167,9 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // on window resize determine which transcript section should appear (side or bottom)
   let resizeTimer;
   function updateTranscriptSection() {
-    const pageContentWrapper = document.querySelector(".content-wrapper");
-    const sideTranscriptWrapper = "video-trans-wrapper";
-
     if (isTranscriptShowing) {
       //hide the side Transcript section when less than this screen width, else show
       if (window.innerWidth <= cutoffWidth) {
