@@ -18,7 +18,7 @@
             {% set default = vtt.lang == default_language ? "default" %}
         {% endif %}
 
-      <track kind="caption" src="{{ vtt.src }}" srclang="{{ vtt.lang }}" label="{{ vtt.label }}"  {{ default }}>
+      <track kind="captions" src="{{ vtt.src }}" srclang="{{ vtt.lang }}" label="{{ vtt.label }}"  {{ default }} />
     {% endfor %}
     
   </video-js>
