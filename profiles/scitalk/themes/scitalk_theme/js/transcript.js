@@ -1,7 +1,15 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const hasTranscript = document.querySelector(".transcript-text-wrapper");
+  if (!hasTranscript) {
+    return;
+  }
+
   const transcriptModal = document.querySelector(".transcript-modal");
-  const transcriptModalBtn = document.querySelector(".transcript-modal-close");
+  // const transcriptModalBtn = document.querySelector(".transcript-modal-close");
   const pageContentWrapper = document.querySelector(".content-wrapper");
+  const transcriptModalHeader = document.querySelector(
+    ".transcript-modal-header"
+  );
   const sideTranscriptWrapper = "video-trans-wrapper";
   const transcriptWrapper = document.getElementById(
     "formatted-transcript-text"
@@ -11,32 +19,68 @@ document.addEventListener("DOMContentLoaded", () => {
   let isTranscriptShowing = false;
 
   //close Transcript modal
-  transcriptModalBtn.addEventListener("click", () => {
+  transcriptModalHeader.addEventListener("click", () => {
     transcriptModal.style.display = "none";
     toggleTranscript.click();
   });
+
+  // need to add a Close button for the side Transcript
+  const sideCloseButton = (function () {
+    let sideWrap = null;
+    return {
+      create: function () {
+        if (!sideWrap) {
+          sideWrap = document.createElement("div");
+          sideWrap.id = "side-wrap";
+          const cBox = document.createElement("div");
+          cBox.className = "close-side";
+          cBox.innerHTML =
+            '<span class="close-side-btn">×</span><h2>Hide Transcript</h2>';
+          sideWrap.append(cBox);
+
+          cBox.addEventListener("click", () => {
+            sideWrap.style.display = "none";
+            transcriptModalHeader.click();
+          });
+        }
+        sideWrap.style.display = "block";
+        return sideWrap;
+      },
+      remove: function () {
+        sideWrap?.remove();
+        sideWrap = null;
+      },
+      hide: function () {
+        if (sideWrap) {
+          sideWrap.style.display = "none";
+        }
+      },
+    };
+  })();
 
   // toggle the side Transcript section
   function toggleSideTranscript() {
     // side transcript section showing - add transcript:
     if (pageContentWrapper.classList.contains(sideTranscriptWrapper)) {
-      // if big screen:
+      // if a big screen:
       if (window.innerWidth > cutoffWidth) {
-        pageContentWrapper.append(transcriptWrapper);
+        //create the side close button element wrapper (includes a wrapper for both the button and the trascript text)
+        const wrap = sideCloseButton.create();
+        pageContentWrapper.append(wrap);
+        wrap.append(transcriptWrapper);
 
-        const videoEl = document.querySelector(".field--name-field-talk-video");
-        const talkNumber = document.querySelector(".talk-number");
-        const videoHeight = videoEl.offsetHeight;
-        const videoOffset = Math.abs(
-          talkNumber.offsetTop - talkNumber.offsetHeight
-        );
+        const talkNodeEl = document.querySelector(".node.talk");
+        const talkNodeElDimensions = talkNodeEl.getBoundingClientRect();
+        const posTransTop = talkNodeElDimensions.y - talkNodeEl.y;
+        const posTransHeight = talkNodeElDimensions.height;
 
-        transcriptWrapper.style.marginTop = `${videoOffset}px`;
-        transcriptWrapper.style.height = `${videoHeight}px`;
+        transcriptWrapper.style.marginTop = `${posTransTop}px`;
+        transcriptWrapper.style.height = `${posTransHeight}px`;
         transcriptWrapper.style.display = "block";
       }
     } else {
       transcriptWrapper.style.display = "none";
+      sideCloseButton.hide();
     }
   }
 
@@ -44,9 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
   function toggleBottomTranscript() {
     const transcriptContent = document.querySelector(
       ".transcript-modal-content"
-    );
-    const transcriptModalHeader = document.querySelector(
-      ".transcript-modal-header"
     );
     const transcriptModalContent = document.querySelector(
       ".transcript-modal-body"
@@ -57,37 +98,54 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (isTranscriptShowing) {
       if (window.innerWidth <= cutoffWidth) {
-        // put the transcript inside the bottom modal content
-        transcriptModalContent.append(transcriptWrapper);
+        // scroll to the top first: when there are talk metadata (speakers, sci areas, etc) and long abstracts the location
+        // of the video element might be off the viewarea and hence the modal might cover the whole window
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
 
-        const videoEl = document.querySelector(".field--name-field-talk-video");
-        const videoEleDimensions = videoEl.getBoundingClientRect();
-        const modalTop = window.innerHeight - videoEleDimensions.bottom - 5;
-        transcriptContent.style.height = `${modalTop}px`;
+        // need to wait for the above scrollto finish to get the right element's dimensions
+        setTimeout(function () {
+          // put the transcript inside the bottom modal content
+          transcriptModalContent.append(transcriptWrapper);
+          sideCloseButton.remove();
 
-        //show bottom modal panel
-        transcriptModal.style.display = "block";
-        transcriptWrapper.style.display = "block";
+          const videoEl = document.querySelector(
+            ".field--name-field-talk-video"
+          );
+          const videoEleDimensions = videoEl.getBoundingClientRect();
 
-        let contentYPadding = 4; // this is the value from the CSS declaration: .transcript-modal-body {padding: 2px 16px}
-        // FF does not support computedStyleMap() for now, so need to check:
-        if ("computedStyleMap" in transcriptModalContent) {
-          const modalContentPadding =
-            transcriptModalContent.computedStyleMap() || null;
-          if (modalContentPadding) {
-            contentYPadding =
-              modalContentPadding.get("padding-top").value +
-              modalContentPadding.get("padding-bottom").value;
+          const modalTop = window.innerHeight - videoEleDimensions.bottom - 5;
+          transcriptContent.style.height = `${modalTop}px`;
+
+          transcriptWrapper.style.marginTop = 0; //reset the margin top set on the side section
+
+          //show bottom modal panel
+          transcriptModal.style.display = "block";
+          transcriptWrapper.style.display = "block";
+
+          let contentYPadding = 4; // this is the value from the CSS declaration: .transcript-modal-body {padding: 2px 16px}
+          // FF does not support computedStyleMap() for now, so need to check:
+          if ("computedStyleMap" in transcriptModalContent) {
+            const modalContentPadding =
+              transcriptModalContent.computedStyleMap() || null;
+            if (modalContentPadding) {
+              contentYPadding =
+                modalContentPadding.get("padding-top").value +
+                modalContentPadding.get("padding-bottom").value;
+            }
           }
-        }
 
-        //set the height of the content inside the modal:
-        const calculatedModalContentHeight =
-          transcriptContent.offsetHeight -
-            transcriptModalHeader.offsetHeight -
-            contentYPadding || 300;
-        transcriptWrapper.style.marginTop = 0; //reset the margin top set on the side section
-        transcriptWrapper.style.height = `${calculatedModalContentHeight}px`;
+          //set the height of the content inside the modal:
+          const calculatedModalContentHeight =
+            transcriptContent.offsetHeight -
+              transcriptModalHeader.offsetHeight -
+              contentYPadding || 300;
+
+          // transcriptWrapper.style.marginTop = 0; //reset the margin top set on the side section
+          transcriptWrapper.style.height = `${calculatedModalContentHeight}px`;
+        }, 300);
       } else {
         // hide the modal
         transcriptModal.style.display = "none";
@@ -132,15 +190,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // player.on("play", () => {
-  //   if (offset) {
-  //     player.currentTime(offset);
-  //   }
-  //   offset = false;
-  // });
+  // two ways of Highlighting the current text, either:
+  //  1. use the "timeupdate" event on the player, or
+  //  2. find the tracks and listen for the "cuechange" event
+  // option 1 highlights faster than what the video is showing. It's better when another lang is selected under CC. Here we need to find the element with id = timestamp
+  // option 2 highlights the text on time, it's more accurate. Here have to search for text on the arial-label to match the text.
+  //    BUT!!!
+  //      - it only works when the captions are on so I have to force the caption so at least "hidden"
+  //      - Safari, Opera show the text in the aria-label escaped and to find the text on these cases i have to look inside the span
 
   let prevHighlightedText = null;
-  // get time updates from the video player
+
+  /////////////////////
+
+  // Option 1: listen for the timeupdate event from the video player
+
   player.on("timeupdate", (event) => {
     const curTime = parseInt(player.currentTime());
     if (curTime == 0) {
@@ -166,6 +230,64 @@ document.addEventListener("DOMContentLoaded", () => {
       textBlock.firstChild.classList.toggle("highlighted_text");
     }
   });
+
+  //////////////////
+
+  // Option 2: listen for the "cuechange" event on the track:
+
+  // //need to wait until tracks are loaded
+  // player.on("loadedmetadata", function () {
+  //   let tracks = player.textTracks();
+  //   for (let i = 0; i < tracks.length; i++) {
+  //     const track = tracks[i];
+  //     const captionLanguage = track.language;
+  //     //only english??
+  //     if (captionLanguage != "en") {
+  //       continue;
+  //     }
+
+  //     // if the captions are disabled then the cuechange won't trigger. So use this we need them either "hidden" or "showing"
+  //     // let's force it hidden if disabled
+  //     if (track.mode == "disabled") {
+  //       track.mode = "hidden";
+  //     }
+
+  //     track.addEventListener("cuechange", (event) => {
+  //       if (prevHighlightedText) {
+  //         prevHighlightedText.classList.toggle("highlighted_text");
+  //       }
+
+  //       const active = track.activeCues[0];
+  //       // const startTime = active.startTime;
+  //       // const endTime = active.endTime;
+  //       const activeText = active.text.trim();
+  //       const search_text = `div[aria-label="${activeText}"]`;
+  //       let textElWrapper = document.querySelector(search_text);
+
+  //       // if i couldn't find the above it's probably because of the apostrophes being escaped, so try find the actual text:
+  //       if (!textElWrapper) {
+  //         const text_span_el = [
+  //           ...document.querySelectorAll(".trans_text span"),
+  //         ].filter((el) => el.innerText.trim() == activeText);
+  //         textElWrapper = text_span_el[0].parentElement; //return the parent div
+  //       }
+
+  //       const curText = textElWrapper.firstChild;
+  //       prevHighlightedText = curText;
+
+  //       //this scolls inside the subtitles element to the current text
+  //       transcriptWrapper.scrollTo({
+  //         top:
+  //           textElWrapper.parentElement.offsetTop - transcriptWrapper.offsetTop, //scroll to the play button above the highlighted text
+  //         // top: textElWrapper.offsetTop - wrap.offsetTop, //scroll to the highlighted text
+  //         behavior: "smooth",
+  //       });
+  //       curText.classList.toggle("highlighted_text");
+  //     });
+  //   }
+  // });
+
+  /////////////////
 
   // on window resize determine which transcript section should appear (side or bottom)
   let resizeTimer;

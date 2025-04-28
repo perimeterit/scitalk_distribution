@@ -104,6 +104,7 @@
 }
 
 /* The Close Button */
+.close-side-btn,
 .transcript-modal-close {
   color: var(--color-default-text);
   float: right;
@@ -111,6 +112,8 @@
   font-weight: bold;
 }
 
+.close-side-btn:hover,
+.close-side-btn:focus,
 .transcript-modal-close:hover,
 .transcript-modal-close:focus {
   color: var(--color-primary);
@@ -118,12 +121,14 @@
   cursor: pointer;
 }
 
+.close-side,
 .transcript-modal-header {
   padding: 2px 16px;
   background-color: var(--color-lt-grey);
   color: var(--color-default-text);
   border-top-right-radius: 7px;
   border-top-left-radius: 7px;
+  cursor: pointer;
 }
 
 .transcript-modal-body {

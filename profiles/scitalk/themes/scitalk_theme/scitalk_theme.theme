@@ -725,7 +725,8 @@ function _build_transcript_text($matches, $str){
           $sec = $sec[0];
           $min_to_secs = (int) $min * 60 + (int) $sec;
           $display_time = "{$min}:{$sec}";
-          $link = "<div class='trans_wrap'><div class='jump_to_wrap' id='{$min_to_secs}'><button class='jump_to' value='{$min_to_secs}' aria-description='Start playing at interval {$display_time}'><div><i aria-hidden='true' class='icon-play'></i><span class='timestamp'>{$display_time}</span></div></button></div><div class='trans_text' aria-label='{$text_block_trimmed}'><span>{$text_block}</span></div></div>";
+          // $link = "<div class='trans_wrap'><div class='jump_to_wrap' id='{$min_to_secs}'><button class='jump_to' value='{$min_to_secs}' aria-description='Start playing at interval {$display_time}'><div><i aria-hidden='true' class='icon-play'></i><span class='timestamp'>{$display_time}</span></div></button></div><div class='trans_text' aria-label='{$text_block_trimmed}'><span>{$text_block}</span></div></div>";
+          $link = "<div class=\"trans_wrap\"><div class=\"jump_to_wrap\" id=\"{$min_to_secs}\"><button class=\"jump_to\" value=\"{$min_to_secs}\" aria-description=\"Start playing at interval {$display_time}\"><div><i aria-hidden=\"true\" class=\"icon-play\"></i><span class=\"timestamp\">{$display_time}</span></div></button></div><div class=\"trans_text\" aria-label=\"{$text_block_trimmed}\"><span>{$text_block}</span></div></div>";
           $new_text = str_replace($res[0], $link, $new_text);
       }
       elseif (count($start_time) == 3) { //hh:mm:ss.milsec
@@ -735,7 +736,8 @@ function _build_transcript_text($matches, $str){
           $sec = $sec[0];
           $hrs_to_secs = (int) $hr * 3600 + (int) $min * 60 + (int) $sec;
           $display_time = (int) $hr > 0 ? "{$hr}:{$min}:{$sec}" : "{$min}:{$sec}";
-          $link = "<div class='trans_wrap'><div class='jump_to_wrap' id='{$hrs_to_secs}'><button class='jump_to' value='{$hrs_to_secs}' aria-description='Start playing at interval {$display_time}'><div><i aria-hidden='true' class='icon-play'></i><span class='timestamp'>{$display_time}</span></div></button></div><div class='trans_text' aria-label='{$text_block_trimmed}'><span>{$text_block}</span></div></div>";
+          // $link = "<div class='trans_wrap'><div class='jump_to_wrap' id='{$hrs_to_secs}'><button class='jump_to' value='{$hrs_to_secs}' aria-description='Start playing at interval {$display_time}'><div><i aria-hidden='true' class='icon-play'></i><span class='timestamp'>{$display_time}</span></div></button></div><div class='trans_text' aria-label='{$text_block_trimmed}'><span>{$text_block}</span></div></div>";
+          $link = "<div class=\"trans_wrap\"><div class=\"jump_to_wrap\" id=\"{$hrs_to_secs}\"><button class=\"jump_to\" value=\"{$hrs_to_secs}\" aria-description=\"Start playing at interval {$display_time}\"><div><i aria-hidden=\"true\" class=\"icon-play\"></i><span class=\"timestamp\">{$display_time}</span></div></button></div><div class=\"trans_text\" aria-label=\"{$text_block_trimmed}\"><span>{$text_block}</span></div></div>";
           $new_text = str_replace($res[0], $link, $new_text);
       }
   }
