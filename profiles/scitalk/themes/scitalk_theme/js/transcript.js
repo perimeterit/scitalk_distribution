@@ -115,10 +115,17 @@ document.addEventListener("DOMContentLoaded", () => {
             ".field--name-field-talk-video"
           );
           const videoEleDimensions = videoEl.getBoundingClientRect();
+          let modalTop = window.innerHeight - videoEleDimensions.bottom - 5;
 
-          const modalTop = window.innerHeight - videoEleDimensions.bottom - 5;
+          //for devices, on landscape mode, the top might be < 0 so make the modal half the size:
+          if (modalTop < 0) {
+            modalTop *= -1 / 2;
+            window.scrollTo({
+              top: videoEleDimensions.top,
+              behavior: "smooth",
+            });
+          }
           transcriptContent.style.height = `${modalTop}px`;
-
           transcriptWrapper.style.marginTop = 0; //reset the margin top set on the side section
 
           //show bottom modal panel
@@ -307,4 +314,5 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   window.addEventListener("resize", updateTranscriptSection);
+  // screen.orientation.addEventListener("change", (event) => {});
 });
