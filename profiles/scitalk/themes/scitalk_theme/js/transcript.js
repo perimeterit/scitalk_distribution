@@ -143,7 +143,6 @@ document.addEventListener("DOMContentLoaded", () => {
               transcriptModalHeader.offsetHeight -
               contentYPadding || 300;
 
-          // transcriptWrapper.style.marginTop = 0; //reset the margin top set on the side section
           transcriptWrapper.style.height = `${calculatedModalContentHeight}px`;
         }, 300);
       } else {
