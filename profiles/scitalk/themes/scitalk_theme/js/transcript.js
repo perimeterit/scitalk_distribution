@@ -188,7 +188,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // transcriptModal.addEventListener.addEventListener("mousedown", (e) => {
     transcriptModalHeader.addEventListener("mousedown", (e) => {
-      console.log("mouse down");
       modalYPos = e.clientY;
 
       const styles = window.getComputedStyle(transcriptContent);
@@ -219,7 +218,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // transcriptModal.addEventListener("touchstart", (e) => {
     transcriptModalHeader.addEventListener("touchstart", (e) => {
-      console.log("touch start");
       const touch = e.touches[0];
       modalYPos = touch.clientY;
 
