@@ -142,6 +142,27 @@
   color: var(--color-default-text);
 }
 
+.resizable {
+  border: 1px solid rgb(203 213 225);
+  border-radius: 0.25rem;
+}
+
+.resizer {
+  background: transparent;
+  position: absolute;
+  cursor: row-resize;
+
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+
+  height: 0.1rem;
+  width: 10rem;
+}
+.resizable:hover .resizer {
+  background: var(--color-primary);
+}
+
 /* Add Animation */
 @keyframes animatetop {
   from {

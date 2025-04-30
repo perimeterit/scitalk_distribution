@@ -7,6 +7,13 @@ document.addEventListener("DOMContentLoaded", () => {
   const transcriptModal = document.querySelector(".transcript-modal");
   // const transcriptModalBtn = document.querySelector(".transcript-modal-close");
   const pageContentWrapper = document.querySelector(".content-wrapper");
+  // const transcriptModalHeader = document.querySelector(
+  //   ".transcript-modal-header"
+  // );
+  const transcriptModalClose = document.querySelector(
+    ".transcript-modal-close"
+  );
+
   const transcriptModalHeader = document.querySelector(
     ".transcript-modal-header"
   );
@@ -19,7 +26,8 @@ document.addEventListener("DOMContentLoaded", () => {
   let isTranscriptShowing = false;
 
   //close Transcript modal
-  transcriptModalHeader.addEventListener("click", () => {
+  // transcriptModalHeader.addEventListener("click", () => {
+  transcriptModalClose.addEventListener("click", () => {
     transcriptModal.style.display = "none";
     toggleTranscript.click();
   });
@@ -38,9 +46,11 @@ document.addEventListener("DOMContentLoaded", () => {
             '<span class="close-side-btn">×</span><h2>Hide Transcript</h2>';
           sideWrap.append(cBox);
 
+          // close the trasncript
           cBox.addEventListener("click", () => {
             sideWrap.style.display = "none";
-            transcriptModalHeader.click();
+            // transcriptModalHeader.click();
+            transcriptModalClose.click();
           });
         }
         sideWrap.style.display = "block";
@@ -160,6 +170,89 @@ document.addEventListener("DOMContentLoaded", () => {
       transcriptModal.style.display = "none";
       transcriptWrapper.style.display = "none";
     }
+
+    //////////////////////////////////////////////////////////////
+    /////////// resize bottom modal
+    let modalH = 0;
+    let modalYPos = 0;
+
+    function updateResizeCursor() {
+      transcriptContent.style.cursor = "row-resize";
+      transcriptContent.style.userSelect = "none";
+    }
+
+    function resetResiseCursor() {
+      transcriptContent.style.removeProperty("cursor");
+      transcriptContent.style.removeProperty("user-select");
+    }
+
+    // transcriptModal.addEventListener.addEventListener("mousedown", (e) => {
+    transcriptModalHeader.addEventListener("mousedown", (e) => {
+      console.log("mouse down");
+      modalYPos = e.clientY;
+
+      const styles = window.getComputedStyle(transcriptContent);
+      modalH = parseInt(styles.height, 10);
+
+      document.addEventListener("mousemove", mouseMoveHandler);
+      document.addEventListener("mouseup", mouseUpHandler);
+
+      function mouseMoveHandler(e) {
+        // calculate how much the mouse moved on the vertical
+        const dy = e.clientY - modalYPos;
+        const newH = modalH + -1 * dy;
+        const calculatedModalContentHeight =
+          newH - transcriptModalHeader.offsetHeight - 4 || 300;
+
+        transcriptContent.style.height = `${newH}px`;
+        transcriptWrapper.style.height = `${calculatedModalContentHeight}px`;
+        updateResizeCursor();
+      }
+
+      function mouseUpHandler() {
+        // Remove the handlers of mousemove and mouseup
+        document.removeEventListener("mousemove", mouseMoveHandler);
+        document.removeEventListener("mouseup", mouseUpHandler);
+        resetResiseCursor();
+      }
+    });
+
+    // transcriptModal.addEventListener("touchstart", (e) => {
+    transcriptModalHeader.addEventListener("touchstart", (e) => {
+      console.log("touch start");
+      const touch = e.touches[0];
+      modalYPos = touch.clientY;
+
+      const styles = window.getComputedStyle(transcriptContent);
+      modalH = parseInt(styles.height, 10);
+
+      document.addEventListener("touchmove", handleTouchMove);
+      document.addEventListener("touchend", handleTouchEnd);
+
+      function handleTouchMove(e) {
+        // e.preventDefault();
+        const touch = e.touches[0];
+        const dy = touch.clientY - modalYPos;
+        const newH = modalH + -1 * dy;
+
+        const calculatedModalContentHeight =
+          newH - transcriptModalHeader.offsetHeight - 4 || 300;
+        console.log("computed", calculatedModalContentHeight);
+
+        transcriptContent.style.height = `${newH}px`; // modalH + -1 * dy + "px";
+        transcriptWrapper.style.height = `${calculatedModalContentHeight}px`;
+        updateResizeCursor();
+      }
+
+      function handleTouchEnd() {
+        // Remove the handlers of mousemove and mouseup
+        document.removeEventListener("touchmove", handleTouchMove);
+        document.removeEventListener("touchend", handleTouchEnd);
+        resetResiseCursor();
+      }
+    });
+
+    /////////////////////////////////////////////////////////////////////////
   }
 
   const toggleTranscript = document.getElementById("toggle_transcript");
