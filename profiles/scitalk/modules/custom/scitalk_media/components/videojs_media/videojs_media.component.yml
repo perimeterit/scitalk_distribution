@@ -14,7 +14,7 @@ props:
       description: The Videojs data setup object containing controls, playback rates, etc. information
       type: object
     thumbnail:
-      type: string
+      type: ["string", "null"]
       title: Video poster/thumbnail
       description: The poster image to display on the Videojs player
     default_language:
