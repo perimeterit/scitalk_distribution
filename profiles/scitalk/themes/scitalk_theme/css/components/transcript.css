@@ -157,7 +157,7 @@
   transform: translate(-50%, 50%);
 
   height: 0.1rem;
-  width: 10rem;
+  width: 3rem;
 }
 .resizable:hover .resizer {
   background: var(--color-primary);

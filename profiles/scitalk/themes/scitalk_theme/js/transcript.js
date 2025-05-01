@@ -7,9 +7,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const transcriptModal = document.querySelector(".transcript-modal");
   // const transcriptModalBtn = document.querySelector(".transcript-modal-close");
   const pageContentWrapper = document.querySelector(".content-wrapper");
-  // const transcriptModalHeader = document.querySelector(
-  //   ".transcript-modal-header"
-  // );
   const transcriptModalClose = document.querySelector(
     ".transcript-modal-close"
   );
@@ -26,7 +23,6 @@ document.addEventListener("DOMContentLoaded", () => {
   let isTranscriptShowing = false;
 
   //close Transcript modal
-  // transcriptModalHeader.addEventListener("click", () => {
   transcriptModalClose.addEventListener("click", () => {
     transcriptModal.style.display = "none";
     toggleTranscript.click();
@@ -46,10 +42,9 @@ document.addEventListener("DOMContentLoaded", () => {
             '<span class="close-side-btn">×</span><h2>Hide Transcript</h2>';
           sideWrap.append(cBox);
 
-          // close the trasncript
+          // close the transcript
           cBox.addEventListener("click", () => {
             sideWrap.style.display = "none";
-            // transcriptModalHeader.click();
             transcriptModalClose.click();
           });
         }
@@ -106,6 +101,26 @@ document.addEventListener("DOMContentLoaded", () => {
       "formatted-transcript-text"
     );
 
+    // calculate the height of the bottom modal header
+    function getModalHeaderHeight() {
+      const defaultHeight = 300;
+      let contentYPadding = 4; // this is the value from the CSS declaration: .transcript-modal-body {padding: 2px 16px}
+      // FF does not support computedStyleMap() for now, so need to check:
+      if ("computedStyleMap" in transcriptModalContent) {
+        const modalContentPadding =
+          transcriptModalContent.computedStyleMap() || null;
+        if (modalContentPadding) {
+          contentYPadding =
+            modalContentPadding.get("padding-top").value +
+            modalContentPadding.get("padding-bottom").value;
+        }
+      }
+
+      const calculatedModalHeaderHeight =
+        transcriptModalHeader.offsetHeight - contentYPadding || defaultHeight;
+      return calculatedModalHeaderHeight;
+    }
+
     if (isTranscriptShowing) {
       if (window.innerWidth <= cutoffWidth) {
         // scroll to the top first: when there are talk metadata (speakers, sci areas, etc) and long abstracts the location
@@ -142,23 +157,9 @@ document.addEventListener("DOMContentLoaded", () => {
           transcriptModal.style.display = "block";
           transcriptWrapper.style.display = "block";
 
-          let contentYPadding = 4; // this is the value from the CSS declaration: .transcript-modal-body {padding: 2px 16px}
-          // FF does not support computedStyleMap() for now, so need to check:
-          if ("computedStyleMap" in transcriptModalContent) {
-            const modalContentPadding =
-              transcriptModalContent.computedStyleMap() || null;
-            if (modalContentPadding) {
-              contentYPadding =
-                modalContentPadding.get("padding-top").value +
-                modalContentPadding.get("padding-bottom").value;
-            }
-          }
-
           //set the height of the content inside the modal:
           const calculatedModalContentHeight =
-            transcriptContent.offsetHeight -
-              transcriptModalHeader.offsetHeight -
-              contentYPadding || 300;
+            transcriptContent.offsetHeight - getModalHeaderHeight();
 
           transcriptWrapper.style.height = `${calculatedModalContentHeight}px`;
         }, 300);
@@ -171,86 +172,79 @@ document.addEventListener("DOMContentLoaded", () => {
       transcriptWrapper.style.display = "none";
     }
 
-    //////////////////////////////////////////////////////////////
     /////////// resize bottom modal
-    let modalH = 0;
-    let modalYPos = 0;
+    (function () {
+      let modalH = 0;
+      let modalYPos = 0;
 
-    function updateResizeCursor() {
-      transcriptContent.style.cursor = "row-resize";
-      transcriptContent.style.userSelect = "none";
-    }
-
-    function resetResiseCursor() {
-      transcriptContent.style.removeProperty("cursor");
-      transcriptContent.style.removeProperty("user-select");
-    }
-
-    // transcriptModal.addEventListener.addEventListener("mousedown", (e) => {
-    transcriptModalHeader.addEventListener("mousedown", (e) => {
-      modalYPos = e.clientY;
-
-      const styles = window.getComputedStyle(transcriptContent);
-      modalH = parseInt(styles.height, 10);
-
-      document.addEventListener("mousemove", mouseMoveHandler);
-      document.addEventListener("mouseup", mouseUpHandler);
-
-      function mouseMoveHandler(e) {
-        // calculate how much the mouse moved on the vertical
-        const dy = e.clientY - modalYPos;
-        const newH = modalH + -1 * dy;
-        const calculatedModalContentHeight =
-          newH - transcriptModalHeader.offsetHeight - 4 || 300;
-
-        transcriptContent.style.height = `${newH}px`;
-        transcriptWrapper.style.height = `${calculatedModalContentHeight}px`;
-        updateResizeCursor();
+      function updateResizeCursor() {
+        transcriptContent.style.cursor = "row-resize";
+        transcriptContent.style.userSelect = "none";
       }
 
-      function mouseUpHandler() {
-        // Remove the handlers of mousemove and mouseup
-        document.removeEventListener("mousemove", mouseMoveHandler);
-        document.removeEventListener("mouseup", mouseUpHandler);
-        resetResiseCursor();
+      function resetResiseCursor() {
+        transcriptContent.style.removeProperty("cursor");
+        transcriptContent.style.removeProperty("user-select");
       }
-    });
 
-    // transcriptModal.addEventListener("touchstart", (e) => {
-    transcriptModalHeader.addEventListener("touchstart", (e) => {
-      const touch = e.touches[0];
-      modalYPos = touch.clientY;
+      transcriptModalHeader.addEventListener("mousedown", (e) => {
+        modalYPos = e.clientY;
 
-      const styles = window.getComputedStyle(transcriptContent);
-      modalH = parseInt(styles.height, 10);
+        const styles = window.getComputedStyle(transcriptContent);
+        modalH = parseInt(styles.height, 10);
 
-      document.addEventListener("touchmove", handleTouchMove);
-      document.addEventListener("touchend", handleTouchEnd);
+        document.addEventListener("mousemove", mouseMoveHandler);
+        document.addEventListener("mouseup", mouseUpHandler);
 
-      function handleTouchMove(e) {
-        // e.preventDefault();
+        function mouseMoveHandler(e) {
+          // calculate how much the mouse moved on the vertical
+          const dy = e.clientY - modalYPos;
+          const newH = modalH + -1 * dy;
+          const calculatedModalContentHeight = newH - getModalHeaderHeight();
+
+          transcriptContent.style.height = `${newH}px`;
+          transcriptWrapper.style.height = `${calculatedModalContentHeight}px`;
+          updateResizeCursor();
+        }
+
+        function mouseUpHandler() {
+          // Remove the handlers of mousemove and mouseup
+          document.removeEventListener("mousemove", mouseMoveHandler);
+          document.removeEventListener("mouseup", mouseUpHandler);
+          resetResiseCursor();
+        }
+      });
+
+      // transcriptModal.addEventListener("touchstart", (e) => {
+      transcriptModalHeader.addEventListener("touchstart", (e) => {
         const touch = e.touches[0];
-        const dy = touch.clientY - modalYPos;
-        const newH = modalH + -1 * dy;
+        modalYPos = touch.clientY;
 
-        const calculatedModalContentHeight =
-          newH - transcriptModalHeader.offsetHeight - 4 || 300;
-        console.log("computed", calculatedModalContentHeight);
+        const styles = window.getComputedStyle(transcriptContent);
+        modalH = parseInt(styles.height, 10);
 
-        transcriptContent.style.height = `${newH}px`; // modalH + -1 * dy + "px";
-        transcriptWrapper.style.height = `${calculatedModalContentHeight}px`;
-        updateResizeCursor();
-      }
+        document.addEventListener("touchmove", handleTouchMove);
+        document.addEventListener("touchend", handleTouchEnd);
 
-      function handleTouchEnd() {
-        // Remove the handlers of mousemove and mouseup
-        document.removeEventListener("touchmove", handleTouchMove);
-        document.removeEventListener("touchend", handleTouchEnd);
-        resetResiseCursor();
-      }
-    });
+        function handleTouchMove(e) {
+          const touch = e.touches[0];
+          const dy = touch.clientY - modalYPos;
+          const newH = modalH + -1 * dy;
+          const calculatedModalContentHeight = newH - getModalHeaderHeight();
 
-    /////////////////////////////////////////////////////////////////////////
+          transcriptContent.style.height = `${newH}px`;
+          transcriptWrapper.style.height = `${calculatedModalContentHeight}px`;
+          updateResizeCursor();
+        }
+
+        function handleTouchEnd() {
+          // Remove the handlers of mousemove and mouseup
+          document.removeEventListener("touchmove", handleTouchMove);
+          document.removeEventListener("touchend", handleTouchEnd);
+          resetResiseCursor();
+        }
+      });
+    })();
   }
 
   const toggleTranscript = document.getElementById("toggle_transcript");
@@ -296,114 +290,114 @@ document.addEventListener("DOMContentLoaded", () => {
   //      - it only works when the captions are on so I have to force the caption so at least "hidden"
   //      - Safari, Opera show the text in the aria-label escaped and to find the text on these cases i have to look inside the span
 
-  let prevHighlightedText = null;
+  (function () {
+    let prevHighlightedText = null;
 
-  /////////////////////
-
-  // Option 1: listen for the timeupdate event from the video player
-
-  player.on("timeupdate", (event) => {
-    const curTime = parseInt(player.currentTime());
-    if (curTime == 0) {
-      return;
-    }
-    const elId = `${curTime}`;
-    const el = document.getElementById(elId);
-    //remove highlights from previous text:
-    if (el) {
-      if (prevHighlightedText) {
-        prevHighlightedText.classList.toggle("highlighted_text");
+    // Option 1: listen for the timeupdate event from the video player
+    player.on("timeupdate", (event) => {
+      const curTime = parseInt(player.currentTime());
+      if (curTime == 0) {
+        return;
       }
+      const elId = `${curTime}`;
+      const el = document.getElementById(elId);
+      //remove highlights from previous text:
+      if (el) {
+        if (prevHighlightedText) {
+          prevHighlightedText.classList.toggle("highlighted_text");
+        }
 
-      const textBlock = el.nextElementSibling;
-      prevHighlightedText = textBlock.firstChild;
+        const textBlock = el.nextElementSibling;
+        prevHighlightedText = textBlock.firstChild;
 
-      //this scolls inside the subtitles element to the current text
-      transcriptWrapper.scrollTo({
-        top: el.offsetTop - transcriptWrapper.offsetTop, //scroll to the play button above the highlighted text
-        // top: sib.offsetTop - wrap.offsetTop, //scroll to the highlighted text
-        behavior: "smooth",
-      });
-      textBlock.firstChild.classList.toggle("highlighted_text");
-    }
-  });
+        //this scolls inside the subtitles element to the current text
+        transcriptWrapper.scrollTo({
+          top: el.offsetTop - transcriptWrapper.offsetTop, //scroll to the play button above the highlighted text
+          // top: sib.offsetTop - wrap.offsetTop, //scroll to the highlighted text
+          behavior: "smooth",
+        });
+        textBlock.firstChild.classList.toggle("highlighted_text");
+      }
+    });
 
-  //////////////////
+    //////////////////
 
-  // Option 2: listen for the "cuechange" event on the track:
+    // Option 2: listen for the "cuechange" event on the track:
 
-  // //need to wait until tracks are loaded
-  // player.on("loadedmetadata", function () {
-  //   let tracks = player.textTracks();
-  //   for (let i = 0; i < tracks.length; i++) {
-  //     const track = tracks[i];
-  //     const captionLanguage = track.language;
-  //     //only english??
-  //     if (captionLanguage != "en") {
-  //       continue;
-  //     }
+    // //need to wait until tracks are loaded
+    // player.on("loadedmetadata", function () {
+    //   let tracks = player.textTracks();
+    //   for (let i = 0; i < tracks.length; i++) {
+    //     const track = tracks[i];
+    //     const captionLanguage = track.language;
+    //     //only english??
+    //     if (captionLanguage != "en") {
+    //       continue;
+    //     }
 
-  //     // if the captions are disabled then the cuechange won't trigger. So use this we need them either "hidden" or "showing"
-  //     // let's force it hidden if disabled
-  //     if (track.mode == "disabled") {
-  //       track.mode = "hidden";
-  //     }
+    //     // if the captions are disabled then the cuechange won't trigger. So use this we need them either "hidden" or "showing"
+    //     // let's force it hidden if disabled
+    //     if (track.mode == "disabled") {
+    //       track.mode = "hidden";
+    //     }
 
-  //     track.addEventListener("cuechange", (event) => {
-  //       if (prevHighlightedText) {
-  //         prevHighlightedText.classList.toggle("highlighted_text");
-  //       }
+    //     track.addEventListener("cuechange", (event) => {
+    //       if (prevHighlightedText) {
+    //         prevHighlightedText.classList.toggle("highlighted_text");
+    //       }
 
-  //       const active = track.activeCues[0];
-  //       // const startTime = active.startTime;
-  //       // const endTime = active.endTime;
-  //       const activeText = active.text.trim();
-  //       const search_text = `div[aria-label="${activeText}"]`;
-  //       let textElWrapper = document.querySelector(search_text);
+    //       const active = track.activeCues[0];
+    //       // const startTime = active.startTime;
+    //       // const endTime = active.endTime;
+    //       const activeText = active.text.trim();
+    //       const search_text = `div[aria-label="${activeText}"]`;
+    //       let textElWrapper = document.querySelector(search_text);
 
-  //       // if i couldn't find the above it's probably because of the apostrophes being escaped, so try find the actual text:
-  //       if (!textElWrapper) {
-  //         const text_span_el = [
-  //           ...document.querySelectorAll(".trans_text span"),
-  //         ].filter((el) => el.innerText.trim() == activeText);
-  //         textElWrapper = text_span_el[0].parentElement; //return the parent div
-  //       }
+    //       // if i couldn't find the above it's probably because of the apostrophes being escaped, so try find the actual text:
+    //       if (!textElWrapper) {
+    //         const text_span_el = [
+    //           ...document.querySelectorAll(".trans_text span"),
+    //         ].filter((el) => el.innerText.trim() == activeText);
+    //         textElWrapper = text_span_el[0].parentElement; //return the parent div
+    //       }
 
-  //       const curText = textElWrapper.firstChild;
-  //       prevHighlightedText = curText;
+    //       const curText = textElWrapper.firstChild;
+    //       prevHighlightedText = curText;
 
-  //       //this scolls inside the subtitles element to the current text
-  //       transcriptWrapper.scrollTo({
-  //         top:
-  //           textElWrapper.parentElement.offsetTop - transcriptWrapper.offsetTop, //scroll to the play button above the highlighted text
-  //         // top: textElWrapper.offsetTop - wrap.offsetTop, //scroll to the highlighted text
-  //         behavior: "smooth",
-  //       });
-  //       curText.classList.toggle("highlighted_text");
-  //     });
-  //   }
-  // });
+    //       //this scolls inside the subtitles element to the current text
+    //       transcriptWrapper.scrollTo({
+    //         top:
+    //           textElWrapper.parentElement.offsetTop - transcriptWrapper.offsetTop, //scroll to the play button above the highlighted text
+    //         // top: textElWrapper.offsetTop - wrap.offsetTop, //scroll to the highlighted text
+    //         behavior: "smooth",
+    //       });
+    //       curText.classList.toggle("highlighted_text");
+    //     });
+    //   }
+    // });
+  })();
 
   /////////////////
 
   // on window resize determine which transcript section should appear (side or bottom)
-  let resizeTimer;
-  function updateTranscriptSection() {
-    if (isTranscriptShowing) {
-      //hide the side Transcript section when less than this screen width, else show
-      if (window.innerWidth <= cutoffWidth) {
-        pageContentWrapper.classList.remove(sideTranscriptWrapper);
-      } else {
-        pageContentWrapper.classList.add(sideTranscriptWrapper);
+  (function () {
+    let resizeTimer;
+    function updateTranscriptSection() {
+      if (isTranscriptShowing) {
+        //hide the side Transcript section when less than this screen width, else show
+        if (window.innerWidth <= cutoffWidth) {
+          pageContentWrapper.classList.remove(sideTranscriptWrapper);
+        } else {
+          pageContentWrapper.classList.add(sideTranscriptWrapper);
+        }
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          toggleSideTranscript();
+          toggleBottomTranscript();
+        }, 200);
       }
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        toggleSideTranscript();
-        toggleBottomTranscript();
-      }, 200);
     }
-  }
 
-  window.addEventListener("resize", updateTranscriptSection);
-  // screen.orientation.addEventListener("change", (event) => {});
+    window.addEventListener("resize", updateTranscriptSection);
+  })();
 });
