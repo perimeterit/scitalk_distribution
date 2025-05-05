@@ -528,54 +528,6 @@ display:
             default_group_multiple: {}
             group_items: {}
           reduce_duplicates: false
-        number_of_children:
-          id: number_of_children
-          table: search_api_index_default_talks_index
-          field: number_of_children
-          relationship: none
-          group_type: group
-          admin_label: ""
-          plugin_id: search_api_numeric
-          operator: ">"
-          value:
-            min: ""
-            max: ""
-            value: "0"
-          group: 1
-          exposed: true
-          expose:
-            operator_id: number_of_children_op
-            label: "Include empty collections"
-            description: ""
-            use_operator: false
-            operator: number_of_children_op
-            operator_limit_selection: false
-            operator_list: {}
-            identifier: number_of_children
-            required: false
-            remember: false
-            multiple: false
-            remember_roles:
-              authenticated: authenticated
-              anonymous: "0"
-              administrator: "0"
-              scitalk_oauth: "0"
-              talk_editor: "0"
-            min_placeholder: ""
-            max_placeholder: ""
-            placeholder: ""
-          is_grouped: false
-          group_info:
-            label: ""
-            description: ""
-            identifier: ""
-            optional: true
-            widget: select
-            multiple: false
-            remember: false
-            default_group: All
-            default_group_multiple: {}
-            group_items: {}
         search_api_fulltext:
           id: search_api_fulltext
           table: search_api_index_default_talks_index
@@ -867,6 +819,54 @@ display:
           hierarchy: false
           limit: true
           error_message: true
+        number_of_children:
+          id: number_of_children
+          table: search_api_index_default_talks_index
+          field: number_of_children
+          relationship: none
+          group_type: group
+          admin_label: ""
+          plugin_id: search_api_numeric
+          operator: ">"
+          value:
+            min: ""
+            max: ""
+            value: "0"
+          group: 1
+          exposed: true
+          expose:
+            operator_id: number_of_children_op
+            label: "Include empty collections"
+            description: ""
+            use_operator: false
+            operator: number_of_children_op
+            operator_limit_selection: false
+            operator_list: {}
+            identifier: number_of_children
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: "0"
+              administrator: "0"
+              scitalk_oauth: "0"
+              talk_editor: "0"
+            min_placeholder: ""
+            max_placeholder: ""
+            placeholder: ""
+          is_grouped: false
+          group_info:
+            label: ""
+            description: ""
+            identifier: ""
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {}
+            group_items: {}
         status:
           id: status
           table: search_api_index_default_talks_index
