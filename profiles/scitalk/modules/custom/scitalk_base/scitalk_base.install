@@ -1134,3 +1134,24 @@ function scitalk_base_update_8118(&$sandbox) {
         \Drupal::logger('scitalk_base')->notice('Updated Talk attachments field for Talks');
     }
 }
+
+/**
+*  Update Search Collections view
+*/
+function scitalk_base_update_8119(&$sandbox) {
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
+    $source      = new FileStorage($config_path);
+
+    // update SciTalks Search Collections view
+    $view_display = \Drupal::entityTypeManager()->getStorage('view');
+    $view_display_id = 'scitalk_search_collections';
+    $view_yml = 'views.view.scitalk_search_collections';
+    $view_display_config = $view_display->load($view_display_id);
+    if (!empty($view_display_config))
+    {
+        $view_display_yml = $source->read($view_yml);
+        $entity = $view_display->updateFromStorageRecord($view_display_config, $view_display_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated view '.  $view_display_id);
+    }
+}

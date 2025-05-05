@@ -351,6 +351,15 @@ field_settings:
     dependencies:
       module:
         - group
+  number_of_children:
+    label: "Number of children"
+    property_path: aggregated_field
+    type: integer
+    configuration:
+      type: sum
+      fields:
+        - "entity:node/field_collection_number_children"
+        - "entity:node/field_collection_number_of_talks"
   revision_uid:
     label: "Revision user"
     datasource_id: "entity:node"
