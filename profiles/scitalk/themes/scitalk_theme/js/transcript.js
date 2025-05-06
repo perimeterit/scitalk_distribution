@@ -7,17 +7,11 @@ document.addEventListener("DOMContentLoaded", () => {
   const transcriptModal = document.querySelector(".transcript-modal");
   // const transcriptModalBtn = document.querySelector(".transcript-modal-close");
   const pageContentWrapper = document.querySelector(".content-wrapper");
-  const transcriptModalClose = document.querySelector(
-    ".transcript-modal-close"
-  );
+  const transcriptModalClose = document.querySelector(".transcript-modal-close");
 
-  const transcriptModalHeader = document.querySelector(
-    ".transcript-modal-header"
-  );
+  const transcriptModalHeader = document.querySelector(".transcript-modal-header");
   const sideTranscriptWrapper = "video-trans-wrapper";
-  const transcriptWrapper = document.getElementById(
-    "formatted-transcript-text"
-  );
+  const transcriptWrapper = document.getElementById("formatted-transcript-text");
 
   const cutoffWidth = 1100; // width to determine whether to display left or bottom transcript section
   let isTranscriptShowing = false;
@@ -38,8 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
           sideWrap.id = "side-wrap";
           const cBox = document.createElement("div");
           cBox.className = "close-side";
-          cBox.innerHTML =
-            '<span class="close-side-btn">×</span><h2>Hide Transcript</h2>';
+          cBox.innerHTML = '<span class="close-side-btn">×</span><h2>Hide Transcript</h2>';
           sideWrap.append(cBox);
 
           // close the transcript
@@ -91,15 +84,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // toggle bottom Transcript section
   function toggleBottomTranscript() {
-    const transcriptContent = document.querySelector(
-      ".transcript-modal-content"
-    );
-    const transcriptModalContent = document.querySelector(
-      ".transcript-modal-body"
-    );
-    const transcriptWrapper = document.getElementById(
-      "formatted-transcript-text"
-    );
+    const transcriptContent = document.querySelector(".transcript-modal-content");
+    const transcriptModalContent = document.querySelector(".transcript-modal-body");
+    const transcriptWrapper = document.getElementById("formatted-transcript-text");
 
     // calculate the height of the bottom modal header
     function getModalHeaderHeight() {
@@ -107,17 +94,14 @@ document.addEventListener("DOMContentLoaded", () => {
       let contentYPadding = 4; // this is the value from the CSS declaration: .transcript-modal-body {padding: 2px 16px}
       // FF does not support computedStyleMap() for now, so need to check:
       if ("computedStyleMap" in transcriptModalContent) {
-        const modalContentPadding =
-          transcriptModalContent.computedStyleMap() || null;
+        const modalContentPadding = transcriptModalContent.computedStyleMap() || null;
         if (modalContentPadding) {
           contentYPadding =
-            modalContentPadding.get("padding-top").value +
-            modalContentPadding.get("padding-bottom").value;
+            modalContentPadding.get("padding-top").value + modalContentPadding.get("padding-bottom").value;
         }
       }
 
-      const calculatedModalHeaderHeight =
-        transcriptModalHeader.offsetHeight - contentYPadding || defaultHeight;
+      const calculatedModalHeaderHeight = transcriptModalHeader.offsetHeight - contentYPadding || defaultHeight;
       return calculatedModalHeaderHeight;
     }
 
@@ -136,9 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
           transcriptModalContent.append(transcriptWrapper);
           sideCloseButton.remove();
 
-          const videoEl = document.querySelector(
-            ".field--name-field-talk-video"
-          );
+          const videoEl = document.querySelector(".field--name-field-talk-video");
           const videoEleDimensions = videoEl.getBoundingClientRect();
           let modalTop = window.innerHeight - videoEleDimensions.bottom - 5;
 
@@ -158,8 +140,7 @@ document.addEventListener("DOMContentLoaded", () => {
           transcriptWrapper.style.display = "block";
 
           //set the height of the content inside the modal:
-          const calculatedModalContentHeight =
-            transcriptContent.offsetHeight - getModalHeaderHeight();
+          const calculatedModalContentHeight = transcriptContent.offsetHeight - getModalHeaderHeight();
 
           transcriptWrapper.style.height = `${calculatedModalContentHeight}px`;
         }, 300);

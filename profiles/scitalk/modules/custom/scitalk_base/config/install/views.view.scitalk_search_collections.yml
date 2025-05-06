@@ -1,4 +1,3 @@
-uuid: e4fc3170-beb0-4542-8c4c-6207218949bc
 langcode: en
 status: true
 dependencies:
@@ -19,13 +18,11 @@ dependencies:
     - datetime_range
     - search_api
     - views_field_view
-_core:
-  default_config_hash: De8GEOJ0nsXZ3qz1VN2d7GKeCFs7ejWNFJGS1fKe5Ps
 id: scitalk_search_collections
-label: 'Scitalk: Search collections'
+label: "Scitalk: Search collections"
 module: views
-description: ''
-tag: ''
+description: ""
+tag: ""
 base_table: search_api_index_default_talks_index
 base_field: search_api_id
 display:
@@ -35,7 +32,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: 'Search Results'
+      title: "Search Results"
       fields:
         title:
           id: title
@@ -43,46 +40,46 @@ display:
           field: title
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api_field
           label: Title
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: true
-            path: '{{ field_talk_video_url }}'
+            path: "{{ field_talk_video_url }}"
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
             target: _new
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -91,14 +88,14 @@ display:
           settings:
             link_to_entity: false
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: true
           fallback_handler: search_api
@@ -106,72 +103,72 @@ display:
             link_to_item: false
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
         field_collection_date:
           id: field_collection_date
           table: search_api_datasource_default_talks_index_entity_node
           field: field_collection_date
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           entity_type: node
           plugin_id: search_api_field
-          label: 'Collection Date'
+          label: "Collection Date"
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
           type: daterange_default
           settings:
-            timezone_override: ''
+            timezone_override: ""
             format_type: medium
-            separator: '-'
+            separator: "-"
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: true
           fallback_handler: search_api
@@ -179,54 +176,54 @@ display:
             link_to_item: false
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
         field_collection_type:
           id: field_collection_type
           table: search_api_datasource_default_talks_index_entity_node
           field: field_collection_type
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           entity_type: node
           plugin_id: search_api_field
-          label: 'Collection Type'
+          label: "Collection Type"
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -235,14 +232,14 @@ display:
           settings:
             link: true
           group_column: target_id
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: true
           fallback_handler: search_api_entity
@@ -250,7 +247,7 @@ display:
             link_to_item: false
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
             display_methods:
               collection_type:
                 display_method: label
@@ -272,7 +269,7 @@ display:
           field: title
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           entity_type: node
           plugin_id: search_api_field
           label: Info
@@ -281,38 +278,38 @@ display:
             alter_text: true
             text: '<span class="icon"><span class="visually-hidden">{{ "View details"|t}}</span></span>'
             make_link: true
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
             target: _new
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -321,14 +318,14 @@ display:
           settings:
             link_to_entity: false
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: false
           fallback_handler: search_api
@@ -336,11 +333,12 @@ display:
             link_to_item: true
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
       pager:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 12
           total_pages: null
           id: 1
@@ -351,10 +349,10 @@ display:
             last: Last
           expose:
             items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_label: "Items per page"
+            items_per_page_options: "5, 10, 25, 50"
             items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
+            items_per_page_options_all_label: "- All -"
             offset: false
             offset_label: Offset
           quantity: 9
@@ -364,11 +362,11 @@ display:
           submit_button: Search
           reset_button: false
           reset_button_label: Reset
-          exposed_sorts_label: 'Sort by'
+          exposed_sorts_label: "Sort by"
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
-          text_input_required: 'Select any filter and click on Apply to see results'
+          text_input_required: "Select any filter and click on Apply to see results"
           text_input_required_format: basic_html
           bef:
             general:
@@ -378,7 +376,7 @@ display:
               autosubmit_hide: true
               input_required: false
               allow_secondary: false
-              secondary_label: 'Advanced options'
+              secondary_label: "Advanced options"
               secondary_open: false
               reset_button_always_show: false
             sort:
@@ -387,23 +385,23 @@ display:
                 combine: true
                 combine_rewrite: "Relevance Asc|\r\nRelevance Desc|Relevance\r\nCollection Date Asc|Date Oldest First\r\nCollection Date Desc|Date Newest First\r\nTitle Asc|Title A -> Z\r\nTitle Desc|Title Z -> A"
                 reset: false
-                reset_label: ''
+                reset_label: ""
                 collapsible: false
-                collapsible_label: 'Sort options'
+                collapsible_label: "Sort options"
                 is_secondary: false
             filter:
               search_api_fulltext:
                 plugin_id: default
                 advanced:
-                  placeholder_text: ''
+                  placeholder_text: ""
                   rewrite:
-                    filter_rewrite_values: ''
+                    filter_rewrite_values: ""
                   collapsible: false
                   is_secondary: false
               title:
                 plugin_id: default
                 advanced:
-                  placeholder_text: ''
+                  placeholder_text: ""
                   collapsible: false
                   is_secondary: false
               field_collection_type:
@@ -411,7 +409,7 @@ display:
                 advanced:
                   sort_options: false
                   rewrite:
-                    filter_rewrite_values: ''
+                    filter_rewrite_values: ""
                   collapsible: true
                   is_secondary: false
                 select_all_none: false
@@ -429,10 +427,10 @@ display:
                   is_secondary: false
       access:
         type: none
-        options: {  }
+        options: {}
       cache:
         type: search_api_none
-        options: {  }
+        options: {}
       empty:
         area:
           id: area
@@ -440,11 +438,11 @@ display:
           field: area
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: text
           empty: true
           content:
-            value: 'No talks matched the search criteria.'
+            value: "No talks matched the search criteria."
             format: basic_html
           tokenize: false
       sorts:
@@ -454,7 +452,7 @@ display:
           field: search_api_relevance
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api
           order: DESC
           expose:
@@ -467,11 +465,11 @@ display:
           field: field_collection_date
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api
           order: ASC
           expose:
-            label: 'Collection Date'
+            label: "Collection Date"
             field_identifier: field_collection_date
           exposed: true
         title:
@@ -480,14 +478,14 @@ display:
           field: title
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api
           order: ASC
           expose:
             label: Title
             field_identifier: title
           exposed: true
-      arguments: {  }
+      arguments: {}
       filters:
         type:
           id: type
@@ -495,7 +493,7 @@ display:
           field: type
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api_options
           operator: or
           value:
@@ -503,14 +501,14 @@ display:
           group: 1
           exposed: false
           expose:
-            operator_id: ''
-            label: ''
-            description: ''
+            operator_id: ""
+            label: ""
+            description: ""
             use_operator: false
-            operator: ''
+            operator: ""
             operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
+            operator_list: {}
+            identifier: ""
             required: false
             remember: false
             multiple: false
@@ -519,16 +517,16 @@ display:
             reduce: false
           is_grouped: false
           group_info:
-            label: ''
-            description: ''
-            identifier: ''
+            label: ""
+            description: ""
+            identifier: ""
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+            default_group_multiple: {}
+            group_items: {}
           reduce_duplicates: false
         search_api_fulltext:
           id: search_api_fulltext
@@ -536,312 +534,360 @@ display:
           field: search_api_fulltext
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api_fulltext
           operator: and
-          value: ''
+          value: ""
           group: 1
           exposed: true
           expose:
             operator_id: search_api_fulltext_op
-            label: 'Search terms'
-            description: ''
+            label: "Search terms"
+            description: ""
             use_operator: false
             operator: search_api_fulltext_op
             operator_limit_selection: false
-            operator_list: {  }
+            operator_list: {}
             identifier: collection_text
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              scitalk_oauth: '0'
-              talk_editor: '0'
+              anonymous: "0"
+              administrator: "0"
+              scitalk_oauth: "0"
+              talk_editor: "0"
             expose_fields: false
-            placeholder: ''
-            searched_fields_id: ''
+            placeholder: ""
+            searched_fields_id: ""
           is_grouped: false
           group_info:
-            label: ''
-            description: ''
-            identifier: ''
+            label: ""
+            description: ""
+            identifier: ""
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+            default_group_multiple: {}
+            group_items: {}
           parse_mode: terms
           min_length: null
-          fields: {  }
+          fields: {}
         title:
           id: title
           table: search_api_index_default_talks_index
           field: title
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api_text
-          operator: '='
+          operator: "="
           value:
-            min: ''
-            max: ''
-            value: ''
+            min: ""
+            max: ""
+            value: ""
           group: 1
           exposed: true
           expose:
             operator_id: title_op
             label: Title
-            description: ''
+            description: ""
             use_operator: false
             operator: title_op
             operator_limit_selection: false
-            operator_list: {  }
+            operator_list: {}
             identifier: collection_title
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              scitalk_oauth: '0'
-              talk_editor: '0'
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
+              anonymous: "0"
+              administrator: "0"
+              scitalk_oauth: "0"
+              talk_editor: "0"
+            min_placeholder: ""
+            max_placeholder: ""
+            placeholder: ""
           is_grouped: false
           group_info:
-            label: ''
-            description: ''
-            identifier: ''
+            label: ""
+            description: ""
+            identifier: ""
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+            default_group_multiple: {}
+            group_items: {}
         field_collection_date:
           id: field_collection_date
           table: search_api_index_default_talks_index
           field: field_collection_date
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api_date
-          operator: '>='
+          operator: ">="
           value:
-            min: ''
-            max: ''
-            value: ''
+            min: ""
+            max: ""
+            value: ""
             type: date
           group: 1
           exposed: true
           expose:
             operator_id: field_collection_date_op
             label: From
-            description: ''
+            description: ""
             use_operator: false
             operator: field_collection_date_op
             operator_limit_selection: false
-            operator_list: {  }
+            operator_list: {}
             identifier: collection_from
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              scitalk_oauth: '0'
-              talk_editor: '0'
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
+              anonymous: "0"
+              administrator: "0"
+              scitalk_oauth: "0"
+              talk_editor: "0"
+            min_placeholder: ""
+            max_placeholder: ""
+            placeholder: ""
           is_grouped: false
           group_info:
-            label: ''
-            description: ''
-            identifier: ''
+            label: ""
+            description: ""
+            identifier: ""
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+            default_group_multiple: {}
+            group_items: {}
         field_collection_date_1:
           id: field_collection_date_1
           table: search_api_index_default_talks_index
           field: field_collection_date
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api_date
-          operator: '<='
+          operator: "<="
           value:
-            min: ''
-            max: ''
-            value: ''
+            min: ""
+            max: ""
+            value: ""
             type: date
           group: 1
           exposed: true
           expose:
             operator_id: field_collection_date_1_op
             label: To
-            description: ''
+            description: ""
             use_operator: false
             operator: field_collection_date_1_op
             operator_limit_selection: false
-            operator_list: {  }
+            operator_list: {}
             identifier: collection_to
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              scitalk_oauth: '0'
-              talk_editor: '0'
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
+              anonymous: "0"
+              administrator: "0"
+              scitalk_oauth: "0"
+              talk_editor: "0"
+            min_placeholder: ""
+            max_placeholder: ""
+            placeholder: ""
           is_grouped: false
           group_info:
-            label: ''
-            description: ''
-            identifier: ''
+            label: ""
+            description: ""
+            identifier: ""
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+            default_group_multiple: {}
+            group_items: {}
         collection_source_fulltext:
           id: collection_source_fulltext
           table: search_api_index_default_talks_index
           field: collection_source_fulltext
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api_text
-          operator: '='
+          operator: "="
           value:
-            min: ''
-            max: ''
-            value: ''
+            min: ""
+            max: ""
+            value: ""
           group: 1
           exposed: true
           expose:
             operator_id: collection_source_fulltext_op
             label: Source
-            description: ''
+            description: ""
             use_operator: false
             operator: collection_source_fulltext_op
             operator_limit_selection: false
-            operator_list: {  }
+            operator_list: {}
             identifier: collection_source
             required: false
             remember: false
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              scitalk_oauth: '0'
-              talk_editor: '0'
-            min_placeholder: ''
-            max_placeholder: ''
-            placeholder: ''
+              anonymous: "0"
+              administrator: "0"
+              scitalk_oauth: "0"
+              talk_editor: "0"
+            min_placeholder: ""
+            max_placeholder: ""
+            placeholder: ""
           is_grouped: false
           group_info:
-            label: ''
-            description: ''
-            identifier: ''
+            label: ""
+            description: ""
+            identifier: ""
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+            default_group_multiple: {}
+            group_items: {}
         field_collection_type:
           id: field_collection_type
           table: search_api_index_default_talks_index
           field: field_collection_type
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api_term
           operator: or
-          value: {  }
+          value: {}
           group: 1
           exposed: true
           expose:
             operator_id: field_collection_type_op
             label: Type
-            description: ''
+            description: ""
             use_operator: false
             operator: field_collection_type_op
             operator_limit_selection: false
-            operator_list: {  }
+            operator_list: {}
             identifier: collection_type
             required: false
             remember: false
             multiple: true
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              scitalk_oauth: '0'
-              talk_editor: '0'
+              anonymous: "0"
+              administrator: "0"
+              scitalk_oauth: "0"
+              talk_editor: "0"
             reduce: false
           is_grouped: false
           group_info:
-            label: ''
-            description: ''
-            identifier: ''
+            label: ""
+            description: ""
+            identifier: ""
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+            default_group_multiple: {}
+            group_items: {}
           reduce_duplicates: false
           vid: collection_type
           type: select
           hierarchy: false
           limit: true
           error_message: true
+        number_of_children:
+          id: number_of_children
+          table: search_api_index_default_talks_index
+          field: number_of_children
+          relationship: none
+          group_type: group
+          admin_label: ""
+          plugin_id: search_api_numeric
+          operator: ">"
+          value:
+            min: ""
+            max: ""
+            value: "0"
+          group: 1
+          exposed: true
+          expose:
+            operator_id: number_of_children_op
+            label: "Include empty collections"
+            description: ""
+            use_operator: false
+            operator: number_of_children_op
+            operator_limit_selection: false
+            operator_list: {}
+            identifier: number_of_children
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+              anonymous: "0"
+              administrator: "0"
+              scitalk_oauth: "0"
+              talk_editor: "0"
+            min_placeholder: ""
+            max_placeholder: ""
+            placeholder: ""
+          is_grouped: false
+          group_info:
+            label: ""
+            description: ""
+            identifier: ""
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {}
+            group_items: {}
         status:
           id: status
           table: search_api_index_default_talks_index
           field: status
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api_boolean
-          operator: '='
-          value: '1'
+          operator: "="
+          value: "1"
           group: 1
           exposed: false
           expose:
-            operator_id: ''
-            label: ''
-            description: ''
+            operator_id: ""
+            label: ""
+            description: ""
             use_operator: false
-            operator: ''
+            operator: ""
             operator_limit_selection: false
-            operator_list: {  }
-            identifier: ''
+            operator_list: {}
+            identifier: ""
             required: false
             remember: false
             multiple: false
@@ -849,16 +895,16 @@ display:
               authenticated: authenticated
           is_grouped: false
           group_info:
-            label: ''
-            description: ''
-            identifier: ''
+            label: ""
+            description: ""
+            identifier: ""
             optional: true
             widget: select
             multiple: false
             remember: false
             default_group: All
-            default_group_multiple: {  }
-            group_items: {  }
+            default_group_multiple: {}
+            group_items: {}
       filter_groups:
         operator: AND
         groups:
@@ -866,8 +912,8 @@ display:
       style:
         type: table
         options:
-          grouping: {  }
-          row_class: ''
+          grouping: {}
+          row_class: ""
           default_row_class: true
           columns:
             title: title
@@ -877,55 +923,55 @@ display:
             title_1: title_1
             field_collection_source_repo: field_collection_source_repo
             collection_source_fulltext: collection_source_fulltext
-          default: '-1'
+          default: "-1"
           info:
             title:
               sortable: false
               default_sort_order: asc
-              align: ''
-              separator: ''
+              align: ""
+              separator: ""
               empty_column: false
-              responsive: ''
+              responsive: ""
             field_collection_date:
-              align: ''
-              separator: ''
+              align: ""
+              separator: ""
               empty_column: false
-              responsive: ''
+              responsive: ""
             field_collection_type:
-              align: ''
-              separator: ''
+              align: ""
+              separator: ""
               empty_column: false
-              responsive: ''
+              responsive: ""
             field_collection_subject:
-              align: ''
-              separator: ''
+              align: ""
+              separator: ""
               empty_column: false
-              responsive: ''
+              responsive: ""
             title_1:
-              align: ''
-              separator: ''
+              align: ""
+              separator: ""
               empty_column: false
-              responsive: ''
+              responsive: ""
             field_collection_source_repo:
               sortable: false
               default_sort_order: asc
-              align: ''
-              separator: ''
+              align: ""
+              separator: ""
               empty_column: false
-              responsive: ''
+              responsive: ""
             collection_source_fulltext:
               sortable: false
               default_sort_order: asc
-              align: ''
-              separator: ''
+              align: ""
+              separator: ""
               empty_column: false
-              responsive: ''
+              responsive: ""
           override: true
           sticky: false
-          summary: ''
+          summary: ""
           empty_table: false
-          caption: ''
-          description: ''
+          caption: ""
+          description: ""
       row:
         type: fields
       query:
@@ -934,36 +980,36 @@ display:
           bypass_access: false
           skip_access: false
           preserve_facet_query_args: false
-      relationships: {  }
+      relationships: {}
       css_class: advanced-view-display
       use_ajax: true
-      header: {  }
-      footer: {  }
+      header: {}
+      footer: {}
       display_extenders:
         ajax_history:
           enable_history: true
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
+        - "languages:language_content"
+        - "languages:language_interface"
         - url
         - url.query_args
-        - 'url.query_args:sort_by'
-        - 'url.query_args:sort_order'
-        - 'user.node_grants:view'
+        - "url.query_args:sort_by"
+        - "url.query_args:sort_order"
+        - "user.node_grants:view"
       tags:
-        - 'config:field.storage.node.field_collection_date'
-        - 'config:field.storage.node.field_collection_type'
-        - 'config:search_api.index.default_talks_index'
-        - 'search_api_list:default_talks_index'
+        - "config:field.storage.node.field_collection_date"
+        - "config:field.storage.node.field_collection_type"
+        - "config:search_api.index.default_talks_index"
+        - "search_api_list:default_talks_index"
   attachment_1:
     id: attachment_1
-    display_title: 'Attachment (teasers)'
+    display_title: "Attachment (teasers)"
     display_plugin: attachment
     position: 3
     display_options:
-      title: 'Search Results'
+      title: "Search Results"
       fields:
         title:
           id: title
@@ -971,46 +1017,46 @@ display:
           field: title
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api_field
           label: Title
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: '{{ field_talk_video_url }}'
+            path: "{{ field_talk_video_url }}"
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
             target: _new
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -1019,14 +1065,14 @@ display:
           settings:
             link_to_entity: true
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: true
           fallback_handler: search_api
@@ -1034,54 +1080,54 @@ display:
             link_to_item: false
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
         field_talk_speakers_text:
           id: field_talk_speakers_text
           table: search_api_datasource_default_talks_index_entity_node
           field: field_talk_speakers_text
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           entity_type: node
           plugin_id: search_api_field
           label: Speaker(s)
           exclude: false
           alter:
             alter_text: true
-            text: '{{ field_sp_display_name_1 }}{{ field_talk_speakers_text__value }}'
+            text: "{{ field_sp_display_name_1 }}{{ field_talk_speakers_text__value }}"
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: '{{ field_sp_display_name_1 }}'
+          empty: "{{ field_sp_display_name_1 }}"
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -1090,14 +1136,14 @@ display:
           settings:
             link_to_entity: false
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: false
           fallback_handler: search_api
@@ -1105,14 +1151,14 @@ display:
             link_to_item: true
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
         field_talk_date:
           id: field_talk_date
           table: search_api_datasource_default_talks_index_entity_node
           field: field_talk_date
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           entity_type: node
           plugin_id: search_api_field
           label: Date
@@ -1121,55 +1167,55 @@ display:
             alter_text: true
             text: '<span style="white-space:nowrap;">{{ field_talk_date }}</span>'
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
           type: datetime_custom
           settings:
-            timezone_override: ''
-            date_format: 'Y&#8209;m&#8209;d'
+            timezone_override: ""
+            date_format: "Y&#8209;m&#8209;d"
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: true
           fallback_handler: search_api
@@ -1177,53 +1223,53 @@ display:
             link_to_item: false
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
         field_talk_collection:
           id: field_talk_collection
           table: search_api_index_default_talks_index
           field: field_talk_collection
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api_field
           label: Collection
           exclude: true
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -1232,14 +1278,14 @@ display:
           settings:
             link: true
           group_column: target_id
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: true
           fallback_handler: search_api_entity
@@ -1247,7 +1293,7 @@ display:
             link_to_item: false
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
             display_methods:
               collection:
                 display_method: label
@@ -1272,46 +1318,46 @@ display:
           field: nothing
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: custom
           label: Collection
           exclude: false
           alter:
             alter_text: true
-            text: '{{ field_talk_collection }}'
+            text: "{{ field_talk_collection }}"
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: false
@@ -1321,46 +1367,46 @@ display:
           field: field_talk_type
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api_field
           label: Type
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -1369,14 +1415,14 @@ display:
           settings:
             link: true
           group_column: target_id
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: false
           fallback_handler: search_api_entity
@@ -1384,7 +1430,7 @@ display:
             link_to_item: false
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
             display_methods:
               collection:
                 display_method: label
@@ -1409,7 +1455,7 @@ display:
           field: title
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           entity_type: node
           plugin_id: search_api_field
           label: Info
@@ -1418,38 +1464,38 @@ display:
             alter_text: true
             text: '<span class="info-icon"></span><span class="visually-hidden">{{ "View details"|t}}</span>'
             make_link: true
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
             target: _new
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -1458,14 +1504,14 @@ display:
           settings:
             link_to_entity: false
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: false
           fallback_handler: search_api
@@ -1473,53 +1519,53 @@ display:
             link_to_item: true
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
         title_2:
           id: title_2
           table: search_api_index_default_talks_index
           field: title_2
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api_field
-          label: 'Source � Content � Title (indexed field)'
+          label: "Source � Content � Title (indexed field)"
           exclude: true
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -1528,14 +1574,14 @@ display:
           settings:
             link_to_entity: false
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: false
           fallback_handler: search_api
@@ -1543,49 +1589,50 @@ display:
             link_to_item: false
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
       pager:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 12
           total_pages: null
           id: 0
           tags:
-            next: 'Next ›'
-            previous: '‹ Previous'
-            first: '« First'
-            last: 'Last »'
+            next: "Next ›"
+            previous: "‹ Previous"
+            first: "« First"
+            last: "Last »"
           expose:
             items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_label: "Items per page"
+            items_per_page_options: "5, 10, 25, 50"
             items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
+            items_per_page_options_all_label: "- All -"
             offset: false
             offset_label: Offset
           quantity: 9
       style:
         type: html_list
         options:
-          row_class: ''
+          row_class: ""
           default_row_class: false
           uses_fields: false
           type: ul
-          wrapper_class: ''
-          class: 'display-list display-wrapper'
+          wrapper_class: ""
+          class: "display-list display-wrapper"
       row:
         type: search_api
         options:
           view_modes:
-            'entity:group':
+            "entity:group":
               source_repository: default
-            'entity:group_content':
+            "entity:group_content":
               group_content_type_73ec1320d728e: default
               group_content_type_c4a29b8386d54: default
               group_content_type_c9dd6de687b8e: default
               group_content_type_d731991a61211: default
-            'entity:node':
+            "entity:node":
               collection: teaser
               page: default
               speaker_profile: default
@@ -1603,8 +1650,8 @@ display:
         header: false
       css_class: advanced-view-display
       use_ajax: true
-      display_description: ''
-      header: {  }
+      display_description: ""
+      header: {}
       exposed_block: true
       display_extenders:
         ajax_history:
@@ -1618,27 +1665,27 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
+        - "languages:language_content"
+        - "languages:language_interface"
         - url
         - url.query_args
-        - 'url.query_args:sort_by'
-        - 'url.query_args:sort_order'
-        - 'user.node_grants:view'
+        - "url.query_args:sort_by"
+        - "url.query_args:sort_order"
+        - "user.node_grants:view"
       tags:
-        - 'config:field.storage.node.field_talk_collection'
-        - 'config:field.storage.node.field_talk_date'
-        - 'config:field.storage.node.field_talk_speakers_text'
-        - 'config:field.storage.node.field_talk_type'
-        - 'config:search_api.index.default_talks_index'
-        - 'search_api_list:default_talks_index'
+        - "config:field.storage.node.field_talk_collection"
+        - "config:field.storage.node.field_talk_date"
+        - "config:field.storage.node.field_talk_speakers_text"
+        - "config:field.storage.node.field_talk_type"
+        - "config:search_api.index.default_talks_index"
+        - "search_api_list:default_talks_index"
   attachment_2:
     id: attachment_2
-    display_title: 'Attachment (table)'
+    display_title: "Attachment (table)"
     display_plugin: attachment
     position: 3
     display_options:
-      title: 'Search Results'
+      title: "Search Results"
       fields:
         title:
           id: title
@@ -1646,46 +1693,46 @@ display:
           field: title
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api_field
           label: Title
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: '{{ field_talk_video_url }}'
+            path: "{{ field_talk_video_url }}"
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
             target: _new
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -1694,14 +1741,14 @@ display:
           settings:
             link_to_entity: true
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: true
           fallback_handler: search_api
@@ -1709,72 +1756,72 @@ display:
             link_to_item: false
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
         field_collection_date:
           id: field_collection_date
           table: search_api_datasource_default_talks_index_entity_node
           field: field_collection_date
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           entity_type: node
           plugin_id: search_api_field
           label: Date
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
           type: daterange_custom
           settings:
-            timezone_override: ''
-            date_format: 'Y&#8209;m&#8209;d'
-            separator: '-'
+            timezone_override: ""
+            date_format: "Y&#8209;m&#8209;d"
+            separator: "-"
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: true
           fallback_handler: search_api
@@ -1782,54 +1829,54 @@ display:
             link_to_item: false
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
         field_collection_type:
           id: field_collection_type
           table: search_api_datasource_default_talks_index_entity_node
           field: field_collection_type
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           entity_type: node
           plugin_id: search_api_field
           label: Type
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -1838,14 +1885,14 @@ display:
           settings:
             link: true
           group_column: target_id
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: true
           fallback_handler: search_api_entity
@@ -1853,7 +1900,7 @@ display:
             link_to_item: false
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
             display_methods:
               collection_type:
                 display_method: label
@@ -1875,47 +1922,47 @@ display:
           field: field_collection_subject
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           entity_type: node
           plugin_id: search_api_field
           label: Subject
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -1924,14 +1971,14 @@ display:
           settings:
             link: true
           group_column: target_id
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: true
           fallback_handler: search_api_entity
@@ -1939,7 +1986,7 @@ display:
             link_to_item: false
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
             display_methods:
               collection_type:
                 display_method: label
@@ -1961,46 +2008,46 @@ display:
           field: field_collection_source_repo
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api_field
           label: Source
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -2009,14 +2056,14 @@ display:
           settings:
             link: true
           group_column: target_id
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: true
           fallback_handler: search_api_entity
@@ -2024,7 +2071,7 @@ display:
             link_to_item: false
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
             display_methods:
               source_repository:
                 display_method: label
@@ -2035,7 +2082,7 @@ display:
           field: title
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           entity_type: node
           plugin_id: search_api_field
           label: Info
@@ -2044,38 +2091,38 @@ display:
             alter_text: true
             text: '<span class="info-icon"></span><span class="visually-hidden">{{ "View details"|t}}</span>'
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
             target: _new
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
@@ -2084,14 +2131,14 @@ display:
           settings:
             link_to_entity: false
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: false
           fallback_handler: search_api
@@ -2099,25 +2146,26 @@ display:
             link_to_item: true
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
       pager:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 12
           total_pages: null
           id: 0
           tags:
-            next: 'Next ›'
-            previous: '‹ Previous'
-            first: '« First'
-            last: 'Last »'
+            next: "Next ›"
+            previous: "‹ Previous"
+            first: "« First"
+            last: "Last »"
           expose:
             items_per_page: false
-            items_per_page_label: 'Items per page'
-            items_per_page_options: '5, 10, 25, 50'
+            items_per_page_label: "Items per page"
+            items_per_page_options: "5, 10, 25, 50"
             items_per_page_options_all: false
-            items_per_page_options_all_label: '- All -'
+            items_per_page_options_all_label: "- All -"
             offset: false
             offset_label: Offset
           quantity: 9
@@ -2130,10 +2178,10 @@ display:
         filters: true
         filter_groups: true
         header: false
-      css_class: 'advanced-view-display table-display'
+      css_class: "advanced-view-display table-display"
       use_ajax: true
-      display_description: ''
-      header: {  }
+      display_description: ""
+      header: {}
       exposed_block: true
       display_extenders:
         ajax_history:
@@ -2147,27 +2195,27 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
+        - "languages:language_content"
+        - "languages:language_interface"
         - url
         - url.query_args
-        - 'url.query_args:sort_by'
-        - 'url.query_args:sort_order'
-        - 'user.node_grants:view'
+        - "url.query_args:sort_by"
+        - "url.query_args:sort_order"
+        - "user.node_grants:view"
       tags:
-        - 'config:field.storage.node.field_collection_date'
-        - 'config:field.storage.node.field_collection_source_repo'
-        - 'config:field.storage.node.field_collection_subject'
-        - 'config:field.storage.node.field_collection_type'
-        - 'config:search_api.index.default_talks_index'
-        - 'search_api_list:default_talks_index'
+        - "config:field.storage.node.field_collection_date"
+        - "config:field.storage.node.field_collection_source_repo"
+        - "config:field.storage.node.field_collection_subject"
+        - "config:field.storage.node.field_collection_type"
+        - "config:search_api.index.default_talks_index"
+        - "search_api_list:default_talks_index"
   card_view:
     id: card_view
-    display_title: 'Main search page'
+    display_title: "Main search page"
     display_plugin: page
     position: 1
     display_options:
-      title: 'Search Collections'
+      title: "Search Collections"
       fields:
         search_api_rendered_item:
           id: search_api_rendered_item
@@ -2175,58 +2223,58 @@ display:
           field: search_api_rendered_item
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api_rendered_item
-          label: ''
+          label: ""
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           view_modes:
-            'entity:group':
+            "entity:group":
               source_repository: default
-            'entity:group_content':
+            "entity:group_content":
               group_content_type_73ec1320d728e: default
               group_content_type_c4a29b8386d54: default
               group_content_type_c9dd6de687b8e: default
               group_content_type_d731991a61211: default
-            'entity:node':
+            "entity:node":
               collection: horizontal_card
               page: default
               speaker_profile: default
@@ -2237,64 +2285,64 @@ display:
           field: nid
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           entity_type: node
           plugin_id: search_api_field
-          label: ''
+          label: ""
           exclude: true
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
           type: number_integer
           settings:
-            thousand_separator: ''
+            thousand_separator: ""
             prefix_suffix: true
           group_column: value
-          group_columns: {  }
+          group_columns: {}
           group_rows: true
           delta_limit: 0
           delta_offset: 0
           delta_reversed: false
           delta_first_last: false
           multi_type: separator
-          separator: ', '
+          separator: ", "
           field_api_classes: false
           field_rendering: false
           fallback_handler: search_api_numeric
@@ -2302,91 +2350,91 @@ display:
             set_precision: false
             precision: 0
             decimal: .
-            separator: ''
+            separator: ""
             format_plural: false
             format_plural_string: !!binary MQNAY291bnQ=
-            prefix: ''
-            suffix: ''
+            prefix: ""
+            suffix: ""
             link_to_item: false
             use_highlighting: false
             multi_type: separator
-            multi_separator: ', '
+            multi_separator: ", "
             format_plural_values:
-              - '1'
-              - '@count'
+              - "1"
+              - "@count"
         view:
           id: view
           table: views
           field: view
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: view
-          label: ''
+          label: ""
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           view: scitalk_collection_children
           display: embed_3
-          arguments: '{{ fields.nid }}, {{ fields.nid }}'
+          arguments: "{{ fields.nid }}, {{ fields.nid }}"
       style:
         type: html_list
         options:
-          row_class: ''
+          row_class: ""
           default_row_class: false
           uses_fields: false
           type: ul
-          wrapper_class: ''
-          class: 'display-list display-wrapper'
+          wrapper_class: ""
+          class: "display-list display-wrapper"
       row:
         type: search_api
         options:
           view_modes:
-            'entity:group':
+            "entity:group":
               source_repository: default
-            'entity:group_content':
+            "entity:group_content":
               group_content_type_73ec1320d728e: default
               group_content_type_c4a29b8386d54: default
               group_content_type_c9dd6de687b8e: default
               group_content_type_d731991a61211: default
-            'entity:node':
+            "entity:node":
               collection: horizontal_card
               page: default
               speaker_profile: default
@@ -2403,7 +2451,7 @@ display:
         filter_groups: true
         header: false
       use_ajax: true
-      display_description: ''
+      display_description: ""
       header:
         result:
           id: result
@@ -2411,10 +2459,10 @@ display:
           field: result
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: result
           empty: false
-          content: '@start - @end of @total Results'
+          content: "@start - @end of @total Results"
       exposed_block: false
       display_extenders:
         ajax_history:
@@ -2423,23 +2471,23 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
+        - "languages:language_content"
+        - "languages:language_interface"
         - url
         - url.query_args
-        - 'url.query_args:sort_by'
-        - 'url.query_args:sort_order'
-        - 'user.node_grants:view'
+        - "url.query_args:sort_by"
+        - "url.query_args:sort_order"
+        - "user.node_grants:view"
       tags:
-        - 'config:search_api.index.default_talks_index'
-        - 'search_api_list:default_talks_index'
+        - "config:search_api.index.default_talks_index"
+        - "search_api_list:default_talks_index"
   form_block:
     id: form_block
-    display_title: 'Form block'
+    display_title: "Form block"
     display_plugin: page
     position: 1
     display_options:
-      title: 'Search Collections'
+      title: "Search Collections"
       fields:
         search_api_rendered_item:
           id: search_api_rendered_item
@@ -2447,56 +2495,56 @@ display:
           field: search_api_rendered_item
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api_rendered_item
-          label: ''
+          label: ""
           exclude: false
           alter:
             alter_text: false
-            text: ''
+            text: ""
             make_link: false
-            path: ''
+            path: ""
             absolute: false
             external: false
             replace_spaces: false
             path_case: none
             trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
+            alt: ""
+            rel: ""
+            link_class: ""
+            prefix: ""
+            suffix: ""
+            target: ""
             nl2br: false
             max_length: 0
             word_boundary: true
             ellipsis: true
             more_link: false
-            more_link_text: ''
-            more_link_path: ''
+            more_link_text: ""
+            more_link_path: ""
             strip_tags: false
             trim: false
-            preserve_tags: ''
+            preserve_tags: ""
             html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
+          element_type: ""
+          element_class: ""
+          element_label_type: ""
+          element_label_class: ""
           element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
+          element_wrapper_type: ""
+          element_wrapper_class: ""
           element_default_classes: true
-          empty: ''
+          empty: ""
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
           view_modes:
-            'entity:node':
+            "entity:node":
               page: default
               source_repository: default
               speaker_profile: default
               talk: horizontal_card
-            'entity:taxonomy_term':
+            "entity:taxonomy_term":
               collection: default
               collection_type: default
               scientific_area: default
@@ -2510,12 +2558,12 @@ display:
         options:
           submit_button: Search
           reset_button: true
-          reset_button_label: 'Clear search criteria'
-          exposed_sorts_label: 'Sort by'
+          reset_button_label: "Clear search criteria"
+          exposed_sorts_label: "Sort by"
           expose_sort_order: true
           sort_asc_label: Asc
           sort_desc_label: Desc
-          text_input_required: 'Select any filter and click on Apply to see results'
+          text_input_required: "Select any filter and click on Apply to see results"
           text_input_required_format: basic_html
           bef:
             general:
@@ -2525,7 +2573,7 @@ display:
               autosubmit_hide: false
               input_required: false
               allow_secondary: false
-              secondary_label: 'Advanced options'
+              secondary_label: "Advanced options"
               secondary_open: false
             sort:
               plugin_id: default
@@ -2533,17 +2581,17 @@ display:
                 combine: true
                 combine_rewrite: "Date Desc|Date Newest first\r\nDate Asc|Date Oldest first\r\nTitle Asc|Title A -> Z\r\nTitle Desc|Title Z -> A\r\nCombined Speaker(s) Asc| Speakers A > Z\r\nCombined Speaker(s) Desc| Speakers Z -> A"
                 reset: false
-                reset_label: ''
+                reset_label: ""
                 collapsible: false
-                collapsible_label: 'Sort options'
+                collapsible_label: "Sort options"
                 is_secondary: false
             filter:
               search_api_fulltext:
                 plugin_id: default
                 advanced:
-                  placeholder_text: ''
+                  placeholder_text: ""
                   rewrite:
-                    filter_rewrite_values: ''
+                    filter_rewrite_values: ""
                   collapsible: false
                   is_secondary: false
               field_talk_date:
@@ -2559,9 +2607,9 @@ display:
               search_api_fulltext_2:
                 plugin_id: default
                 advanced:
-                  placeholder_text: ''
+                  placeholder_text: ""
                   rewrite:
-                    filter_rewrite_values: ''
+                    filter_rewrite_values: ""
                   collapsible: false
                   is_secondary: false
               field_scientific_area:
@@ -2569,7 +2617,7 @@ display:
                 advanced:
                   sort_options: false
                   rewrite:
-                    filter_rewrite_values: '- Any -|All Scientific Areas'
+                    filter_rewrite_values: "- Any -|All Scientific Areas"
                   collapsible: true
                   is_secondary: false
                 select_all_none: true
@@ -2580,7 +2628,7 @@ display:
                 advanced:
                   sort_options: false
                   rewrite:
-                    filter_rewrite_values: '- Any -|All Talk Types'
+                    filter_rewrite_values: "- Any -|All Talk Types"
                   collapsible: true
                   is_secondary: false
                 select_all_none: true
@@ -2589,9 +2637,9 @@ display:
               search_api_fulltext_1:
                 plugin_id: default
                 advanced:
-                  placeholder_text: ''
+                  placeholder_text: ""
                   rewrite:
-                    filter_rewrite_values: ''
+                    filter_rewrite_values: ""
                   collapsible: false
                   is_secondary: false
       sorts:
@@ -2601,7 +2649,7 @@ display:
           field: search_api_relevance
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: search_api
           order: DESC
           expose:
@@ -2611,24 +2659,24 @@ display:
       style:
         type: html_list
         options:
-          grouping: {  }
-          row_class: ''
+          grouping: {}
+          row_class: ""
           default_row_class: true
           type: ul
-          wrapper_class: ''
+          wrapper_class: ""
           class: display-list
       row:
         type: search_api
         options:
           view_modes:
-            'entity:group':
+            "entity:group":
               source_repository: default
-            'entity:group_content':
+            "entity:group_content":
               group_content_type_73ec1320d728e: default
               group_content_type_c4a29b8386d54: default
               group_content_type_c9dd6de687b8e: default
               group_content_type_d731991a61211: default
-            'entity:node':
+            "entity:node":
               collection: horizontal_card
               page: default
               speaker_profile: default
@@ -2645,7 +2693,7 @@ display:
         filter_groups: true
         header: false
       use_ajax: true
-      display_description: ''
+      display_description: ""
       header:
         result:
           id: result
@@ -2653,10 +2701,10 @@ display:
           field: result
           relationship: none
           group_type: group
-          admin_label: ''
+          admin_label: ""
           plugin_id: result
           empty: false
-          content: '@start - @end of @total Results'
+          content: "@start - @end of @total Results"
       exposed_block: true
       display_extenders:
         ajax_history:
@@ -2665,10 +2713,10 @@ display:
     cache_metadata:
       max-age: -1
       contexts:
-        - 'languages:language_interface'
+        - "languages:language_interface"
         - url
         - url.query_args
-        - 'user.node_grants:view'
+        - "user.node_grants:view"
       tags:
-        - 'config:search_api.index.default_talks_index'
-        - 'search_api_list:default_talks_index'
+        - "config:search_api.index.default_talks_index"
+        - "search_api_list:default_talks_index"

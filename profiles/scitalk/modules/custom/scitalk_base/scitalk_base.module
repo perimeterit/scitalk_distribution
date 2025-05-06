@@ -333,6 +333,29 @@ function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $q
       }
     }
   }
+
+  if ($view->id() == 'scitalk_search_collections') {
+    $show_collections_with_no_talks = $view->exposed_data['number_of_children'] ?? FALSE;
+    if ($show_collections_with_no_talks) {
+      foreach ($query->getWhere() as &$condition_group) {
+        foreach ($condition_group['conditions'] as &$condition) {
+          if (!empty($condition) && $condition[0] == 'number_of_children') {
+            // change where clause to query >= 0
+            $condition = [
+              'number_of_children',
+              0,
+              '>='
+            ];
+            // $condition = [
+            //   'field' => 'number_of_children',
+            //   'value' => 0,
+            //   'operator' => '>=',
+            // ];
+          }
+        }
+      }
+    }
+  }
 }
 /**
  * Implements hook_form_alter().
@@ -439,6 +462,18 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
         unset($form['field_academic_year_target_id']);
         unset($form['field_academic_year_target_id_collapsible']);
       }
+    }
+
+    // convert number_of_children field to a single checkbox
+    if ($view['view']->id() == 'scitalk_search_collections') {
+      $field_id = 'number_of_children';
+      $show_collections_with_no_talks = $exposedInput['number_of_children'] ?? 0;
+
+      $form[$field_id] = [
+        '#type' => 'checkbox',
+        '#default_value' =>  (bool) $show_collections_with_no_talks,
+        '#value' => $show_collections_with_no_talks,
+      ];
     }
   }
 
