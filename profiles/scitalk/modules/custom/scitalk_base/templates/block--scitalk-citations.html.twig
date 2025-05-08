@@ -46,7 +46,8 @@
       <ul class="citations-tab-labels display-list js-tablist" data-hx="h3">
         <li class="js-tablist__item"><a href="#citation-apa" class="js-tablist__link">{{ 'APA'|t }} </a></li>
         <li class="js-tablist__item"><a href="#citation-mla" class="js-tablist__link">{{ 'MLA'|t }} </a></li>
-        <li class="js-tablist__item"><a href="#citation-bibtex" class="js-tablist__link">{{ 'BibTeX'|t }} </a></li>
+        {# make the BibTex the default open tab with data-selected="1": #}
+        <li class="js-tablist__item"><a href="#citation-bibtex" data-selected="1" class="js-tablist__link">{{ 'BibTeX'|t }} </a></li>
       </ul>
 
       <div class="citation-item js-tabcontent" id="citation-apa">
