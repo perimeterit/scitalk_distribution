@@ -30,14 +30,23 @@
             offset = false;
           });
 
-          // try to set offset time when set, after playing preroll but it's not working..
+          // const talk_src = this.currentSources();
+          // console.log(talk_src);
+          // // try to set offset time when set, after playing preroll but it's not working..
           // this.on("adend", () => {
           //   offset = search ? Number(params.get("t")) : false;
           //   if (offset) {
-          //     this.pause();
+          //     // this.pause();
           //     console.log("ad ended here", offset);
-          //     this.currentTime(offset);
-          //     this.play();
+          //     // this.ads.skipLinearAdMode();
+          //     // this.src(talk_src);
+          //     this.trigger("play");
+          //     console.log(this.currentSources());
+          //     console.log(this.currentSource());
+          //     console.log(this.currentSource(), this.currentSrc());
+
+          //     // this.currentTime(offset);
+          //     // this.play();
           //   }
           // });
 
