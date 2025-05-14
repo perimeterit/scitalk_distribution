@@ -1,0 +1,9 @@
+scitalk_media.settings:
+  path: "/admin/config/scitalk_media"
+  defaults:
+    _form: '\Drupal\scitalk_media\Form\SciTalkMediaConfigForm'
+    _title: "SciTalk Media Configuration"
+  requirements:
+    _permission: "administer site configuration"
+  options:
+    _admin_route: TRUE

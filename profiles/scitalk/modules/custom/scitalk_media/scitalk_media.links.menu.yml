@@ -1,0 +1,6 @@
+scitalk_media.settings:
+  title: "SciTalk Media"
+  route_name: scitalk_media.settings
+  description: "Manage SciTalk Media Settings"
+  parent: system.admin_config_system
+  weight: 99

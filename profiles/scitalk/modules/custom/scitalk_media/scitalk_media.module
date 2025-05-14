@@ -155,6 +155,10 @@ function scitalk_media_page_attachments(array &$page) {
   $icon = 'link.svg';
   $page['#attached']['drupalSettings']['url_copy_icon'] = $icon;
   $page['#attached']['drupalSettings']['icon_path'] = $icon_path;
+  
+  $config = \Drupal::config('scitalk_media.settings');
+  $preroll_video = $config->get('preroll_media_url');
+  $page['#attached']['drupalSettings']['preroll_video_url'] = $preroll_video;
 
 }
 

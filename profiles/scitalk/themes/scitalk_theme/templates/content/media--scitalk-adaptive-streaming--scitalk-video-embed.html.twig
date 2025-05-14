@@ -44,20 +44,21 @@
 {% set file_extension = secondary_file_name|split('.')|last %}
 {% set secondary_file_mime = adpative_video_mime_mapping.(file_extension) is defined ? adpative_video_mime_mapping.(file_extension) %}
 
-{# playinline: true   <-- for iOS indicates that non-fullscreen is preferred when fullscreen is the default native #}
+{# playsinline: true   <-- for iOS indicates that non-fullscreen is preferred when fullscreen is the default native #}
 {%
   set data_setup = {
     "playbackRates": [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2],
     "controls": TRUE,
     "playsinline": TRUE,
     "aspectRatio": '16:9',
+    "techOrder": ["html5"],
     "html5": {
       "nativeControlsForTouch": FALSE,
     },
-    controlBar: {
-      skipButtons: {
-        forward: 5,
-        backward: 5
+    "controlBar": {
+      "skipButtons": {
+        "forward": 5,
+        "backward": 5
       }
     }
   }

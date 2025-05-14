@@ -30,35 +30,26 @@
             offset = false;
           });
 
+          // try to set offset time when set, after playing preroll but it's not working..
+          // this.on("adend", () => {
+          //   offset = search ? Number(params.get("t")) : false;
+          //   if (offset) {
+          //     this.pause();
+          //     console.log("ad ended here", offset);
+          //     this.currentTime(offset);
+          //     this.play();
+          //   }
+          // });
+
           const controlBar = this.getChild("ControlBar");
 
           //display current time
-          const displayCurrentTime = controlBar
-            .getChild("currentTimeDisplay")
-            .el();
+          const displayCurrentTime = controlBar.getChild("currentTimeDisplay").el();
           $(displayCurrentTime).show();
 
           const playerInstance = this;
           //create a button in the control bar to copy url at current time
           const Button = videojs.getComponent("Button");
-
-          // const copyUrlButton = videojs.extend(Button, {
-          //   constructor: function () {
-          //     Button.apply(this, arguments);
-          //     this.addClass("normal-stream");
-          //     this.setAttribute("title", "Copy Video URL at current time");
-          //   },
-          //   handleClick: function () {
-          //     if (!playerInstance.paused()) {
-          //       playerInstance.pause();
-          //     }
-          //     copyUrlToClipboard();
-          //   },
-          //   buildCSSClass: function () {
-          //     return "vjs-icon-copy-url vjs-control vjs-button";
-          //   },
-          // });
-          // videojs.registerComponent("copyUrlButton", copyUrlButton);
 
           //new way to extend component, see: https://videojs.com/guides/videojs-7-to-8/
           class CopyUrlButton extends Button {
