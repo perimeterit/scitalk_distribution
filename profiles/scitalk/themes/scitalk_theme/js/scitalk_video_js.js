@@ -30,25 +30,29 @@
             offset = false;
           });
 
-          // const talk_src = this.currentSources();
-          // console.log(talk_src);
-          // // try to set offset time when set, after playing preroll but it's not working..
-          // this.on("adend", () => {
-          //   offset = search ? Number(params.get("t")) : false;
-          //   if (offset) {
-          //     // this.pause();
-          //     console.log("ad ended here", offset);
-          //     // this.ads.skipLinearAdMode();
-          //     // this.src(talk_src);
-          //     this.trigger("play");
-          //     console.log(this.currentSources());
-          //     console.log(this.currentSource());
-          //     console.log(this.currentSource(), this.currentSrc());
+          // when the preroll ad ends (including skipped), if there's an offset time to start the video from,
+          // then try to set offset time on the talk video
+          this.on("adend", () => {
+            //read the offset time
+            offset = search ? Number(params.get("t")) : false;
+            if (offset) {
+              //set the current time to offset on the talk video which livesin this.ads.snapshot.currentTime
+              this.ads.snapshot.currentTime = offset;
 
-          //     // this.currentTime(offset);
-          //     // this.play();
-          //   }
-          // });
+              // firefox is not setting the offset time. According to videojs-contrib-ads:
+              // in some browsers (firefox) `canplay` may not fire correctly.
+              // Reace the `canplay` event with a timeout.
+              if (navigator.userAgent.includes("Firefox")) {
+                this.ads.endLinearAdMode();
+                const p = this;
+                setTimeout(function () {
+                  p.ads.snapshot.currentTime = offset;
+                  p.trigger("contentcanplay");
+                  p.currentTime(offset);
+                }, 1000);
+              }
+            }
+          });
 
           const controlBar = this.getChild("ControlBar");
 
