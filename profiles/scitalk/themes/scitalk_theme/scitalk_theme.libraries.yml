@@ -60,6 +60,8 @@ video-player:
       /libraries/video.js/dist/video-js.min.css: {}
       /libraries/videojs-contrib-ads/dist/videojs-contrib-ads.css: {}
       css/components/videojs-preroll.css: {}
+      //cdn.jsdelivr.net/npm/videojs-quality-selector-hls@1.1.1/dist/videojs-quality-selector-hls.min.css:
+        { type: external }
       css/components/transcript.css: {}
     theme:
       css/components/video-player.css: {}
@@ -69,6 +71,8 @@ video-player:
     js/videojs-preroll-v2.js: {}
     js/scitalk_preroll_init.js: {}
     /libraries/videojs-youtube/dist/Youtube.min.js: {}
+    //cdn.jsdelivr.net/npm/videojs-quality-selector-hls@1.1.1/dist/videojs-quality-selector-hls.min.js:
+      { type: "external" }
     js/scitalk_video_js.js: {}
     js/videojs-analytics.js: {}
     js/transcript.js: {}

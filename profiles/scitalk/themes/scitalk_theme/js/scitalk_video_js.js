@@ -2,16 +2,23 @@
 (function ($, Drupal, once, drupalSettings) {
   Drupal.behaviors.sciTalkVideoJS = {
     attach: function (context, settings) {
-      // $('#video_player', context).once().each(function() {
       $(once("video_js_attached", "#video_player", context)).each(function () {
-        // const has_video = $("#scitalk_video_js").length;
-        // if (!has_video) return;
-
         const options = null; //{};
         videojs("scitalk_video_js", options, function () {
           const search = window.location.search;
           const params = new URLSearchParams(search);
           let offset = search ? Number(params.get("t")) : false;
+
+          const controlBar = this.getChild("ControlBar");
+          const picToggle = controlBar.getChild("pictureInPictureToggle");
+          const picToggleIndex = controlBar.children().indexOf(picToggle);
+
+          // ddev composer require npm-asset/videojs-quality-selector-hls
+          this.qualitySelectorHls({
+            placementIndex: picToggleIndex - 1,
+            vjsIconClass: "vjs-icon-cog",
+            // displayCurrentQuality: true, //this would show the selected quality on the control bar
+          });
 
           const copyUrlToClipboard = () => {
             const current_offset = this.currentTime();
@@ -54,8 +61,6 @@
             }
           });
 
-          const controlBar = this.getChild("ControlBar");
-
           //display current time
           const displayCurrentTime = controlBar.getChild("currentTimeDisplay").el();
           $(displayCurrentTime).show();
@@ -83,17 +88,16 @@
           }
           videojs.registerComponent("copyUrlButton", CopyUrlButton);
 
-          controlBar.addChild("copyUrlButton", {});
-
-          //move the button before the Picture-in-Picture button:
-          try {
-            this.controlBar
-              .el()
-              .insertBefore(
-                controlBar.getChild("copyUrlButton").el(),
-                controlBar.getChild("pictureInPictureToggle").el()
-              );
-          } catch (e) {}
+          //move the copyUrlButton before the Picture-in-Picture button:
+          controlBar.addChild("copyUrlButton", {}, picToggleIndex);
+          // try {
+          //   this.controlBar
+          //     .el()
+          //     .insertBefore(
+          //       controlBar.getChild("copyUrlButton").el(),
+          //       controlBar.getChild("pictureInPictureToggle").el()
+          //     );
+          // } catch (e) {}
 
           //adding google Analytics to record videojs events (play, pause, complete, ,time updated):
           this.analytics({
