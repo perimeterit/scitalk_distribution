@@ -160,6 +160,10 @@ function scitalk_media_page_attachments(array &$page) {
   $preroll_video = $config->get('preroll_media_url');
   $page['#attached']['drupalSettings']['preroll_video_url'] = $preroll_video;
 
+  // this could be overwritten by other modules to specify whether to show a preroll for a specific video media type
+  // here we are allowing it to all video types:
+  $page['#attached']['drupalSettings']['show_preroll'] = true;
+
 }
 
 /**
