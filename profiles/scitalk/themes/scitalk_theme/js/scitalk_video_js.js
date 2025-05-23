@@ -24,7 +24,8 @@
             setTimeout(() => {
               const ql = playerInstance.qualityLevels();
               if (ql.length === 0) {
-                controlBar.getChild("QualityButton").disable();
+                // controlBar.getChild("QualityButton").disable();
+                controlBar.removeChild("QualityButton"); // remove the icon from the control bar
               }
             }, 500);
           }
