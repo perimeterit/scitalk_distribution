@@ -1,21 +1,23 @@
 // initialize the preroll for videos
-if (document.getElementById("scitalk_video_js")) {
-  const player = videojs.getPlayer("scitalk_video_js") || videojs("scitalk_video_js");
-  const preroll_video_url = drupalSettings.preroll_video_url || false;
-  const show_preroll = drupalSettings.show_preroll;
-  if (player && preroll_video_url && show_preroll) {
-    try {
-      player.preroll({
-        src: preroll_video_url,
-        //   src: { type: "application/x-mpegURL", src: preroll_video_url },
-        lang: {
-          skip: "Skip",
-          "skip in": "Skip in ",
-        },
-      });
-    } catch (e) {}
+(function () {
+  if (document.getElementById("scitalk_video_js")) {
+    const player = videojs.getPlayer("scitalk_video_js") || videojs("scitalk_video_js");
+    const preroll_video_url = drupalSettings.preroll_video_url || false;
+    const show_preroll = drupalSettings.show_preroll;
+    if (player && preroll_video_url && show_preroll) {
+      try {
+        player.preroll({
+          src: preroll_video_url,
+          //   src: { type: "application/x-mpegURL", src: preroll_video_url },
+          lang: {
+            skip: "Skip",
+            "skip in": "Skip in ",
+          },
+        });
+      } catch (e) {}
+    }
   }
-}
+})();
 
 // this code doesn't work sometimes: the preroll doesn't get initialize on time and this error shows up:
 // video.min.js?swq462:12

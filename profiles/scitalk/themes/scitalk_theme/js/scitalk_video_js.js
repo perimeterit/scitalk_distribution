@@ -12,7 +12,6 @@
           const playerInstance = this;
           const controlBar = this.getChild("ControlBar");
 
-          // ddev composer require npm-asset/videojs-quality-selector-hls
           function addQualitySelector() {
             playerInstance.qualitySelectorHls({
               placementIndex: controlBar.children_.length - 2, //place it third from the end of the control bar
@@ -27,7 +26,7 @@
                 // controlBar.getChild("QualityButton").disable();
                 controlBar.removeChild("QualityButton"); // remove the icon from the control bar
               }
-            }, 500);
+            }, 200);
           }
 
           // after the preroll ends, make sure we refresh the quality levels for the video talk to be played
