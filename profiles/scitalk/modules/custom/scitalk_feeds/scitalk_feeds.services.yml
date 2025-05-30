@@ -11,3 +11,7 @@ services:
     class: Drupal\scitalk_feeds\EventSubscriber\FeedValidateDates
     tags:
       - { name: event_subscriber }
+  scitalk_feeds.feeds_unpublish_novideo:
+    class: Drupal\scitalk_feeds\EventSubscriber\FeedUnpublishNovideo
+    tags:
+      - { name: event_subscriber }

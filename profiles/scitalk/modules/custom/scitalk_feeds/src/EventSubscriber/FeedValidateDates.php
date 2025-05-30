@@ -64,8 +64,8 @@ class feedValidateDates extends AfterParseBase {
           \Drupal::messenger()->addWarning(t('The talk date ' . $date_value . ' is not valid for item number ' . $item_number));
           $item->set('_date', '');
         }
-
       }
+
       // Collection feed. Validates start and end dates.
       else {
         $start_date_value = $item->get('_start_date');
