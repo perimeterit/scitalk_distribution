@@ -126,8 +126,16 @@ third_party_settings:
         source: _collection
         weight: -10
         label: 'Set value to empty when field missing'
+      53d6a4c7-9777-4aa8-8803-044c762d07cb:
+        default_value: '1'
+        only_if_empty: true
+        uuid: 53d6a4c7-9777-4aa8-8803-044c762d07cb
+        plugin: default_value
+        source: status
+        weight: 0
+        label: 'Set value or default value'
 _core:
-  default_config_hash: UuJMrcKMTp7e_efZZ6vHiKjuuyeaepsLho0j3zqT6bk
+  default_config_hash: LE6TKfqoZR1CiPH3Zs9h7mC5Lh0n2ivL3EoPKAAab_s
 label: 'Talk Importer - All-in-one (CSV)'
 id: talk_importer_inclusive_csv
 description: 'Talk importer that can generate stubs for collections and speaker profiles (optional). Upload data in CSV format'
@@ -136,7 +144,7 @@ import_period: 86400
 fetcher: upload
 fetcher_configuration:
   allowed_extensions: csv
-  directory: 'public://feeds'
+  directory: 'public://feed-imports'
 parser: csv
 parser_configuration:
   delimiter: ','
@@ -275,7 +283,7 @@ custom_sources:
     machine_name: source_group
     type: blank
   status:
-    value: Status
+    value: status
     label: Status
     machine_name: status
     type: blank

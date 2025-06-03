@@ -127,8 +127,16 @@ third_party_settings:
         source: _collection
         weight: -10
         label: 'Set value to empty when field missing'
+      52ac8a44-147f-4512-936e-f632ce24efa3:
+        default_value: '1'
+        only_if_empty: true
+        uuid: 52ac8a44-147f-4512-936e-f632ce24efa3
+        plugin: default_value
+        source: status
+        weight: 0
+        label: 'Set value or default value'
 _core:
-  default_config_hash: '-n33iMfcAAtWxSep847GxLxvsAx3rryQo6rAqIBl4GA'
+  default_config_hash: hizsLWi4CiXe-0uOHF0HU0yid4IoLPSOm1xbeWpCmPQ
 label: 'Talk Importer - All-in-one (JSON)'
 id: talk_importer_inclusive_json
 description: 'Talk importer that can generate stubs for collections and speaker profiles (optional). Link to feed in JSON format'
@@ -264,7 +272,7 @@ custom_sources:
     machine_name: source_group
     type: blank
   status:
-    value: Status
+    value: status
     label: Status
     machine_name: status
     type: blank
