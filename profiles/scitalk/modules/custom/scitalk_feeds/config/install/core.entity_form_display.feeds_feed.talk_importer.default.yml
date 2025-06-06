@@ -1,9 +1,13 @@
+uuid: 956f6d6f-2af8-4c56-a287-bdd74c1fe4bb
 langcode: en
 status: true
 dependencies:
   config:
     - feeds.feed_type.talk_importer
+    - field.field.feeds_feed.talk_importer.field_embed_youtube
     - field.field.feeds_feed.talk_importer.field_feeds_group
+_core:
+  default_config_hash: ttf41FNH8RCF2-G7nBKpAtDXlWSM39QAQo2NDbLDVYc
 id: feeds_feed.talk_importer.default
 targetEntityType: feeds_feed
 bundle: talk_importer
@@ -11,9 +15,16 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 3
+    weight: 4
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_embed_youtube:
+    type: boolean_checkbox
+    weight: 2
+    region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   field_feeds_group:
     type: entity_reference_autocomplete
@@ -35,12 +46,12 @@ content:
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
-    weight: 2
+    weight: 3
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: content
     third_party_settings: {  }
 hidden: {  }

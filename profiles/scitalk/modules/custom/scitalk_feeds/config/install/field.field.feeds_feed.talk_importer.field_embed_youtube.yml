@@ -1,20 +1,23 @@
+uuid: 721cdb76-9af0-49dc-b6ca-625155a6ed91
 langcode: en
 status: true
 dependencies:
   config:
     - feeds.feed_type.talk_importer
     - field.storage.feeds_feed.field_embed_youtube
+_core:
+  default_config_hash: QftKacxvkVWQtESrCgky0RIjb98O3d4L15BmdoTgYyE
 id: feeds_feed.talk_importer.field_embed_youtube
 field_name: field_embed_youtube
 entity_type: feeds_feed
 bundle: talk_importer
-label: "Embed Youtube"
-description: "Specify whether a Youtube video should be created"
+label: 'Embed Youtube'
+description: 'Whether a Youtube video should be embedded on the site or linked to YouTube.'
 required: false
 translatable: false
-default_value: {}
-default_value_callback: ""
+default_value: {  }
+default_value_callback: ''
 settings:
-  on_label: "On"
-  off_label: "Off"
+  on_label: 'On'
+  off_label: 'Off'
 field_type: boolean
