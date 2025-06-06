@@ -105,7 +105,7 @@ third_party_settings:
         weight: 0
         label: 'Set value or default value'
 _core:
-  default_config_hash: 6BCa_uyhW8kHKEru3UUGImqP8f3k7lr_jUO2KunaO8I
+  default_config_hash: 7FvforSuwD-hcmg2kizN2bJaAat8jU2pTlWj6ad1i9E
 label: 'Talk Importer'
 id: talk_importer
 description: 'An importer that can generate a talk'
@@ -274,8 +274,8 @@ mappings:
     map:
       value: _date
     settings:
-      language: null
-      timezone: UTC
+      language: ''
+      timezone: __SITE__
   -
     target: field_talk_doi
     map:
