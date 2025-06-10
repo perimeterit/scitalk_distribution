@@ -1,18 +1,41 @@
+uuid: bf5d16ab-6d5a-4339-8f2f-160069db99d4
 langcode: en
 status: true
 dependencies:
   config:
     - feeds.feed_type.talk_importer_inclusive_json
+    - field.field.feeds_feed.talk_importer_inclusive_json.field_embed_youtube
     - field.field.feeds_feed.talk_importer_inclusive_json.field_feeds_group
   module:
     - feeds
     - fences
     - user
+_core:
+  default_config_hash: wBq4imyawX4bECz5G4enzjsb7pKQ600VoLyrHXpQDOU
 id: feeds_feed.talk_importer_inclusive_json.default
 targetEntityType: feeds_feed
 bundle: talk_importer_inclusive_json
 mode: default
 content:
+  field_embed_youtube:
+    type: boolean
+    label: inline
+    settings:
+      format: yes-no
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
+        fences_field_item_tag: div
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
+    weight: 5
+    region: content
   field_feeds_group:
     type: entity_reference_label
     label: inline
@@ -28,7 +51,7 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    weight: 2
+    weight: 4
     region: content
   imported:
     type: timestamp_ago
@@ -47,7 +70,7 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    weight: 1
+    weight: 2
     region: content
   item_count:
     type: number_integer
@@ -65,7 +88,7 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    weight: 0
+    weight: 1
     region: content
   next:
     type: timestamp
@@ -94,7 +117,7 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    weight: 1
+    weight: 3
     region: content
   source:
     type: feeds_uri_link
@@ -110,7 +133,7 @@ content:
         fences_field_item_classes: ''
         fences_label_tag: strong
         fences_label_classes: ''
-    weight: -3
+    weight: 0
     region: content
 hidden:
   search_api_excerpt: true

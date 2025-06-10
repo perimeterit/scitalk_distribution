@@ -4,18 +4,38 @@ status: true
 dependencies:
   config:
     - feeds.feed_type.talk_importer
+    - field.field.feeds_feed.talk_importer.field_embed_youtube
     - field.field.feeds_feed.talk_importer.field_feeds_group
   module:
     - feeds
     - fences
     - user
 _core:
-  default_config_hash: NBKFCDb94vtMY6WZO7PJzcoIF31B7bzxRzxMiFNNb2o
+  default_config_hash: xef7VbyPjAeq5vFlvXRn8fL_QTmguMl8uJ5Hy6IOl_o
 id: feeds_feed.talk_importer.default
 targetEntityType: feeds_feed
 bundle: talk_importer
 mode: default
 content:
+  field_embed_youtube:
+    type: boolean
+    label: inline
+    settings:
+      format: yes-no
+      format_custom_false: ''
+      format_custom_true: ''
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
+        fences_field_item_tag: div
+        fences_field_item_classes: ''
+        fences_label_tag: div
+        fences_label_classes: ''
+    weight: 5
+    region: content
   field_feeds_group:
     type: entity_reference_label
     label: inline
@@ -62,6 +82,8 @@ content:
       fences:
         fences_field_tag: div
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: strong
@@ -105,6 +127,8 @@ content:
       fences:
         fences_field_tag: div
         fences_field_classes: ''
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ''
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: strong
