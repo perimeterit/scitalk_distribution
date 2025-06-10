@@ -21,7 +21,8 @@ h4.label {
   font-size: 1em;
   font-weight: 500;
 }
-label.label-inline:after {
+.field--label-inline strong::after,
+label.label-inline::after {
   content: ':';
   margin-right: .5em;
 }
