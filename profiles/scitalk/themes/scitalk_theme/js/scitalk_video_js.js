@@ -53,7 +53,9 @@
           this.one("play", () => {
             if (offset) {
               // if there's an ad/preroll then do not set the offset time on play!, it will be set on "adend"
-              const hasPrerol = Object.hasOwn(this, "preroll") && playerInstance.preroll.shouldPlayPreroll();
+              const hasPrerol =
+                Object.hasOwn(this, "preroll") &&
+                playerInstance.preroll.shouldPlayPreroll();
               if (!hasPrerol) {
                 this.currentTime(offset);
               }
@@ -141,6 +143,12 @@
                 action: "time updated",
               },
             ],
+          });
+
+          this.hotkeys({
+            volumeStep: 0.1,
+            seekStep: 10,
+            enableModifiersForNumbers: false,
           });
         });
 

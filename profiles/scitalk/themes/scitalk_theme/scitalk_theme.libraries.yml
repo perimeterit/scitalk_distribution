@@ -41,8 +41,10 @@ global:
       css/components/views.css: {}
       js/jquery-responsive-tables/css/responsive-tables.min.css: {}
   js:
-    js/van11y-accessible-modal-window-aria/dist/van11y-accessible-modal-window-aria.min.js: {}
-    js/van11y-accessible-tab-panel-aria/dist/van11y-accessible-tab-panel-aria.min.js: {}
+    js/van11y-accessible-modal-window-aria/dist/van11y-accessible-modal-window-aria.min.js:
+      {}
+    js/van11y-accessible-tab-panel-aria/dist/van11y-accessible-tab-panel-aria.min.js:
+      {}
     js/jquery-responsive-tables/js/jquery.responsive-tables.js: {}
     js/jquery.sticky/jquery.sticky.js: {}
     js/load-collection-talks.js: {}
@@ -60,7 +62,8 @@ video-player:
       /libraries/video.js/dist/video-js.min.css: {}
       /libraries/videojs-contrib-ads/dist/videojs-contrib-ads.css: {}
       css/components/videojs-preroll.css: {}
-      /libraries/videojs-quality-selector-hls/dist/videojs-quality-selector-hls.css: {}
+      /libraries/videojs-quality-selector-hls/dist/videojs-quality-selector-hls.css:
+        {}
       css/components/transcript.css: {}
     theme:
       css/components/video-player.css: {}
@@ -70,7 +73,9 @@ video-player:
     js/videojs-preroll-v2.js: {}
     js/scitalk_preroll_init.js: {}
     /libraries/videojs-youtube/dist/Youtube.min.js: {}
-    /libraries/videojs-quality-selector-hls/dist/videojs-quality-selector-hls.min.js: {}
+    /libraries/videojs-quality-selector-hls/dist/videojs-quality-selector-hls.min.js:
+      {}
+    /libraries/videojs-hotkeys/videojs.hotkeys.min.js: {}
     js/scitalk_video_js.js: {}
     js/videojs-analytics.js: {}
     js/transcript.js: {}

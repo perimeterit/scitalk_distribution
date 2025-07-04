@@ -71,6 +71,7 @@
         "npm-asset/history.js": "^1.8",
         "npm-asset/video.js": "^8.21",
         "npm-asset/videojs-contrib-ads": "^7.5.2",
+        "npm-asset/videojs-hotkeys": "^0.2.30",
         "npm-asset/videojs-quality-selector-hls": "^1.1",
         "npm-asset/videojs-youtube": "^3.0",
         "oomphinc/composer-installers-extender": "^2.0",
