@@ -41,10 +41,8 @@ global:
       css/components/views.css: {}
       js/jquery-responsive-tables/css/responsive-tables.min.css: {}
   js:
-    js/van11y-accessible-modal-window-aria/dist/van11y-accessible-modal-window-aria.min.js:
-      {}
-    js/van11y-accessible-tab-panel-aria/dist/van11y-accessible-tab-panel-aria.min.js:
-      {}
+    js/van11y-accessible-modal-window-aria/dist/van11y-accessible-modal-window-aria.min.js: {}
+    js/van11y-accessible-tab-panel-aria/dist/van11y-accessible-tab-panel-aria.min.js: {}
     js/jquery-responsive-tables/js/jquery.responsive-tables.js: {}
     js/jquery.sticky/jquery.sticky.js: {}
     js/load-collection-talks.js: {}
@@ -59,17 +57,23 @@ global:
 video-player:
   css:
     component:
-      //vjs.zencdn.net/8.21.1/video-js.min.css:
-        { type: external, minified: true }
+      /libraries/video.js/dist/video-js.min.css: {}
+      /libraries/videojs-contrib-ads/dist/videojs-contrib-ads.css: {}
+      css/components/videojs-preroll.css: {}
+      /libraries/videojs-quality-selector-hls/dist/videojs-quality-selector-hls.css: {}
+      css/components/transcript.css: {}
     theme:
       css/components/video-player.css: {}
   js:
-    //vjs.zencdn.net/8.21.1/video.min.js: { type: external, minified: true }
-    js/videojs-analytics.js: {}
-    # https://unpkg.com/browse/@videojs/http-streaming@2.13.1/dist/videojs-http-streaming.min.js: { type: external, minified: true }
-    https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/3.0.1/Youtube.min.js:
-      { type: external, minified: true }
+    /libraries/video.js/dist/video.min.js: {}
+    /libraries/videojs-contrib-ads/dist/videojs.ads.min.js: {}
+    js/videojs-preroll-v2.js: {}
+    js/scitalk_preroll_init.js: {}
+    /libraries/videojs-youtube/dist/Youtube.min.js: {}
+    /libraries/videojs-quality-selector-hls/dist/videojs-quality-selector-hls.min.js: {}
     js/scitalk_video_js.js: {}
+    js/videojs-analytics.js: {}
+    js/transcript.js: {}
   dependencies:
     - core/drupal
     - core/jquery

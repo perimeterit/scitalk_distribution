@@ -2,16 +2,43 @@
 (function ($, Drupal, once, drupalSettings) {
   Drupal.behaviors.sciTalkVideoJS = {
     attach: function (context, settings) {
-      // $('#video_player', context).once().each(function() {
       $(once("video_js_attached", "#video_player", context)).each(function () {
-        // const has_video = $("#scitalk_video_js").length;
-        // if (!has_video) return;
-
         const options = null; //{};
         videojs("scitalk_video_js", options, function () {
           const search = window.location.search;
           const params = new URLSearchParams(search);
           let offset = search ? Number(params.get("t")) : false;
+
+          const playerInstance = this;
+          const controlBar = this.getChild("ControlBar");
+
+          function addQualitySelector() {
+            playerInstance.qualitySelectorHls({
+              placementIndex: controlBar.children_.length - 2, //place it third from the end of the control bar
+              vjsIconClass: "vjs-icon-cog",
+              // displayCurrentQuality: true, //this would show the selected quality on the control bar
+            });
+
+            // if quality level list is empty then disable the button:
+            setTimeout(() => {
+              const ql = playerInstance.qualityLevels();
+              if (ql.length === 0) {
+                // controlBar.getChild("QualityButton").disable();
+                controlBar.removeChild("QualityButton"); // remove the icon from the control bar
+              }
+            }, 200);
+          }
+
+          // after the preroll ends, make sure we refresh the quality levels for the video talk to be played
+          // (it can have different ql or it can have none!)
+          function refreshQualitySelector() {
+            //delete exiting Quality Level button:
+            const qualityControlBtn = controlBar.getChild("QualityButton");
+            controlBar.removeChild(qualityControlBtn);
+
+            //recreate quality selector:
+            addQualitySelector();
+          }
 
           const copyUrlToClipboard = () => {
             const current_offset = this.currentTime();
@@ -23,42 +50,49 @@
 
           //when video starts to play, move the time to the offset value
           //  (on the first time it'd be at 0. When user copies the url at a time it'd be that time offset)
-          this.on("play", () => {
+          this.one("play", () => {
             if (offset) {
-              this.currentTime(offset);
+              // if there's an ad/preroll then do not set the offset time on play!, it will be set on "adend"
+              const hasPrerol = Object.hasOwn(this, "preroll") && playerInstance.preroll.shouldPlayPreroll();
+              if (!hasPrerol) {
+                this.currentTime(offset);
+              }
             }
-            offset = false;
+            // offset = 0;
+            addQualitySelector();
           });
 
-          const controlBar = this.getChild("ControlBar");
+          // when the preroll ad ends (including skipped), if there's an offset time to start the video from,
+          // then try to set offset time on the talk video
+          this.on("adend", () => {
+            //need to trigger a quality selector refresh for cases when the actual video quality levels are not the same as the ad video:
+            refreshQualitySelector();
+
+            if (offset) {
+              //set the current time to offset on the talk video which livesin this.ads.snapshot.currentTime
+              this.ads.snapshot.currentTime = offset;
+
+              // firefox is not setting the offset time. According to videojs-contrib-ads:
+              // in some browsers (firefox) `canplay` may not fire correctly.
+              // Reace the `canplay` event with a timeout.
+              if (navigator.userAgent.includes("Firefox")) {
+                this.ads.endLinearAdMode();
+                const p = this;
+                setTimeout(function () {
+                  p.ads.snapshot.currentTime = offset;
+                  p.trigger("contentcanplay");
+                  p.currentTime(offset);
+                }, 1000);
+              }
+            }
+          });
 
           //display current time
-          const displayCurrentTime = controlBar
-            .getChild("currentTimeDisplay")
-            .el();
-          $(displayCurrentTime).show();
+          const displayCurrentTime = controlBar.getChild("currentTimeDisplay");
+          displayCurrentTime.show();
 
-          const playerInstance = this;
           //create a button in the control bar to copy url at current time
           const Button = videojs.getComponent("Button");
-
-          // const copyUrlButton = videojs.extend(Button, {
-          //   constructor: function () {
-          //     Button.apply(this, arguments);
-          //     this.addClass("normal-stream");
-          //     this.setAttribute("title", "Copy Video URL at current time");
-          //   },
-          //   handleClick: function () {
-          //     if (!playerInstance.paused()) {
-          //       playerInstance.pause();
-          //     }
-          //     copyUrlToClipboard();
-          //   },
-          //   buildCSSClass: function () {
-          //     return "vjs-icon-copy-url vjs-control vjs-button";
-          //   },
-          // });
-          // videojs.registerComponent("copyUrlButton", copyUrlButton);
 
           //new way to extend component, see: https://videojs.com/guides/videojs-7-to-8/
           class CopyUrlButton extends Button {
@@ -79,17 +113,10 @@
           }
           videojs.registerComponent("copyUrlButton", CopyUrlButton);
 
-          controlBar.addChild("copyUrlButton", {});
-
-          //move the button before the Picture-in-Picture button:
-          try {
-            this.controlBar
-              .el()
-              .insertBefore(
-                controlBar.getChild("copyUrlButton").el(),
-                controlBar.getChild("pictureInPictureToggle").el()
-              );
-          } catch (e) {}
+          //move the copyUrlButton before the Picture-in-Picture button:
+          const picToggle = controlBar.getChild("pictureInPictureToggle");
+          let picToggleIndex = controlBar.children().indexOf(picToggle);
+          controlBar.addChild("copyUrlButton", {}, picToggleIndex);
 
           //adding google Analytics to record videojs events (play, pause, complete, ,time updated):
           this.analytics({

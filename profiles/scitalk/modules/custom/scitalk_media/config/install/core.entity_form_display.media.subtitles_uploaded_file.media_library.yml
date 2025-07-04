@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.media_library
+    - field.field.media.subtitles_uploaded_file.field_media_file
+    - field.field.media.subtitles_uploaded_file.field_subtitles_language
+    - media.type.subtitles_uploaded_file
+id: media.subtitles_uploaded_file.media_library
+targetEntityType: media
+bundle: subtitles_uploaded_file
+mode: media_library
+content:
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ""
+    third_party_settings: {}
+hidden:
+  created: true
+  field_media_file: true
+  field_subtitles_language: true
+  langcode: true
+  path: true
+  status: true
+  uid: true

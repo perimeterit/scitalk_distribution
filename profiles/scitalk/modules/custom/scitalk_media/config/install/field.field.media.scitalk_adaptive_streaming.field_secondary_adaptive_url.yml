@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_secondary_adaptive_url
+    - media.type.scitalk_adaptive_streaming
+id: media.scitalk_adaptive_streaming.field_secondary_adaptive_url
+field_name: field_secondary_adaptive_url
+entity_type: media
+bundle: scitalk_adaptive_streaming
+label: "Secondary Adaptive Video Url"
+description: ""
+required: false
+translatable: false
+default_value: {}
+default_value_callback: ""
+settings: {}
+field_type: string

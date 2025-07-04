@@ -1,0 +1,101 @@
+{#
+/**
+ * @file
+ * Default theme implementation to present a media item.
+ *
+ * Available variables:
+ * - media: The media item, with limited access to object properties and
+ *   methods. Only method names starting with "get", "has", or "is" and
+ *   a few common methods such as "id", "label", and "bundle" are available.
+ *   For example:
+ *   - entity.getEntityTypeId() will return the entity type ID.
+ *   - entity.hasField('field_example') returns TRUE if the entity includes
+ *     field_example. (This does not indicate the presence of a value in this
+ *     field.)
+ *   Calling other methods, such as entity.delete(), will result in
+ *   an exception.
+ *   See \Drupal\Core\Entity\EntityInterface for a full list of methods.
+ * - name: Name of the media item.
+ * - content: Media content.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ * - view_mode: View mode; for example, "teaser" or "full".
+ * - attributes: HTML attributes for the containing element.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ *
+ * @see template_preprocess_media()
+ *
+ * @ingroup themeable
+ */
+#}
+
+{% set thumb = content.field_remote_thumbnail_url ? content.field_remote_thumbnail_url.0['#context'].value : ''%}
+
+{% set primary_video_file = content.field_media_scitalk_adaptive.0['#context'].value %}
+{% set primary_file_name = content.field_media_scitalk_adaptive.0['#context'].value|split('/')|last %}
+{% set file_extension = primary_file_name|split('.')|last %}
+{% set primary_file_mime = adpative_video_mime_mapping.(file_extension) is defined ? adpative_video_mime_mapping.(file_extension)%}
+
+{% set secondary_video_file = content.field_secondary_adaptive_url.0['#context'].value %}
+{% set secondary_file_name = content.field_secondary_adaptive_url.0['#context'].value|split('/')|last %}
+{% set file_extension = secondary_file_name|split('.')|last %}
+{% set secondary_file_mime = adpative_video_mime_mapping.(file_extension) is defined ? adpative_video_mime_mapping.(file_extension) %}
+
+{# playsinline: true   <-- for iOS indicates that non-fullscreen is preferred when fullscreen is the default native #}
+{%
+  set data_setup = {
+    "playbackRates": [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2],
+    "controls": TRUE,
+    "playsinline": TRUE,
+    "aspectRatio": '16:9',
+    "techOrder": ["html5"],
+    "html5": {
+      "nativeControlsForTouch": FALSE,
+    },
+    "controlBar": {
+      "skipButtons": {
+        "forward": 5,
+        "backward": 5
+      }
+    }
+  }
+%}
+
+{% embed 'scitalk_media:videojs_media' with ({
+  data_setup: data_setup,
+  thumbnail: thumb,
+  subtitles: vtts
+}) %}
+  {% block video_sources %}
+    <source src="{{ primary_video_file }}" type="{{ primary_file_mime }}"/>
+    {% if secondary_file_name %}
+      <source src="{{ secondary_video_file }}" type="{{ secondary_file_mime }}"/>
+    {% endif %}
+  {% endblock %}
+{% endembed %}
+
+
+{# <div id="video_player" class="scitalk_video_player">
+  <video-js data-setup='{{ data_setup|json_encode() }}'
+    id = "scitalk_video_js"
+    class = "video-js vjs-default-skin vjs-big-play-centered" 
+    poster = "{{ thumb }}" 
+    preload = FALSE
+    fluid = TRUE
+    responsive = TRUE
+  >
+    <source src="{{ primary_video_file }}" type="{{ primary_file_mime }}"/>
+    {% if secondary_file_name %}
+      <source src="{{ secondary_video_file }}" type="{{ secondary_file_mime }}"/>
+    {% endif %}
+
+    {% for vtt in vtts %}
+      {% set default = loop.first ? "default" %}
+      <track kind="caption" src="{{ vtt.src }}" srclang="{{ vtt.lang }}" label="{{ vtt.label }}" >
+    {% endfor %}
+    
+  </video-js>
+</div> #}

@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - scitalk_media
+id: subtitles_url
+label: "Subtitles (vtt) URL"
+description: "Subtitles (vtt) URL"
+source: scitalk_remote_file
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  source_field: field_media_scitalk_remote_file
+field_map: {}

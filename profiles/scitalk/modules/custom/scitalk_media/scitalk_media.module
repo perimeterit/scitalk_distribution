@@ -6,6 +6,8 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\media\Entity\Media;
 
 /**
  * Implements hook_help().
@@ -47,7 +49,7 @@ function scitalk_media_theme() {
  * Implements hook_entity_insert
  * @param \Drupal\Core\Entity\EntityInterface $entity
  */
-function scitalk_media_entity_insert(\Drupal\Core\Entity\EntityInterface $entity) {
+function scitalk_media_entity_insert(EntityInterface $entity) {
   $entity_type = $entity->getEntityTypeId();
 
   if($entity_type == 'media') {
@@ -61,7 +63,7 @@ function scitalk_media_entity_insert(\Drupal\Core\Entity\EntityInterface $entity
  * Implements hook_entity_update
  * @param Drupal\Core\Entity\EntityInterface $entity
  */
-function scitalk_media_entity_update(Drupal\Core\Entity\EntityInterface $entity) {
+function scitalk_media_entity_update(EntityInterface $entity) {
   $entity_type = $entity->getEntityTypeId();
   $scitalk_update_done = &drupal_static(__FUNCTION__);
   if($entity_type == 'media' && (!isset($scitalk_update_done) && $scitalk_update_done != TRUE)) {  //avoids nesting issues due to our entity save routine firing
@@ -72,7 +74,7 @@ function scitalk_media_entity_update(Drupal\Core\Entity\EntityInterface $entity)
 }
 
 
-function scitalk_media_get_plugin_by_config(\Drupal\Core\Entity\EntityInterface $entity) {
+function scitalk_media_get_plugin_by_config(EntityInterface $entity) {
   $scitalk_plugin = FALSE;
   $entity_type = $entity->getEntityTypeId();
   if($entity_type == 'media') {
@@ -104,7 +106,7 @@ function scitalk_media_get_plugin_by_config(\Drupal\Core\Entity\EntityInterface 
 /**
  * Implements hook_ENTITY_TYPE_presave()
  */
-function scitalk_media_media_presave(\Drupal\Core\Entity\EntityInterface $entity) {
+function scitalk_media_media_presave(EntityInterface $entity) {
   $plugin_id = $entity->getSource()->getPluginId() ?? '';
   //since we are hiding the required Name field from the forms then make sure that we
   //set this Name field to the value from these media types source fields
@@ -153,5 +155,70 @@ function scitalk_media_page_attachments(array &$page) {
   $icon = 'link.svg';
   $page['#attached']['drupalSettings']['url_copy_icon'] = $icon;
   $page['#attached']['drupalSettings']['icon_path'] = $icon_path;
+  
+  $config = \Drupal::config('scitalk_media.settings');
+  $preroll_video = $config->get('preroll_media_url');
+  $page['#attached']['drupalSettings']['preroll_video_url'] = $preroll_video;
 
+  // this could be overwritten by other modules to specify whether to show a preroll for a specific video media type
+  // here we are allowing it to all video types:
+  $page['#attached']['drupalSettings']['show_preroll'] = true;
+
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_presave()
+ */
+function scitalk_media_node_presave(EntityInterface $entity) {
+  // check if a new VTT/Subtitles media was CREATED (not updated) for a Talk and if so then create a new Trasncript media
+  // need to check both VTT fields: Uploaded file or URL to file
+  $node_type = $entity->getType();
+  if ($node_type == 'talk') {
+    $vtt_uploaded_before = $entity?->original?->field_subtitle_upload_file?->target_id ?? 0;
+    $vtt_uploaded_after = $entity?->field_subtitle_upload_file?->target_id ?? 0;
+    $vtt_url_before = $entity?->original?->field_subtitle_url?->target_id ?? 0;
+    $vtt_url_after = $entity?->field_subtitle_url?->target_id ?? 0;
+   
+    // newly uploaded vtt
+    if (empty($vtt_uploaded_before) && $vtt_uploaded_after > 0) {
+      $attached_vtt_media = \Drupal::entityTypeManager()->getStorage('media')->load($vtt_uploaded_after);
+      _create_transcript_from_vtt($attached_vtt_media, $entity);
+    }
+    // URL to vtt file
+    elseif (empty($vtt_url_before) && $vtt_url_after > 0) {
+      $attached_vtt_media = \Drupal::entityTypeManager()->getStorage('media')->load($vtt_url_after);
+      _create_transcript_from_vtt($attached_vtt_media, $entity);
+    }
+  }
+}
+
+// Create Transcript media from a new vtt/subtitle media
+function _create_transcript_from_vtt(Media $subtitles_media, EntityInterface $talk) {
+  //subtitles are either an uploaded file or url to a vtt file:
+  $bundle = $subtitles_media->bundle->target_id ?? "";
+  $vtt_bundles = ['subtitles_uploaded_file', 'subtitles_url'];
+  if (!in_array($bundle, $vtt_bundles)) {
+    return;
+  }
+ 
+  //if there's already a Transcript media attched to the talk then do not create a new one
+  $attachments = !empty($talk) ? ($talk->get('field_talk_attachments')->getValue() ?? '') : [];
+  foreach($attachments as $atch) {
+    $target_id = $atch['target_id'] ?? 0;
+    $attached_media = \Drupal::entityTypeManager()->getStorage('media')->load($target_id);
+    $attached_media_bundle = $attached_media->bundle->target_id ?? '';
+    if ($attached_media_bundle == 'scitalk_transcription') {
+      return;
+    }
+  }
+
+  //create transcript media
+  $transcriptMediaService = \Drupal::service('scitalk_media.create_transcript_media');
+  $created_media = $transcriptMediaService->create($subtitles_media);
+  
+  // attach the transcript media to the Talk
+  if (!empty($created_media)) {
+    $vid = $created_media->vid->value;
+    $talk->field_talk_attachments[] = ['target_id' => $vid];
+  }
 }

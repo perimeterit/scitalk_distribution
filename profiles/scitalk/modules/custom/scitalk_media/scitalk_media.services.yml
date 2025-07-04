@@ -1,4 +1,7 @@
 services:
   plugin.manager.scitalk_media_types:
     class: Drupal\scitalk_media\SciTalkMediaTypesPluginManager
-    arguments: ['@container.namespaces', '@cache.default', '@module_handler']
+    arguments: ["@container.namespaces", "@cache.default", "@module_handler"]
+
+  scitalk_media.create_transcript_media:
+    class: Drupal\scitalk_media\SciTalkMediaServices\TranscriptMedia

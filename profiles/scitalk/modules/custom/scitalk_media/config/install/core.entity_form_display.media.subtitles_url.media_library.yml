@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.media.media_library
+    - field.field.media.subtitles_url.field_media_scitalk_remote_file
+    - field.field.media.subtitles_url.field_subtitles_language
+    - media.type.subtitles_url
+id: media.subtitles_url.media_library
+targetEntityType: media
+bundle: subtitles_url
+mode: media_library
+content:
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ""
+    third_party_settings: {}
+hidden:
+  created: true
+  field_media_scitalk_remote_file: true
+  field_subtitles_language: true
+  langcode: true
+  path: true
+  status: true
+  uid: true

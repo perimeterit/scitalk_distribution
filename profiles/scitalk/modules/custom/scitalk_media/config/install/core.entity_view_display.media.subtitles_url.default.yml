@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.subtitles_url.field_media_scitalk_remote_file
+    - field.field.media.subtitles_url.field_subtitles_language
+    - media.type.subtitles_url
+  module:
+    - options
+id: media.subtitles_url.default
+targetEntityType: media
+bundle: subtitles_url
+mode: default
+content:
+  field_media_scitalk_remote_file:
+    type: string
+    label: visually_hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {}
+    weight: 0
+    region: content
+  field_subtitles_language:
+    type: list_default
+    label: above
+    settings: {}
+    third_party_settings: {}
+    weight: 1
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true

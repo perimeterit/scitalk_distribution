@@ -1155,3 +1155,77 @@ function scitalk_base_update_8119(&$sandbox) {
         \Drupal::logger('scitalk_base')->notice('Updated view '.  $view_display_id);
     }
 }
+
+/**
+*  Create new fields for Subtitles
+*/
+function scitalk_base_update_8120(&$sandbox) {
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
+    $source      = new FileStorage($config_path);
+
+    $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+    //add Subtitle File storage
+    $field_storage_yml = 'field.storage.node.field_subtitle_upload_file';
+    $field_storage_id = 'node.field_subtitle_upload_file';
+    $loaded_storage_config = $storage_config->load($field_storage_id);
+    if (empty($loaded_storage_config))
+    {
+        $storage_config_yml = $source->read($field_storage_yml);
+        $storage_config->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created Subtitle File field storage');
+    }
+
+    //add Subtitle URL storage
+    $field_storage_yml = 'field.storage.node.field_subtitle_url';
+    $field_storage_id = 'node.field_subtitle_url';
+    $loaded_storage_config = $storage_config->load($field_storage_id);
+    if (empty($loaded_storage_config))
+    {
+        $storage_config_yml = $source->read($field_storage_yml);
+        $storage_config->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created Subtitle URL field storage');
+    }
+
+    $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
+    //add FIELD Subtitle File
+    $field_yml = 'field.field.node.talk.field_subtitle_upload_file';
+    $field_id = 'node.talk.field_subtitle_upload_file';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created Subtitle File field');
+    }
+    
+    //add FIELD Subtitle URL
+    $field_yml = 'field.field.node.talk.field_subtitle_url';
+    $field_id = 'node.talk.field_subtitle_url';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created Subtitle URL field');
+    }
+
+    //update talk entity form display
+    $entity_form = \Drupal::entityTypeManager()->getStorage('entity_form_display');
+    $org_entity_form = $entity_form->load('node.talk.default');
+    if (!empty($org_entity_form))
+    {
+        $form_display_yml = $source->read('core.entity_form_display.node.talk.default');
+        $entity = $entity_form->updateFromStorageRecord($org_entity_form, $form_display_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Talk entity_form_display');
+    }
+
+}
+
+/**
+*  Re-run "Update Search Collections view" to deal with possible conflicts
+*/
+function scitalk_base_update_8121(&$sandbox) {
+    // re-run to fix conflicts
+    scitalk_base_update_8119($sandbox);
+}
