@@ -120,6 +120,16 @@
           let picToggleIndex = controlBar.children().indexOf(picToggle);
           controlBar.addChild("copyUrlButton", {}, picToggleIndex);
 
+          // toggle play/pause on mobiles when touching the screen
+          this.on("touchend", function (event) {
+            if (event.target.tagName === "VIDEO") {
+              // This code executes only when the video area is clicked, not the controls.
+              playerInstance.paused()
+                ? playerInstance.play()
+                : playerInstance.pause();
+            }
+          });
+
           //adding google Analytics to record videojs events (play, pause, complete, ,time updated):
           this.analytics({
             events: [
