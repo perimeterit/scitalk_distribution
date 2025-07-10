@@ -76,6 +76,7 @@ video-player:
     /libraries/videojs-quality-selector-hls/dist/videojs-quality-selector-hls.min.js:
       {}
     /libraries/videojs-hotkeys/videojs.hotkeys.min.js: {}
+    /libraries/videojs-mobile-ui/dist/videojs-mobile-ui.min.js: {}
     js/scitalk_video_js.js: {}
     js/videojs-analytics.js: {}
     js/transcript.js: {}

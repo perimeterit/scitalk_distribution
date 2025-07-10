@@ -150,6 +150,8 @@
             seekStep: 10,
             enableModifiersForNumbers: false,
           });
+
+          this.mobileUi();
         });
 
         //disable context menu on right click
