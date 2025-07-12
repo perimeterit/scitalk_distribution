@@ -79,7 +79,10 @@
   width: 8.35em;
 }
 
-.video-js .vjs-volume-menu-button.vjs-volume-menu-button-horizontal:hover .vjs-menu .vjs-menu-content {
+.video-js
+  .vjs-volume-menu-button.vjs-volume-menu-button-horizontal:hover
+  .vjs-menu
+  .vjs-menu-content {
   height: 3em;
   width: 6.35em;
 }
@@ -187,9 +190,12 @@
 }
 
 .video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-active .vjs-control-bar,
-.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-inactive .vjs-control-bar,
-.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-active .vjs-control-bar,
-.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-inactive .vjs-control-bar,
+.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-inactive
+  .vjs-control-bar,
+.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-active
+  .vjs-control-bar,
+.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-inactive
+  .vjs-control-bar,
 .video-js.vjs-has-started.vjs-playing.vjs-user-inactive .vjs-control-bar {
   visibility: visible;
   opacity: 1;
@@ -206,10 +212,14 @@
   transition: transform 1s ease 0s;
 }
 
-.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-active .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-inactive .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-active .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-inactive .vjs-progress-control,
+.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-active
+  .vjs-progress-control,
+.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-inactive
+  .vjs-progress-control,
+.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-active
+  .vjs-progress-control,
+.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-inactive
+  .vjs-progress-control,
 .video-js.vjs-has-started.vjs-playing.vjs-user-inactive .vjs-progress-control {
   height: 0.25em;
   top: -0.25em;
@@ -221,11 +231,16 @@
   transition: height 1s, top 1s;
 }
 
-.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-active.vjs-fullscreen .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-inactive.vjs-fullscreen .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-active.vjs-fullscreen .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-inactive.vjs-fullscreen .vjs-progress-control,
-.video-js.vjs-has-started.vjs-playing.vjs-user-inactive.vjs-fullscreen .vjs-progress-control {
+.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-active.vjs-fullscreen
+  .vjs-progress-control,
+.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-inactive.vjs-fullscreen
+  .vjs-progress-control,
+.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-active.vjs-fullscreen
+  .vjs-progress-control,
+.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-inactive.vjs-fullscreen
+  .vjs-progress-control,
+.video-js.vjs-has-started.vjs-playing.vjs-user-inactive.vjs-fullscreen
+  .vjs-progress-control {
   opacity: 0;
   -webkit-transition: opacity 1s ease 1s;
   -moz-transition: opacity 1s ease 1s;
@@ -325,6 +340,12 @@
   display: flex;
   align-items: center;
   font-size: 1.3em;
+  justify-content: center;
+}
+
+/* the playback-rate button is hidden on mobiles, at least in portrait, so make it visisble: */
+.video-js.vjs-layout-small .vjs-playback-rate {
+  display: block !important;
 }
 
 .vjs-layout-huge .vjs-menu-button-popup .vjs-menu .vjs-menu-content,
@@ -350,7 +371,8 @@
 .video-js .vjs-icon-copy-url .vjs-icon-placeholder:before,
 .vjs-icon-icon-copy-url-enter:before {
   content: "";
-  background: url("../../images/icons/link_copy_white.svg") no-repeat center center;
+  background: url("../../images/icons/link_copy_white.svg") no-repeat center
+    center;
   background-size: 28px 28px;
 }
 

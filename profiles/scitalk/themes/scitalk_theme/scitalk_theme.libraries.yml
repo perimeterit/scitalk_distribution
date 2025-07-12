@@ -60,6 +60,7 @@ video-player:
   css:
     component:
       /libraries/video.js/dist/video-js.min.css: {}
+      /libraries/videojs-mobile-ui/dist/videojs-mobile-ui.css: {}
       /libraries/videojs-contrib-ads/dist/videojs-contrib-ads.css: {}
       css/components/videojs-preroll.css: {}
       /libraries/videojs-quality-selector-hls/dist/videojs-quality-selector-hls.css:

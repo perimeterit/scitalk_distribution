@@ -120,69 +120,69 @@
           let picToggleIndex = controlBar.children().indexOf(picToggle);
           controlBar.addChild("copyUrlButton", {}, picToggleIndex);
 
-          // toggle play/pause on mobiles when touching the screen
-          this.on("touchstart", function (event) {
-            //just play/pause when clicking on the video
-            if (event.target.tagName === "VIDEO") {
-              playerInstance.paused()
-                ? playerInstance.play()
-                : shouldPause(event)
-                ? playerInstance.pause()
-                : true;
-            }
-          });
+          // // toggle play/pause on mobiles when touching the screen
+          // this.on("touchstart", function (event) {
+          //   //just play/pause when clicking on the video
+          //   if (event.target.tagName === "VIDEO") {
+          //     playerInstance.paused()
+          //       ? playerInstance.play()
+          //       : shouldPause(event)
+          //       ? playerInstance.pause()
+          //       : true;
+          //   }
+          // });
 
-          // if user touches the screen inside the mid box (using the bigPlayButton dimensions of 98x79)
-          // then let the video pause, else when outside this box don't
-          function shouldPause(event) {
-            const touch = event.touches[0];
+          // // if user touches the screen inside the mid box (using the bigPlayButton dimensions of 98x79)
+          // // then let the video pause, else when outside this box don't
+          // function shouldPause(event) {
+          //   const touch = event.touches[0];
 
-            // Access the touch coordinates
-            var x = touch.clientX;
-            var y = touch.clientY;
+          //   // Access the touch coordinates
+          //   var x = touch.clientX;
+          //   var y = touch.clientY;
 
-            // coordinates relative to the player element
-            var playerRect = playerInstance.el().getBoundingClientRect();
-            var relativeX = x - playerRect.left;
-            var relativeY = y - playerRect.top;
+          //   // coordinates relative to the player element
+          //   var playerRect = playerInstance.el().getBoundingClientRect();
+          //   var relativeX = x - playerRect.left;
+          //   var relativeY = y - playerRect.top;
 
-            const dims = getPlayerCenterDimensions();
-            pauseVideo =
-              relativeX > dims.left &&
-              relativeX < dims.right &&
-              relativeY > dims.top &&
-              relativeY < dims.bottom;
-            return pauseVideo;
-          }
+          //   const dims = getPlayerCenterDimensions();
+          //   pauseVideo =
+          //     relativeX > dims.left &&
+          //     relativeX < dims.right &&
+          //     relativeY > dims.top &&
+          //     relativeY < dims.bottom;
+          //   return pauseVideo;
+          // }
 
-          function getPlayerCenterDimensions() {
-            // using the bigPlayButton dimensions here:
-            const playBtnWidth = 98;
-            const playBtnHeight = 79;
+          // function getPlayerCenterDimensions() {
+          //   // using the bigPlayButton dimensions here:
+          //   const playBtnWidth = 98;
+          //   const playBtnHeight = 79;
 
-            // its mid sizes:
-            const playBtnWidthMid = playBtnWidth / 2;
-            const playBtnHeightMid = playBtnHeight / 2;
+          //   // its mid sizes:
+          //   const playBtnWidthMid = playBtnWidth / 2;
+          //   const playBtnHeightMid = playBtnHeight / 2;
 
-            // calculate the player dimensions:
-            const dims = window.getComputedStyle(playerInstance.el());
-            const w = parseInt(dims.width, 10);
-            const h = parseInt(dims.height, 10);
-            const midX = w / 2;
-            const midY = h / 2;
+          //   // calculate the player dimensions:
+          //   const dims = window.getComputedStyle(playerInstance.el());
+          //   const w = parseInt(dims.width, 10);
+          //   const h = parseInt(dims.height, 10);
+          //   const midX = w / 2;
+          //   const midY = h / 2;
 
-            const left = midX - playBtnWidthMid;
-            const right = midX + playBtnWidthMid;
-            const top = midY - playBtnHeightMid;
-            const bottom = midY + playBtnHeightMid;
-            const center_dims = {
-              left: left,
-              right: right,
-              top: top,
-              bottom: bottom,
-            };
-            return center_dims;
-          }
+          //   const left = midX - playBtnWidthMid;
+          //   const right = midX + playBtnWidthMid;
+          //   const top = midY - playBtnHeightMid;
+          //   const bottom = midY + playBtnHeightMid;
+          //   const center_dims = {
+          //     left: left,
+          //     right: right,
+          //     top: top,
+          //     bottom: bottom,
+          //   };
+          //   return center_dims;
+          // }
 
           //adding google Analytics to record videojs events (play, pause, complete, ,time updated):
           this.analytics({
