@@ -30,114 +30,117 @@
   margin-bottom: 1.5rem;
   padding: 0.8rem 1rem;
   display: flex;
-  align-items: center
+  align-items: center;
 }
 .field--name-field-talk-video-url h2:after {
-      content: ":";
-      display: inline-block;
-      margin-right: 0.5rem;
-    }
+  content: ":";
+  display: inline-block;
+  margin-right: 0.5rem;
+}
 .field--name-field-talk-video-url h2 + a {
-    display: flex-item;
-  }
+  display: flex-item;
+}
 .field--name-field-talk-video {
   clear: both;
   margin-bottom: var(--gutter-standard);
 }
 /* Page title region & buttons */
 .node.talk.full .region-page-title {
-    display: grid;
-    align-items: start;
-  }
+  display: grid;
+  align-items: start;
+}
 .node.talk.full .speakers {
-    margin-bottom: 0.5rem;
-  }
+  margin-bottom: 0.5rem;
+}
 @media all and (min-width: 768px) {
-    .node.talk.full .region-page-title {
-      grid-template-columns: auto 6rem 6rem;
-    }
-    .node.talk.full h1 {
-      margin: 0 0 0.8rem;
-    }
-    .node.talk.full .block-pagetitle {
-      margin-right: var(--gutter-standard);
-    }
+  .node.talk.full .region-page-title {
+    grid-template-columns: auto 6rem 6rem;
+  }
+  .node.talk.full h1 {
+    margin: 0 0 0.8rem;
+  }
+  .node.talk.full .block-pagetitle {
+    margin-right: var(--gutter-standard);
+  }
 }
 @media all and (max-width: 767px) {
   .node.talk.full .region-page-title {
     grid-template-columns: 6rem 6rem auto;
-    margin-bottom: 1rem
+    margin-bottom: 1rem;
   }
-    .node.talk.full .region-page-title .block-page-title-block {
-      grid-column: span 3;
-    }
+  .node.talk.full .region-page-title .block-page-title-block {
+    grid-column: span 3;
+  }
 }
 /* Talk details/info  */
 .node.talk.full .speaker-list {
-    display: block;
-  }
+  display: block;
+}
 .node.talk.full .talk-metadata,
-  .node.talk.full .field--name-field-talk-abstract,
-  .node.talk.full .field--name-field-talk-resources {
-    border-bottom: 1px solid var(--color-md-grey);
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem
-  }
-.node.talk.full .talk-metadata:last-child, .node.talk.full .field--name-field-talk-abstract:last-child, .node.talk.full .field--name-field-talk-resources:last-child {
-      margin-bottom: 0;
-    }
+.node.talk.full .field--name-field-talk-abstract,
+.node.talk.full .field--name-field-talk-resources {
+  border-bottom: 1px solid var(--color-md-grey);
+  margin-bottom: 1.5rem;
+  padding-bottom: 1.5rem;
+  overflow-wrap: break-word;
+}
+.node.talk.full .talk-metadata:last-child,
+.node.talk.full .field--name-field-talk-abstract:last-child,
+.node.talk.full .field--name-field-talk-resources:last-child {
+  margin-bottom: 0;
+}
 .node.talk.full .date-doi {
-    margin-top: 0.5rem;
-  }
+  margin-top: 0.5rem;
+}
 .node.talk.full .group-taxonomy {
-    margin: 1rem 0 0 0.5rem;
-  }
+  margin: 1rem 0 0 0.5rem;
+}
 .node.talk.full .talk-metadata .field {
-    margin-bottom: 0.8rem
-  }
+  margin-bottom: 0.8rem;
+}
 .node.talk.full .talk-metadata .field.field--name-field-talk-subject {
-      margin-bottom: 0.67rem;
-    }
+  margin-bottom: 0.67rem;
+}
 .group-taxonomy {
-  font-size: 0.8em
+  font-size: 0.8em;
 }
 .group-taxonomy .field {
-    display: flex;
-  }
+  display: flex;
+}
 .group-taxonomy .field__label {
-    font-weight: normal;
-    white-space: nowrap;
-  }
+  font-weight: normal;
+  white-space: nowrap;
+}
 .group-taxonomy ul {
-    margin: 0;
-    padding: 0;
-  }
+  margin: 0;
+  padding: 0;
+}
 .group-taxonomy li {
-    display: inline;
-    margin-bottom: 0.4rem;
-  }
+  display: inline;
+  margin-bottom: 0.4rem;
+}
 .group-taxonomy .field--name-field-talk-subject a,
-  .group-taxonomy .field--name-field-talk-type a {
-    margin-bottom: 0.5rem;
-  }
+.group-taxonomy .field--name-field-talk-type a {
+  margin-bottom: 0.5rem;
+}
 @media all and (min-width: 768px) {
   .group-taxonomy {
     display: grid;
     grid-template-columns: auto auto;
     grid-gap: 0 var(--gutter-standard);
     align-items: start;
-    justify-content: start
+    justify-content: start;
   }
-      .group-taxonomy .field:nth-child(-n + 2) {
-        padding-bottom: 0.8rem;
-      }
-      .group-taxonomy .field:nth-child(odd) {
-        border-right: 1px solid var(--color-md-grey);
-        padding-right: var(--gutter-standard);
-      }
-      .group-taxonomy .field:nth-child(3):last-child {
-        border-right: none;
-      }
+  .group-taxonomy .field:nth-child(-n + 2) {
+    padding-bottom: 0.8rem;
+  }
+  .group-taxonomy .field:nth-child(odd) {
+    border-right: 1px solid var(--color-md-grey);
+    padding-right: var(--gutter-standard);
+  }
+  .group-taxonomy .field:nth-child(3):last-child {
+    border-right: none;
+  }
 }
 @media all and (max-width: 767px) {
   .date-doi {
@@ -148,14 +151,14 @@
 }
 /* Related talks */
 .related-talks-view {
-  padding-top: var(--vertical-padding)
+  padding-top: var(--vertical-padding);
 }
 .related-talks-view .view-display {
-    margin-left: -1rem;
-  }
+  margin-left: -1rem;
+}
 .related-talks-view h2 {
-    margin: 0;
-  }
+  margin: 0;
+}
 .talk-add {
   padding: 0.5em 1em;
   margin-bottom: 1em;

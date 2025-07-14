@@ -1,6 +1,6 @@
 name: SciTalk
 type: profile
-description: 'The SciTalk Distribution'
+description: "The SciTalk Distribution"
 version: 1.0
 core: 8.x
 core_version_requirement: ^9 || ^10
@@ -94,6 +94,10 @@ install:
   - views_field_view
   - google_analytics
   - field_permissions
+  - openapi
+  - openapi_jsonapi
+  - openapi_ui
+  - openapi_ui_redoc
 themes:
   - claro
   - scitalk_theme
