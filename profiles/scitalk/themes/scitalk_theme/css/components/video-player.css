@@ -382,4 +382,9 @@
   border: 1px solid var(--color-primary--foreground);
 }
 
+/* add background color to overlay when tapping on player to better see the pause button */
+.video-js.vjs-playing .vjs-touch-overlay.show-play-toggle {
+  background: #000;
+  opacity: 0.5;
+}
 /*# sourceMappingURL=video-player.css.map */
