@@ -1,6 +1,6 @@
 {
     "name": "jquery-responsive-tables",
-    "version": "2.2.1",
+    "version": "2.2.2",
     "description": "Plugin for mobile-friendly data tables",
     "main": "index.js",
     "scripts": {
@@ -22,6 +22,6 @@
     },
     "homepage": "https://github.com/ryanwellsdotcom/jquery-responsive-tables#readme",
     "dependencies": {
-        "jquery": ">=2.11"
+        "jquery": ">=3.71"
     }
 }
