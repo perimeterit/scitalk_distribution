@@ -5,6 +5,7 @@ namespace Drupal\scitalk_feeds\EventSubscriber;
 use Drupal\feeds\Event\ParseEvent;
 use Drupal\feeds\EventSubscriber\AfterParseBase;
 use Drupal\feeds\Feeds\Item\ItemInterface;
+use Drupal\feeds\Exception\SkipItemException;
 
 /**
  * Validate dates for talks and collections
@@ -23,7 +24,8 @@ class feedValidateDates extends AfterParseBase {
       'talk_importer',
       'talk_importer_inclusive_csv',
       'talk_importer_inclusive_json',
-      'collection_import'
+      'collection_import',
+      'youtube_talk_importer',
     ];
 
     return in_array($feed_id, $feeds);

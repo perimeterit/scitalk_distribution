@@ -81,3 +81,156 @@ function scitalk_feeds_update_91001() {
     }
 
 }
+
+/**
+*  Add YouTube feed parser, updates to file parser to prevent file duplications
+*/
+function scitalk_feeds_update_91002() {
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_feeds') . '/config/install';
+    $source      = new FileStorage($config_path);
+
+    // create Feed collection storage
+    $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+    $field_storage_yml =  'field.storage.feeds_feed.field_feeds_collection';
+    $field_storage_id = 'feeds_feed.field_feeds_collection';
+    $loaded_storage_config = $storage_config->load($field_storage_id);
+    if (empty($loaded_storage_config))
+    {
+        $storage_config_yml = $source->read($field_storage_yml);
+        $storage_config->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_feeds')->notice('Created Feeds Collection field storage');
+    }
+    else {
+        $storage_config_yml = $source->read($field_storage_yml); 
+        $entity = $storage_config->updateFromStorageRecord($loaded_storage_config, $storage_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_feeds')->notice('Updated Feeds Collection field storage');
+    }
+
+    $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
+    
+    //add FIELDs to youtube talk importer
+    $fields_type = 'field.field.feeds_feed';
+    $fields_id_pre = 'feeds_feed';
+    $fields = [
+        'Embed YouTube' => 'youtube_talk_importer.field_embed_youtube', 
+        'Feeds Collection' => 'youtube_talk_importer.field_feeds_collection', 
+        'Feeds Group' => 'youtube_talk_importer.field_feeds_group'
+    ];
+    foreach ($fields as $name => $field) {
+        $field_yml = "$fields_type.$field";
+        $field_id = "$fields_id_pre.$field";
+        $loaded_field_config = $field_config->load($field_id);
+        if (empty($loaded_field_config))
+        {
+            $field_config_yml = $source->read($field_yml);
+            $field_config->create($field_config_yml)->save();
+            \Drupal::logger('scitalk_feeds')->notice("Created $name field for Talk importer");
+        }
+        else {
+            $field_config_yml = $source->read($field_yml);
+            $entity = $field_config->updateFromStorageRecord($loaded_field_config, $field_config_yml);
+            $entity->save();
+            \Drupal::logger('scitalk_feeds')->notice("Updated $name field for Talk importer");
+        }
+    }
+
+    $youtube_feed_type = \Drupal::entityTypeManager()->getStorage('feeds_feed_type');
+    $youtube_feed_type_config = $youtube_feed_type->load("youtube_talk_importer");
+    $youtube_field_storage_yml =  'feeds.feed_type.youtube_talk_importer';
+    if (empty($youtube_feed_type_config))
+    {
+        $storage_config_yml = $source->read($youtube_field_storage_yml);
+        $youtube_feed_type->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_feeds')->notice('Created YouTube Feeds type');
+    }
+    else {
+        $storage_config_yml = $source->read($youtube_field_storage_yml); 
+        $entity = $youtube_feed_type->updateFromStorageRecord($youtube_feed_type_config, $storage_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_feeds')->notice('Updated YouTube Feeds type');
+    }
+
+    // create skip_skip_feeds_update field storage
+    $field_storage_yml =  'field.storage.node.field_skip_feeds_updates';
+    $field_storage_id = 'node.field_skip_feeds_updates';
+    $loaded_storage_config = $storage_config->load($field_storage_id);
+    if (empty($loaded_storage_config))
+    {
+        $storage_config_yml = $source->read($field_storage_yml);
+        $storage_config->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_feeds')->notice('Created Skip Feeds updates field storage');
+    }
+    else {
+        $storage_config_yml = $source->read($field_storage_yml); 
+        $entity = $storage_config->updateFromStorageRecord($loaded_storage_config, $storage_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_feeds')->notice('Updated Skip Feeds updates field storage');
+    }
+    
+    //add FIELD Skip Feeds updates to Talk importer
+    $field_yml = 'field.field.node.talk.field_skip_feeds_updates';
+    $field_id = 'node.talk.field_skip_feeds_updates';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_feeds')->notice('Created Skip Feeds updates field for Talk node');
+    }
+    else {
+        $field_config_yml = $source->read($field_yml);
+        $entity = $field_config->updateFromStorageRecord($loaded_field_config, $field_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_feeds')->notice('Updated Skip Feeds updates field for Talk node');
+    }
+
+    $field_yml = 'field.field.node.collection.field_skip_feeds_updates';
+    $field_id = 'node.collection.field_skip_feeds_updates';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_feeds')->notice('Created Skip Feeds updates field for Collection node');
+    }
+    else {
+        $field_config_yml = $source->read($field_yml);
+        $entity = $field_config->updateFromStorageRecord($loaded_field_config, $field_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_feeds')->notice('Updated Skip Feeds updates field for Collection node');
+    }
+
+    $view_display = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+    $default_view_display = $view_display->load('feeds_feed.youtube_talk_importer.default');
+    $view_yml = 'core.entity_view_display.feeds_feed.youtube_talk_importer.default';
+    if (empty($default_view_display))
+    {
+      $view_display_yml = $source->read($view_yml);
+      $view_display->create($view_display_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Created YouTube Talk importer view display');
+    }
+    else  {
+        $view_display_yml = $source->read($view_yml);
+        $entity = $view_display->updateFromStorageRecord($default_view_display, $view_display_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated YouTube Talk importer view display');
+    }
+
+    $entity_form = \Drupal::entityTypeManager()->getStorage('entity_form_display');
+    $youtube_entity_form = $entity_form->load('feeds_feed.youtube_talk_importer.default');
+    $entity_form_yml = 'core.entity_form_display.feeds_feed.youtube_talk_importer.default';
+    if (empty($youtube_entity_form))
+    {
+      $form_display_yml = $source->read($entity_form_yml);
+      $entity_form->create($form_display_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Create YouTube Talk importer entity form display');
+    }
+    else {
+        $form_display_yml = $source->read($entity_form_yml);
+        $entity = $entity_form->updateFromStorageRecord($youtube_entity_form, $form_display_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated YouTube Talk importer entity form display');
+    }
+
+}

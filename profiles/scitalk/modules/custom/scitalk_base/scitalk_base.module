@@ -483,6 +483,49 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
     $form['#validate'][] = '_scitalk_base_delete_entity_validate';
   }
 
+  // disable editing for a selected fields list when the content has been created from a Feed
+  $feeds_check_form = ['node_talk_edit_form', 'node_collection_edit_form'];  //, 'node_speaker_profile_edit_form'
+  if (in_array($form_id, $feeds_check_form)) {
+    $form['#attached']['library'][] = 'scitalk_base/scitalk_base_feeds';
+    $entity = $form_state->getFormObject()->getEntity();
+    $feed = $entity->get("feeds_item")->getValue();
+    $from_feed = !empty($feed);
+    // disable the skip feeds update when content was not created from a feed:
+    if (!$from_feed) {
+      $form['field_skip_feeds_updates']['widget']['value']['#attributes']['disabled'] = 'disabled';
+    }
+    else {
+      $readonly_fields = [];
+      $readonly_valued_fields = [];
+      if ($form_id == 'node_talk_edit_form') {
+        $readonly_fields = ['field_talk_abstract', 'field_collection_description'];
+        $readonly_valued_fields = ['title', 'field_talk_speakers_text'];
+        $form['field_talk_speaker_profile']['widget']['#attributes']['disabled'] = 'disabled';
+      }
+      elseif ($form_id == 'node_collection_edit_form') {
+        $readonly_fields = []; //['field_collection_description'];
+        $readonly_valued_fields = ['title'];
+
+        // // disable the whole field wrapper for organizers, this will also prevent adding more fields
+        // $form['field_collection_organizers']['#disabled'] = true;
+        // foreach ($form['field_collection_organizers']['widget'] as $delta => &$org) {
+        //   // show readonly cursor for the input:
+        //   if (is_int($delta) && is_array($org)) {
+        //     $org['target_id']['#attributes']['class'][] = 'readonly_field';
+        //   }
+        // }
+      }
+
+      foreach ($readonly_fields as $field) {
+        $form[$field]['widget'][0]['#attributes']['readonly'] = 'readonly';
+        $form[$field]['widget'][0]['#attributes']['class'][] = 'readonly_field';
+      }
+      foreach ($readonly_valued_fields as $field) {
+        $form[$field]['widget'][0]['value']['#attributes']['readonly'] = 'readonly';
+        $form[$field]['widget'][0]['value']['#attributes']['class'][] = 'readonly_field';
+      }
+    }
+  }
 }
 
 //check whether to create/update DOIs for this type of entity Talk

@@ -1,0 +1,72 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - feeds.feed_type.youtube_talk_importer
+    - field.field.feeds_feed.youtube_talk_importer.field_embed_youtube
+    - field.field.feeds_feed.youtube_talk_importer.field_feeds_collection
+    - field.field.feeds_feed.youtube_talk_importer.field_feeds_group
+id: feeds_feed.youtube_talk_importer.default
+targetEntityType: feeds_feed
+bundle: youtube_talk_importer
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {}
+    third_party_settings: {}
+  feeds_log:
+    type: boolean_checkbox
+    weight: 11
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {}
+  field_embed_youtube:
+    type: boolean_checkbox
+    weight: 2
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {}
+  field_feeds_collection:
+    type: entity_reference_autocomplete
+    weight: 12
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ""
+    third_party_settings: {}
+  field_feeds_group:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ""
+    third_party_settings: {}
+  title:
+    type: string_textfield
+    weight: -5
+    region: content
+    settings:
+      size: 60
+      placeholder: ""
+    third_party_settings: {}
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ""
+    third_party_settings: {}
+hidden: {}

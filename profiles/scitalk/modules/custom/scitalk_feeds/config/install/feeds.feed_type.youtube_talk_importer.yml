@@ -1,0 +1,189 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.base_field_override.node.talk.title
+    - field.field.node.talk.feeds_item
+    - field.field.node.talk.field_talk_abstract
+    - field.field.node.talk.field_talk_collection
+    - field.field.node.talk.field_talk_date
+    - field.field.node.talk.field_talk_source_repository
+    - field.field.node.talk.field_talk_thumbnail
+    - field.field.node.talk.field_talk_video
+    - field.field.node.talk.field_talk_video_url
+    - node.type.talk
+  module:
+    - feeds_ex
+    - feeds_log
+    - feeds_youtube_api_parser
+    - node
+third_party_settings:
+  feeds_log:
+    status: true
+    operations:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+      cleaned: cleaned
+    items:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+    source: true
+label: "YouTube Talk importer"
+id: youtube_talk_importer
+description: "Talk importer for YouTube videos"
+help: ""
+import_period: 86400
+fetcher: feeds_youtube_api_parser_fetcher
+fetcher_configuration:
+  google_developer_key: AIzaSyCAHA18rOPYKV3WGYqEzl3wYGQfsaz8P5c
+  import_video_limit: "50"
+  results_per_page: "50"
+parser: jsonpath
+parser_configuration:
+  context:
+    value: "$.*"
+  source_encoding:
+    - auto
+  display_errors: false
+  line_limit: 100
+processor: "entity:node"
+processor_configuration:
+  values:
+    type: talk
+  langcode: en
+  insert_new: 1
+  update_existing: 2
+  update_non_existent: _keep
+  skip_hash_check: false
+  skip_validation: false
+  skip_validation_types: {}
+  authorize: false
+  revision: false
+  expire: -1
+  owner_feed_author: true
+  owner_id: 0
+custom_sources:
+  title:
+    value: $.title
+    label: $.title
+    machine_name: title
+    type: json
+  description:
+    value: $.description
+    label: $.description
+    machine_name: description
+    type: json
+  video_url:
+    value: $.video_url
+    label: $.video_url
+    machine_name: video_url
+    type: json
+  thumbnail_default:
+    value: $.thumbnail_default
+    label: $.thumbnail_default
+    machine_name: thumbnail_default
+    type: json
+  source_group:
+    value: source_group
+    label: source_group
+    machine_name: source_group
+    type: blank
+  published_datetime:
+    value: $.published_datetime
+    label: $.published_datetime
+    machine_name: published_datetime
+    type: json
+  status:
+    value: Status
+    label: Status
+    machine_name: status
+    type: blank
+  prefixed_talk_number:
+    value: prefixed_talk_number
+    label: prefixed_talk_number
+    machine_name: prefixed_talk_number
+    type: blank
+  video_id:
+    value: $.video_id
+    label: $.video_id
+    machine_name: video_id
+    type: json
+  video:
+    value: video
+    label: video
+    machine_name: video
+    type: blank
+mappings:
+  - target: title
+    map:
+      value: title
+    settings:
+      language: null
+    unique: {}
+  - target: field_talk_abstract
+    map:
+      value: description
+    settings:
+      language: null
+      format: plain_text
+  - target: field_talk_video_url
+    map:
+      uri: video_url
+      title: title
+    settings:
+      language: null
+  - target: field_talk_thumbnail
+    map:
+      target_id: thumbnail_default
+      alt: title
+      title: title
+    settings:
+      existing: 2
+      language: null
+      reference_by: filename
+      autocreate: false
+      autocreate_bundle: false
+  - target: field_talk_source_repository
+    map:
+      target_id: source_group
+    settings:
+      language: ""
+      reference_by: id
+      autocreate: 0
+      autocreate_bundle: source_repository
+  - target: field_talk_date
+    map:
+      value: published_datetime
+    settings:
+      language: null
+      timezone: UTC
+  - target: feeds_item
+    map:
+      url: ""
+      guid: video_id
+    settings: {}
+    unique:
+      guid: 1
+  - target: field_talk_collection
+    map:
+      target_id: "parent:field_feeds_collection"
+    settings:
+      language: ""
+      reference_by: nid
+      feeds_item: guid
+      autocreate: 0
+      autocreate_bundle: collection
+  - target: field_talk_video
+    map:
+      target_id: video
+    settings:
+      language: ""
+      reference_by: name
+      autocreate: 1
+      autocreate_bundle: scitalk_youtube_video

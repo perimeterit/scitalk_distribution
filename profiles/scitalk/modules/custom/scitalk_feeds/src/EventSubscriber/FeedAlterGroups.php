@@ -25,7 +25,8 @@ class feedAlterGroups extends AfterParseBase {
       'talk_importer',
       'talk_importer_inclusive_csv',
       'talk_importer_inclusive_json',
-      'collection_import'
+      'collection_import',
+      'youtube_talk_importer',
     ];
 
     return in_array($feed_id, $feeds);
@@ -77,8 +78,10 @@ class feedAlterGroups extends AfterParseBase {
       $item->set('prefixed_collection_number', $prefixed_collection_number);
     }
     else {
-      $prefixed_talk_number = $prefix . $item->get('_talk_number');
-      $item->set('prefixed_talk_number', $prefixed_talk_number);
+      if (!empty($item->get('_talk_number'))) {
+        $prefixed_talk_number = $prefix . $item->get('_talk_number');
+        $item->set('prefixed_talk_number', $prefixed_talk_number);
+      }
     }
   }
 }

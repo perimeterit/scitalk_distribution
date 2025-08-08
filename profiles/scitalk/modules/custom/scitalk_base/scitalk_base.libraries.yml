@@ -16,3 +16,8 @@ scitalk_base:
     - core/jquery.intrinsic
     - core/drupalSettings
     - core/drupal.ajax
+
+scitalk_base_feeds:
+  css:
+    component:
+      css/scitalk_base_form.css: {}

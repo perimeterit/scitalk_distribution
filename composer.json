@@ -42,6 +42,7 @@
         "drupal/feeds": "^3.0@beta",
         "drupal/feeds_ex": "^1.0@beta",
         "drupal/feeds_tamper": "^2.0@beta",
+        "drupal/feeds_youtube_api_parser": "2.0.x-dev@dev",
         "drupal/fences": "^3.0",
         "drupal/field_group": "^3.4",
         "drupal/field_permissions": "^1.2",
@@ -130,6 +131,9 @@
         "post-update-cmd": [
             "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
             "Scitalk\\composer\\ScriptHandler::moveProfile"
+        ],
+        "pre-autoload-dump": [
+            "Google\\Task\\Composer::cleanup"
         ]
     },
     "extra": {
@@ -167,6 +171,9 @@
             "bower-asset",
             "npm-asset",
             "drupal-library"
+        ],
+        "google/apiclient-services": [
+            "YouTube"
         ],
         "enable-patching": true,
         "patches": {

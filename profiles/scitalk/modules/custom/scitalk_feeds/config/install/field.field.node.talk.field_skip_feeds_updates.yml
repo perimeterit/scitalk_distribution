@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_skip_feeds_updates
+    - node.type.talk
+id: node.talk.field_skip_feeds_updates
+field_name: field_skip_feeds_updates
+entity_type: node
+bundle: talk
+label: "Skip feeds updates"
+description: ""
+required: false
+translatable: false
+default_value: {}
+default_value_callback: ""
+settings:
+  on_label: "On"
+  off_label: "Off"
+field_type: boolean
