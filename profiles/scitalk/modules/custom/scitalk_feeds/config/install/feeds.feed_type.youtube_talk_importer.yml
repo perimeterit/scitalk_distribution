@@ -41,7 +41,7 @@ help: ""
 import_period: 86400
 fetcher: feeds_youtube_api_parser_fetcher
 fetcher_configuration:
-  google_developer_key: AIzaSyCAHA18rOPYKV3WGYqEzl3wYGQfsaz8P5c
+  google_developer_key: 
   import_video_limit: "50"
   results_per_page: "50"
 parser: jsonpath
