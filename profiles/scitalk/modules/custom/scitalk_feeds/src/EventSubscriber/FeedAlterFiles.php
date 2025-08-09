@@ -46,6 +46,27 @@ class feedAlterFiles extends AfterParseBase {
    */
   protected function alterItem(ItemInterface $item, ParseEvent $event) {
 
+    $feed_id = $event->getFeed()->getType()->id();
+    
+    // for YouTube talks feed importer, the Collection is set in the feed.
+    // need to set the group field for that collection:
+    if ($feed_id == 'youtube_talk_importer') {
+      $group_field = $event->getFeed()->get('field_feeds_group')->getValue();
+      if (isset($group_field[0])) {
+        $group_id = $group_field[0]['target_id'];
+        $feed_collection = $event->getFeed()->get('field_feeds_collection')->getValue();
+        $feed_collection_id = $feed_collection[0]['target_id'] ?? 0;
+        $talk_collection = \Drupal::entityTypeManager()->getStorage('node')->load($feed_collection_id);
+        if ($talk_collection) {
+          $repo = $talk_collection?->field_collection_source_repo?->target_id ?? 0;
+          if (empty($repo)) {
+            $talk_collection->set('field_collection_source_repo', ['target_id' => $group_id]);
+          }
+        }
+      }
+    }
+
+
     // get the entity for this feed item:
     $entity = $this->existingEntity($event->getFeed(), $item);
     
@@ -126,7 +147,7 @@ class feedAlterFiles extends AfterParseBase {
       return;
     }
 
-    $feed_id = $event->getFeed()->getType()->id();
+    // $feed_id = $event->getFeed()->getType()->id();
     $video_url_field = '_video_url';
     $video_title_field = '_title';
     $video_field = '_video';
