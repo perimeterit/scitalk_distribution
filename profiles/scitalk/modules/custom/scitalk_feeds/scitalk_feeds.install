@@ -89,6 +89,22 @@ function scitalk_feeds_update_91002() {
     $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_feeds') . '/config/install';
     $source      = new FileStorage($config_path);
 
+    $youtube_feed_type = \Drupal::entityTypeManager()->getStorage('feeds_feed_type');
+    $youtube_feed_type_config = $youtube_feed_type->load("youtube_talk_importer");
+    $youtube_field_storage_yml =  'feeds.feed_type.youtube_talk_importer';
+    if (empty($youtube_feed_type_config))
+    {
+        $storage_config_yml = $source->read($youtube_field_storage_yml);
+        $youtube_feed_type->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_feeds')->notice('Created YouTube Feeds type');
+    }
+    else {
+        $storage_config_yml = $source->read($youtube_field_storage_yml);
+        $entity = $youtube_feed_type->updateFromStorageRecord($youtube_feed_type_config, $storage_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_feeds')->notice('Updated YouTube Feeds type');
+    }
+
     // create Feed collection storage
     $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
     $field_storage_yml =  'field.storage.feeds_feed.field_feeds_collection';
@@ -133,22 +149,6 @@ function scitalk_feeds_update_91002() {
             $entity->save();
             \Drupal::logger('scitalk_feeds')->notice("Updated $name field for Talk importer");
         }
-    }
-
-    $youtube_feed_type = \Drupal::entityTypeManager()->getStorage('feeds_feed_type');
-    $youtube_feed_type_config = $youtube_feed_type->load("youtube_talk_importer");
-    $youtube_field_storage_yml =  'feeds.feed_type.youtube_talk_importer';
-    if (empty($youtube_feed_type_config))
-    {
-        $storage_config_yml = $source->read($youtube_field_storage_yml);
-        $youtube_feed_type->create($storage_config_yml)->save();
-        \Drupal::logger('scitalk_feeds')->notice('Created YouTube Feeds type');
-    }
-    else {
-        $storage_config_yml = $source->read($youtube_field_storage_yml); 
-        $entity = $youtube_feed_type->updateFromStorageRecord($youtube_feed_type_config, $storage_config_yml);
-        $entity->save();
-        \Drupal::logger('scitalk_feeds')->notice('Updated YouTube Feeds type');
     }
 
     // create skip_skip_feeds_update field storage
