@@ -8,3 +8,4 @@ dependencies:
   - feeds:feeds
   - feeds_ex:feeds_ex
   - feeds_tamper:feeds_tamper
+  - feeds_youtube_api_parser:feeds_youtube_api_parser
