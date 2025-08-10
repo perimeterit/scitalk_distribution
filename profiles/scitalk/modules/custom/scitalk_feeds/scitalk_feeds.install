@@ -89,6 +89,9 @@ function scitalk_feeds_update_91002() {
     $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_feeds') . '/config/install';
     $source      = new FileStorage($config_path);
 
+    //enable feeds_youtube_api_parser module
+    \Drupal::service('module_installer')->install(['feeds_youtube_api_parser']);
+
     $youtube_feed_type = \Drupal::entityTypeManager()->getStorage('feeds_feed_type');
     $youtube_feed_type_config = $youtube_feed_type->load("youtube_talk_importer");
     $youtube_field_storage_yml =  'feeds.feed_type.youtube_talk_importer';
