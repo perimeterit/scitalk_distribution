@@ -240,7 +240,7 @@ class feedAlterFiles extends AfterParseBase {
    */
   private function getEntityVideo(EntityInterface|null $entity) {
     if ($entity instanceof EntityInterface) {
-      $video_target_id = $entity->get('field_talk_video')->target_id;
+      $video_target_id = $entity->get('field_talk_video')->target_id ?? 0;
       $media_entity = \Drupal::entityTypeManager()->getStorage('media')->load($video_target_id);
       return $media_entity;
     }
