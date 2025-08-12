@@ -498,7 +498,7 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
       $readonly_fields = [];
       $readonly_valued_fields = [];
       if ($form_id == 'node_talk_edit_form') {
-        $readonly_fields = ['field_talk_abstract', 'field_collection_description'];
+        $readonly_fields = ['field_talk_abstract'];
         $readonly_valued_fields = ['title', 'field_talk_speakers_text'];
         $form['field_talk_speaker_profile']['widget']['#attributes']['disabled'] = 'disabled';
       }
