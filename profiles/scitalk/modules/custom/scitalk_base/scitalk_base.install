@@ -1235,11 +1235,14 @@ function scitalk_base_update_8121(&$sandbox) {
  * make sure that we create the new Feeds fields (scitalk_feeds module) before updating the Talk and Collection entities
  */
 function scitalk_base_update_dependencies() {
-  $dependencies['scitalk_base'][8122] = array(
-    'scitalk_feeds' => 91002,
-  );
-
-  return $dependencies;
+    $dependencies = [];
+    $moduleHandler = \Drupal::service('module_handler');
+    if ($moduleHandler->moduleExists('scitalk_feeds'))  {
+        $dependencies['scitalk_base'][8122] = array(
+          'scitalk_feeds' => 91002,
+        );
+    }
+    return $dependencies;
 }
 
 /**
