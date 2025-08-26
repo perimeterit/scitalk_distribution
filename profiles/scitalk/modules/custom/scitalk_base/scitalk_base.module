@@ -9,6 +9,7 @@ use Drupal\views\ViewExecutable;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\node\Entity\Node;
 use \Drupal\Core\Cache\RefinableCacheableDependencyInterface;
+use Drupal\Core\Entity\ContentEntityInterface;
 
 // use Drupal\scitalk_base\ScitalkServices\ReferenceIDGeneratorInterface;
 use Drupal\scitalk_base\Plugin\Field\SciTalkPrefixedTalkNumberList;
@@ -255,6 +256,9 @@ function scitalk_base_node_delete(Drupal\Core\Entity\EntityInterface $entity) {
       $scivideo_talk = \Drupal::service('scitalk_base.scivideos_integrate');
       $scivideo_talk->deleteTalk($entity);
     }
+
+    //delete the Talk media and attachments;
+    _delete_talk_media($entity);
   }
 
   //if the Collections is part of another Collection then update the parent Collection stats (number of talks, latest talk)
@@ -607,3 +611,68 @@ function _scitalk_base_delete_entity_validate(&$form, FormStateInterface $form_s
     }
   }
 }
+
+function _delete_talk_media(\Drupal\Core\Entity\EntityInterface $entity) {
+  if ($entity->getType() == 'talk') {
+    // delete the Talk Video media
+    $video_target_id = $entity->get('field_talk_video')->target_id ?? 0;
+    $video_media_entity = \Drupal::entityTypeManager()->getStorage('media')->load($video_target_id);
+    $url = $entity->toUrl('canonical', ['absolute' => TRUE])->toString();
+    if ($video_media_entity) {
+      $usage = _find_media_usages(($video_media_entity->id()));
+      // if (count($usage) == 1 && current($usage) == $url) {
+      if (count($usage) == 0) {
+        $video_media_entity->delete();
+      }
+    }
+
+    // now find this Talk attachments and delete them if not used anywhere else
+    $attachments = $entity->get("field_talk_attachments")->getValue() ?? [];
+    foreach ($attachments as $att) {
+        $attached_media = \Drupal::entityTypeManager()->getStorage('media')->load($att['target_id']);
+        $usage = _find_media_usages(($attached_media->id()));
+        // at this stage the talk has been deleted so the attachment if it was unique, should not be used anywhere else
+        if (count($usage) == 0) {
+            $attached_media->delete();
+        }
+    }
+  }
+}
+
+function _find_media_usages(int $media_id) {
+    $urls = [];
+    $entityFieldManager = \Drupal::service('entity_field.manager');
+    $bundleInfo = \Drupal::service('entity_type.bundle.info');
+    $entityTypes = \Drupal::entityTypeManager()->getDefinitions();
+
+    foreach ($entityTypes as $entity_type_id => $definition) {
+      if (!\in_array(ContentEntityInterface::class, class_implements($definition->getClass()))) {
+        continue;
+      }
+      $bundles = $bundleInfo->getBundleInfo($entity_type_id);
+      foreach (array_keys($bundles) as $bundle) {
+        $fields = $entityFieldManager->getFieldDefinitions($entity_type_id, $bundle);
+        foreach ($fields as $field_definition) {
+          if (
+            $field_definition->getType() === 'entity_reference'
+            && $field_definition->getSetting('target_type') === 'media'
+          ) {
+            $field_name = $field_definition->getName();
+            $ids = \Drupal::entityQuery($entity_type_id)
+              ->accessCheck(TRUE)
+              ->condition($field_name . '.target_id', $media_id)
+              ->execute();
+            if ($ids) {
+              $entities = \Drupal::entityTypeManager()->getStorage($entity_type_id)->loadMultiple($ids);
+              foreach ($entities as $entity) {
+                if ($entity->hasLinkTemplate('canonical')) {
+                  $urls[] = $entity->toUrl('canonical', ['absolute' => TRUE])->toString();
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+    return array_unique($urls);
+  }

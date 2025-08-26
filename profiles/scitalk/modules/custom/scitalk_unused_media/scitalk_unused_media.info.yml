@@ -1,0 +1,8 @@
+name: SciTalk Unused Media Cleaner
+type: module
+description: Extends and overrides Drupal "Unused Media Cleaner" contrib module to only remove unused SciTalk specific medias, not big files
+core_version_requirement: ^8 || ^9 || ^10 || ^11
+configure: scitalk_base.settings
+package: SciTalk
+dependencies:
+  - unused_media_cleaner:unused_media_cleaner

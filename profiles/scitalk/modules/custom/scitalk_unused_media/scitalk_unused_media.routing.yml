@@ -1,0 +1,20 @@
+# scitalk_unused_media.routing.yml
+scitalk_unused_media.report_override:
+  path: "/admin/config/media/cleaner/report"
+  defaults:
+    _form: '\Drupal\scitalk_unused_media\Form\SciTalkMediaReportForm'
+    _title: "SciTalk - Unused Media Cleaner Report"
+  requirements:
+    _permission: "access unused media cleaner"
+  options:
+    _ignore_original_paths: true # Important to prevent conflicts
+
+scitalk_unused_media.delete_unused_override:
+  path: "/admin/config/media/cleaner/delete-unused"
+  defaults:
+    _controller: '\Drupal\scitalk_unused_media\Controller\SciTalkMediaCleanerController::deleteUnused'
+    _title: "SciTalk - delete unused media"
+  requirements:
+    _permission: "delete unused media"
+  options:
+    _ignore_original_paths: true # Important to prevent conflicts

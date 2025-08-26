@@ -171,7 +171,7 @@ class feedAlterFiles extends AfterParseBase {
       $entity_video_url = $entity_video?->get('field_media_scitalk_video')->value ?? '';
 
       // feed video is the same as the existing one, so reuse it:
-      if ($entity_video_url == $video_url) {
+      if ($entity_video && $entity_video_url == $video_url) {
         $video_media = $entity_video->getName();
         $item->set($video_field, $video_media);
         $item->set($video_url_field, '');
