@@ -492,7 +492,7 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
   if (in_array($form_id, $feeds_check_form)) {
     $form['#attached']['library'][] = 'scitalk_base/scitalk_base_feeds';
     $entity = $form_state->getFormObject()->getEntity();
-    $feed = $entity->get("feeds_item")->getValue();
+    $feed = $entity->get("feeds_item")?->getValue() ?? null;
     $from_feed = !empty($feed);
     // disable the skip feeds update when content was not created from a feed:
     if (!$from_feed) {
