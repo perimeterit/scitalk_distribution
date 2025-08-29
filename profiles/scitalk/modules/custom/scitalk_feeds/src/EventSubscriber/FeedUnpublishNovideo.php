@@ -4,6 +4,7 @@ namespace Drupal\scitalk_feeds\EventSubscriber;
 
 use Drupal\feeds\Event\ParseEvent;
 use Drupal\feeds\EventSubscriber\AfterParseBase;
+use Drupal\feeds\Exception\SkipItemException;
 
 /**
  * Unpublish talks if there is no video file or link
@@ -22,6 +23,7 @@ class FeedUnpublishNovideo extends AfterParseBase {
       'talk_importer',
       'talk_importer_inclusive_csv',
       'talk_importer_inclusive_json',
+      'youtube_talk_importer',
     ];
 
     return in_array($feed_id, $feeds);

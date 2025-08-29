@@ -1,8 +1,8 @@
-uuid: 77215574-0aa1-4c9c-a514-7fe73faee756
 langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.collection.feeds_item
     - field.field.node.collection.field_academic_year
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
@@ -19,6 +19,7 @@ dependencies:
     - field.field.node.collection.field_collection_type
     - field.field.node.collection.field_parent_collection
     - field.field.node.collection.field_scivideos_uuid
+    - field.field.node.collection.field_skip_feeds_updates
     - node.type.collection
   module:
     - date_all_day
@@ -47,6 +48,7 @@ third_party_settings:
     group_collection_info:
       children:
         - field_collection_number
+        - field_skip_feeds_updates
         - title
         - field_collection_date
         - field_academic_year
@@ -98,8 +100,6 @@ third_party_settings:
         formatter: closed
         description: ""
         required_fields: true
-_core:
-  default_config_hash: Gkl6uoGgpMFsACwlN1EetuI7D9ZO5DmPslkT7_mcrS0
 id: node.collection.default
 targetEntityType: node
 bundle: collection
@@ -113,13 +113,13 @@ content:
     third_party_settings: {}
   field_academic_year:
     type: options_select
-    weight: 4
+    weight: 5
     region: content
     settings: {}
     third_party_settings: {}
   field_collection_date:
     type: daterange_all_day
-    weight: 3
+    weight: 4
     region: content
     settings: {}
     third_party_settings: {}
@@ -141,7 +141,7 @@ content:
     third_party_settings: {}
   field_collection_location:
     type: string_textfield
-    weight: 29
+    weight: 30
     region: content
     settings:
       size: 60
@@ -157,7 +157,7 @@ content:
     third_party_settings: {}
   field_collection_organizers:
     type: entity_reference_autocomplete
-    weight: 5
+    weight: 6
     region: content
     settings:
       match_operator: CONTAINS
@@ -180,7 +180,7 @@ content:
     third_party_settings: {}
   field_collection_subject:
     type: options_select
-    weight: 4
+    weight: 5
     region: content
     settings: {}
     third_party_settings: {}
@@ -200,9 +200,16 @@ content:
       size: 60
       placeholder: ""
     third_party_settings: {}
+  field_skip_feeds_updates:
+    type: boolean_checkbox
+    weight: 2
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {}
   langcode:
     type: language_select
-    weight: 3
+    weight: 4
     region: content
     settings:
       include_locked: true
@@ -215,14 +222,14 @@ content:
     third_party_settings: {}
   status:
     type: boolean_checkbox
-    weight: 2
+    weight: 3
     region: content
     settings:
       display_label: true
     third_party_settings: {}
   title:
     type: string_textfield
-    weight: 2
+    weight: 3
     region: content
     settings:
       size: 60
@@ -240,6 +247,7 @@ content:
     third_party_settings: {}
 hidden:
   entitygroupfield: true
+  feeds_item: true
   field_collection_last_talk_date: true
   field_collection_number_children: true
   field_collection_number_of_talks: true

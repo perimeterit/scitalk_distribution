@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - feeds.feed_type.youtube_talk_importer
+    - field.storage.feeds_feed.field_feeds_collection
+    - node.type.collection
+id: feeds_feed.youtube_talk_importer.field_feeds_collection
+field_name: field_feeds_collection
+entity_type: feeds_feed
+bundle: youtube_talk_importer
+label: "Feeds Collection"
+description: ""
+required: false
+translatable: false
+default_value: {}
+default_value_callback: ""
+settings:
+  handler: "default:node"
+  handler_settings:
+    target_bundles:
+      collection: collection
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: true
+    auto_create_bundle: ""
+field_type: entity_reference

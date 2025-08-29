@@ -60,6 +60,7 @@ video-player:
   css:
     component:
       /libraries/video.js/dist/video-js.min.css: {}
+      /libraries/videojs-mobile-ui/dist/videojs-mobile-ui.css: {}
       /libraries/videojs-contrib-ads/dist/videojs-contrib-ads.css: {}
       css/components/videojs-preroll.css: {}
       /libraries/videojs-quality-selector-hls/dist/videojs-quality-selector-hls.css:
@@ -76,6 +77,7 @@ video-player:
     /libraries/videojs-quality-selector-hls/dist/videojs-quality-selector-hls.min.js:
       {}
     /libraries/videojs-hotkeys/videojs.hotkeys.min.js: {}
+    /libraries/videojs-mobile-ui/dist/videojs-mobile-ui.min.js: {}
     js/scitalk_video_js.js: {}
     js/videojs-analytics.js: {}
     js/transcript.js: {}

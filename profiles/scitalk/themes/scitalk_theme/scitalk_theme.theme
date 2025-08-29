@@ -210,7 +210,7 @@ function scitalk_theme_preprocess_media(&$variables) {
     ]);
 
     $entity = current($entity);
-    $field_vtt_urls = $entity->field_subtitle_url->getValue() ?? [];
+    $field_vtt_urls = $entity->field_subtitle_url?->getValue() ?? [];
 
     //if there is a vtt url set then use it, else check if a vtt file was uploaded instead
     if (!empty($field_vtt_urls)) {
@@ -223,7 +223,7 @@ function scitalk_theme_preprocess_media(&$variables) {
       }
     }
     else {
-      $field_vtt_files = $entity->field_subtitle_upload_file->getValue() ?? [];
+      $field_vtt_files = $entity->field_subtitle_upload_file?->getValue() ?? [];
 
       foreach ($field_vtt_files as $field_vtt_file) {
         $media = Media::load($field_vtt_file['target_id']);
