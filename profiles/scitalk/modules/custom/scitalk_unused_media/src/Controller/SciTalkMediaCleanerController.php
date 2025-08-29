@@ -131,37 +131,38 @@ class SciTalkMediaCleanerController extends MediaCleanerController {
 
         $media_label = $media->label();
 
+        //  NO!! DO not delete files! they are not duplicated in the filesystem!!!!!!!!!!!!!!!!
         // Manual approach to handle different possible file fields.
-        $file_deleted = FALSE;
-        $possible_fields = [
-          'field_media_file',
-          'field_media_image',
-          'field_media_document',
-          'field_media_video_file',
-          'field_media_scitalk_video',
-        ];
+        // $file_deleted = FALSE;
+        // $possible_fields = [
+        //   'field_media_file',
+        //   'field_media_image',
+        //   'field_media_document',
+        //   'field_media_video_file',
+        //   'field_media_scitalk_video',
+        // ];
 
-        foreach ($possible_fields as $field_name) {
-          if ($media->hasField($field_name) && !$media->get($field_name)->isEmpty()) {
-            $file = $media->get($field_name)->entity;
-            if ($file) {
-              try {
-                $file->delete();
-                $file_deleted = TRUE;
-                // Exit loop as soon as a file is found and deleted.
-                break;
-              }
-              catch (\Exception $file_error) {
-                $logger->error('Error deleting file for media @mid: @error', [
-                  '@mid' => $mid,
-                  '@error' => $file_error->getMessage(),
-                ]);
-                // Continue to try to delete the media entity even if
-                // file deletion failed.
-              }
-            }
-          }
-        }
+        // foreach ($possible_fields as $field_name) {
+        //   if ($media->hasField($field_name) && !$media->get($field_name)->isEmpty()) {
+        //     $file = $media->get($field_name)->entity;
+        //     if ($file) {
+        //       try {
+        //         $file->delete();
+        //         $file_deleted = TRUE;
+        //         // Exit loop as soon as a file is found and deleted.
+        //         break;
+        //       }
+        //       catch (\Exception $file_error) {
+        //         $logger->error('Error deleting file for media @mid: @error', [
+        //           '@mid' => $mid,
+        //           '@error' => $file_error->getMessage(),
+        //         ]);
+        //         // Continue to try to delete the media entity even if
+        //         // file deletion failed.
+        //       }
+        //     }
+        //   }
+        // }
 
         // Delete the media entity.
         $media->delete();
