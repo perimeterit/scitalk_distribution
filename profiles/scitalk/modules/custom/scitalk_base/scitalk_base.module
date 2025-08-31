@@ -631,7 +631,11 @@ function _delete_talk_media(\Drupal\Core\Entity\EntityInterface $entity) {
     $attachments = $entity->get("field_talk_attachments")->getValue() ?? [];
     foreach ($attachments as $att) {
         $attached_media = \Drupal::entityTypeManager()->getStorage('media')->load($att['target_id']);
-        $usage = _find_media_usages(($attached_media->id()));
+        $mid = $attached_media?->id() ?? 0;
+        if (!$mid) {
+          continue;
+        }
+        $usage = _find_media_usages($mid);
         // at this stage the talk has been deleted so the attachment if it was unique, should not be used anywhere else
         if (count($usage) == 0) {
             $attached_media->delete();
