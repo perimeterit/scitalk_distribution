@@ -15,6 +15,7 @@
 
 .bef-exposed-form .fieldset--field-collection-type-target-id .form-radios {
     display: flex;
+    gap: .5rem;
     text-align: center;
   }
 
@@ -30,21 +31,21 @@
 
 .block--scitalk-collections-extra-filters .form-radios .form-item {
   font-size: 1em;
-  position: relative;
-  margin: 0 1rem
+  position: relative
 }
 
+.block--scitalk-collections-extra-filters .form-radios .form-item:hover {
+    cursor: pointer;
+  }
+
 .block--scitalk-collections-extra-filters .form-radios .form-item .field-prefix {
-    display: block;
+    display: inline-block;
     font-size: 1.125em;
     font-weight: 400;
     color: var(--color-dk-grey);
-
-    margin-bottom: -2rem;
-    margin-top: .5rem;
     opacity: .9;
+    padding: .5rem;
     position: relative;
-    top: .3rem;
     z-index: 4;
   }
 
@@ -54,8 +55,7 @@
     text-decoration: none;
 
     cursor: pointer;
-    margin-top: -2.7rem;
-    padding: 0 1rem;
+    padding: 0 1rem .5rem;
     position: relative;
     z-index: 4;
   }
@@ -67,22 +67,33 @@
     border: none;
     margin: 0;
     padding: .5em 2.2em;
-    height: 5.5em;
-    width: 100%;
 
-    position: relative;
-    z-index: 0
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0
   }
 
 .block--scitalk-collections-extra-filters .form-radios .form-item input:hover, .block--scitalk-collections-extra-filters .form-radios .form-item input:focus, .block--scitalk-collections-extra-filters .form-radios .form-item input:checked {
       background: var(--color-lt-grey);
       border: none;
       border-bottom: 2px solid var(--color-primary);
+      cursor: pointer;
     }
 
-.block--scitalk-collections-extra-filters .form-radios .form-item input:focus {
-      border: 2px solid var(--color-primary);
+.block--scitalk-collections-extra-filters .form-radios .form-item input:focus-visible, .block--scitalk-collections-extra-filters .form-radios .form-item input:focus-within {
+      box-shadow: none;
     }
+
+.block--scitalk-collections-extra-filters .form-radios .form-item {
+
+  /* This one should be "- All -" */
+}
+
+.block--scitalk-collections-extra-filters .form-radios .form-item:first-child label {
+    white-space: nowrap;
+  }
 
 @media all and (max-width: 600px) {
   .bef-exposed-form .fieldset--field-collection-type-target-id .form-radios  {
@@ -97,6 +108,12 @@
     .bef-exposed-form .fieldset--field-collection-type-target-id .form-radios input {
       padding: .5em 1.8em;
     }
+}
+
+@media all and (max-width: 600px) {
+  .bef-exposed-form .fieldset--field-collection-type-target-id .form-radios  {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
 /* Layered box shadows */
