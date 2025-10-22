@@ -1,0 +1,46 @@
+/**
+ * Theming for any taxonomy terms
+*/
+@import "../base/mixins.css";
+/*
+ * As entity reference, and exposed form BEF links
+ */
+ .form-select.bef-links ul {
+   @mixin display-list;
+   font-size: .8rem;
+   & li {
+     display: inline-block;
+     margin: 0.5rem;
+   }
+ }
+
+.tag,
+.field--name-field-talk-subject,
+.field--name-field-scientific-area,
+.field--name-field-talk-type,
+.mini-teaser .field--name-field-talk-collection {
+  & a {
+    @mixin tag;
+    &:matches(:hover,:focus) {
+      @mixin tag-hover;
+    }
+  }
+}
+
+.field--name-field-talk-collection {
+  & li:not(:last-child):after {
+    content: ',';
+    display: inline-block;
+  }
+}
+
+/* Full term display */
+.taxonomy-term.full {
+  margin-bottom: var(--vertical-padding);
+}
+
+/* View of taxonomy terms; used on home page */
+
+.view-scitalk-taxonomyy {
+  margin: 2rem;
+}

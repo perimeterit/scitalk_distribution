@@ -1,0 +1,108 @@
+/**
+ * Utility classes
+ */
+
+.display-list,
+.inline-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.inline-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  & > li {
+    display: inline;
+    margin-right: 0.4em;
+    &:last-child {
+      margin: 0;
+    }
+  }
+}
+
+/* Link styles */
+
+.caret-link::after,
+summary::after {
+  --caret-color: var(--link-color);
+  --caret-size: 1rem;
+  --caret-weight: 2px;
+  --caret-rotate: 45deg;
+  content: '';
+  display: inline-block;
+  height: var(--caret-size);
+  width: var(--caret-size);
+  border-right: var(--caret-weight) solid var(--caret-color);
+  border-bottom: var(--caret-weight) solid var(--caret-color);
+  transform: rotate(var(--caret-rotate));
+}
+
+.tag {
+  background: var(--color-lt-grey);
+  color: var(--color-default-text);
+  display: inline-block;
+  line-height: 1.6rem;
+  padding: 0rem 0.7rem;
+  text-decoration: none;
+  &:is(:hover,:focus) {
+    background: var(--color-secondary);
+    color: var(--color-secondary--foreground);
+    text-decoration: none;
+  }
+}
+
+/* Layout utilities */
+
+.fixwidth,
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-right: var(--responsive-padding);
+  padding-left: var(--responsive-padding);
+}
+
+/* Uses padding to make div work like a container without needing an extra div */
+.make-container {
+  padding-left: var(--max-width-margin);
+  padding-right: var(--max-width-margin);
+}
+
+.grid-2col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: var(--standard-gutter);
+}
+
+.grid-3col {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: var(--standard-gutter);
+}
+
+/* Background colours */
+
+.bg-color {
+  padding: 1rem var(--responsive-padding);
+}
+
+.bg-color--primary {
+  background-color: var(--color-primary);
+  color: var(--color-primary--foreground);
+
+  a {
+    color: var(--color-primary--foreground);
+  }
+
+  button,
+  .button {
+    background-color: var(--color-primary--foreground);
+    color: var(--color-primary);
+  }
+
+  svg {
+    fill: var(--color-primary--foreground);
+  }
+
+}

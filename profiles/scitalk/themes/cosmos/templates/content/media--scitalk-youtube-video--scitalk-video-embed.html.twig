@@ -1,0 +1,44 @@
+
+{% set thumb = content.field_remote_thumbnail_url ? content.field_remote_thumbnail_url.0['#context'].value : ''%}
+{% set video_file = content.field_media_scitalk_video.0['#context'].value %}
+{% set file_mime = 'video/youtube' %}
+
+{# to turn off default youtube cc and annotations add this: "youtube": { "iv_load_policy": 3, "cc_load_policy": 3} #}
+{# needed to add "html5" to techOrder to be able to play preroll  #}
+{%
+  set data_setup = {
+    "playbackRates": [0.25, 0.5, 0.75, 1, 1.25, 1.5, 1.75, 2],
+    "controls": TRUE, 
+    "aspectRatio": '16:9',
+    "techOrder": ["youtube", "html5"],
+    "youtube": { "iv_load_policy": 3, "cc_load_policy": 3, "controls": 0 }
+  }
+%}
+
+{% embed 'scitalk_media:videojs_media' with ({
+  data_setup: data_setup,
+  thumbnail: thumb,
+  subtitles: vtts
+}) %}
+  {% block video_sources %}
+      <source src="{{ video_file }}" type="{{ file_mime }}"/>
+  {% endblock %}
+{% endembed %}
+
+{# <div id="video_player" class="scitalk_video_player">
+  <video-js data-setup='{{ data_setup|json_encode() }}'
+    id = "scitalk_video_js"
+    class = "video-js vjs-default-skin vjs-big-play-centered" 
+    poster = "{{ thumb }}" 
+    preload = FALSE
+    fluid = TRUE
+    responsive = TRUE
+  >
+    <source src="{{ video_file }}" type="{{ file_mime }}"/>
+
+    {% for vtt in vtts %}
+      {% set default = loop.first ? "default" %}
+      <track kind="caption" src="{{ vtt.src }}" srclang="{{ vtt.lang }}" label="{{ vtt.label }}" >
+    {% endfor %}
+  </video-js>
+</div> #}

@@ -1,0 +1,8 @@
+Wehter'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Advanced search
+status: stable
+libraryOverrides:
+  dependencies:
+    - core/drupal
+    - core/once
+    - core/jquery

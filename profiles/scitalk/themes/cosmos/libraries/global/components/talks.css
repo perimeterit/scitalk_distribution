@@ -1,0 +1,133 @@
+/**
+ * Common Node CSS for talks
+*/
+
+/**
+ * Speaker + date metadata, used in all view modes
+*/
+.speakers {
+  font-size: .9rem;
+  line-height: 1.4;
+  margin: 0 0 .2em 2em;
+  & a {
+    text-decoration: none;
+    &:matches(:hover, :focus) {
+      text-decoration: underline;
+    }
+  }
+  & div,
+  & p {
+    margin: 0;
+    display: inline;
+  }
+}
+.speaker-marker {
+  color: var(--color-primary);
+  display: inline-block;
+  height: 1.5em;
+  width: 1.5em;
+  margin-left: -2em;
+  vertical-align: middle;
+}
+
+/* List of multiple speakers */
+.speaker-list {
+  display: inline-block;
+  line-height: 1.5;
+  & li + li {
+    margin-top: .2rem;
+  }
+}
+.node.speaker-profile.speaker-name-institution,
+.speaker-date {
+  & .field--name-field-sp-institution-name:before {
+    content: ' - ';
+    display: inline-block;
+    margin-left: .3em;
+  }
+}
+
+/* Common view mode theming */
+
+.node.talk {
+  & .info {
+    font-size: .8em;
+    margin-left: -.5em;
+    & ul {
+      display: inline-block;
+    }
+  }
+
+  & .info > * {
+    border-right: 1px solid var(--color-lt-grey);
+    padding: 0 1.2em;
+    margin-right: .5em;
+    &:last-child {
+      border: none;
+      margin-right: 0;
+    }
+  }
+  & strong.field__label {
+    font-weight: normal;
+    &:after {
+      content: ":";
+      display: inline-block;
+      margin-right: .5rem;
+    }
+  }
+}
+
+@media all and (min-width: 768px) {
+  .node.talk .info {
+    display: flex;
+  }
+}
+@media all and (max-width: 767px) {
+  .node.talk .info > * {
+    margin-bottom: .5rem;
+  }
+}
+
+/**
+ * Hozitontal card view mode
+*/
+.node.talk.horizontal-card {
+  display: flex;
+  line-height: 1.7em;
+  & > a {
+    flex: 0 0 140px;
+    & + .content {
+      margin-left: 1em;
+    }
+  }
+}
+@media all and (max-width: 600px) {
+  .node.talk.horizontal-card > a {
+    display: none;
+    & + .content {
+      margin-left: 0;
+    }
+  }
+}
+
+/**
+ * Teaser view mode
+*/
+.node.talk.teaser {
+  display: flex;
+
+  & > a {
+    flex: 0 0 auto;
+    margin-right: var(--gutter-standard);
+  }
+}
+
+/**
+ * M8ni-Teaser view mode
+*/
+
+.node.talk.mini-teaser {
+  & h3 a {
+    text-decoration: none;
+  }
+}

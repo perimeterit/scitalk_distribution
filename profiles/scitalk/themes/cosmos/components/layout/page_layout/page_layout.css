@@ -1,0 +1,192 @@
+
+.page-layout {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    'header menu-toggle'
+    'content content'
+    'footer footer';
+
+  .main-content {
+    grid-area: content;
+    max-width: 50rem;
+    margin-inline: auto;
+    width: 100%;
+  }
+
+  .menu-toggle-wrapper {
+    grid-area: menu-toggle;
+  }
+
+  .site-footer {
+    grid-area: footer;
+  }
+}
+
+/* Toggle buttons */
+
+.site-header .search-toggle,
+.menu-toggle {
+  &:is(:hover,:focus) {
+    color: var(--color-primary--accent);
+  }
+}
+
+
+.main-content {
+  padding: 1rem;
+}
+
+@media (min-width: 960px) {
+  .page-layout {
+    /* THis will be adjusted in the main nav component */
+    --sidebar-width: 14rem;
+    grid-template-columns: var(--sidebar-width) 1fr 2rem;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      'header header header'
+      'nav content content'
+      'footer footer footer';
+    transition: grid-template-columns .3s;
+  }
+
+  .site-header {
+    grid-area: header;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+
+  .main-nav {
+    grid-area: nav;
+  }
+}
+
+
+/* Mobile layout */
+@media (max-width: 959px) {
+  .menu-toggle-wrapper {
+    background-color: var(--color-primary);
+    padding: 1rem 1rem 1rem 0;
+    display: flex;
+    align-items: center;
+    .icon {
+      height: 1.6rem;
+      width: 1.6rem;
+      fill: currentColor;
+    }
+  }
+}
+
+/* Main nav (sidebar on larger screens, flyout on mobile */
+.main-nav {
+  background-color: var(--color-grey-1);
+}
+
+.page-layout.adv-search-open {
+  --sidebar-width: 18rem;
+}
+
+button.advanced-search-toggle {
+  display: flex;
+  align-items: center;
+  gap: .2rem;
+
+  font-size: .85rem;
+  font-weight: 500;
+  padding: .3rem .7rem;
+  & svg {
+    height: 1.7rem;
+    width: 1.7rem;
+    vertical-align: middle;
+  }
+  &:is(:hover,:focus) {
+    background: var(--color-grey-2);
+    color: var(--color-default-text);
+  }
+}
+
+button.close-advanced-search-toggle {
+  background: transparent;
+  float: right;
+  padding: .3rem;
+  margin-right: var(--responsive-padding);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  top: -2.2rem;
+
+  & svg {
+    color: var(--color-default-text);
+    height: 1.3rem;
+    width: 1.3rem;
+  }
+
+  &:is(:hover,:focus) {
+    background: var(--color-grey-2);
+  }
+
+  &[aria-expanded=true] {
+    display: flex;
+  }
+  &[aria-expanded=false] {
+    display: none;
+  }
+}
+
+.main-nav .advanced-search {
+  display: none;
+}
+
+.main-nav.adv-search-open {
+  .advanced-search {
+    display: block;
+  }
+  .menu--main {
+    display: none;
+  }
+}
+
+/* Make column expand when advanced search is open */
+
+body.adv-search-open {
+  & .page-wrapper {
+    grid-template-columns: 342px auto;
+  }
+  & .left-nav-wrapper {
+    & .advanced-search-form {
+      display: block;
+    }
+  }
+}
+
+/* Other sidebar blocks */
+.main-nav-blocks {
+  padding: 1rem;
+}
+
+/* Mobile menu transition */
+@media (max-width: 959px) {
+  #main-nav {
+    position: fixed;
+    top: 0;
+    height: 100vh;
+    width: 90vw;
+    z-index: 10;
+    right: -90vw;
+    transition: right .5s ease-out;
+
+    &.open {
+      right: 0;
+    }
+
+    .close-menu-toggle {
+      height: 2.5rem;
+      width: 2.5rem;
+    }
+  }
+
+}

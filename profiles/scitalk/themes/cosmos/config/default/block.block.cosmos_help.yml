@@ -1,0 +1,22 @@
+uuid: 740f1891-92c6-44e5-a493-f7487721cfc6
+langcode: en
+status: true
+dependencies:
+  module:
+    - help
+  theme:
+    - cosmos
+_core:
+  default_config_hash: GThAb0ywbnFWJiMmgrKvWCP_5ug9sQde2m_Vtnsqa6E
+id: cosmos_help
+theme: cosmos
+region: admin
+weight: -3
+provider: null
+plugin: help_block
+settings:
+  id: help_block
+  label: Help
+  label_display: '0'
+  provider: help
+visibility: {  }

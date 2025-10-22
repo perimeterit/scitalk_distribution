@@ -1,0 +1,32 @@
+uuid: 6a9dc5a6-2bd1-42d5-a5bb-c962b6ded1e6
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - scitalk_base
+  theme:
+    - cosmos
+_core:
+  default_config_hash: sigoubWLLdLCe_amiwhDxurKYGt_Yf3zZt9oBfsSoe4
+id: cosmos_scitalkcitationsblock
+theme: cosmos
+region: page_title
+weight: -6
+provider: null
+plugin: scitalk_citations_block
+settings:
+  id: scitalk_citations_block
+  label: 'SciTalk Citations Block'
+  label_display: '0'
+  provider: scitalk_base
+  context_mapping:
+    node: '@node.node_route_context:node'
+visibility:
+  node_type:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      talk: talk

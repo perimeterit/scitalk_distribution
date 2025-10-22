@@ -1,0 +1,15 @@
+
+.skip-link {
+  text-decoration: none;
+  background: var(--color-secondary);
+  color: var(--color-secondary--foreground);
+  padding: 0.2em 0.5em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  &:matches(:hover, :focus) {
+    color: var(--color-secondary--foreground);
+    z-index: 2;
+  }
+}

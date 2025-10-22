@@ -1,0 +1,22 @@
+uuid: 2b1c5abd-2453-4c99-a862-a830564cda8c
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - cosmos
+_core:
+  default_config_hash: a1_zprdl_t6lPjj-CasN2IQHMMQ8pVGyE78STo-YH7M
+id: cosmos_content
+theme: cosmos
+region: content
+weight: -7
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

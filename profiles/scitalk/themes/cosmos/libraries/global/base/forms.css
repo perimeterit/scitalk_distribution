@@ -1,0 +1,212 @@
+/**
+ * Theming for forms
+ */
+
+legend {
+  font-size: 1.1rem;
+  font-weight: 400;
+}
+
+/* Labels */
+
+label {
+  font-size: .9rem;
+  display: block;
+}
+
+.field--label-inline strong::after,
+label.label-inline::after {
+  content: ':';
+  margin-right: .5rem;
+}
+
+/* Standard Form elements */
+
+label.option { display: inline-block; }
+input,
+select,
+textarea,
+details {
+  background: var(--color-grey-1);
+  border: 1px solid var(--color-grey-2);
+  color: var(--color-grey-5);
+  max-width: 100%;
+  padding: .6rem .8rem;
+
+  transition: background .2s,border .2s,box-shadow .2s,color .2s;
+
+  &:is(:focus,:focus-visible,:focus-within) {
+    border-color: var(--color-primary);
+    outline: none;
+  }
+}
+
+textarea {
+  font-size: .9rem;
+  font-family: inherit;
+  width: 100%;
+}
+
+/* Date fields */
+
+input[type="date"] {
+  font-family: var(--font-family-primary);
+}
+
+::-webkit-calendar-picker-indicator {
+  margin: 0;
+}
+
+/* Full text fields  */
+
+.description,
+.text-full {
+  color: #777;
+  font-size: .85rem;
+  line-height: 1.2rem;
+  margin-top: .5rem;
+}
+
+textarea.text-full {
+  color: #444;
+}
+
+/* Details elements */
+details {
+  & summary {
+    cursor: pointer;
+    list-style-type: none;
+    font-size: .8rem;
+    display: flex;
+    justify-content: space-between;
+
+    &:before,
+    &:marker,
+    &:::-webkit-details-marker {
+      display: none;
+    }
+
+    &::after {
+      --caret-size: .6rem;
+      --caret-color: var(--color-grey-5);
+    }
+
+  }
+  & .bef-toggle {
+    display: block;
+    font-size: .8rem;
+    margin: .5rem 0;
+  }
+  & .form-item {
+    font-size: .8rem;
+    margin: .4rem 0;
+  }
+}
+
+/* Grouping elements */
+
+fieldset,
+fieldset.form-item {
+  border: 1px solid #ccc;
+  margin-bottom: 1.7em;
+  min-width: 0;
+  padding: 0.4em .8em;
+}
+
+fieldset.collapsible legend {
+  font-size: .9rem;
+}
+
+/* Field types */
+
+.form-type-radio,
+.form-type-checkbox {
+  label {
+    font-size: .9rem;
+    font-weight: 300;
+  }
+
+  .form-item {
+    padding: 0;
+    margin-bottom: .2rem;
+  }
+}
+
+.form-type-radio label:after {
+  content: '';
+}
+
+label.option + .description {
+  display: inline-block;
+}
+
+
+/* Required fields */
+.form-required:after {
+  content: '*';
+  color: #bb3535;
+  vertical-align: super;
+  display: inline-block;
+  background-repeat: no-repeat;
+  background-size: 6px 6px;
+  width: 6px;
+  height: 6px;
+  margin: 0 0.3rem;
+}
+
+/* Form Actions */
+.form-actions {
+  margin-top: 1.5rem;
+  & > * {
+    margin-right: .5rem;
+  }
+}
+
+
+/* Specific Forms */
+
+/* Node/Edit preview top toolbar */
+.node-preview-container {
+  background: rgba(42,42,49,0.9);
+  color: #fff;
+  width: 100%;
+
+  a.node-preview-backlink {
+    color: #fff;
+    text-decoration: none;
+  }
+
+
+  form {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .form-type-select {
+    margin: 0;
+  }
+
+  .form-select {
+    background: rgba(42,42,49,1);
+    border: 1px solid rgba(200,200,200,0.5);
+    color: #fff;
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    padding-right: 1.5rem;
+
+    &:after {
+      background: url(../images/angle-icons.svg) -2em -1em no-repeat;
+      background-size: 3rem;
+      content: '';
+      display: inline-block;
+      width: 1.2rem;
+      height: 1.5rem;
+      pointer-events: none;
+      margin-left: -1.8rem;
+      vertical-align: middle;
+    }
+  }
+}

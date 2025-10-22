@@ -1,0 +1,86 @@
+{#
+/**
+ * @file
+ * Custom override for a main view template.
+ * Adds classes
+ *
+ * @see template_preprocess_views_view()
+ */
+#}
+{%
+  set classes = [
+    'view',
+    'view-' ~ id|clean_class,
+    'view-display-' ~ display_id,
+    dom_id ? 'js-view-dom-id-' ~ dom_id,
+  ]
+%}
+{# Add conditional for views that use the card/table switcher #}
+{# Giving these views a custom template didn't work with ajax #}
+{% set card_view_views = [
+  'scitalk_latest_talks',
+  'scitalk_catch_up',
+  'scitalk_source_catch_up',
+  'scitalk_talks_in_collection',
+  'scitalk_collections',
+  'scitalk_taxonomy_term',
+  'scitalk_advanced_search',
+  'scitalk_search_collections',
+  'scitalk_talks_by_source_repo',
+  ] %}
+
+{% if (id in card_view_views and (display_id == 'card_view')) or
+      ((id == 'scitalk_advanced_search') and (display_id == 'advanced_search')) %}
+  {% embed '@scitalk_theme/views/_scitalk-card-table-view.html.twig' %}{% endembed %}
+{% else %}
+  <div{{ attributes.addClass(classes) }}>
+    {{ title_prefix }}
+    {% if title %}
+      {{ title }}
+    {% endif %}
+    {{ title_suffix }}
+    {% if header %}
+      <div class="view-header">
+        {{ header }}
+      </div>
+    {% endif %}
+    {% if exposed %}
+      <div class="view-filters">
+        {{ exposed }}
+      </div>
+    {% endif %}
+    {% if attachment_before %}
+      <div class="attachment attachment-before">
+        {{ attachment_before }}
+      </div>
+    {% endif %}
+
+    {% if rows %}
+      <div class="view-content">
+        {{ rows }}
+      </div>
+    {% elseif empty %}
+      <div class="view-empty">
+        {{ empty }}
+      </div>
+    {% endif %}
+
+    {% if pager %}
+      {{ pager }}
+    {% endif %}
+    {% if attachment_after %}
+      <div class="attachment attachment-after">
+        {{ attachment_after }}
+      </div>
+    {% endif %}
+    {% if more %}
+      {{ more }}
+    {% endif %}
+    {% if footer %}
+      <div class="view-footer">
+        {{ footer }}
+      </div>
+    {% endif %}
+  </div>
+
+{% endif %}

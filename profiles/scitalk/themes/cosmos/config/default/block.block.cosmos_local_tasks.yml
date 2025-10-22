@@ -1,0 +1,22 @@
+uuid: 08675364-2ba5-43d0-b593-4435bf6f988c
+langcode: en
+status: true
+dependencies:
+  theme:
+    - cosmos
+_core:
+  default_config_hash: 9_XvHL3Zjc4pgh0nczwAPFVWgSnry2ySkA37SVlIopQ
+id: cosmos_local_tasks
+theme: cosmos
+region: admin
+weight: -5
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: true
+visibility: {  }

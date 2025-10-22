@@ -1,0 +1,26 @@
+{#
+/**
+ * @file
+ * Theme override for a field.
+ */
+#}
+{%
+  set classes = [
+    'field',
+    'field--name-' ~ field_name|clean_class,
+    'field--type-' ~ field_type|clean_class,
+    'field--label-' ~ label_display,
+  ]
+%}
+{% if display_field_tag %}
+    <{{ field_tag|default('div') }}{{ attributes.addClass(classes, 'field__items') }}>
+{% endif %}
+
+  {% for item in items %}
+      <a class="button" href="{{ item.content|render }}">
+        <strong>{{ 'Visit '}} {{ group_full_name }}</strong>
+      </a>
+  {% endfor %}
+{% if display_field_tag %}
+    </{{ field_tag|default('div') }}>
+{% endif %}

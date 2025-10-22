@@ -1,0 +1,22 @@
+uuid: 536803fd-c217-447f-957a-ae24329980e4
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - cosmos
+_core:
+  default_config_hash: wsbwKHMJZp47t6pPJyqCkmGOedYGJzhgdVAyx7cZJe0
+id: cosmos_messages
+theme: cosmos
+region: admin
+weight: -4
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

@@ -1,0 +1,19 @@
+.site-branding {
+  a,
+  img {
+    display: block;
+  }
+
+  img {
+    max-height: 4rem;
+  }
+}
+
+.site-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1em;
+  letter-spacing: 0.07rem;
+  text-decoration: none;
+
+}

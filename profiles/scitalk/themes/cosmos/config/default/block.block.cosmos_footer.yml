@@ -1,0 +1,27 @@
+uuid: 7af18336-dcd5-4538-8403-368310c6bc8f
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.footer
+  module:
+    - system
+  theme:
+    - cosmos
+_core:
+  default_config_hash: oKg4-b65FwpMYTpFjvnGRZUKFhyS447g189f-OyBFmI
+id: cosmos_footer
+theme: cosmos
+region: footer
+weight: -8
+provider: null
+plugin: 'system_menu_block:footer'
+settings:
+  id: 'system_menu_block:footer'
+  label: 'Footer menu'
+  label_display: '0'
+  provider: system
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility: {  }

@@ -1,0 +1,14 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Skip link
+status: stable
+description: Skip to content link
+props:
+  type: object
+  properties:
+    content_element:
+      type: string
+      title: Content element
+      description: Id value for the content element to skip to
+    link_text:
+      type: string
+      title: Link text

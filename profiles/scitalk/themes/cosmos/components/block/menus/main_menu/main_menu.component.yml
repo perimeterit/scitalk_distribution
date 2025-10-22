@@ -1,0 +1,16 @@
+name: Main Menu
+group: Navigation
+libraryOverrides:
+  dependencies:
+    - core/once
+    - core/jquery
+    - core/components.cosmos--menu
+props:
+  type: object
+  properties:
+    menu_name:
+      type: string
+      title: Menu name
+    menu_items:
+      type: array
+      title: Menu items

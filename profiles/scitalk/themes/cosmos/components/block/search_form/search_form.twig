@@ -1,0 +1,30 @@
+
+{% set classes = [
+  'search-form',
+  include_toggle ? 'with-toggle',
+  variant ? 'search-form--' ~ variant|clean_class
+] %}
+
+{% block search_form_wrapper %}
+  <div {{ attributes.addClass(classes) }}>
+    {{ title_prefix }}
+    {{ title_suffix }}
+
+    {% if variant == 'site-header' %}
+      {{ include('cosmos:toggle_button', {
+        name: 'search',
+        icon_name: 'search',
+        show_text: 'Show search',
+        hide_text: 'Hide search',
+        contols: 'search-form-wrapper'
+      }, with_context = false) }}
+    {% endif %}
+
+    <div id="search-form-wrapper" class="search-form-wrapper">
+      {% block search_form %}
+        {# The contents of the search block #}
+      {% endblock %}
+    </div>
+
+  </div>
+{% endblock %}

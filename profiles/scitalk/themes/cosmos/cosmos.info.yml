@@ -1,0 +1,18 @@
+name: Cosmos
+type: theme
+description: 'Second generation common theme for the Scitalk distro'
+core: 8.x
+base theme: stable
+core_version_requirement: ^10 || ^11
+
+libraries:
+ - cosmos/global
+ - cosmos/video-player
+
+regions:
+  header: 'Header'
+  sidebar: 'Left sidebar'
+  admin: 'Admin tools'
+  page_title: 'Page Title'
+  content: 'Content'
+  footer: 'Footer'

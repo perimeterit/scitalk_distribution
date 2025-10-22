@@ -1,0 +1,29 @@
+{# get values for talks and collections #}
+
+{# change text labels depending on counts #}
+
+{# Output #}
+{% if collection_has_children %}
+  {% if count_talks_in_collection %}
+    {{ show_count ? count_talks_in_collection }}
+    {% trans %}
+       talk
+    {% plural count_talks_in_collection %}
+       talks
+    {% endtrans %}
+  {% endif %}
+
+  {% if count_talks_in_collection and count_child_collections %}
+    {% set combinator = 'and'|t %}
+    {{ combinator }}
+  {% endif %}
+
+  {% if count_child_collections %}
+    {{ show_count ? count_child_collections }}
+    {% trans %}
+      collection
+    {% plural count_child_collections %}
+       collections
+    {% endtrans %}
+  {% endif %}
+{% endif %}

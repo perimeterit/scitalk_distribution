@@ -1,0 +1,24 @@
+.dark-mode-switch {
+  ul {
+    display: flex;
+    gap: .2rem;
+  }
+
+  svg {
+    color: var(--color-primary--foreground);
+    height: 1.2rem;
+    width: 1.2rem;
+  }
+
+  button {
+    background-color: transparent;
+    padding: .1rem;
+
+    &:is(:hover,:focus) {
+      background-color: transparent;
+      svg {
+        color: var(--color-primary--accent);
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+uuid: fc57779e-41df-4e4b-aff3-b1fac655d065
+langcode: en
+status: true
+dependencies:
+  content:
+    - 'block_content:basic:7e06a8d1-d7b6-4f07-bbc0-0be0c2df02ae'
+  module:
+    - block_content
+  theme:
+    - cosmos
+id: cosmos_testblockcontentwithcta
+theme: cosmos
+region: sidebar
+weight: -6
+provider: null
+plugin: 'block_content:7e06a8d1-d7b6-4f07-bbc0-0be0c2df02ae'
+settings:
+  id: 'block_content:7e06a8d1-d7b6-4f07-bbc0-0be0c2df02ae'
+  label: 'TEST block with CTA'
+  label_display: visible
+  provider: block_content
+  status: true
+  info: ''
+  view_mode: full
+visibility: {  }

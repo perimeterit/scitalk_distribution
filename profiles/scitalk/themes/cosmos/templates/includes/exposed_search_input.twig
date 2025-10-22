@@ -1,0 +1,107 @@
+{# Exposed search input string - for Talks or Collections #}
+
+{{ 'Search results'|t }}
+{# rewrite for collections #}
+{% if exposed_input.collection_text is defined %}
+  {% set text = exposed_input.collection_text %}
+  {% set title = exposed_input.collection_title %}
+  {% set type = exposed_input.collection_type %}
+  {% set from = exposed_input.collection_from %}
+  {% set to = exposed_input.collection_to %}
+{% else %}
+  {% set text = exposed_input.text %}
+  {% set title = exposed_input.title %}
+  {% set type = exposed_input.type %}
+  {% set from = exposed_input.from %}
+  {% set to = exposed_input.to %}
+{% endif %}
+
+
+{% if text is not empty %}
+  {{ 'for'|t }} <em>"{{ text }}"</em>
+{% endif %}
+
+{% if title is not empty %}
+  {% if text is not empty %}
+    {{ 'and'|t }}
+  {% else %}
+    {{ 'for'|t }}
+  {% endif %}
+   <em>"{{ title }}"</em>
+{% endif %}
+
+{% if from is not empty %}
+  {{ 'from'|t }} <em>{{ from }}</em>
+{% endif %}
+
+{% if from is empty and to is not empty %}
+  {{ ' from the beginning '|t }}
+{% endif %}
+
+{% if to is not empty %}
+  {{ 'to'|t }} <em>{{ to }}</em>
+{% endif %}
+
+{% if from is not empty and to is empty %}
+  {{ ' to <em>today</em>'|t }}
+{% endif %}
+
+{% if exposed_input.speaker is not empty %}
+  {{ 'by'|t }} <em>{{ exposed_input.speaker }}</em>
+{% endif %}
+
+{% if exposed_input.field_talk_subject is not empty and
+  exposed_input.field_talk_subject != "All" %}
+  {{ 'in'|t }}
+  {% set num_terms = exposed_input.field_talk_subject|length %}
+  {% set sa_terms = [] %}
+  {% set count = 1 %}
+
+  {% for key, tid in exposed_input.field_talk_subject %}
+    {# add some connecting text for multiple values #}
+    {% if (count == num_terms) and (count != 1) %}
+      {{ 'and'|t }}
+    {% elseif (num_terms > 2) and (count < num_terms ) and (count != 1) %}
+    {{ ',' }}
+    {% endif %}
+
+    {% set sa_term = drupal_entity('taxonomy_term', tid) %}
+    <em>{{ sa_term['#taxonomy_term'].name.0.value }}</em>
+    {% set count = count + 1 %}
+  {% endfor %}
+{% endif %}
+
+{# Type #}
+{% if type is not empty and type != "All" %}
+  {{ 'in'|t }}
+  {% set num_terms = type|length %}
+  {% set sa_terms = [] %}
+  {% set count = 1 %}
+  {% for key, tid in type %}
+    {# add some connecting text for multiple values #}
+    {% if (count == num_terms) and (count != 1) %}
+      {{ 'and'|t }}
+    {% elseif (num_terms > 2) and (count < num_terms ) and (count != 1) %}
+      {{ ',' }}
+    {% endif %}
+
+    {# Need to get the term name from this tid #}
+    {% set type_term = drupal_entity('taxonomy_term', tid) %}
+    <em>{{ type_term['#taxonomy_term'].name.0.value }}</em>
+    {% set count = count + 1 %}
+  {% endfor %}
+{% endif %}
+
+{# Source (talks) #}
+{% if exposed_input.source is not empty and
+  exposed_input.source != "All" %}
+  {{ 'from'|t }}
+  <em>{{ exposed_input.source}}</em>
+{% endif %}
+
+{# Source (collections) #}
+{% if exposed_input.collection_source is not empty and
+  exposed_input.collection_source != "All" %}
+  {{ 'from'|t }}
+  <em>{{ exposed_input.collection_source}}</em>
+{% endif %}

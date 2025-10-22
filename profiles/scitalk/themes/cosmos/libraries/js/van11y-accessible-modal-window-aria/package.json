@@ -1,0 +1,97 @@
+{
+  "_args": [
+    [
+      "van11y-accessible-modal-window-aria",
+      "/var/www/pirsa/web/themes/custom/scitalk_theme/js"
+    ]
+  ],
+  "_from": "van11y-accessible-modal-window-aria@latest",
+  "_hasShrinkwrap": false,
+  "_id": "van11y-accessible-modal-window-aria@2.4.5",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/van11y-accessible-modal-window-aria",
+  "_nodeVersion": "11.12.0",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/van11y-accessible-modal-window-aria_2.4.5_1567326205894_0.20725044633702794"
+  },
+  "_npmUser": {
+    "email": "dante3333@gmail.com",
+    "name": "nico3333fr"
+  },
+  "_npmVersion": "6.4.1",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "van11y-accessible-modal-window-aria",
+    "raw": "van11y-accessible-modal-window-aria",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/van11y-accessible-modal-window-aria/-/van11y-accessible-modal-window-aria-2.4.5.tgz",
+  "_shasum": "0b774d0a5e8cdc62c32149230de39cd841e6fde8",
+  "_shrinkwrap": null,
+  "_spec": "van11y-accessible-modal-window-aria",
+  "_where": "/var/www/pirsa/web/themes/custom/scitalk_theme/js",
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/nico3333fr/van11y-accessible-modal-window-aria/issues"
+  },
+  "dependencies": {},
+  "description": "ES2015 accessible modal window system, using ARIA (compatible IE9+ when transpiled)",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.3.0",
+    "gulp-header": "^1.7.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.4.2"
+  },
+  "directories": {},
+  "dist": {
+    "fileCount": 15,
+    "integrity": "sha512-WeY5BbfjP/wleKrCDF+3Th6LUa9BIgh0K+pPNcAcNHI1IytOe5jes/QiHUq+IfV/VqmMC2rYMEjgjdMnP7KZuw==",
+    "npm-signature": "-----BEGIN PGP SIGNATURE-----\r\nVersion: OpenPGP.js v3.0.4\r\nComment: https://openpgpjs.org\r\n\r\nwsFcBAEBCAAQBQJda3/+CRA9TVsSAnZWagAA7sEQAIanc8yk/TerQG5yz1cu\nSKvBj+w6nnwD5d2uWux/LOi2wVMoVmyTqwlI1KMdX8e8AI0SEqzECz4AD2OW\nnsru30jU3iidb+1DIkQHX8EtooDp18ZC8IxKepnDq1bt2/5g1MM3w8xCNqAZ\nL8mwpKOgHoS+CWT9oUBid+xgQnbjr92EvWb1KS5j6xDbKabletn+uvkdWQMq\nkN4O1+tydg4lxLHfhsoy+FQ+qUYqrBX1zQUaDGOcOb/A6EbmwLSw4fliM1/k\n9x8kL8MflhxlIFgFNIoIx3euUGKPJso6NsyvydcUqOIEyzLGrg+QTqQEY9qS\nInIz+crRCwRBvKcA9VDVsmPIagP3FH/VOTarzOKRTXDL7USt0EEYuLqU3pRt\nTWCW+dWqcXKJb/mdTM/PN38wvp6vDT5VZBwhO+UyxTtnad+70dSNDDLvhKQ3\nGP+Myr89J6DMBAKM2h4bfdduR58QN8V+FYjPvpd0BDBU49HKhQKjaYXoUXsB\n14TcdDAbUXtCnoAw/VDWpozWFkxvy06DIbBq2DERA3v6APllTOExKwCA2h4P\nB3Wq+zbuUbyFctBIiokZ8vOhRYeWyMfVb0IPMi5eYbUuGh66vRSrM+2Dz10H\nsTFSZ5pmHqL54SoMn64N/iVFsYZs2RihjDAnvjl3aU/VCrTCjNyVFR6+JWxD\nijLu\r\n=trt0\r\n-----END PGP SIGNATURE-----\r\n",
+    "shasum": "0b774d0a5e8cdc62c32149230de39cd841e6fde8",
+    "tarball": "https://registry.npmjs.org/van11y-accessible-modal-window-aria/-/van11y-accessible-modal-window-aria-2.4.5.tgz",
+    "unpackedSize": 93275
+  },
+  "gitHead": "1a2c4d56348c629e90764e2a9c34db8fcdbdc95b",
+  "homepage": "https://van11y.net/accessible-modal/",
+  "keywords": [
+    "ARIA",
+    "Accessibility",
+    "ES2015",
+    "ES6",
+    "Vanilla Javascript Plugin",
+    "a11y",
+    "modal"
+  ],
+  "license": "MIT",
+  "main": "dist/van11y-accessible-modal-window-aria.min.js",
+  "maintainers": [
+    {
+      "name": "nico3333fr",
+      "email": "dante3333@gmail.com"
+    }
+  ],
+  "name": "van11y-accessible-modal-window-aria",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": [
+    {
+      "type": "git",
+      "url": "https://github.com/nico3333fr/van11y-accessible-modal-window-aria.git"
+    }
+  ],
+  "scripts": {
+    "build": "gulp",
+    "build:es5": "gulp es5"
+  },
+  "title": "Van11y accessible modal window system using ARIA",
+  "version": "2.4.5"
+}

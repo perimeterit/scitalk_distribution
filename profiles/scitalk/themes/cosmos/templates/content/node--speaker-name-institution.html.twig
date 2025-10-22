@@ -1,0 +1,20 @@
+{#
+/**
+ * @file
+ * Custom theme implementation to display a speaker node in speaker name + institution view mode
+ *
+ * @ingroup themeable
+ */
+#}
+
+{%
+  set classes = [
+    node.bundle|clean_class,
+    view_mode ? view_mode|clean_class,
+  ]
+%}
+
+<p{{ attributes.addClass(classes) }}>
+  <a href="{{ url }}" rel="bookmark">{{- label['#items'].0.value -}}</a>
+  {{ content }}
+</p>

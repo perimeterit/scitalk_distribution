@@ -1,0 +1,21 @@
+
+{# Advanced search forms #}
+<div class="advanced-search" data-search-section='{{ search_section}}'>
+
+  <form id="search-type-select-form">
+    <label for="search-type-select">{{ 'Searching'|t }}</label>
+    <select id="search-type-select">
+      <option value="talks" {% if search_section == 'talks' %}selected{% endif %}>{{ 'Talks'|t }}</option>
+      <option value="collections"{% if search_section == 'collections' %}selected{% endif %}>{{ 'Collections'|t }}</option>
+    </select>
+  </form>
+
+  <div class="advanced-search-form search-form--talks {{ search_section != 'talks' ? 'closed' }}">
+    {{ drupal_block('views_exposed_filter_block:scitalk_advanced_search-form_block',wrapper=false)}}
+  </div>
+
+  <div class="advanced-search-form search-form--collections {{ search_section != 'collections' ? 'closed' }}">
+    {{ drupal_block('views_exposed_filter_block:scitalk_search_collections-form_block',wrapper=false)}}
+  </div>
+
+</div>

@@ -1,0 +1,11 @@
+.toggle-button {
+
+  font-size: .85rem;
+  font-weight: 500;
+
+  svg {
+    fill: currentColor;
+    height: 2em;
+    width: 2em;
+  }
+}

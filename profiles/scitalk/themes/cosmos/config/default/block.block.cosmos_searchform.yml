@@ -1,0 +1,21 @@
+uuid: ce184b44-8c26-41ec-9d9e-5e8a9d04c74c
+langcode: en
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - cosmos
+id: cosmos_searchform
+theme: cosmos
+region: header
+weight: -6
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: 'Search form'
+  label_display: '0'
+  provider: search
+  page_id: ''
+visibility: {  }

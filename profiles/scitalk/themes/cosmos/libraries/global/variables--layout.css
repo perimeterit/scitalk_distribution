@@ -1,0 +1,30 @@
+/**
+ * To customize the Scitalk theme, copy thise file to a subtheme and customize as needed
+ */
+
+/*
+ * Alter the padding values depending on the container width
+ * Acccommodates the left side Navigation panel which may be collapsed or open
+*/
+
+.dialog-off-canvas-main-canvas {
+  container: main-canvas / inline-size;
+}
+
+/* Layout Variables */
+ :root {
+  --gutter-standard: calc(1rem + .2vw);
+  --gutter-big: calc(1.2rem + .2vw);
+  --max-width: 1200px;
+  /* Can fake a max width without using an extra container */
+  --max-width-margin: calc(((100% - var(--max-width)) / 2) + var(--responsive-padding));
+  --responsive-padding: .01rem;
+  --vertical-padding: 2em;
+}
+
+@container main-canvas (min-width: 1240px) {
+  :root {
+    --responsive-padding: 1px;
+    --vertical-padding: calc(1.2rem + .2vw);
+  }
+}

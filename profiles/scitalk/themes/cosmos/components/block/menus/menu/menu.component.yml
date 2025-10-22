@@ -1,0 +1,17 @@
+name: menu
+group: Navigation
+props:
+  type: object
+  properties:
+    menu_name:
+      type: string
+      title: Menu name
+    menu_items:
+      type: array
+      title: Menu items
+    modifiers:
+      type: array
+      title: Modifiers
+    show_triggers:
+      type: boolean
+      title: Show triggers

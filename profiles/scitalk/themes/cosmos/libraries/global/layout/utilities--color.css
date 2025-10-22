@@ -1,0 +1,10 @@
+
+.bg-color {
+  background-color: var(--bg-color);
+  color: var(--fg-color);
+}
+
+.bg-color--primary {
+  --bg-color: var(--color-primary);
+
+}

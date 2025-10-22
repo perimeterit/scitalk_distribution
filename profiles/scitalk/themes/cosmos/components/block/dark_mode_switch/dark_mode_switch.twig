@@ -1,0 +1,28 @@
+
+{{ attach_library('dark_mode_toggle/dark-mode-toggle') }}
+<div{{ attributes.addClass('dark-mode-switch') }}>
+  {% set light_mode_text = 'Light mode'|t %}
+  {% set dark_mode_text = 'Dark mode'|t %}
+  {% set system_text = 'Follow system preference'|t %}
+
+  <ul class="display-list">
+    <li>
+      <button class="dark-mode-toggle__button__light" title="{{ light_mode_text}}">
+        {{ include('cosmos:icon', { icon_name: "sun"}) }}
+        <span class="visually-hidden">{{ light_mode_text }}</span>
+      </button>
+    </li>
+    <li>
+      <button class="dark-mode-toggle__button__dark" title="{{ dark_mode_text }}">
+        {{ include('cosmos:icon', { icon_name: "moon"}) }}
+        <span class="visually-hidden">{% trans %}Dark mode {% endtrans %}</span>
+      </button>
+    </li>
+    <li>
+      <button class="dark-mode-toggle__button__system" title="{{ system_text }}">
+        {{ include('cosmos:icon', { icon_name: "laptop"}) }}
+        <span class="visually-hidden">{{ system_text }}</span>
+      </button>
+    </li>
+  </ul>
+</div>

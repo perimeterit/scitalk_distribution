@@ -1,0 +1,71 @@
+global:
+  css:
+    base:
+      libraries/global/base/reset.css: {}
+      libraries/global/variables--layout.css: {}
+      libraries/global/variables--colour.css: {}
+      libraries/global//utilities.css: {}
+      libraries/global/base/elements.css: {}
+      libraries/global/base/admin.css: {}
+      libraries/global/base/forms.css: {}
+      libraries/global/base/media.css: {}
+      libraries/global/base/nav.css: {}
+      libraries/global/base/tabs.css: {}
+      libraries/global/base/buttons.css: {}
+    layout:
+      libraries/global/layout/layout-utilities.css: {}
+      libraries/global/layout/layout.css: {}
+      libraries/global/layout/maintenance-page.css: {}
+      libraries/global/layout/responsive-menu.css: {}
+      libraries/global/layout/layout-builder.css: {}
+    component:
+      libraries/global/components/cite-share.css: {}
+      libraries/global/components/citations.css: {}
+      libraries/global/components/collections.css: {}
+      libraries/global/components/modals.css: {}
+      libraries/global/components/nodes.css: {}
+      libraries/global/components/resources.css: {}
+      libraries/global/components/search-block-form.css: {}
+      libraries/global/components/share-links.css: {}
+      libraries/global/components/source-repos.css: {}
+      libraries/global/components/speakers.css: {}
+      libraries/global/components/taxonomy.css: {}
+      libraries/global/components/tables.css: {}
+      libraries/global/components/talks.css: {}
+      libraries/global/components/talks--full.css: {}
+      libraries/global/components/view-display-header.css: {}
+      libraries/global/components/view-display-toggle.css: {}
+      libraries/global/components/views-checkbox-filter.css: {}
+      libraries/global/components/views.css: {}
+      libraries/js/jquery-responsive-tables/libraries/global/responsive-tables.min.css: {}
+  js:
+    libraries/js/van11y-accessible-modal-window-aria/dist/van11y-accessible-modal-window-aria.min.js:
+      {}
+    libraries/js/van11y-accessible-tab-panel-aria/dist/van11y-accessible-tab-panel-aria.min.js:
+      {}
+    libraries/js/jquery-responsive-tables/js/jquery.responsive-tables.js: {}
+    libraries/js/load-collection-talks.js: {}
+    libraries/js/global.js: {}
+  dependencies:
+    - views/views.ajax
+    - core/drupal
+    - core/jquery
+    - core/jquery.once
+video-player:
+  css:
+    component:
+      //vjs.zencdn.net/8.21.1/video-js.min.css:
+        { type: external, minified: true }
+    theme:
+      libraries/global/components/video-player.css: {}
+  js:
+    //vjs.zencdn.net/8.21.1/video.min.js: { type: external, minified: true }
+    libraries/js/videojs-analytics.js: {}
+    # https://unpkg.com/browse/@videojs/http-streaming@2.13.1/dist/videojs-http-streaming.min.js: { type: external, minified: true }
+    https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/3.0.1/Youtube.min.js:
+      { type: external, minified: true }
+    libraries/js/scitalk_video_js.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once

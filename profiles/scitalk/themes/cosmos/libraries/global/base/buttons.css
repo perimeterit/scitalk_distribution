@@ -1,0 +1,66 @@
+/**
+ * Buttons
+ * Colours are defined in the colour.css file
+ */
+.button,
+button,
+input[type='submit'],
+.form-submit {
+  background-color: var(--color-primary);
+  color: var(--color-primary--foreground);
+
+  display: inline-block;
+  font-size: 1em;
+  line-height: 1rem;
+  padding: .7em 1em;
+  text-decoration: none;
+  white-space: nowrap;
+
+  &:is(:hover,:focus) {
+    background-color: var(--color-secondary);
+    color: var(--color-secondary--foreground);
+  }
+
+  &:is(:focus-visible) {
+    color: var(--color-accent);
+    outline: 1px solid var(--color-accent);
+  }
+}
+
+.button-bigger {
+  font-size: 1.25em;
+}
+
+.button-smaller {
+  font-size: .85em;
+  font-weight: 600;;
+}
+
+.button-outline {
+  background: transparent;
+  color: var(--color-primary);
+  border: 3px solid  var(--color-primary);
+  font-weight: 600;
+
+  &:is(:hover,:focus) {
+    background: transparent;
+    border-color: var(--color-secondary);
+    color: var(--color-secondary);
+  }
+}
+
+.button-disabled {
+  opacity: .8;
+}
+
+button.button-unstyled {
+  background: transparent;
+  border: none;
+  color: inherit;
+  padding: 0;
+
+  &:is(:hover,:focus) {
+    background: transparent;
+    color: inherit;
+  }
+}

@@ -1,0 +1,102 @@
+/**
+ * To customize the Scitalk theme, copy thise file to a subtheme and customize as needed
+ */
+ /* Primary font family */
+
+ @import url('https://fonts.googleapis.com/css?family=Ubuntu:300,400,500&display=swap');
+
+ /**
+ * Colour variables
+* Always make sure colours pass colour contrast requirements for accessibility
+*/
+
+ :root {
+  color-scheme: light dark;
+  --color-white: light-dark(#fff, #fffbf5);
+  --color-black: #121212;
+  --color-primary-light: #6fd4ee;
+  --color-primary-medium: #2A7E93;
+  --color-primary-dark: #005468;
+  --color-secondary-medium: #4759CB;
+  --color-secondary-dark: #243184;
+  --color-primary: light-dark(var(--color-primary-medium), var(--color-primary-dark));
+  --color-primary--foreground: var(--color-white);
+
+  /* This is things like link hovers */
+  --color-primary--accent: light-dark(var(--color-primary-dark), var(--color-primary-light));
+
+  --color-secondary: light-dark(var(--color-secondary-medium), var(--color-secondary-dark));
+  --color-secondary--foreground: var(--color-white);
+
+  /* Greys go in shades from the background colour from less contrast to more contrast */
+  --color-grey-1: light-dark(hsl(0 0% 90%), hsl(0 0% 12%));
+  --color-grey-2: light-dark(hsl(0 0% 75%), hsl(0 0% 22%));
+  --color-grey-3: hsl(0 0% 50%);
+  --color-grey-4: light-dark(hsl(0 0% 30%), hsl(0 0% 70%));
+  --color-grey-5: light-dark(hsl(0 0% 15%), hsl(0 0% 95%));
+
+  --color-default-bg: light-dark(var(--color-white), var(--color-black));
+  --color-default-text: light-dark(var(--color-black), var(--color-white));
+
+  /* This is reversed - darker for light mode, lighter for dark mode  */
+  --link-color: light-dark(var(--color-primary-dark), var(--color-primary-light));
+
+  /* Font family */
+  --font-family-primary: 'Ubuntu', Helvetica, sans-serif;
+
+}
+
+/* Set the dark mode selection */
+
+/* User preference */
+@media (prefers-color-scheme: dark) {
+  html {
+    --theme: dark;
+    color-scheme: dark;
+  }
+}
+
+/* Manual toggle */
+html.dark {
+  --theme: dark;
+  color-scheme: dark;
+}
+
+/* Modify dark mode styles */
+@container style(--theme: dark) {
+
+}
+
+/* Set link & button colours  backgrounds & foregrounds */
+
+@container style(background-color: var(--color-primary)) {
+  * {
+    color: var(--color-primary--foreground);
+  }
+
+  a:not(.button):hover,:focus {
+    color: var(--color-primary--foreground);
+  }
+
+  button {
+    background-color: var(--color-primary--foreground);
+    color: var(--color-primary);
+  }
+
+}
+
+@container style(background-color: var(--color-secondary)) {
+  * {
+    color: var(--color-secondary--foreground);
+  }
+
+  a:not(.button):hover,:focus {
+    color: var(--color-secondary--foreground);
+  }
+
+  button {
+    background-color: var(--color-secondary--foreground);
+    color: var(--color-primary);
+  }
+
+}

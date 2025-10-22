@@ -1,0 +1,20 @@
+uuid: c6f0e462-df73-476a-ba6c-bb898e5afc48
+langcode: en
+status: true
+dependencies:
+  theme:
+    - cosmos
+_core:
+  default_config_hash: UgL8hzN6K3PiLFecq6PkUxq4ubonGNd5BKNkmf4U2hY
+id: cosmos_local_actions
+theme: cosmos
+region: admin
+weight: -2
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  label_display: '0'
+  provider: core
+visibility: {  }

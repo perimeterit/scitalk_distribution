@@ -1,0 +1,65 @@
+
+/**
+ * Modal dialogs for Citations
+*/
+
+/*
+ * Tabs
+*/
+#citations-content {
+  display: none;
+}
+.citations-content {
+  display: block;
+  border: none;
+}
+
+/* Tab labels */
+.citations-tab-labels {
+  display: flex;
+  & li {
+    margin-right: .2em;
+  }
+  & a {
+    border: none;
+    cursor: pointer;
+    padding: .3em 0.6em;
+    color: var(--color-primary);
+  }
+  & a:matches(:hover,:focus),
+  & a[aria-selected="true"] {
+    background: transparent;
+    color: inherit;
+  }
+  & a[aria-selected="true"]:after {
+    content: '';
+    display: block;
+    width: 1.5em;
+    height: 1.5em;
+
+    background: var(--color-lt-grey);
+    margin: 0;
+    transform: rotate(45deg);
+    position: relative;
+    left: calc(50% - .8em);
+    bottom: -3.5rem;
+    margin-top: -2.9em;
+  }
+}
+
+/* Tab content */
+.citation-item[aria-hidden="true"] {
+  display: none;
+}
+.citation-content {
+  background: var(--color-lt-grey);
+  padding: 1em;
+  margin-top: 1em;
+  color: var(--color-dk-grey);
+}
+.citation-item .bibtex-content {
+  overflow: scroll
+}
+.citation-item pre {
+  margin-left: -5em;
+}

@@ -1,0 +1,112 @@
+/**
+ * Sitewide layout
+*/
+
+.content-wrapper {
+  padding: var(--vertical-padding) var(--responsive-padding)
+    calc(2 * var(--vertical-padding));
+  width: 100%;
+
+}
+
+@media all and (min-width: 960px) {
+  .page-wrapper {
+    display: grid;
+    grid-template-columns: 220px auto;
+    grid-gap: var(--gutter--standard);
+  }
+  .content-wrapper {
+    max-width: 1000px;
+    margin-bottom: var(--vertical-padding);
+    padding-right: var(--responsive-padding);
+  }
+  .left-nav-wrapper {
+    background: var(--color-lt-grey);
+    padding-bottom: var(--gutter-standard);
+    padding-top: var(--gutter-standard);
+  }
+}
+
+@media all and (min-width: 960px) and (max-width: 1500px) {
+  .content-wrapper.fixwidth {
+    padding-right: calc(1.25rem + 0.2vw);
+  }
+}
+
+/* Left nav  */
+.region-left-nav .menu {
+  margin: 0;
+  & li {
+    display: block;
+  }
+  & a {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 400;
+    padding: 0.7rem 1rem;
+    &:matches(:hover, :focus) {
+      background: var(--color-secondary);
+      color: var(--color-secondary--foreground);
+    }
+  }
+  & .active-trail a {
+    background: var(--color-primary);
+    color: var(--color-primary--foreground);
+  }
+}
+
+/**
+ * Footer
+*/
+.site-footer {
+  background: var(--color-grey-1);
+  color: var(--color-white);
+  padding: var(--vertical-padding) 0;
+
+  & a {
+    color: var(--color-white);
+  }
+  & .menu {
+    display: flex;
+    & li {
+      margin-right: 0.5rem;
+    }
+    & a {
+      padding: 0.2rem;
+      &:matches(:hover, :focus) {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+.region-footer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+@media all and (max-width: 1240px) {
+  .region-footer {
+    padding-left: var(--responsive-padding);
+    padding-right: var(--responsive-padding);
+  }
+  .region-footer .block {
+    margin-bottom: 1em;
+  }
+}
+
+@media all and (min-width: 960px) {
+  .region-footer {
+    display: grid;
+    grid-template-columns: auto auto;
+
+    & .menu--account {
+      order: 2;
+      & .menu {
+        justify-content: flex-end;
+      }
+    }
+
+    & .block-copyright-block {
+      order: 3;
+    }
+  }
+}

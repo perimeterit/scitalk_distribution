@@ -1,0 +1,15 @@
+/* Some default styling for menus */
+.menu {
+  --menu-link-color: var(--color-grey-dark);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  & li {
+    display: block;
+  }
+  & .menu-link {
+    color: var(--menu-link-color);
+    padding: 0.2em 0.5em;
+    text-decoration: none;
+  }
+}

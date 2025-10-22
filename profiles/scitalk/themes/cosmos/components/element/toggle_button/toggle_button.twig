@@ -1,0 +1,14 @@
+{% set display_label = display_label|default(false) %}
+{% set icon_name = icon_name|default('chevron-down') %}
+
+{% set classes = [
+   name|clean_class ~ '-toggle',
+  'toggle-button',
+  'button-unstyled',
+] %}
+
+<button {{ attributes.addClass(classes)}} aria-controls="{{ controls }}"
+  aria-expanded="false" data-hide-text="{{ 'Hide'|t ~ name  }}">
+  {{ include('cosmos:icon', {icon_name: icon_name}) }}
+  <span class="{{ display_label == false  ? 'visually-hidden' }} ">{{ name }}</span>
+</button>

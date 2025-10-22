@@ -1,0 +1,9 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: icon
+status: stable
+props:
+  type: object
+  properties:
+    icon_name:
+      type: string
+      title: Icon name

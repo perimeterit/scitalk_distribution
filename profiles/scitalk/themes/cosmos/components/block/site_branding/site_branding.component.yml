@@ -1,0 +1,21 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Site branding
+status: stable
+props:
+  type: object
+  properties:
+    site_name:
+      type: string
+      title: Site name
+      # @todo Add examples here.
+      examples: []
+    site_slogan:
+      type: string
+      title: Site slogan
+      # @todo Add examples here.
+      examples: []
+    site_logo:
+      type: string
+      title: Site logo
+      # @todo Add examples here.
+      examples: []

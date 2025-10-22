@@ -1,0 +1,126 @@
+.search-form {
+  --search-font-size: 1.2rem;
+  --search-form-v-padding: .5rem;
+  --search-form-height: calc(var(--search-font-size) + (2 * var(--search-form-v-padding)));
+
+  form {
+    display: flex;
+  }
+
+  .form-item {
+    display: flex;
+    margin: 0;
+    width: 100%;
+  }
+
+  .form-search,
+  .form-text {
+    font-size: var(--search-font-size);
+    padding: var(--search-form-v-padding) .5rem;
+    max-width: 100%;
+  }
+
+  .form-text {
+    width: 100%;
+    max-width: 30rem;
+    min-width: 15rem;
+  }
+
+  .form-actions {
+    margin-top: 0;
+  }
+
+  .form-submit {
+    background: var(--color-primary) center center no-repeat;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23fff'%3E%3Cpath d='M18.031 16.6168L22.3137 20.8995L20.8995 22.3137L16.6168 18.031C15.0769 19.263 13.124 20 11 20C6.032 20 2 15.968 2 11C2 6.032 6.032 2 11 2C15.968 2 20 6.032 20 11C20 13.124 19.263 15.0769 18.031 16.6168ZM16.0247 15.8748C17.2475 14.6146 18 12.8956 18 11C18 7.1325 14.8675 4 11 4C7.1325 4 4 7.1325 4 11C4 14.8675 7.1325 18 11 18C12.8956 18 14.6146 17.2475 15.8748 16.0247L16.0247 15.8748Z'%3E%3C/path%3E%3C/svg%3E");
+    background-size: 70%;
+    clip-path: none;
+    border: none;
+    color: transparent;
+    padding: 0;
+    height: var(--search-form-height);
+    width: var(--search-form-height);
+
+    &:is(:hover,:focus) {
+      color: transparent;
+    }
+  }
+}
+
+/* Toggle/slide open option */
+.toggle-search {
+  display: flex;
+  align-items: center;
+
+  svg {
+    height: var(--search-form-font-size);
+    width: var(--search-form-font-size);
+  }
+}
+
+/* In page variant */
+.search-form--in-page {
+  .form-text {
+    font-size: 1.5rem;
+    padding: 1.5rem 2rem;
+    max-height: var(--search-form-height);
+  }
+}
+
+/* In the site header, with toggle */
+.search-form--site-header {
+  margin-bottom: 0;
+
+  form {
+    justify-content: center;
+    max-width: 30rem;
+    margin: 0 auto;
+  }
+
+  .form-text,
+  .form-search {
+    border: 0;
+    font-size: .8rem;
+    outline: 0;
+    width: 100%;
+  }
+
+  .form-submit {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+  }
+}
+
+@media (min-width: 960px) {
+    .search-toggle {
+      display: none;
+    }
+}
+
+@media (max-width: 959px) {
+  .search-form--site-header {
+    .search-form-wrapper {
+      display: none;
+    }
+
+    .search-toggle .icon {
+      height: 1.7rem;
+      width: 1.7rem;
+    }
+
+    .search-form-wrapper {
+      background: var(--color-grey-2);
+      padding: 1rem;
+      position: fixed;
+      left: 0;
+      margin-top: 1rem;
+      padding: 1rem;
+      width: 100%;
+    }
+
+    .search-toggle[aria-expanded='true'] + .search-form-wrapper {
+      display: block;
+    }
+  }
+}

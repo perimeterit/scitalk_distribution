@@ -1,0 +1,20 @@
+uuid: d342718a-07fa-41ad-8e64-de3aef50e056
+langcode: en
+status: true
+dependencies:
+  theme:
+    - cosmos
+_core:
+  default_config_hash: SWMMHVX-YWCciJDiIjYBaYgMZGtL7N8fM-Se1DKXLWQ
+id: cosmos_pagetitle
+theme: cosmos
+region: page_title
+weight: -7
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  label_display: '0'
+  provider: core
+visibility: {  }

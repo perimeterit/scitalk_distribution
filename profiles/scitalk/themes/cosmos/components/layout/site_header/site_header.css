@@ -1,0 +1,29 @@
+.site-header {
+  display: grid;
+  align-items: center;
+
+  justify-content: space-between;
+  grid-gap: 1rem;;
+
+  position: sticky;
+  top: 0;
+  padding: 1rem;
+  width: 100%;
+  z-index: 10;
+
+}
+
+@media (min-width: 960px) {
+  .site-header {
+    grid-template-columns: auto 1fr auto;
+  }
+}
+
+@media (max-width: 959px) {
+  .site-header {
+    grid-template-columns: 1fr auto;
+    .supplementary-nav {
+      display: none;
+    }
+  }
+}

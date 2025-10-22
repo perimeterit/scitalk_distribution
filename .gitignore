@@ -76,7 +76,7 @@ robots.txt
 sites/README.txt
 sites/all/libraries/README.txt
 sites/all/modules/README.txt
-sites/all/themes/README.txt
+sites/all//README.txt
 
 # Ignore everything but the "sites" folder ( for non core developer )
 .htaccess
@@ -91,7 +91,6 @@ xmlrpc.php
 /misc
 /modules
 /scripts
-/themes
 /drush
 
 #in addition to the above, ignore everything that is not "discrete changes to the custom modules, the custom theme, updates to the profile install dependencies and tweaks to composer.json."

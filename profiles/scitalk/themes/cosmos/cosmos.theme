@@ -1,0 +1,760 @@
+<?php
+/**
+ * @file
+ * Functions to support theming
+ */
+
+use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Utility\Xss;
+use Drupal\Core\Template\Attribute;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
+use Drupal\node\NodeInterface;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\node\Entity\Node;
+use Drupal\views\Views;
+
+/**
+ * Implements hook_preprocess_HOOK().
+ * Alters variables for page template.
+ */
+function cosmos_preprocess_page(&$variables) {
+  // Get the page header view mode for nodes and taxonomy terms where needed.
+  // Get the route to find out what type of page this is
+  $route = \Drupal::routeMatch();
+  $routename = $route->getRouteName();
+  // For talks and speakers (nodes)
+  if (($routename == 'entity.node.canonical') || ($routename == 'entity.node.preview')) {
+    // If the node object exists:
+    if ($routename == 'entity.node.canonical') {
+      $node = \Drupal::routeMatch()->getParameter('node');
+    }
+    else if ($routename == 'entity.node.preview') {
+      $node = \Drupal::routeMatch()->getParameter('node_preview');
+    }
+  }
+
+  // Negotiate the page type or section, to set the search mode
+  $route_parts = explode('.', $routename);
+  if ($route_parts[1] == 'node') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    $nodetype = $node->getType();
+    if ($nodetype == 'collection') {
+      // speakers will work like this when implemented
+      $variables['search_section'] = $nodetype . 's';
+    }
+    else {
+      $variables['search_section'] = 'talks';
+    }
+  }
+  else if ($route_parts[0] == 'view') {
+    $view_name = explode('_', $route_parts[1]);
+    if (($view_name[1] == 'collections') ||
+      (isset($view_name[2]) && ($view_name[2] == 'collections'))) {
+      $variables['search_section'] = 'collections';
+    }
+    else {
+      $variables['search_section'] = 'talks';
+    }
+  }
+  else {
+    $variables['search_section'] = 'talks';
+  }
+
+}
+
+
+/**
+ * Implements hook_preprocess_HOOK().
+ * Alters variables for page title template.
+ */
+function cosmos_preprocess_page_title(&$variables) {
+  $route = \Drupal::routeMatch();
+  $routename = $route->getRouteName();
+
+  if ($routename == 'entity.node.canonical') {
+    $node = \Drupal::routeMatch()->getParameter('node');
+    if ($node->getType() == 'collection') {
+      $parent_collection_field = $node->get('field_parent_collection')->getValue();
+      if (!empty($parent_collection_field[0]['target_id'])) {
+        $parent_collection_id = $parent_collection_field[0]['target_id'];
+        $parent_collection_node = Node::load($parent_collection_id);
+        $variables['parent_collection_title'] = $parent_collection_node->getTitle();
+        $variables['parent_collection_id'] = $parent_collection_id;
+      }
+    }
+  }
+}
+/**
+ * Implements hook_preprocess_HOOK().
+ * Alters variables for nodes.
+ */
+function cosmos_preprocess_node(&$variables) {
+
+  $node = $variables['node'];
+  $nodetype = $node->getType();
+  $nid = $node->id();
+
+  // Find out if this is a Views page
+  // Used to change the header level
+  $route = \Drupal::routeMatch()->getRouteObject();
+  $view_id = $route->getDefault('view_id');
+  if (isset($view_id)) {
+    $variables['is_view_page'] = TRUE;
+  }
+
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ * Alters variables for bef radios
+ * For Collection type field, get the count of items for that taxonomy term
+ */
+function cosmos_preprocess_bef_radios(&$variables) {
+  if ($variables['element']['#name'] == 'field_collection_type_target_id') {
+    foreach ($variables['children'] as $key => $child) {
+      // Get count of results for this term
+      $view = Views::getView('scitalk_collections');
+      $view->setDisplay('card_view');
+      $view->setItemsPerPage(0);
+      $exposed_filters = ['field_collection_type_target_id' => $child];
+      $view->setExposedInput($exposed_filters);
+      $view->execute();
+      $variables['element'][$child]['#field_prefix'] = count($view->result);
+    }
+  }
+}
+/**
+ * Implements hook_preprocess_HOOK() for blocks.
+ */
+function cosmos_preprocess_block(&$variables) {
+
+  $base_plugin_id = $variables['elements']['#base_plugin_id'];
+  $plugin_id = $variables['elements']['#plugin_id'];
+
+  // Put a slightly less insane class on the views exposed form block
+  if ($base_plugin_id == 'views_exposed_filter_block') {
+    $plugin_parts = explode(':', $plugin_id);
+    $variables['attributes']['class'][] = 'block--' . str_replace('_', '-', $plugin_parts[1]);
+  }
+
+  // Add search form classes to search exposed form, for default search view & solr search view
+  if (($variables['derivative_plugin_id'] == 'default_search_content-page_2') ||
+    ($variables['derivative_plugin_id'] == 'scitalk_advanced_search-basic_search')) {
+    $variables['attributes']['class'][] = 'search-block-form';
+    $variables['title_attributes']['class'][] = 'visually-hidden';
+  }
+
+  // views_block:scitalk_taxonomy-collection_type_by_source
+  // On Source home page taxonomy views, hdie the view if there is only 1 result
+  if (($plugin_id == 'views_block:scitalk_taxonomy-subjects_by_source') &&
+    (isset($variables['content']['#view']))) {
+    $view = $variables['content']['#view'];
+    if ($view->total_rows <= 1) {
+      $variables['attributes']['class'][] = 'visually-hidden';
+    }
+  }
+
+  if (($plugin_id == 'views_block:scitalk_taxonomy-collection_type_by_source') &&
+    (isset($variables['content']['#view']))) {
+    $view = $variables['content']['#view'];
+    if ($view->total_rows <= 1) {
+      $variables['attributes']['class'][] = 'visually-hidden';
+    }
+  }
+}
+
+/*
+ * Implements hook_preprocess_HOOK() for fields.
+ */
+function cosmos_preprocess_field(&$variables) {
+  $field_name = $variables['field_name'];
+
+  // Change label on Prefixed talk number field
+  if ($field_name == 'scitalk_prefixed_talk_number') {
+    $variables['label'] = t('Talk number');
+  }
+
+  // Pass group full name to source repo url field (to use as link label)
+  if ($field_name == 'field_source_repo_url') {
+    $group_full_name_field = $variables['element']['#object']->get('field_source_repo_full_name');
+    $group_full_name = $group_full_name_field[0]->getValue();
+    $variables['group_full_name'] = $group_full_name['value'];
+  }
+}
+
+/*
+ * Implements hook_preprocess_HOOK() for media entities.
+ */
+function cosmos_preprocess_media(&$variables) {
+  $bundle = $variables['media']->bundle();
+  $variables['bundle'] = $bundle;
+
+  //add subtitles for video media types if available
+  $video_media_bundles = ['scitalk_adaptive_streaming', 'scitalk_youtube_video', 'video'];
+  if (in_array($bundle, $video_media_bundles)) {
+    $media = $variables['elements']['#media'];
+    $entity = Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
+      'field_talk_video' => $media->id()
+    ]);
+
+    $entity = current($entity);
+    $field_vtt_urls = $entity->field_subtitle_url?->getValue() ?? [];
+
+    //if there is a vtt url set then use it, else check if a vtt file was uploaded instead
+    if (!empty($field_vtt_urls)) {
+      foreach ($field_vtt_urls as $field_vtt_url) {
+        $media = Media::load($field_vtt_url['target_id']);
+        $vtt_url = $media->field_media_scitalk_remote_file->value ?? "";
+        $label = $media->field_subtitles_language->value ?? "";
+        $lang = _iso_language_code_map($label);
+        $variables['vtts'][] =  ["src" => $vtt_url, "lang" => $lang, "label" => $label];
+      }
+    }
+    else {
+      $field_vtt_files = $entity->field_subtitle_upload_file?->getValue() ?? [];
+
+      foreach ($field_vtt_files as $field_vtt_file) {
+        $media = Media::load($field_vtt_file['target_id']);
+        $fid = $media->field_media_file->target_id;
+        $file = File::load($fid);
+        $vtt_url = $file?->createFileUrl();
+        $label = $media->field_subtitles_language->value ?? "";
+        $lang = _iso_language_code_map($label);
+        $variables['vtts'][] = ["src" => $vtt_url, "lang" => $lang, "label" => $label];
+      }
+    }
+  }
+
+  //pass the video mime types to theme for adaptive videos:
+  if ($bundle == 'scitalk_adaptive_streaming') {
+    // for now we have these adaptive video mime types:
+    $adpative_video_mime_mapping = [
+      'm3u8' => 'application/x-mpegURL',
+      'mpd' => 'application/dash+xml'
+    ];
+
+    $variables['adpative_video_mime_mapping'] = $adpative_video_mime_mapping;
+  }
+
+  // parse VTTs replacing times texts with links so that we could links to those times in the videos, and vice versa
+  if ($bundle == 'scitalk_transcription') {
+    $transcript_field = $variables['elements']['field_media_scitalk_transcript'] ?? [];
+    $transcript_text = $transcript_field[0]['#text'] ?? '';
+
+    if (!empty($transcript_text)) {
+      $re = "/((\d\d:)?\d{2}:\d{2}\.\d{3})\s+-->\s+((\d\d:)?\d{2}:\d{2}\.\d{3})((?:(?!\d\d:).)*|$)/ms";
+
+      @preg_match_all($re, $transcript_text, $matches, PREG_SET_ORDER);
+      $formattted_transcript_text = _build_transcript_text($matches, $transcript_text);
+      $variables['formatted_trascript_text'] = $formattted_transcript_text;
+    }
+  }
+}
+
+/*
+ * Implements hook_preprocess_HOOK() for group entities.
+ */
+function cosmos_preprocess_group(&$variables) {
+  // Find out if the Talks & collections by source have results.
+  $group = $variables['group'];
+  $group_type = $group->type->getValue();
+  $group_id = $group->id->getValue();
+
+  // For Source Repositories, get the Talks and Collections by source views
+  if (($group_type[0]['target_id'] == 'source_repository') && (!empty($group_id))) {
+    // Get count of talks in view
+    $talks_view = Views::getView('scitalk_talks_by_source_repo');
+    $talks_view->setArguments([(int) $group_id[0]['value']]);
+    $talks_view->get_total_rows = TRUE;
+
+    $talks_view->execute('talks_full');
+    $talks_count = $talks_view->total_rows;
+    $variables['talks_view_count'] = $talks_count;
+
+    // Get count of collections in view
+    $collections_view = Views::getView('scitalk_talks_by_source_repo');
+    $collections_view->setArguments([(int) $group_id[0]['value']]);
+    $collections_view->get_total_rows = TRUE;
+
+    $collections_view->execute('collections_full');
+    $collections_count = $collections_view->total_rows;
+    $variables['collections_view_count'] = $collections_count;
+  }
+
+  // Send the group id and name to Javascript, used to set the default source
+  // On the advanced search form.
+  $variables['#attached']['drupalSettings']['cosmos']['group_name'] = $group->label->getValue();
+
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ * Alters variables for views.
+ */
+function cosmos_preprocess_views_view(&$variables) {
+  $view = $variables['view'];
+  $view_id = $view->id();
+  $view_display = $view->current_display;
+  // For search view, get exposed input and make it available in the template
+  if (($view_id == 'scitalk_advanced_search') || ($view_id == 'scitalk_search_collections')) {
+    $exposed_input = $view->getExposedInput();
+    $variables['exposed_input'] = $view->getExposedInput();
+  }
+
+}
+
+/**
+ * Implements hook_views_pre_render().
+ * Alters views before render
+ */
+
+function cosmos_views_pre_render(\Drupal\views\ViewExecutable $view) {
+  // On source talks view, rewrite more link for talks display
+  if (($view->id() == 'scitalk_talks_by_source_repo') &&
+    (($view->current_display == 'talks') || ($view->current_display == 'collections'))
+  ) {
+    $group_id = $view->args[0];
+    $group = Drupal::entityTypeManager()->getStorage('group')->loadByProperties(['id' => $group_id]);
+    $group_title = $group[$group_id]->get('label')->getValue();
+
+    if ($view->current_display == 'collections') {
+      $filter_name = 'collection_source';
+    }
+    else {
+      $filter_name = 'source';
+    }
+
+    $link = '/search-' . $view->current_display . '?' . $filter_name . '=' . str_replace(' ', '+', $group_title[0]['value']);
+    $view->display_handler->setOption("link_url", $link);
+  }
+}
+
+/**
+ * Implements hook_preprocess_HOOK().
+ * Alters variables for fieldsets.
+ */
+function cosmos_preprocess_fieldset(&$variables) {
+  if (isset($variables['element']['#name'])) {
+    $variables['attributes']['class'][] = 'fieldset--' . str_replace('_', '-', $variables['element']['#name']);
+  }
+}
+function cosmos_preprocess_details(&$variables) {
+  if (isset($variables['element']['#title'])) {
+    $variables['attributes']['class'][] = 'details--' . str_replace('_', '-', strtolower($variables['element']['#title']));
+  }
+}
+
+/*
+ Implements hook_form_alter()
+ */
+function cosmos_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+
+  // Alter search form to hide form label in basic form
+  if (($form['#id'] == 'views-exposed-form-scitalk-advanced-search-basic-search')) {
+    // Solr search.
+    $form['keys']['#title_display'] = 'invisible';
+    $form['keys']['#attributes']['placeholder'] = t('Search');
+    $form['keys']['#size'] = 20;
+
+    // Database search.
+    $form['search_api_fulltext']['#title_display'] = 'invisible';
+    $form['search_api_fulltext']['#attributes']['placeholder'] = t('Search');
+    $form['search_api_fulltext']['#size'] = 20;
+  }
+
+  // For Scientific area tags (extra filters as tags)
+  if ($form['#id'] == 'views-exposed-form-scitalk-latest-talks-extra-filters') {
+    $form['field_scientific_area']['#title_display'] = 'invisible';
+  }
+
+  // For advanced Talks search
+  if ($form['#id'] == 'views-exposed-form-scitalk-advanced-search-form-block') {
+    // Change the placeholder text on the search terms field
+    $form['search_api_fulltext']['#attributes']['placeh/*  */older'] = t('Search');
+    $form['text']['#attributes']['placeholder'] = t('Search');
+
+    // Add a wrapper div around the date fields
+    $form['from']['#prefix'] = '<div class="date-search-wrap">';
+    //  This closes the content-search-wrap as well
+    $form['to']['#suffix'] = '</div>';
+    if (!empty($form['talk_subject']['#options'])) {
+      foreach ($form['talk_subject']['#options'] as $key => &$option) {
+        if ($key == 'All') {
+          $option = t('All Subjects');
+          break;
+        }
+      }
+    }
+
+    // Replace the search by repository textbox field by a dropdown
+    if (!empty($form['repository_id'])) {
+      $sql = "SELECT entity_id, title as repo_short_name, node__field_repo_institution.field_repo_institution_value as institution_short_name
+        FROM node_field_data
+        JOIN node__field_repo_institution ON node_field_data.nid = node__field_repo_institution.entity_id
+        ORDER BY institution_short_name";
+
+      $repositories = \Drupal::database()->query($sql)->fetchAll();
+      $options = [];
+      foreach ($repositories as $repo) {
+        $options[$repo->entity_id] = $repo->institution_short_name . ' - ' . $repo->repo_short_name;
+      }
+
+      $form['repository_id'] = [
+        '#type' => "select",
+        '#size' => 1,
+        '#default_value' => t('All Repositories'),
+        '#validated' => TRUE,
+        '#empty_option' => t('All Repositories'),
+        '#options' => $options
+      ];
+    }
+  }
+
+  // For advanced Collections search
+  if ($form['#id'] == 'views-exposed-form-scitalk-search-collections-form-block') {
+
+    // Change the placeholder text on the search terms field
+    $form['collection_text']['#title_display'] = 'invisible';
+    $form['search_api_fulltext']['#attributes']['placeholder'] = t('Search');
+    $form['collection_text']['#attributes']['placeholder'] = t('Search');
+
+    // Add a wrapper div around the date fields
+    $form['collection_from']['#prefix'] = '<div class="date-search-wrap">';
+    //  This closes the content-search-wrap as well
+    $form['collection_to']['#suffix'] = '</div>';
+    if (!empty($form['talk_subject']['#options'])) {
+      foreach ($form['talk_subject']['#options'] as $key => &$option) {
+        if ($key == 'All') {
+          $option = t('All Subjects');
+          break;
+        }
+      }
+    }
+  }
+
+  //new default search
+  if ($form['#id'] == 'views-exposed-form-scitalk-default-advanced-search2-talks-search') {
+    $form['actions']['submit']['#attributes'] = array('class' => array('do-advanced-search'));
+
+    if (!empty($form['talk_subject']['#options'])) {
+      foreach ($form['talk_subject']['#options'] as $key => &$option) {
+        if ($key == 'All') {
+          $option = t('All Subjects');
+          break;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Alter page attachments
+ * Send variable to DrupalSettings for advanced search page
+ */
+function cosmos_page_attachments_alter(array &$page) {
+  $route = \Drupal::routeMatch();
+  $routename = $route->getRouteName();
+  $search_terms = \Drupal::request()->query->get('search_api_fulltext');
+  $page['#attached']['drupalSettings']['cosmos']['is_search_page'] = 'false';
+  $route_parts = explode('.', $routename);
+
+  $search_view_machine_names = [
+    'scitalk_advanced_search',
+    'scitalk_search_collections'
+  ];
+
+  if (in_array($route_parts[1], $search_view_machine_names)) {
+    $page['#attached']['drupalSettings']['cosmos']['is_search_page'] = 'true';
+  }
+}
+
+//find ISO language code
+function _iso_language_code_map($language) {
+  $mapping =  [
+    "afar" => "aa",
+    "abkhazian" => "ab",
+    "avestan" => "ae",
+    "afrikaans" => "af",
+    "akan" => "ak",
+    "amharic" => "am",
+    "aragonese" => "an",
+    "arabic" => "ar",
+    "assamese" => "as",
+    "avaric" => "av",
+    "aymara" => "ay",
+    "azerbaijani" => "az",
+    "bashkir" => "ba",
+    "belarusian" => "be",
+    "bulgarian" => "bg",
+    "bihari languages" => "bh",
+    "bislama" => "bi",
+    "bambara" => "bm",
+    "bengali" => "bn",
+    "tibetan" => "bo",
+    "breton" => "br",
+    "bosnian" => "bs",
+    "catalan; valencian" => "ca",
+    "catalan" => "ca",
+    "valencian" => "ca",
+    "chechen" => "ce",
+    "chamorro" => "ch",
+    "corsican" => "co",
+    "cree" => "cr",
+    "czech" => "cs",
+    "church slavic; old slavonic; church slavonic; old bulgarian; old church slavonic" => "cu",
+    "church slavic" => "cu",
+    "old slavonic" => "cu",
+    "church slavonic" => "cu",
+    "old bulgarian" => "cu",
+    "old church slavonic" => "cu",
+    "chuvash" => "cv",
+    "welsh" => "cy",
+    "danish" => "da",
+    "german" => "de",
+    "divehi; dhivehi; maldivian" => "dv",
+    "divehi" => "dv",
+    "dhivehi" => "dv",
+    "maldivian" => "dv",
+    "dzongkha" => "dz",
+    "ewe" => "ee",
+    "greek, modern (1453-)" => "el",
+    "english" => "en",
+    "esperanto" => "eo",
+    "spanish; castilian" => "es",
+    "spanish" => "es",
+    "castilian" => "es",
+    "estonian" => "et",
+    "basque" => "eu",
+    "persian" => "fa",
+    "fulah" => "ff",
+    "finnish" => "fi",
+    "fijian" => "fj",
+    "faroese" => "fo",
+    "french" => "fr",
+    "western frisian" => "fy",
+    "irish" => "ga",
+    "gaelic; scomttish gaelic" => "gd",
+    "gaelic" => "gd",
+    "scomttish gaelic" => "gd",
+    "galician" => "gl",
+    "guarani" => "gn",
+    "gujarati" => "gu",
+    "manx" => "gv",
+    "hausa" => "ha",
+    "hebrew" => "he",
+    "hindi" => "hi",
+    "hiri motu" => "ho",
+    "croatian" => "hr",
+    "haitian; haitian creole" => "ht",
+    "haitian" => "ht",
+    "haitian creole" => "ht",
+    "hungarian" => "hu",
+    "armenian" => "hy",
+    "herero" => "hz",
+    "interlingua (international auxiliary language association)" => "ia",
+    "indonesian" => "id",
+    "interlingue; occidental" => "ie",
+    "interlingue" => "ie",
+    "occidental" => "ie",
+    "igbo" => "ig",
+    "sichuan yi; nuosu" => "ii",
+    "sichuan yi" => "ii",
+    "nuosu" => "ii",
+    "inupiaq" => "ik",
+    "ido" => "io",
+    "icelandic" => "is",
+    "italian" => "it",
+    "inuktitut" => "iu",
+    "japanese" => "ja",
+    "javanese" => "jv",
+    "georgian" => "ka",
+    "kongo" => "kg",
+    "kikuyu; gikuyu" => "ki",
+    "kikuyu" => "ki",
+    "gikuyu" => "ki",
+    "kuanyama; kwanyama" => "kj",
+    "kuanyama" => "kj",
+    "kwanyama" => "kj",
+    "kazakh" => "kk",
+    "kalaallisut; greenlandic" => "kl",
+    "kalaallisut" => "kl",
+    "greenlandic" => "kl",
+    "central khmer" => "km",
+    "kannada" => "kn",
+    "korean" => "ko",
+    "kanuri" => "kr",
+    "kashmiri" => "ks",
+    "kurdish" => "ku",
+    "komi" => "kv",
+    "cornish" => "kw",
+    "kirghiz; kyrgyz" => "ky",
+    "kirghiz" => "ky",
+    "kyrgyz" => "ky",
+    "latin" => "la",
+    "luxembourgish; letzeburgesch" => "lb",
+    "luxembourgish" => "lb",
+    "letzeburgesch" => "lb",
+    "ganda" => "lg",
+    "limburgan; limburger; limburgish" => "li",
+    "limburgan" => "li",
+    "limburger" => "li",
+    "limburgish" => "li",
+    "lingala" => "ln",
+    "lao" => "lo",
+    "lithuanian" => "lt",
+    "luba-katanga" => "lu",
+    "latvian" => "lv",
+    "malagasy" => "mg",
+    "marshallese" => "mh",
+    "maori" => "mi",
+    "macedonian" => "mk",
+    "malayalam" => "ml",
+    "mongolian" => "mn",
+    "marathi" => "mr",
+    "malay" => "ms",
+    "maltese" => "mt",
+    "burmese" => "my",
+    "nauru" => "na",
+    "bokmål, norwegian; norwegian bokmål" => "nb",
+    "bokmål, norwegian" => "nb",
+    "norwegian bokmål" => "nb",
+    "ndebele, north; north ndebele" => "nd",
+    "ndebele, north" => "nd",
+    "north ndebele" => "nd",
+    "nepali" => "ne",
+    "ndonga" => "ng",
+    "dutch; flemish" => "nl",
+    "dutch" => "nl",
+    "flemish" => "nl",
+    "norwegian nynorsk; nynorsk, norwegian" => "nn",
+    "norwegian nynorsk" => "nn",
+    "nynorsk, norwegian" => "nn",
+    "norwegian" => "no",
+    "ndebele, south; south ndebele" => "nr",
+    "ndebele, south" => "nr",
+    "south ndebele" => "nr",
+    "navajo; navaho" => "nv",
+    "navajo" => "nv",
+    "navaho" => "nv",
+    "chichewa; chewa; nyanja" => "ny",
+    "chichewa" => "ny",
+    "chewa" => "ny",
+    "nyanja" => "ny",
+    "occitan (post 1500)" => "oc",
+    "ojibwa" => "oj",
+    "oromo" => "om",
+    "oriya" => "or",
+    "ossetian; ossetic" => "os",
+    "ossetian" => "os",
+    "ossetic" => "os",
+    "panjabi; punjabi" => "pa",
+    "panjabi" => "pa",
+    "punjabi" => "pa",
+    "pali" => "pi",
+    "polish" => "pl",
+    "pushto; pashto" => "ps",
+    "pushto" => "ps",
+    "pashto" => "ps",
+    "portuguese" => "pt",
+    "quechua" => "qu",
+    "romansh" => "rm",
+    "rundi" => "rn",
+    "romanian; moldavian; moldovan" => "ro",
+    "romanian" => "ro",
+    "moldavian" => "ro",
+    "moldovan" => "ro",
+    "russian" => "ru",
+    "kinyarwanda" => "rw",
+    "sanskrit" => "sa",
+    "sardinian" => "sc",
+    "sindhi" => "sd",
+    "northern sami" => "se",
+    "sango" => "sg",
+    "sinhala; sinhalese" => "si",
+    "sinhala" => "si",
+    "sinhalese" => "si",
+    "slovak" => "sk",
+    "slovenian" => "sl",
+    "samoan" => "sm",
+    "shona" => "sn",
+    "somali" => "so",
+    "albanian" => "sq",
+    "serbian" => "sr",
+    "swati" => "ss",
+    "sotho, southern" => "st",
+    "sundanese" => "su",
+    "swedish" => "sv",
+    "swahili" => "sw",
+    "tamil" => "ta",
+    "telugu" => "te",
+    "tajik" => "tg",
+    "thai" => "th",
+    "tigrinya" => "ti",
+    "turkmen" => "tk",
+    "tagalog" => "tl",
+    "tswana" => "tn",
+    "tonga (tonga islands)" => "to",
+    "turkish" => "tr",
+    "tsonga" => "ts",
+    "tatar" => "tt",
+    "twi" => "tw",
+    "tahitian" => "ty",
+    "uighur; uyghur" => "ug",
+    "uighur" => "ug",
+    "uyghur" => "ug",
+    "ukrainian" => "uk",
+    "urdu" => "ur",
+    "uzbek" => "uz",
+    "venda" => "ve",
+    "vietnamese" => "vi",
+    "volapük" => "vo",
+    "walloon" => "wa",
+    "wolof" => "wo",
+    "xhosa" => "xh",
+    "yiddish" => "yi",
+    "yoruba" => "yo",
+    "zhuang; chuang" => "za",
+    "zhuang" => "za",
+    "chuang" => "za",
+    "chinese" => "zh",
+    "zulu" => "zu"
+  ];
+
+  return $mapping[strtolower($language)] ?? "";
+}
+
+function _build_transcript_text($matches, $str){
+  $new_text = $str;
+  $new_text = preg_replace("/WEBVTT\s*/ms", "", $new_text);
+  foreach($matches as $res) {
+      $start = $res[1];
+      $start_time = explode(":", $start);
+      $text_block = $res[5];
+      $text_block_trimmed = trim($text_block);
+      if (count($start_time) == 2) { //mm:ss.milsec  (not hr in the time)
+          $min = $start_time[0];
+          $sec = explode(".", $start_time[1]);
+          $sec = $sec[0];
+          $min_to_secs = (int) $min * 60 + (int) $sec;
+          $display_time = "{$min}:{$sec}";
+          // $link = "<div class='trans_wrap'><div class='jump_to_wrap' id='{$min_to_secs}'><button class='jump_to' value='{$min_to_secs}' aria-description='Start playing at interval {$display_time}'><div><i aria-hidden='true' class='icon-play'></i><span class='timestamp'>{$display_time}</span></div></button></div><div class='trans_text' aria-label='{$text_block_trimmed}'><span>{$text_block}</span></div></div>";
+          $link = "<div class=\"trans_wrap\"><div class=\"jump_to_wrap\" id=\"{$min_to_secs}\"><button class=\"jump_to\" value=\"{$min_to_secs}\" aria-description=\"Start playing at interval {$display_time}\"><div><i aria-hidden=\"true\" class=\"icon-play\"></i><span class=\"timestamp\">{$display_time}</span></div></button></div><div class=\"trans_text\" aria-label=\"{$text_block_trimmed}\"><span>{$text_block}</span></div></div>";
+          $new_text = str_replace($res[0], $link, $new_text);
+      }
+      elseif (count($start_time) == 3) { //hh:mm:ss.milsec
+          $hr = $start_time[0];
+          $min = $start_time[1];
+          $sec = explode(".", $start_time[2]);
+          $sec = $sec[0];
+          $hrs_to_secs = (int) $hr * 3600 + (int) $min * 60 + (int) $sec;
+          $display_time = (int) $hr > 0 ? "{$hr}:{$min}:{$sec}" : "{$min}:{$sec}";
+          // $link = "<div class='trans_wrap'><div class='jump_to_wrap' id='{$hrs_to_secs}'><button class='jump_to' value='{$hrs_to_secs}' aria-description='Start playing at interval {$display_time}'><div><i aria-hidden='true' class='icon-play'></i><span class='timestamp'>{$display_time}</span></div></button></div><div class='trans_text' aria-label='{$text_block_trimmed}'><span>{$text_block}</span></div></div>";
+          $link = "<div class=\"trans_wrap\"><div class=\"jump_to_wrap\" id=\"{$hrs_to_secs}\"><button class=\"jump_to\" value=\"{$hrs_to_secs}\" aria-description=\"Start playing at interval {$display_time}\"><div><i aria-hidden=\"true\" class=\"icon-play\"></i><span class=\"timestamp\">{$display_time}</span></div></button></div><div class=\"trans_text\" aria-label=\"{$text_block_trimmed}\"><span>{$text_block}</span></div></div>";
+          $new_text = str_replace($res[0], $link, $new_text);
+      }
+  }
+  return $new_text;
+}

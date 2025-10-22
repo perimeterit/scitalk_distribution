@@ -1,0 +1,86 @@
+{{ include('cosmos:skip_link', {
+  content_element: '#main-content',
+  link_text: 'Skip to main content'
+}) }}
+
+<div class="page-layout">
+
+  {% embed "cosmos:site_header" %}
+    {% block site_branding %}
+      {{ site_branding }}
+    {% endblock %}
+
+    {% block site_search %}
+      {{ site_search }}
+
+    {% endblock %}
+
+    {% block supplementary_nav %}
+      {{ supplementary_nav }}
+    {% endblock %}
+  {% endembed %}
+
+  <div class="menu-toggle-wrapper">
+    {{ include('cosmos:toggle_button', {
+      name: 'Menu',
+      controls: 'main-nav',
+      icon_name: 'menu-bars'
+    }) }}
+  </div>
+
+  <aside class="main-nav" id="main-nav">
+
+    {{ include('cosmos:toggle_button', {
+      name: 'Close Menu',
+      controls: 'main-nav',
+      icon_name: 'chevron-right'
+    }) }}
+
+    <div class="main-nav-container">
+      {# Show search button #}
+      {{ include('cosmos:toggle_button', {
+        name: 'Advanced Search',
+        icon_name: 'advanced-search',
+        display_label: true,
+        controls: 'advanced-search'
+      }, with_context = false) }}
+
+      {# Close search button #}
+      {{ include('cosmos:toggle_button', {
+        name: 'Close Advanced Search',
+        icon_name: 'close-x',
+        controls: 'advanced-search'
+      }, with_context = false) }}
+
+      {# Advanced search component #}
+      {{ include("cosmos:advanced_search") }}
+
+      {# Main menu #}
+      {{ drupal_menu('main', expand=true) }}
+
+    </div>
+
+    {# Sidebar region #}
+    <div class="main-nav-blocks">
+      {{ drupal_region('sidebar')}}
+    </div>
+
+  </aside>
+
+  {# Main content area #}
+  <main role="main" class="main-content">
+    <a id="main-content" tabindex="-1"></a>
+    {% block main_content %}
+    {% endblock %}
+  </main>
+
+  {# Footer #}
+
+  <footer role="contentinfo" class="site-footer">
+    {% block site_footer %}
+    {% endblock %}
+  </footer>
+
+</div>
+
+{{ include(directory ~ '/components/element/icon/icons.svg')}}

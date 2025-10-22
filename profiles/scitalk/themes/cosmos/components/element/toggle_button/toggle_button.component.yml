@@ -1,0 +1,22 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Toggle button
+status: stable
+description: Button that controls another element; just creates a button with the aria-controls mark-up
+props:
+  type: object
+  properties:
+    name:
+      type: string
+      title: Name
+      description: What this toggles (e.g. menu, search), used for classes
+    controls:
+      type: string
+      title: Controls
+      description: Id of the element this controls
+    display_label:
+      type: boolean
+      title: 'Label display'
+      description: Wheter to show the button label (show text)
+    icon_name:
+      type: string
+      title: Icon

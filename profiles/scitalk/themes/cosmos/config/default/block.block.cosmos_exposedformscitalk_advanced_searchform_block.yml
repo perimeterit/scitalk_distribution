@@ -1,0 +1,23 @@
+uuid: 91b2dfa0-539d-4c91-8956-c155435eccc3
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.scitalk_advanced_search
+  module:
+    - views
+  theme:
+    - cosmos
+id: cosmos_exposedformscitalk_advanced_searchform_block
+theme: cosmos
+region: content
+weight: 0
+provider: null
+plugin: 'views_exposed_filter_block:scitalk_advanced_search-form_block'
+settings:
+  id: 'views_exposed_filter_block:scitalk_advanced_search-form_block'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+visibility: {  }

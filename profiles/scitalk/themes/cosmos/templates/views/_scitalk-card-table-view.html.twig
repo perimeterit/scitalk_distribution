@@ -1,0 +1,89 @@
+{#/**
+ * @file
+ * Custom theme implementation for the views that include the card/table toggle
+ * Renders sort filters exposed form
+ * Adds mark-up for card/table dispay toggle
+ * Adding this as a template suggestion did not work with ajax paging
+ *
+ * @see template_preprocess_views_view()
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass(classes) }}>
+
+  {{ title_prefix }}
+  {{ title }}
+  {{ title_suffix }}
+
+  {# Render the extra exposed filters (tags), for views that have them #}
+  {% set view_extra_filters = ['scitalk_latest_talks', 'scitalk_collections'] %}
+  {% if (id in view_extra_filters and (display_id == 'card_view')) %}
+    <div class="view-header-filters">
+      {{ drupal_block('views_exposed_filter_block:' ~ id ~ '-extra_filters')}}
+    </div>
+  {% endif %}
+
+  {% if id =="scitalk_catch_up" %}
+      <div class="view-header-filters">
+      {{ drupal_block('views_exposed_filter_block:' ~ id ~ '-form_block')}}
+    </div>
+  {% endif %}
+
+  {% if id =="scitalk_source_catch_up" %}
+      <div class="view-header-filters">
+      {{ drupal_block('views_exposed_filter_block:' ~ id ~ '-form_block')}}
+    </div>
+  {% endif %}
+
+  {# Render the search summary if this is a search view #}
+  {% if exposed_input %}
+    <p class="search-summary">
+      {% embed '@scitalk_theme/includes/exposed_search_input.twig'%}{% endembed %}
+    </p>
+  {% endif %}
+
+  {{ header|without('result') }}
+
+  {% set top_pager = pager %}
+  {% if (rows[0]['#rows']|length > 0) and (id != "scitalk_collection_children")  %}
+    <div class="advanced-view-header">
+      <div class="view-summary">
+        {{ header.result }}
+      </div>
+      <div class="views-tiny-pager">
+        {# Remove as much as we can from the pager at this point #}
+        {% set top_pager = top_pager|merge({'#quantity': 0}) %}
+        {{ top_pager }}
+      </div>
+      <div class="view-exposed-filters">
+        {{ exposed }}
+      </div>
+        {% include '@scitalk_theme/includes/view-toggle.twig' %}
+    </div>
+  {% endif %}
+
+  <div data-display="results--cards" class="view-display">
+    {% if rows -%}
+      {{ rows }}
+    {% elseif empty -%}
+      {{ empty }}
+    {% endif %}
+    {{ pager }}
+  </div>
+
+  <div data-display="results--teasers" class="view-display hidden" aria-hidden="hidden">
+    {{ attachment_before }}
+  </div>
+  <div data-display="results--table" class="view-display hidden" aria-hidden="hidden">
+    {{ attachment_after }}
+  </div>
+  {{ more }}
+
+  {% if footer %}
+    <div class='view-footer'>
+      {{ footer }}
+    </div>
+  {% endif %}
+
+</div>

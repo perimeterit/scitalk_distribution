@@ -1,0 +1,12 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Search form
+status: stable
+description: Header search form, with overlay on larger screens. Overlay is triggered by button in the site header component
+group: Block
+props:
+  type: object
+  properties:
+    variant:
+      type: ['string', 'null']
+      title: variant
+      description: Variations for site header or in-page.

@@ -1,0 +1,13 @@
+
+{#
+/**
+ * @file
+ * Custom theme implementation to display a Talk node.
+ *
+ * @ingroup themeable
+ */
+#}
+<div{{ attributes.addClass(classes) }}>
+  {{ content|without('scitalk_prefixed_talk_number') }}
+</div>
+

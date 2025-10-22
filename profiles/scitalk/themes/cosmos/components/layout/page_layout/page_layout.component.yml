@@ -1,0 +1,9 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Page layout
+status: stable
+description: Overall page layout, includes mobile menu toggle
+libraryOverrides:
+  dependencies:
+    - core/once
+    - core/jquery
+    - core/drupal

@@ -1,0 +1,95 @@
+{
+  "_args": [
+    [
+      "van11y-accessible-tab-panel-aria",
+      "/var/www/pirsa/web/themes/custom/scitalk_theme/js"
+    ]
+  ],
+  "_from": "van11y-accessible-tab-panel-aria@latest",
+  "_id": "van11y-accessible-tab-panel-aria@2.0.4",
+  "_inCache": true,
+  "_installable": true,
+  "_location": "/van11y-accessible-tab-panel-aria",
+  "_nodeVersion": "8.9.4",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/van11y-accessible-tab-panel-aria_2.0.4_1518989603619_0.7141229564906328"
+  },
+  "_npmUser": {
+    "email": "dante3333@gmail.com",
+    "name": "nico3333fr"
+  },
+  "_npmVersion": "5.6.0",
+  "_phantomChildren": {},
+  "_requested": {
+    "name": "van11y-accessible-tab-panel-aria",
+    "raw": "van11y-accessible-tab-panel-aria",
+    "rawSpec": "",
+    "scope": null,
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "https://registry.npmjs.org/van11y-accessible-tab-panel-aria/-/van11y-accessible-tab-panel-aria-2.0.4.tgz",
+  "_shasum": "998943d2eed771e5be62109c5ac8f5d7af4f6e3f",
+  "_shrinkwrap": null,
+  "_spec": "van11y-accessible-tab-panel-aria",
+  "_where": "/var/www/pirsa/web/themes/custom/scitalk_theme/js",
+  "author": "",
+  "bugs": {
+    "url": "https://github.com/nico3333fr/van11y-accessible-tab-panel-aria/issues"
+  },
+  "dependencies": {},
+  "description": "ES2015 accessible tabs panel system, using ARIA (compatible IE9+ when transpiled)",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-babel": "^5.3.0",
+    "gulp-header": "^1.7.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^1.4.2"
+  },
+  "directories": {},
+  "dist": {
+    "fileCount": 14,
+    "integrity": "sha512-HOxAxa8062+LN6g9oOzTvgo59CE/K/kIMu1gCluvByiGAGW+jhiM2FFrsxkaXtiUrftiVL+tqjd1SeoT9HRZ6w==",
+    "shasum": "998943d2eed771e5be62109c5ac8f5d7af4f6e3f",
+    "tarball": "https://registry.npmjs.org/van11y-accessible-tab-panel-aria/-/van11y-accessible-tab-panel-aria-2.0.4.tgz",
+    "unpackedSize": 99495
+  },
+  "gitHead": "6900a90754480acda2fe31df6edc09814a362d7e",
+  "homepage": "https://van11y.net/accessible-tab-panel/",
+  "keywords": [
+    "ARIA",
+    "Accessibility",
+    "ES2015",
+    "ES6",
+    "Vanilla Javascript Plugin",
+    "a11y",
+    "tab panel"
+  ],
+  "license": "MIT",
+  "main": "dist/van11y-accessible-tab-panel-aria.min.js",
+  "maintainers": [
+    {
+      "name": "nico3333fr",
+      "email": "dante3333@gmail.com"
+    }
+  ],
+  "name": "van11y-accessible-tab-panel-aria",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": [
+    {
+      "type": "git",
+      "url": "https://github.com/nico3333fr/van11y-accessible-tab-panel-aria.git"
+    }
+  ],
+  "scripts": {
+    "build": "gulp",
+    "build:es5": "gulp es5"
+  },
+  "title": "Van11y accessible tab panel system using ARIA",
+  "version": "2.0.4"
+}

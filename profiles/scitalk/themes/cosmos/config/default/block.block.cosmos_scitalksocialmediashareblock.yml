@@ -1,0 +1,30 @@
+uuid: 324a12e3-3204-44d2-ae5f-06a01f13e127
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - scitalk_base
+  theme:
+    - cosmos
+_core:
+  default_config_hash: 6BbTrVUdktjcLLr3ePkD2Jcn78V2zRIfvi7sfyiKrtw
+id: cosmos_scitalksocialmediashareblock
+theme: cosmos
+region: page_title
+weight: -5
+provider: null
+plugin: scitalk_social_media_share_block
+settings:
+  id: scitalk_social_media_share_block
+  label: 'SciTalk Social Media Share Block'
+  label_display: '0'
+  provider: scitalk_base
+visibility:
+  node_type:
+    id: 'entity_bundle:node'
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'
+    bundles:
+      talk: talk

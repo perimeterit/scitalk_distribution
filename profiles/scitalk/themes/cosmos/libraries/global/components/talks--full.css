@@ -1,0 +1,176 @@
+/*
+ * Full view mode
+*/
+@import "../base/mixins.css";
+
+/* Talk number  */
+.node.talk.full > .talk-number {
+  background: var(--color-lt-grey);
+  color: var(--color-default-text);
+  display: inline-block;
+  line-height: 1.6rem;
+  padding: 0.4rem 1.1rem;
+  text-decoration: none;
+
+  font-weight: 500;
+  font-size: 1.1rem;
+
+  float: right;
+  margin-bottom: 1rem;
+}
+/* Video url/video player */
+
+.field--name-field-talk-video-url {
+  background-color: var(--color-lt-grey);
+  clear: both;
+  margin-bottom: 1.5rem;
+  padding: 0.8rem 1rem;
+  display: flex;
+  align-items: center;
+  & h2 {
+    &:after {
+      content: ":";
+      display: inline-block;
+      margin-right: 0.5rem;
+    }
+  }
+  & h2 + a {
+    display: flex-item;
+  }
+}
+.field--name-field-talk-video {
+  clear: both;
+  margin-bottom: var(--gutter-standard);
+}
+
+/* Page title region & buttons */
+.node.talk.full {
+  & .region-page-title {
+    display: grid;
+    align-items: start;
+  }
+  & .speakers {
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media all and (min-width: 768px) {
+  .node.talk.full {
+    & .region-page-title {
+      grid-template-columns: auto 6rem 6rem;
+    }
+    & h1 {
+      margin: 0 0 0.8rem;
+    }
+    & .block-pagetitle {
+      margin-right: var(--gutter-standard);
+    }
+  }
+}
+@media all and (max-width: 767px) {
+  .node.talk.full .region-page-title {
+    grid-template-columns: 6rem 6rem auto;
+    margin-bottom: 1rem;
+    & .block-page-title-block {
+      grid-column: span 3;
+    }
+  }
+}
+
+/* Talk details/info  */
+.node.talk.full {
+  & .speaker-list {
+    display: block;
+  }
+  & .talk-metadata,
+  & .field--name-field-talk-abstract,
+  & .field--name-field-talk-resources {
+    border-bottom: 1px solid var(--color-md-grey);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+  & .date-doi {
+    margin-top: 0.5rem;
+  }
+  & .group-taxonomy {
+    margin: 1rem 0 0 0.5rem;
+  }
+  & .talk-metadata .field {
+    margin-bottom: 0.8rem;
+    &.field--name-field-talk-subject {
+      margin-bottom: 0.67rem;
+    }
+  }
+}
+
+.group-taxonomy {
+  font-size: 0.8em;
+  & .field {
+    display: flex;
+  }
+  & .field__label {
+    font-weight: normal;
+    white-space: nowrap;
+  }
+  & ul {
+    margin: 0;
+    padding: 0;
+  }
+  & li {
+    display: inline;
+    margin-bottom: 0.4rem;
+  }
+  & .field--name-field-talk-subject a,
+  & .field--name-field-talk-type a {
+    margin-bottom: 0.5rem;
+  }
+}
+
+@media all and (min-width: 768px) {
+  .group-taxonomy {
+    display: grid;
+    grid-template-columns: auto auto;
+    grid-gap: 0 var(--gutter-standard);
+    align-items: start;
+    justify-content: start;
+    & .field {
+      &:nth-child(-n + 2) {
+        padding-bottom: 0.8rem;
+      }
+      &:nth-child(odd) {
+        border-right: 1px solid var(--color-md-grey);
+        padding-right: var(--gutter-standard);
+      }
+      &:nth-child(3):last-child {
+        border-right: none;
+      }
+    }
+  }
+}
+
+@media all and (max-width: 767px) {
+  .date-doi {
+    border-bottom: 1px solid var(--color-md-grey);
+    margin-bottom: 2rem;
+    padding-bottom: 1rem;
+  }
+}
+
+/* Related talks */
+.related-talks-view {
+  padding-top: var(--vertical-padding);
+  & .view-display {
+    margin-left: -1rem;
+  }
+  & h2 {
+    margin: 0;
+  }
+}
+
+.talk-add {
+  padding: 0.5em 1em;
+  margin-bottom: 1em;
+}
