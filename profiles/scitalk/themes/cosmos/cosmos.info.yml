@@ -9,6 +9,9 @@ libraries:
  - cosmos/global
  - cosmos/video-player
 
+libraries-override:
+  dark_mode_toggle/dark-mode-toggle: cosmos/dark-mode-toggle
+
 regions:
   header: 'Header'
   sidebar: 'Left sidebar'
@@ -16,3 +19,4 @@ regions:
   page_title: 'Page Title'
   content: 'Content'
   footer: 'Footer'
+  footer_bottom: 'Footer bottom'

@@ -71,13 +71,3 @@
     display: block;
   }
 }
-
-/* Larger screen dropdowns */
-@media (min-width: 960px) {
-  .menu--main {
-    .menu-item--expanded:hover > a + button + .menu,
-    .menu-dropdown-trigger:hover + .menu {
-      display: block;
-    }
-  }
-}

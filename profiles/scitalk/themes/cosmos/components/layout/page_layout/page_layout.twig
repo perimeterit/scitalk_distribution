@@ -12,7 +12,6 @@
 
     {% block site_search %}
       {{ site_search }}
-
     {% endblock %}
 
     {% block supplementary_nav %}
@@ -75,11 +74,15 @@
   </main>
 
   {# Footer #}
-
-  <footer role="contentinfo" class="site-footer">
-    {% block site_footer %}
+  {% embed "cosmos:site_footer" %}
+    {% block footer_main %}
+      {{ site_footer_main }}
     {% endblock %}
-  </footer>
+
+    {% block footer_bottom %}
+      {{ site_footer_bottom }}
+    {% endblock %}
+  {% endembed %}
 
 </div>
 

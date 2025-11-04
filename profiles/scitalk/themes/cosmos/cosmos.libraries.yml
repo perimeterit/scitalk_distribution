@@ -14,9 +14,7 @@ global:
       libraries/global/base/buttons.css: {}
     layout:
       libraries/global/layout/layout-utilities.css: {}
-      libraries/global/layout/layout.css: {}
       libraries/global/layout/maintenance-page.css: {}
-      libraries/global/layout/responsive-menu.css: {}
       libraries/global/layout/layout-builder.css: {}
     component:
       libraries/global/components/cite-share.css: {}
@@ -51,6 +49,13 @@ global:
     - core/drupal
     - core/jquery
     - core/jquery.once
+dark-mode-toggle:
+  js:
+    libraries/js/dark-mode-toggle.js: {}
+  dependencies:
+    - core/drupal
+    - core/once
+    - dark_mode_toggle/dark-mode-toggle.init
 video-player:
   css:
     component:

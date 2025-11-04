@@ -1,6 +1,6 @@
 (function ($, Drupal, drupalSettings) {
 
-  /**
+ /**
    * Responsive tables for Latest Talks table display
    */
   Drupal.behaviors.responsiveTable = {

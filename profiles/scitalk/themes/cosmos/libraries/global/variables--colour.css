@@ -11,7 +11,9 @@
 */
 
  :root {
+  /* This declares that we support light and dark modes */
   color-scheme: light dark;
+  /* light-dark() sets colour values for light and dark modes */
   --color-white: light-dark(#fff, #fffbf5);
   --color-black: #121212;
   --color-primary-light: #6fd4ee;
@@ -29,6 +31,7 @@
   --color-secondary--foreground: var(--color-white);
 
   /* Greys go in shades from the background colour from less contrast to more contrast */
+  --color-grey-0: light-dark(hsl(0 0% 95%), hsl(0 0% 4%));
   --color-grey-1: light-dark(hsl(0 0% 90%), hsl(0 0% 12%));
   --color-grey-2: light-dark(hsl(0 0% 75%), hsl(0 0% 22%));
   --color-grey-3: hsl(0 0% 50%);
@@ -43,23 +46,38 @@
 
   /* Font family */
   --font-family-primary: 'Ubuntu', Helvetica, sans-serif;
-
 }
 
-/* Set the dark mode selection */
+/*
+  Dark mode configuration
 
-/* User preference */
-@media (prefers-color-scheme: dark) {
+  color-scheme: sets the active colour scheme.
+  Form elements, scrollbars and other System UI elements use this colour scheme
+
+  The custom property --theme allows us to fine-tune the colour switch using
+  a @style query (below)
+
+*/
+
+/* Set dark mode as the default */
+
+html {
+  --theme: dark;
+  color-scheme: dark;
+}
+
+/* User preference >> This currently isn't suppored in Firefox */
+@media (prefers-color-scheme: light) {
   html {
-    --theme: dark;
-    color-scheme: dark;
+    --theme: light;
+    color-scheme: light;
   }
 }
 
-/* Manual toggle */
-html.dark {
-  --theme: dark;
-  color-scheme: dark;
+/* Manual toggle using class provided by Dark Mode Toggle module */
+html.light {
+  --theme: light;
+  color-scheme: light;
 }
 
 /* Modify dark mode styles */
@@ -67,7 +85,7 @@ html.dark {
 
 }
 
-/* Set link & button colours  backgrounds & foregrounds */
+/* Adjust colours backgrounds & foregrounds */
 
 @container style(background-color: var(--color-primary)) {
   * {

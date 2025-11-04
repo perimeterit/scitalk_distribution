@@ -45,18 +45,18 @@
 
 {% embed "cosmos:page_layout" %}
 
-    {# Use set here because nested blocks & embeds don't work #}
-    {% set site_branding %}
-      {{ page.header[active_theme() ~ '_branding'] }}
-    {% endset %}
+  {# Use set here because nested blocks & embeds don't work #}
+  {% set site_branding %}
+    {{ page.header[active_theme() ~ '_branding'] }}
+  {% endset %}
 
-    {% set site_search %}
-      {{ page.header[active_theme() ~ '_searchform'] }}
-    {% endset %}
+  {% set site_search %}
+    {{ page.header[active_theme() ~ '_searchform'] }}
+  {% endset %}
 
-    {% set supplementary_nav %}
-      {{ page.header|without(active_theme() ~ '_branding',active_theme() ~ '_searchform' ) }}
-    {% endset %}
+  {% set supplementary_nav %}
+    {{ page.header|without(active_theme() ~ '_branding',active_theme() ~ '_searchform' ) }}
+  {% endset %}
 
   {% block main_content %}
     {# In the Talks content type the page title is rendered in the node template #}
@@ -68,8 +68,13 @@
     {{ page.content }}
   {% endblock %}
 
-  {% block site_footer %}
-    {{ page.footer }}
-  {% endblock %}
+  {% set site_footer_main %}
+    {# Using twig tweak here will remove the region wrappers #}
+    {{ drupal_region('footer') }}
+  {% endset %}
+
+  {% set site_footer_bottom %}
+    {{ drupal_region('footer_bottom') }}
+  {% endset %}
 
 {% endembed %}

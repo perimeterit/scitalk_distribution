@@ -28,6 +28,12 @@
   margin: 0;
   display: flex;
 }
+
+@media (max-width: 767px) {
+  .tabs.primary {
+    flex-direction: column;
+  }
+}
 .tabs.primary a {
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
