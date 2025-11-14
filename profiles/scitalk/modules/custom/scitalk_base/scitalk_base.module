@@ -106,9 +106,21 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
       if ($entity->isNew()) {
         $input_coll_number = $entity->get('field_collection_number')->value ?? '';
         if (empty($input_coll_number)) {
-          $idGenerator = \Drupal::service('scitalk_base.reference_id_generator');
-          $collection_number = $idGenerator->generateReferenceId($entity);
-          $entity->set('field_collection_number', $collection_number);
+          // $idGenerator = \Drupal::service('scitalk_base.reference_id_generator');
+          // $collection_number = $idGenerator->generateReferenceId($entity);
+          // $entity->set('field_collection_number', $collection_number);
+
+          // Critical operation, need to lock this block so that we get an exclusive collection number
+          $lock_id = 'collection_number_operation_lock';
+          if (\Drupal::lock()->acquire($lock_id, 30)) {
+            try {
+              $idGenerator = \Drupal::service('scitalk_base.reference_id_generator');
+              $collection_number = $idGenerator->generateReferenceId($entity);
+              $entity->set('field_collection_number', $collection_number);
+            } finally {
+              \Drupal::lock()->release($lock_id);
+            }
+          }
         }
       }
     }
@@ -119,12 +131,27 @@ function scitalk_base_node_presave(\Drupal\Core\Entity\EntityInterface $entity) 
       if ($entity->isNew()) {
         $entity_talk_number = $entity->field_talk_number->value ?? '';
         if (empty($entity_talk_number)) {
-          $idGenerator = \Drupal::service('scitalk_base.reference_id_generator');
+          // $idGenerator = \Drupal::service('scitalk_base.reference_id_generator');
 
-          //call service to generate talk id:
-          $talk_num = $idGenerator->generateReferenceId($entity);
-          //add it to the entity:
-          $entity->set('field_talk_number', $talk_num);
+          // //call service to generate talk id:
+          // $talk_num = $idGenerator->generateReferenceId($entity);
+          // //add it to the entity:
+          // $entity->set('field_talk_number', $talk_num);
+
+          // Critical operation. We need to lock this block to get an exclusive unique id here in case
+          // >1 talks are created at the same time
+          $lock_id = 'talk_number_operation_lock';
+          if (\Drupal::lock()->acquire($lock_id, 30)) {
+            try {
+              $idGenerator = \Drupal::service('scitalk_base.reference_id_generator');
+              //call service to generate talk id:
+              $talk_num = $idGenerator->generateReferenceId($entity);
+              $entity->set('field_talk_number', $talk_num);
+            } finally {
+              \Drupal::lock()->release($lock_id);
+            }
+          }
+
         }
       }
       else {
