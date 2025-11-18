@@ -240,3 +240,63 @@ function scitalk_feeds_update_91002() {
     }
 
 }
+
+/**
+*  Add Feeds item
+*/
+function scitalk_feeds_update_91003() {
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_feeds') . '/config/install';
+    $source      = new FileStorage($config_path);
+    $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+    $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
+
+    // create feeds_item field storage
+    $field_storage_yml =  'field.storage.node.feeds_item';
+    $field_storage_id = 'node.feeds_item';
+    $loaded_storage_config = $storage_config->load($field_storage_id);
+    if (empty($loaded_storage_config))
+    {
+        $storage_config_yml = $source->read($field_storage_yml);
+        $storage_config->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_feeds')->notice('Created Feeds Item field storage');
+    }
+    else {
+        $storage_config_yml = $source->read($field_storage_yml); 
+        $entity = $storage_config->updateFromStorageRecord($loaded_storage_config, $storage_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_feeds')->notice('Updated Feeds Item field storage');
+    }
+    
+    //add FIELD Feeds Item to Talk importer
+    $field_yml = 'field.field.node.talk.feeds_item';
+    $field_id = 'node.talk.feeds_item';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_feeds')->notice('Created Feeds Item field for Talk node');
+    }
+    else {
+        $field_config_yml = $source->read($field_yml);
+        $entity = $field_config->updateFromStorageRecord($loaded_field_config, $field_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_feeds')->notice('Updated Feeds Item field for Talk node');
+    }
+
+    $field_yml = 'field.field.node.collection.feeds_item';
+    $field_id = 'node.collection.feeds_item';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_feeds')->notice('Created Feeds item field for Collection node');
+    }
+    else {
+        $field_config_yml = $source->read($field_yml);
+        $entity = $field_config->updateFromStorageRecord($loaded_field_config, $field_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_feeds')->notice('Updated Feeds item field for Collection node');
+    }
+}
