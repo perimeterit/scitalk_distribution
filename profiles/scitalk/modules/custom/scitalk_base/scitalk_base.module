@@ -627,8 +627,13 @@ function _delete_talk_media(\Drupal\Core\Entity\EntityInterface $entity) {
       }
     }
 
-    // now find this Talk attachments and delete them if not used anywhere else
-    $attachments = $entity->get("field_talk_attachments")->getValue() ?? [];
+    // now find this Talk attachments (attachments, subtitles, transcripts) and delete them if not used anywhere else
+    // $attachments = $entity->get("field_talk_attachments")->getValue() ?? [];
+    $resources = $entity->get("field_talk_attachments")->getValue() ?? [];
+    $subtitle_files = $entity->get("field_subtitle_upload_file")->getValue() ?? [];
+    $subtitle_urls = $entity->get("field_subtitle_url")->getValue() ?? [];
+    $transcripts = $entity->get("field_talk_transcripts")->getValue() ?? [];
+    $attachments = array_merge($resources, $subtitle_files, $subtitle_urls, $transcripts);
     foreach ($attachments as $att) {
         $attached_media = \Drupal::entityTypeManager()->getStorage('media')->load($att['target_id']);
         $mid = $attached_media?->id() ?? 0;

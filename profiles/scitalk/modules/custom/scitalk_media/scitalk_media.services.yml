@@ -5,3 +5,25 @@ services:
 
   scitalk_media.create_transcript_media:
     class: Drupal\scitalk_media\SciTalkMediaServices\TranscriptMedia
+
+  scitalk_media.create_youtube_vtt:
+    class: Drupal\scitalk_media\SciTalkMediaServices\YouTubeVTTMedia
+
+  scitalk_media.subtitle_languages:
+    class: Drupal\scitalk_media\SciTalkMediaServices\SubtitlesLanguages
+
+  logger.channel.scitalk_media:
+    parent: logger.channel_base
+    arguments: ["scitalk_media"]
+
+  scitalk_media.youtube_queue_runner:
+    class: Drupal\scitalk_media\QueueProcessor
+    tags:
+      - { name: drush.command }
+    arguments:
+      [
+        "@queue",
+        "@plugin.manager.queue_worker",
+        "@datetime.time",
+        "@logger.channel.scitalk_media",
+      ]

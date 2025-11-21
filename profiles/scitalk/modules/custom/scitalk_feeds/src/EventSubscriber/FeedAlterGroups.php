@@ -42,7 +42,7 @@ class feedAlterGroups extends AfterParseBase {
     if (isset($group_field[0])) {
       $group_id = $group_field[0]['target_id'];
       $group = \Drupal::entityTypeManager()->getStorage('group')->load($group_id);
-      $prefix_field = $group->get('field_repo_talks_prefix')->getValue();
+      $prefix_field = $group?->get('field_repo_talks_prefix')?->getValue() ?? [];
 
       // Source group is a custom field that maps to the source reference field
       $item->set('source_group', $group_id);
