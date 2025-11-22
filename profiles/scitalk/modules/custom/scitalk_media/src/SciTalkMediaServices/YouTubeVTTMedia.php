@@ -31,8 +31,8 @@ class YouTubeVTTMedia {
         }
         
         // $proxies = [
-        //     'http' => 'http://azp-webtools04.pitp.io:8888',
-        //     'https' => 'http://azp-webtools04.pitp.io:8888',
+        //     'http' => '',
+        //     'https' => '',
         // ];
 
         // $http_client = new Client([
@@ -106,7 +106,7 @@ class YouTubeVTTMedia {
     }
     
     private function createVTTFile($vtt, $video_id, $lang = 'en') {
-         $file_path = 'public://utube-vtts';
+         $file_path = 'public://vtt/utube-vtts';
          $filename = "{$video_id}_{$lang}_vtt.vtt";
          if (\Drupal::service('file_system')->prepareDirectory($file_path, FileSystemInterface::CREATE_DIRECTORY)) {
             $vtt_filename = $file_path . '/' . $filename;
