@@ -24,6 +24,7 @@ dependencies:
     - field.field.node.talk.field_talk_speakers_text
     - field.field.node.talk.field_talk_subject
     - field.field.node.talk.field_talk_thumbnail
+    - field.field.node.talk.field_talk_transcripts
     - field.field.node.talk.field_talk_type
     - field.field.node.talk.field_talk_video
     - field.field.node.talk.field_talk_video_url
@@ -118,6 +119,7 @@ third_party_settings:
     group_media:
       children:
         - field_talk_thumbnail
+        - field_talk_transcripts
         - field_talk_attachments
       label: "Other Media"
       region: content
@@ -234,7 +236,7 @@ content:
     third_party_settings: {}
   field_talk_attachments:
     type: inline_entity_form_complex
-    weight: 15
+    weight: 16
     region: content
     settings:
       form_mode: media_library
@@ -349,6 +351,24 @@ content:
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
+    third_party_settings: {}
+  field_talk_transcripts:
+    type: inline_entity_form_complex
+    weight: 15
+    region: content
+    settings:
+      form_mode: media_library
+      override_labels: true
+      label_singular: Transcript
+      label_plural: Transcripts
+      allow_new: true
+      allow_existing: false
+      match_operator: CONTAINS
+      allow_duplicate: false
+      collapsible: true
+      collapsed: false
+      revision: false
+      removed_reference: optional
     third_party_settings: {}
   field_talk_type:
     type: options_select

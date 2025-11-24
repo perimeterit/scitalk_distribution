@@ -4,13 +4,16 @@ namespace Drupal\scitalk_media\Plugin\QueueWorker;
 use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Queue\QueueWorkerBase;
-use Drupal\Core\Queue\SuspendQueueException;
 use Drupal\Core\Queue\QueueFactory;
+use Drupal\Core\Queue\SuspendQueueException;
 // use Drupal\Core\Queue\RequeueException;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\EntityInterface;
-// use Drupal\media\Entity\Media;
+use MrMySQL\YoutubeTranscript\Exception\TooManyRequestsException;
+use MrMySQL\YoutubeTranscript\Exception\YouTubeRequestFailedException;
+use MrMySQL\YoutubeTranscript\Exception\TranscriptsDisabledException;
+use MrMySQL\YoutubeTranscript\Exception\NoTranscriptAvailableException;
 use Exception;
 
 /**
@@ -66,7 +69,6 @@ class YouTubeTransacriptQueueWorker extends QueueWorkerBase implements Container
       $plugin_id,
       $plugin_definition,
       $container->get('logger.factory')->get('scitalk_media'),
-      // $container->get('logger.factory')->get('youtube_transcripts_queue'),
       $container->get('entity_type.manager'),
       $container->get('queue')
     );
@@ -84,12 +86,32 @@ class YouTubeTransacriptQueueWorker extends QueueWorkerBase implements Container
           $entity = current($entity);
           $id = $entity->id();
           $this->createTalkVTT($entity);
-          $entity->save();          
-          // $this->logger->notice('QUEUE -> Pull Youtube transcript for node: @nid', ['@nid' => $id]);
-        } catch (Exception $e) {
-          $this->logger->error('Pull Youtube transcript for node @nid failed: @er', ['@nid' => $id, '@er' => $e->getMessage()]);
+          $entity->save();;
+        }
+        catch (TranscriptsDisabledException | NoTranscriptAvailableException $e) {
+          //no trascript, remove from queue and continue
+        }
+        catch (TooManyRequestsException | YouTubeRequestFailedException | Exception $e) {
+          $message = $e->getMessage();
+          $this->logger->error('Pull Youtube transcript for node @nid failed: @er', ['@nid' => $id, '@er' => $message]);
+
+          // when too many request error is triggered, need to stop processing the queue until after midnight PT
+          // so create state var to notify about this
+          if (strtolower($message) == 'too many requests') {
+            $midnight = new \DateTime('tomorrow midnight');
+            $timePlusThreeHours = $midnight->modify('+3 hours');
+            $next_run = $timePlusThreeHours->format('Y-m-d H:i:s');
+            $next_run = strtotime($next_run);
+            $state = \Drupal::state();
+            $state->set('scitalk_media.too_many_run_next', $next_run);
+            $next_formatted = date("Y-m-d H:i:s", $next_run);
+
+            $this->logger->error('Too many request made. Next run should be after @n', ['@n' => $next_formatted]);
+          }
+          
           // throwing an exception here will put the item back into the queue:
-          throw new SuspendQueueException($e->getMessage());
+          throw $e;
+          // throw new SuspendQueueException($e->getMessage());
         }
       }
     }

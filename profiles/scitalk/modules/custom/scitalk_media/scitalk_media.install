@@ -390,3 +390,91 @@ function scitalk_media_update_8104() {
     }
   }
 }
+
+/**
+ *  Transcript media updates
+ */
+function scitalk_media_update_8105() {
+  $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_media') . '/config/install';
+  $source      = new FileStorage($config_path);
+
+  $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+  //update media.field_subtitles_language storage
+  $field_storage_yml = 'field.storage.media.field_subtitles_language';
+  $field_storage_id = 'media.field_subtitles_language';
+  $loaded_storage_config = $storage_config->load($field_storage_id);
+  if (empty($loaded_storage_config))
+  {
+      $storage_config_yml = $source->read($field_storage_yml);
+      $storage_config->create($storage_config_yml)->save();
+      \Drupal::logger('scitalk_base')->notice('Created Transcripts field storage');
+  }
+  else {
+      $storage_config_yml = $source->read($field_storage_yml); 
+      $entity = $storage_config->updateFromStorageRecord($loaded_storage_config, $storage_config_yml);
+      $entity->save();
+      \Drupal::logger('scitalk_media')->notice('Updated Subtitles language media field storage');
+  }
+
+
+  //install transcript view mode
+  $view_mode = \Drupal::entityTypeManager()->getStorage('entity_view_mode');
+  $field_id = 'media.transcripts';
+  $field_yml = 'core.entity_view_mode.media.transcripts';
+  $loaded_view_mode = $view_mode->load($field_id);
+  if (empty($loaded_view_mode))
+  {
+      $view_mode_yml = $source->read($field_yml);
+      $view_mode->create($view_mode_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Created Media Transcript view mode');
+  }
+
+  $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
+  //create fields
+  $field_yml = 'field.field.media.scitalk_transcription.field_subtitles_language';
+  $field_id = 'media.scitalk_transcription.field_subtitles_language';
+  $loaded_field_config = $field_config->load($field_id);
+  if (empty($loaded_field_config))
+  {
+    $field_config_yml = $source->read($field_yml);
+    $field_config->create($field_config_yml)->save();
+    \Drupal::logger('scitalk_media')->notice('Created Media Scitalk transcription field');
+  }
+
+  $view_display = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+  $default_view_display = $view_display->load('media.scitalk_transcription.transcripts');
+  if (empty($default_view_display))
+  {
+      $view_display_yml = $source->read('core.entity_view_display.media.scitalk_transcription.transcripts');
+      $view_display->create($view_display_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Created Scitalk transcription Transcripts media entity view display');
+  }
+
+  $default_view_display = $view_display->load('media.scitalk_transcription.default');
+  if (!empty($default_view_display))
+  {
+      $view_display_yml = $source->read('core.entity_view_display.media.scitalk_transcription.default');
+      $entity = $view_display->updateFromStorageRecord($default_view_display, $view_display_yml);
+      $entity->save();
+      \Drupal::logger('scitalk_media')->notice('Updated Media SciTalk transcription Default entity view display');
+  }
+  
+  $entity_form = \Drupal::entityTypeManager()->getStorage('entity_form_display');
+  $entity_form_display = $entity_form->load('media.scitalk_transcription.media_library');
+  if (!empty($entity_form_display))
+  {
+      $form_display_yml = $source->read('core.entity_form_display.media.scitalk_transcription.media_library');
+      $entity = $entity_form->updateFromStorageRecord($entity_form_display, $form_display_yml);
+      $entity->save();
+      \Drupal::logger('scitalk_media')->notice('Updated Media SciTalk transcription media library form display');
+  }
+  
+  $entity_form_display = $entity_form->load('media.scitalk_transcription.default');
+  if (!empty($entity_form_display))
+  {
+      $form_display_yml = $source->read('core.entity_form_display.media.scitalk_transcription.default');
+      $entity = $entity_form->updateFromStorageRecord($entity_form_display, $form_display_yml);
+      $entity->save();
+      \Drupal::logger('scitalk_media')->notice('Updated Media SciTalk transcription default form display');
+  }
+}

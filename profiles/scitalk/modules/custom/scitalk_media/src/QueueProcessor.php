@@ -12,6 +12,10 @@ use Drupal\Core\Queue\SuspendQueueException;
 use Drupal\Core\Utility\Error;
 use Psr\Log\LoggerInterface;
 
+use MrMySQL\YoutubeTranscript\Exception\TooManyRequestsException;
+use MrMySQL\YoutubeTranscript\Exception\YouTubeRequestFailedException;
+use MrMySQL\YoutubeTranscript\Exception\TranscriptsDisabledException;
+
 /**
  * Runs the queue with a set time delay.
  *
@@ -63,7 +67,8 @@ class QueueProcessor implements QueueProcessorInterface {
     }
 
     $pluginDefinition = $worker->getPluginDefinition();
-    $leaseTime = $pluginDefinition['cron']['time'] ?? $time;
+    $leaseTime = $time ?? $pluginDefinition['cron']['time'];
+    // $leaseTime = $pluginDefinition['cron']['time'] ?? $time;
     $end = $this->time->getCurrentTime() + $leaseTime;
    
     // Libraries like youtube-transcript-api (Python) or similar tools often scrape the YouTube website directly, rather than using the official API. 
@@ -72,7 +77,7 @@ class QueueProcessor implements QueueProcessorInterface {
     // Exceeding this may result in a 429 Too Many Requests error or a temporary IP block.
     // Implementing delays (throttling) in your code is essential to avoid being blocked. 
     // 
-    // so we are processing 4 items every 15 seconds for the duration of the cron lease time (60s):
+    // so we are processing 4 items every x random seconds for the duration of the cron lease time (eg. 60s):
 
     $totalProccessed = 0;
     $pauseFor = 15; //pause for 15 seconds before continuing
@@ -82,18 +87,20 @@ class QueueProcessor implements QueueProcessorInterface {
       try {
         if ($itemsProcessed < $maxItemsToProcess) {
           // add some delays between request to avoid triggering anti-bot systems.
-          $wait = rand(1, 10);
+          $wait = rand(10, 25);
           sleep($wait);
           
           $worker->processItem($item->data);
           $queue->deleteItem($item);
-          $itemsProcessed += 1;
+          $itemsProcessed++;
           $totalProccessed++;
         }
         else {
           // after $maxItemsProcessed, pause for $pauseFor seconds, then continue as long as within the $leaseTime
           $itemsProcessed = 0;
           $queue->releaseItem($item);
+
+          $pauseFor = rand(25, 40);
           sleep($pauseFor);
           // throw new DelayedRequeueException(15, 'delaying for 15 secs');          
         }
@@ -114,17 +121,20 @@ class QueueProcessor implements QueueProcessorInterface {
         // The worker requested the task be immediately requeued.
         $queue->releaseItem($item);
       }
-      catch (SuspendQueueException $e) {
+      catch (SuspendQueueException | TooManyRequestsException | YouTubeRequestFailedException $e) {
         // If the worker indicates the whole queue should be skipped, release
         // the item and go to the next queue.
         $queue->releaseItem($item);
 
-        $this->logger->debug('A worker for @queue queue suspended further processing of the queue.', [
-          '@queue' => $worker->getPluginId(),
+        $this->logger->debug('A worker for @queue queue suspended further processing of the queue: @e.', [
+          '@queue' => $worker->getPluginId(), '@e' => $e->getMessage()
         ]);
 
         // Skip to the next queue.
         throw $e;
+      }
+      catch (TranscriptsDisabledException $e) {
+        //no transcript for this video, skip it and remove from q
       }
       catch (\Exception $e) {
         // In case of any other kind of exception, log it and leave the item
@@ -133,7 +143,7 @@ class QueueProcessor implements QueueProcessorInterface {
       }
     }
 
-    $this->logger->debug('Finished processing @er.', ['@er' => $totalProccessed]);
+    $this->logger->debug('Youtube Queue worker finished processing @er.', ['@er' => $totalProccessed]);
     return $totalProccessed;
   }
 

@@ -9,7 +9,6 @@ dependencies:
     - media.type.file
     - media.type.image
     - media.type.remote_file
-    - media.type.scitalk_transcription
     - node.type.talk
 id: node.talk.field_talk_attachments
 field_name: field_talk_attachments
@@ -31,7 +30,6 @@ settings:
       file: file
       image: image
       remote_file: remote_file
-      scitalk_transcription: scitalk_transcription
     sort:
       field: _none
       direction: ASC

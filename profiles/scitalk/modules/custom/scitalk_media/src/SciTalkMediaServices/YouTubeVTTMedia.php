@@ -10,9 +10,12 @@ use MrMySQL\YoutubeTranscript\TranscriptListFetcher;
 use MrMySQL\YoutubeTranscript\Exception\NoTranscriptFoundException;
 use MrMySQL\YoutubeTranscript\Exception\YouTubeRequestFailedException;
 use MrMySQL\YoutubeTranscript\Exception\TooManyRequestsException;
+use MrMySQL\YoutubeTranscript\Exception\TranscriptsDisabledException;
+use MrMySQL\YoutubeTranscript\Exception\NoTranscriptAvailableException;
+
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\HttpFactory;
-use GuzzleHttp\RequestOptions;
+// use GuzzleHttp\RequestOptions;
 
 /** 
  * this class will download VTT from YouTube and create VTT's media for talks.
@@ -55,8 +58,6 @@ class YouTubeVTTMedia {
                 try {
                     $transcript = $transcript_list->findTranscript([$lang]);  // this only returns the first item in the language array, so need to loop for each wnat i need
                     $transcript_text = $transcript->fetch();
-                    // $transcript_language = $transcript->language ?? '';
-                    // $transcript_language_code = $transcript_text->language_code ?? $lang;
     
                     $sp = "\n";
                     $vtt = "WEBVTT{$sp}{$sp}";
@@ -75,25 +76,21 @@ class YouTubeVTTMedia {
                         $vtt .= "{$trans['text']}{$sp}{$sp}";
                     }
     
-                    $file = $this->createVTTFile($vtt, $video_id, $lang);
+                    $file = $this->writeVTTFile($vtt, $video_id, $lang);
                     if ($file) {
                         $vtt_media = $this->createVTTMedia($file, $lang);
                         $entity->field_subtitle_upload_file[] = ["target_id" => $vtt_media->id()] ;
-                        // $entity->save();
                     }
-
                 }
                 catch (NoTranscriptFoundException $e) {
-                    // \Drupal::logger('scitalk_media')->warning("No {$lang} language code for video id: ".$e->getMessage());
+                    // no transcript for this lang, continue
                 }
             }
         }
-        catch (TooManyRequestsException $e) {
-            throw new Exception($e->getMessage());
+        catch (TooManyRequestsException | YouTubeRequestFailedException | TranscriptsDisabledException | NoTranscriptAvailableException $e) {
+            throw $e;
         }
         catch (Exception $e) {
-            // \Drupal::logger('scitalk_media')->error('Error creating YouTube VTT '.$e->getMessage());
-            // \Drupal::logger('scitalk_media')->notice('<pre>'.print_r($e, true).'</pre>');
             throw new Exception($e->getMessage());
         }
     }
@@ -105,7 +102,7 @@ class YouTubeVTTMedia {
         return $time->format('H:i:s.v'); // Output: 03:25:45
     }
     
-    private function createVTTFile($vtt, $video_id, $lang = 'en') {
+    private function writeVTTFile($vtt, $video_id, $lang = 'en') {
          $file_path = 'public://vtt/utube-vtts';
          $filename = "{$video_id}_{$lang}_vtt.vtt";
          if (\Drupal::service('file_system')->prepareDirectory($file_path, FileSystemInterface::CREATE_DIRECTORY)) {
@@ -141,5 +138,4 @@ class YouTubeVTTMedia {
         $new_media->save();
         return $new_media;
     }
-
 }

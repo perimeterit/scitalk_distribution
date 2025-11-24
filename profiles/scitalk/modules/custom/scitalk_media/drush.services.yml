@@ -3,4 +3,4 @@ services:
     class: \Drupal\scitalk_media\Commands\YouTubeQueueCommands
     tags:
       - { name: drush.command }
-    arguments: ["@service_container", "@logger.factory", "@queue"]
+    arguments: ["@service_container", "@logger.factory", "@queue", "@datetime.time"]

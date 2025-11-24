@@ -1279,3 +1279,46 @@ function scitalk_base_update_8122(&$sandbox) {
     }
 
 }
+
+/**
+*  Create new fields for Subtitles
+*/
+function scitalk_base_update_8123(&$sandbox) {
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
+    $source      = new FileStorage($config_path);
+
+    $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+    //add Transcripts storage
+    $field_storage_yml = 'field.storage.node.field_talk_transcripts';
+    $field_storage_id = 'node.field_talk_transcripts';
+    $loaded_storage_config = $storage_config->load($field_storage_id);
+    if (empty($loaded_storage_config))
+    {
+        $storage_config_yml = $source->read($field_storage_yml);
+        $storage_config->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created Transcripts field storage');
+    }
+
+    $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
+    //add FIELD Transcripts
+    $field_yml = 'field.field.node.talk.field_talk_transcripts';
+    $field_id = 'node.talk.field_talk_transcripts';
+    $loaded_field_config = $field_config->load($field_id);
+    if (empty($loaded_field_config))
+    {
+        $field_config_yml = $source->read($field_yml);
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created Transcripts field');
+    }
+    
+    $field_yml = 'field.field.node.talk.field_talk_attachments';
+    // update attachments fields
+    $field_id = 'node.talk.field_talk_attachments';
+    $loaded_field_config = $field_config->load($field_id);
+    if (!empty($loaded_field_config)) {
+        $field_config_yml = $source->read($field_yml);
+        $entity = $field_config->updateFromStorageRecord($loaded_field_config, $field_config_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Talk attachments field for Talks');
+    }
+}
