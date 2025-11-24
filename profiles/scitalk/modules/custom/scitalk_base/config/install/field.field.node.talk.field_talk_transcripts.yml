@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_talk_transcripts
+    - media.type.scitalk_transcription
+    - node.type.talk
+id: node.talk.field_talk_transcripts
+field_name: field_talk_transcripts
+entity_type: node
+bundle: talk
+label: Transcripts
+description: ""
+required: false
+translatable: false
+default_value: {}
+default_value_callback: ""
+settings:
+  handler: "default:media"
+  handler_settings:
+    target_bundles:
+      scitalk_transcription: scitalk_transcription
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: ""
+field_type: entity_reference

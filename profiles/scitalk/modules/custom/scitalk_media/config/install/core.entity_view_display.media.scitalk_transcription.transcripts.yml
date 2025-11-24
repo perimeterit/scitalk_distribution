@@ -1,0 +1,50 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.transcripts
+    - field.field.media.scitalk_transcription.field_media_scitalk_transcript
+    - field.field.media.scitalk_transcription.field_searchable_text
+    - field.field.media.scitalk_transcription.field_subtitles_language
+    - media.type.scitalk_transcription
+  module:
+    - layout_builder
+    - options
+    - text
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: media.scitalk_transcription.transcripts
+targetEntityType: media
+bundle: scitalk_transcription
+mode: transcripts
+content:
+  field_media_scitalk_transcript:
+    type: text_default
+    label: visually_hidden
+    settings: {}
+    third_party_settings: {}
+    weight: 0
+    region: content
+  field_searchable_text:
+    type: text_default
+    label: above
+    settings: {}
+    third_party_settings: {}
+    weight: 1
+    region: content
+  field_subtitles_language:
+    type: list_default
+    label: above
+    settings: {}
+    third_party_settings: {}
+    weight: 1
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true
