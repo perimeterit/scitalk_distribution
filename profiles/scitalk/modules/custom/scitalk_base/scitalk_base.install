@@ -1281,6 +1281,45 @@ function scitalk_base_update_8122(&$sandbox) {
 }
 
 /**
+ * if updating the Talk content type and if the scitalk_feeds is enabled then the skip_feeds_updates field
+ * will be disabled from the entity form view.
+ * this function will re-able it and move it under the talk number field in the form
+ */
+function _readd_skip_feed_field_to_talk_entity_form() {
+    $moduleHandler = \Drupal::service('module_handler');
+    if ($moduleHandler->moduleExists('scitalk_feeds'))  {
+        $entity_form = \Drupal::entityTypeManager()->getStorage('entity_form_display');
+
+        $config_factory = \Drupal::configFactory();
+        $talk_form_config = $config_factory->getEditable('core.entity_form_display.node.talk.default');
+        $talk_info = $talk_form_config->get('third_party_settings.field_group.group_talk_info');
+        
+        // exit if the field already in
+        if (in_array('field_skip_feeds_updates', $talk_info['children'])) {
+            return;
+        }
+
+        // add the field_skip_feeds_updates field to the group_talk_info
+        $talk_info['children'][] = 'field_skip_feeds_updates';
+        $talk_form_config->set('third_party_settings.field_group.group_talk_info', $talk_info);
+        $talk_form_config->save();
+
+        // now enable and move the field_skip_feeds_updates under the talk_number field:
+        $form_display = $entity_form->load('node.talk.default');
+        if ($form_display) {
+            $talk_number_component = $form_display->getComponent('field_talk_number'); 
+            $talk_number_weight = $talk_number_component['weight'];
+            $form_display->setComponent('field_skip_feeds_updates', [
+                'weight' => $talk_number_weight + 1,
+                'region' => $talk_number_component['region']
+            ])->save();
+
+            \Drupal::logger('scitalk_base')->notice('Re-enabled the "field_skip_feeds_updates" in the Talk entity form');
+        }
+    }
+}
+
+/**
 *  Create new fields for Subtitles
 */
 function scitalk_base_update_8123(&$sandbox) {
@@ -1321,4 +1360,28 @@ function scitalk_base_update_8123(&$sandbox) {
         $entity->save();
         \Drupal::logger('scitalk_base')->notice('Updated Talk attachments field for Talks');
     }
+
+    $view_display = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+    $default_view_display = $view_display->load('node.talk.full');
+    if (!empty($default_view_display))
+    {
+        $view_display_yml = $source->read('core.entity_view_display.node.talk.full');
+        $entity = $view_display->updateFromStorageRecord($default_view_display, $view_display_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Talk full Entity view display');
+    }
+
+    //update talk entity form display
+    $entity_form = \Drupal::entityTypeManager()->getStorage('entity_form_display');
+    $org_entity_form = $entity_form->load('node.talk.default');
+    if (!empty($org_entity_form))
+    {
+        $form_display_yml = $source->read('core.entity_form_display.node.talk.default');
+        $entity = $entity_form->updateFromStorageRecord($org_entity_form, $form_display_yml);
+        $entity->save();
+        \Drupal::logger('scitalk_base')->notice('Updated Talk entity_form_display');
+    }
+
+    //re add the field_skip_updates field to the Talk entity form view if needed
+    _readd_skip_feed_field_to_talk_entity_form();
 }
