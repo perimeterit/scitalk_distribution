@@ -18,10 +18,10 @@
     'resource--' ~ bundle,
 ]
 %}
-<div{{ attributes.addClass(classes) }}>
-    {% if content %}
+{% if formatted_trascript_text is not empty %}
+    <div{{ attributes.addClass(classes) }}>
         <div class="transcript-text" data-transcript-lang="{{ transcript_lang }}" style="display:none;">
             {{ formatted_trascript_text|raw }}
         </div>
-  {% endif %}
-</div>
+    </div>
+{% endif %}
