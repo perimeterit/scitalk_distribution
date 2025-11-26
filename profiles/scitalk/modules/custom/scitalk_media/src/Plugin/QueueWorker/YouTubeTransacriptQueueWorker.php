@@ -129,7 +129,8 @@ class YouTubeTransacriptQueueWorker extends QueueWorkerBase implements Container
   private function getYoutubeVTTs(EntityInterface $entity) {
     if ($entity->getType() == 'talk') {
       $target_id = $entity?->field_talk_video?->target_id ?? 0;
-      $video = \Drupal::entityTypeManager()->getStorage('media')->load($target_id);
+      // $video = \Drupal::entityTypeManager()->getStorage('media')->load($target_id);
+      $video = $this->entityTypeManager->getStorage('media')->load($target_id);
       if (!empty($video)) {
         if ($video->bundle() == 'scitalk_youtube_video') {
           $video_url = $video->field_media_scitalk_video->value ?? '';
