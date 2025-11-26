@@ -83,6 +83,18 @@ class YouTubeQueueCommands extends DrushCommands {
     $this->logger()->notice("Pulled vtts from YouTube: " . $proccessed);
   }
 
+  /**
+   * Command to return the number of items in the queue
+   *
+   * @command scitalk_media:items
+   * @usage scitalk_media:items
+   */
+  public function itemsInQueue() {
+    $queueProcessor = $this->queueProcessor;
+    $numItems = $queueProcessor->queueItems('youtube_transcripts_queue');
+     $this->logger()->notice("Number of items in the queue: " . $numItems);
+  }
+
 //   /**
 //    * Populate a queue for testing purposes.
 //    *

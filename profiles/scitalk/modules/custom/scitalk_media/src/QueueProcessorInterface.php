@@ -40,4 +40,15 @@ interface QueueProcessorInterface {
    */
   public function queueHasItems(string $type):bool;
 
+  /**
+   * Find out how many items in it.
+   *
+   * @param string $type
+   *   The queue type.
+   *
+   * @return bool
+   *   True if the queue has items to process.
+   */
+  public function queueItems(string $type):int;
+
 }

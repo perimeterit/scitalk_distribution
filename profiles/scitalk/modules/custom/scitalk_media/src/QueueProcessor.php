@@ -45,6 +45,14 @@ class QueueProcessor implements QueueProcessorInterface {
   /**
    * {@inheritDoc}
    */
+  public function queueItems(string $type):int {
+    $queue = $this->queueFactory->get($type);
+    return $queue->numberOfItems() ?? 0;
+  }
+  
+  /**
+   * {@inheritDoc}
+   */
   public function queueHasItems(string $type):bool {
     $queue = $this->queueFactory->get($type);
 
