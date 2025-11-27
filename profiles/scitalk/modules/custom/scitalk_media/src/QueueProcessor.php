@@ -15,6 +15,7 @@ use Psr\Log\LoggerInterface;
 use MrMySQL\YoutubeTranscript\Exception\TooManyRequestsException;
 use MrMySQL\YoutubeTranscript\Exception\YouTubeRequestFailedException;
 use MrMySQL\YoutubeTranscript\Exception\TranscriptsDisabledException;
+use MrMySQL\YoutubeTranscript\Exception\NoTranscriptAvailableException;
 
 /**
  * Runs the queue with a set time delay.
@@ -142,7 +143,16 @@ class QueueProcessor implements QueueProcessorInterface {
         throw $e;
       }
       catch (TranscriptsDisabledException $e) {
+        //disabled transcript for this video, skip it and remove from q
+        $this->logger->debug('@queue queue could not pull VTT (TranscriptsDisabledException) @e.', [
+          '@queue' => $worker->getPluginId(), '@e' => $e->getMessage()
+        ]);
+      }
+      catch (NoTranscriptAvailableException $e) {
         //no transcript for this video, skip it and remove from q
+        $this->logger->debug('@queue queue could not pull VTT (NoTranscriptAvailableException) @e.', [
+          '@queue' => $worker->getPluginId(), '@e' => $e->getMessage()
+        ]);
       }
       catch (\Exception $e) {
         // In case of any other kind of exception, log it and leave the item
