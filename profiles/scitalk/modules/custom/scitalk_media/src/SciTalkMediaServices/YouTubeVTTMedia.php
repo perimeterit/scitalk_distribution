@@ -30,6 +30,7 @@ class YouTubeVTTMedia {
      */
     public function create(EntityInterface $entity, $video_id) {
         if (empty($video_id)) {
+            \Drupal::logger('scitalk_media')->notice('no video id in cerate YouTubeVTTMedia');
             return false;
         }
         
@@ -103,16 +104,20 @@ class YouTubeVTTMedia {
     }
     
     private function writeVTTFile($vtt, $video_id, $lang = 'en') {
-         $file_path = 'public://vtt/utube-vtts';
-         $filename = "{$video_id}_{$lang}_vtt.vtt";
-         if (\Drupal::service('file_system')->prepareDirectory($file_path, FileSystemInterface::CREATE_DIRECTORY)) {
+        $file_path = 'public://vtt/utube-vtts';
+        $filename = "{$video_id}_{$lang}_vtt.vtt";
+        if (\Drupal::service('file_system')->prepareDirectory($file_path, FileSystemInterface::CREATE_DIRECTORY)) {
+             \Drupal::logger('scitalk_media')->notice('Write vtt file @vid for lang @lang', ['@vid'=> $video_id,'@lang'=> $lang]);
             $vtt_filename = $file_path . '/' . $filename;
             $file = \Drupal::service('file.repository')->writeData($vtt, $vtt_filename, FileExists::Replace);
             if ($file) {
                 return $file;
             }
-         }
-         return false;
+        }
+        else {
+            \Drupal::logger('scitalk_media')->notice('could not write vtt file file');
+        }
+        return false;
     }
 
     /**

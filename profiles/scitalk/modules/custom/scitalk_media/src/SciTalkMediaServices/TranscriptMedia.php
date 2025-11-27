@@ -45,7 +45,7 @@ class TranscriptMedia {
     /**
      * Attach Transcript media from a new vtt/subtitle media
      *
-     * @param \Drupal\Core\Entity\Media subtitles_media
+     * @param \Drupal\media\Entity\Media subtitles_media
      * @param \Drupal\Core\Entity\EntityInterface entity
      */
     private function attachTranscriptMedia(Media $subtitles_media, EntityInterface $talk) {
@@ -60,7 +60,7 @@ class TranscriptMedia {
     /**
      * Create Transcript media
      *
-     * @param \Drupal\Core\Entity\Media subtitles_media
+     * @param \Drupal\media\Entity\Media subtitles_media
      * @param \Drupal\Core\Entity\EntityInterface entity
      */
     public function create(Media $subtitles_media, EntityInterface $talk) {
@@ -81,7 +81,7 @@ class TranscriptMedia {
     /**
      * Check if we can create the Transcript media and if so return the bundle
      *
-     * @param \Drupal\Core\Entity\Media subtitles_media
+     * @param \Drupal\media\Entity\Media;subtitles_media
      * @param \Drupal\Core\Entity\EntityInterface entity
      */
     private function getSubtitlesBundle(Media $subtitles_media, EntityInterface $talk) {
@@ -114,6 +114,7 @@ class TranscriptMedia {
      */
     private function createFromUploadedFile(EntityInterface $entity) {
         $source = $entity->field_media_file->target_id ?? '';
+        \Drupal::logger('scitalk_media')->notice('Create transcript from file @vid', ['@vid'=> $source]);
         if (!empty($source)) {
             $lang = $entity->field_subtitles_language->value ?? '';
             $vtt = \Drupal::entityTypeManager()->getStorage('file')->load($source)->getFileUri();
