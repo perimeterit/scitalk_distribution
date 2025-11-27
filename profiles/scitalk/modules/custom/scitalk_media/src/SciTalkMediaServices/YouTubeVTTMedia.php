@@ -98,7 +98,12 @@ class YouTubeVTTMedia {
         }
         catch (TooManyRequestsException | YouTubeRequestFailedException | TranscriptsDisabledException | NoTranscriptAvailableException $e) {
             \Drupal::logger('scitalk_media')->error('too many requests??? @e', ['@e' => $e->getMessage()]);
-            \Drupal::logger('scitalk_media')->error('exception obj? @e', ['@e' => print_r($e, true)]);
+            \Drupal::logger('scitalk_media')->error('exception code @e,  file: @f, line @l, trace @t', [
+                '@e' => $e->getCode(), 
+                '@f' => $e->getFile(), 
+                '@l' => $e->getLine(),
+                '@t' => $e->getTraceAsString(),
+            ]);
             throw $e;
         }
         catch (Exception $e) {
