@@ -29,6 +29,7 @@ class YouTubeVTTMedia {
      * @param string video_id
      */
     public function create(EntityInterface $entity, $video_id) {
+        \Drupal::logger('scitalk_media')->notice('in Create YouTubeVTTMedia');
         if (empty($video_id)) {
             \Drupal::logger('scitalk_media')->notice('no video id in cerate YouTubeVTTMedia');
             return false;

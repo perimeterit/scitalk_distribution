@@ -78,13 +78,16 @@ class YouTubeTransacriptQueueWorker extends QueueWorkerBase implements Container
    * {@inheritDoc}
    */
   public function processItem($data) {
+    $this->logger->debug(message: 'in process queue @item ', context: ['@item'=> $data]);
     if (!empty($data)) {
       $uuid = $data ?? 0;
       $entity = $this->entityTypeManager->getStorage('node')->loadByProperties(['uuid' => $uuid]);
+      $this->logger->debug(message: 'loaded enntity @item ', context: ['@item'=> empty($entity)]);
       if (!empty($entity)) {
         try {
           $entity = current($entity);
           $id = $entity->id();
+          $this->logger->debug(message: 'process item @item ', context: ['@item'=> $id]);
           $this->createTalkVTT($entity);
           $entity->save();;
         }
@@ -131,9 +134,12 @@ class YouTubeTransacriptQueueWorker extends QueueWorkerBase implements Container
       $target_id = $entity?->field_talk_video?->target_id ?? 0;
       // $video = \Drupal::entityTypeManager()->getStorage('media')->load($target_id);
       $video = $this->entityTypeManager->getStorage('media')->load($target_id);
+      $this->logger->debug(message: 'in getYouTube VTTS queue @item ', context: ['@item'=> $target_id]);
       if (!empty($video)) {
         if ($video->bundle() == 'scitalk_youtube_video') {
           $video_url = $video->field_media_scitalk_video->value ?? '';
+          $this->logger->debug(message: 'video url @item ', context: ['@item'=> $video_url]);
+          
           @preg_match_all("/^(?:https?:\/\/)?(?:(?:www\.)?youtube.com\/watch\?v=|youtu.be\/)([-\w]+)$/", $video_url, $matches);
           // include embedded utube? ex. https://www.youtube.com/embed/aqz-KE-bpKQ
           // @preg_match_all("/^(?:https?:\/\/)?(?:(?:www\.)?youtube.com\/watch\?v=|youtu.be\/|(?:www\.)?youtube.com\/embed\/)([-\w]+)$/", $video_url, $matches);

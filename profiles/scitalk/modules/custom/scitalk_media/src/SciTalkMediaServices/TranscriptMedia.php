@@ -19,6 +19,7 @@ class TranscriptMedia {
         $vtt_url_before = $entity?->original?->get('field_subtitle_url')->getValue() ?? [];
         $vtt_url_after = $entity?->get('field_subtitle_url')->getValue() ?? [];
 
+       \Drupal::logger('scitalk_media')->notice('in Trans Media createfrom BTT ',);
         // newly uploaded vtt
         if (!empty($vtt_uploaded_after)) {
             $before_vtts_ids = array_map(function($vtt) {return $vtt['target_id'];}, $vtt_uploaded_before);
