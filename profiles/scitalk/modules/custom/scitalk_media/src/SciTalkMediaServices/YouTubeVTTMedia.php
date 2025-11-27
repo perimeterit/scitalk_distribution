@@ -47,12 +47,17 @@ class YouTubeVTTMedia {
         // ]);
 
         $http_client = new Client();
+        \Drupal::logger('scitalk_media')->notice('in Create YouTubeVTTMedia - after Client');
         $request_factory = new HttpFactory();
+        \Drupal::logger('scitalk_media')->notice('in Create YouTubeVTTMedia - after req HttpFactory');
         $stream_factory = new HttpFactory(); // GuzzleHttp\Psr7\HttpFactory implements StreamFactoryInterface
+        \Drupal::logger('scitalk_media')->notice('in Create YouTubeVTTMedia - after stream HttpFactory');
         $fetcher = new TranscriptListFetcher($http_client, $request_factory, $stream_factory);
         $transcript_text = [];
+        \Drupal::logger('scitalk_media')->notice('in Create YouTubeVTTMedia - after TranscriptListFetcher');
         try {
-            $transcript_list = $fetcher->fetch($video_id);            
+            $transcript_list = $fetcher->fetch($video_id);
+            \Drupal::logger('scitalk_media')->notice('in Create YouTubeVTTMedia - after transcript list fetch');       
             $langService = \Drupal::service('scitalk_media.subtitle_languages');
             $language_codes = $langService->getLanguageCodes();
             \Drupal::logger(channel: 'scitalk_media')->notice(message: 'get these langs @vid', context: ['@vid'=> print_r($language_codes, true)]);
@@ -92,9 +97,11 @@ class YouTubeVTTMedia {
             }
         }
         catch (TooManyRequestsException | YouTubeRequestFailedException | TranscriptsDisabledException | NoTranscriptAvailableException $e) {
+            \Drupal::logger('scitalk_media')->error('too many requests??? @e', ['@e' => $e->getMessage()]);
             throw $e;
         }
         catch (Exception $e) {
+            \Drupal::logger('scitalk_media')->error('some other exception? @e', ['@e' => $e->getMessage()]);
             throw new Exception($e->getMessage());
         }
     }
