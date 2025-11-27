@@ -54,6 +54,8 @@ class YouTubeVTTMedia {
             $transcript_list = $fetcher->fetch($video_id);            
             $langService = \Drupal::service('scitalk_media.subtitle_languages');
             $language_codes = $langService->getLanguageCodes();
+            \Drupal::logger(channel: 'scitalk_media')->notice(message: 'get these langs @vid', context: ['@vid'=> print_r($language_codes, true)]);
+            \Drupal::logger(channel: 'scitalk_media')->notice(message: 'Fetched from youtube @vid ', context: ['@vid'=> $transcript_list->__toString()]);
             // $language_codes = ['en', 'fr-CA']; // Prioritized language codes
             foreach ($language_codes as $lang) {
                 try {
