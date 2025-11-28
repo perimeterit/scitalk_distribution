@@ -343,6 +343,10 @@ class SciTalkBaseFieldsMapping extends FormBase {
     // @TODO: set an expiry time (default = 604800).
     $options = [];
     $scivideos_vocabulary_terms = $this->sciVideosIntegration->fetchVocabularyTerms($vocabulary_name);
+    if (empty($scivideos_vocabulary_terms)) {
+      return $options;
+    }
+
     $scivideos_vocabulary_terms = json_decode($scivideos_vocabulary_terms);
     foreach ($scivideos_vocabulary_terms->data as $term) {
       $options[$term->id] = $term->attributes->name;
