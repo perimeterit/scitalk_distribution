@@ -142,17 +142,8 @@ class QueueProcessor implements QueueProcessorInterface {
         // Skip to the next queue.
         throw $e;
       }
-      catch (TranscriptsDisabledException $e) {
-        //disabled transcript for this video, skip it and remove from q
-        $this->logger->debug('@queue queue could not pull VTT (TranscriptsDisabledException) @e.', [
-          '@queue' => $worker->getPluginId(), '@e' => $e->getMessage()
-        ]);
-      }
-      catch (NoTranscriptAvailableException $e) {
+      catch (TranscriptsDisabledException | NoTranscriptAvailableException $e) {
         //no transcript for this video, skip it and remove from q
-        $this->logger->debug('@queue queue could not pull VTT (NoTranscriptAvailableException) @e.', [
-          '@queue' => $worker->getPluginId(), '@e' => $e->getMessage()
-        ]);
       }
       catch (\Exception $e) {
         // In case of any other kind of exception, log it and leave the item

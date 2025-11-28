@@ -29,9 +29,7 @@ class YouTubeVTTMedia {
      * @param string video_id
      */
     public function create(EntityInterface $entity, $video_id) {
-        \Drupal::logger('scitalk_media')->notice('in Create YouTubeVTTMedia');
         if (empty($video_id)) {
-            \Drupal::logger('scitalk_media')->notice('no video id in cerate YouTubeVTTMedia');
             return false;
         }
         
@@ -47,21 +45,14 @@ class YouTubeVTTMedia {
         // ]);
 
         $http_client = new Client();
-        \Drupal::logger('scitalk_media')->notice('in Create YouTubeVTTMedia - after Client');
         $request_factory = new HttpFactory();
-        \Drupal::logger('scitalk_media')->notice('in Create YouTubeVTTMedia - after req HttpFactory');
         $stream_factory = new HttpFactory(); // GuzzleHttp\Psr7\HttpFactory implements StreamFactoryInterface
-        \Drupal::logger('scitalk_media')->notice('in Create YouTubeVTTMedia - after stream HttpFactory');
         $fetcher = new TranscriptListFetcher($http_client, $request_factory, $stream_factory);
         $transcript_text = [];
-        \Drupal::logger('scitalk_media')->notice('in Create YouTubeVTTMedia - after TranscriptListFetcher');
         try {
             $transcript_list = $fetcher->fetch($video_id);
-            \Drupal::logger('scitalk_media')->notice('in Create YouTubeVTTMedia - after transcript list fetch');       
             $langService = \Drupal::service('scitalk_media.subtitle_languages');
             $language_codes = $langService->getLanguageCodes();
-            \Drupal::logger(channel: 'scitalk_media')->notice(message: 'get these langs @vid', context: ['@vid'=> print_r($language_codes, true)]);
-            \Drupal::logger(channel: 'scitalk_media')->notice(message: 'Fetched from youtube @vid ', context: ['@vid'=> $transcript_list->__toString()]);
             // $language_codes = ['en', 'fr-CA']; // Prioritized language codes
             foreach ($language_codes as $lang) {
                 try {
@@ -97,17 +88,9 @@ class YouTubeVTTMedia {
             }
         }
         catch (TooManyRequestsException | YouTubeRequestFailedException | TranscriptsDisabledException | NoTranscriptAvailableException $e) {
-            \Drupal::logger('scitalk_media')->error('too many requests??? @e', ['@e' => $e->getMessage()]);
-            \Drupal::logger('scitalk_media')->error('exception code @e,  file: @f, line @l, trace @t', [
-                '@e' => $e->getCode(), 
-                '@f' => $e->getFile(), 
-                '@l' => $e->getLine(),
-                '@t' => $e->getTraceAsString(),
-            ]);
             throw $e;
         }
         catch (Exception $e) {
-            \Drupal::logger('scitalk_media')->error('some other exception? @e', ['@e' => $e->getMessage()]);
             throw new Exception($e->getMessage());
         }
     }
@@ -120,20 +103,16 @@ class YouTubeVTTMedia {
     }
     
     private function writeVTTFile($vtt, $video_id, $lang = 'en') {
-        $file_path = 'public://vtt/utube-vtts';
-        $filename = "{$video_id}_{$lang}_vtt.vtt";
-        if (\Drupal::service('file_system')->prepareDirectory($file_path, FileSystemInterface::CREATE_DIRECTORY)) {
-             \Drupal::logger('scitalk_media')->notice('Write vtt file @vid for lang @lang', ['@vid'=> $video_id,'@lang'=> $lang]);
+         $file_path = 'public://vtt/utube-vtts';
+         $filename = "{$video_id}_{$lang}_vtt.vtt";
+         if (\Drupal::service('file_system')->prepareDirectory($file_path, FileSystemInterface::CREATE_DIRECTORY)) {
             $vtt_filename = $file_path . '/' . $filename;
             $file = \Drupal::service('file.repository')->writeData($vtt, $vtt_filename, FileExists::Replace);
             if ($file) {
                 return $file;
             }
-        }
-        else {
-            \Drupal::logger('scitalk_media')->notice('could not write vtt file file');
-        }
-        return false;
+         }
+         return false;
     }
 
     /**

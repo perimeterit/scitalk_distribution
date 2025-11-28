@@ -19,7 +19,6 @@ class TranscriptMedia {
         $vtt_url_before = $entity?->original?->get('field_subtitle_url')->getValue() ?? [];
         $vtt_url_after = $entity?->get('field_subtitle_url')->getValue() ?? [];
 
-       \Drupal::logger('scitalk_media')->notice('in Trans Media createfrom BTT ',);
         // newly uploaded vtt
         if (!empty($vtt_uploaded_after)) {
             $before_vtts_ids = array_map(function($vtt) {return $vtt['target_id'];}, $vtt_uploaded_before);
@@ -115,7 +114,6 @@ class TranscriptMedia {
      */
     private function createFromUploadedFile(EntityInterface $entity) {
         $source = $entity->field_media_file->target_id ?? '';
-        \Drupal::logger('scitalk_media')->notice('Create transcript from file @vid', ['@vid'=> $source]);
         if (!empty($source)) {
             $lang = $entity->field_subtitles_language->value ?? '';
             $vtt = \Drupal::entityTypeManager()->getStorage('file')->load($source)->getFileUri();
