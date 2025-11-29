@@ -13,6 +13,7 @@ class SciVideosAuthentication {
     private $base_url = '';
     private $credentials_data = [];
     private $private_store;
+    private $scivideos_integration_enabled;
 
     private function __construct(PrivateTempStoreFactory $private_store) {
         $this->private_store = $private_store;
@@ -20,6 +21,7 @@ class SciVideosAuthentication {
         $config = \Drupal::config('scitalk_base.settings');
 
         $this->base_url =  $config->get('scivideos_api_url') ?? '';
+        $this->scivideos_integration_enabled = $config->get('enable_scivideos_integrate') ?? false;
 
         if (substr($this->base_url, -1) != '/') {
             $this->base_url .= '/';
@@ -66,6 +68,10 @@ class SciVideosAuthentication {
     }
 
     private function renewToken() {
+        if (!$this->scivideos_integration_enabled) {
+            return false;
+        }
+        
         $tempstore = $this->private_store->get('scitalk_base');
         if ($storage = $tempstore->get(SciVideosAuthentication::PRIVATE_STORAGE)) {
             $access_token = $storage['token'];

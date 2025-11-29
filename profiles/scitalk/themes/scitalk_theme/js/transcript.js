@@ -1,4 +1,137 @@
 document.addEventListener("DOMContentLoaded", () => {
+  const showTranscriptText = "View Transcript";
+  const hideTranscriptText = "Hide Transcript";
+  let curSelectedLanguageIdx = 0; // keep the currently selected lang index value
+  function addTranscriptHtml(transcript_text) {
+    const languages = createTranscriptLanguagesSelect();
+
+    const html = `
+      <div class="transcript-text-wrapper">
+          <a href="#" id="toggle_transcript" class="toggle_transcript">
+            <span class="text">${showTranscriptText}</span>
+          </a>
+      </div>
+
+      <div id="formatted-transcript-text" class="transcript">
+          ${transcript_text}
+      </div>
+
+      <div id="formatted-transcript-modal" class="transcript-modal">
+        <!-- Modal content for transcript on smaller screens -->
+        <div class="transcript-modal-content resizable" draggable="false">
+          <div class="transcript-modal-header ">
+            <div class="resizer"></div>
+            <span class="transcript-modal-close">&times;</span>
+            <h2>Transcript</h2>
+          </div>
+          <div class="transcript-modal-body">
+          </div>
+        </div>
+      </div>
+    `;
+
+    // prepend the Transcript link to the transcript field under the Resources section:
+    const attachments_el = document.querySelector(".field--name-field-talk-transcripts");
+    const list_item = document.createElement("li");
+    list_item.id = "transcript-modal-trigger";
+    list_item.classList.add("field__item"); //field__item is the class used in the Display view fences settings
+    const item = attachments_el.prepend(list_item);
+    list_item.innerHTML = html;
+
+    // now insert the languages dropdown before the body
+    document
+      .querySelector(".transcript-modal-content")
+      .insertBefore(languages, document.querySelector(".transcript-modal-body"));
+
+    return html;
+  }
+
+  // create a dropdown with the available languages
+  // we have 2 such dropdowns, passing the id for each one
+  function createTranscriptLanguagesSelect(select_id = "language_selection") {
+    const availLanguagesEl = document.querySelectorAll(".transcript-text");
+    const langWrapper = document.createElement("div");
+    langWrapper.className = "languages-wrapper";
+
+    const languagesSelection = document.createElement("select");
+    languagesSelection.id = select_id;
+    languagesSelection.className = "language-selection";
+
+    availLanguagesEl.forEach((lang) => {
+      const option = document.createElement("option");
+      option.value = lang.dataset.transcriptLang;
+      option.textContent = lang.dataset.transcriptLang;
+      languagesSelection.appendChild(option);
+    });
+
+    langWrapper.appendChild(languagesSelection);
+    languagesSelection.selectedIndex = curSelectedLanguageIdx;
+    languagesSelection.addEventListener("change", (e) => {
+      const lang = e.target.value;
+      curSelectedLanguageIdx = e.target.selectedIndex;
+      const trans = document.querySelector('[data-transcript-lang="' + lang + '"]');
+      const formatted = formatTranscript(trans.innerText);
+      const transText = document.getElementById("formatted-transcript-text");
+      transText.innerHTML = formatted;
+      const selectionEls = document.querySelectorAll(".language-selection");
+      selectionEls.forEach((el) => {
+        if (el.id != e.target.id) {
+          el.selectedIndex = e.target.selectedIndex;
+          el.value = lang;
+        }
+      });
+      syncPlayingTimes();
+    });
+
+    return langWrapper;
+  }
+
+  function formatTranscript(str) {
+    const regex = /((\d\d:)?\d{2}:\d{2}\.\d{3})\s+-->\s+((\d\d:)?\d{2}:\d{2}\.\d{3})((?:(?!\d\d:).)*|$)/gms;
+
+    let formattedTranscript = str;
+    formattedTranscript = formattedTranscript.replace(/WEBVTT\s*/ms, "");
+    while ((res = regex.exec(str)) !== null) {
+      const start = res[1];
+      const start_time = start.split(":");
+      const text_block = res[5];
+      const text_block_trimmed = text_block.trim();
+
+      if (start_time.length === 2) {
+        // mm:ss.milsec (not hr in the time)
+        const min = start_time[0];
+        const sec = start_time[1].split(".")[0];
+        const min_to_secs = parseInt(min, 10) * 60 + parseInt(sec, 10);
+        const display_time = `${min}:${sec}`;
+
+        const link = `<div class="trans_wrap"><div class="jump_to_wrap" id="${min_to_secs}"><button class="jump_to" value="${min_to_secs}" aria-description="Start playing at interval ${display_time}"><div><i aria-hidden="true" class="icon-play"></i><span class="timestamp">${display_time}</span></div></button></div><div class="trans_text" aria-label="${text_block_trimmed}"><span>${text_block}</span></div></div>`;
+
+        formattedTranscript = formattedTranscript.split(res[0]).join(link);
+      } else if (start_time.length === 3) {
+        // hh:mm:ss.milsec
+        const hr = start_time[0];
+        const min = start_time[1];
+        const sec = start_time[2].split(".")[0];
+        const hrs_to_secs = parseInt(hr, 10) * 3600 + parseInt(min, 10) * 60 + parseInt(sec, 10);
+        const display_time = parseInt(hr, 10) > 0 ? `${hr}:${min}:${sec}` : `${min}:${sec}`;
+
+        const link = `<div class="trans_wrap"><div class="jump_to_wrap" id="${hrs_to_secs}"><button class="jump_to" value="${hrs_to_secs}" aria-description="Start playing at interval ${display_time}"><div><i aria-hidden="true" class="icon-play"></i><span class="timestamp">${display_time}</span></div></button></div><div class="trans_text" aria-label="${text_block_trimmed}"><span>${text_block}</span></div></div>`;
+
+        formattedTranscript = formattedTranscript.split(res[0]).join(link);
+      }
+    }
+    return formattedTranscript;
+  }
+
+  const talkTranscripts = document.querySelectorAll(".resource--scitalk_transcription");
+
+  // on page load check for the existance of transcript text and automatically load the first on the list:
+  if (talkTranscripts.length) {
+    const trans = talkTranscripts[0].querySelector(".transcript-text");
+    const transText = formatTranscript(trans.innerText);
+    addTranscriptHtml(transText);
+  }
+
   const hasTranscript = document.querySelector(".transcript-text-wrapper");
   if (!hasTranscript) {
     return;
@@ -25,6 +158,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // need to add a Close button for the side Transcript
   const sideCloseButton = (function () {
     let sideWrap = null;
+    let languagesWrap = null;
     return {
       create: function () {
         if (!sideWrap) {
@@ -32,8 +166,11 @@ document.addEventListener("DOMContentLoaded", () => {
           sideWrap.id = "side-wrap";
           const cBox = document.createElement("div");
           cBox.className = "close-side";
-          cBox.innerHTML = '<span class="close-side-btn">×</span><h2>Hide Transcript</h2>';
+          cBox.innerHTML = `<span class="close-side-btn">×</span><h2>${hideTranscriptText}</h2>`;
           sideWrap.append(cBox);
+
+          languagesWrap = createTranscriptLanguagesSelect("side_language_selection");
+          sideWrap.append(languagesWrap);
 
           // close the transcript
           cBox.addEventListener("click", () => {
@@ -67,7 +204,7 @@ document.addEventListener("DOMContentLoaded", () => {
         pageContentWrapper.append(wrap);
         wrap.append(transcriptWrapper);
 
-        const talkNodeEl = document.querySelector(".node.talk");
+        const talkNodeEl = document.querySelector(".node.talk"); // this the el where the node Talk is enclosed
         const talkNodeElDimensions = talkNodeEl.getBoundingClientRect();
         const posTransTop = talkNodeElDimensions.y - talkNodeEl.y;
         const posTransHeight = talkNodeElDimensions.height;
@@ -235,10 +372,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (window.innerWidth > cutoffWidth) {
         pageContentWrapper.classList.add(sideTranscriptWrapper);
       }
-      toggleTranscript.firstElementChild.innerHTML = "Hide Transcript";
+      toggleTranscript.firstElementChild.innerHTML = hideTranscriptText;
     } else {
       pageContentWrapper.classList.remove(sideTranscriptWrapper);
-      toggleTranscript.firstElementChild.innerHTML = "Show Transcript";
+      toggleTranscript.firstElementChild.innerHTML = showTranscriptText;
     }
 
     toggleSideTranscript();
@@ -251,16 +388,24 @@ document.addEventListener("DOMContentLoaded", () => {
   let offset = search ? Number(params.get("t")) : false;
 
   const player = videojs("scitalk_video_js");
-  const bts = transcriptWrapper.querySelectorAll(".jump_to");
-  bts.forEach((itm) => {
-    itm.addEventListener("click", function (e) {
-      offset = this.value; //e.target.value;
-      if (offset) {
-        player.currentTime(offset);
-        player.play();
-      }
+
+  // sync times between player and transcript text so that we could skip to a specific
+  // time on the video when clicking on a time stamp in the transcript:
+  function syncPlayingTimes() {
+    const jumpToBtns = transcriptWrapper.querySelectorAll(".jump_to");
+    jumpToBtns.forEach((jumpTo) => {
+      jumpTo.addEventListener("click", function (e) {
+        offset = this.value; //e.target.value;
+        if (offset) {
+          player.currentTime(offset);
+          player.play();
+        }
+      });
     });
-  });
+  }
+
+  // sync player and transcript times on load
+  syncPlayingTimes();
 
   // two ways of Highlighting the current text, either:
   //  1. use the "timeupdate" event on the player, or

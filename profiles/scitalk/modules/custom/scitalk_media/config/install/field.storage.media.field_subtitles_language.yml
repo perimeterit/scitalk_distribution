@@ -10,10 +10,14 @@ entity_type: media
 type: list_string
 settings:
   allowed_values:
-    - value: english
+    - value: en
       label: English
-    - value: french
+    - value: fr
       label: French
+    - value: fr-CA
+      label: "French (CA)"
+    - value: en-CA
+      label: "English (CA)"
   allowed_values_function: ""
 module: options
 locked: false

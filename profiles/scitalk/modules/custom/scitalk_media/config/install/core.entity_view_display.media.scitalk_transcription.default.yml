@@ -4,8 +4,10 @@ dependencies:
   config:
     - field.field.media.scitalk_transcription.field_media_scitalk_transcript
     - field.field.media.scitalk_transcription.field_searchable_text
+    - field.field.media.scitalk_transcription.field_subtitles_language
     - media.type.scitalk_transcription
   module:
+    - options
     - text
 id: media.scitalk_transcription.default
 targetEntityType: media
@@ -21,6 +23,13 @@ content:
     region: content
   field_searchable_text:
     type: text_default
+    label: above
+    settings: {}
+    third_party_settings: {}
+    weight: 1
+    region: content
+  field_subtitles_language:
+    type: list_default
     label: above
     settings: {}
     third_party_settings: {}

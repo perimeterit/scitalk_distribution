@@ -139,7 +139,9 @@ function scitalk_media_media_presave(EntityInterface $entity) {
       break;
 
     case 'scitalk_transcript':
-      $entity->set('name', 'Transcript');
+      $lang = $entity->field_subtitles_language->value ?? '';
+      $lang = $lang ? "({$lang})" : '';
+      $entity->set('name', "Transcript {$lang}");
       $entity->set('field_searchable_text', $entity->field_media_scitalk_transcript->value);
       break;
   }
@@ -166,6 +168,22 @@ function scitalk_media_page_attachments(array &$page) {
 
 }
 
+// return TRUE if the video media on an entity is a YouTube media and it has no VTT's media
+function _is_youtube_video_without_transcripts(EntityInterface $entity) {
+  if ($entity->getType() == 'talk') {
+    $target_id = $entity?->field_talk_video?->target_id ?? 0;
+    $video = \Drupal::entityTypeManager()->getStorage('media')->load($target_id);
+    if (!empty($video) && $video->bundle() == 'scitalk_youtube_video') {
+      // check if the talk has vtts (file or  url). Having either will trigger the code to create transcripts
+      $file_vtt = $entity->get('field_subtitle_upload_file')->getValue() ?? [];
+      $url_vtt = $entity->get('field_subtitle_url')->getValue() ?? [];
+      return empty($file_vtt) && empty($url_vtt);
+    }
+  }
+  return false;
+}
+
+
 /**
  * Implements hook_ENTITY_TYPE_presave()
  */
@@ -174,51 +192,63 @@ function scitalk_media_node_presave(EntityInterface $entity) {
   // need to check both VTT fields: Uploaded file or URL to file
   $node_type = $entity->getType();
   if ($node_type == 'talk') {
-    $vtt_uploaded_before = $entity?->original?->field_subtitle_upload_file?->target_id ?? 0;
-    $vtt_uploaded_after = $entity?->field_subtitle_upload_file?->target_id ?? 0;
-    $vtt_url_before = $entity?->original?->field_subtitle_url?->target_id ?? 0;
-    $vtt_url_after = $entity?->field_subtitle_url?->target_id ?? 0;
-   
-    // newly uploaded vtt
-    if (empty($vtt_uploaded_before) && $vtt_uploaded_after > 0) {
-      $attached_vtt_media = \Drupal::entityTypeManager()->getStorage('media')->load($vtt_uploaded_after);
-      _create_transcript_from_vtt($attached_vtt_media, $entity);
+    // if this is a youtube video, download any vtts later on when cron runs
+    if (_is_youtube_video_without_transcripts($entity)) {
+      // only add new talks to the queue to have cron pull their vtts from utube
+      if ($entity->isNew()) {
+        $queue = \Drupal::queue('youtube_transcripts_queue');
+        $queue->createItem($entity->uuid->value);  // need to store the uuid since new nodes don't have nid's yet
+      }
     }
-    // URL to vtt file
-    elseif (empty($vtt_url_before) && $vtt_url_after > 0) {
-      $attached_vtt_media = \Drupal::entityTypeManager()->getStorage('media')->load($vtt_url_after);
-      _create_transcript_from_vtt($attached_vtt_media, $entity);
+    else {
+      $transcriptMediaService = \Drupal::service('scitalk_media.create_transcript_media');
+      $transcriptMediaService->createFromVTT($entity);
     }
   }
 }
 
-// Create Transcript media from a new vtt/subtitle media
-function _create_transcript_from_vtt(Media $subtitles_media, EntityInterface $talk) {
-  //subtitles are either an uploaded file or url to a vtt file:
-  $bundle = $subtitles_media->bundle->target_id ?? "";
-  $vtt_bundles = ['subtitles_uploaded_file', 'subtitles_url'];
-  if (!in_array($bundle, $vtt_bundles)) {
-    return;
-  }
- 
-  //if there's already a Transcript media attched to the talk then do not create a new one
-  $attachments = !empty($talk) ? ($talk->get('field_talk_attachments')->getValue() ?? '') : [];
-  foreach($attachments as $atch) {
-    $target_id = $atch['target_id'] ?? 0;
-    $attached_media = \Drupal::entityTypeManager()->getStorage('media')->load($target_id);
-    $attached_media_bundle = $attached_media->bundle->target_id ?? '';
-    if ($attached_media_bundle == 'scitalk_transcription') {
-      return;
+
+/**
+ * Implements hook_ENTITY_TYPE_predelete() for media entities.
+ */
+function scitalk_media_media_delete(EntityInterface $entity) {
+  if ($entity->getEntityTypeId() === 'media') {
+    // if deleting a subtitle then find and delete its corresponding transcript
+    $bundles = ['subtitles_uploaded_file', 'subtitles_url'];
+    $bundle = $entity->bundle();
+    if (in_array($bundle, $bundles)) {
+      $vtt_language = $entity->field_subtitles_language->value ?? '';
+
+      $field = 'field_subtitle_upload_file';
+      if ($bundle == 'subtitles_url') {
+        $field = 'field_subtitle_url';
+      }
+     
+      $parent_node = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
+        $field => $entity->id(),
+      ]);
+
+      if (!empty($parent_node)) {
+        $talk = current($parent_node);
+        $transcripts = $talk->get('field_talk_transcripts')->getValue() ?? [];
+        foreach ($transcripts as $trans) {
+          $target_id = $trans['target_id'] ?? 0;
+          $attached_media = \Drupal::entityTypeManager()->getStorage('media')->load($target_id);
+          $attached_media_lang = $attached_media->field_subtitles_language->value ?? '';
+          if ($attached_media_lang == $vtt_language) {
+            $attached_media->delete();
+          }
+        }
+        $talk->save();
+      }
     }
   }
+}
 
-  //create transcript media
-  $transcriptMediaService = \Drupal::service('scitalk_media.create_transcript_media');
-  $created_media = $transcriptMediaService->create($subtitles_media);
-  
-  // attach the transcript media to the Talk
-  if (!empty($created_media)) {
-    $vid = $created_media->vid->value;
-    $talk->field_talk_attachments[] = ['target_id' => $vid];
-  }
+/**
+ * Implements hook_queue_info_alter().
+ */
+function scitalk_media_queue_info_alter(&$queues) {
+  // Turn off the cron processing for the youtube_transcripts_queue queue.
+  unset($queues['youtube_transcripts_queue']['cron']);
 }

@@ -1,4 +1,7 @@
 /* Formatted Transcript */
+.field--name-field-talk-transcripts li {
+  margin-bottom: 1em;
+}
 
 .video-trans-wrapper {
   max-width: 100%;
@@ -161,6 +164,10 @@
 }
 .resizable:hover .resizer {
   background: var(--color-primary);
+}
+
+.languages-wrapper {
+  margin: 1rem;
 }
 
 /* Add Animation */

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_subtitles_language
+    - media.type.scitalk_transcription
+  module:
+    - options
+id: media.scitalk_transcription.field_subtitles_language
+field_name: field_subtitles_language
+entity_type: media
+bundle: scitalk_transcription
+label: "Subtitles language"
+description: "Subtitles language"
+required: true
+translatable: false
+default_value: {}
+default_value_callback: ""
+settings: {}
+field_type: list_string
