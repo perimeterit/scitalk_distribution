@@ -48,6 +48,10 @@ function scitalk_base_theme($existing, $type, $theme, $path) {
       ],
       'template' => 'block--scitalk-citations'
     ],
+    'next_talk_in_collection_block'=> [
+      'variables'=> ['title'=> ''],
+      'template'=> 'block--next-talk-in-collection',
+    ],
   ];
 }
 

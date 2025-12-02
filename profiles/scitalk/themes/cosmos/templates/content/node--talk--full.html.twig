@@ -32,6 +32,10 @@
 
 </article>
 
+<aside>
+   {{ drupal_block('next_talk_in_collection_block', {context_mapping: {node: '@node.node_route_context:node'}}) }}
+</aside>
+
 <aside class="related-talks-view">
   {{ drupal_block('views_block:scitalk_related_talks-block_1')}}
 </aside>

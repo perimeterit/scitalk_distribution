@@ -58,7 +58,8 @@ class CollectionTalksStats {
      /**
     * return the date for the most recent talk under a Collection
     */
-   public static function fetchMostRecentTalkDate($nid) {
+//    public static function fetchMostRecentTalkDate($nid) {
+   public function fetchMostRecentTalkDate($nid) {
         //query most recent talk for a collection or series 
         $query = \Drupal::entityQuery('node')
             ->condition('type', 'talk')
@@ -86,5 +87,45 @@ class CollectionTalksStats {
         }
 
         return $most_recent_date;
+    }
+
+    /**
+    * return the next talk within a Collection (by talk_date)
+    */
+    public function fetchNextTalkinCollecton(EntityInterface $talk) {
+        $talk_entity = null;
+
+        if (empty($talk)) {
+            return $talk_entity;
+        }
+
+        $collection_target_id = $talk->field_talk_collection->target_id ?? 0;
+
+        if (empty($collection_target_id)) {
+            return $talk_entity;
+        }
+
+        $talk_nid = $talk->nid->value ?? 0;
+        $talk_date = $talk->field_talk_date->value ?? '';
+
+        //find the next talk within a Collection
+        $query = \Drupal::entityQuery('node')
+            ->condition('type', 'talk')
+            ->condition('status', 1)
+            ->condition('field_talk_collection.target_id', $collection_target_id)
+            ->condition('field_talk_date', $talk_date, '>=')
+            ->condition('nid', $talk_nid, "!=")
+            ->accessCheck(TRUE);
+
+        $talk_query = $query->sort('field_talk_date','ASC')
+            ->range(0,1)
+            ->execute();
+
+        if ($talk_query) {
+            $talk_nid = current($talk_query);
+            $talk_entity = \Drupal::entityTypeManager()->getStorage('node')->load($talk_nid);
+        }
+
+        return $talk_entity;
     }
 }
