@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_remote_thumbnail_url
+    - media.type.scitalk_slideshow_item
+id: media.scitalk_slideshow_item.field_remote_thumbnail_url
+field_name: field_remote_thumbnail_url
+entity_type: media
+bundle: scitalk_slideshow_item
+label: "SlideShow Item"
+description: 'You can input a path to an image to be downloaded, or a simple text if instead you choose to upload an image using the "Slideshow item image" input field below.'
+required: true
+translatable: true
+default_value: {}
+default_value_callback: ""
+settings: {}
+field_type: string

@@ -1,0 +1,36 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.scitalk_slideshow.field_media_scitalk_slideshow
+    - field.field.media.scitalk_slideshow.field_slideshow_items
+    - media.type.scitalk_slideshow
+id: media.scitalk_slideshow.default
+targetEntityType: media
+bundle: scitalk_slideshow
+mode: default
+content:
+  field_media_scitalk_slideshow:
+    type: string
+    label: visually_hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {}
+    weight: 0
+    region: content
+  field_slideshow_items:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {}
+    weight: 1
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  search_api_excerpt: true
+  thumbnail: true
+  uid: true

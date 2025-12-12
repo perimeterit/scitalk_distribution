@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - scitalk_media
+id: scitalk_slideshow_item
+label: "SciTalk SlideShow Item"
+description: ""
+source: scitalk_slideshow_item
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  source_field: field_remote_thumbnail_url
+  generate_thumbnails: true
+field_map: {}

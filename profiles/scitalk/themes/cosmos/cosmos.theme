@@ -11,6 +11,8 @@ use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
 use Drupal\Core\Url;
 use Drupal\Core\Link;
+use Drupal\media\Entity\Media;
+use Drupal\file\Entity\File;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\node\Entity\Node;
@@ -251,6 +253,20 @@ function cosmos_preprocess_media(&$variables) {
       $formattted_transcript_text = _build_transcript_text($matches, $transcript_text);
       $variables['formatted_trascript_text'] = $formattted_transcript_text;
     }
+  }
+
+  if ($bundle == 'scitalk_slideshow') {
+    $media = $variables['elements']['#media'];
+    $slides = $media->field_slideshow_items->getValue();
+    $slides_images = [];
+    foreach ($slides as $slide) {
+      $entity = Drupal::entityTypeManager()->getStorage('media')->load($slide['target_id']);
+      $target_id = $entity->get('field_slideshow_item_image')->target_id ?? 0;
+      $img = File::load($target_id);
+      $img_url = $img?->createFileUrl();
+      $slides_images[] = $img_url;
+    }
+    $variables['slide_images'] = $slides_images;
   }
 }
 

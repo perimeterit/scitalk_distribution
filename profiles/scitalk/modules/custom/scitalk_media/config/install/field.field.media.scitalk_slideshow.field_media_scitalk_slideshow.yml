@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_media_scitalk_slideshow
+    - media.type.scitalk_slideshow
+id: media.scitalk_slideshow.field_media_scitalk_slideshow
+field_name: field_media_scitalk_slideshow
+entity_type: media
+bundle: scitalk_slideshow
+label: "SlideShow URL"
+description: 'You can input a url containing the images to upload for the Slideshow or a simple label and then use the "SlideShow Items" field to upload the individual images'
+required: true
+translatable: true
+default_value: {}
+default_value_callback: ""
+settings: {}
+field_type: string

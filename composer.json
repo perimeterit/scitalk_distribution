@@ -76,6 +76,7 @@
         "drupal/views_field_view": "^1.0@beta",
         "drush/drush": "^12.4",
         "kint-php/kint": "^6.0",
+        "levmyshkin/tiny-slider": "^2.9",
         "mrmysql/youtube-transcript": "^0.0.5",
         "npm-asset/history.js": "^1.8",
         "npm-asset/video.js": "^8.21",

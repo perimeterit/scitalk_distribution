@@ -407,7 +407,7 @@ function scitalk_media_update_8105() {
   {
       $storage_config_yml = $source->read($field_storage_yml);
       $storage_config->create($storage_config_yml)->save();
-      \Drupal::logger('scitalk_base')->notice('Created Transcripts field storage');
+      \Drupal::logger('scitalk_media')->notice('Created Transcripts field storage');
   }
   else {
       $storage_config_yml = $source->read($field_storage_yml); 
@@ -476,5 +476,183 @@ function scitalk_media_update_8105() {
       $entity = $entity_form->updateFromStorageRecord($entity_form_display, $form_display_yml);
       $entity->save();
       \Drupal::logger('scitalk_media')->notice('Updated Media SciTalk transcription default form display');
+  }
+}
+
+/**
+ *  Transcript media updates
+ */
+function scitalk_media_update_8106() {
+  $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_media') . '/config/install';
+  $source      = new FileStorage($config_path);
+
+  //create media types
+  $media_type = \Drupal::entityTypeManager()->getStorage('media_type');
+  $media_type_yml = 'media.type.scitalk_slideshow_item';
+  $media_type_id = 'scitalk_slideshow_item';
+  $loaded_media_type = $media_type->load($media_type_id);
+  if (empty($loaded_media_type))
+  {
+    $media_type_yml = $source->read($media_type_yml);
+    $media_type->create($media_type_yml)->save();
+    \Drupal::logger('scitalk_media')->notice('Create media Scitalk Slideshow Item type');
+  }
+  else {
+    $media_type_yml = $source->read($media_type_yml); 
+    $entity = $media_type->updateFromStorageRecord($loaded_media_type, $media_type_yml);
+    $entity->save();
+    \Drupal::logger('scitalk_media')->notice('Updated media Scitalk Slideshow Item type');
+  }
+  
+  $media_type_yml = 'media.type.scitalk_slideshow';
+  $media_type_id = 'scitalk_slideshow';
+  $loaded_media_type = $media_type->load($media_type_id);
+  if (empty($loaded_media_type))
+  {
+    $media_type_yml = $source->read($media_type_yml);
+    $media_type->create($media_type_yml)->save();
+    \Drupal::logger('scitalk_media')->notice('Create media Scitalk Slideshow type');
+  }
+  else {
+    $media_type_yml = $source->read($media_type_yml); 
+    $entity = $media_type->updateFromStorageRecord($loaded_media_type, $media_type_yml);
+    $entity->save();
+    \Drupal::logger('scitalk_media')->notice('Updated media Scitalk Slideshow type');
+  }
+  
+
+  //install scitalk slideshow view mode
+  $view_mode = \Drupal::entityTypeManager()->getStorage('entity_view_mode');
+  $field_yml = 'core.entity_view_mode.media.scitalk_slideshow';
+  $field_id = 'media.scitalk_slideshow';
+  $loaded_view_mode = $view_mode->load($field_id);
+  if (empty($loaded_view_mode))
+  {
+      $view_mode_yml = $source->read($field_yml);
+      $view_mode->create($view_mode_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Created Media Scitalk Slideshow view mode');
+  }
+  
+  $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+  $field_storage_yml = 'field.storage.media.field_media_scitalk_slideshow';
+  $field_storage_id = 'media.field_media_scitalk_slideshow';
+  $loaded_storage_config = $storage_config->load($field_storage_id);
+  if (empty($loaded_storage_config))
+  {
+      $storage_config_yml = $source->read($field_storage_yml);
+      $storage_config->create($storage_config_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Created Media Slideshow media storage');
+  }
+   
+  $field_storage_yml = 'field.storage.media.field_slideshow_items';
+  $field_storage_id = 'media.field_slideshow_items';
+  $loaded_storage_config = $storage_config->load($field_storage_id);
+  if (empty($loaded_storage_config))
+  {
+      $storage_config_yml = $source->read($field_storage_yml);
+      $storage_config->create($storage_config_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Created Media Slideshow items media storage');
+  }
+    
+  $field_storage_yml = 'field.storage.media.field_slideshow_item_image';
+  $field_storage_id = 'media.field_slideshow_item_image';
+  $loaded_storage_config = $storage_config->load($field_storage_id);
+  if (empty($loaded_storage_config))
+  {
+      $storage_config_yml = $source->read($field_storage_yml);
+      $storage_config->create($storage_config_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Created Media Slideshow items image media storage');
+  }
+
+  //create fields
+  $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
+  $field_yml = 'field.field.media.scitalk_slideshow_item.field_remote_thumbnail_url';
+  $field_id = 'media.scitalk_slideshow_item.field_remote_thumbnail_url';
+  $loaded_field_config = $field_config->load($field_id);
+  if (empty($loaded_field_config))
+  {
+    $field_config_yml = $source->read($field_yml);
+    $field_config->create($field_config_yml)->save();
+    \Drupal::logger('scitalk_media')->notice('Created Media Slideshow item remote thumbnail url field');
+  }
+  
+  $field_yml = 'field.field.media.scitalk_slideshow.field_media_scitalk_slideshow';
+  $field_id = 'media.scitalk_slideshow.field_media_scitalk_slideshow';
+  $loaded_field_config = $field_config->load($field_id);
+  if (empty($loaded_field_config))
+  {
+    $field_config_yml = $source->read($field_yml);
+    $field_config->create($field_config_yml)->save();
+    \Drupal::logger('scitalk_media')->notice('Created Media Slideshow field');
+  }
+
+  $field_yml = 'field.field.media.scitalk_slideshow.field_slideshow_items';
+  $field_id = 'media.scitalk_slideshow.field_slideshow_items';
+  $loaded_field_config = $field_config->load($field_id);
+  if (empty($loaded_field_config))
+  {
+    $field_config_yml = $source->read($field_yml);
+    $field_config->create($field_config_yml)->save();
+    \Drupal::logger('scitalk_media')->notice('Created Media Slideshow item field');
+  }
+
+  $field_yml = 'field.field.media.scitalk_slideshow_item.field_slideshow_item_image';
+  $field_id = 'media.scitalk_slideshow_item.field_slideshow_item_image';
+  $loaded_field_config = $field_config->load($field_id);
+  if (empty($loaded_field_config))
+  {
+    $field_config_yml = $source->read($field_yml);
+    $field_config->create($field_config_yml)->save();
+    \Drupal::logger('scitalk_media')->notice('Created Media Slideshow item image field');
+  }
+
+  $entity_form = \Drupal::entityTypeManager()->getStorage('entity_form_display');
+  $entity_form_display = $entity_form->load('media.scitalk_slideshow.default');
+  if (empty($entity_form_display))
+  {
+      $form_display_yml = $source->read('core.entity_form_display.media.scitalk_slideshow.default');
+      $entity_form->create($form_display_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Created Media Slideshow media default form display');
+  }
+  
+  $entity_form_display = $entity_form->load('media.scitalk_slideshow.media_library');
+  if (empty($entity_form_display))
+  {
+      $form_display_yml = $source->read('core.entity_form_display.media.scitalk_slideshow.media_library');
+      $entity_form->create($form_display_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Created Media Slideshow media library form display');
+  }
+  
+  $entity_form_display = $entity_form->load('media.scitalk_slideshow_item.media_library');
+  if (empty($entity_form_display))
+  {
+      $form_display_yml = $source->read('core.entity_form_display.media.scitalk_slideshow_item.media_library');
+      $entity_form->create($form_display_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Created Media Slideshow item media library form display');
+  }
+
+  $view_display = \Drupal::entityTypeManager()->getStorage('entity_view_display');
+  $default_view_display = $view_display->load('media.scitalk_slideshow_item.default');
+  if (empty($default_view_display))
+  {
+      $view_display_yml = $source->read('core.entity_view_display.media.scitalk_slideshow_item.default');
+      $view_display->create($view_display_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Created Scitalk Slideshow item media default entity view display');
+  }
+  
+  $default_view_display = $view_display->load('media.scitalk_slideshow.default');
+  if (empty($default_view_display))
+  {
+      $view_display_yml = $source->read('core.entity_view_display.media.scitalk_slideshow.default');
+      $view_display->create($view_display_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Created Scitalk Slideshow media default entity view display');
+  }
+  
+  $default_view_display = $view_display->load('media.scitalk_slideshow.scitalk_slideshow');
+  if (empty($default_view_display))
+  {
+      $view_display_yml = $source->read('core.entity_view_display.media.scitalk_slideshow.scitalk_slideshow');
+      $view_display->create($view_display_yml)->save();
+      \Drupal::logger('scitalk_media')->notice('Created Scitalk Slideshow media scitalk slideshow entity view display');
   }
 }

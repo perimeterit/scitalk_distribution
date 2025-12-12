@@ -18,6 +18,7 @@ dependencies:
     - field.field.node.talk.field_talk_keywords
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
+    - field.field.node.talk.field_talk_slideshow
     - field.field.node.talk.field_talk_source_event
     - field.field.node.talk.field_talk_source_repository
     - field.field.node.talk.field_talk_speaker_profile
@@ -46,6 +47,7 @@ third_party_settings:
   field_group:
     group_talk_resources:
       children:
+        - field_talk_slideshow
         - field_talk_transcripts
         - field_talk_attachments
       label: Resources
@@ -165,7 +167,7 @@ content:
         fences_field_item_classes: ""
         fences_label_tag: div
         fences_label_classes: ""
-    weight: 24
+    weight: 1
     region: content
   field_talk_collection:
     type: entity_reference_label
@@ -209,6 +211,24 @@ content:
         fences_label_tag: strong
         fences_label_classes: ""
     weight: 6
+    region: content
+  field_talk_slideshow:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: scitalk_slideshow
+      link: false
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ""
+        fences_field_items_wrapper_tag: none
+        fences_field_items_wrapper_classes: ""
+        fences_field_item_tag: div
+        fences_field_item_classes: ""
+        fences_label_tag: div
+        fences_label_classes: ""
+    weight: 0
     region: content
   field_talk_source_event:
     type: link

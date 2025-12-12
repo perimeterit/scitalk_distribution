@@ -1,0 +1,30 @@
+<div class="talk-slider-container">
+    <ul class="controls" id="customize-controls" aria-label="Carousel Navigation" tabindex="0">
+        <li class="prev" data-controls="prev" aria-controls="customize" tabindex="-1">
+            <i class="fas fa-angle-left fa-5x"></i>
+        </li>
+        <li class="next" data-controls="next" aria-controls="customize" tabindex="-1">
+            <i class="fas fa-angle-right fa-5x"></i>          
+        </li>
+    </ul>
+    <div class="talk-slider">
+        {% set slides_cnt = slide_images|length %}
+        {% for key, slide in slide_images %}
+            {% set slide_number = key + 1 %}
+            <div class="talk-slider-item">
+                <div class="card">                
+                    <img loading="lazy" src="{{ slide }}" alt="Slide {{ slide_number }}/{{ slides_cnt }}"/>
+                    {# <img width="100" height="100" loading="lazy" src="{{ slide }}" alt="{{ slide }}"/> #}
+                    <h3>Slide {{slide_number }}</h3>
+                    {# <p class="card_description">pirsa test</p> #}
+                </div>
+            </div>
+        {% endfor %}
+    </div>    
+</div>
+
+<div id="slides-modal" class="modal">
+  <span class="slide-close">&times;</span>
+  <img class="modal-content" id="slide-content">
+  <div id="slide-caption"></div>
+</div>

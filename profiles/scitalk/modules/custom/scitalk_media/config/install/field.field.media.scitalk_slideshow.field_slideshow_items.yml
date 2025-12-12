@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_slideshow_items
+    - media.type.scitalk_slideshow
+    - media.type.scitalk_slideshow_item
+id: media.scitalk_slideshow.field_slideshow_items
+field_name: field_slideshow_items
+entity_type: media
+bundle: scitalk_slideshow
+label: "SlideShow Items"
+description: ""
+required: false
+translatable: false
+default_value: {}
+default_value_callback: ""
+settings:
+  handler: "default:media"
+  handler_settings:
+    target_bundles:
+      scitalk_slideshow_item: scitalk_slideshow_item
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: false
+    auto_create_bundle: remote_file
+field_type: entity_reference

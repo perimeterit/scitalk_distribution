@@ -1,0 +1,13 @@
+$schema: https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json
+name: SciTalk Slideshow
+status: stable
+props:
+  type: object
+  properties:
+    slide_images:
+      type: ["array", "null"]
+      title: Slideshow images
+      description: List of images to display in the slideshow
+libraryOverrides:
+  dependencies:
+    - cosmos/scitalk-tiny-slider
