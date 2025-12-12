@@ -53,9 +53,10 @@
   text-align: center;
   margin: 0 auto;
   /* max-width: 200px; */
-  color: #333;
+  color: inherit;
   background: transparent;
-  /* background: white; */
+  /* color: #333;
+  background: white; */
   border-radius: 5px;
   /* padding-bottom: 0.75rem; */
   font-family: sans-serif;
