@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function isCard(el) {
-      return el?.parentNode?.classList.contains("card");
+      return el?.parentNode?.classList.contains("talk-slider-card");
     }
 
     // close the modal when clicking outside it
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   })();
 
-  const cards = document.querySelectorAll(".card img");
+  const cards = document.querySelectorAll(".talk-slider-card img");
   cards.forEach((card) => {
     card.addEventListener("click", (e) => {
       slideModal.show(e);

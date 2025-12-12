@@ -49,12 +49,13 @@
   }
 }
 
-.card {
+.talk-slider-card {
   text-align: center;
   margin: 0 auto;
   /* max-width: 200px; */
   color: #333;
-  background: white;
+  background: transparent;
+  /* background: white; */
   border-radius: 5px;
   /* padding-bottom: 0.75rem; */
   font-family: sans-serif;
