@@ -75,6 +75,7 @@ video-player:
 scitalk-tiny-slider:
   css:
     component:
+      //cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css: { type: external }
       /libraries/tiny-slider/dist/tiny-slider.css: {}
   js:
     /libraries/tiny-slider/dist/min/tiny-slider.js: {}

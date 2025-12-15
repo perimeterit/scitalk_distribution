@@ -23,8 +23,19 @@
     </div>    
 </div>
 
-<div id="slides-modal" class="modal">
-  <span class="slide-close">&times;</span>
-  <img class="modal-content" id="slide-content">
-  <div id="slide-caption"></div>
+<div id="slides-modal" class="modal" draggable="true">
+    <span class="slides-modal-close">&times;</span>
+    <div class="slides-modal-body">
+        <ul class="controls" id="customize-modal-controls" aria-label="Modal Navigation" tabindex="0">
+            <li class="prev" data-controls="prev" aria-controls="tns2" tabindex="-1" aria-disabled="true">
+                <i class="fas fa-angle-left fa-2x"></i>
+            </li>
+            <li class="next" data-controls="next" aria-controls="tns2" tabindex="-1">
+                <i class="fas fa-angle-right fa-2x"></i>
+            </li>
+        </ul>
+
+        <img class="modal-content" id="slides-modal-content">
+        <div id="slides-modal-caption"></div>
+  </div>
 </div>

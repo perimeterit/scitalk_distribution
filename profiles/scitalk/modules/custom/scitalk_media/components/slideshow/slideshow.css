@@ -16,9 +16,7 @@
 
 .talk-slider-item {
   background: transparent;
-  /* background: grey; */
   border-right: 2px solid transparent;
-  /* border-right: 2px solid #333; */
   padding: 1rem 0;
   position: relative;
 
@@ -44,7 +42,7 @@
     outline: none;
   }
 
-  li:hover {
+  & li:hover {
     cursor: pointer;
   }
 }
@@ -52,28 +50,30 @@
 .talk-slider-card {
   text-align: center;
   margin: 0 auto;
-  /* max-width: 200px; */
   color: inherit;
   background: transparent;
-  /* color: #333;
-  background: white; */
+
+  /* max-width: 200px;
+  color: #333;
+  background: white;
+  padding-bottom: 0.75rem; */
+
   border-radius: 5px;
-  /* padding-bottom: 0.75rem; */
   font-family: sans-serif;
   overflow: hidden;
   box-shadow: 2px 2px rgba(black, 0.3);
   position: relative;
 
-  h2,
-  h3 {
+  & h2,
+  & h3 {
     margin: 0 0 0.25rem;
   }
-  p {
+  & p {
     margin: 0;
     padding: 0 0.5rem;
   }
 
-  img {
+  & img {
     display: inline-block;
     vertical-align: top;
     max-width: 100%;
@@ -88,38 +88,40 @@
 .modal {
   display: none;
   position: fixed;
-  z-index: 1;
-  padding-top: 100px; /* Location of the box */
-  /* left: 0;
-  top: 20%;
-  width: 100%; 
-  height: 100%; */
+  justify-content: center;
+  align-items: center;
   overflow: auto;
-  background-color: rgb(0, 0, 0);
-  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 5px;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
 /* Modal Content (Image) */
 .modal-content {
   margin: auto;
   display: block;
+  z-index: 1000;
 }
 
-/* Caption of Modal Image (Image Text) - Same Width as the Image */
-#slide-caption {
+.slide-nav-disabled {
+  opacity: 0.1;
+  cursor: not-allowed;
+}
+
+/* Caption of Modal Image (Image Text) */
+#slides-modal-caption {
   margin: auto;
   display: block;
   width: 80%;
   max-width: 700px;
   text-align: center;
   color: #ccc;
-  padding-top: 10px;
-  /* padding: 10px 0; */
+  /* padding-top: 10px; */
 }
 
 /* Add Animation - Zoom in the Modal */
 .modal-content,
-#slide-caption {
+#slides-modal-caption {
   animation-name: zoom;
   animation-duration: 0.6s;
 }
@@ -134,24 +136,17 @@
 }
 
 /* The Close Button */
-.slide-close {
+.slides-modal-close {
   position: absolute;
   top: 0px;
   right: 0.5rem;
   font-size: 1.25rem;
-  /* right: 20px;
-  font-size: 30px; */
-
-  /* top: 15px;
-  right: 35px;
-  color: #f1f1f1;
-  font-size: 40px; */
   font-weight: bold;
   transition: 0.3s;
 }
 
-.slide-close:hover,
-.slide-close:focus {
+.slides-modal-close:hover,
+.slides-modal-close:focus {
   color: #bbb;
   text-decoration: none;
   cursor: pointer;
