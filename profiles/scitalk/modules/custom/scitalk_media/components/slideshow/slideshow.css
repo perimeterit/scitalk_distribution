@@ -93,7 +93,8 @@
   overflow: auto;
   border-radius: 5px;
   z-index: 1;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: var(--color-default-bg) !important;
+  /* background-color: rgba(0, 0, 0, 0.5); */
 }
 
 /* Modal Content (Image) */
