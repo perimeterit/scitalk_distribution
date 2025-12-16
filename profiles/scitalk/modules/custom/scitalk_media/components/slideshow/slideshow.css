@@ -121,8 +121,9 @@
 }
 
 /* Add Animation - Zoom in the Modal */
-.modal-content,
-#slides-modal-caption {
+/* .modal-content,
+#slides-modal-caption  */
+#slides-modal {
   animation-name: zoom;
   animation-duration: 0.6s;
 }
