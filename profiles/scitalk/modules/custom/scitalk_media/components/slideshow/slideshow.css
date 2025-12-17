@@ -1,9 +1,6 @@
 .talk-slider-container {
   padding: 0 3rem;
-  /* padding: 2rem 3rem; */
-  /* background: #e6e6e6; */
   margin: 0 auto;
-  /* margin: 2rem auto 0 auto; */
   overflow: hidden;
   border-radius: 5px;
   position: relative;
@@ -31,7 +28,6 @@
   list-style: none;
   position: absolute;
   left: 0;
-  /* background: #333; */
   width: 100%;
   top: 50%;
   transform: translatey(-50%);
@@ -52,12 +48,6 @@
   margin: 0 auto;
   color: inherit;
   background: transparent;
-
-  /* max-width: 200px;
-  color: #333;
-  background: white;
-  padding-bottom: 0.75rem; */
-
   border-radius: 5px;
   font-family: sans-serif;
   overflow: hidden;
@@ -94,7 +84,6 @@
   border-radius: 5px;
   z-index: 1;
   background-color: var(--color-default-bg) !important;
-  /* background-color: rgba(0, 0, 0, 0.5); */
 }
 
 /* Modal Content (Image) */
@@ -117,23 +106,26 @@
   max-width: 700px;
   text-align: center;
   color: #ccc;
-  /* padding-top: 10px; */
 }
 
 /* Add Animation - Zoom in the Modal */
-/* .modal-content,
-#slides-modal-caption  */
 #slides-modal {
+  display: none;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+
   animation-name: zoom;
   animation-duration: 0.6s;
+  animation-fill-mode: forwards;
 }
 
 @keyframes zoom {
   from {
-    transform: scale(0);
+    transform: translate(-50%, -50%) scale(0);
   }
   to {
-    transform: scale(1);
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 

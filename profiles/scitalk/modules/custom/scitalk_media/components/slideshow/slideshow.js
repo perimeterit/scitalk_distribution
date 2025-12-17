@@ -56,6 +56,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const close = document.querySelector("#slides-modal .slides-modal-close");
     const modalPrev = document.querySelector(".slides-modal-body .prev");
     const modalNext = document.querySelector(".slides-modal-body .next");
+    const modalBody = document.querySelector(".slides-modal-body");
 
     const info = slider.getInfo();
     let slideBy = info.slideBy;
@@ -83,7 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return modal.style.display == "flex";
     }
 
-    // set the modal with to that of the slider
+    // set the modal width to that of the slider
     function placeModal() {
       const sliderRect = sliderContainer.getBoundingClientRect();
       const width = sliderRect.width + "px";
@@ -161,6 +162,70 @@ document.addEventListener("DOMContentLoaded", () => {
       curCardIdx = curCardIdx >= slideCount - 1 ? curCardIdx : curCardIdx + 1;
       moveToNextSlideInModal();
     });
+
+    //////// <swipes>
+    (function modalSwipes(el, callback) {
+      let swipeDir, startX, startY, distX, distY, startTime, swipeDuration;
+      let minSwipeDistance = 50, // user has to swipe more than this, else it's just a touch
+        minYDistance = 50,
+        minSwipeTime = 200;
+
+      const handleSwipe = callback;
+
+      // check if a touch happened on a modal navigation element
+      function touchEventOnModalNavigation(e) {
+        return e?.target?.tagName.toLowerCase() === "i";
+      }
+
+      el.addEventListener("touchstart", (e) => {
+        if (touchEventOnModalNavigation(e)) {
+          return;
+        }
+
+        const touch = e.changedTouches[0];
+        swipeDir = "none";
+        startX = touch.pageX;
+        startY = touch.pageY;
+        startTime = new Date().getTime();
+        e.preventDefault();
+      });
+
+      el.addEventListener("touchmove", (e) => {
+        e.preventDefault();
+      });
+
+      el.addEventListener("touchend", (e) => {
+        if (touchEventOnModalNavigation(e)) {
+          // e.target.parentNode?.click();
+          return;
+        }
+
+        const touch = e.changedTouches[0];
+        distX = touch.pageX - startX;
+        distY = touch.pageY - startY;
+        swipeDuration = new Date().getTime() - startTime;
+        if (swipeDuration >= minSwipeTime) {
+          if (Math.abs(distX) >= minSwipeDistance && Math.abs(distY) <= minYDistance) {
+            swipeDir = distX < 0 ? "left" : "right";
+          } else if (Math.abs(distY) >= minSwipeDistance && Math.abs(distX) <= minYDistance) {
+            swipeDir = distY < 0 ? "up" : "down";
+          }
+        }
+        handleSwipe(swipeDir);
+        e.preventDefault();
+      });
+    })(modalBody, function (swipeDir) {
+      // just care about horizontal swipes:
+      if (swipeDir == "left") {
+        // show next
+        modalNext.click();
+      } else if (swipeDir == "right") {
+        //show prev
+        modalPrev.click();
+      }
+    });
+
+    /////// </swipes>
 
     // close the modal when clicking outside it
     document.addEventListener("click", (e) => {
