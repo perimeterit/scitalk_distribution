@@ -13,7 +13,7 @@
             {% set slide_number = key + 1 %}
             <div class="talk-slider-item">
                 <div class="talk-slider-card">
-                    <img loading="lazy" src="{{ slide }}" alt="Slide {{ slide_number }}/{{ slides_cnt }}"/>
+                    <img class="tns-lazy-img" data-src="{{ slide }}" loading="lazy" src="{{ slide }}" alt="Slide {{ slide_number }}/{{ slides_cnt }}"/>
                     {# <img width="100" height="100" loading="lazy" src="{{ slide }}" alt="{{ slide }}"/> #}
                     <h3>Slide {{slide_number }}</h3>
                     {# <p class="talk-slider-card_description">pirsa test</p> #}

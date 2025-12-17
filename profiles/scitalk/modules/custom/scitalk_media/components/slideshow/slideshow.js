@@ -166,9 +166,9 @@ document.addEventListener("DOMContentLoaded", () => {
     //////// <swipes>
     (function modalSwipes(el, callback) {
       let swipeDir, startX, startY, distX, distY, startTime, swipeDuration;
-      let minSwipeDistance = 50, // user has to swipe more than this, else it's just a touch
+      let minSwipeDistance = 30, // user has to swipe more than this, else it's just a touch
         minYDistance = 50,
-        minSwipeTime = 200;
+        minSwipeTime = 100;
 
       const handleSwipe = callback;
 
