@@ -76,7 +76,7 @@ class SlideshowItem extends SciTalkMediaPluginBase {
         }
         $file_path = 'public://scitalk-thumbs/slides/';
         if (\Drupal::service('file_system')->prepareDirectory($file_path, FileSystemInterface::CREATE_DIRECTORY)) {
-            $img_filename = $file_path . '/' . $image_name;
+            $img_filename = $file_path  . $image_name;
             $file = \Drupal::service('file.repository')->writeData($img, $img_filename, FileExists::Replace);
             if ($file) {
                 return $file;

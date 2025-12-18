@@ -78,6 +78,10 @@ document.addEventListener("DOMContentLoaded", () => {
       curCardIdx = getCurModalImageIdx(card_el.target);
       placeModal();
       toggleModalNavButtons();
+      requestAnimationFrame(() => {
+        // try to fix iPad issue where the images are no being painted in the modal.
+        modalImg.src = card_el.target.src; // set after visible
+      });
     }
 
     function isModalVisible() {
