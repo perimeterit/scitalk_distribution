@@ -664,7 +664,9 @@ function _delete_talk_media(\Drupal\Core\Entity\EntityInterface $entity) {
     $subtitle_files = $entity->get("field_subtitle_upload_file")->getValue() ?? [];
     $subtitle_urls = $entity->get("field_subtitle_url")->getValue() ?? [];
     $transcripts = $entity->get("field_talk_transcripts")->getValue() ?? [];
-    $attachments = array_merge($resources, $subtitle_files, $subtitle_urls, $transcripts);
+    $slideshow = $entity->get("field_talk_slideshow")->getValue() ?? [];
+
+    $attachments = array_merge($resources, $subtitle_files, $subtitle_urls, $transcripts, $slideshow);
     foreach ($attachments as $att) {
         $attached_media = \Drupal::entityTypeManager()->getStorage('media')->load($att['target_id']);
         $mid = $attached_media?->id() ?? 0;
@@ -674,7 +676,7 @@ function _delete_talk_media(\Drupal\Core\Entity\EntityInterface $entity) {
         $usage = _find_media_usages($mid);
         // at this stage the talk has been deleted so the attachment if it was unique, should not be used anywhere else
         if (count($usage) == 0) {
-            $attached_media->delete();
+          $attached_media->delete();
         }
     }
   }

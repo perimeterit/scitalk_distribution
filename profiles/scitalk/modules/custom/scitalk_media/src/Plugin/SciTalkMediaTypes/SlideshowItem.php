@@ -51,7 +51,8 @@ class SlideshowItem extends SciTalkMediaPluginBase {
 
         $path_parts = explode('/', $slide_path);
         $image_name = end($path_parts); // the image name should be the last item here
-        $file = $this->writeSlideshowItemFile($slide_path, $image_name);
+        $folder = $path_parts[count($path_parts)-2] ?? '';  //get the folder too, good idea when there are images with same name
+        $file = $this->writeSlideshowItemFile($slide_path, $image_name, $folder);
         if ($file) {
             $this->entity->name = $file->getFilename();
             $this->entity->field_remote_thumbnail_url = $slide_path;
@@ -66,7 +67,7 @@ class SlideshowItem extends SciTalkMediaPluginBase {
         return $this->entity;
     }
 
-    private function writeSlideshowItemFile($filename, $image_name) {
+    private function writeSlideshowItemFile($filename, $image_name, $folder = '') {
         $context = stream_context_create(array(
             'http' => array('timeout' =>  10),
         ));
@@ -75,6 +76,7 @@ class SlideshowItem extends SciTalkMediaPluginBase {
             return false;
         }
         $file_path = 'public://scitalk-thumbs/slides/';
+        $file_path = empty($folder) ? $file_path : $file_path . $folder .'/';
         if (\Drupal::service('file_system')->prepareDirectory($file_path, FileSystemInterface::CREATE_DIRECTORY)) {
             $img_filename = $file_path  . $image_name;
             $file = \Drupal::service('file.repository')->writeData($img, $img_filename, FileExists::Replace);

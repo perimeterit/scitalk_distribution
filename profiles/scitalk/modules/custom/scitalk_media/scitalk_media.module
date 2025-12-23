@@ -242,6 +242,30 @@ function scitalk_media_media_delete(EntityInterface $entity) {
         $talk->save();
       }
     }
+    elseif ($bundle == 'scitalk_slideshow') { //delete scitalk_slideshow_item under the slideshow
+      $slideshow_items = $entity->get('field_slideshow_items')->getValue() ?? [];
+      foreach ($slideshow_items as $item) {
+          $target_id = $item['target_id'] ?? 0;
+          $attached_media = \Drupal::entityTypeManager()->getStorage('media')->load($target_id);
+          $attached_media->delete();
+      }
+    }
+    elseif ($bundle == 'scitalk_slideshow_item') { //delete files attached to slideshow items
+      $file = $entity->get('field_slideshow_item_image')->entity;
+      if ($file) {
+          try {
+            $file_usage = \Drupal::service('file.usage');
+            $usage = $file_usage->listUsage($file);
+            // if not used anywhere else then delete the file
+            if (empty($usage) ) {
+              $file->delete();
+            }
+          }
+          catch (\Exception $file_error) {
+            \Drupal::logger('scitalk_media')->error('Error deleting slideshow item file: @message', ['@message' => $file_error->getMessage()]);
+          }
+      }
+    }
   }
 }
 
