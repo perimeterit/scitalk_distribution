@@ -1,0 +1,16 @@
+services:
+  logger.channel.scitalk_feeds_cern_api_parser:
+    parent: logger.channel_base
+    arguments: ["scitalk_feeds_cern_api_parser"]
+
+  scitalk_feeds_cern_api_parser.cern_queue_runner:
+    class: Drupal\scitalk_feeds_cern_api_parser\CERNQueueProcessor
+    tags:
+      - { name: drush.command }
+    arguments:
+      [
+        "@queue",
+        "@plugin.manager.queue_worker",
+        "@datetime.time",
+        "@logger.channel.scitalk_feeds_cern_api_parser",
+      ]
