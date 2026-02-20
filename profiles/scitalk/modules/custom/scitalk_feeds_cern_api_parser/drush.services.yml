@@ -1,0 +1,7 @@
+services:
+  scitalk_feeds_cern_api_parser.commands:
+    class: \Drupal\scitalk_feeds_cern_api_parser\Commands\CERNTalkCommands
+    tags:
+      - { name: drush.command }
+    arguments:
+      ["@service_container", "@logger.factory", "@queue", "@datetime.time"]
