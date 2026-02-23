@@ -42,12 +42,12 @@ class CERNTalkParser  {
         foreach($hits as $talk) {
             $talks[] = $this->parseTalkItem($talk);
         }
-        $data = [
+        $return = [
             'talks' => $talks,
             'next' => $data->links->next ?? null,
             'total' => $data->hits->total ?? 0,
         ];
-        return $data;
+        return $return;
     }
 
     /**
@@ -72,6 +72,7 @@ class CERNTalkParser  {
             'talk_date' => '',
             'location' => '',
             'collection' => '',
+            'duration' => '',
             // 'subtitles' => '',
         ];
 
@@ -90,6 +91,7 @@ class CERNTalkParser  {
         $data['speakers'] = $this->parseTalkSpeakers($talk_item->contributors ?? []);
         $data['source_event'] = $this->parseSourceEvent($talk_item->related_identifiers ?? []);
         $data['collection'] = $this->parseTalkCollections($talk_item?->collections ?? []);
+        $data['duration'] = $this->timeToSeconds($talk_item->duration ?? '');
 
         $subtitles = $this->parseSubtitles($talk_item->_files ?? []);
         // download subtitles in a cron job:
@@ -272,7 +274,10 @@ class CERNTalkParser  {
         if (count($arr) === 3) {
             return $arr[0] * 3600 + $arr[1] * 60 + $arr[2];
         }
-        return $arr[0] * 60 + $arr[1];
+        else if (count($arr) === 2) {
+            return $arr[0] * 60 + $arr[1];
+        }
+        return (int)$arr[0];
     }
 
     private function parseSubtitles($files): string {

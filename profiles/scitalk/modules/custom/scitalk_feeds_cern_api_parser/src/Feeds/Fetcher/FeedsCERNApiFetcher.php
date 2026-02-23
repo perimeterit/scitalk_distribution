@@ -3,25 +3,24 @@
 namespace Drupal\scitalk_feeds_cern_api_parser\Feeds\Fetcher;
 
 use Drupal\Core\File\FileSystemInterface;
+use Drupal\Core\Queue\QueueFactory;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\feeds\FeedInterface;
 use Drupal\feeds\StateInterface;
 use Drupal\feeds\Utility\Feed;
 use Drupal\feeds\Plugin\Type\PluginBase;
-use Drupal\feeds\Exception\EmptyFeedException;
 use Drupal\feeds\Exception\FetchException;
 use Drupal\feeds\Result\RawFetcherResult;
 use Drupal\feeds\Plugin\Type\ClearableInterface;
 use Drupal\feeds\Plugin\Type\Fetcher\FetcherInterface;
-use Drupal\feeds\Result\HttpFetcherResult;
 use Drupal\feeds\File\FeedsFileSystemInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\RequestOptions;
-use Symfony\Component\HttpFoundation\Response;
-use Drupal\Core\Queue\QueueFactory;
+use Psr\Http\Message\StreamInterface;
+use Generator;
 use Drupal\scitalk_feeds_cern_api_parser\Component\CERNTalkParser;
 
 /**
@@ -56,13 +55,6 @@ class FeedsCERNApiFetcher extends PluginBase implements ClearableInterface, Fetc
     protected $requestTimeout;
 
     /**
-     * The url to CERN videos.
-     *
-     * @var string
-     */
-    protected $cernVideoURL;
-
-    /**
      * The group ID for CERN.
      *
      * @var int
@@ -92,6 +84,7 @@ class FeedsCERNApiFetcher extends PluginBase implements ClearableInterface, Fetc
 
     protected $queueFactory;
     protected $cernTalkParser;
+    private const int CHUNK_SIZE = 5000;//8192;
 
     public function __construct(array $configuration, $plugin_id, array $plugin_definition, ClientInterface $client, FileSystemInterface $file_system, FeedsFileSystemInterface $feeds_file_system, QueueFactory $queueFactory) {
         parent::__construct($configuration, $plugin_id, $plugin_definition);
@@ -100,10 +93,7 @@ class FeedsCERNApiFetcher extends PluginBase implements ClearableInterface, Fetc
         $this->feedsFileSystem = $feeds_file_system;
         $this->queueFactory = $queueFactory;
 
-        $this->talksLimit = (int) $this->getConfiguration('import_talks_limit');
-        $this->pageLimit = (int) $this->getConfiguration('results_per_page');
-        $this->requestTimeout = (int) $this->getConfiguration('request_timeout');
-        $this->cernVideoURL = 'https://videos.cern.ch/record/';
+        $this->readConfiguration();
     }
 
     public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
@@ -118,6 +108,11 @@ class FeedsCERNApiFetcher extends PluginBase implements ClearableInterface, Fetc
         );
     }
 
+    private function readConfiguration() {
+        $this->talksLimit = (int) $this->getConfiguration('import_talks_limit');
+        $this->pageLimit = (int) $this->getConfiguration('results_per_page');
+        $this->requestTimeout = (int) $this->getConfiguration('request_timeout');
+    }
     /**
      * {@inheritdoc}
      */
@@ -126,14 +121,14 @@ class FeedsCERNApiFetcher extends PluginBase implements ClearableInterface, Fetc
         $this->feedGroupID = $feed->field_feeds_group->target_id ?? 0; // grab the group ID for this feed
         $this->cernTalkParser = new CERNTalkParser($this->queueFactory, $this->feedGroupID);
 
-        $response = $this->get($feed->getSource(), $sink, [], $feed->getConfigurationFor($this) ?: []);
+        // re-read the configuration in case it has been updated from a drush command e.g. new date range for fetching talks, or new talks limit, etc.
+        $this->readConfiguration();
+        $response = $this->get($feed->getSource(), $sink, [], $this->getConfiguration() ?: []);
        
-        if ($response !== FALSE) {
+        if (!empty($response)) {
             return new RawFetcherResult($response);
         }
-        else {
-            return new RawFetcherResult('');
-        }
+        return new RawFetcherResult('');
     }
 
     /**
@@ -169,28 +164,25 @@ class FeedsCERNApiFetcher extends PluginBase implements ClearableInterface, Fetc
 
         $headers = [];
 
-        // https://videos.cern.ch/api/records/?sort=mostrecent&q=collections%3DLectures
-        // https://videos.cern.ch/api/records/?q=collections:Lectures AND _updated:[2026-02-09 TO *]&sort=mostrecent
-        // https://videos.cern.ch/api/records/?q=collections%3ALectures%20AND%20_updated%3A%5B2026-02-17%20TO%20*%5D%26sort%3Dmostrecent%26size%3D100
-        
-        // latest talks:
-        // https://videos.cern.ch/api/records/?sort=mostrecent&q=collections=Lectures AND _updated:[2026-02-17 TO *]
-
-        // multiple years
-        // https://videos.cern.ch/api/records/?q=collections:Lectures AND date:[2022-01-01 TO 2023-12-31]&sort=oldest&size=100
-
-        // date range
-        // https://videos.cern.ch/api/records/?q=collections:Lectures AND date:[2022-01-01 TO 2022-12-31]
-
         // Add header options.
         $options[RequestOptions::HEADERS] += $headers;
-dsm($this->configuration);
-        $requests_number = ceil($this->talksLimit / $this->pageLimit);
-        $i = 0;
-        $page = 1;
+
+        // if $requests_number is 0, it means there is no limit, so we should keep fetching until there are no more talks to fetch, 
+        // which is when the API stops returning a next page link in the response. 
+        // So we can set the condition to stop fetching when there are no more talks to fetch or when we have fetched the number of talks specified in the configuration:
+        $requests_number = $this->talksLimit > 0 ? ceil($this->talksLimit / $this->pageLimit) : 0;
+
         $yesterday = date('Y-m-d', strtotime('-1 day'));
+        $fetch_more = true;
+        $fetch_cnt = 0;
+        $page = 1;
         $data = [];
-        $fetched_count = 0;
+        // $fetched_count = 0;
+
+        $query = $feed_configuration['query_pre'] ?? 'collections=Lectures AND _updated:';
+        $from = $feed_configuration['from'] ?: $yesterday;
+        $to = $feed_configuration['to'] ?: '*';
+        $query .= '[' . $from . ' TO ' . $to . ']';
         do {
             // the API doesn't support pagination with a simple offset and limit, but instead with a page number and page size, 
             // so calculate the page number based on the number of talks already fetched and the page limit, 
@@ -200,7 +192,7 @@ dsm($this->configuration);
             // $fetch_size = min($this->pageLimit, ($this->talksLimit - $fetched_count));
             // $params = [
             //     'size' => $fetch_size,
-            //     'page' => $i + 1
+            //     'page' => $fetch_cnt + 1
             // ];
 
             // $params = [
@@ -209,31 +201,33 @@ dsm($this->configuration);
             // ];
 
             $params = [
-                'q' => 'collections=Lectures AND _updated:['. $yesterday .' TO *]', // only fetch talks updated since yesterday
+                // 'q' => 'collections=Lectures AND _updated:['. $yesterday .' TO *]', // only fetch talks updated since yesterday
+                'q' => $query,
                 'sort' => "mostrecent",
                 'size' => $this->pageLimit,
                 'page' => $page,
             ];
 
-            dsm($params);
-            $result = $this->fetchResults($url, $sink,  $options, $params);
+            // $result = $this->fetchResults($url, $sink,  $options, $params);
+            $result = $this->fetchResultsAsStream($url, $sink,  $options, $params);
             $talks = $result['talks'];
-            $next = $result['next'];
-            $talks_total = $result['total'];
-            $i++;
-            dsm($result);
+            $next = $result['next'] ?? '';
+            // $talks_total = $result['total'];
+            $fetch_cnt++;
 
-            parse_str(parse_url($next, PHP_URL_QUERY), $queryParams);
-            $page = $queryParams['page'] ?? ($i + 1);
-            $fetched_count += $this->pageLimit;
+            parse_str(parse_url($next, PHP_URL_QUERY) ?? "", $queryParams);
+            $page = $queryParams['page'] ?? ($fetch_cnt + 1);
+            // $fetched_count += $this->pageLimit;
 
             $data = array_merge($data, $talks);
-
-        }  while ($i < $requests_number && $next);
+            $fetch_more = $requests_number > 0 ? $fetch_cnt < $requests_number && !empty($next) : !empty($next);
+        }  while ($fetch_more);
 
         return json_encode($data);
     }
 
+    // This function is used to fetch results from the CERN API without using streaming, 
+    // which means that it will wait for the entire response to be downloaded before processing it.
     private function fetchResults($url, $sink, $options, $params): array {
         try {
             $query = [
@@ -243,7 +237,6 @@ dsm($this->configuration);
             $response = $this->client->getAsync($url, $query, $options)->wait();
             $raw_data = $response->getBody();
             $data = json_decode($raw_data);
-            // $result = $this->parseData($data);
             $result = $this->cernTalkParser->parseData($data);
         }
         catch (RequestException $e) {
@@ -258,6 +251,79 @@ dsm($this->configuration);
         return $result;
     }
 
+    // This function is used to fetch results from the CERN API using a streaming approach,
+    // which allows us to process the data as it is being downloaded, instead of waiting for the entire response to be downloaded before processing it.
+    // This is especially useful when dealing with large responses, as it can help reduce memory usage and improve performance.
+    private function fetchResultsAsStream($url, $sink, $options, $params): array {
+        $result = [];
+        try {
+            $options[RequestOptions::STREAM] = TRUE; // enable streaming
+
+            $query = [
+                'query' => $params
+            ];
+
+            $response = $this->client->getAsync($url, $query, $options)->wait();
+            $raw_data = $response->getBody();
+            
+            foreach ($this->readData($raw_data) as $data) {
+                $result = $this->cernTalkParser->parseData($data);
+            }
+        }
+        catch (RequestException $e) {
+            $args = ['%site' => $url, '%error' => $e->getMessage()];
+
+            // Since the fetch is getting aborted, delete the downloaded file.
+            $this->fileSystem->unlink($sink);
+
+            throw new FetchException(strtr('The feed from %site seems to be broken because of error "%error".', $args));
+        }
+
+        return $result;
+    }
+
+    /**
+    * Read each line from the stream and yield it as a JSON object
+    *
+    * @param StreamInterface $stream
+    * @return Generator
+    */
+    public function readData(StreamInterface $stream): Generator  {
+        foreach($this->nextLine($stream) as $line) {
+            yield json_decode($line);
+        }
+    }
+
+    /**
+     *
+     * Read each line from the stream
+     * 
+     * @param StreamInterface $stream
+     * @return Generator
+     * */
+    private function nextLine(StreamInterface $stream): Generator{
+        $buffer = '';
+
+        // read chunks until EOF
+        while (!$stream->eof()) {
+            $buffer .= $stream->read(self::CHUNK_SIZE);
+
+            // if buffer has new line, yield a JSON line
+            while (
+                ($pos = strpos($buffer, "\n")) !== false
+            ) {
+                // get the complete JSON
+                $line = substr($buffer, 0, $pos + 1);
+                $buffer = substr($buffer, $pos + 1, strlen($buffer));
+                yield $line;
+            }
+        }
+
+        // process the remaining buffer
+        if ($buffer !== '') {
+            yield $buffer;
+        }
+    }
 
     /**
      * {@inheritdoc}
@@ -274,6 +340,11 @@ dsm($this->configuration);
             'import_talks_limit' => 50,
             'results_per_page' => 50,
             'request_timeout' => 30,
+            // these default values below will be updated if calling from a drush command to pull historical talks
+            'from' => '',
+            'to' => '',
+            'sort' => 'mostrecent',
+            'query_pre' => 'collections=Lectures AND _updated:', //default query fetches latest updated talks.
         ];
     }
 }
