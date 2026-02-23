@@ -2,48 +2,55 @@ langcode: en
 status: true
 dependencies:
   config:
-    - feeds.feed_type.speaker_profile_import
-    - field.field.feeds_feed.speaker_profile_import.field_feeds_group
+    - feeds.feed_type.cern_talks_importer
+    - field.field.feeds_feed.cern_talks_importer.field_feeds_group
   module:
     - feeds
+    - fences
+    - options
     - user
-id: feeds_feed.speaker_profile_import.default
+id: feeds_feed.cern_talks_importer.default
 targetEntityType: feeds_feed
-bundle: speaker_profile_import
+bundle: cern_talks_importer
 mode: default
 content:
   field_feeds_group:
     type: entity_reference_label
-    weight: 1
-    region: content
-    label: above
+    label: inline
     settings:
       link: true
-    third_party_settings: {}
-  imported:
-    label: inline
-    type: timestamp_ago
-    weight: 2
+    third_party_settings:
+      fences:
+        fences_field_tag: div
+        fences_field_classes: ""
+        fences_field_item_tag: none
+        fences_field_item_classes: ""
+        fences_label_tag: strong
+        fences_label_classes: ""
+    weight: 1
     region: content
+  imported:
+    type: timestamp_ago
+    label: inline
     settings:
       future_format: "@interval hence"
       past_format: "@interval ago"
       granularity: 2
     third_party_settings: {}
-  item_count:
-    label: inline
-    type: number_integer
-    weight: 0
+    weight: 1
     region: content
+  item_count:
+    type: number_integer
+    label: inline
     settings:
       thousand_separator: ""
       prefix_suffix: true
     third_party_settings: {}
-  next:
-    label: inline
-    type: timestamp
-    weight: 3
+    weight: 0
     region: content
+  next:
+    type: timestamp
+    label: inline
     settings:
       date_format: medium
       custom_date_format: ""
@@ -58,12 +65,14 @@ content:
         granularity: 2
         refresh: 60
     third_party_settings: {}
-  source:
-    label: inline
-    type: feeds_uri_link
-    weight: 0
+    weight: 1
     region: content
+  source:
+    type: feeds_uri_link
+    label: inline
     settings: {}
     third_party_settings: {}
+    weight: -3
+    region: content
 hidden:
   search_api_excerpt: true

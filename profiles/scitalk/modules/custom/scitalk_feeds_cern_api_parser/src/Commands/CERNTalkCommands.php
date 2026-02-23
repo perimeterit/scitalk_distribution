@@ -1,14 +1,15 @@
 <?php
 namespace Drupal\scitalk_feeds_cern_api_parser\Commands;
 
+use Drupal\feeds\FeedInterface;
+// use Drupal\feeds\Utility\Feed;
+// use Drupal\Core\Entity\EntityTypeManager;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Entity\EntityTypeManager;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Component\Datetime\TimeInterface;
 use Drupal\Core\Queue\QueueFactory;
 use Drush\Commands\DrushCommands;
 use Drush\Drush;
-use Drupal\scitalk_feeds_cern_api_parser\Component\CERNTalkFetcher;
 
 /**
  * Drush commands that add items to a queue.
@@ -83,9 +84,7 @@ class CERNTalkCommands extends DrushCommands {
         }
 
         $sort = "mostrecent";
-        $fetch = new CERNTalkFetcher($this->queueFactory, \Drupal::httpClient());
-        $talks = $fetch->byDateRange($options['from'], $options['to'], $sort, $options['page_limit']);
-        $this->logger()->notice("Fetched " . count($talks) . " talks from CERN between " . $options['from'] . " and " . $options['to']);
+        $this->fetchTalksByDateRange($options['from'], $options['to'], $sort, $options['page_limit']);
     }
 
     /**
@@ -106,9 +105,7 @@ class CERNTalkCommands extends DrushCommands {
         }
 
         $sort = "oldest";
-        $fetch = new CERNTalkFetcher($this->queueFactory, \Drupal::httpClient());
-        $talks = $fetch->byDateRange($from, $to, $sort, $options['page_limit']);
-        $this->logger()->notice("Fetched " . count($talks) . " talks from CERN between " . $options['from'] . " and " . $options['to']);
+        $this->fetchTalksByDateRange($from, $to, $sort, $options['page_limit']);
     }
 
     /**
@@ -136,5 +133,37 @@ class CERNTalkCommands extends DrushCommands {
         $process = $this->processManager()->drush($self, 'help', [$command]);
         $process->run();
         $this->output()->writeln($process->getOutput());
+    }
+
+    // This function is responsible for fetching talks from the CERN API based on a date range, creating the corresponding talk nodes in Drupal, and adding subtitle download tasks to the queue.
+    private function fetchTalksByDateRange($from, $to, $sort, $page_limit) {
+        $feed = $this->getCERNFeed();
+        if ($feed instanceof FeedInterface) {
+            $fetcher_plugin = $feed->getType()->getFetcher();
+            $fetcher_plugin->setConfiguration([
+                'results_per_page' => $page_limit,
+                'import_talks_limit' => 0, // no limit, fetch all talks in the date range
+                'from' => $from,
+                'to' => $to,
+                'sort' => $sort,
+                'query_pre' => 'collections=Lectures AND date:'
+            ]);
+            $feed->import();
+        } 
+        else {
+            $this->logger()->error("CERN feed not found. Please create a feed with the title 'CERN Talks Importer' and assign it to the 'CERN-CDS' group.");
+        }
+    }
+
+    // This function retrieves the CERN feed entity, which is expected to have the title 'CERN Talks Importer'. 
+    // This feed is used to import talks from the CERN API based on the configuration set in the fetcher plugin.
+    private function getCERNFeed() {
+        $feedTitle = 'CERN Talks Importer';
+        // $cernTalksFeed = \Drupal::entityTypeManager()->getStorage('feeds_feed')->loadByProperties(['title' => $feedTitle]);
+        $cernTalksFeed = $this->entityTypeManager->getStorage('feeds_feed')->loadByProperties(['title' => $feedTitle]);
+        if (!empty($cernTalksFeed)) {
+            return reset($cernTalksFeed);
+        }
+        return null;
     }
 }

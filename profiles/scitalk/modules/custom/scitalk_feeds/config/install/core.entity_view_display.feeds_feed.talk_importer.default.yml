@@ -1,4 +1,3 @@
-uuid: 6afaf5c4-2e92-4cb6-8349-04a0a257d1ff
 langcode: en
 status: true
 dependencies:
@@ -10,8 +9,6 @@ dependencies:
     - feeds
     - fences
     - user
-_core:
-  default_config_hash: xef7VbyPjAeq5vFlvXRn8fL_QTmguMl8uJ5Hy6IOl_o
 id: feeds_feed.talk_importer.default
 targetEntityType: feeds_feed
 bundle: talk_importer
@@ -22,18 +19,18 @@ content:
     label: inline
     settings:
       format: yes-no
-      format_custom_false: ''
-      format_custom_true: ''
+      format_custom_false: ""
+      format_custom_true: ""
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_items_wrapper_tag: none
-        fences_field_items_wrapper_classes: ''
+        fences_field_items_wrapper_classes: ""
         fences_field_item_tag: div
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: div
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 5
     region: content
   field_feeds_group:
@@ -44,50 +41,50 @@ content:
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_items_wrapper_tag: none
-        fences_field_items_wrapper_classes: ''
+        fences_field_items_wrapper_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 4
     region: content
   imported:
     type: timestamp_ago
     label: inline
     settings:
-      future_format: '@interval hence'
-      past_format: '@interval ago'
+      future_format: "@interval hence"
+      past_format: "@interval ago"
       granularity: 2
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_items_wrapper_tag: none
-        fences_field_items_wrapper_classes: ''
+        fences_field_items_wrapper_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 2
     region: content
   item_count:
     type: number_integer
     label: inline
     settings:
-      thousand_separator: ''
+      thousand_separator: ""
       prefix_suffix: true
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_items_wrapper_tag: none
-        fences_field_items_wrapper_classes: ''
+        fences_field_items_wrapper_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 1
     region: content
   next:
@@ -95,44 +92,44 @@ content:
     label: inline
     settings:
       date_format: medium
-      custom_date_format: ''
-      timezone: ''
+      custom_date_format: ""
+      timezone: ""
       tooltip:
         date_format: long
-        custom_date_format: ''
+        custom_date_format: ""
       time_diff:
         enabled: false
-        future_format: '@interval hence'
-        past_format: '@interval ago'
+        future_format: "@interval hence"
+        past_format: "@interval ago"
         granularity: 2
         refresh: 60
-        description: ''
+        description: ""
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_items_wrapper_tag: none
-        fences_field_items_wrapper_classes: ''
+        fences_field_items_wrapper_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 3
     region: content
   source:
     type: feeds_uri_link
     label: inline
-    settings: {  }
+    settings: {}
     third_party_settings:
       fences:
         fences_field_tag: div
-        fences_field_classes: ''
+        fences_field_classes: ""
         fences_field_items_wrapper_tag: none
-        fences_field_items_wrapper_classes: ''
+        fences_field_items_wrapper_classes: ""
         fences_field_item_tag: none
-        fences_field_item_classes: ''
+        fences_field_item_classes: ""
         fences_label_tag: strong
-        fences_label_classes: ''
+        fences_label_classes: ""
     weight: 0
     region: content
 hidden:
