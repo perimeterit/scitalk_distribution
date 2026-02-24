@@ -13,6 +13,7 @@ dependencies:
     - field.field.node.talk.field_talk_source_event
     - field.field.node.talk.field_talk_source_repository
     - field.field.node.talk.field_talk_speakers_text
+    - field.field.node.talk.field_talk_subject
     - field.field.node.talk.field_talk_video_url
     - node.type.talk
   module:
@@ -81,6 +82,22 @@ third_party_settings:
         source: _collection
         weight: 1
         label: Explode
+      23d377a9-1a56-4b6d-a6f3-411780332865:
+        default_value: ""
+        only_if_empty: true
+        uuid: 23d377a9-1a56-4b6d-a6f3-411780332865
+        plugin: default_value
+        source: _subject
+        weight: 0
+        label: "Set value to empty when field missing"
+      cad8c864-2a68-486a-b5f8-9b6c577784cd:
+        separator: ;
+        limit: null
+        uuid: cad8c864-2a68-486a-b5f8-9b6c577784cd
+        plugin: explode
+        source: _subject
+        weight: 1
+        label: Explode
 label: "CERN Talks Importer"
 id: cern_talks_importer
 description: "Import Talks from CERN"
@@ -92,6 +109,10 @@ fetcher_configuration:
   import_talks_limit: "150"
   results_per_page: "50"
   request_timeout: "30"
+  from: ""
+  to: ""
+  sort: mostrecent
+  query_pre: "collections=Lectures AND _updated:"
 parser: jsonpath
 parser_configuration:
   context:
@@ -173,14 +194,19 @@ custom_sources:
     machine_name: _location
     type: json
   _collection:
-    value: $collection
-    label: $collection
+    value: $.collection
+    label: $.collection
     machine_name: _collection
     type: json
   _duration:
-    value: $duration
-    label: $duration
+    value: $.duration
+    label: $.duration
     machine_name: _duration
+    type: json
+  _subject:
+    value: $.subject
+    label: $.subject
+    machine_name: _subject
     type: json
 mappings:
   - target: field_talk_number
@@ -266,3 +292,11 @@ mappings:
     settings:
       language: null
     unique: {}
+  - target: field_talk_subject
+    map:
+      target_id: _subject
+    settings:
+      language: null
+      reference_by: name
+      autocreate: false
+      autocreate_bundle: subjects

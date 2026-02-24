@@ -73,6 +73,7 @@ class CERNTalkParser  {
             'location' => '',
             'collection' => '',
             'duration' => '',
+            'subject' => '',
             // 'subtitles' => '',
         ];
 
@@ -92,6 +93,7 @@ class CERNTalkParser  {
         $data['source_event'] = $this->parseSourceEvent($talk_item->related_identifiers ?? []);
         $data['collection'] = $this->parseTalkCollections($talk_item?->collections ?? []);
         $data['duration'] = $this->timeToSeconds($talk_item->duration ?? '');
+        $data['subject'] = $this->getSubjectByName('Physics'); // default subject for all CERN talks, as they are all physics related
 
         $subtitles = $this->parseSubtitles($talk_item->_files ?? []);
         // download subtitles in a cron job:
@@ -256,6 +258,8 @@ class CERNTalkParser  {
         return $date->format($formatDateTime);
     }
 
+
+    // parse the Description field for links to the video snapshots, which have the format [hh:mm:ss] and replace them with links to the corresponding time in the CERN video.
     private function replaceSlideLinksInDescription($prefix_url, $description) {
         if (!empty($description)) {
             $regex = "/(\d{2}:\d{2}:\d{2})/ms";
@@ -269,6 +273,8 @@ class CERNTalkParser  {
         return $description;
 
     }
+
+    // the duration field in CERN API is in the format "hh:mm:ss" or "mm:ss", we need to convert it to seconds for SciTalk feeds.
     private function timeToSeconds(string $time): int {
         $arr = explode(':', $time);
         if (count($arr) === 3) {
@@ -280,6 +286,8 @@ class CERNTalkParser  {
         return (int)$arr[0];
     }
 
+    // the subtitles files in CERN have a media_type "subtitle" and we want to grab only the english subtitles, which have a tag with key "language" and value "en". 
+    // We will return the link to download the subtitle file, which is located in the "links" object with the key "deleteFile".
     private function parseSubtitles($files): string {
         $subtitles = '';
         foreach ($files as $file) {
@@ -293,6 +301,17 @@ class CERNTalkParser  {
             }
         }
         return $subtitles;
+    }
+
+    // No subject data in CERN API, so we will assign the same subject to all talks, which is Physics, as all CERN talks are physics related.
+    // the method will look for the term "Physics" in the "subjects" taxonomy vocabulary and return it, if not found it will return an empty string.
+    private function getSubjectByName($name = 'Physics') {
+        $term = \Drupal::entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['name' => $name, 'vid' => 'subjects']) ?? [];
+        if ($term) {
+            $term = reset($term);
+            return $term->getName();
+        }
+        return '';
     }
 
 }
