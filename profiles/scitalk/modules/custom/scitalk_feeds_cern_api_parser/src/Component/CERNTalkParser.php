@@ -287,7 +287,7 @@ class CERNTalkParser  {
     // parse the Description field for links to the video snapshots, which have the format [hh:mm:ss] and replace them with links to the corresponding time in the CERN video.
     private function replaceSlideLinksInDescription($prefix_url, $description) {
         if (!empty($description)) {
-            $regex = "/(\d{2}:\d{2}:\d{2})/ms";
+            $regex = "/(\d{1,2}:\d{2}:\d{2})/ms";
             // return preg_replace_callback('/(\d{2}:\d{2}:\d{2})/ms', function($matches) use($prefix_url) {
             return preg_replace_callback($regex, function($matches) use($prefix_url) {
                 $slide_link = $prefix_url . "?t=" . $this->timeToSeconds($matches[0]);
