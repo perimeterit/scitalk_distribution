@@ -90,7 +90,11 @@ class CERNTalkParser  {
         $data['talk_date'] = $this->fixMissingTimeinDates($talk_item->date  ?? $talk_item->publication_date ?? '');
         $data['location'] = $talk_item->location ?? '';
         $data['speakers'] = $this->parseTalkSpeakers($talk_item->contributors ?? []);
-        $data['source_event'] = $this->parseSourceEvent($talk_item->related_identifiers ?? []);
+
+        // changed to pull this data from alternate_identifiers instead of related_identifiers as the source event info:
+        // $data['source_event'] = $this->parseSourceEventFromRelatedIdentifiers($talk_item->related_identifiers ?? []);
+        $data['source_event'] = $this->parseSourceEventFromAlternateIdentifiers($talk_item->alternate_identifiers ?? []);
+
         $data['collection'] = $this->parseTalkCollections($talk_item?->collections ?? []);
         $data['duration'] = $this->timeToSeconds($talk_item->duration ?? '');
         $data['subject'] = $this->getSubjectByName('Physics'); // default subject for all CERN talks, as they are all physics related
@@ -133,6 +137,7 @@ class CERNTalkParser  {
 
     /**
      * Returns a CERN talk source event info: to an Indico Contribution or the parent Event
+     * searching the alternate_identifiers for a source if none found return an empty string.
      *
      * @param array $sources
      *   The array of sources.
@@ -140,7 +145,27 @@ class CERNTalkParser  {
      * @return string
      *   a string containing source event.
     */
-    private function parseSourceEvent($sources) {
+    private function parseSourceEventFromAlternateIdentifiers($sources) {
+        // it's usually just one entry in the alternate_identifiers array with the source event info, but just in case there are more than one we will look for the one with the scheme "CERN-Event-Contribution-ID" to get the Contribution id, if not found look for a source with scheme "CERN-Event-ID" to get the parent Event id, if none of those are found return an empty string.
+        foreach ($sources as $source) {
+            if ($source->scheme == 'URL') {
+                return $source->value ?? '';
+            }
+        }
+        return '';
+    }
+
+    /**
+     * Returns a CERN talk source event info: to an Indico Contribution or the parent Event
+     * searching the related_identifiers for a source with scheme "CERN-Event-Contribution-ID" to get the Contribution id, if not found look for a source with scheme "CERN-Event-ID" to get the parent Event id, if none of those are found return an empty string.
+     *
+     * @param array $sources
+     *   The array of sources.
+     *
+     * @return string
+     *   a string containing source event.
+    */
+    private function parseSourceEventFromRelatedIdentifiers($sources) {
         $sourceEvent = '';
         foreach ($sources as $source) {
             if (str_contains($source->identifier, 'contributions')) {
@@ -294,8 +319,6 @@ class CERNTalkParser  {
             if ($file->media_type == 'subtitle') { //grab only english subtitles
                 $subtitleLang = $file->tags?->language ?? '';
                 if ($subtitleLang == 'en') {
-                    // $subtitles = $file->links?->deleteFile ?? '';
-                    // return $subtitles;
                     return $file->links?->deleteFile ?? '';
                 }
             }
