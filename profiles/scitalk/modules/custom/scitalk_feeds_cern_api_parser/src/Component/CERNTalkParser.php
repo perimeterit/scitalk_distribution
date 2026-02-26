@@ -87,7 +87,7 @@ class CERNTalkParser  {
         //the description field contains links to the video snapshots, parse them a create the appropiate links to the video snapshots in CERN:
         $data['description'] = $this->replaceSlideLinksInDescription($video_url, $talk_item->description);
         
-        $data['talk_date'] = $this->fixMissingTimeinDates($talk_item->publication_date ?? $talk_item->date ?? '');
+        $data['talk_date'] = $this->fixMissingTimeinDates($talk_item->date  ?? $talk_item->publication_date ?? '');
         $data['location'] = $talk_item->location ?? '';
         $data['speakers'] = $this->parseTalkSpeakers($talk_item->contributors ?? []);
         $data['source_event'] = $this->parseSourceEvent($talk_item->related_identifiers ?? []);
@@ -294,9 +294,9 @@ class CERNTalkParser  {
             if ($file->media_type == 'subtitle') { //grab only english subtitles
                 $subtitleLang = $file->tags?->language ?? '';
                 if ($subtitleLang == 'en') {
-                    $subtitle_file = $file->links?->deleteFile ?? '';
-                    $subtitles =  $subtitle_file;
-                    return $subtitles;
+                    // $subtitles = $file->links?->deleteFile ?? '';
+                    // return $subtitles;
+                    return $file->links?->deleteFile ?? '';
                 }
             }
         }

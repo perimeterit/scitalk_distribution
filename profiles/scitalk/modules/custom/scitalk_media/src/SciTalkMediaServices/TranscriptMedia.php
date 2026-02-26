@@ -163,7 +163,8 @@ class TranscriptMedia {
             'status' => 1,
             'field_media_scitalk_transcript' => ['value' => $content],
             'field_searchable_text' => ['value' => $content],
-            'field_subtitles_language' => $lang
+            'field_subtitles_language' => $lang,
+            "uid" => 1,
         ];
 
         $new_media = \Drupal::entityTypeManager()->getStorage('media')->create($media);
