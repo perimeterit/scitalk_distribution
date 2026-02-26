@@ -98,6 +98,15 @@ third_party_settings:
         source: _subject
         weight: 1
         label: Explode
+      71357963-8b3e-45fb-bebf-061a4ff07473:
+        num_char: 252
+        ellipses: true
+        wordsafe: true
+        uuid: 71357963-8b3e-45fb-bebf-061a4ff07473
+        plugin: truncate_text
+        source: _source_event
+        weight: 0
+        label: Truncate
 label: "CERN Talks Importer"
 id: cern_talks_importer
 description: "Import Talks from CERN"
