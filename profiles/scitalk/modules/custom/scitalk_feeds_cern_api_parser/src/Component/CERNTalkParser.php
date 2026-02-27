@@ -97,7 +97,7 @@ class CERNTalkParser  {
 
         $data['collection'] = $this->parseTalkCollections($talk_item?->collections ?? []);
         $data['duration'] = $this->timeToSeconds($talk_item->duration ?? '');
-        $data['subject'] = $this->getSubjectByName('Physics'); // default subject for all CERN talks, as they are all physics related
+        $data['subject'] = 'Physics';//$this->getSubjectByName('Physics'); // default subject for all CERN talks, as they are all physics related
 
         $subtitles = $this->parseSubtitles($talk_item->_files ?? []);
         // download subtitles in a cron job:
