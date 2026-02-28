@@ -91,9 +91,10 @@ class CERNTalkParser  {
         $data['location'] = $talk_item->location ?? '';
         $data['speakers'] = $this->parseTalkSpeakers($talk_item->contributors ?? []);
 
-        // changed to pull this data from alternate_identifiers instead of related_identifiers as the source event info:
-        // $data['source_event'] = $this->parseSourceEventFromRelatedIdentifiers($talk_item->related_identifiers ?? []);
-        $data['source_event'] = $this->parseSourceEventFromAlternateIdentifiers($talk_item->alternate_identifiers ?? []);
+        // if the alternate_identifiers is set then grab the source from there as it's usually the Indico contribution or event url
+        // otherwise find the source from the related_identifiers
+        $data['source_event'] = $this->parseSourceEventFromAlternateIdentifiers($talk_item->alternate_identifiers ?? []) 
+                                ?: $this->parseSourceEventFromRelatedIdentifiers($talk_item->related_identifiers ?? []);
 
         $data['collection'] = $this->parseTalkCollections($talk_item?->collections ?? []);
         $data['duration'] = $this->timeToSeconds($talk_item->duration ?? '');
@@ -165,19 +166,67 @@ class CERNTalkParser  {
      * @return string
      *   a string containing source event.
     */
-    private function parseSourceEventFromRelatedIdentifiers($sources) {
+    private function parseSourceEventFromRelatedIdentifiers($relatedIdentifiers) {
         $sourceEvent = '';
-        foreach ($sources as $source) {
-            if (str_contains($source->identifier, 'contributions')) {
-                $sourceEvent = $source->identifier;
+        $indicoEventUrl = '';
+
+        // get the Indico event ID from the related identifiers:
+        $indicoEvent = array_filter($relatedIdentifiers, function($identifier) {
+            return $identifier->scheme === 'Indico';
+            // return $identifier['scheme'] === 'Indico';
+        });
+
+        // form the url to the Indico event
+        if (!empty($indicoEvent)) {
+            $indicoEvent = reset($indicoEvent);
+            $indicoEventId = $indicoEvent->identifier ?? '';
+            $indicoEventUrl = "https://indico.cern.ch/event/" . $indicoEventId;
+        }
+        
+        foreach ($relatedIdentifiers as $identifier) {
+            if ($identifier->scheme != 'URL') {
+                continue;
+            }
+
+            if (!empty($indicoEventUrl)) {
+                // if the indico event url is to a contribution then grab it and return it as the source event
+                if (str_contains($identifier->identifier, "$indicoEventUrl/contributions/")) {
+                    $sourceEvent = $identifier->identifier;
+                    return $sourceEvent;
+                }
+                // if the indico event url is to an event then keep it and keep looping in case the url to the contribution is found later
+                elseif (str_contains($identifier->identifier, $indicoEventUrl)) {
+                    $sourceEvent = $identifier->identifier;
+                }
+                // not an url to an Indico contribution or event so grab it unless we've already set the sourceEvent previously
+                else {
+                    // just take the URL of the first URL identifier if no contribution or event url is found at this point,
+                    $sourceEvent = empty($sourceEvent) ? $identifier->identifier : $sourceEvent;
+                }
+            }
+            else {
+                // if no indico event url is found, just take the first URL identifier as the source event
+                $sourceEvent = $identifier->identifier;
                 return $sourceEvent;
             }
-            elseif ($source->scheme == 'URL') {
-                $sourceEvent = $source->identifier;
-            }
         }
+        
         return $sourceEvent;
     }
+
+    // private function parseSourceEventFromRelatedIdentifiers($sources) {
+    //     $sourceEvent = '';
+    //     foreach ($sources as $source) {
+    //         if (str_contains($source->identifier, 'contributions')) {
+    //             $sourceEvent = $source->identifier;
+    //             return $sourceEvent;
+    //         }
+    //         elseif ($source->scheme == 'URL') {
+    //             $sourceEvent = $source->identifier;
+    //         }
+    //     }
+    //     return $sourceEvent;
+    // }
 
     /**
      * Returns string containing the Collection id's
