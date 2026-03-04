@@ -36,6 +36,7 @@ class feedAlterFiles extends AfterParseBase {
       'talk_importer_inclusive_json',
       'collection_import',
       'youtube_talk_importer',
+      'cern_talks_importer',
     ];
 
     return in_array($feed_id, $talk_feeds);
@@ -141,6 +142,22 @@ class feedAlterFiles extends AfterParseBase {
       }
     }
 
+    // we're only adding one subtitle (english) for the purpose of seaching
+    // feeds can't handle arrays of arrays needed to deal with multiple subtitles having 2 fields: url and language
+    $subtitle_url = $item->get('_subtitles');
+    if (!empty($subtitle_url)) {
+      $subtitle_media = Media::create([
+        'bundle' => 'subtitles_url',
+        'uid' => 1,
+        'name' => $item->get('_title'),
+        'field_media_scitalk_remote_file' => $subtitle_url,
+        'field_subtitles_language' => 'en' // always use english
+      ]);
+
+      $subtitle_media->save();
+      $item->set('_subtitles', $subtitle_media->id());
+    }
+
     // should a YouTube video be embeded?
     $create_youtube = $event->getFeed()?->field_embed_youtube?->value ?? false;
     if (!$create_youtube) {
@@ -153,11 +170,11 @@ class feedAlterFiles extends AfterParseBase {
     $video_field = '_video';
 
     // these are the field names for the youtube importer:
-    if ($feed_id == 'youtube_talk_importer') {
-      $video_url_field = 'video_url';
-      $video_title_field = 'title';
-      $video_field = 'video';
-    }
+    // if ($feed_id == 'youtube_talk_importer') {
+    //   $video_url_field = 'video_url';
+    //   $video_title_field = 'title';
+    //   $video_field = 'video';
+    // }
 
     // If video URL is from youtube, make it create a Scitalk YouTube entity
     $video_url = $item->get($video_url_field);
@@ -211,7 +228,7 @@ class feedAlterFiles extends AfterParseBase {
    * @return \Drupal\Core\Entity\EntityInterface|null
    *   The entity, or null if not found.
    */
-  private function existingEntity(FeedInterface $feed, ItemInterface $item) {
+  private function existingEntity(FeedInterface $feed, ItemInterface $item): EntityInterface|null {
     $feedType = $feed->getType();
     foreach ($feedType->getMappings() as $delta => $mapping) {
       if (empty($mapping['unique'])) {
@@ -235,10 +252,10 @@ class feedAlterFiles extends AfterParseBase {
    * @param  \Drupal\Core\Entity\EntityInterface|null $entity
    *   The entity to find media for.
    *
-   * @return \Drupal\node\Entity||null
+   * @return \Drupal\Core\Entity\EntityInterface||null
    *   The media entity, or null if not found.
    */
-  private function getEntityVideo(EntityInterface|null $entity) {
+  private function getEntityVideo(EntityInterface|null $entity): EntityInterface|null {
     if ($entity instanceof EntityInterface) {
       $video_target_id = $entity->get('field_talk_video')->target_id ?? 0;
       $media_entity = \Drupal::entityTypeManager()->getStorage('media')->load($video_target_id);
@@ -254,10 +271,10 @@ class feedAlterFiles extends AfterParseBase {
    * @param  \Drupal\Core\Entity\EntityInterface|null $entity
    *   The entity to find media for.
    *
-   * @return \Drupal\node\Entity||null
+   * @return \Drupal\Core\Entity\EntityInterface||null
    *   The attachment entity, or null if not found.
    */
-  private function getEntityAttachment(EntityInterface|null $entity) {
+  private function getEntityAttachment(EntityInterface|null $entity): EntityInterface|null {
     if ($entity instanceof EntityInterface) {
       $attachment_target_id = $entity->get('field_talk_attachments')?->target_id ?? -1;
       $media_entity = \Drupal::entityTypeManager()->getStorage('media')->load($attachment_target_id);
@@ -273,10 +290,10 @@ class feedAlterFiles extends AfterParseBase {
    * @param  \Drupal\Core\Entity\EntityInterface|null $entity
    *   The entity to find media for.
    *
-   * @return \Drupal\node\Entity||null
+   * @return \Drupal\Core\Entity\EntityInterface||null
    *   The attachment entity, or null if not found.
    */
-  private function getEntityAttachmentFile(EntityInterface|null $media_entity) {
+  private function getEntityAttachmentFile(EntityInterface|null $media_entity): EntityInterface|null {
     $mid = $media_entity?->id() ?? -1;
     $media_file_entity = \Drupal::entityTypeManager()->getStorage('media')->load($mid);
     $file_id = $media_file_entity?->get('field_media_file')?->target_id ?? 0;

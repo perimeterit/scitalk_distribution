@@ -1,0 +1,8 @@
+name: SciTalk Feeds CERN API
+description: Fetches CERN talks.
+core_version_requirement: ^8 || ^9 || ^10
+package: SciTalk
+type: module
+dependencies:
+  - feeds:feeds
+  - feeds_ex:feeds_ex

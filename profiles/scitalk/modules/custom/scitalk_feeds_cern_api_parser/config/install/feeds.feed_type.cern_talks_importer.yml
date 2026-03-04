@@ -1,0 +1,311 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.base_field_override.node.talk.title
+    - field.field.node.talk.feeds_item
+    - field.field.node.talk.field_talk_abstract
+    - field.field.node.talk.field_talk_collection
+    - field.field.node.talk.field_talk_date
+    - field.field.node.talk.field_talk_duration
+    - field.field.node.talk.field_talk_location
+    - field.field.node.talk.field_talk_number
+    - field.field.node.talk.field_talk_source_event
+    - field.field.node.talk.field_talk_source_repository
+    - field.field.node.talk.field_talk_speakers_text
+    - field.field.node.talk.field_talk_subject
+    - field.field.node.talk.field_talk_video_url
+    - node.type.talk
+  module:
+    - feeds_ex
+    - feeds_log
+    - feeds_tamper
+    - node
+    - scitalk_feeds_cern_api_parser
+third_party_settings:
+  feeds_log:
+    status: true
+    operations:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+      cleaned: cleaned
+    items:
+      created: created
+      updated: updated
+      deleted: deleted
+      skipped: skipped
+      failed: failed
+    source: true
+  feeds_tamper:
+    tampers:
+      b14f406a-bc41-4804-8d37-73e57ae759c9:
+        default_value: "1"
+        only_if_empty: false
+        uuid: b14f406a-bc41-4804-8d37-73e57ae759c9
+        plugin: default_value
+        source: status
+        weight: 0
+        label: "Set value or default value"
+      4c04dd8e-d53b-4463-b0aa-b31328003144:
+        default_value: "-No title-"
+        only_if_empty: true
+        uuid: 4c04dd8e-d53b-4463-b0aa-b31328003144
+        plugin: default_value
+        source: _title
+        weight: 0
+        label: "Set value or default value"
+      4bc058a8-7a7c-4ed2-b76d-eeeb829f0fca:
+        num_char: 252
+        ellipses: true
+        wordsafe: true
+        uuid: 4bc058a8-7a7c-4ed2-b76d-eeeb829f0fca
+        plugin: truncate_text
+        source: _title
+        weight: 1
+        label: Truncate
+      1b603af1-a088-4626-ac49-4c928750f7c7:
+        default_value: ""
+        only_if_empty: true
+        uuid: 1b603af1-a088-4626-ac49-4c928750f7c7
+        plugin: default_value
+        source: _collection
+        weight: 0
+        label: "Set value to empty when field missing"
+      f89ed940-06c2-445b-b2b3-ac86e991bf52:
+        separator: ;
+        limit: null
+        uuid: f89ed940-06c2-445b-b2b3-ac86e991bf52
+        plugin: explode
+        source: _collection
+        weight: 1
+        label: Explode
+      23d377a9-1a56-4b6d-a6f3-411780332865:
+        default_value: ""
+        only_if_empty: true
+        uuid: 23d377a9-1a56-4b6d-a6f3-411780332865
+        plugin: default_value
+        source: _subject
+        weight: 0
+        label: "Set value to empty when field missing"
+      cad8c864-2a68-486a-b5f8-9b6c577784cd:
+        separator: ;
+        limit: null
+        uuid: cad8c864-2a68-486a-b5f8-9b6c577784cd
+        plugin: explode
+        source: _subject
+        weight: 1
+        label: Explode
+      71357963-8b3e-45fb-bebf-061a4ff07473:
+        num_char: 252
+        ellipses: true
+        wordsafe: true
+        uuid: 71357963-8b3e-45fb-bebf-061a4ff07473
+        plugin: truncate_text
+        source: _source_event
+        weight: 0
+        label: Truncate
+label: "CERN Talks Importer"
+id: cern_talks_importer
+description: "Import Talks from CERN"
+help: ""
+import_period: 3600
+import_period_per_feed: false
+fetcher: scitalk_feeds_cern_api_parser_fetcher
+fetcher_configuration:
+  import_talks_limit: "150"
+  results_per_page: "50"
+  request_timeout: "30"
+  from: ""
+  to: ""
+  sort: mostrecent
+  query_pre: "collections=Lectures AND _updated:"
+parser: jsonpath
+parser_configuration:
+  context:
+    value: "$.*"
+  source_encoding:
+    - auto
+  display_errors: false
+  line_limit: 100
+processor: "entity:node"
+processor_configuration:
+  values:
+    type: talk
+  langcode: en
+  insert_new: 1
+  update_existing: 2
+  update_non_existent: _keep
+  skip_hash_check: false
+  skip_validation: false
+  skip_validation_types: {}
+  authorize: true
+  revision: false
+  expire: -1
+  owner_feed_author: true
+  owner_id: 0
+custom_sources:
+  _talk_number:
+    value: $.talk_number
+    label: $.talk_number
+    machine_name: _talk_number
+    type: json
+  prefixed_talk_number:
+    value: prefixed_talk_number
+    label: prefixed_talk_number
+    machine_name: prefixed_talk_number
+    type: json
+  source_group:
+    value: source_group
+    label: source_group
+    machine_name: source_group
+    type: blank
+  status:
+    value: Status
+    label: Status
+    machine_name: status
+    type: blank
+  _title:
+    value: $.title
+    label: $.title
+    machine_name: _title
+    type: json
+  _video_url:
+    value: $.video_url
+    label: $.video_url
+    machine_name: _video_url
+    type: json
+  _date:
+    value: $.talk_date
+    label: $.talk_date
+    machine_name: _date
+    type: json
+  _speakers:
+    value: $.speakers
+    label: $.speakers
+    machine_name: _speakers
+    type: json
+  _description:
+    value: $.description
+    label: $.description
+    machine_name: _description
+    type: json
+  _source_event:
+    value: $.source_event
+    label: $.source_event
+    machine_name: _source_event
+    type: json
+  _location:
+    value: $.location
+    label: $.location
+    machine_name: _location
+    type: json
+  _collection:
+    value: $.collection
+    label: $.collection
+    machine_name: _collection
+    type: json
+  _duration:
+    value: $.duration
+    label: $.duration
+    machine_name: _duration
+    type: json
+  _subject:
+    value: $.subject
+    label: $.subject
+    machine_name: _subject
+    type: json
+mappings:
+  - target: field_talk_number
+    map:
+      value: _talk_number
+    settings:
+      language: null
+    unique: {}
+  - target: feeds_item
+    map:
+      url: ""
+      guid: prefixed_talk_number
+    settings: {}
+    unique:
+      guid: 1
+  - target: field_talk_source_repository
+    map:
+      target_id: source_group
+    settings:
+      language: ""
+      reference_by: id
+      autocreate: 0
+      autocreate_bundle: source_repository
+  - target: status
+    map:
+      value: status
+    settings:
+      language: null
+  - target: title
+    map:
+      value: _title
+    settings:
+      language: null
+    unique: {}
+  - target: field_talk_video_url
+    map:
+      uri: _video_url
+      title: _title
+    settings:
+      language: null
+  - target: field_talk_date
+    map:
+      value: _date
+    settings:
+      language: null
+      timezone: UTC
+  - target: field_talk_speakers_text
+    map:
+      value: _speakers
+    settings:
+      language: null
+    unique: {}
+  - target: field_talk_abstract
+    map:
+      value: _description
+    settings:
+      language: ""
+      format: full_html
+  - target: field_talk_source_event
+    map:
+      uri: _source_event
+      title: _source_event
+    settings:
+      language: null
+  - target: field_talk_location
+    map:
+      value: _location
+    settings:
+      language: null
+    unique: {}
+  - target: field_talk_collection
+    map:
+      target_id: _collection
+    settings:
+      language: ""
+      reference_by: nid
+      feeds_item: guid
+      autocreate: 0
+      autocreate_bundle: collection
+  - target: field_talk_duration
+    map:
+      value: _duration
+    settings:
+      language: null
+    unique: {}
+  - target: field_talk_subject
+    map:
+      target_id: _subject
+    settings:
+      language: null
+      reference_by: name
+      autocreate: false
+      autocreate_bundle: subjects

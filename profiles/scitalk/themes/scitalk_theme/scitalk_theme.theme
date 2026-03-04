@@ -261,7 +261,17 @@ function scitalk_theme_preprocess_media(&$variables) {
     $transcript_lang_field = $variables['elements']['field_subtitles_language'] ?? [];
     $transcript_lang = $transcript_lang_field[0]['#markup'] ?? '';
 
-    if (!empty($transcript_text)) {
+    $media = $variables['elements']['#media'];
+    $entity = Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
+      'field_talk_transcripts' => $media->id()
+    ]);
+      
+    $entity = !empty($entity) ? current($entity) : null;
+    $attached_video = $entity?->field_talk_video->getValue() ?? [];
+    $has_video = !empty($attached_video);
+    $variables['has_video'] = $has_video;
+
+    if ($has_video && !empty($transcript_text)) {
       // $re = "/((\d\d:)?\d{2}:\d{2}\.\d{3})\s+-->\s+((\d\d:)?\d{2}:\d{2}\.\d{3})((?:(?!\d\d:).)*|$)/ms";
   
       // @preg_match_all($re, $transcript_text, $matches, PREG_SET_ORDER);

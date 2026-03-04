@@ -27,6 +27,7 @@ class feedAlterGroups extends AfterParseBase {
       'talk_importer_inclusive_json',
       'collection_import',
       'youtube_talk_importer',
+      'cern_talks_importer',
     ];
 
     return in_array($feed_id, $feeds);
