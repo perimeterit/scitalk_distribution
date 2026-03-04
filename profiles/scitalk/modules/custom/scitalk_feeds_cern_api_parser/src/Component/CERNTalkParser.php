@@ -245,6 +245,16 @@ class CERNTalkParser  {
         // get the collection's text we need to map for SciVideos
         $collectionsMapped = array_map(function($collection) {
             if ($collection !=  "Lectures" && $collection != "Lectures::Video Lectures") {
+
+                // special case fix 1: some collections show as "Lectures:Talks, Seminars and Other Events", we need a double colon instead in Lectures::Talks:
+                if ($collection == "Lectures:Talks, Seminars and Other Events") {
+                    $collection = str_replace("Lectures:Talks", "Lectures::Talks", $collection);
+                }
+                // special case fix 2: from "Talks, Seminars and Other Events,Conference records" we want to grab the last part "Conference records", so split with double colon
+                elseif ($collection == "Talks, Seminars and Other Events,Conference records") {
+                    $collection = str_replace("Events,Conference records", "Events::Conference records", $collection);
+                }
+
                 $value = explode("::", $collection);
                 return $value[array_key_last($value)] ?? '';
             }
