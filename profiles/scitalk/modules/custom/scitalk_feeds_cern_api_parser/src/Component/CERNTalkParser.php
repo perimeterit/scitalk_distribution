@@ -250,8 +250,8 @@ class CERNTalkParser  {
                 if ($collection == "Lectures:Talks, Seminars and Other Events") {
                     $collection = str_replace("Lectures:Talks", "Lectures::Talks", $collection);
                 }
-                // special case fix 2: from "Talks, Seminars and Other Events,Conference records" we want to grab the last part "Conference records", so split with double colon
-                elseif ($collection == "Talks, Seminars and Other Events,Conference records") {
+                // special case fix 2: from "Lectures::Talks, Seminars and Other Events,Conference records" we want to grab the last part "Conference records", so split with double colon
+                elseif ($collection == "Lectures::Talks, Seminars and Other Events,Conference records") {
                     $collection = str_replace("Events,Conference records", "Events::Conference records", $collection);
                 }
 
