@@ -28,7 +28,17 @@
   {{ drupal_region('page_title') }}
   {% include '@scitalk_theme/includes/speaker-fields.twig' %}
 
-  {{ content|without('field_talk_number','scitalk_prefixed_talk_number','field_talk_video', 'field_talk_video_url', 'field_talk_speaker_profile',  'field_talk_speakers_text') }}
+  {{ content|without('field_talk_number','scitalk_prefixed_talk_number','field_talk_video', 'field_talk_video_url', 'field_talk_speaker_profile',  'field_talk_speakers_text', 'group_talk_resources') }}
+
+  {# don't display resources if there are no attachments, otherwise the Resources title shows up #}
+  {% if content.group_talk_resources.field_talk_attachments|render is not empty %}
+    {{ content.group_talk_resources|without('field_talk_transcripts')}}
+  {% endif %}
+
+  {# don't show transcripts if there's no video #}
+  {% if content.field_talk_video|render is not empty %}
+    {{ content.group_talk_resources.field_talk_transcripts }}
+  {% endif %}
 
 </article>
 
