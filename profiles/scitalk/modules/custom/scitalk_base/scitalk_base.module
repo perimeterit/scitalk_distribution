@@ -346,6 +346,12 @@ function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $q
       $field_idx_val = current($field_idx);
       $query->orderby[$field_idx_val]['direction'] = $collection_type_sort_value == 'date_asc' ? "ASC" : "DESC";
     }
+    
+    // this seems to fix the issue when there's lots of data and the page crashes with out of memory errors:
+    // for some reason the view's pager has not value set for the 'items_per_page'
+    $display_pager = $view->display_handler->getOption('pager');
+    $display_items_per_page = $display_pager['options']['items_per_page'] ?? 12;
+    $view->getPager()->setItemsPerPage($display_items_per_page);
 
     // /* Descending is the default on the view so we only need to alter this if the value is ascending */
     // if ($collection_type_sort_value == 'date_asc') {
@@ -496,6 +502,7 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
       if ($academic_year_options <= 1) {
         unset($form['field_academic_year_target_id']);
         unset($form['field_academic_year_target_id_collapsible']);
+        unset($form['#info']['filter-field_academic_year_target_id']); //this also needs to unset
       }
     }
 
