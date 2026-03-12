@@ -344,10 +344,18 @@ function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $q
     }
     
     // this seems to fix the issue when there's lots of data and the page crashes with out of memory errors:
-    // for some reason the view's pager has not value set for the 'items_per_page'
+    // for some reason the view's pager has no value set for the 'items_per_page'
     $display_pager = $view->display_handler->getOption('pager');
     $display_items_per_page = $display_pager['options']['items_per_page'] ?? 12;
-    $view->getPager()->setItemsPerPage($display_items_per_page);
+    // $view->getPager()->setItemsPerPage($display_items_per_page)
+
+    // this is a quick and dirty fix: unlike PIRSA, scivideos has no academic years being used
+    // so use that fact to avoid querying for the academic year on all talks and just query the
+    // talks in the current displayed page:
+    $academic_years_options = $view->exposed_data['field_academic_year_target_id'] ?? [];
+    if (empty($academic_years_options)) {
+      $view->getPager()->setItemsPerPage($display_items_per_page);
+    }
 
     // /* Descending is the default on the view so we only need to alter this if the value is ascending */
     // if ($collection_type_sort_value == 'date_asc') {
