@@ -352,8 +352,15 @@ function scitalk_base_views_query_alter(ViewExecutable $view, QueryPluginBase $q
     // this is a quick and dirty fix: unlike PIRSA, scivideos has no academic years being used
     // so use that fact to avoid querying for the academic year on all talks and just query the
     // talks in the current displayed page:
-    $academic_years_options = $view->exposed_data['field_academic_year_target_id'] ?? [];
-    if (empty($academic_years_options)) {
+    // $academic_years_options = $view->exposed_data['field_academic_year_target_id'] ?? [];
+    // if (empty($academic_years_options)) {
+    //   $view->getPager()->setItemsPerPage($display_items_per_page);
+    // }
+
+    // do this instead of the above: if no input passed (i.e. academic year selected) then set the pager
+    // i.e. don't query all the talks at once which is what's causing the out of memory error for big datasets:
+    $input = $view->getExposedInput();
+    if (empty($input)) {
       $view->getPager()->setItemsPerPage($display_items_per_page);
     }
 
@@ -502,6 +509,28 @@ function scitalk_base_form_alter(&$form, FormStateInterface $form_state, $form_i
     // Alter Talks in Collection view to hide academic year filter if there
     // Is only one value.
     if (($view_id == 'scitalk_talks_in_collection') && ($view_display == 'card_view')) {
+      // by default all academic years are givev as options as part of the fix to deal with out of memory errors
+      // here we will query the actual academic years used in the talks under this specific collection
+      // and use them to replace the list of all academic years options:
+      $alias = $form['#action']; //this looks like /group/collection, e.g. cern-cds/c00772
+      //convert the alias to entity ids and get the node id form this path: (looks like /node/12345)
+      $path = \Drupal::service('path_alias.manager')->getPathByAlias($alias);
+      $path_array = explode("/", $path);
+      $collection_id = end($path_array) ?? '';
+      // check that we are viewing data (node) and not editing the view:
+      if (strpos($path, 'node') !== FALSE && is_numeric($collection_id)) {
+        $years_ids_in_collection = _get_academic_years_ids($collection_id);
+        $cur_options = $form['field_academic_year_target_id']['#options'];
+  
+        // filter out the available years from the list of academic year options:
+        $options = array_filter($cur_options, function($option) use($years_ids_in_collection){
+          return in_array($option, $years_ids_in_collection);
+        }, ARRAY_FILTER_USE_KEY);
+  
+        // set new list of academic years
+        $form['field_academic_year_target_id']['#options'] = $options;
+      }
+
       $academic_year_options = count($form['field_academic_year_target_id']['#options']);
       if ($academic_year_options <= 1) {
         unset($form['field_academic_year_target_id']);
@@ -727,4 +756,28 @@ function _find_media_usages(int $media_id) {
       }
     }
     return array_unique($urls);
-  }
+}
+
+// get the different academic years ids for a collection
+function _get_academic_years_ids($collection_id) {
+    $sql = "SELECT DISTINCT node__field_academic_year.field_academic_year_target_id as academic_year_id
+      FROM node_field_data
+      INNER JOIN node__field_academic_year ON node_field_data.nid = node__field_academic_year.entity_id
+      LEFT JOIN node__field_talk_collection ON node_field_data.nid = node__field_talk_collection.entity_id
+      LEFT OUTER JOIN group_relationship_field_data gcfd ON node_field_data.nid=gcfd.entity_id
+      AND gcfd.plugin_id IN ('group_node:collection', 'group_node:talk')
+      LEFT OUTER JOIN group_relationship_field_data gcfd_2 ON gcfd.gid=gcfd_2.gid
+      AND gcfd_2.plugin_id='group_membership'
+      AND gcfd_2.entity_id='1'
+      WHERE node_field_data.type='talk'
+      AND node__field_talk_collection.field_talk_collection_target_id = {$collection_id};";
+
+    $connection = \Drupal::database();
+    $query = $connection->query($sql);
+    $results = $query->fetchAll();
+    $year_ids = array_map(function($year) {
+      return $year->academic_year_id;
+    },$results ?? []);
+    
+    return $year_ids ?? [];
+}
