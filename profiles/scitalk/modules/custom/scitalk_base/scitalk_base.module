@@ -770,6 +770,7 @@ function _get_academic_years_ids($collection_id) {
       AND gcfd_2.plugin_id='group_membership'
       AND gcfd_2.entity_id='1'
       WHERE node_field_data.type='talk'
+      AND node_field_data.status = '1'
       AND node__field_talk_collection.field_talk_collection_target_id = {$collection_id};";
 
     $connection = \Drupal::database();
