@@ -46,7 +46,9 @@
   {{ header|without('result') }}
 
   {% set top_pager = pager %}
-  {% if (rows[0]['#rows']|length > 0) and (id != "scitalk_collection_children")  %}
+  {# {% if (rows[0]['#rows']|length > 0) and (id != "scitalk_collection_children")  %} #}
+  {# show the form filter if no results in scitalks talks in collection view: #}
+  {% if( (( rows[0]['#rows']|length > 0) and (id != "scitalk_collection_children")) or (id == "scitalk_talks_in_collection") ) %}
     <div class="advanced-view-header">
       <div class="view-summary">
         {{ header.result }}
