@@ -66,7 +66,7 @@
         "drupal/search_api": "^1.31",
         "drupal/search_api_solr": "^4.3",
         "drupal/selective_better_exposed_filters": "^3.0",
-        "drupal/simple_oauth": "^5.2",
+        "drupal/simple_oauth": "^6.0",
         "drupal/stable": "^2.0",
         "drupal/twig_tweak": "^3.2",
         "drupal/unused_media_cleaner": "^1.0",
@@ -186,9 +186,6 @@
                 "Issue #3023924: Cannot create references to/from string offsets": "https://www.drupal.org/files/issues/2022-12-23/references_to_from_string-3023924-36.patch",
                 "Issue #3336312: TypeError: Cannot access offset of type string on string": "https://www.drupal.org/files/issues/2023-06-14/3336312.patch",
                 "Issue #2928639: Set the expiration of a key/value pair from the PrivateTempStore": "https://www.drupal.org/files/issues/2021-07-27/2928639-26.patch"
-            },
-            "drupal/simple_oauth": {
-                "TypeError: Argument 1 passed to Drupal\\simple_oauth\\Repositories\\ScopeRepository::scopeFactory() must implement interface Drupal\\user\\RoleInterface": "https://www.drupal.org/files/issues/2019-02-12/3032371-3.patch"
             },
             "drupal/search_api": {
                 "Issue #3454939: Fatal error in solr backend (wakeup)": "https://www.drupal.org/files/issues/2024-06-17/3454939-search-api-solr-core-10.patch"
