@@ -190,11 +190,20 @@
                 "Issue #3336312: TypeError: Cannot access offset of type string on string": "https://www.drupal.org/files/issues/2023-06-14/3336312.patch",
                 "Issue #2928639: Set the expiration of a key/value pair from the PrivateTempStore": "https://www.drupal.org/files/issues/2021-07-27/2928639-26.patch"
             },
+            "drupal/openapi": {
+                "Issue #3523346: PHP 8.4: Implicitly nullable parameter declarations deprecated": "https://www.drupal.org/files/issues/2025-05-08/3523346-php-84-2.patch"
+            },
+            "drupal/openapi_jsonapi": {
+                "Issue #3539722: PHP 8.4: Implicitly nullable parameter declarations deprecated": "https://www.drupal.org/files/issues/2025-08-05/3539722-2.patch"
+            },
             "drupal/search_api": {
                 "Issue #3454939: Fatal error in solr backend (wakeup)": "https://www.drupal.org/files/issues/2024-06-17/3454939-search-api-solr-core-10.patch"
             },
             "drupal/selective_better_exposed_filters": {
                 "Hide details collapsible if form element is empty": "https://raw.githubusercontent.com/perimeterit/scitalk_distribution/master/patches/3360778-hide-collapsible-details-element.patch"
+            },
+            "drupal/schemata": {
+                "Issue #3523349: PHP 8.4: Implicitly nullable parameter declarations deprecated": "https://www.drupal.org/files/issues/2025-05-08/3523349-2.patch"
             }
         }
     }
