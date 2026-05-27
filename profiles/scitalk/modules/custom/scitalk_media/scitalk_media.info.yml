@@ -8,4 +8,5 @@ dependencies:
   - drupal:language
   - media_library:media_library
   - id_link_formatter:id_link_formatter
+  - inline_entity_form:inline_entity_form
   - scitalk:scitalk
