@@ -5,6 +5,8 @@ namespace Drupal\scitalk_media\Plugin\SciTalkMediaTypes;
 use Drupal\scitalk_media\SciTalkMediaPluginBase;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\File\FileExists;
+use Amp\Http\Client\HttpClientBuilder;
+use Amp\Http\Client\Request;
 
 
 /**
@@ -36,6 +38,10 @@ class SlideshowItem extends SciTalkMediaPluginBase {
      * @see \Drupal\scitalk_media\SciTalkMediaPluginBase::entityInsert()
      */
     public function entityInsert() {
+        $id = $this->entity->id();
+        if (!empty($id)) {
+            return; // if the entity already has an id, it means it's already been inserted, so we don't want to do anything here
+        }
         return $this->entityMetaDataUpdate();
     }
     
@@ -52,7 +58,7 @@ class SlideshowItem extends SciTalkMediaPluginBase {
         $path_parts = explode('/', $slide_path);
         $image_name = end($path_parts); // the image name should be the last item here
         $folder = $path_parts[count($path_parts)-2] ?? '';  //get the folder too, good idea when there are images with same name
-        $file = $this->writeSlideshowItemFile($slide_path, $image_name, $folder);
+        $file = $this->asyncWriteSlideshowItemFile($slide_path, $image_name, $folder);
         if ($file) {
             $this->entity->name = $file->getFilename();
             $this->entity->field_remote_thumbnail_url = $slide_path;
@@ -67,14 +73,41 @@ class SlideshowItem extends SciTalkMediaPluginBase {
         return $this->entity;
     }
 
-    private function writeSlideshowItemFile($filename, $image_name, $folder = '') {
-        $context = stream_context_create(array(
-            'http' => array('timeout' =>  10),
-        ));
-        $img =  $filename ? @file_get_contents($filename, false, $context) : '';  //@ used to suppress warning.  we don't want warnings!
-        if($img === false) { //404 errors should be trapped like this
+    /** 
+     * This function is used to fetch the image from the remote source and save it to the local file system.
+     * It uses Amp\Http\Client to fetch the image asynchronously, which should help with performance when there are many images to fetch.
+     * 
+     * @param string $filename The URL of the image to fetch
+     * @param string $image_name The name to save the image as
+     * @param string $folder An optional folder to save the image in, within the 'public://scitalk-thumbs/slides/' directory
+     * @return \Drupal\file\FileInterface|bool The file entity if the image was successfully fetched and saved, or false if there was an error fetching the image or saving the file
+     */
+    private function asyncWriteSlideshowItemFile(string $filename, string $image_name, string $folder = ''): \Drupal\file\FileInterface|bool {
+        $img = '';
+        if ($filename) {
+            $client = HttpClientBuilder::buildDefault();
+
+            try {
+                $future = \Amp\async(function() use ($client, $filename) {
+                    $request = new Request($filename, 'GET');
+                    $request->setTransferTimeout(30000); // set timeout to 30 seconds
+                    $request->setInactivityTimeout(30000); // set inactivity timeout to 30 seconds
+                    return $client->request($request);
+                });
+                
+                $img = \Amp\Future\await([$future]);
+                $img = (string) $img[0]->getBody();
+            }
+            catch (\Exception $e) {
+                \Drupal::logger('scitalk_media')->error('Error fetching image @filename: @message', ['@filename' => $filename, '@message' => $e->getMessage()]);
+                return false;
+            }
+        }
+
+        if(!$img) { //404 errors should be trapped like this
             return false;
         }
+
         $file_path = 'public://scitalk-thumbs/slides/';
         $file_path = empty($folder) ? $file_path : $file_path . $folder .'/';
         if (\Drupal::service('file_system')->prepareDirectory($file_path, FileSystemInterface::CREATE_DIRECTORY)) {
@@ -86,4 +119,32 @@ class SlideshowItem extends SciTalkMediaPluginBase {
         }
         return false;
     }
+
+    // fetch blocking code for reference, old code should be removed once we're sure the async version is working well:
+    // /**
+    //  * fetch remote slides and create media entities for each slide, then create slideshow item plugins for each media entity and add them to the slideshow
+    //  * @param string $filename
+    //  * @param string $image_name
+    //  * @param string $folder
+    //  * @return \Drupal\file\Entity\File|bool
+    //  */
+    // private function writeSlideshowItemFile(string $filename, string $image_name, string $folder = ''): \Drupal\file\Entity\File|bool {
+    //     $context = stream_context_create(array(
+    //         'http' => array('timeout' =>  10),
+    //     ));
+    //     $img =  $filename ? @file_get_contents($filename, false, $context) : '';  //@ used to suppress warning.  we don't want warnings!
+    //     if($img === false) { //404 errors should be trapped like this
+    //         return false;
+    //     }
+    //     $file_path = 'public://scitalk-thumbs/slides/';
+    //     $file_path = empty($folder) ? $file_path : $file_path . $folder .'/';
+    //     if (\Drupal::service('file_system')->prepareDirectory($file_path, FileSystemInterface::CREATE_DIRECTORY)) {
+    //         $img_filename = $file_path  . $image_name;
+    //         $file = \Drupal::service('file.repository')->writeData($img, $img_filename, FileExists::Replace);
+    //         if ($file) {
+    //             return $file;
+    //         }
+    //     }
+    //     return false;
+    // }
 }
