@@ -17,6 +17,7 @@
     display: flex;
     gap: .5rem;
     text-align: center;
+    flex-flow: wrap;
   }
 
 .bef-exposed-form .fieldset--field-collection-type-target-id + .form-item-sort-bef-combine {
