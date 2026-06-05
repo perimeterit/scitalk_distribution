@@ -87,27 +87,9 @@ class Slideshow extends SciTalkMediaPluginBase {
 
             $media = ['bundle' => 'scitalk_slideshow_item', 'field_remote_thumbnail_url'=> $slide_path];
             $new_media = \Drupal::entityTypeManager()->getStorage('media')->create($media);
-            $slideshow_items_media[] = $new_media;
-        }
-      }
-
-      // now we have all the media entities created, we can create the plugins for each of them in parallel and add them to the slideshow
-      $requests = array_map(function($media) use ($manager, $slideshow_item_plugin_id) {
-        return \Amp\async(function() use ($media, $manager, $slideshow_item_plugin_id) {
-          $slideshow_item_plugin = $manager->createInstance($slideshow_item_plugin_id, [$media]);
-          $media_item = $slideshow_item_plugin->entityInsert();
-          return $media_item;
-        });
-      }, $slideshow_items_media);
-
-      // wait for all the requests to complete and add the media items to the slideshow
-      $response = Future\await($requests);
-      // sort by the original order of the images, which should be preserved in the keys of the $response array
-      // otherwise, we could end up with the slideshow items in a different order than the original images, which would be bad
-      ksort($response);
-      foreach ($response as $key => $media_item) {
-        if ($media_item) {
-          $this->entity->field_slideshow_items[] = ['target_id' => $media_item->id()];
+            $slideshow_item_plugin = $manager->createInstance($slideshow_item_plugin_id, [$new_media]);
+            $media_item = $slideshow_item_plugin->entityInsert();
+            $this->entity->field_slideshow_items[] = ['target_id' => $media_item->id()];
         }
       }
 
@@ -116,7 +98,7 @@ class Slideshow extends SciTalkMediaPluginBase {
   }
 
   /**
-   * fetch remote slides
+   * fetch remote slides asynchronously to avoid timeouts, since some slideshows have a lot of images and it can take a while to fetch them all
    * 
    * @param string $remote_images_folder
    * @return \DOMDocument|null
