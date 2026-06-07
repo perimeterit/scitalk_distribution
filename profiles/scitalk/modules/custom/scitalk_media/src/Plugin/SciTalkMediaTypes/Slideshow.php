@@ -62,38 +62,9 @@ class Slideshow extends SciTalkMediaPluginBase {
     $source = $this->entity->bundle->entity->getSource();
     $configuration = $source->getConfiguration();
     $remote_images_folder = $this->entity->{$configuration['source_field']}->getString();
-
-    $manager = \Drupal::service('plugin.manager.scitalk_media_types');
-    $slideshow_item_plugin_id = 'SciTalkSlideshowItem';
-    $slideshow_items_media = [];
-
-    $page = $this->getRemoteSlides($remote_images_folder);
-    if (!$page) {
-        return;
-    }
-    $xpath = new \DOMXPath($page);
-    //the images are the 2d td within each tr:
-    $images = @$xpath->query('//td[position() = 2]');
-    if (!empty($images)) {
-      foreach ($images as $idx => $image) {
-        $image_name = $image->nodeValue;
-        $arr = explode('.', $image->nodeValue);
-        $arr_len = count($arr);
-        if ($arr_len > 1 && in_array( $arr[$arr_len -1], ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
-            if (substr($remote_images_folder, -1) != '/') {
-                $remote_images_folder .= '/';
-            }
-            $slide_path = $remote_images_folder . $image_name;
-
-            $media = ['bundle' => 'scitalk_slideshow_item', 'field_remote_thumbnail_url'=> $slide_path];
-            $new_media = \Drupal::entityTypeManager()->getStorage('media')->create($media);
-            $slideshow_item_plugin = $manager->createInstance($slideshow_item_plugin_id, [$new_media]);
-            $media_item = $slideshow_item_plugin->entityInsert();
-            $this->entity->field_slideshow_items[] = ['target_id' => $media_item->id()];
-        }
-      }
-
-      $this->entity->save();
+    $page = $this->readRemoteSlidesDirectory($remote_images_folder);
+    if ($page) {
+      $this->createSlideshowItems($page, $remote_images_folder);
     }
   }
 
@@ -103,7 +74,7 @@ class Slideshow extends SciTalkMediaPluginBase {
    * @param string $remote_images_folder
    * @return \DOMDocument|null
    */
-  private function getRemoteSlides(string $remote_images_folder): ?\DOMDocument {
+  private function readRemoteSlidesDirectory(string $remote_images_folder): ?\DOMDocument {
     $client = HttpClientBuilder::buildDefault();
     try {
       $future = \Amp\async(function() use ($client, $remote_images_folder) {
@@ -123,6 +94,72 @@ class Slideshow extends SciTalkMediaPluginBase {
         \Drupal::logger('scitalk_media')->error('Error fetching remote slides: @message', ['@message' => $e->getMessage()]);
         return null;
     }
+  }
+
+  /**
+   * Fetch and create each Slideshow item
+   * @param \DOMDocument $page
+   * @param string $remote_images_folder
+   * @return void
+   */
+  private function createSlideshowItems(\DOMDocument $page, string $remote_images_folder) {
+    $xpath = new \DOMXPath($page);
+    //the images are the 2d td within each tr:
+    $images = @$xpath->query('//td[position() = 2]');
+
+    $slideshow_items_media = [];
+    // prepare list of slideshow items to fetch async:
+    foreach ($images as $idx => $image) {
+      $image_name = $image->nodeValue;
+      $arr = explode('.', $image->nodeValue);
+      $arr_len = count($arr);
+      if ($arr_len > 1 && in_array( $arr[$arr_len -1], ['jpg', 'jpeg', 'png', 'gif', 'webp'])) {
+          if (substr($remote_images_folder, -1) != '/') {
+              $remote_images_folder .= '/';
+          }
+          $slide_path = $remote_images_folder . $image_name;
+          $slideshow_items_media[] = ['slide_path' => $slide_path];
+      }
+    }
+
+    $client = HttpClientBuilder::buildDefault();
+    
+    // fetch all slideshow images asynchronously:
+    $requests = array_map(function($filename) use ($client) {
+        return \Amp\async(function() use ($client, $filename) {
+          $request = new Request($filename['slide_path'], 'GET');
+          $request->setTransferTimeout(30000); // set timeout to 30 seconds
+          $request->setInactivityTimeout(30000); // set inactivity timeout to 30 seconds
+          return $client->request($request);
+        });
+    }, $slideshow_items_media);
+
+    // wait for all the requests to complete and add the media items to the slideshow
+    $response = Future\await($requests);
+
+    $manager = \Drupal::service('plugin.manager.scitalk_media_types');
+    $slideshow_item_plugin_id = 'SciTalkSlideshowItem';
+    ksort($response);
+    foreach ($response as $key => $res) {
+      $img = (string) $res->getBody();
+      $slide_path = $slideshow_items_media[$key]['slide_path'];
+      $path_parts = explode('/', $slide_path);
+      $image_name = end($path_parts); // the image name should be the last item here
+      $folder = $path_parts[count($path_parts)-2] ?? '';  //get the folder too, good idea when there are images with same name
+
+      $media = ['bundle' => 'scitalk_slideshow_item', 'field_remote_thumbnail_url'=> $slide_path];
+      $new_media = \Drupal::entityTypeManager()->getStorage('media')->create($media);
+
+      // prevent scitalk_media_entity_insert hook from triggering an update.
+      // we're creating all the slideshow medias here
+      $new_media->suppress_insert_hook = TRUE;
+
+      $slideshow_item_plugin = $manager->createInstance($slideshow_item_plugin_id, [$new_media]);
+      $media_item = $slideshow_item_plugin->saveSlideshowItemMediaEntity($img, $image_name, $folder, $slide_path);
+      $this->entity->field_slideshow_items[] = ['target_id' => $media_item->id()];
+    }
+
+    $this->entity->save();
   }
 
   // old method for reference, should be removed once we're sure the async version is working well:

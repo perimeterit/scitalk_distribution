@@ -7,7 +7,7 @@ use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\File\FileExists;
 use Amp\Http\Client\HttpClientBuilder;
 use Amp\Http\Client\Request;
-
+use Drupal\Core\Entity\EntityInterface;
 
 /**
  * SciTalk SlideShow item Plugin.
@@ -38,10 +38,6 @@ class SlideshowItem extends SciTalkMediaPluginBase {
      * @see \Drupal\scitalk_media\SciTalkMediaPluginBase::entityInsert()
      */
     public function entityInsert() {
-        $id = $this->entity->id();
-        if (!empty($id)) {
-            return; // if the entity already has an id, it means it's already been inserted, so we don't want to do anything here
-        }
         return $this->entityMetaDataUpdate();
     }
     
@@ -65,18 +61,8 @@ class SlideshowItem extends SciTalkMediaPluginBase {
         if (!$img) {
             return;
         }
-        $file = $this->writeFile($img[0], $image_name, $folder);
-        if ($file) {
-            $this->entity->name = $file->getFilename();
-            $this->entity->field_remote_thumbnail_url = $slide_path;
-            $this->entity->field_slideshow_item_image =  [ 
-                'target_id' => $file->id(),
-                'alt' => $file->getFilename(),
-                'title' => $file->getFilename(),
-            ];
-            $this->entity->save();
-        }
 
+        $this->saveSlideshowItemMediaEntity($img[0], $image_name, $folder, $slide_path);
         return $this->entity;
     }
 
@@ -129,6 +115,29 @@ class SlideshowItem extends SciTalkMediaPluginBase {
             }
         }
         return false;
+    }
+
+    /**
+     * Attach file media to SlideshowItem media
+     * @param string $img
+     * @param string $image_name
+     * @param string $folder
+     * @param string $slide_path
+     * @return EntityInterface|null
+     */
+    public function saveSlideshowItemMediaEntity(string $img, string $image_name, string $folder, string $slide_path): EntityInterface {
+        $file = $this->writeFile($img, $image_name, $folder);
+        if ($file) {
+            $this->entity->name = $file->getFilename();
+            $this->entity->field_remote_thumbnail_url = $slide_path;
+            $this->entity->field_slideshow_item_image =  [
+                'target_id' => $file->id(),
+                'alt' => $file->getFilename(),
+                'title' => $file->getFilename(),
+            ];
+            $this->entity->save();
+        }
+        return $this->entity;
     }
 
     // fetch blocking code for reference, old code should be removed once we're sure the async version is working well:
