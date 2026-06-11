@@ -180,10 +180,20 @@ use function GuzzleHttp\json_encode;
               }
             }
 
+            // don't regenerate the thumbnail file if it already exists, simply return it if it does:
+            $thumbnail_file_uri = $temp_path . '/' . $thumbnail_filename;
+            $file_entity = \Drupal::service('file.repository')->loadByUri($thumbnail_file_uri); //check for db File Entity
+            $file_exists = file_exists($thumbnail_file_uri); // check for the physical file in the filesystem
+            if ($file_entity && $file_exists) {
+              return $thumbnail_file_uri;
+            }
+
+            $file_temp = \Drupal::service('file.repository')->writeData($img, $thumbnail_file_uri, FileExists::Replace);
+            return $thumbnail_file_uri;
+
             //$file_temp = file_save_data($img, 'public://scitalk-thumbs/' . $thumbnail_filename, FILE_EXISTS_REPLACE);
-            // $file_temp = \Drupal::service('file.repository')->writeData($img, 'public://scitalk-thumbs/' . $thumbnail_filename, FileSystemInterface::EXISTS_REPLACE);
-            $file_temp = \Drupal::service('file.repository')->writeData($img, 'public://scitalk-thumbs/' . $thumbnail_filename, FileExists::Replace);
-            return 'public://scitalk-thumbs/' . $thumbnail_filename;
+            // $file_temp = \Drupal::service('file.repository')->writeData($img, 'public://scitalk-thumbs/' . $thumbnail_filename, FileExists::Replace);
+            // return 'public://scitalk-thumbs/' . $thumbnail_filename;
           }
           else {
             return FALSE;
