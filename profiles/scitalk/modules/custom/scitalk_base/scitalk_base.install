@@ -1447,3 +1447,37 @@ function scitalk_base_update_8124(&$sandbox) {
     //re add the field_skip_updates field to the Talk entity form view if needed
     _readd_skip_feed_field_to_talk_entity_form();
 }
+
+/**
+ * Create new field field_aliases for Collection and Talk type taxonomies
+ * @param mixed $sandbox
+ * @return void
+ */
+function scitalk_base_update_8125(&$sandbox) {
+    $config_path = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_base') . '/config/install';
+    $source      = new FileStorage($config_path);
+
+    //add storage and field for "field_aliases"
+    $storage_config = \Drupal::entityTypeManager()->getStorage('field_storage_config');
+    if (!$storage_config->load('taxonomy_term.field_aliases'))
+    {
+        $storage_config_yml = $source->read('field.storage.taxonomy_term.field_aliases');
+        $storage_config->create($storage_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created storage: field.storage.taxonomy_term.field_aliases');
+    }
+
+    $field_config = \Drupal::entityTypeManager()->getStorage('field_config');
+    if (!$field_config->load('taxonomy_term.collection_type.field_aliases'))
+    {
+        $field_config_yml = $source->read('field.field.taxonomy_term.collection_type.field_aliases');
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created field: field.field.taxonomy_term.collection_type.field_aliases');
+    }
+
+    if (!$field_config->load('taxonomy_term.talk_type.field_aliases'))
+    {
+        $field_config_yml = $source->read('field.field.taxonomy_term.talk_type.field_aliases');
+        $field_config->create($field_config_yml)->save();
+        \Drupal::logger('scitalk_base')->notice('Created field: field.field.taxonomy_term.talk_type.field_aliases');
+    }
+}
