@@ -9,23 +9,6 @@ class TypeAliasesMapping {
         $mapping = &drupal_static(__FUNCTION__);
         if ($mapping == NULL) {
             $mapping = $this->getAliasesMapping('collection_type');
-            // $mapping = [];
-            // $collection_ids = \Drupal::entityQuery('taxonomy_term')
-            //     ->condition('status', 1)
-            //     ->condition('vid', ['collection_type', 'talk_type'], 'IN')
-            //     ->accessCheck(TRUE)
-            //     ->execute();
-
-            // $collections = Term::loadMultiple($collection_ids);
-            // foreach ($collections as $collection) {
-            //     $name = $collection->name->value;
-            //     $aliases = $collection->hasField('field_aliases') ? $collection?->get('field_aliases')?->getValue() : [];
-            //     if (!empty($aliases)) {
-            //         foreach ($aliases as $alias) {
-            //             $mapping[$alias['value']] = $name;
-            //         }
-            //     }
-            // }
         }
         return $mapping;
     }
