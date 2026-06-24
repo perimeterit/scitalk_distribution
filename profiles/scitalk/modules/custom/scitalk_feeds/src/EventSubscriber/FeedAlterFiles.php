@@ -82,6 +82,28 @@ class feedAlterFiles extends AfterParseBase {
       }
     }
 
+    // handle mapping of taxonomy terms for Collection and Talk types
+    if ($feed_id == 'collection_import') {
+      $item_collection_type_name = $item->get('_collection_type') ?? '';
+
+      // find if the current item's collection type is an alias for another collection type
+      // if it is an alias, then update the feed item _collection_type field to that found
+      $mapping_service = \Drupal::service('scitalk_feeds.types_aliases_mapping');
+      $mapping = $mapping_service->getCollectionTypeAliasesMapping();
+      $mapped_colection_type_name = $mapping[$item_collection_type_name] ?? '';
+      if (!empty($mapped_colection_type_name)) {
+         $item->set('_collection_type', $mapped_colection_type_name);
+      }
+    } else if (str_contains($feed_id, 'talk_importer')) { // CERN importer (cern_talks_importer) not included here, they don't have "talk_type" anyways
+      $item_talk_type_name = $item->get('_talk_type') ?? '';
+      $mapping_service = \Drupal::service('scitalk_feeds.types_aliases_mapping');
+      $mapping = $mapping_service->getTalkTypeAliasesMapping();
+      $map_to = $mapping[$item_talk_type_name] ?? '';
+      if (!empty($map_to)) {
+         $item->set('_talk_type', $map_to);
+      }
+    }
+
     // Fix file imports.
     // There is an issue for fixing this in Feeds module, but it currently
     // only works for standard media entity

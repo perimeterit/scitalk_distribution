@@ -15,3 +15,5 @@ services:
     class: Drupal\scitalk_feeds\EventSubscriber\FeedUnpublishNovideo
     tags:
       - { name: event_subscriber }
+  scitalk_feeds.types_aliases_mapping:
+    class: Drupal\scitalk_feeds\ScitalkFeedsServices\TypeAliasesMapping
