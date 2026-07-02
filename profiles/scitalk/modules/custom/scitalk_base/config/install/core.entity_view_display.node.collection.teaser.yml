@@ -4,6 +4,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.collection.field_academic_year
+    - field.field.node.collection.field_background_image
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
     - field.field.node.collection.field_collection_event_url
@@ -25,6 +26,8 @@ dependencies:
     - fences
     - text
     - user
+_core:
+  default_config_hash: PONt2D_pc6MawBSshRh3KL8tM50QH0hRAi3tw0RuWIA
 id: node.collection.teaser
 targetEntityType: node
 bundle: collection
@@ -36,6 +39,7 @@ content:
     settings:
       timezone_override: ''
       format_type: medium
+      from_to: both
       separator: '-'
     third_party_settings:
       fences:
@@ -98,6 +102,7 @@ content:
     region: content
 hidden:
   field_academic_year: true
+  field_background_image: true
   field_collection_event_url: true
   field_collection_last_talk_date: true
   field_collection_location: true

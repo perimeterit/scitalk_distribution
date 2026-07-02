@@ -15,6 +15,8 @@ dependencies:
     - node
     - taxonomy
     - user
+_core:
+  default_config_hash: 8fQlEbK-tbRuBZVb6nvhDPA4brCh41umTwd_NCcJrUI
 id: scitalk_taxonomy_term
 label: 'Scitalk Taxonomy term'
 module: taxonomy
@@ -417,6 +419,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 12
           total_pages: 0
           id: 0
@@ -815,7 +818,7 @@ display:
           uses_fields: false
           type: ul
           wrapper_class: ''
-          class: 'display-list display-wrapper'
+          class: 'display-list display-wrapper views-list'
       row:
         type: 'entity:node'
         options:
@@ -1235,6 +1238,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 12
           total_pages: null
           id: 0

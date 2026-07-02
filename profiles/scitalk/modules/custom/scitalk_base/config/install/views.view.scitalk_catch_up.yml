@@ -19,6 +19,8 @@ dependencies:
     - search_api
     - text
     - user
+_core:
+  default_config_hash: 2aKFalZGdH84bYOINAg1tNJ6TwvBiELjnYCuU5S2F9M
 id: scitalk_catch_up
 label: 'Scitalk: Catch Up'
 module: views
@@ -777,6 +779,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 12
           total_pages: null
           id: 1
@@ -821,7 +824,7 @@ display:
               plugin_id: default
               advanced:
                 combine: true
-                combine_rewrite: "Date Desc|Date - New to Old\r\nDate Asc|Date - Old to New\r\nTitle Asc|Title A ->  Z\r\nTitle Desc|Title Z ->  A\r\nSpeaker Asc|Speaker A -  Z\r\nSpeaker Desc|Speaker Z -  A"
+                combine_rewrite: "Date Desc|Date Newest First\r\nDate Asc|Date Oldest First\r\nTitle Asc|Title A ->  Z\r\nTitle Desc|Title Z ->  A\r\nSpeaker Asc|Speaker A -  Z\r\nSpeaker Desc|Speaker Z -  A"
                 reset: false
                 reset_label: ''
                 collapsible: false
@@ -833,22 +836,28 @@ display:
                 advanced:
                   rewrite:
                     filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
                   collapsible: false
+                  collapsible_disable_automatic_open: false
                   is_secondary: false
                 options_show_only_used: false
                 options_show_only_used_filtered: false
                 options_hide_when_empty: false
+                options_show_items_count: false
               field_talk_subject:
                 plugin_id: default
                 advanced:
                   sort_options: false
                   rewrite:
                     filter_rewrite_values: ''
+                    filter_rewrite_values_key: false
                   collapsible: false
+                  collapsible_disable_automatic_open: false
                   is_secondary: false
                 options_show_only_used: true
                 options_show_only_used_filtered: false
                 options_hide_when_empty: true
+                options_show_items_count: 0
       access:
         type: perm
         options:
@@ -1141,8 +1150,9 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
+        - 'url.query_args:catch_up_subject'
+        - 'url.query_args:field_talk_date'
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
         - 'user.node_grants:view'
@@ -1252,7 +1262,8 @@ display:
       max-age: -1
       contexts:
         - 'languages:language_interface'
-        - url
+        - 'url.query_args:catch_up_subject'
+        - 'url.query_args:field_talk_date'
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
         - 'user.node_grants:view'
@@ -1351,6 +1362,59 @@ display:
             format_plural_values:
               - '1'
               - '@count'
+        search_api_url:
+          id: search_api_url
+          table: search_api_index_default_talks_index
+          field: search_api_url
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api
+          label: 'Item URL'
+          exclude: true
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          link_to_item: false
+          use_highlighting: false
+          multi_type: separator
+          multi_separator: ', '
         field_talk_video_url:
           id: field_talk_video_url
           table: search_api_datasource_default_talks_index_entity_node
@@ -1438,7 +1502,7 @@ display:
           exclude: false
           alter:
             alter_text: true
-            text: "{% if field_talk_video_url %}\r\n  <a href=\"{{field_talk_video_url}}\" class=\"external\">{{title}}</a>\r\n{% else %}\r\n <a href=\"/node/{{nid}}\">{{title}}</a>\r\n{% endif %}"
+            text: "{% if field_talk_video_url %}\r\n  <a href=\"{{field_talk_video_url}}\" class=\"external\">{{title}}</a>\r\n{% else %}\r\n <a href=\"{{search_api_url}}\">{{title}}</a>\r\n{% endif %}"
             make_link: false
             path: '{{ field_talk_video_url }}'
             absolute: false
@@ -2004,80 +2068,11 @@ display:
             use_highlighting: false
             multi_type: separator
             multi_separator: ', '
-        title_2:
-          id: title_2
-          table: search_api_index_default_talks_index
-          field: title_2
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: search_api_field
-          label: 'Source » Content » Title (indexed field)'
-          exclude: true
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: false
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: value
-          type: string
-          settings:
-            link_to_entity: false
-          group_column: value
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
-          field_rendering: false
-          fallback_handler: search_api
-          fallback_options:
-            link_to_item: false
-            use_highlighting: false
-            multi_type: separator
-            multi_separator: ', '
       pager:
         type: mini
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 12
           total_pages: null
           id: 0
@@ -2216,8 +2211,9 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
+        - 'url.query_args:catch_up_subject'
+        - 'url.query_args:field_talk_date'
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
         - 'user.node_grants:view'
@@ -2343,8 +2339,9 @@ display:
       max-age: -1
       contexts:
         - 'languages:language_interface'
-        - url
         - url.query_args
+        - 'url.query_args:catch_up_subject'
+        - 'url.query_args:field_talk_date'
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
         - 'user.node_grants:view'
@@ -2540,8 +2537,9 @@ display:
       max-age: -1
       contexts:
         - 'languages:language_interface'
-        - url
         - url.query_args
+        - 'url.query_args:catch_up_subject'
+        - 'url.query_args:field_talk_date'
         - 'user.node_grants:view'
         - user.permissions
       tags:

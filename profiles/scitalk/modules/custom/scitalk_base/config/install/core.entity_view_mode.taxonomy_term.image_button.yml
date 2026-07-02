@@ -1,0 +1,11 @@
+uuid: d785abb0-7d02-40f2-96be-c105d16edc47
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+id: taxonomy_term.image_button
+label: 'Image button'
+description: ''
+targetEntityType: taxonomy_term
+cache: true

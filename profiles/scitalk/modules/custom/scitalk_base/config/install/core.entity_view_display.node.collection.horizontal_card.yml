@@ -4,6 +4,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.horizontal_card
     - field.field.node.collection.field_academic_year
+    - field.field.node.collection.field_background_image
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
     - field.field.node.collection.field_collection_event_url
@@ -29,6 +30,8 @@ third_party_settings:
   layout_builder:
     enabled: false
     allow_custom: false
+_core:
+  default_config_hash: IjksR_2Lv-FC-Bl4TprdUl_CY4c7T-A2U5oElwY8yUM
 id: node.collection.horizontal_card
 targetEntityType: node
 bundle: collection
@@ -112,6 +115,7 @@ content:
     region: content
 hidden:
   field_academic_year: true
+  field_background_image: true
   field_collection_description: true
   field_collection_event_url: true
   field_collection_last_talk_date: true

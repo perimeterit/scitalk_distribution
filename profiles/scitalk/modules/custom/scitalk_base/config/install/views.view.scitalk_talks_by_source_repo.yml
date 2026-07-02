@@ -10,6 +10,8 @@ dependencies:
     - group
     - node
     - user
+_core:
+  default_config_hash: Tm0hSHEZM5qZ3hD6MWIZH3ukHKrBu255oEusn64GM_E
 id: scitalk_talks_by_source_repo
 label: 'Scitalk: Talks by Source Repo'
 module: views
@@ -254,30 +256,7 @@ display:
         - url
         - 'user.node_grants:view'
         - user.permissions
-      tags:
-        - 'config:core.entity_view_display.node.collection.default'
-        - 'config:core.entity_view_display.node.collection.full'
-        - 'config:core.entity_view_display.node.collection.horizontal_card'
-        - 'config:core.entity_view_display.node.collection.mini_teaser'
-        - 'config:core.entity_view_display.node.collection.teaser'
-        - 'config:core.entity_view_display.node.landing_page.default'
-        - 'config:core.entity_view_display.node.page.default'
-        - 'config:core.entity_view_display.node.page.teaser'
-        - 'config:core.entity_view_display.node.speaker_profile.default'
-        - 'config:core.entity_view_display.node.speaker_profile.page_header'
-        - 'config:core.entity_view_display.node.speaker_profile.search_result'
-        - 'config:core.entity_view_display.node.speaker_profile.speaker_name_institution'
-        - 'config:core.entity_view_display.node.speaker_profile.teaser'
-        - 'config:core.entity_view_display.node.talk.card'
-        - 'config:core.entity_view_display.node.talk.default'
-        - 'config:core.entity_view_display.node.talk.full'
-        - 'config:core.entity_view_display.node.talk.horizontal_card'
-        - 'config:core.entity_view_display.node.talk.mini_teaser'
-        - 'config:core.entity_view_display.node.talk.page_header'
-        - 'config:core.entity_view_display.node.talk.search_index'
-        - 'config:core.entity_view_display.node.talk.search_result'
-        - 'config:core.entity_view_display.node.talk.teaser'
-        - 'config:core.entity_view_display.node.talk.thumbnail'
+      tags: {  }
   collections:
     id: collections
     display_title: 'Collections block (5 items)'
@@ -308,7 +287,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: numeric
+          plugin_id: entity_target_id
           default_action: default
           exception:
             value: all
@@ -334,6 +313,7 @@ display:
           validate_options: {  }
           break_phrase: false
           not: false
+          target_entity_type_id: group
       filters:
         status:
           id: status
@@ -521,30 +501,7 @@ display:
         - url
         - 'user.node_grants:view'
         - user.permissions
-      tags:
-        - 'config:core.entity_view_display.node.collection.default'
-        - 'config:core.entity_view_display.node.collection.full'
-        - 'config:core.entity_view_display.node.collection.horizontal_card'
-        - 'config:core.entity_view_display.node.collection.mini_teaser'
-        - 'config:core.entity_view_display.node.collection.teaser'
-        - 'config:core.entity_view_display.node.landing_page.default'
-        - 'config:core.entity_view_display.node.page.default'
-        - 'config:core.entity_view_display.node.page.teaser'
-        - 'config:core.entity_view_display.node.speaker_profile.default'
-        - 'config:core.entity_view_display.node.speaker_profile.page_header'
-        - 'config:core.entity_view_display.node.speaker_profile.search_result'
-        - 'config:core.entity_view_display.node.speaker_profile.speaker_name_institution'
-        - 'config:core.entity_view_display.node.speaker_profile.teaser'
-        - 'config:core.entity_view_display.node.talk.card'
-        - 'config:core.entity_view_display.node.talk.default'
-        - 'config:core.entity_view_display.node.talk.full'
-        - 'config:core.entity_view_display.node.talk.horizontal_card'
-        - 'config:core.entity_view_display.node.talk.mini_teaser'
-        - 'config:core.entity_view_display.node.talk.page_header'
-        - 'config:core.entity_view_display.node.talk.search_index'
-        - 'config:core.entity_view_display.node.talk.search_result'
-        - 'config:core.entity_view_display.node.talk.teaser'
-        - 'config:core.entity_view_display.node.talk.thumbnail'
+      tags: {  }
   collections_full:
     id: collections_full
     display_title: 'Collections (full, with pager)'
@@ -556,6 +513,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 20
           total_pages: null
           id: 0
@@ -596,7 +554,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: numeric
+          plugin_id: entity_target_id
           default_action: default
           exception:
             value: all
@@ -622,6 +580,7 @@ display:
           validate_options: {  }
           break_phrase: false
           not: false
+          target_entity_type_id: group
       filters:
         status:
           id: status
@@ -811,30 +770,7 @@ display:
         - url.query_args
         - 'user.node_grants:view'
         - user.permissions
-      tags:
-        - 'config:core.entity_view_display.node.collection.default'
-        - 'config:core.entity_view_display.node.collection.full'
-        - 'config:core.entity_view_display.node.collection.horizontal_card'
-        - 'config:core.entity_view_display.node.collection.mini_teaser'
-        - 'config:core.entity_view_display.node.collection.teaser'
-        - 'config:core.entity_view_display.node.landing_page.default'
-        - 'config:core.entity_view_display.node.page.default'
-        - 'config:core.entity_view_display.node.page.teaser'
-        - 'config:core.entity_view_display.node.speaker_profile.default'
-        - 'config:core.entity_view_display.node.speaker_profile.page_header'
-        - 'config:core.entity_view_display.node.speaker_profile.search_result'
-        - 'config:core.entity_view_display.node.speaker_profile.speaker_name_institution'
-        - 'config:core.entity_view_display.node.speaker_profile.teaser'
-        - 'config:core.entity_view_display.node.talk.card'
-        - 'config:core.entity_view_display.node.talk.default'
-        - 'config:core.entity_view_display.node.talk.full'
-        - 'config:core.entity_view_display.node.talk.horizontal_card'
-        - 'config:core.entity_view_display.node.talk.mini_teaser'
-        - 'config:core.entity_view_display.node.talk.page_header'
-        - 'config:core.entity_view_display.node.talk.search_index'
-        - 'config:core.entity_view_display.node.talk.search_result'
-        - 'config:core.entity_view_display.node.talk.teaser'
-        - 'config:core.entity_view_display.node.talk.thumbnail'
+      tags: {  }
   talks:
     id: talks
     display_title: 'Talks block (5 items)'
@@ -1053,30 +989,7 @@ display:
         - url
         - 'user.node_grants:view'
         - user.permissions
-      tags:
-        - 'config:core.entity_view_display.node.collection.default'
-        - 'config:core.entity_view_display.node.collection.full'
-        - 'config:core.entity_view_display.node.collection.horizontal_card'
-        - 'config:core.entity_view_display.node.collection.mini_teaser'
-        - 'config:core.entity_view_display.node.collection.teaser'
-        - 'config:core.entity_view_display.node.landing_page.default'
-        - 'config:core.entity_view_display.node.page.default'
-        - 'config:core.entity_view_display.node.page.teaser'
-        - 'config:core.entity_view_display.node.speaker_profile.default'
-        - 'config:core.entity_view_display.node.speaker_profile.page_header'
-        - 'config:core.entity_view_display.node.speaker_profile.search_result'
-        - 'config:core.entity_view_display.node.speaker_profile.speaker_name_institution'
-        - 'config:core.entity_view_display.node.speaker_profile.teaser'
-        - 'config:core.entity_view_display.node.talk.card'
-        - 'config:core.entity_view_display.node.talk.default'
-        - 'config:core.entity_view_display.node.talk.full'
-        - 'config:core.entity_view_display.node.talk.horizontal_card'
-        - 'config:core.entity_view_display.node.talk.mini_teaser'
-        - 'config:core.entity_view_display.node.talk.page_header'
-        - 'config:core.entity_view_display.node.talk.search_index'
-        - 'config:core.entity_view_display.node.talk.search_result'
-        - 'config:core.entity_view_display.node.talk.teaser'
-        - 'config:core.entity_view_display.node.talk.thumbnail'
+      tags: {  }
   talks_full:
     id: talks_full
     display_title: 'Talks (full, with pager)'
@@ -1269,6 +1182,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 20
           total_pages: null
           id: 0
@@ -1318,27 +1232,4 @@ display:
         - url.query_args
         - 'user.node_grants:view'
         - user.permissions
-      tags:
-        - 'config:core.entity_view_display.node.collection.default'
-        - 'config:core.entity_view_display.node.collection.full'
-        - 'config:core.entity_view_display.node.collection.horizontal_card'
-        - 'config:core.entity_view_display.node.collection.mini_teaser'
-        - 'config:core.entity_view_display.node.collection.teaser'
-        - 'config:core.entity_view_display.node.landing_page.default'
-        - 'config:core.entity_view_display.node.page.default'
-        - 'config:core.entity_view_display.node.page.teaser'
-        - 'config:core.entity_view_display.node.speaker_profile.default'
-        - 'config:core.entity_view_display.node.speaker_profile.page_header'
-        - 'config:core.entity_view_display.node.speaker_profile.search_result'
-        - 'config:core.entity_view_display.node.speaker_profile.speaker_name_institution'
-        - 'config:core.entity_view_display.node.speaker_profile.teaser'
-        - 'config:core.entity_view_display.node.talk.card'
-        - 'config:core.entity_view_display.node.talk.default'
-        - 'config:core.entity_view_display.node.talk.full'
-        - 'config:core.entity_view_display.node.talk.horizontal_card'
-        - 'config:core.entity_view_display.node.talk.mini_teaser'
-        - 'config:core.entity_view_display.node.talk.page_header'
-        - 'config:core.entity_view_display.node.talk.search_index'
-        - 'config:core.entity_view_display.node.talk.search_result'
-        - 'config:core.entity_view_display.node.talk.teaser'
-        - 'config:core.entity_view_display.node.talk.thumbnail'
+      tags: {  }

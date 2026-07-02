@@ -11,8 +11,6 @@ dependencies:
     - datetime
     - node
     - user
-_core:
-  default_config_hash: S9l4Ouzsv1fCKai6zs8Rk2j5L2w1MbOU2dvL80zNO8Q
 id: scitalk_collection_children
 label: 'Scitalk Collection Children'
 module: views
@@ -204,7 +202,6 @@ display:
           order: ASC
           expose:
             label: ''
-            field_identifier: type
           exposed: false
         field_collection_date_end_value:
           id: field_collection_date_end_value
@@ -217,7 +214,6 @@ display:
           order: DESC
           expose:
             label: 'Collection Date (field_collection_date:end_value)'
-            field_identifier: field_collection_date_end_value
           exposed: false
           granularity: second
         field_talk_date_value:
@@ -231,7 +227,6 @@ display:
           order: DESC
           expose:
             label: ''
-            field_identifier: field_talk_date_value
           exposed: false
           granularity: second
       arguments:
@@ -242,7 +237,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: entity_target_id
+          plugin_id: numeric
           default_action: ignore
           exception:
             value: all
@@ -269,7 +264,6 @@ display:
           validate_options: {  }
           break_phrase: false
           not: false
-          target_entity_type_id: node
         field_parent_collection_target_id:
           id: field_parent_collection_target_id
           table: node__field_parent_collection
@@ -277,7 +271,7 @@ display:
           relationship: none
           group_type: group
           admin_label: ''
-          plugin_id: entity_target_id
+          plugin_id: numeric
           default_action: ignore
           exception:
             value: all
@@ -304,7 +298,6 @@ display:
           validate_options: {  }
           break_phrase: false
           not: false
-          target_entity_type_id: node
       filters:
         status:
           id: status

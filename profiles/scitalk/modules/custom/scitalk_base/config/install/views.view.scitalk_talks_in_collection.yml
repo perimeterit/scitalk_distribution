@@ -14,7 +14,6 @@ dependencies:
     - node.type.collection
     - node.type.talk
     - taxonomy.vocabulary.academic_year
-    - taxonomy.vocabulary.subjects
   module:
     - better_exposed_filters
     - datetime
@@ -24,6 +23,8 @@ dependencies:
     - taxonomy
     - text
     - user
+_core:
+  default_config_hash: kQjh3v8uwHrHu1y28dNJ8D7vN9clEEsV0wUyuikEQcg
 id: scitalk_talks_in_collection
 label: 'SciTalk: Talks in collection'
 module: views
@@ -330,14 +331,15 @@ display:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
                   collapsible: true
-                  is_secondary: false
                   collapsible_disable_automatic_open: false
+                  is_secondary: false
                 select_all_none: false
                 select_all_none_nested: false
                 display_inline: false
-                options_show_only_used: true
+                options_show_only_used: false
                 options_show_only_used_filtered: false
                 options_hide_when_empty: true
+                options_show_items_count: 0
       access:
         type: perm
         options:
@@ -1321,14 +1323,15 @@ display:
                     filter_rewrite_values: ''
                     filter_rewrite_values_key: false
                   collapsible: true
-                  is_secondary: false
                   collapsible_disable_automatic_open: false
+                  is_secondary: false
                 select_all_none: false
                 select_all_none_nested: false
                 display_inline: false
-                options_show_only_used: true
+                options_show_only_used: false
                 options_show_only_used_filtered: false
                 options_hide_when_empty: true
+                options_show_items_count: 0
       arguments:
         field_talk_collection_target_id:
           id: field_talk_collection_target_id

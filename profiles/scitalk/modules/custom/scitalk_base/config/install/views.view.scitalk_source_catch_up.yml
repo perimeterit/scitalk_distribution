@@ -777,6 +777,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 12
           total_pages: null
           id: 1
@@ -821,7 +822,7 @@ display:
               plugin_id: default
               advanced:
                 combine: true
-                combine_rewrite: "Date Desc|Date - New to Old\r\nDate Asc|Date - Old to New\r\nTitle Asc|Title A ->  Z\r\nTitle Desc|Title Z ->  A\r\nSpeaker Asc|Speaker A -  Z\r\nSpeaker Desc|Speaker Z -  A"
+                combine_rewrite: "Date Desc|Date - Newest First\r\nDate Asc|Date - Oldest First\r\nTitle Asc|Title A ->  Z\r\nTitle Desc|Title Z ->  A\r\nSpeaker Asc|Speaker A -  Z\r\nSpeaker Desc|Speaker Z -  A"
                 reset: false
                 reset_label: ''
                 collapsible: false
@@ -2135,6 +2136,7 @@ display:
         type: mini
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 12
           total_pages: null
           id: 0

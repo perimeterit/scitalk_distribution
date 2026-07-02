@@ -4,6 +4,7 @@ dependencies:
   config:
     - core.entity_view_mode.node.full
     - field.field.node.collection.field_academic_year
+    - field.field.node.collection.field_background_image
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
     - field.field.node.collection.field_collection_event_url
@@ -30,6 +31,8 @@ third_party_settings:
   layout_builder:
     enabled: false
     allow_custom: false
+_core:
+  default_config_hash: l60VqUPFvSkWACMznZeATNHCuNm5x3_LigvAp1iyy00
 id: node.collection.full
 targetEntityType: node
 bundle: collection
@@ -43,6 +46,7 @@ content:
       format_type: medium
       separator: '-'
       date_only_format: medium
+      from_to: both
     third_party_settings:
       fences:
         fences_field_tag: div
@@ -57,7 +61,7 @@ content:
     region: content
   field_collection_description:
     type: text_default
-    label: inline
+    label: hidden
     settings: {  }
     third_party_settings:
       fences:
@@ -167,6 +171,7 @@ content:
     region: content
 hidden:
   field_academic_year: true
+  field_background_image: true
   field_collection_event_url: true
   field_collection_last_talk_date: true
   field_collection_location: true

@@ -1,3 +1,4 @@
+uuid: 6bcbafaf-0a25-4a0d-8338-78f10142db1c
 langcode: en
 status: true
 dependencies:
@@ -6,6 +7,8 @@ dependencies:
   enforced:
     module:
       - scitalk_base
+_core:
+  default_config_hash: FhDYgxrHrfnHpOm4CiGlmDEmeDiMwWQB1uV5POh_p9w
 id: taxonomy_term.page_header
 label: 'Page Header'
 description: ''

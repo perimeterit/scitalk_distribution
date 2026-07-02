@@ -1,3 +1,4 @@
+uuid: 17a4583c-1445-4352-9642-5b05c59ce991
 langcode: en
 status: true
 dependencies:
@@ -6,8 +7,10 @@ dependencies:
   enforced:
     module:
       - scitalk_base
+_core:
+  default_config_hash: FwiKgzX9HxGVy9B1BNG8NCD96FKQH0HC2f5QuPNL5ls
 id: taxonomy_term.teaser
 label: Teaser
-description: ""
+description: ''
 targetEntityType: taxonomy_term
 cache: true

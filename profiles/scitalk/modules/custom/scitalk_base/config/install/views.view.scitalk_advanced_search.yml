@@ -20,6 +20,8 @@ dependencies:
     - link
     - search_api
     - text
+_core:
+  default_config_hash: 7w5lJJDB1yU7MvVAONANlUQ0x-Qz8L1mOfAmBGFbaO4
 id: scitalk_advanced_search
 label: 'Scitalk: Advanced search'
 module: views
@@ -778,6 +780,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 12
           total_pages: null
           id: 1
@@ -887,7 +890,7 @@ display:
         type: none
         options: {  }
       cache:
-        type: search_api_none
+        type: search_api_tag
         options: {  }
       empty:
         area:
@@ -904,6 +907,19 @@ display:
             format: basic_html
           tokenize: false
       sorts:
+        search_api_relevance:
+          id: search_api_relevance
+          table: search_api_index_default_talks_index
+          field: search_api_relevance
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api
+          order: DESC
+          expose:
+            label: Relevance
+            field_identifier: search_api_relevance
+          exposed: true
         field_talk_date_1:
           id: field_talk_date_1
           table: search_api_index_default_talks_index
@@ -942,19 +958,6 @@ display:
           expose:
             label: 'Speaker Last Name'
             field_identifier: Speaker
-          exposed: true
-        search_api_relevance:
-          id: search_api_relevance
-          table: search_api_index_default_talks_index
-          field: search_api_relevance
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: search_api
-          order: DESC
-          expose:
-            label: Relevance
-            field_identifier: search_api_relevance
           exposed: true
       arguments: {  }
       filters:
@@ -1491,10 +1494,16 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
+        - 'url.query_args:field_talk_subject'
+        - 'url.query_args:from'
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
+        - 'url.query_args:source'
+        - 'url.query_args:speaker'
+        - 'url.query_args:text'
+        - 'url.query_args:to'
+        - 'url.query_args:type'
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.group.field_repo_institution'
@@ -1636,10 +1645,16 @@ display:
       max-age: -1
       contexts:
         - 'languages:language_interface'
-        - url
         - url.query_args
+        - 'url.query_args:field_talk_subject'
+        - 'url.query_args:from'
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
+        - 'url.query_args:source'
+        - 'url.query_args:speaker'
+        - 'url.query_args:text'
+        - 'url.query_args:to'
+        - 'url.query_args:type'
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.default_talks_index'
@@ -2235,6 +2250,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 12
           total_pages: null
           id: 0
@@ -2307,10 +2323,16 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
+        - 'url.query_args:field_talk_subject'
+        - 'url.query_args:from'
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
+        - 'url.query_args:source'
+        - 'url.query_args:speaker'
+        - 'url.query_args:text'
+        - 'url.query_args:to'
+        - 'url.query_args:type'
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_talk_collection'
@@ -3107,6 +3129,7 @@ display:
         type: full
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 12
           total_pages: null
           id: 0
@@ -3152,10 +3175,16 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
+        - 'url.query_args:field_talk_subject'
+        - 'url.query_args:from'
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
+        - 'url.query_args:source'
+        - 'url.query_args:speaker'
+        - 'url.query_args:text'
+        - 'url.query_args:to'
+        - 'url.query_args:type'
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.field_sp_speaker_profile'
@@ -3343,8 +3372,8 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
         - url.query_args
+        - 'url.query_args:text'
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.group.field_repo_institution'
@@ -3587,8 +3616,14 @@ display:
       max-age: -1
       contexts:
         - 'languages:language_interface'
-        - url
         - url.query_args
+        - 'url.query_args:field_talk_subject'
+        - 'url.query_args:from'
+        - 'url.query_args:source'
+        - 'url.query_args:speaker'
+        - 'url.query_args:text'
+        - 'url.query_args:to'
+        - 'url.query_args:type'
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.default_talks_index'
@@ -4258,10 +4293,17 @@ display:
       max-age: -1
       contexts:
         - 'languages:language_interface'
-        - url
         - url.query_args
+        - 'url.query_args:area'
+        - 'url.query_args:field_talk_source'
+        - 'url.query_args:from'
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
+        - 'url.query_args:speaker'
+        - 'url.query_args:talk_subject'
+        - 'url.query_args:text'
+        - 'url.query_args:to'
+        - 'url.query_args:type'
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.default_talks_index'

@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.node.collection.field_academic_year
+    - field.field.node.collection.field_background_image
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
     - field.field.node.collection.field_collection_event_url
@@ -22,13 +23,24 @@ dependencies:
   module:
     - date_all_day
     - fences
-    - text
+    - smart_trim
     - user
+_core:
+  default_config_hash: ToT2e7hUlZhdkiMY-J_Jw6IU7w7kSXW5hskww-vFTQg
 id: node.collection.default
 targetEntityType: node
 bundle: collection
 mode: default
 content:
+  field_background_image:
+    type: entity_reference_entity_view
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 11
+    region: content
   field_collection_date:
     type: daterange_all_day_default
     label: hidden
@@ -37,6 +49,7 @@ content:
       format_type: medium
       separator: '-'
       date_only_format: medium
+      from_to: both
     third_party_settings:
       fences:
         fences_field_tag: div
@@ -50,9 +63,26 @@ content:
     weight: 1
     region: content
   field_collection_description:
-    type: text_default
+    type: smart_trim
     label: hidden
-    settings: {  }
+    settings:
+      trim_length: 300
+      trim_type: chars
+      trim_suffix: ''
+      wrap_output: false
+      wrap_class: trimmed
+      more:
+        display_link: false
+        target_blank: false
+        link_trim_only: false
+        class: more-link
+        text: More
+        aria_label: 'Read more about [node:title]'
+      summary_handler: full
+      trim_options:
+        text: true
+        trim_zero: false
+        replace_tokens: false
     third_party_settings:
       fences:
         fences_field_tag: div
@@ -131,6 +161,22 @@ content:
         fences_label_classes: ''
     weight: 4
     region: content
+  field_collection_subject:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 7
+    region: content
+  field_collection_type:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 8
+    region: content
   field_parent_collection:
     type: entity_reference_label
     label: visually_hidden
@@ -148,6 +194,15 @@ content:
         fences_label_classes: ''
     weight: 0
     region: content
+  langcode:
+    type: language
+    label: above
+    settings:
+      link_to_entity: false
+      native_language: false
+    third_party_settings: {  }
+    weight: 10
+    region: content
 hidden:
   field_academic_year: true
   field_collection_event_url: true
@@ -155,10 +210,7 @@ hidden:
   field_collection_location: true
   field_collection_organizers: true
   field_collection_public_viewable: true
-  field_collection_subject: true
-  field_collection_type: true
   field_scivideos_uuid: true
-  langcode: true
   links: true
   scitalk_most_recent_talk: true
   scitalk_number_of_talks: true

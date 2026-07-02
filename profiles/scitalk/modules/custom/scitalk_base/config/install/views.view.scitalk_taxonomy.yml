@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.taxonomy_term.image_button
     - field.storage.node.field_collection_source_repo
     - field.storage.node.field_talk_source_repository
     - taxonomy.vocabulary.collection_type
@@ -116,15 +117,15 @@ display:
         options: {  }
       empty: {  }
       sorts:
-        name:
-          id: name
+        weight:
+          id: weight
           table: taxonomy_term_field_data
-          field: name
+          field: weight
           relationship: none
           group_type: group
           admin_label: ''
           entity_type: taxonomy_term
-          entity_field: name
+          entity_field: weight
           plugin_id: standard
           order: ASC
           expose:
@@ -191,19 +192,17 @@ display:
       style:
         type: html_list
         options:
-          grouping: {  }
           row_class: ''
           default_row_class: false
+          uses_fields: false
           type: ul
           wrapper_class: ''
-          class: 'display-list inline-list'
+          class: 'display-list grid grid-3col'
       row:
-        type: fields
+        type: 'entity:taxonomy_term'
         options:
-          default_field_elements: true
-          inline: {  }
-          separator: ''
-          hide_empty: false
+          relationship: none
+          view_mode: image_button
       query:
         type: views_query
         options:
@@ -309,8 +308,24 @@ display:
         operator: AND
         groups:
           1: AND
+      style:
+        type: html_list
+        options:
+          row_class: ''
+          default_row_class: false
+          uses_fields: false
+          type: ul
+          wrapper_class: ''
+          class: 'display-list grid grid-3col'
+      row:
+        type: 'entity:taxonomy_term'
+        options:
+          relationship: none
+          view_mode: image_button
       defaults:
         title: false
+        style: false
+        row: false
         filters: false
         filter_groups: false
       display_description: ''
@@ -609,7 +624,7 @@ display:
           relationship: reverse__node__field_collection_type
           group_type: group
           admin_label: ''
-          plugin_id: numeric
+          plugin_id: entity_target_id
           default_action: default
           exception:
             value: all
@@ -635,6 +650,7 @@ display:
           validate_options: {  }
           break_phrase: false
           not: false
+          target_entity_type_id: group
       filters:
         status:
           id: status
@@ -1046,7 +1062,7 @@ display:
           relationship: reverse__node__field_talk_subject
           group_type: group
           admin_label: ''
-          plugin_id: numeric
+          plugin_id: entity_target_id
           default_action: default
           exception:
             value: all
@@ -1072,6 +1088,7 @@ display:
           validate_options: {  }
           break_phrase: false
           not: false
+          target_entity_type_id: group
       filters:
         status:
           id: status
