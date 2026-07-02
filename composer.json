@@ -52,9 +52,9 @@
         "drupal/flexible_permissions": "^2.0",
         "drupal/google_analytics": "^4.0",
         "drupal/group": "^2.3",
-        "drupal/inline_entity_form": "^3.0@RC",
+        "drupal/inline_entity_form": "^3.0",
         "drupal/jsonapi_extras": "^3.24",
-        "drupal/kint-kint": "^2.2",
+        "drupal/kint-kint": "^2.3",
         "drupal/libraries": "^4.0",
         "drupal/module_filter": "^5.0",
         "drupal/openapi": "^2.3",
@@ -70,6 +70,7 @@
         "drupal/search_api_solr": "^4.3",
         "drupal/selective_better_exposed_filters": "^3.0",
         "drupal/simple_oauth": "^6.0",
+        "drupal/single_content_sync": "^1.4",
         "drupal/stable": "^2.0",
         "drupal/twig_tweak": "^3.2",
         "drupal/unused_media_cleaner": "^1.0",
@@ -186,11 +187,13 @@
         "enable-patching": true,
         "patches": {
             "drupal/core": {
-                "fix aliased fields contraints validation issues when using JSON API Extras": "https://raw.githubusercontent.com/perimeterit/scitalk/f6ed0b64fe78903c40009be5e2712eeb5ad18067/patches/fix-aliased-fields-constraint-validations-3059720-9.patch",
+                "fix aliased fields constraints validation issues when using JSON API Extras": "https://raw.githubusercontent.com/perimeterit/scitalk/f6ed0b64fe78903c40009be5e2712eeb5ad18067/patches/fix-aliased-fields-constraint-validations-3059720-9.patch",
                 "patch to support bundle computed field in Layout builder": "https://www.drupal.org/files/issues/2024-07-02/layoutbuilder-bundlecomputedfieldsfix-3034979-21-11.x.patch",
                 "Issue #3023924: Cannot create references to/from string offsets": "https://www.drupal.org/files/issues/2022-12-23/references_to_from_string-3023924-36.patch",
                 "Issue #3336312: TypeError: Cannot access offset of type string on string": "https://www.drupal.org/files/issues/2023-06-14/3336312.patch",
-                "Issue #2928639: Set the expiration of a key/value pair from the PrivateTempStore": "https://www.drupal.org/files/issues/2021-07-27/2928639-26.patch"
+                "Issue #2928639: Set the expiration of a key/value pair from the PrivateTempStore": "https://www.drupal.org/files/issues/2021-07-27/2928639-26.patch",
+                "Issue #3178202: Render blocks later, so they can be placed individually in a region template": "https://www.drupal.org/files/issues/2023-11-20/core-render-blocks-later-3178202-65.patch"
+
             },
             "drupal/openapi": {
                 "Issue #3523346: PHP 8.4: Implicitly nullable parameter declarations deprecated": "https://www.drupal.org/files/issues/2025-05-08/3523346-php-84-2.patch"
@@ -205,7 +208,11 @@
                 "Hide details collapsible if form element is empty": "https://raw.githubusercontent.com/perimeterit/scitalk_distribution/master/patches/3360778-hide-collapsible-details-element.patch"
             },
             "drupal/schemata": {
-                "Issue #3523349: PHP 8.4: Implicitly nullable parameter declarations deprecated": "https://www.drupal.org/files/issues/2025-05-08/3523349-2.patch"
+               "#3523349 PHP 8.4: Implicitly nullable parameter declarations deprecated" : "https://git.drupalcode.org/project/schemata/-/merge_requests/17.diff"
+            },
+            "drupal/single_content_sync": {
+              "#3548592 Fix PHP 8.4 implicit nullable deprecation"  : "https://www.drupal.org/files/issues/2025-09-25/implicit-nullable-deprecation-3548592-3.patch"
+
             }
         }
     }
