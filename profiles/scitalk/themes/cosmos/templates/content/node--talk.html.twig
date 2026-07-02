@@ -1,38 +1,64 @@
-{% extends "node.html.twig" %}
 {#
 /**
  * @file
- * Custom theme implementation to display a Talk node.
+ * Theme implementation to display a Talk node.
+ * Builds the metadata array and merges taxonomy terms into one array
+ * This can be extended by other view modes that need to render the metadata component
  *
  * @ingroup themeable
  */
 #}
-{% block content %}
 
-  {% if view_mode == 'teaser' and content.field_talk_abstract.0['#text']|length > 200 %}
-    {% set show_show_more = TRUE %}
-    {% set content_classes = ['collapse-abstract', 'has-collapse'] %}
-  {% endif %}
 
-  {% block thumbnail %}
-    {{ content.field_talk_thumbnail }}
-  {% endblock %}
+{% set talk_date = content.field_talk_date|render %}
 
-  <div{{ content_attributes.addClass(content_classes,'content node-content') }}>
-    {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
-    {% include '@scitalk_theme/includes/speaker-fields.twig' %}
+{# Merge the taxonomy terms #}
+{% set talk_type_terms = content.field_talk_type['#items'] %}
+{% set talk_subject_terms = content.field_talk_subject['#items'] %}
 
-    <div class="info">
-      {{ content|without('links','field_talk_thumbnail', 'field_talk_number','field_talk_speaker_profile', 'field_talk_speakers_text','field_talk_abstract') }}
-    </div>
+{% set taxonomy_ids = [] %}
+{# Get these into arrays of just the term ids #}
+{# Talk type only has one value #}
+{% if talk_type_terms is not empty %}
+  {% set taxonomy_ids = [talk_type_terms.target_id] %}
+{% endif %}
 
-    {% if view_mode == 'teaser' %}
+{% if talk_subject_terms is not empty %}
+  {% for term in talk_subject_terms %}
+    {% set taxonomy_ids = taxonomy_ids|merge([term.target_id]) %}
+  {% endfor %}
+{% endif %}
+
+{% set metadata = {
+  date: talk_date,
+  number: content.scitalk_prefixed_talk_number['#items'].0.value,
+  taxonomy: taxonomy_ids,
+} %}
+
+{% if view_mode == 'horizontal_card'%}
+  {% set variant = 'horizontal' %}
+{% elseif view_mode == 'teaser' %}
+  {% set variant = 'teaser' %}
+{% endif %}
+
+{% block talk_component %}
+
+  {% embed "cosmos:card" with ({
+    variant: variant|default('horizontal'),
+    image_display: 'foreground',
+    title: label,
+    link: url,
+    heading_level: 3,
+    speakers,
+    metadata,
+  }) %}
+
+    {% block card_fg_image %}
+      {{ content.field_talk_thumbnail }}
+    {% endblock %}
+    {% block content %}
       {{ content.field_talk_abstract }}
-      {% if show_show_more == TRUE %}
-        <button class="show-more show" aria-hidden="hidden" data-hide-text="{{'Hide'}}" data-show-text="{{'Show more'}}">{{'Show more'|t}}</button>
-      {% endif %}
-    {% endif %}
-
-  </div>
+    {% endblock %}
+  {% endembed %}
 
 {% endblock %}

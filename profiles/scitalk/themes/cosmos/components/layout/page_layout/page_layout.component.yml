@@ -2,6 +2,10 @@
 name: Page layout
 status: stable
 description: Overall page layout, includes mobile menu toggle
+props:
+  type: object
+  additionalProperties: false
+  properties: {}
 libraryOverrides:
   dependencies:
     - core/once

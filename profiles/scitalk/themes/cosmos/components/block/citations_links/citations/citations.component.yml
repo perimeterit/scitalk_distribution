@@ -1,0 +1,79 @@
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json"
+name: Citations
+description: List of citations for a talk
+status: stable
+
+libraryOverrides:
+  dependencies:
+    - cosmos/modals
+props:
+  type: object
+  properties:
+    title:
+      type: ["string", "null"]
+      title: Citation title
+      description: Title to display above citations
+    talk_number:
+      type: ["string", "null"]
+      title: Talk number
+      description: The talk number to be used in citations
+    talk_date:
+      type: ["string", "null"]
+      title: Talk date
+      description: The talk date to be used in citations
+    talk_date_formatted:
+      type: ["string", "null"]
+      title: Formatted talk date
+      description: The formatted talk date to be used in citations
+    year:
+      type: ["string", "null"]
+      title: Year
+      description: The year to be used in citations
+    month:
+      type: ["string", "null"]
+      title: Month
+      description: The month to be used in citations
+    doi:
+      type: ["string", "null"]
+      title: DOI
+      description: DOI of the talk in the citations
+    url:
+      type: ["string", "null"]
+      title: URL
+      description: URL of the talk in the citations
+    language:
+      type: ["string", "null"]
+      title: Language
+      description: Language of the talk in the citations
+    speakers:
+      type: ["array", "null"]
+      title: Speakers
+      description: Array of speaker information
+    site_name:
+      type: ["string", "null"]
+      title: BibTeX Site name prefix
+      description: The name of the site to be used as prefix in BibTeX citations
+    bibtex_title:
+      type: ["string", "null"]
+      title: BibTeX formattedtitle
+      description: Title to be used in BibTeX citations
+    bibtext_note:
+      type: ["string", "null"]
+      title: BibTeX note
+      description: Note to be included in BibTeX citations
+    keywords:
+      type: ["array", "null"]
+      title: Keywords
+      description: Citation keywords
+    publisher:
+      type: ["string", "null"]
+      title: Publisher
+      description: Citation publisher
+    repository:
+      type: ["string", "null"]
+      title: Repository
+      description: Citation repository
+    talk_prefix:
+      type: ["string", "null"]
+      title: Talk prefix
+      description: The talk prefix to be used in citations

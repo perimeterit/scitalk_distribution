@@ -3,29 +3,25 @@
  * Footer
 */
 .site-footer {
-  background: light-dark(var(--color-grey-5), var(--color-grey-0));
+  background: light-dark(hsl(0 0% 10%), hsl(0 0% 0%));
   color: var(--color-white);
   padding: var(--vertical-padding) 1rem;
   font-size: .9rem;
 
-  & a {
-    color: light-dark(var(--color-black), var(--color-white));
-
-    &:is(:hover,:focus) {
-      color: var(--color-primary--accent);
-    }
+  a:is(:hover,:focus) {
+    text-decoration: underline;
+    text-decoration-inset: -6px;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
   }
 
-  & .menu {
+  .menu {
     display: flex;
     & li {
       margin-right: 0.5rem;
     }
     & a {
       padding: 0.2rem;
-      &:matches(:hover, :focus) {
-        text-decoration: underline;
-      }
     }
   }
 }
@@ -53,7 +49,6 @@
     }
   }
 }
-
 
 .site-footer-bottom {
   border-top: 1px solid var(--color-grey-2);

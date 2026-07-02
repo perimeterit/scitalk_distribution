@@ -2,11 +2,11 @@
  * Advanced search form
 */
 .advanced-search {
-  padding: 0.5rem 0.7rem;
+  padding: 0.5rem 1rem;
   input:not(.form-submit),
   select,
   details {
-    background-color: light-dark(var(--color-white), var(--color-grey-2));
+    background-color: light-dark(var(--color-white), var(--color-neutral-10));
   }
 
   summary,
@@ -39,8 +39,14 @@
     font-weight: 500;
     & + .form-submit {
       background: none;
+      color: var(--color-links);
+      cursor: pointer;
+      font-size: .8em;
       padding: 0;
-      color: var(--color-primary);
+
+      &:is(:hover,:focus) {
+        text-decoration: underline;
+      }
     }
   }
 }

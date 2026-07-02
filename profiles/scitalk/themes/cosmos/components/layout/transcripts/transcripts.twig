@@ -1,0 +1,46 @@
+{# It should open the transcripts in a sidebar div on larger screens,
+  in a modal on smaller screens  #}
+
+{{ include('cosmos:toggle_button', {
+  name: 'Transcripts',
+  icon_name: 'transcript',
+  display_label: true,
+  controls: 'talk-transcripts',
+  button_style: 'smaller'
+}, with_context=false) }}
+
+<div {{ attributes.addClass('transcripts').setAttribute('id','talk-transcripts') }}>
+
+  <div class="transcripts-header">
+
+    <h2>{{ 'Transcripts'|t }}</h2>
+
+    {# Language switch #}
+    <select id="transcripts-language-selection">
+      {% for transcript in transcripts %}
+        {% set language = transcript.field_subtitles_language.value %}
+        {% set language_label = transcript.field_subtitles_language.getSetting('allowed_values')[language] %}
+        <option value="{{language}}">{{ language_label }}</option>
+      {% endfor %}
+    </select>
+
+    {{ include('cosmos:toggle_button', {
+      name: 'Transcripts',
+      icon_name: 'close-x',
+      display_label: false,
+      controls: 'talk-transcripts',
+      button_style: 'unstyled'
+    }, with_context=false ) }}
+  </div>
+
+  <div class="transcripts-content">
+
+    {% for key,transcript in transcripts %}
+      {% set media_id = transcript.mid.value %}
+
+      <div class="transcripts-item {{ key == 0 ? 'transcript-lang-selected' }}" data-transcript-language="{{ transcript.field_subtitles_language.value }}">
+        {{ drupal_entity('media', media_id) }}
+      </div>
+    {% endfor %}
+  </div>
+</div>

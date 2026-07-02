@@ -1,0 +1,11 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Transcript layout
+status: stable
+description: Layout for transcripts, with language toggle, placement of transcripts on larger and smaller screens
+props:
+  type: object
+  properties:
+    transcripts:
+      type: ['array','object']
+      title: Transcripts
+      description: Array of transcript media entities

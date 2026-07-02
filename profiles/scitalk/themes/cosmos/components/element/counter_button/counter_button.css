@@ -1,0 +1,41 @@
+.counter-button {
+  border-bottom: 4px solid transparent;
+  color: var(--color-text-default);
+  display: block;
+  padding: .5rem 0;
+  text-decoration: none;
+  text-align: center;
+
+  @media (max-width: 30rem) {
+    font-size: .9em;
+  }
+
+  &:is(.bef-link--selected,:hover) {
+    background-color: var(--color-neutral-05);
+    border-color: var(--color-primary);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-primary--accent)
+  }
+
+  input {
+    appearance: none;
+  }
+}
+
+.counter-button--counter {
+  display: block;
+  color: var(--color-neutral-50);
+  font-size: 1.5em;
+  font-weight: 500;
+  opacity: .9;
+  padding: .4em;
+}
+
+.counter-button--label {
+  display: block;
+  font-size: .9em;
+  font-weight: 500;
+  padding: 0 1em .4em;
+}

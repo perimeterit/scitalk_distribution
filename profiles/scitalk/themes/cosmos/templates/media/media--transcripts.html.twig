@@ -1,0 +1,27 @@
+{#
+/**
+ * @file
+ * Theme override to display a media item.
+ * Resource link is the view mode.
+ *
+ * Available variables:
+ * - name: Name of the media.
+ * - content: Media content.
+ *
+ * @see template_preprocess_media()
+ *
+ * @ingroup themeable
+ */
+#}
+{% set classes = [
+    'talk-transcript',
+    'resource--' ~ bundle,
+]
+%}
+{% if formatted_trascript_text is not empty %}
+    <div{{ attributes.addClass(classes) }}>
+        <div class="transcript-text" data-transcript-lang="{{ transcript_lang }}" style="display:none;">
+            {{ formatted_trascript_text|raw }}
+        </div>
+    </div>
+{% endif %}

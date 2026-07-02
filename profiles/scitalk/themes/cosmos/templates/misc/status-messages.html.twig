@@ -22,8 +22,8 @@
 <div data-drupal-messages>
 {% for type, messages in message_list %}
   {% set classes = [
-    'message',
-    'message--' ~ type
+    'messages',
+    'messages--' ~ type
   ]
   %}
   <div role="contentinfo" aria-label="{{ type }}"{{ attributes|without('role', 'aria-label').addClass(classes) }}>

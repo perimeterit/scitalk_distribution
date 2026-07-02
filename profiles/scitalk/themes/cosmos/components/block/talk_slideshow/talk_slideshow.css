@@ -1,0 +1,194 @@
+.talk-slideshow-container {
+  margin: 0 auto;
+  padding: 0 3rem;
+  overflow: hidden;
+  position: relative;
+  max-width: var(--max-width);
+}
+
+.talk-slideshow-controls {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  top: calc(50% - 1.25rem);
+  transform: translatey(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  &:focus {
+    outline: none;
+  }
+
+  & li:hover {
+    cursor: pointer;
+  }
+}
+
+.talk-slideshow-nav svg {
+  display: inline-block;
+  height: 3.2rem;
+  width: 3.2rem;
+}
+
+.talk-slideshow-nav.prev svg {
+  transform: rotate(180deg);
+}
+
+.talk-slideshow {
+  display: flex;
+  position: relative;
+}
+
+.talk-slideshow-item {
+  border-right: 4px solid transparent;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.talk-slideshow-card {
+  box-shadow: 1px 1px 3px rgba(0,0,0, 0.3);
+  position: relative;
+  & img {
+    display: block;
+    transition: all 0.15s ease-in-out;
+    &:hover {
+      transform: scale(1.05);
+    }
+  }
+}
+
+.talk-slideshow-caption {
+  font-size: .9em;
+  margin-block: .25rem;
+  text-align: center;
+}
+
+#slideshow-modal-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  z-index: 666;
+}
+
+#slideshow-modal {
+  background: transparent;
+  background-color: var(--color-default-bg, var(--color-white, white));
+  display: none;
+
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  max-width: 90%;
+  /* max-height: calc(100vh - 1.5 * var(--gutter-big)); */
+  max-height: calc(100vh - 20px);
+  -webkit-animation: zoom 0.6s forwards;
+  animation: zoom 0.6s forwards;
+
+  & .talk-slideshow-nav i {
+    display: inline-block;
+  }
+
+  & .talk-slideshow-nav svg {
+    height: 2rem;
+    width: 2rem;
+    pointer-events: none;
+  }
+}
+
+/* prevent highlight background color on modal when clicking thru navigation too fast */
+#slideshow-modal::selection {
+  background-color: transparent;
+}
+
+/* Modal Content (Image) */
+.slideshow-modal-content {
+  margin: auto;
+  display: block;
+  z-index: 1000;
+}
+
+.slide-nav-disabled {
+  opacity: 0.1;
+  cursor: not-allowed;
+}
+
+/* Caption of Modal Image (Image Text) */
+.slideshow-modal-caption {
+  margin: auto;
+  display: block;
+  width: 80%;
+  max-width: 700px;
+  text-align: center;
+  color: var(--color-default-text); /* #ccc */
+}
+
+@keyframes zoom {
+  from {
+    -webkit-transform: translate(-50%, -50%) translate3d(0, 0, 0) scale(0);
+    transform: translate(-50%, -50%) translate3d(0, 0, 0) scale(0);
+  }
+  to {
+    -webkit-transform: translate(-50%, -50%) translate3d(0, 0, 0) scale(1);
+    transform: translate(-50%, -50%) translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* The Close Button */
+.slideshow-modal-close {
+  position: absolute;
+  top: 0.125rem;
+  right: 0.125rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.slideshow-modal-close svg {
+  height: 1.5rem;
+  width: 1.5rem;
+}
+
+.slideshow-modal-close:hover,
+.slideshow-modal-close:focus {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px) {
+  .modal-content {
+    width: 100%;
+  }
+
+  /* make slider nav buttons smaller and expand the image a bit */
+  .talk-slideshow-container {
+    padding: 0 1rem;
+
+    & .talk-slideshow-controls i {
+      font-size: 1em;
+    }
+  }
+
+  /* remove nav buttons on the modal */
+  #slideshow-modal {
+    max-width: 100% !important;
+
+    & .talk-slideshow-controls {
+      display: none;
+    }
+  }
+}
+
+/* the block is not containing the slideshow within, so try to fix it */
+.block-field-block--node--talk--field-talk-slideshow {
+  overflow: hidden;
+}

@@ -12,7 +12,8 @@
 <div class="maintenance-wrapper">
   <header role="banner">
     {% if logo %}
-      <img src="{{ logo }}" class="logo" alt="{{ site_name }}"/>
+      {% set site_logo_dark = logo|replace({'logo': 'logo-reversed'}) %}
+      <img src="{{ site_logo_dark }}" class="logo" alt="{{ site_name }}"/>
     {% endif %}
   </header>
 

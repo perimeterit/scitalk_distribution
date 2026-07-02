@@ -1,0 +1,68 @@
+.popover {
+  position: relative;
+}
+
+.popover-content {
+  background: var(--color-primary);
+  color: var(--color-primary--foreground);
+  font-size: .9em;
+  padding: var(--gutter--standard);
+
+  list-style: none;
+  margin: 0;
+  padding: .75rem;
+
+  position: absolute;
+  top: 2.8rem;
+  z-index: 10;
+  right: auto;
+  left: 0;
+
+  min-width: 8rem;
+  max-width: 20rem;
+
+  display: none;
+
+  /* Little triangle above the block */
+  &:before {
+    background: var(--color-primary);
+    content: '';
+    height: 1em;
+    width: 1em;
+    transform: rotate(45deg);
+    position: absolute;
+    top: -.4em;
+    left: 2em;
+  }
+
+  & a {
+    color: var(--color-primary--foreground);
+  }
+
+  & svg {
+    fill: var(--color-primary--foreground);
+  }
+}
+
+.popover--right {
+  .popover-content {
+    right: 0;
+    left: auto;
+    &::before {
+      right: 2em;
+      left: auto;
+    }
+  }
+}
+
+/* Display on hover */
+.popover-show {
+  .toggle-button {
+    --button-bg-color: var(--color-primary);
+    --button-fg-color: var(--color-primary--foreground);
+  }
+  .popover-content {
+    display: block;
+  }
+}
+

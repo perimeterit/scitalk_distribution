@@ -1,0 +1,32 @@
+# cosmos/components/elements/image-button/image-button.component.yml
+name: Image Button
+description: A clickable button with an image.
+variant:
+  default:
+    label: default
+    description: Default size, used for standard buttons
+  big:
+    label: big
+    description: Same as default, but with a slightly larger font size
+  checkbox:
+    label: checkbox
+    description: Form checkbox, used for exposed filters
+props:
+  type: object
+  properties:
+    label:
+      type: string
+      label: Button Label
+      description: The text displayed for the image button
+    link:
+      type: string
+      label: Link URL
+      description: The resource linked to by the button
+    open_in_new_tab:
+      type: boolean
+      label: Open in New Tab
+      description: Whether the link should open in a new tab
+    image_media_id:
+      type: ["string", "number", "null"]
+      label: Image Media ID
+      description: Image media id

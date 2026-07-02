@@ -1,0 +1,24 @@
+{#
+ # This component should just get an array of speakers
+ # with name and optional URL.
+ #}
+
+<p class="speakers">
+  <svg class="speaker-marker"><use href="#speaker-marker"></svg>
+  {% for speaker in speakers %}
+      {% if speaker.link %}
+        <a href="{{speaker.link}}">
+      {% endif %}
+          {{- speaker.name -}}
+      {% if speaker.link %}
+        </a>
+      {% endif %}
+      {{ speaker.institution ? ' - ' }}
+      {{ speaker.institution }}
+
+    {% if not loop.last and speakers|length > 1 %}
+      <span class="speaker-divider">, </span>
+    {% endif %}
+
+  {% endfor %}
+  </p>

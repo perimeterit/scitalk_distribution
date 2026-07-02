@@ -2,17 +2,42 @@
 /**
  * @file
  * Custom theme implementation to display a Collection node.
+ * Should be used for horizontal card and teaser view modes
  *
  * @ingroup themeable
  */
 #}
-{%
-  set classes = [
-    'node',
-    node.bundle|clean_class,
-    view_mode ? view_mode|clean_class,
-  ]
-%}
+
+{% set collection_date = content.field_collection_date|render %}
+
+{# Merge the taxonomy terms #}
+{% set collection_type_values = content.field_collection_type['#items'] %}
+{% set collection_subject_values = content.field_collection_subject['#items'] %}
+
+{# Get these into arrays of just the term ids #}
+{# Talk type only has one value #}
+{% if collection_type_values is not empty %}
+  {% set taxonomy_ids = [collection_type_values.target_id] %}
+{% endif %}
+
+{% for term in collection_subject_values %}
+  {% set taxonomy_ids = taxonomy_ids|merge([term.target_id]) %}
+{% endfor %}
+{# Get the image background id #}
+{% set bg_image_mid = content.field_background_image['#items'].0.target_id %}
+
+{# Get just the collection type and use this to set the image format #}
+{% if collection_type_values.0.target_id is not empty %}
+  {% set collection_type_term = drupal_entity('taxonomy_term',collection_type_values.0.target_id) %}
+  {% set collection_type = collection_type_term['#taxonomy_term'].name.value|clean_class %}
+
+  {# If there is a background image, use it as a background image #}
+  {% if collection_type is not empty and (collection_type == 'conference-school' and bg_image_mid is not empty) %}
+    {% set image_display = 'background' %}
+  {% endif %}
+{% endif %}
+
+{# Get the talks in collection and child collections values #}
 {% set count_talks_in_collection = content.field_collection_number_of_talks['#items'].0.value %}
 {% set count_child_collections = content.field_collection_number_children['#items'].0.value %}
 
@@ -20,57 +45,70 @@
   {% set collection_has_children = TRUE %}
 {% endif %}
 
-{% block content_wrapper %}
-  <div class="collection-wrapper {{ collection_has_children ? 'collection-has-children'}}">
-    <article{{ attributes.addClass(classes) }}>
-      {% block content %}
-        {% if view_mode == 'teaser' and content.field_collection_description.0['#text']|length > 200 %}
-          {% set show_show_more = TRUE %}
-          {% set content_classes = ['collapse-abstract', 'has-collapse'] %}
-        {% endif %}
+{% if collection_has_children %}
+  {% set count %}
+    {% if count_talks_in_collection %}
 
-        {% block thumbnail %}
-          {{ drupal_view('scitalk_talks_in_collection', 'collection_thumbnail', node.id, node.id) }}
-        {% endblock %}
-
-        <div{{ content_attributes.addClass(content_classes,'content node-content') }}>
-          {{ content.field_parent_collection }}
-          {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
-          <div class="info">
-            {# Output number of talks & child collections #}
-
-          <div class="collection-child-count">
-            {% embed "@scitalk_theme/includes/collection-child-count.twig" with {
-              show_count: true
-              }%}{% endembed %}
-          </div>
-
-            {{ content|without('links','field_collection_description', 'field_parent_collection', 'field_collection_number_of_talks', 'field_collection_number_children') }}
-          </div>
-          {% if view_mode == 'teaser' %}
-            {{ content.field_collection_description }}
-            {% if show_show_more == TRUE %}
-              <button class="show-more show" aria-hidden="hidden" data-hide-text="{{'Hide'}}" data-show-text="{{'Show more'}}">{{'Show more'|t}}</button>
-            {% endif %}
-          {% endif %}
-
-          {% if collection_has_children %}
-            <button class="toggle-children" data-collection-id="{{view_mode}}--{{ node.id }}" aria-expanded="false" aria-controls="collection-children--{{ view_mode }}--{{node.id}}">
-            <span class="label-prefix">{{ 'Show'|t }}</span>
-            {% embed "@scitalk_theme/includes/collection-child-count.twig" %}{% endembed %}
-
-            </button>
-          {% endif %}
-        </div>
-      {% endblock %}
-    </article>
-  </div>
-
-  {% block children %}
-    {% if collection_has_children %}
-      <div id="collection-children--{{view_mode}}--{{node.id}}" class="collection-children" aria-hidden="true">
-        {{ drupal_view('scitalk_collection_children', 'card_view', node.id, node.id) }}
-      </div>
+      {{ count_talks_in_collection }}
+      {% trans %}
+        talk
+      {% plural count_talks_in_collection %}
+        talks
+      {% endtrans %}
     {% endif %}
-  {% endblock %}
+
+    {% if count_talks_in_collection and count_child_collections %}
+      {% set combinator = 'and'|t %}
+      {{ combinator }}
+    {% endif %}
+
+    {% if count_child_collections %}
+      {{ count_child_collections }}
+      {% trans %}
+        collection
+      {% plural count_child_collections %}
+        collections
+      {% endtrans %}
+    {% endif %}
+  {% endset %}
+{% endif %}
+
+{% set metadata = {
+  date: collection_date,
+  number: content.field_collection_number['#items'].0.value,
+  count,
+  taxonomy: taxonomy_ids
+} %}
+
+{% if view_mode == 'horizontal_card'%}
+  {% set variant = 'horizontal' %}
+{% elseif view_mode == 'teaser' %}
+  {% set variant = 'teaser' %}
+{% endif %}
+
+{#
+ # Setting this up so that we can build the common  metadata in this template
+ # Then allowing child templates to override the component display
+ #}
+{% block collection_component %}
+  {% embed "cosmos:card" with ({
+    variant: variant|default('horizontal'),
+    image_display: image_display|default('foreground'),
+    image_mid: bg_image_mid,
+    title: label,
+    link: url,
+    heading_level: 3,
+    metadata,
+  })%}
+
+    {% block card_fg_image %}
+      {% if image_display == 'foreground' %}
+        {{ drupal_view('scitalk_talks_in_collection', 'collection_thumbnail', node.id, node.id) }}
+      {% endif %}
+    {% endblock %}
+
+    {% block content %}
+      {{ content.field_collection_description }}
+    {% endblock %}
+  {% endembed %}
 {% endblock %}

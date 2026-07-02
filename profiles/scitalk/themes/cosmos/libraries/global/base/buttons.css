@@ -5,9 +5,10 @@
 .button,
 button,
 input[type='submit'],
-.form-submit {
-  background-color: var(--color-primary);
-  color: var(--color-primary--foreground);
+.form-submit,
+.more-link a {
+  background-color: var(--button-bg-color, var(--color-primary));
+  color: var(--button-fg-color, var(--color-primary--foreground));
 
   display: inline-block;
   font-size: 1em;
@@ -17,14 +18,33 @@ input[type='submit'],
   white-space: nowrap;
 
   &:is(:hover,:focus) {
-    background-color: var(--color-secondary);
-    color: var(--color-secondary--foreground);
+    background-color: var(--button-hover-bg-color, var(--color-secondary));
+    color: var(--button-hover-color, var(--color-secondary--foreground));
   }
 
   &:is(:focus-visible) {
     color: var(--color-accent);
     outline: 1px solid var(--color-accent);
   }
+
+  &.with-icon {
+    --icon-size: 2em;
+    display: grid;
+    grid-template-columns: var(--icon-size) auto;
+    align-items: center;
+    justify-content: start;
+    gap: .2rem;
+
+    svg {
+      fill: currentColor;
+      height: var(--icon-size);
+      width: var(--icon-size);
+    }
+  }
+}
+
+.more-link a {
+  margin-block: 1rem;
 }
 
 .button-bigger {
@@ -33,7 +53,8 @@ input[type='submit'],
 
 .button-smaller {
   font-size: .85em;
-  font-weight: 600;;
+  font-weight: 600;
+  padding: 0.4em .6em;
 }
 
 .button-outline {

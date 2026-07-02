@@ -1,0 +1,17 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Metadata
+status: stable
+description: Metadata about a talk or collection, including date, number taxonomy etc.
+props:
+  type: object
+  properties:
+    date:
+      type: ['string','null']
+      title: Date(s)
+    number:
+      type: ['string','number','null']
+      title: Number
+      description: Talk or collection number
+    taxonomy:
+      type: ['array','null']
+      title: Array of taxonomy term ids

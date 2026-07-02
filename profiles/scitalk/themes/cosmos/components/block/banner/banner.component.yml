@@ -1,0 +1,18 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Banner
+status: stable
+description: Page banner
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+    section_label:
+      type: ['string','null']
+      title: 'Section Label'
+      description: 'An optional label to appear above the title; could be a taxonomy term or parent collection.'
+    section_label_link:
+      type: ['string','null']
+      title: 'Section Label Link'
+      description: 'An optional link for the section label.'

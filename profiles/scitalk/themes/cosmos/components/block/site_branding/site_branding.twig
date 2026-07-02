@@ -1,7 +1,12 @@
 <div {{ attributes.addClass('site-branding') }}>
   {% if site_logo %}
+
+    {# Dark logo should match the file name of the main logo with -dark appended #}
+    {% set site_logo_dark = site_logo|replace({'logo': 'logo-reversed'}) %}
+
     <a href="{{ path('<front>') }}" title="{{ 'Home'|t }}" rel="home">
-      <img src="{{ site_logo }}" alt="{{ 'Home'|t }}" />
+      <img src="{{ site_logo_dark }}" alt="{{ 'Home'|t }}" class="logo-dark" />
+      <img src="{{ site_logo }}" alt="{{ 'Home'|t }}" class="logo-light" />
     </a>
   {% endif %}
   {% if site_name %}

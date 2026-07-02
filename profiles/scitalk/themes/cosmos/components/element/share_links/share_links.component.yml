@@ -1,0 +1,13 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Share links
+status: stable
+description: List of sharing links with url, name, and icon
+props:
+  type: object
+  properties:
+    page_title:
+      type: string
+      title: Title of the page to pass to the sharing links
+    current_url:
+      type: string
+      title: Url to the page to pass to the sharing links

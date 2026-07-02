@@ -12,4 +12,14 @@
     {% block supplementary_nav %}
     {% endblock %}
   </div>
+
+  <div class="menu-toggle-wrapper">
+    {{ include('cosmos:toggle_button', {
+      name: 'Menu',
+      controls: 'main-nav',
+      icon_name: 'menu-bars',
+      button_style: 'unstyled'
+    }) }}
+  </div>
+
 </header>

@@ -1,0 +1,125 @@
+
+/* Pagers */
+
+.pager {
+  font-size: 1.1em;
+  margin: 1.5rem 0;
+  text-align: center;
+  & li {
+    display: inline-block;
+  }
+  & a {
+    background: rgba(0, 0, 0, 0.1);
+    display: block;
+    padding: 0.4rem 0.7rem;
+    margin: 0.4rem 0.2rem;
+    text-decoration: none;
+    &:matches(:hover, :focus) {
+      background: rgba(0, 0, 0, 0.2);
+    }
+  }
+
+  & .is-active a {
+    background: var(--color-primary);
+    color: var(--color-primary--foreground);
+  }
+  .pager__item--next a:after,
+  .pager__item--last a:after {
+    content: "\00BB";
+    display: inline;
+  }
+  .pager__item--previous a:before,
+  .pager__item--first a:before {
+    content: "\00AB";
+    display: inline;
+  }
+}
+
+/* Views mini pager */
+.mini-pager {
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  overflow: auto;
+  width: 100%;
+
+  & > * {
+    flex-basis: 33%;
+    padding: 0.4em;
+  }
+
+  .pager-current {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  .pager-prev a,
+  .pager-next a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .pager-next a {
+    justify-content: flex-end;
+  }
+
+  .pager-prev a:before,
+  .pager-next a:after {
+    content: "";
+    background: url(../images/angle-icons.svg) no-repeat;
+    background-size: 3.2em;
+    height: 1.2em;
+    width: 1.2em;
+    opacity: 0.5;
+    flex: 0 0 1.2em;
+  }
+
+  .pager-prev a:before {
+    background-position: 0.2em -5.1em;
+    margin-right: 0.3em;
+  }
+
+  .pager-next a:after {
+    background-position: 0.4em -3.1em;
+    margin-left: 0.3em;
+  }
+}
+
+/* Tiny pager */
+
+/*
+ * Tiny pager
+ * Can't alter the output for this properly, so have to fake it
+ */
+.tiny-pager {
+  & .pager {
+    margin: 0;
+  }
+  & .pager__items {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    max-width: 3rem;
+    gap: .2rem;
+  }
+
+  & .pager__item {
+    --caret-color: var(--color-links);
+    --caret-size: .7rem;
+    --caret-weight: 3px;
+    --caret-rotate: 135deg;
+    margin: 0;
+  }
+
+  & .pager__item--next {
+    --caret-rotate: -45deg;
+  }
+
+  /* Fake a disabled previous button if we're on the first page
+   And a disabled next button if we're on the last page */
+  & .fake-pager-item {
+    --caret-color: var(--color-neutral-50);
+  }
+}

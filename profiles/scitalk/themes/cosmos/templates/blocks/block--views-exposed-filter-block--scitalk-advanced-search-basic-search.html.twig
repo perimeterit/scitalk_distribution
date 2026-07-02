@@ -1,4 +1,9 @@
-{% extends '@scitalk_theme/blocks/block.html.twig' %}
-{% block content %}
-  {{ content }}
-{% endblock %}
+
+{% embed "cosmos:search_form" with({
+  include_toggle: true,
+  variant: 'site-header'
+}) %}
+  {% block search_form %}
+    {{ content }}
+  {% endblock %}
+{% endembed %}

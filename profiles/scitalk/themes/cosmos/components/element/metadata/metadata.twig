@@ -1,0 +1,33 @@
+<div {{ attributes.addClass('metadata') }}>
+
+  {% if date %}
+    <span class="date tag">{{ date }}</span>
+  {% endif %}
+
+  {# Take anything else sent in the metadata array and output it here #}
+  {% set extra_tags = _context|without('date','number','taxonomy', 'componentMetadata', 'attributes') %}
+
+  {% for tag in extra_tags %}
+    {% if tag is not empty %}
+      <span class="tag"> {{ tag }}</span>
+    {% endif %}
+  {% endfor %}
+
+  {% if number %}
+    <span class="number tag">{{ number }}</span>
+  {% endif %}
+
+  {% if taxonomy %}
+    <span class="taxonomy">
+      {% for tid in taxonomy %}
+
+        {% set term_entity = drupal_entity('taxonomy_term',tid)['#taxonomy_term'] %}
+
+        {% set url = path('entity.taxonomy_term.canonical', {'taxonomy_term': tid}) %}
+          <a href="{{ url }}" class="tag">
+            {{ term_entity.name.value }}
+          </a>
+      {% endfor %}
+    </span>
+  {% endif %}
+</div>

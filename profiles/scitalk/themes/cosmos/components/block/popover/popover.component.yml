@@ -1,0 +1,25 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Popover
+status: stable
+description: Button that triggers a small pop-over block with more information; used for social share buttons
+libraryOverrides:
+  dependencies:
+    - core/once
+    - core/jquery
+    - cosmos/hoverintent
+props:
+  type: object
+  properties:
+    button_label:
+      type: string
+      title: Button label
+    button_icon:
+      type: string
+      title: Button icon
+    popover_placement:
+      type: string
+      title: Popover placement
+      enum:
+        - left
+        - right
+      default: left

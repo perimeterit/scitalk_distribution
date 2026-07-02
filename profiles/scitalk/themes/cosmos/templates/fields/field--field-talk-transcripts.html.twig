@@ -1,0 +1,18 @@
+{#
+/**
+ * @file
+ * Theme override for a field.
+ */
+#}
+
+{% set transcript_items = [] %}
+{% for transcript_item in items %}
+  {% set transcript_media = transcript_item['content']['#entity'] %}
+  {% set transcript_items = transcript_items|merge([transcript_media]) %}
+{% endfor %}
+
+{# Need an array of transcript items with language and media id #}
+{{ include ("cosmos:transcripts", {
+  transcripts: transcript_items,
+}, with_context=false )}}
+

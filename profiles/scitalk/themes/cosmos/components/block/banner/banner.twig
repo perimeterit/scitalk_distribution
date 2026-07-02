@@ -1,0 +1,29 @@
+
+<div {{ attributes.addClass('banner') }}>
+
+  {# Section label #}
+  {% if section_label %}
+    {% if section_label_link %}
+      <a href="{{ section_label_link}}" class="banner--section-label">
+    {% else %}
+      <span class="banner--section-label">
+    {% endif %}
+
+     {{ section_label }}
+
+    {% if section_label_link %}
+      </a>
+    {% else %}
+      </span>
+    {% endif %}
+  {% endif %}
+
+  {% block page_title %}
+    <h1 class="banner--title">{{ title }}</h1>
+  {% endblock %}
+
+  {% block banner_content %}
+    {# Render banner region content here #}
+  {% endblock %}
+
+</div>

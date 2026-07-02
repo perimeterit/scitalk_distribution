@@ -1,0 +1,54 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Card
+status: stable
+description: Basic card component
+variant:
+  horizontal:
+    title: Horizontal
+  teaser:
+    title: Teaser card with additional text and "show more"
+props:
+  type: object
+  properties:
+    heading_level:
+      type: ['string', 'number','null']
+      title: Heading level
+    title:
+      type: string
+      title: Title
+    link:
+      type: string
+      title: Link (url)
+    metadata:
+      type: array
+      title: Metadata
+      description: Array of metadata including number, date, taxonomy terms
+    speakers:
+      type: ['array','null']
+      title: Speakers
+      description: Array of speakers including name, institution, link
+      properties:
+        name:
+          type: string
+          title: Speaker name
+        institution:
+          type: string
+          title: Speaker institution
+        link:
+          type: string
+          title: Speaker link
+    image_display:
+     type: ['string','null']
+     title: Image display format
+     description: Image display format (foreground/left side or background)
+     enum:
+      - 'foreground'
+      - 'background'
+      - 'none'
+      - 'null'
+    image_mid:
+      type: ['string','number','null']
+      title: Image Media ID
+    text_content:
+      type: ['string','null']
+      title: Text content or description

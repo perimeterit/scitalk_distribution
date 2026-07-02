@@ -1,0 +1,13 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Video url
+status: stable
+description: Link to video
+props:
+  type: object
+  properties:
+    label:
+      type: string
+      title: Label
+    url:
+      type: ['object','string']
+      title: Url

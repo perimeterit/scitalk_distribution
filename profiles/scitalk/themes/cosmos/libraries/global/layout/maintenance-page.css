@@ -2,16 +2,22 @@
  * Maintenance page
  */
 
- .maintenance-page {
+.maintenance-page {
+  color-scheme: dark;
+  background-color: var(--color-default-bg);
+}
+
+.maintenance-wrapper {
   display: flex;
-  height: calc(100vh - 180px);
+  flex-direction: column;
+  height: 100vh;
   padding: 30px;
   align-items: center;
   justify-content: center;
   text-align: center;
 }
 
-.maintenance-page .logo {
+.maintenance-wrapper .logo {
   margin-bottom: 20px;
   max-width: 80%;
 }

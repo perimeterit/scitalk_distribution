@@ -26,22 +26,17 @@
  *   page's path (e.g. node/12345 and node/12345/revisions, but not
  *   comment/reply/12345).
  *
- * Regions:
- * - page.header: Items for the header region.
- * - page.primary_menu: Items for the primary menu region.
- * - page.secondary_menu: Items for the secondary menu region.
- * - page.highlighted: Items for the highlighted content region.
- * - page.help: Dynamic help text, mostly for admin pages.
- * - page.content: The main content of the current page.
- * - page.sidebar_first: Items for the first sidebar.
- * - page.sidebar_second: Items for the second sidebar.
- * - page.footer: Items for the footer region.
- * - page.breadcrumb: Items for the breadcrumb region.
  *
  * @see template_preprocess_page()
  * @see html.html.twig
  */
 #}
+
+{% if is_front %}
+  {% set page_title = site_title %}
+{% endif %}
+
+
 
 {% embed "cosmos:page_layout" %}
 
@@ -52,29 +47,35 @@
 
   {% set site_search %}
     {{ page.header[active_theme() ~ '_searchform'] }}
+    {{ page.header[active_theme() ~ '_exposedformscitalk_advanced_searchbasic_search'] }}
   {% endset %}
 
   {% set supplementary_nav %}
-    {{ page.header|without(active_theme() ~ '_branding',active_theme() ~ '_searchform' ) }}
+    {{ page.header|without(active_theme() ~ '_branding',active_theme() ~ '_searchform', active_theme() ~ '_exposedformscitalk_advanced_searchbasic_search') }}
   {% endset %}
+
+  {% set banner %}
+    {{ page.banner }}
+  {% endset %}
+
+  {% block sidebar_region %}
+    {{ page.sidebar }}
+  {% endblock %}
 
   {% block main_content %}
     {# In the Talks content type the page title is rendered in the node template #}
-    {% if page.page_title and (node.bundle != 'talk') %}
-      {{ page.page_title }}
-    {% endif %}
-
     {{ page.admin }}
     {{ page.content }}
   {% endblock %}
 
+
   {% set site_footer_main %}
     {# Using twig tweak here will remove the region wrappers #}
-    {{ drupal_region('footer') }}
+    {{ page.footer }}
   {% endset %}
 
   {% set site_footer_bottom %}
-    {{ drupal_region('footer_bottom') }}
+    {{ page.footer_bottom }}
   {% endset %}
 
 {% endembed %}

@@ -1,0 +1,23 @@
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json"
+name: Talk details
+description: Talk details to be placed below video; includes metadata, collection name, transcript, and cite/share links
+status: stable
+props:
+  type: object
+  properties:
+    collection_nid:
+      type: ["string", "number", "null"]
+      title: Collection node id
+      description: The node ID of the collection; will be used to create a link
+    metadata:
+      type: array
+      title: Metadata
+      description: Array of metadata including number, date, taxonomy terms
+    transcripts:
+      type: ["array", "null"]
+      title: transcripts
+      description: Array of transcripts to be passed to the transcripts component
+    doi:
+      type: ['string', 'null']
+      title: DOI
+      description: Formatted DOI for the talk, using ID to URL field formatter

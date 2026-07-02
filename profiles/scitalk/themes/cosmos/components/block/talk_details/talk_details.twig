@@ -1,0 +1,40 @@
+<div {{ attributes.addClass('talk-details') }}>
+  <div class="talk-metadata">
+
+    {{ include('cosmos:metadata', {
+      count: metadata.count,
+      date: metadata.date,
+      number: metadata.number,
+      taxonomy: metadata.taxonomy
+    }, with_context = false) }}
+
+    {% if doi %}
+      {{ doi }}
+    {% endif %}
+
+    {# @todo: include source repo and source event here #}
+      {% if collection_nid %}
+        <p class="talk-details--collection">
+          {% set collection_entity = drupal_entity('node',collection_nid)['#node'] %}
+          {% set collection_type_tid = collection_entity.field_collection_type.target_id %}
+          {% if collection_type_tid is not empty %}
+            {% set collection_type_entity = drupal_entity('taxonomy_term', collection_type_tid) %}
+            {% set collection_type_name = collection_type_entity['#taxonomy_term'].name.value %}
+            {{ collection_type_name }}:
+          {% endif %}
+
+          {{ drupal_link(collection_entity.title.0.value,'node/' ~ collection_nid) }}
+        </p>
+      {% endif %}
+  </div>
+
+  <div class="talk-actions">
+    {# Adding some conditionals around these so they don't break in layout builder #}
+    {% if node.nid.value %}
+      {{ drupal_block('scitalk_citations_block', {label_display: false, context_mapping: {node: '@node.node_route_context:node'}})}}
+      {{ drupal_block('scitalk_social_media_share_block')}}
+      {{ drupal_field('field_talk_transcripts', 'node', node.nid.value, 'details')}}
+    {% endif %}
+  </div>
+
+</div>

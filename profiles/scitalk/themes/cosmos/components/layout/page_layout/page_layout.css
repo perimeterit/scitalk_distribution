@@ -1,27 +1,14 @@
 
 .page-layout {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  grid-template-rows: auto 1fr auto;
-  grid-template-areas:
-    'header menu-toggle'
-    'content content'
-    'footer footer';
+  /* This max-width is altered in the transcripts component */
+  --main-content-max-width: 60rem;
+}
 
-  .main-content {
-    grid-area: content;
-    max-width: 50rem;
-    margin-inline: auto;
-    width: 100%;
-  }
-
-  .menu-toggle-wrapper {
-    grid-area: menu-toggle;
-  }
-
-  .site-footer {
-    grid-area: footer;
-  }
+.main-content {
+  max-width: var(--main-content-max-width);
+  margin-inline: auto;
+  padding: var(--gutter-standard) clamp(1rem, var(--gutter-standard), 1.5rem) calc(3 * var(--vertical-padding));
+  width: 100%;
 }
 
 /* Toggle buttons */
@@ -33,48 +20,58 @@
   }
 }
 
-
-.main-content {
-  padding: 1rem;
-}
-
 @media (min-width: 960px) {
   .page-layout {
-    /* THis will be adjusted in the main nav component */
-    --sidebar-width: 14rem;
-    grid-template-columns: var(--sidebar-width) 1fr 2rem;
+    /* This will be adjusted in the main nav component */
+    --sidebar-width: clamp(12rem, 25%, 14rem);
+
+    display: grid;
+    grid-template-columns: var(--sidebar-width) calc(100% - var(--sidebar-width));
     grid-template-rows: auto 1fr auto;
     grid-template-areas:
-      'header header header'
-      'nav content content'
-      'footer footer footer';
+      'header header'
+      'nav banner'
+      'nav content'
+      'footer footer';
     transition: grid-template-columns .3s;
+  }
+
+
+  .main-nav button.menu-toggle,
+  .menu-toggle-wrapper {
+    display: none;
   }
 
   .site-header {
     grid-area: header;
   }
 
-  .menu-toggle {
-    display: none;
+  .main-banner {
+    grid-area: banner;
+  }
+
+  .main-content {
+    grid-area: content;
   }
 
   .main-nav {
     grid-area: nav;
   }
-}
 
+  .site-footer {
+    grid-area: footer;
+  }
+}
 
 /* Mobile layout */
 @media (max-width: 959px) {
   .menu-toggle-wrapper {
-    background-color: var(--color-primary);
-    padding: 1rem 1rem 1rem 0;
     display: flex;
     align-items: center;
+
     .icon {
-      height: 1.6rem;
-      width: 1.6rem;
+      height: 1.3rem;
+      width: 1.3rem;
       fill: currentColor;
     }
   }
@@ -82,11 +79,19 @@
 
 /* Main nav (sidebar on larger screens, flyout on mobile */
 .main-nav {
-  background-color: var(--color-grey-1);
+  background-color: var(--color-neutral-05);
 }
 
 .page-layout.adv-search-open {
   --sidebar-width: 18rem;
+}
+
+button.advanced-search-toggle,
+button.close-advanced-search-toggle {
+  --button-bg-color: transparent;
+  --button-fg-color: var(--color-default-text);
+  --button-hover-bg-color: transparent;
+  --button-hover-color: var(--color-primary--accent);
 }
 
 button.advanced-search-toggle {
@@ -97,18 +102,16 @@ button.advanced-search-toggle {
   font-size: .85rem;
   font-weight: 500;
   padding: .3rem .7rem;
+
   & svg {
     height: 1.7rem;
     width: 1.7rem;
     vertical-align: middle;
   }
-  &:is(:hover,:focus) {
-    background: var(--color-grey-2);
-    color: var(--color-default-text);
-  }
 }
 
 button.close-advanced-search-toggle {
+  --icon-size: 1.5em;
   background: transparent;
   float: right;
   padding: .3rem;
@@ -117,7 +120,7 @@ button.close-advanced-search-toggle {
   align-items: center;
   justify-content: center;
   position: relative;
-  top: -2.2rem;
+  top: -2rem;
 
   & svg {
     color: var(--color-default-text);
@@ -126,7 +129,7 @@ button.close-advanced-search-toggle {
   }
 
   &:is(:hover,:focus) {
-    background: var(--color-grey-2);
+    background: var(--color-neutral-25);
   }
 
   &[aria-expanded=true] {
@@ -175,7 +178,7 @@ body.adv-search-open {
     top: 0;
     height: 100vh;
     width: 90vw;
-    z-index: 10;
+    z-index: 20;
     right: -90vw;
     transition: right .5s ease-out;
 

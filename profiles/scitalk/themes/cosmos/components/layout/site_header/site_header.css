@@ -9,7 +9,7 @@
   top: 0;
   padding: 1rem;
   width: 100%;
-  z-index: 10;
+  z-index: 12;
 
 }
 
@@ -21,9 +21,20 @@
 
 @media (max-width: 959px) {
   .site-header {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto auto;
+    grid-template-areas: 'logo supplementary-nav search menu-toggle';
+    padding: .8rem;
+
+    .toggle-button.with-icon {
+      --icon-size: 1.5em;
+    }
+
     .supplementary-nav {
-      display: none;
+      grid-area: supplementary-nav;
+    }
+
+    .menu-toggle-wrapper {
+      grid-area: menu-toggle;
     }
   }
 }

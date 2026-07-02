@@ -1,0 +1,21 @@
+{#
+/**
+ * @file
+ * Custom theme implementation to display a node.
+ * Custom template for Talk nodes in Full view mode.
+ *
+ * @ingroup themeable
+ */
+#}
+
+{# Extending the talk template because it processes the taxonomy terms #}
+{% extends "@cosmos/content/node--talk.html.twig" %}
+
+{% block talk_component %}
+  {% include "cosmos:talk_details" with ({
+    metadata,
+    collection_nid: node.field_talk_collection.0.entity.nid.0.value,
+    doi: content.field_talk_doi|render
+  }) %}
+
+{% endblock %}

@@ -1,0 +1,26 @@
+
+.speakers {
+  --speaker-marker-size: 1.3em;
+  font-size: .8rem;
+  padding-left: var(--speaker-marker-size);
+  margin: 0 0 0.6rem;
+  & a {
+    text-decoration: none;
+    &:matches(:hover, :focus) {
+      text-decoration: underline;
+    }
+  }
+}
+
+.speaker-marker {
+  color: var(--color-links);
+  height: var(--speaker-marker-size);
+  width: var(--speaker-marker-size);
+  float: left;
+  margin: .15rem 0 0 calc(-1 * var(--speaker-marker-size) + -0.2rem);
+}
+
+.speaker-divider {
+  margin: 0 .2rem 0 -0.1rem;
+}
+

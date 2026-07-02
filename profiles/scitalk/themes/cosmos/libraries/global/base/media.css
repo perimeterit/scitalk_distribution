@@ -1,0 +1,14 @@
+
+/* Add an filter to images in dark mode */
+
+@container style(--theme: dark) {
+  .main-content img {
+    filter: brightness(.7) contrast(1.2);
+  }
+}
+
+html.dark {
+  .main-content img {
+    filter: brightness(.7) contrast(1.2);
+  }
+}

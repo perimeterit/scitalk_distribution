@@ -1,0 +1,7 @@
+<ul class="citations-tab-labels display-list js-tablist" data-hx="h3">
+    {% for key, item in tab_headers %}
+      <li class="js-tablist__item">
+        <a href="#{{ item.tab_link }}" {% if item.selected %}data-selected="1"{% endif %} class="js-tablist__link">{{ item.title }} </a>
+      </li>
+    {% endfor %}
+</ul>

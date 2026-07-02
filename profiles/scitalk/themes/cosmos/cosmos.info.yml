@@ -2,21 +2,22 @@ name: Cosmos
 type: theme
 description: 'Second generation common theme for the Scitalk distro'
 core: 8.x
-base theme: stable
+base theme: false
 core_version_requirement: ^10 || ^11
+depdendencies:
+ - drupal:twig_tweak
+ - drupal:formdazzle
+ - druapl:dark_mode_toggle
 
 libraries:
  - cosmos/global
  - cosmos/video-player
 
-libraries-override:
-  dark_mode_toggle/dark-mode-toggle: cosmos/dark-mode-toggle
-
 regions:
   header: 'Header'
-  sidebar: 'Left sidebar'
   admin: 'Admin tools'
-  page_title: 'Page Title'
+  banner: 'Banner'
+  sidebar: 'Left sidebar'
   content: 'Content'
   footer: 'Footer'
   footer_bottom: 'Footer bottom'

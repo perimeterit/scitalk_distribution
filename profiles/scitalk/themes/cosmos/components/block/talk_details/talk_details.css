@@ -1,0 +1,73 @@
+.talk-details .field,
+.talk-details--collection {
+  font-size: .9em;
+  a {
+    text-decoration: none;
+
+    &:is(:hover,:focus) {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Layout */
+
+@media (min-width: 768px) {
+  .talk-details {
+    display: grid;
+    grid-template-columns: auto 8rem;
+    position: static;
+  }
+}
+
+.talk-actions {
+  --button-bg-color: light-dark( rgba(0,0,0,0.1), rgba(255,255,255,0.1));
+  --button-fg-color: var(--color-default-text);
+  --button-hover-bg-color: var(--color-primary);
+
+  .block {
+    margin: 0;
+  }
+
+  /* Match the tag background colour */
+  button.button-smaller {
+    --icon-size: 1.8em;
+    font-size: .8em;
+    font-weight: 400;
+    margin-bottom: .5rem;
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .talk-actions {
+    display: flex;
+    gap: .5rem;
+
+    button.button-smaller {
+      display: inline-grid;
+      width: auto;
+    }
+  }
+
+  /* Switching back to the left */
+  .popover--right .popover-content {
+    left: 0;
+    right: auto;
+
+    &::before {
+      left: 2em;
+      right: auto;
+    }
+  }
+}
+
+@media (max-width: 450px) {
+  .talk-actions .popover-content {
+    left: -3rem;
+
+    &::before {
+      left: 6em;
+    }
+  }
+}

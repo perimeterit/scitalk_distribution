@@ -1,5 +1,5 @@
 (function ($, Drupal, drupalSettings) {
-  Drupal.behaviors.scitalk_toggleAdvancedSearch = {
+  Drupal.behaviors.cosmos_toggleAdvancedSearch = {
     attach: function (context, settings) {
 
     // Open the correct search form when the select form changes

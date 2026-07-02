@@ -1,0 +1,43 @@
+<div {{ attributes.addClass('share-links') }}>
+    <ul class="display-list share-items">
+
+      {% set links = {
+        twitter: {
+          name: 'Twitter',
+          url: 'http://twitter.com/share?url=' ~ current_url ~ '&text=' ~ page_title,
+        },
+        facebook: {
+          name: 'Facebook',
+          url: 'http://www.facebook.com/sharer.php?u=' ~ current_url ~ '&t=' ~ page_title
+        },
+        linkedin: {
+          name: 'LinkedIn',
+          url: 'http://www.linkedin.com/shareArticle?mini=true&url=' ~ current_url ~ '&title=' ~ page_title ~ '&summary=&source=Perimeter%20Institute',
+          title: 'Publish this post to LinkedIn'
+        },
+        reddit: {
+          name: 'Reddit',
+          url: 'http://reddit.com/submit?url=' ~ current_url ~ '&title=' ~ page_title,
+          title: 'Submit this post on Reddit'
+        },
+        bibsonomy: {
+          name: 'Bibsonomy',
+          url: 'http://www.bibsonomy.org/ShowBookmarkEntry?c=b&jump=yes&url=' ~ current_url ~ '&description=' ~ page_title,
+          title: 'Bookmark this page on Bibsonomy'
+        }
+      } %}
+
+      {% for link in links %}
+        <li class="share-item share--{{link.name|clean_class}}">
+          {% set link_title = link.title|default('Share this on'|t ~ link.name) %}
+
+          <a href="{{link.url}}" class="share-link" title="{{ link_title }}" rel="nofollow" target="_blank">
+            {{ include('cosmos:icon', {
+              icon_name: link.name|lower
+            }, with_context=false) }}
+            {{ link.name }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+</div>

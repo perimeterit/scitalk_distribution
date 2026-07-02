@@ -10,6 +10,7 @@ global:
       libraries/global/base/forms.css: {}
       libraries/global/base/media.css: {}
       libraries/global/base/nav.css: {}
+      libraries/global/base/pagers.css: {}
       libraries/global/base/tabs.css: {}
       libraries/global/base/buttons.css: {}
     layout:
@@ -17,57 +18,61 @@ global:
       libraries/global/layout/maintenance-page.css: {}
       libraries/global/layout/layout-builder.css: {}
     component:
-      libraries/global/components/cite-share.css: {}
-      libraries/global/components/citations.css: {}
-      libraries/global/components/collections.css: {}
-      libraries/global/components/modals.css: {}
-      libraries/global/components/nodes.css: {}
       libraries/global/components/resources.css: {}
-      libraries/global/components/search-block-form.css: {}
-      libraries/global/components/share-links.css: {}
       libraries/global/components/source-repos.css: {}
       libraries/global/components/speakers.css: {}
-      libraries/global/components/taxonomy.css: {}
       libraries/global/components/tables.css: {}
-      libraries/global/components/talks.css: {}
-      libraries/global/components/talks--full.css: {}
-      libraries/global/components/view-display-header.css: {}
-      libraries/global/components/view-display-toggle.css: {}
-      libraries/global/components/views-checkbox-filter.css: {}
-      libraries/global/components/views.css: {}
-      libraries/js/jquery-responsive-tables/libraries/global/responsive-tables.min.css: {}
-      # /libraries/tiny-slider/dist/tiny-slider.css: {}
+      libraries/js/jquery-responsive-tables/css/responsive-tables.min.css: {}
   js:
-    libraries/js/van11y-accessible-modal-window-aria/dist/van11y-accessible-modal-window-aria.min.js: {}
     libraries/js/van11y-accessible-tab-panel-aria/dist/van11y-accessible-tab-panel-aria.min.js: {}
     libraries/js/jquery-responsive-tables/js/jquery.responsive-tables.js: {}
-    libraries/js/load-collection-talks.js: {}
     libraries/js/global.js: {}
-    # /libraries/tiny-slider/dist/min/tiny-slider.js: {}
   dependencies:
     - views/views.ajax
     - core/drupal
     - core/jquery
     - core/jquery.once
-dark-mode-toggle:
+modals:
+  css:
+    component:
+      libraries/modals/modals.css: {}
   js:
-    libraries/js/dark-mode-toggle.js: {}
-  dependencies:
-    - core/drupal
-    - core/once
-    - dark_mode_toggle/dark-mode-toggle.init
+    libraries/modals/van11y-accessible-modal-window-aria/dist/van11y-accessible-modal-window-aria.min.js: {}
+admin:
+  css:
+    component:
+      libraries/admin/layout-builder.css: {}
+hoverintent:
+  js:
+    //cdn.jsdelivr.net/npm/sv-hover-intent@1.0.1/src/sv-hover-intent.min.js: { type: external, minified: true }
 video-player:
   css:
     component:
-      //vjs.zencdn.net/8.21.1/video-js.min.css: { type: external, minified: true }
+      # //vjs.zencdn.net/8.21.1/video-js.min.css: { type: external, minified: true }
+      /libraries/video.js/dist/video-js.min.css: {}
+      /libraries/videojs-mobile-ui/dist/videojs-mobile-ui.css: {}
+      /libraries/videojs-contrib-ads/dist/videojs-contrib-ads.css: {}
+      libraries/global/components/videojs-preroll.css: {}
+      /libraries/videojs-quality-selector-hls/dist/videojs-quality-selector-hls.css: {}
     theme:
       libraries/global/components/video-player.css: {}
   js:
-    //vjs.zencdn.net/8.21.1/video.min.js: { type: external, minified: true }
-    libraries/js/videojs-analytics.js: {}
-    # https://unpkg.com/browse/@videojs/http-streaming@2.13.1/dist/videojs-http-streaming.min.js: { type: external, minified: true }
-    https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/3.0.1/Youtube.min.js: { type: external, minified: true }
+    # //vjs.zencdn.net/8.21.1/video.min.js: { type: external, minified: true }
+    # libraries/js/videojs-analytics.js: {}
+    # # https://unpkg.com/browse/@videojs/http-streaming@2.13.1/dist/videojs-http-streaming.min.js: { type: external, minified: true }
+    # https://cdnjs.cloudflare.com/ajax/libs/videojs-youtube/3.0.1/Youtube.min.js: { type: external, minified: true }
+
+    /libraries/video.js/dist/video.min.js: {}
+    /libraries/videojs-contrib-ads/dist/videojs.ads.min.js: {}
+    libraries/js/videojs-preroll-v2.js: {}
+    libraries/js/scitalk_preroll_init.js: {}
+    /libraries/videojs-youtube/dist/Youtube.min.js: {}
+    /libraries/videojs-quality-selector-hls/dist/videojs-quality-selector-hls.min.js: {}
+    /libraries/videojs-hotkeys/videojs.hotkeys.min.js: {}
+    /libraries/videojs-mobile-ui/dist/videojs-mobile-ui.min.js: {}
+    /libraries/videojs-sprite-thumbnails/dist/videojs-sprite-thumbnails.min.js: {}
     libraries/js/scitalk_video_js.js: {}
+    libraries/js/videojs-analytics.js: {}
   dependencies:
     - core/drupal
     - core/jquery
@@ -75,7 +80,6 @@ video-player:
 scitalk-tiny-slider:
   css:
     component:
-      //cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css: { type: external }
       /libraries/tiny-slider/dist/tiny-slider.css: {}
   js:
     /libraries/tiny-slider/dist/min/tiny-slider.js: {}

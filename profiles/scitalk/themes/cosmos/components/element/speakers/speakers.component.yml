@@ -1,0 +1,22 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Speakers
+status: stable
+description: List speakers; negotiates text and user refernce types
+props:
+  type: object
+  properties:
+    speakers:
+      type: ["array",  "null"]
+      title: Speakers
+      description: Array of speakers. Should include all speakers including text and user reference types.
+      properties:
+        name:
+          type: string
+          title: Speaker name
+        institution:
+          type: string
+          title: Speaker institution
+        link:
+          type: string
+          title: Speaker link
+

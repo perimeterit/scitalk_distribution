@@ -15,12 +15,19 @@
     dom_id ? 'js-view-dom-id-' ~ dom_id,
   ]
 %}
+
+{# Add the views display library to views that need those classes
+but don't otherwise use that component  #}
+
+{% if (id in ['scitalk_recent_content'] ) %}
+    {{ attach_library('core/components.cosmos--views_display') }}
+{% endif %}
+
 {# Add conditional for views that use the card/table switcher #}
-{# Giving these views a custom template didn't work with ajax #}
 {% set card_view_views = [
   'scitalk_latest_talks',
-  'scitalk_catch_up',
   'scitalk_source_catch_up',
+  'scitalk_catch_up',
   'scitalk_talks_in_collection',
   'scitalk_collections',
   'scitalk_taxonomy_term',
@@ -29,26 +36,55 @@
   'scitalk_talks_by_source_repo',
   ] %}
 
+{% set search_views = [
+  'scitalk_source_catch_up',
+  'scitalk_catch_up',
+  'scitalk_advanced_search',
+  'scitalk_search_collections',
+  ] %}
+
+{# These views should have the filters split - for Talks and Collections views #}
+
+{% if (id in ['scitalk_collections','scitalk_latest_talks']) %}
+  {% set filter_placement = 'split' %}
+{% elseif (id in ['scitalk_catch_up','scitalk_source_catch_up']) %}
+  {% set filter_placement = 'above' %}
+  {% set filter_heading = 'Catch up'|t %}
+{% endif %}
+
+{% if (id in search_views) %}
+  {% set is_search_page = true %}
+{% endif %}
+
 {% if (id in card_view_views and (display_id == 'card_view')) or
       ((id == 'scitalk_advanced_search') and (display_id == 'advanced_search')) %}
-  {% embed '@scitalk_theme/views/_scitalk-card-table-view.html.twig' %}{% endembed %}
+    {{ include ("cosmos:views_display", {
+        filter_placement: filter_placement|default('views_header'),
+        filter_heading,
+        show_exposed_input
+    }) }}
 {% else %}
+  {# The default views template #}
   <div{{ attributes.addClass(classes) }}>
+
     {{ title_prefix }}
     {% if title %}
       {{ title }}
     {% endif %}
     {{ title_suffix }}
+
     {% if header %}
       <div class="view-header">
         {{ header }}
       </div>
     {% endif %}
+
     {% if exposed %}
       <div class="view-filters">
         {{ exposed }}
       </div>
     {% endif %}
+
     {% if attachment_before %}
       <div class="attachment attachment-before">
         {{ attachment_before }}
@@ -65,17 +101,23 @@
       </div>
     {% endif %}
 
-    {% if pager %}
-      {{ pager }}
+    {# Don't render the pager in attachments #}
+    {% if not (id in card_view_views and (display_id in ['attachment_1', 'attachment_2'])) %}
+      {% if pager %}
+        {{ pager }}
+      {% endif %}
     {% endif %}
+
     {% if attachment_after %}
       <div class="attachment attachment-after">
         {{ attachment_after }}
       </div>
     {% endif %}
+
     {% if more %}
       {{ more }}
     {% endif %}
+
     {% if footer %}
       <div class="view-footer">
         {{ footer }}

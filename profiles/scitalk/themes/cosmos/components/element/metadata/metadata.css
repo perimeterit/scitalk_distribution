@@ -1,0 +1,21 @@
+
+.metadata {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: .4rem;
+  font-size: .8em;
+  ul {
+    display: inline-block;
+  }
+
+  .taxonomy {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+  }
+}
+
+article > .metadata:first-child {
+  margin: 1rem 0;
+}

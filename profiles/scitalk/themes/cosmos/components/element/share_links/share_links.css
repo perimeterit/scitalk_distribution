@@ -1,0 +1,23 @@
+.share-items {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 1rem;
+}
+
+.share-link {
+  display: grid;
+  grid-template-columns: 24px auto;
+  grid-gap: 0.5rem;
+  align-items: center;
+  padding: .2rem .5rem;
+  text-decoration: none;
+
+  &:is(:hover,:focus) {
+    background-color: rgba(0,0,0,0.25);
+  }
+
+  svg {
+    width: 1.4rem;
+    height: 1.4rem;
+  }
+}

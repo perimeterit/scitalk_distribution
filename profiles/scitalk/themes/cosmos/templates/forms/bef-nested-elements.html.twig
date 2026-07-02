@@ -1,0 +1,60 @@
+
+{#
+  Themes hierarchical taxonomy terms as nested <ul> elements.
+
+  This template is intended to be called from within another template to provide
+  the "scaffolding" of nested lists while the calling template provides the
+  actual filter element via the 'item' variable.
+
+  Available variables:
+    - current_nesting_level: the nesting level of the most recently printe item.
+    - new_nesting_level: the nesting level of the item to print.
+    - item: The item to print.
+    - loop: The loop variable from the iterator that calls this template.
+      Requires the loop.first and loop.last elements.
+#}
+{% apply spaceless %}
+  {% set delta = (current_nesting_level - new_nesting_level) | abs %}
+  {% if loop.first %}
+    <ul class="display-list inline-list">
+  {% else %}
+    {% if delta %}
+      {% for i in 1..delta %}
+        {% if new_nesting_level > current_nesting_level  %}
+          <ul>
+        {% else %}
+          </ul>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+  {% endif %}
+
+  <li>
+    {% set item_attributes = create_attribute() %}
+    {% do item_attributes.setAttribute('id',item['#attributes']['id']) %}
+    {% do item_attributes.setAttribute('name',item['#attributes']['name']) %}
+    {% do item_attributes.addClass(item['#attributes']['class']) %}
+    {% if item['#result_count'] is not empty %}
+      {{ include('cosmos:counter_button', {
+          count: item['#result_count'],
+          label: item['#title'],
+          link: item['#url'],
+          attributes: item_attributes
+      }) }}
+    {% else %}
+      {{ include('cosmos:image_button', {
+        variant: 'checkbox',
+        label: item['#title'],
+        link: item['#url'],
+        attributes: item_attributes,
+        image_media_id: item['#image_mid']
+      }) }}
+    {% endif %}
+
+  {% if loop.last %}
+    {# Close any remaining <li> tags #}
+    {% for i in new_nesting_level..0 %}
+      </li></ul>
+    {% endfor %}
+  {% endif %}
+{% endapply %}

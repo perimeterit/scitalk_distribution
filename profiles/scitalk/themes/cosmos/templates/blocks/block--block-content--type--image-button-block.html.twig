@@ -1,0 +1,57 @@
+{#
+/**
+ * @file
+ * Theme override to display a block.
+ *
+ * Available variables:
+ * - plugin_id: The ID of the block implementation.
+ * - label: The configured label of the block if visible.
+ * - configuration: A list of the block's configuration values.
+ *   - label: The configured label for the block.
+ *   - label_display: The display settings for the label.
+ *   - module: The module that provided this block plugin.
+ *   - cache: The cache settings.
+ *   - Block plugin specific settings will also be stored here.
+ * - content: The content of this block.
+ * - attributes: array of HTML attributes populated by modules, intended to
+ *   be added to the main container tag of this template.
+ *   - id: A valid HTML ID and guaranteed unique.
+ * - title_attributes: Same as attributes, except applied to the main title
+ *   tag that appears in the template.
+ * - title_prefix: Additional output populated by modules, intended to be
+ *   displayed in front of the main title tag that appears in the template.
+ * - title_suffix: Additional output populated by modules, intended to be
+ *   displayed after the main title tag that appears in the template.
+ *
+ * @see template_preprocess_block()
+ */
+#}
+{%
+  set classes = [
+    'block',
+    'block-' ~ configuration.provider|clean_class,
+    'block-' ~ plugin_id|replace({':':'--'})|clean_class,
+  ]
+%}
+{# {% set label = content.field_label.0['#context']["value"] %} #}
+{# this is the label field from the block content:  #}
+{% set button_text = content.field_label.0['#context']["value"] %}
+{% set link = content.field_url.0["#url_title"] %}
+{% set open_in_new_tab = content.field_open_new_window.0['#markup'] == 'Yes' %}
+{% set image_media_id = content.field_image[0]['#media'].mid.value %}
+
+<div{{ attributes.addClass(classes) }}>
+  {{ title_prefix }}
+  {% if label %} {# this is the label from the block configuration in the layout #}
+    <h2{{ title_attributes }}>{{ label }}</h2>
+  {% endif %}
+  {{ title_suffix }}
+    {% embed "cosmos:image_button" with ({
+      variant: 'big',
+      label: button_text,
+      link,
+      open_in_new_tab,
+      image_media_id
+    }) %}
+    {% endembed %}
+</div>

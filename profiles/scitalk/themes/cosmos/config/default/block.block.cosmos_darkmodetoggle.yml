@@ -1,4 +1,4 @@
-uuid: 1fcec89c-70f2-46f9-bf91-02016e664eca
+uuid: 02adcba2-0e50-44ad-8399-5535abfe4f70
 langcode: en
 status: true
 dependencies:
@@ -9,7 +9,7 @@ dependencies:
 id: cosmos_darkmodetoggle
 theme: cosmos
 region: header
-weight: -5
+weight: -3
 provider: null
 plugin: dark_mode_toggle
 settings:

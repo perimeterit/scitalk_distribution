@@ -1,0 +1,93 @@
+{% set classes = classes|merge([
+  'views-display',
+  'views-display-filters--' ~ filter_placement|clean_class,
+  is_search_page ? 'search-page',
+]) %}
+
+<div{{ attributes.addClass(classes) }}>
+
+  {# Render the search summary if this is a search view #}
+  {% if is_search_page %}
+      {{ include ('@cosmos/views/exposed_search_input.twig') }}
+  {% endif %}
+
+  {{ header|without('result') }}
+
+  {# Only hide the pager if the view is empty #}
+  {% if (rows[0]['#rows']|length > 0) %}
+    {% set is_empty = true %}
+  {% endif %}
+
+    <div class="views-display-header">
+    {# This was positioning the sort in the right place. #}
+      {% if filter_placement == 'above' and exposed %}
+        <div class="exposed-filters">
+          {% if filter_heading %}
+            <h2>{{ filter_heading }}</h2>
+          {% endif %}
+      {{ drupal_block('views_exposed_filter_block:' ~ id ~ '-form_block')}}
+
+        </div>
+      {% endif %}
+
+      {% if filter_placement == 'split' and exposed %}
+        {# These are going to be split up and put into the right grid area in CSS #}
+        {{ exposed }}
+      {% endif %}
+
+      <div class="views-display-header-bar">
+        <div class="views-display-summary">
+          {% if view.views_reference_block != TRUE %}
+            {{ header.result }}
+          {% endif %}
+        </div>
+
+        <div class="exposed-filters">
+          {% if filter_placement != 'split' and exposed %}
+            {{ exposed }}
+          {% endif %}
+        </div>
+
+        <div class="views-display-tiny-pager">
+          {% set top_pager = pager %}
+          {# Duplicating the pager element #}
+          {# Remove as much as we can from the pager at this point #}
+          {% if top_pager is not empty %}
+            {% set parameters = top_pager['#parameters']|merge({'pager_format': 'tiny'}) %}
+            {% set top_pager = top_pager|merge({'#parameters': parameters,'#quantity': 0}) %}
+            {{ top_pager }}
+          {% endif %}
+        </div>
+
+        <div class="views-display-toggle">
+          {{ include(componentMetadata.path ~ "/views_display_toggle.twig") }}
+        </div>
+      </div>
+    </div>
+
+  <div data-display="results--cards" class="view-display">
+    {% if rows -%}
+      {{ rows }}
+    {% elseif empty -%}
+      {{ empty }}
+    {% endif %}
+  </div>
+
+  <div data-display="results--teasers" class="view-display hidden" aria-hidden="hidden">
+    {{ attachment_before }}
+  </div>
+  <div data-display="results--table" class="view-display table-display  hidden" aria-hidden="hidden">
+    {{ attachment_after }}
+  </div>
+
+  {% set parameters = pager['#parameters']|merge({'pager_format': ''}) %}
+  {% set pager = pager|merge({'#parameters': parameters,'#quantity': 9}) %}
+  {{ pager }}
+
+  {% if footer %}
+    <div class='view-footer'>
+      {{ footer }}
+    </div>
+  {% endif %}
+
+</div>

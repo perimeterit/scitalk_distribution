@@ -1,0 +1,23 @@
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json"
+name: Citations tab header
+description: Citations tab header for citations and links block
+status: stable
+props:
+  type: object
+  properties:
+    tab_headers:
+      type: ["array", "null"]
+      title: Tab headers
+      description: Array of tab header information - title, tab_link, selected
+    # title:
+    #   type: ["string", "null"]
+    #   title: Citation title
+    #   description: Title to display in the citation tab
+    # tab_link:
+    #   type: ["string", "null"]
+    #   title: Tab link
+    #   description: The link to be used in the tab
+    # selected:
+    #   type: ["boolean", "null"]
+    #   title: Selected
+    #   description: Whether the tab is selected

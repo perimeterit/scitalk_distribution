@@ -1,0 +1,16 @@
+<div {{ attributes.addClass('popover', 'popover--' ~ popover_placement|default('left')|clean_class ) }}>
+
+  {{ include ("cosmos:toggle_button", {
+    name: button_label,
+    controls: 'popover-content--' ~ button_label|clean_class,
+    display_label: true,
+    icon_name: button_icon,
+    button_style: 'smaller',
+  }, with_context=false) }}
+
+  <div id="popover-content--{{button_label|clean_class}}" class="popover-content">
+    {% block popover_content %}
+      {# Content for popover #}
+    {% endblock %}
+  </div>
+</div>

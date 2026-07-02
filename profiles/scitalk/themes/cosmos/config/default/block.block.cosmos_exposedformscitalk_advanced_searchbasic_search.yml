@@ -1,0 +1,23 @@
+uuid: cd9d26ab-578b-4320-b658-2343893c5b8c
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.scitalk_advanced_search
+  module:
+    - views
+  theme:
+    - cosmos
+id: cosmos_exposedformscitalk_advanced_searchbasic_search
+theme: cosmos
+region: header
+weight: -4
+provider: null
+plugin: 'views_exposed_filter_block:scitalk_advanced_search-basic_search'
+settings:
+  id: 'views_exposed_filter_block:scitalk_advanced_search-basic_search'
+  label: ''
+  label_display: '0'
+  provider: views
+  views_label: ''
+visibility: {  }

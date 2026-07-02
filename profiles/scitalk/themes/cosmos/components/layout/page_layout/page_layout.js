@@ -2,6 +2,7 @@
   // Basic search (top header) toggle
   Drupal.behaviors.cosmosSearchToggle = {
     attach: function (context, settings) {
+
       $(once("search-toggle", ".search-toggle", context)).click(function () {
         if ($(this).attr("aria-expanded") == "false") {
           $(this).attr("aria-expanded", "true");
@@ -31,7 +32,6 @@
       // Toggle the menu open/closed, from the hamburger icon or the close
       $menu_toggle_buttons = $(".menu-toggle, .menu--close").each(function () {
         $(once("mobile-toggle", $(this), context)).on("click", function () {
-          console.log("mobile-toggle");
           if ($(this).attr("aria-expanded") == "false") {
             // Open the menu
             $menu_toggle_buttons.attr("aria-expanded", "true");
@@ -93,7 +93,8 @@
         drupalSettings.cosmos.is_search_page == "true" &&
         context == document
       ) {
-        $(".open-advanced-search").trigger("click");
+        console.log('open advanced search')
+        $(".advanced-search-toggle").trigger("click");
       }
     },
   };

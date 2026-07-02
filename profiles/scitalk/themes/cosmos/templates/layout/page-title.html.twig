@@ -12,6 +12,7 @@
  *   displayed after the main title tag that appears in the template.
  */
 #}
+
 {{ title_prefix }}
 {% if parent_collection_title %}
   <a href="{{ path('entity.node.canonical', {'node': parent_collection_id}) }}" class="parent-collection-link">

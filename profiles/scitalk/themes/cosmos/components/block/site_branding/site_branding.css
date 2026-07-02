@@ -7,7 +7,52 @@
   img {
     max-height: 4rem;
   }
+
+  .logo-dark {
+    display: none;
+  }
 }
+
+/*
+ * Swap logo for dark mode
+*/
+@container style(--theme: dark) {
+  .site-branding {
+    .logo-dark {
+      display: block;
+    }
+
+    .logo-light {
+      display: none;
+    }
+  }
+}
+
+/* Fallback for just the class @nostylequery */
+html.dark {
+  .site-branding {
+    .logo-dark {
+      display: block;
+    }
+
+    .logo-light {
+      display: none;
+    }
+  }
+}
+
+html:not(.dark) {
+  .site-branding {
+    .logo-light {
+      display: block;
+    }
+
+    .logo-dark {
+      display: none;
+    }
+  }
+}
+
 
 .site-name {
   font-size: 1.5rem;

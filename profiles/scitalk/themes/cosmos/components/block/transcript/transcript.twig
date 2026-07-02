@@ -1,0 +1,27 @@
+{# Need a toggle button to toggle the transcript #}
+
+<dl {{ attributes.addClass('transcript') }} id="transcript-{{ language }}">
+
+{% for transcript_item in transcript %}
+
+  <dd class="transcript-time"
+    id="transcript-item-{{language}}-{{ transcript_item.seconds }}">
+
+    {# The target ids here will be the time in seconds #}
+    <button class="transcript-time-jump button-unstyled" value="{{ transcript_item.seconds }}"
+        aria-description="Start playing at {{ transcript_item.display_time }}">
+          {{ include("cosmos:icon", {
+            icon_name: 'play'
+          }, with_context=false) }}
+        <time class="timestamp" datetime="{{transcript_item.display_time}}">
+          {{ transcript_item.display_time }}
+        </time>
+    </button>
+  </dd>
+  <dt class="transcript-text">
+   {{ transcript_item.text }}
+  </dt>
+
+{% endfor %}
+</dl>
+

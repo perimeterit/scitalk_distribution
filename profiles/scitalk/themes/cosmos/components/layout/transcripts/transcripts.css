@@ -1,0 +1,98 @@
+.transcripts {
+  background: var(--color-neutral-05);
+  overflow: hidden;
+}
+
+.main-content {
+  position: relative;
+  transition: margin .5s, max-width .5s;
+}
+
+.transcripts-toggle[aria-expanded="false"] + .transcripts {
+  display: none;
+}
+
+.transcripts-header {
+  border-bottom: 1px solid var(--color-neutral-50);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: .5rem;
+  padding: .7rem;
+
+  h2 {
+    font-size: .9rem;
+    margin: 0 auto 0 0;
+  }
+
+  select {
+    padding: 0.4rem 0.6rem;
+  }
+
+  .toggle-button svg {
+    width: 1.3rem;
+    height: 1.3rem;
+  }
+}
+
+.transcripts-content {
+  padding: .7rem;
+}
+
+
+.transcripts-content,
+.transcripts-item {
+  height: 100%;
+}
+
+@media screen and (min-width: 1350px) {
+  /* Layout adjustments when the transcripts are open */
+  .main-content.transcripts-open {
+    /* By default transcript width is the same as sidebar width */
+    --transcripts-width: var(--sidebar-width);
+    margin-inline: 0 !important;
+  }
+
+  .transcripts {
+    position: absolute;
+    right: calc(-1 * var(--transcripts-width));
+    top: 5rem;
+    max-height: calc(100vh - var(--header-height));
+    width: var(--transcripts-width);
+    height: 100vh
+  }
+
+}
+
+/* At middle screen sizes, shrink the video to fit between the sidebar and the transcript */
+@media screen and (min-width: 1350px) and (max-width: 1800px) {
+  .main-content.transcripts-open {
+    --main-content-max-width: calc(100vw - var(--sidebar-width) - var(--transcripts-width));
+  }
+}
+
+/* At larger screen sizes, the transcript should fill the space to the right of the video */
+@media screen and (min-width: 1800px) {
+  .main-content {
+    --transcripts-width: calc(100vw - var(--max-width) - var(--sidebar-width));
+  }
+}
+
+/* At smaller screen sizes, this appears like a drawer */
+@media screen and (max-width: 1349px) {
+  .transcripts {
+    border-top: 1px solid var(--color-neutral-100);
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 30vh;
+    z-index: 10;
+  }
+}
+
+/* Language selector */
+
+.transcripts-item:not(.transcript-lang-selected) {
+  display: none;
+}

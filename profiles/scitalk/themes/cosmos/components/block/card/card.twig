@@ -1,0 +1,60 @@
+{# Base card component #}
+
+{#
+ # Parent templates should determine if an image exists before passing the
+ # image_display value to this component. Sometimes a view is used here instead
+ # of the foreground image (for collections)
+#}
+
+{% set classes = [
+    'card',
+    'card--' ~ variant|default,
+    image_display ? 'card-image--'  ~ image_display|clean_class,
+    variant == 'horizontal' ? 'card-full-link'
+] %}
+
+<article {{ attributes.addClass(classes) }}>
+
+  {% if image_display != 'none' %}
+    <div class="card-image {{ image_display == 'background' ? 'darkened-overlay'}}">
+      {% block card_image %}
+        {% if image_display == 'background' and image_mid is not empty %}
+          {{ drupal_entity('media', image_mid, 'card_background') }}
+        {% else %}
+          {% block card_fg_image %}
+            {% if image_mid is not empty %}
+              {{ drupal_entity('media', image_mid, 'scitalk_preview_medium') }}
+            {% endif %}
+          {% endblock %}
+        {% endif %}
+      {% endblock %}
+    </div>
+  {% endif %}
+
+  <div class="content">
+    <h{{heading_level}} class="card-heading">
+      <a href="{{link}}">{{ title }}</a>
+    </h{{heading_level}}>
+
+    {% if speakers %}
+      {{ include('cosmos:speakers') }}
+    {% endif %}
+
+    {{ include('cosmos:metadata', {
+      count: metadata.count,
+      date: metadata.date,
+      number: metadata.number,
+      taxonomy: metadata.taxonomy
+    }, with_context = false) }}
+
+    {# Collection description or talk abstract #}
+    {% if variant == 'teaser' %}
+      <div class="card-content">
+        {% block content %}
+          {{ text_content }}
+        {% endblock %}
+      </div>
+    {% endif %}
+  </div>
+
+</article>

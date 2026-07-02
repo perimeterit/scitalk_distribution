@@ -1,0 +1,103 @@
+{%
+  set cur_page = url('<current>')
+%}
+
+{%  set APA_authors = [] %}
+{%  set MLA_authors = [] %}
+{%  set BibTeX_authors = [] %}
+
+{% for speaker in speakers %}
+  {% set APA_authors = APA_authors|merge([speaker.last ~ ', ' ~ speaker.initials]) %}
+  {# {% set BibTeX_authors = BibTeX_authors|merge([speaker.last ~ ', ' ~ speaker.first])  %} #}
+  {% set BibTeX_authors = BibTeX_authors|merge([speaker.bibtex_last ~ ', ' ~ speaker.bibtex_first])  %}
+{% endfor %}
+
+{% set APA_max_authors_len = 6 %}
+{% if APA_authors|length <= APA_max_authors_len %}
+{%   set APA_authors = APA_authors|join(', ', ' & ') %}
+{% elseif APA_authors|length > APA_max_authors_len %}
+{%   set APA_authors = APA_authors|slice(0,APA_max_authors_len)|join(', ') ~ ', ...' %}
+{% endif %}
+
+{% set BibTeX_authors = BibTeX_authors|join(' and ') %}
+
+{% if speakers|length == 1 %}
+  {% set MLA_authors = speakers|first  %}
+  {% set MLA_authors = MLA_authors.last ~ ', ' ~ MLA_authors.first ~ '.' %}
+{% elseif speakers|length == 2 %}
+  {% set first_author = speakers|first  %}
+  {% set second_author = speakers|last  %}
+  {% set MLA_authors = first_author.last ~ ', ' ~ first_author.first ~ ', and ' ~ second_author.first ~ ' ' ~ second_author.last ~ '.' %}
+{% elseif speakers|length > 2 %}
+  {% set first_author = speakers|first  %}
+  {% set MLA_authors = first_author.last ~ ', ' ~ first_author.first ~ ', et al.' %}
+{% endif %}
+
+<div id="citations" class="citations-wrapper">
+
+  <button class="citations-label button button-smaller with-icon js-modal"
+    data-modal-content-id="citations-content"
+    data-modal-title="{{ title }}" aria-haspopup-"dialog">
+        {{ include('cosmos:icon', {icon_name: 'cite' }) }}
+      {{ 'Cite'|t }}
+  </button>
+
+  <div id="citations-content">
+    <div class="js-tabs citations-content">
+
+      {{ include('cosmos:citations_tabs_header', {
+        tab_headers: [
+          {'title': 'APA'|t, 'tab_link': 'citation-apa', 'selected': false},
+          {'title': 'MLA'|t, 'tab_link': 'citation-mla', 'selected': false},
+          {'title': 'BibTeX'|t, 'tab_link': 'citation-bibtex', 'selected': true},
+        ]
+      }, with_context = false) }}
+
+      {% embed 'cosmos:citations_tabs_content' with ({
+        tab_id: 'citation-apa',
+        tab_title: 'APA'|t,
+      }) %}
+        {% block citations_tab_content %}
+          <p class="citation-content">
+          {{ APA_authors|e }} ({{ year}}). {{ title|e }}. {{ repository|e }}. {{ url }}
+        </p>
+        {% endblock %}
+      {% endembed %}
+
+      {% embed 'cosmos:citations_tabs_content' with ({
+        tab_id: 'citation-mla',
+        tab_title: 'MLA'|t,
+      }) %}
+        {% block citations_tab_content %}
+          <p class="citation-content">
+          {{ MLA_authors|e }} {{ title|e }}. {{ repository|e }}, {{ talk_date_formatted }}, {{ url }}
+        </p>
+        {% endblock %}
+      {% endembed %}
+
+      {%  embed 'cosmos:citations_tabs_content' with ({
+        tab_id: 'citation-bibtex',
+        tab_title: 'BibTex'|t,
+      }) %}
+        {% block citations_tab_content %}
+          <div class="citation-content bibtex-content">
+            <pre>
+@misc{ {{site_name|e}}_{{talk_number}},
+  doi = {% verbatim %}{{% endverbatim %}{{doi|e}}{% verbatim %}}{% endverbatim %},
+  url = {% verbatim %}{{% endverbatim %}{{url}}{% verbatim %}}{% endverbatim %},
+  author = {% verbatim %}{{% endverbatim %}{{ BibTeX_authors|e }}{% verbatim %}}{% endverbatim %},
+  keywords = {% verbatim %}{{% endverbatim %}{{keywords|join(', ')|e}}{% verbatim %}}{% endverbatim %},
+  language = {% verbatim %}{{% endverbatim %}{{language}}{% verbatim %}}{% endverbatim %},
+  title = {% verbatim %}{{% endverbatim %}{{bibtex_title|e}}{% verbatim %}}{% endverbatim %},
+  publisher = {% verbatim %}{{% endverbatim %}{{publisher|e}}{% verbatim %}}{% endverbatim %},
+  year = {% verbatim %}{{% endverbatim %}{{year}}{% verbatim %}}{% endverbatim %},
+  month = {% verbatim %}{{% endverbatim %}{{month}}{% verbatim %}}{% endverbatim %},
+  note = {% verbatim %}{{% endverbatim %}{{bibtex_note}}{% verbatim %}}{% endverbatim %}
+}
+            </pre>
+          </div>
+        {% endblock %}
+      {% endembed %}
+    </div>
+  </div>
+</div>

@@ -9,6 +9,10 @@ props:
       type: string
       title: Name
       description: What this toggles (e.g. menu, search), used for classes
+    hide_text:
+      type: string
+      title: 'Hide text'
+      description: string to use for the hide state text; will default to "Hide {name}"
     controls:
       type: string
       title: Controls
@@ -16,7 +20,11 @@ props:
     display_label:
       type: boolean
       title: 'Label display'
-      description: Wheter to show the button label (show text)
+      description: Whether to show the button label (show text)
     icon_name:
       type: string
       title: Icon
+    button_style:
+      type: ['string','null']
+      title: Button style
+      description: Button style class (e.g. default, secondary, unstyled). Unstyled is default

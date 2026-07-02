@@ -1,0 +1,16 @@
+{{ title_prefix }}
+{{ title_suffix }}
+{% embed "cosmos:popover" with ({
+  button_label: 'Share'|t,
+  button_icon: 'social-share',
+  popover_placement: 'right'
+}) %}
+
+  {% block popover_content %}
+    {{ include ("cosmos:share_links", {
+      page_title: content['#title']|default('Cosmos default page title'),
+      current_url: url('<current>')['#markup'],
+     }, with_context=false) }}
+
+  {% endblock %}
+{% endembed %}

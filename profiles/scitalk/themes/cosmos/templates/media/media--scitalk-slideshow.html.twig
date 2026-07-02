@@ -1,0 +1,14 @@
+
+{% set media_items = media.field_slideshow_items.value %}
+
+{% set slide_images = [] %}
+{% for item in media_items %}
+  {% set slideshow_item_entity = drupal_entity('media', item.target_id) %}
+  {% set slideshow_image_field = slideshow_item_entity['#media'].field_slideshow_item_image %}
+  {# {% set slide_images = slide_images|merge([slideshow_image_field|file_uri|image_style('slideshow_thumbnail')]) %} #}
+  {% set slide_images = slide_images|merge([slideshow_image_field]) %}
+{% endfor %}
+
+{{ include('cosmos:talk_slideshow', {
+      slide_images,
+}, with_context = false) }}

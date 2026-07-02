@@ -1,50 +1,44 @@
-/**
- * To customize the Scitalk theme, copy thise file to a subtheme and customize as needed
- */
  /* Primary font family */
 
  @import url('https://fonts.googleapis.com/css?family=Ubuntu:300,400,500&display=swap');
 
- /**
- * Colour variables
-* Always make sure colours pass colour contrast requirements for accessibility
-*/
-
  :root {
   /* This declares that we support light and dark modes */
-  color-scheme: light dark;
-  /* light-dark() sets colour values for light and dark modes */
   --color-white: light-dark(#fff, #fffbf5);
   --color-black: #121212;
   --color-primary-light: #6fd4ee;
   --color-primary-medium: #2A7E93;
-  --color-primary-dark: #005468;
+  --color-primary-dark: #004252;
+  --color-secondary-light: #8c9bff;
   --color-secondary-medium: #4759CB;
   --color-secondary-dark: #243184;
+
   --color-primary: light-dark(var(--color-primary-medium), var(--color-primary-dark));
   --color-primary--foreground: var(--color-white);
+  --color-primary--accent: light-dark(var(--color-primary-dark), var(--color-primary-medium));
 
-  /* This is things like link hovers */
-  --color-primary--accent: light-dark(var(--color-primary-dark), var(--color-primary-light));
-
+  /* Secondary colours */
   --color-secondary: light-dark(var(--color-secondary-medium), var(--color-secondary-dark));
   --color-secondary--foreground: var(--color-white);
 
   /* Greys go in shades from the background colour from less contrast to more contrast */
-  --color-grey-0: light-dark(hsl(0 0% 95%), hsl(0 0% 4%));
-  --color-grey-1: light-dark(hsl(0 0% 90%), hsl(0 0% 12%));
-  --color-grey-2: light-dark(hsl(0 0% 75%), hsl(0 0% 22%));
-  --color-grey-3: hsl(0 0% 50%);
-  --color-grey-4: light-dark(hsl(0 0% 30%), hsl(0 0% 70%));
-  --color-grey-5: light-dark(hsl(0 0% 15%), hsl(0 0% 95%));
+  --color-neutral-00: light-dark(var(--color-white), var(--color-black));
+  --color-neutral-05: light-dark(hsl(0 0% 95%), hsl(0 0% 5%));
+  --color-neutral-10: light-dark(hsl(0 0% 90%), hsl(0 0% 10%));
+  --color-neutral-25: light-dark(hsl(0 0% 75%), hsl(0 0% 25%));
+  --color-neutral-30: light-dark(hsl(0 0% 70%), hsl(0 0% 30%));
+  --color-neutral-50: hsl(0 0% 50%);
+  --color-neutral-70: light-dark(hsl(0 0% 30%), hsl(0 0% 70%));
+  --color-neutral-80: light-dark(hsl(0 0% 20%), hsl(0 0% 80%));
+  --color-neutral-90: light-dark(hsl(0 0% 10%), hsl(0 0% 90%));
+  --color-neutral-100: light-dark(var(--color-black), var(--color-white));
 
   --color-default-bg: light-dark(var(--color-white), var(--color-black));
   --color-default-text: light-dark(var(--color-black), var(--color-white));
 
-  /* This is reversed - darker for light mode, lighter for dark mode  */
-  --link-color: light-dark(var(--color-primary-dark), var(--color-primary-light));
+  --color-links: light-dark(var(--color-primary), var(--color-primary-light));
+  --color-link-hovers: light-dark(var(--color-secondary), var(--color-secondary-light));
 
-  /* Font family */
   --font-family-primary: 'Ubuntu', Helvetica, sans-serif;
 }
 
@@ -52,69 +46,39 @@
   Dark mode configuration
 
   color-scheme: sets the active colour scheme.
-  Form elements, scrollbars and other System UI elements use this colour scheme
+  Will be used by form elements, scrollbars and other System UI elements
 
   The custom property --theme allows us to fine-tune the colour switch using
-  a @style query (below)
-
+  a @style query (below), and accommodates both user preference and the manual
+  toggle
 */
 
-/* Set dark mode as the default */
+/* Set the values based on the user's preferred colours scheme */
+@media (prefers-color-scheme: dark) {
+  html {
+    --theme: dark;
+  }
+}
 
-html {
+/* Set the values using the .dark class provided by Dark Mode Toggle module */
+html.dark {
   --theme: dark;
   color-scheme: dark;
 }
 
-/* User preference >> This currently isn't suppored in Firefox */
-@media (prefers-color-scheme: light) {
-  html {
-    --theme: light;
-    color-scheme: light;
+@media (prefers-color-scheme: dark) {
+  html[data-dark-mode-source='system'] {
+    --theme: dark;
   }
 }
 
-/* Manual toggle using class provided by Dark Mode Toggle module */
-html.light {
-  --theme: light;
-  color-scheme: light;
+body {
+  container-type: inline-size;
+  container-name: body;
 }
 
-/* Modify dark mode styles */
+/* How to modify dark mode styles using the --theme value.
+  Currently not supported in Firefox */
 @container style(--theme: dark) {
-
-}
-
-/* Adjust colours backgrounds & foregrounds */
-
-@container style(background-color: var(--color-primary)) {
-  * {
-    color: var(--color-primary--foreground);
-  }
-
-  a:not(.button):hover,:focus {
-    color: var(--color-primary--foreground);
-  }
-
-  button {
-    background-color: var(--color-primary--foreground);
-    color: var(--color-primary);
-  }
-
-}
-
-@container style(background-color: var(--color-secondary)) {
-  * {
-    color: var(--color-secondary--foreground);
-  }
-
-  a:not(.button):hover,:focus {
-    color: var(--color-secondary--foreground);
-  }
-
-  button {
-    background-color: var(--color-secondary--foreground);
-    color: var(--color-primary);
-  }
 
 }

@@ -1,0 +1,48 @@
+
+
+{% set variant = variant|default('default') %}
+
+{# Set the media view modes for each variant #}
+{% if variant == 'big' %}
+  {% set media_viewmode = 'image_button_big' %}
+{% elseif variant == 'tiny' %}
+  {% set media_viewmode = 'image_button_tiny' %}
+{% else %}
+  {% set media_viewmode = 'image_button_default' %}
+{% endif %}
+
+{% set target = open_in_new_tab ? 'target=_blank' : '' %}
+
+{# Get the image uri from the image_media_id #}
+{% if image_media_id is not empty %}
+  {% set image_uri = drupal_entity('media',image_media_id)['#media'].field_media_image|file_uri %}
+{% endif %}
+
+{% set classes = [
+  'image-button',
+  'image-button--' ~ variant|clean_class,
+  variant =='checkbox' ? 'tag': '',
+  image_uri ? 'image-button--with-image' : 'image-button--no-image',
+  image_uri ? 'darkened-overlay' : '',
+  ] %}
+
+  {% if variant == 'checkbox' %}
+    <div {{attributes.addClass(classes)}}
+  {% elseif link %}
+    <a {{attributes.addClass(classes)}} href="{{ link }}" {{ target }}
+  {% endif %}
+
+  {% if image_uri is not empty %}
+    style="background-image:url({{ image_uri|image_style(media_viewmode) }});"
+  {% endif %}
+    >
+
+  {% block image_button_content %}
+    <span class="image-button--text">{{ label }}</span>
+  {% endblock %}
+
+{% if variant == 'checkbox' %}
+  </div>
+{% else %}
+  </a>
+{% endif %}

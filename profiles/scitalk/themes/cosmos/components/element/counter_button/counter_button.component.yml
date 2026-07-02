@@ -1,0 +1,16 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Counter Button
+status: stable
+description: Button with count showing number of items; for collection type exposed filter
+props:
+  type: object
+  properties:
+    label:
+      type: string
+      title: Label
+    link:
+      type: string
+      title: Link
+    count:
+      type: ['integer','string']
+      title: Count

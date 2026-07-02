@@ -6,14 +6,14 @@
  * @ingroup themeable
  */
 #}
-{% extends "@scitalk_theme/content/node--collection.html.twig" %}
+{% extends "@cosmos/content/node--collection.html.twig" %}
 
 {% block content_wrapper %}
   <article{{ attributes.addClass(classes) }}>
-    {% embed "@scitalk_theme/includes/entity-headers.twig" %}{% endembed %}
+    {% embed "@cosmos/includes/entity-headers.twig" %}{% endembed %}
       <div class="info">
       <div class="collection-child-count">
-        {% embed "@scitalk_theme/includes/collection-child-count.twig" with {
+        {% embed "@cosmos/includes/collection-child-count.twig" with {
           show_count: true
           }%}{% endembed %}
       </div>

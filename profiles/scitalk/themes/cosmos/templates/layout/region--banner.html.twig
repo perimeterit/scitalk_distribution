@@ -1,0 +1,36 @@
+{#
+{#
+/**
+ * @file
+ * Theme override to display a region.
+ * Removing the wrapper div here - usually not deireable
+ *
+ * Available variables:
+ * - content: The content for this region, typically blocks.
+ * - attributes: HTML attributes for the region div.
+ * - region: The name of the region variable as defined in the theme's
+ *   .info.yml file.
+ *
+ * @see template_preprocess_region()
+ */
+#}
+
+{% if content %}
+  {% embed "cosmos:banner" with ({
+    section_label,
+    section_label_link,
+  }) %}
+
+    {% block page_title %}
+      {{ content.cosmos_pagetitle }}
+    {% endblock %}
+
+    {% block banner_content %}
+      {% if speakers %}
+        {{ include('cosmos:speakers')}}
+      {% endif %}
+      {{ content|without('cosmos_pagetitle') }}
+    {% endblock %}
+
+  {% endembed %}
+{% endif %}

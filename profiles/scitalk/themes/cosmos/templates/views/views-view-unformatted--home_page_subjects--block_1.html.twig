@@ -1,0 +1,32 @@
+{#
+/**
+ * @file
+ * Default theme implementation to display a view of unformatted rows.
+ *
+ * Available variables:
+ * - title: The title of this group of rows. May be empty.
+ * - rows: A list of the view's row items.
+ *   - attributes: The row's HTML attributes.
+ *   - content: The row's content.
+ * - view: The view object.
+ * - default_row_class: A flag indicating whether default classes should be
+ *   used on rows.
+ *
+ * @see template_preprocess_views_view_unformatted()
+ *
+ * @ingroup themeable
+ */
+#}
+{% for row in rows %}
+  {% set term = row.content['#row']._entity %}
+  {% set label = term.name.value %}
+  {% set link = '/taxonomy/term/' ~ term.tid.value %}
+  {% set image_media =  term.field_background_image.value %}
+  {% set image_media_id = image_media[0]["target_id"] %}
+  {% include 'cosmos:image_button' with ({
+    variant: 'big',
+    label,
+    link,
+    image_media_id
+  }) %}
+{% endfor %}

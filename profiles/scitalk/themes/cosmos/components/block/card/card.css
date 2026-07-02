@@ -1,0 +1,102 @@
+/* Horizontal card variant */
+
+.card {
+  background-color: light-dark(var(--color-neutral-00), var(--color-neutral-10));
+  color: var(--color-default-text);
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.card-full-link {
+  display: grid;
+  position: relative;
+  .card-heading a::after {
+    content: '';
+    /* display: grid; */
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  /* In dark mode, this is a fallback if the style query isn't supported  */
+  &:is(:hover,:focus) {
+    box-shadow:  0 0 4px light-dark(rgba(0,0,0,0.2), rgba(0,0,0));
+  }
+}
+
+/* Box shadow didn't work well on dark mode, use border instead */
+
+@container style(--theme: dark) {
+  .card-full-link:is(:hover,:focus) {
+    outline: 1px solid var(--color-neutral-30);
+  }
+}
+
+@container main-content (max-width: 35rem) {
+  .card {
+    font-size: .9em;
+  }
+}
+
+.card-heading {
+  font-size: 1rem;
+  line-height: 1.3;
+  margin: 0 0 .5rem;
+}
+
+.card-content {
+  font-size: .85rem;
+  margin: .5rem 0;
+}
+
+/* Foreground image */
+
+.card-image--foreground {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--gutter-standard);
+
+  @container main-content (max-width: 35rem) {
+    .card-image {
+      display: none;
+    }
+  }
+}
+
+/* Background image image display */
+.card-image--background {
+  --theme: dark;
+  color-scheme: dark;
+
+  position: relative;
+  display: grid;
+  align-items: center;
+  min-height: 9.5rem;
+
+  .card-image {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    div:not(.contextual),
+    figure {
+      width: 100%;
+      height: 100%;
+    }
+
+    img {
+      object-fit: cover;
+      height: 100%;
+      width: 100%;
+    }
+  }
+
+  .content {
+    position: relative;
+    z-index: 2;
+  }
+}

@@ -22,7 +22,7 @@
 
   & .field--name-field-sp-profile-thumbnail {
     float: left;
-    margin-right: var(--gutter--standard);
+    margin-right: var(--gutter-standard);
     width: 250px;
     max-width: 40%;
   }

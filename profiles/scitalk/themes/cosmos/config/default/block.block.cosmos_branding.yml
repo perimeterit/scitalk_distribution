@@ -1,4 +1,4 @@
-uuid: b64ef7e5-8c7f-4316-acca-1bcfb257f01a
+uuid: deeb6079-abf1-4034-a63c-f540b036efc2
 langcode: en
 status: true
 dependencies:
@@ -11,7 +11,7 @@ _core:
 id: cosmos_branding
 theme: cosmos
 region: header
-weight: -7
+weight: -5
 provider: null
 plugin: system_branding_block
 settings:

@@ -1,0 +1,15 @@
+.banner {
+  h1 {
+    font-size: 2rem;
+    line-height: 1.25;
+    margin-bottom: .5rem;
+  }
+}
+
+.banner--section-label {
+  color: var(--color-neutral-4);
+  font-weight: 500;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+

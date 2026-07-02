@@ -1,0 +1,26 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Views display
+status: stable
+libraryOverrides:
+  dependencies:
+    - core/once
+    - core/jquery
+props:
+  type: object
+  properties:
+    is_search_page:
+      type: [string, boolean, 'null']
+      title: Is a search page
+      description: If this is a search page; shows exposed input and keeps search panel sidebar open
+    filter_heading:
+      type: ['string','null']
+      title: Exposed form label
+      description: Heading for the exposed form; only used for above placement (catch-up)
+    filter_placement:
+      type: string
+      title: Filter placement
+      descriptions: Options are above, split, or views header
+      enum:
+        - 'split'
+        - 'above'
+        - 'views_header'

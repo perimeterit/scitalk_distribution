@@ -1,4 +1,4 @@
-uuid: d342718a-07fa-41ad-8e64-de3aef50e056
+uuid: 23547b36-5956-4b36-8b33-0c54f2546a01
 langcode: en
 status: true
 dependencies:
@@ -8,8 +8,8 @@ _core:
   default_config_hash: SWMMHVX-YWCciJDiIjYBaYgMZGtL7N8fM-Se1DKXLWQ
 id: cosmos_pagetitle
 theme: cosmos
-region: page_title
-weight: -7
+region: banner
+weight: -4
 provider: null
 plugin: page_title_block
 settings:

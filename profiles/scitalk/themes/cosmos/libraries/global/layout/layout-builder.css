@@ -9,13 +9,13 @@
 }
 
 /* Override core flexbox section layouts */
-
-.layout {
+.layout:not(.layout--onecol) {
   display: grid;
   grid-gap: var(--gutter-standard);
 }
+
 @media all and (min-width: 768px) {
-  .layout__region {
+  .layout:not(.layout--onecol) .layout__region {
     display: grid;
   }
   .layout--twocol,

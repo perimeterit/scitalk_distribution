@@ -1,11 +1,12 @@
-.dark-mode-switch {
+.dark-mode-toggle {
   ul {
     display: flex;
     gap: .2rem;
   }
 
   svg {
-    color: var(--color-primary--foreground);
+    color: var(--color-links);
+    opacity: .75;
     height: 1.2rem;
     width: 1.2rem;
   }
@@ -17,8 +18,19 @@
     &:is(:hover,:focus) {
       background-color: transparent;
       svg {
-        color: var(--color-primary--accent);
+        opacity: 1;
       }
     }
   }
 }
+
+/* Highlight the selected option */
+
+html.dark .dark-mode-toggle__button__dark svg,
+html:not(.dark)[data-dark-mode-source='user'] .dark-mode-toggle__button__light svg,
+html[data-dark-mode-source='system'] .dark-mode-toggle__button__system svg {
+  opacity: 1;
+}
+
+html[data-dark-mode-source='system'].dark .dark-mode-toggle__button__dark svg {
+    opacity: .75;  }}

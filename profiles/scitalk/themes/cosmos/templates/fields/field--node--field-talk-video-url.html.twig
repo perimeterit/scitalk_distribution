@@ -1,0 +1,10 @@
+{#
+/**
+ * @file
+ * Theme override for a field.
+ */
+#}
+{{ include('cosmos:video_url', {
+  label,
+  url: items.0['content']['#url']
+}) }}

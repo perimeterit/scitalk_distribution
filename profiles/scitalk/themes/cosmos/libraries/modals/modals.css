@@ -1,0 +1,99 @@
+
+/* needed for old browsers */
+dialog {
+  display: block;
+  border: 0;
+}
+
+/* overlay covers everything */
+.modal-overlay,
+.image-modal-overlay {
+  background: rgba(0,0,0,0.7);
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: 666;
+}
+
+/* modal */
+.modal,
+.image-modal {
+  max-width: 90%;
+  z-index: 667;
+
+  background: var(--color-neutral-10);
+  box-shadow: 2px 2px 6px light-dark(rgba(42,42,42,0.5), rgba(0,0,0,0.8));
+  padding: var(--gutter-big);
+}
+
+.modal {
+  position: fixed;
+  top: 15%;
+  max-width: calc(100% - 6vw);
+}
+
+.image-modal {
+  position: absolute;
+  max-width: 90%;
+  left: 5%;
+  top: 5%;
+}
+
+@media all and (min-width: 960px) {
+  .modal,
+  .image-modal {
+    padding: calc(1.25 * var(--gutter-big));
+  }
+}
+
+button.js-modal-close {
+  float: right;
+  overflow: hidden;
+  position: relative;
+
+  height: 1.8em;
+  width: 1.8em;
+  margin: -1.2em -1.3em 0px 0;
+
+  background: transparent;
+  color: var(--color-default-text);
+
+  outline: none;
+  span {
+    color: transparent;
+  }
+
+  /* Faking an X icon  */
+  &::before, &::after {
+    background: var(--color-default-text);
+    content: '';
+    display: block;
+    position: absolute;
+    left: .2rem;
+    top: 50%;
+
+    height: 2px;
+    width: 1.5em;
+
+    transform: rotate(45deg);
+  }
+  &::after {
+    transform: rotate(-45deg);
+  }
+
+  &:is(:hover,:focus) {
+    background-color: var(--color-primary);
+  }
+}
+
+h1.modal-title,
+h1.image-modal-title {
+  border-bottom: 1px solid var(--color-neutral-25);
+  font-size: 1.2em;
+  padding-right: 0.7em;
+  padding-bottom: 0.7em;
+  margin-top: 0;
+  margin-bottom: 1em;
+}

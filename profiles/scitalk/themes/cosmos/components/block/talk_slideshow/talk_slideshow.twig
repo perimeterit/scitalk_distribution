@@ -1,0 +1,43 @@
+<div class="talk-slideshow-container">
+    <ul class="talk-slideshow-controls" id="customize-controls" aria-label="Carousel Navigation" tabindex="0">
+        <li class="talk-slideshow-nav prev" data-controls="prev" aria-controls="customize" tabindex="-1">
+            <i>{{ include("cosmos:icon", {icon_name: 'chevron-right' })}}</i>
+        </li>
+        <li class="talk-slideshow-nav next" data-controls="next" aria-controls="customize" tabindex="-1">
+            <i>{{ include("cosmos:icon", {icon_name: 'chevron-right' })}}</i>
+        </li>
+    </ul>
+    <div class="talk-slideshow">
+        {% set slides_cnt = slide_images|length %}
+        {% for key, slide in slide_images %}
+            {% set slide_number = key + 1 %}
+            <div class="talk-slideshow-item">
+                <div class="talk-slideshow-card">
+                  {{ drupal_image(slide.target_id, 'slideshow_thumbnail', { alt: slide_number ~ '/' ~ slides_cnt}) }}
+                </div>
+                <p class="talk-slideshow-caption">
+                  {{ slide_number }}/{{ slides_cnt }}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<span id="slideshow-modal-overlay" class="modal-overlay-" data-background-click="enabled" title="Close modal"></span>
+
+<div id="slideshow-modal" class="modal" draggable="false">
+    <span class="slideshow-modal-close" title="Close modal">{{ include("cosmos:icon", {icon_name: 'close-x' })}}</span>
+    <div class="slideshow-modal-body">
+        <ul class="talk-slideshow-controls" id="customize-modal-controls" aria-label="Modal Navigation" tabindex="0">
+            <li class="talk-slideshow-nav prev" data-controls="prev" aria-controls="tns2" tabindex="-1" aria-disabled="true">
+                <i>{{ include("cosmos:icon", {icon_name: 'chevron-right' })}}</i>
+            </li>
+            <li class="talk-slideshow-nav next" data-controls="next" aria-controls="tns2" tabindex="-1">
+                <i>{{ include("cosmos:icon", {icon_name: 'chevron-right' })}}</i>
+            </li>
+        </ul>
+
+        <img class="slideshow-modal-content" />
+        <div class="slideshow-modal-caption"></div>
+  </div>
+</div>

@@ -1,0 +1,12 @@
+.video-url {
+  background-color: var(--color-neutral-10);
+  margin-bottom: 1.5rem;
+  padding: 1rem 1.2rem;
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+
+  h2 {
+    margin: 0;
+  }
+}

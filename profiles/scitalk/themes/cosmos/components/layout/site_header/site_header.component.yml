@@ -5,3 +5,7 @@ libraryOverrides:
   dependencies:
     - core/once
     - core/jquery
+props:
+  type: object
+  additionalProperties: false
+  properties: {}
