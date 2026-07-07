@@ -8,10 +8,12 @@ legend {
 }
 
 /* Labels */
-
+summary,
 label {
-  font-size: .9rem;
+  font-size: .8rem;
+  font-weight: normal;
   display: block;
+  margin-bottom: .2rem;
 }
 
 .field--label-inline strong::after,
@@ -164,6 +166,31 @@ label.option + .description {
   margin-top: 1.5rem;
   & > * {
     margin-right: .5rem;
+  }
+}
+
+/* utilitiy classes */
+
+.form-inline {
+  display: flex;
+  gap: .5rem;
+  align-items: end;
+
+  .form-item {
+    margin: 0;
+  }
+}
+
+.form-container {
+  background-color: var(--color-neutral-05);
+  padding: 1rem;
+
+  h2 {
+    margin-top: 0;
+  }
+
+  input, select {
+    background-color: var(--color-neutral-00);
   }
 }
 

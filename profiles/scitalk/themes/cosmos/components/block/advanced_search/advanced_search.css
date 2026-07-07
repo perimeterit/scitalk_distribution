@@ -9,12 +9,6 @@
     background-color: light-dark(var(--color-white), var(--color-neutral-10));
   }
 
-  summary,
-  label {
-    font-size: .8rem;
-    font-weight: normal;
-  }
-
   & .form-item-sort-bef-combine {
     display: none;
   }
