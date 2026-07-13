@@ -107,6 +107,7 @@ class Slideshow extends SciTalkMediaPluginBase {
     //the images are the 2d td within each tr:
     $images = @$xpath->query('//td[position() = 2]');
 
+    $images_count = 0;
     $slideshow_items_media = [];
     // prepare list of slideshow items to fetch async:
     foreach ($images as $idx => $image) {
@@ -119,7 +120,14 @@ class Slideshow extends SciTalkMediaPluginBase {
           }
           $slide_path = $remote_images_folder . $image_name;
           $slideshow_items_media[] = ['slide_path' => $slide_path];
+          $images_count++;
       }
+    }
+
+    // if there's just one image then don't create a slideshow
+    if ($images_count < 2) {
+      \Drupal::logger('scitalk_media')->warning('Not enough images (@count) found in remote folder @folder - skipping creating slideshow.', ['@count' => $images_count, '@folder' => $remote_images_folder]);
+      return;
     }
 
     $client = HttpClientBuilder::buildDefault();
