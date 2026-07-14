@@ -205,9 +205,6 @@
             },
             "drupal/schemata": {
                 "#3523349 PHP 8.4: Implicitly nullable parameter declarations deprecated": "https://git.drupalcode.org/project/schemata/-/merge_requests/17.diff"
-            },
-            "drupal/single_content_sync": {
-                "#3548592 Fix PHP 8.4 implicit nullable deprecation": "https://www.drupal.org/files/issues/2025-09-25/implicit-nullable-deprecation-3548592-3.patch"
             }
         }
     }
