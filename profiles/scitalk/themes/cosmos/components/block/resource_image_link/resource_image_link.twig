@@ -1,0 +1,10 @@
+
+<div{{ attributes.addClass('resource-image-link') }}>
+    <a href="{{ link }}" class="js-modal"
+      data-modal-prefix-class="image"
+      data-modal-title="{{ name }}"
+      data-modal-text="<img src='{{ file_url(image_uri) }}' />" aria-haspopup="dialog">
+      {{ drupal_image(image_uri, 'thumbnail')}}
+      {{ title }}
+    </a>
+</div>

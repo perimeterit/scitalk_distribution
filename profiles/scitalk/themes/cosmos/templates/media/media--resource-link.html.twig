@@ -18,61 +18,57 @@
   'resource--' ~ bundle,
 ]
 %}
-<div{{ attributes.addClass(classes) }}>
-  {{ title_suffix.contextual_links }}
-  {% if content %}
-    <span class="icon">
-      {% if bundle == 'arxiv' %}
-        <a href="http://arxiv.org/abs/{{ content.field_media_scitalk_arxiv['#items'].0.value }}" target="_blank">
-          {{ 'ArXiv' }}
-        </a>
-      {% elseif bundle == 'file' %}
-        {% set file_name = content.field_media_file.0['#file'].getFileName() %}
-        {% set file_extension = file_name|split('.')|last %}
-        {{ file_extension }}
-      {% elseif bundle == 'image' %}
-        {% set image_uri = content.field_media_image['#items'].0.entity.getFileUri() %}
-        <a href="{{ file_url(image_uri) }}" class="js-modal" data-modal-prefix-class="image" data-modal-title="{{ name }}" data-modal-text="<img src='{{ file_url(image_uri) }}' />" aria-haspopup="dialog">
-          {{ content.field_media_image }}
-        </a>
-      {% elseif bundle == 'remote_file' %}
-        {% set file_name = content.field_media_scitalk_remote_file['#items'].0.value|split('/')|last %}
-        {% set file_extension = file_name|split('.')|last %}
-        <a href="{{ content.field_media_scitalk_remote_file['#items'].0.value }}" target="_blank">
-        {{ file_extension }}
-        </a>
-      {% elseif bundle == 'doi' %}
-        <a href="http://doi.org/{{ content.field_media_scitalk_doi['#items'].0.value }} " target="_blank">
-          {{ bundle }}
-        </a>
-      {% else %}
-        {{ bundle }}
-      {% endif %}
-    </span>
 
-    <div class="reference-content">
-      {% if bundle == 'doi' %}
-        <p class="small">{{ 'DOI: ' }} {{ content.field_media_scitalk_doi }}</p>
-        <p><a href="http://doi.org/{{ content.field_media_scitalk_doi['#items'].0.value }} " target="_blank">{{ content.field_doi_title }}</a></p>
-        {{ content|without('field_media_scitalk_doi','field_doi_title') }}
-      {% elseif bundle == 'arxiv' %}
-        <p class="small">{{ 'arXiv: ' }} {{ content.field_media_scitalk_arxiv }}</p>
-        <p><a href="http://arxiv.org/abs/{{ content.field_media_scitalk_arxiv['#items'].0.value }}" target="_blank">{{ content.field_arxiv_title }}</a></p>
-        {{ content|without('field_media_scitalk_arxiv', 'name', 'field_arxiv_title') }}
-      {% elseif bundle == 'image' %}
-        {{ name }}
-      {% elseif bundle == 'file' %}
-        {% set file_bytes = content.field_media_file.0['#file'].getSize() %}
-        {% if file_bytes > 1024 %}
-          {% set filesize = (file_bytes / 1024)|number_format(1, '.') ~ 'mb'  %}
-        {% else %}
-          {% set filesize = file_bytes ~ 'kb' %}
-        {% endif %}
-        {{ content }} | {{ filesize }}
-      {% elseif bundle == 'remote_file' %}
-        {% set filename = content.name['#items'].0.value ?? content.field_media_scitalk_remote_file['#items'].0.value|split('/')|last %}
-        <a href="{{ content.field_media_scitalk_remote_file['#items'].0.value }}" target="_blank">{{ filename }}</a>
-      {% endif %}
-    </div>
+{% set title_prefix = null %}
+{% set title_suffix = null %}
+
+{# set the component prop values for each resource type #}
+{% set resource_type = bundle %}
+{% set title = name %}
+
+{% if resource_type == 'arxiv' %}
+  {% set link = 'http://arxiv.org/abs/' ~ content.field_media_scitalk_arxiv['#items'].0.value %}
+  {% set link_attributes = {target: '_blank'} %}
+  {% set icon_label = 'ArXiv' %}
+  {% set title_prefix = content.field_media_scitalk_arxiv %}
+
+{% elseif resource_type == 'file' %}
+  {% set file_name = content.field_media_file.0['#file'].getFileName() %}
+  {% set file_extension = file_name|split('.')|last %}
+  {% set icon_label = file_extension %}
+
+  {# Get file size  #}
+  {% set file_bytes = content.field_media_file.0['#file'].getSize() %}
+  {% if file_bytes > 1024 %}
+    {% set filesize = (file_bytes / 1024)|number_format(1, '.') ~ 'mb'  %}
+  {% else %}
+    {% set filesize = file_bytes ~ 'kb' %}
   {% endif %}
-</div>
+
+  {% set title_suffix = filesize %}
+
+{% elseif resource_type == 'image' %}
+  {% set image_uri = content.field_media_image['#items'].0.entity.getFileUri() %}
+  {% set link =  file_url(image_uri) %}
+  {% set title = name %}
+
+{% elseif resource_type == 'remote_file' %}
+  {% set file_name = content.field_media_scitalk_remote_file['#items'].0.value|split('/')|last %}
+  {% set file_extension = file_name|split('.')|last %}
+  {% set link = content.field_media_scitalk_remote_file['#items'].0.value %}
+  {% set link_attributes = {target: '_blank'} %}
+  {% set icon_label = file_extension %}
+
+{% elseif resource_type == 'doi' %}
+  {% set link = 'http://doi.org/' ~ content.field_media_scitalk_doi['#items'].0.value %}
+  {% set icon_label = resource_type %}
+  {% set title_prefix = 'DOI: ' ~ content.field_media_scitalk_doi['#items'].0.value %}
+{% else %}
+  {% set icon_label = bundle %}
+{% endif %}
+
+{% if resource_type == 'image' %}
+  {{ include("cosmos:resource_image_link") }}
+{% else %}
+  {{ include("cosmos:resource_link") }}
+{% endif %}

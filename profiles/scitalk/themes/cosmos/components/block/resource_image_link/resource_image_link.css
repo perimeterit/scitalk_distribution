@@ -1,0 +1,10 @@
+.resource-image-link a {
+  --icon-size: 3em;
+  display: grid;
+  grid-template-columns: var(--icon-size) 1fr;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: 1rem;
+
+  font-size: .9em;
+}

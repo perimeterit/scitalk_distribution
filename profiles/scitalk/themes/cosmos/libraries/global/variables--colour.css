@@ -5,7 +5,7 @@
  :root {
   /* This declares that we support light and dark modes */
   --color-white: light-dark(#fff, #fffbf5);
-  --color-black: #121212;
+  --color-black: hsl(0 0% 2%);
   --color-primary-light: #6fd4ee;
   --color-primary-medium: #2A7E93;
   --color-primary-dark: #004252;

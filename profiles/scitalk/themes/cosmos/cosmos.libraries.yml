@@ -13,16 +13,15 @@ global:
       libraries/global/base/pagers.css: {}
       libraries/global/base/tabs.css: {}
       libraries/global/base/buttons.css: {}
+      libraries/global/base/tables.css: {}
+      libraries/js/jquery-responsive-tables/css/responsive-tables.min.css: {}
     layout:
       libraries/global/layout/layout-utilities.css: {}
       libraries/global/layout/maintenance-page.css: {}
       libraries/global/layout/layout-builder.css: {}
     component:
-      libraries/global/components/resources.css: {}
       libraries/global/components/source-repos.css: {}
       libraries/global/components/speakers.css: {}
-      libraries/global/components/tables.css: {}
-      libraries/js/jquery-responsive-tables/css/responsive-tables.min.css: {}
   js:
     libraries/js/van11y-accessible-tab-panel-aria/dist/van11y-accessible-tab-panel-aria.min.js: {}
     libraries/js/jquery-responsive-tables/js/jquery.responsive-tables.js: {}

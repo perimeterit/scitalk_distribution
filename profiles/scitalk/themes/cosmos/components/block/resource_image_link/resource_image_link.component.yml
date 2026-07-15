@@ -1,0 +1,16 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Resource link
+status: stable
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Resource title
+      description: Title to be displayed as a link; may be a file name as fallback
+    link:
+      type: string
+      title: Resource link
+    image_uri:
+      type: string
+      title: Image uri

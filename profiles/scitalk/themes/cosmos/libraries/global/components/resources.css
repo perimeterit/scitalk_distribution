@@ -3,30 +3,11 @@
 .field--name-field-talk-attachments li {
   margin-bottom: 1em;
 }
-.resource-link,
-.resource-link .icon {
-  display: flex;
-}
 .resource--remote_file,
 .resource--image,
 .resource--file {
-  align-items: center;
 }
-.resource-link .icon {
-  background: var(--color-primary);
-  color: var(--color-primary--foreground);
 
-  height: 3em;
-  width: 3em;
-  margin-right: 1em;
-  padding: 1em;
-
-  align-items: center;
-  justify-content: center;
-}
-.resource-link .icon svg {
-  color: var(--color-primary--foreground);
-}
 .resource--arxiv .icon {
   background: #b31b1b;
 }

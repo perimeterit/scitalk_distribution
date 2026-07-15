@@ -1,0 +1,33 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Resource link
+status: stable
+props:
+  type: object
+  properties:
+    type:
+      type: string
+      title: Resource type
+      description: Resource type; mainly used to determine the icon display
+    title:
+      type: string
+      title: Resource title
+      description: Title to be displayed as a link; may be a file name as fallback
+    title_prefix:
+      type: ['string', 'null']
+      title: Title prefix
+      description: Small print title prefix, used for arxiv and doi resources
+    title_suffix:
+      type: ['string', 'null']
+      title: Title suffix
+      description: Suffix to appear after the title; used for file size on local files
+    icon_label:
+      type: string
+      title: Resource icon label
+      description: Icon label, if it should be rendered by the component
+    link:
+      type: string
+      title: Resource link
+    link_attributes:
+      type: ['string','object']
+      title: Link attributes
+      description: Additional attributes to pass to the link (e.g. target="_blank")
