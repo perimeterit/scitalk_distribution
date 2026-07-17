@@ -50,5 +50,9 @@ props:
       type: ['string','number','null']
       title: Image Media ID
     text_content:
-      type: ['string','null']
+      type: ['string','object','null']
       title: Text content or description
+    text_show_more:
+      type: boolean
+      title: Text show more
+      description: Include "show more" toggle for longer text in teaser component

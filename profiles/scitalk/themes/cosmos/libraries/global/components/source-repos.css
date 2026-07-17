@@ -1,9 +1,6 @@
 /**
  * Component CSS for Source Repositories
 */
-
-@import "../base/mixins.css";
-
 .view-source-repositories {
   margin-top: var(--vertical-padding);
 }

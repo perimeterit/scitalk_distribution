@@ -9,7 +9,6 @@
  */
 #}
 
-
 {% set talk_date = content.field_talk_date|render %}
 
 {# Merge the taxonomy terms #}
@@ -41,6 +40,10 @@
   {% set variant = 'teaser' %}
 {% endif %}
 
+{% if variant == 'teaser' and content.field_talk_abstract.0['#text']|length > 200 %}
+  {% set text_show_more = TRUE %}
+{% endif %}
+
 {% block talk_component %}
 
   {% embed "cosmos:card" with ({
@@ -51,13 +54,12 @@
     heading_level: 3,
     speakers,
     metadata,
+    text_content: content.field_talk_abstract.0,
+    text_show_more: text_show_more|default(false)
   }) %}
 
     {% block card_fg_image %}
       {{ content.field_talk_thumbnail }}
-    {% endblock %}
-    {% block content %}
-      {{ content.field_talk_abstract }}
     {% endblock %}
   {% endembed %}
 

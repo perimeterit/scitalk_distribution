@@ -10,7 +10,8 @@
     'card',
     'card--' ~ variant|default,
     image_display ? 'card-image--'  ~ image_display|clean_class,
-    variant == 'horizontal' ? 'card-full-link'
+    variant == 'horizontal' ? 'card-full-link',
+    variant == 'teaser' and text_show_more == true ? 'collapse-abstract',
 ] %}
 
 <article {{ attributes.addClass(classes) }}>
@@ -49,12 +50,16 @@
 
     {# Collection description or talk abstract #}
     {% if variant == 'teaser' %}
+      {# If text_content is longer than 200 characters  #}
       <div class="card-content">
-        {% block content %}
-          {{ text_content }}
-        {% endblock %}
+        {{ text_content }}
       </div>
+      {% if text_show_more == TRUE %}
+        <button class="show-more show" aria-hidden="hidden" data-hide-text="{{'Hide'}}" data-show-text="{{'Show more'}}">{{'Show more'|t}}</button>
+      {% endif %}
+
     {% endif %}
+
   </div>
 
 </article>
