@@ -1,3 +1,4 @@
+uuid: 85988231-6612-4ade-b881-4536ca907801
 langcode: en
 status: true
 dependencies:
@@ -211,6 +212,7 @@ display:
           query_tags: {  }
           contextual_filters_or: false
       relationships: {  }
+      css_class: view-display
       header: {  }
       footer: {  }
       display_extenders:
