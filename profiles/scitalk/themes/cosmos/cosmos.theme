@@ -151,6 +151,10 @@ function cosmos_preprocess_region(&$variables) {
     if ($node->getType() == 'talk') {
       $variables['speakers'] =  _cosmos_get_speakers($node);
     }
+    // For speaker nodes, get the institution
+    if ($node->getType() == 'speaker_profile') {
+      $variables['speaker_institution'] = $node->get('field_sp_institution_name')->value;
+    }
   }
 }
 

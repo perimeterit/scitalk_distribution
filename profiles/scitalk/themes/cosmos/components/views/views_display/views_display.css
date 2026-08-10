@@ -1,11 +1,10 @@
+/*
+ * Views display wrapper classes are in the utilities library
+ * So they can be used by views that don't need this full component.
+ */
 .view-display {
   margin-top: 1.5em;
-  & .display-wrapper,
-  &.table-display .view-content {
-    background: var(--color-neutral-05);
-    padding: 1rem;
-    padding-bottom: 1px;
-  }
+
 
   &[aria-hidden="true"] {
     display: none;

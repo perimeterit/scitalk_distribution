@@ -1,0 +1,15 @@
+'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+name: Speaker profile
+status: stable
+props:
+  type: object
+  properties:
+    speaker_name:
+      type: string
+      title: Speaker name
+    profile_content:
+     type: ['array','object','null']
+     title: Profile content
+    profile_url:
+      type: ['string','null']
+      title: Profile url

@@ -1,0 +1,19 @@
+
+.speaker-profile {
+  margin-bottom: calc(2 * var(--vertical-padding));
+  font-size: .8rem;
+  overflow: auto;
+
+  @media (min-width: 40rem) {
+    figure {
+      float: left;
+      margin-right: 1rem;
+      width: 12.5rem;
+      max-width: 40%;
+    }
+  }
+}
+
+.talks-by-speaker {
+  margin-top: var(--vertical-padding);
+}

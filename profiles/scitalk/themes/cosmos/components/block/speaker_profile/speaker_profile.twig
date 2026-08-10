@@ -1,0 +1,21 @@
+<article {{ attributes.addClass('speaker-profile') }}>
+  {% block speaker_image %}
+
+  {% endblock %}
+
+  {% if profile_content %}
+    {{ profile_content }}
+  {% endif %}
+
+  {% if profile_url %}
+    <a class="button button-smaller" href="{{ profile_url }}">{{ speaker_name }}</a>
+  {% endif %}
+
+  <div class="talks-by-speaker">
+    {% set view_length = drupal_view_result('scitalk_talks_by_speaker', 'block') | length %}
+    {% if view_length > 0 %}
+      <h2>{{ 'Talks by'|t }} {{ label}}</h2>
+    {% endif %}
+      {{ drupal_view('scitalk_talks_by_speaker', 'block')}}
+  </div>
+</article>

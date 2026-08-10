@@ -29,7 +29,11 @@
       {% if speakers %}
         {{ include('cosmos:speakers')}}
       {% endif %}
+      {% if speaker_institution %}
+        {{ speaker_institution }}
+      {% endif %}
       {{ content|without('cosmos_pagetitle') }}
+
     {% endblock %}
 
   {% endembed %}

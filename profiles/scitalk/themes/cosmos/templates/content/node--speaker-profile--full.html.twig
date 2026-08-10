@@ -7,27 +7,13 @@
  */
 #}
 
-{%
-  set classes = [
-    'node',
-    node.bundle|clean_class,
-    view_mode ? view_mode|clean_class,
-  ]
-%}
+{% embed "cosmos:speaker_profile" with ({
+  speaker_name: label,
+  profile_content: content.field_sp_speaker_profile.0,
+  profile_url: content.field_sp_web_profile_url.0['#url']
+ }) %}
+   {% block speaker_image %}
+     {{ content.field_sp_profile_thumbnail }}
+   {% endblock %}
+{% endembed %}
 
-<article{{ attributes.addClass(classes) }}>
-  {% block content %}
-    <div class="speaker-content">
-      {% embed "@cosmos/includes/entity-headers.twig" %}{% endembed %}
-      {{ content }}
-    </div>
-  {% endblock %}
-
-  <div class="talks-by-speaker">
-    {% set view = drupal_view_result('scitalk_talks_by_speaker', 'block') | length %}
-    {% if view > 0 %}
-      <h2>{{ 'Talks by'|t }} {{ label}}</h2>
-    {% endif %}
-      {{ drupal_view('scitalk_talks_by_speaker', 'block')}}
-  </div>
-</article>

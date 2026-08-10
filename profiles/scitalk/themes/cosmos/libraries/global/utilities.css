@@ -102,3 +102,11 @@ a.tag {
     fill: var(--color-primary--foreground);
   }
 }
+
+/* Views wrapper */
+.view-display .display-wrapper,
+.table-display .view-content {
+  background: var(--color-neutral-05);
+  padding: 1rem;
+  padding-bottom: 1px;
+}

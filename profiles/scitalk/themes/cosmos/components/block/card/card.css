@@ -112,6 +112,9 @@
     max-height: 5.5rem;
     overflow: hidden;
 
+    font-size: 0.85em;
+    line-height: 1.5;
+
     p:first-child {
       margin-top: 0;
     }
@@ -139,10 +142,17 @@
 
   button.show-more {
     background: transparent;
-    color: var(--color-default-text);
-    font-size: .85rem;
+    color: var(--color-primary);
+    font-size: .85em;
     font-weight: 500;
-    padding: 0;
+    margin-left: -.5rem;
+    padding: 0.4em 0.5rem;
+
+    &:is(:hover,:focus) {
+      background-color: var(--color-primary);
+      color: var(--color-primary--foreground);
+
+    }
 
     &::before {
       font-size: 1.2rem;

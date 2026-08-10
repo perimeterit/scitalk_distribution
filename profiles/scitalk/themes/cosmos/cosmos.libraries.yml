@@ -21,7 +21,6 @@ global:
       libraries/global/layout/layout-builder.css: {}
     component:
       libraries/global/components/source-repos.css: {}
-      libraries/global/components/speakers.css: {}
   js:
     libraries/js/van11y-accessible-tab-panel-aria/dist/van11y-accessible-tab-panel-aria.min.js: {}
     libraries/js/jquery-responsive-tables/js/jquery.responsive-tables.js: {}
