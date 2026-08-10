@@ -9,20 +9,25 @@ class CollectionTalksStats {
      * find the Collection(s) a Talk is part of and then update the number of talks and most recent talk date fields for the Collection(s)
      */
     public function update(EntityInterface $entity) {
-        $collections = $entity->get('field_talk_collection') ?? NULL;
+        $collections = [];
 
-        //if not attached to a collection now then check if it was previously attached to one and if so update
-        if (empty($collections->getValue())) {
-            $original_coll = $entity?->original ?? [];
-            $prev_collections = $original_coll->field_talk_collection ?? NULL;
-            $val = $prev_collections?->getValue() ?? NULL;
-            if (!empty($val)) {
-                //it was attached to a collection before, need to decrease the number of talks under the collection!
-                $collections = $prev_collections;
-            }
-            else {
-                return;
-            }
+        // update current parent collection if any
+        $collection = $entity->field_talk_collection ?? NULL;
+        if (!empty($collection?->getValue())) {
+            $collections[] = $collection;
+        }
+        
+        // find previous parent collection if any and add to the list of collections to update
+        $original_coll = $entity?->original ?? NULL;
+        $prev_collections = $original_coll?->field_talk_collection ?? NULL;
+        $val = $prev_collections?->getValue() ?? NULL;
+        if (!empty($val)) {
+            //it was attached to a collection before, need to decrease the number of talks under the collection!
+            $collections[] = $prev_collections;
+        }
+
+        if (empty($collections)) {
+            return;
         }
 
         foreach ($collections as $coll) {
@@ -35,7 +40,6 @@ class CollectionTalksStats {
             if (!empty($collection)) {
                 $collection->set('field_collection_number_of_talks', $number_of_talks);
                 $collection->set('field_collection_last_talk_date', $most_recent_talk);
-
                 $collection->save();
             }
         }
@@ -44,7 +48,7 @@ class CollectionTalksStats {
     /**
      * return the number of talks under a Collection or Series
      */
-    public function fetchNumberOfTalks($nid) {
+    public function fetchNumberOfTalks(string $nid) {
         //query number of talks for a collection
         $query_count = \Drupal::entityQuery('node')
             ->condition('type', 'talk')
@@ -59,7 +63,7 @@ class CollectionTalksStats {
     * return the date for the most recent talk under a Collection
     */
 //    public static function fetchMostRecentTalkDate($nid) {
-   public function fetchMostRecentTalkDate($nid) {
+   public function fetchMostRecentTalkDate(string $nid) {
         //query most recent talk for a collection or series 
         $query = \Drupal::entityQuery('node')
             ->condition('type', 'talk')
