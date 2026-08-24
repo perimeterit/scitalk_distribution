@@ -1,3 +1,4 @@
+uuid: ca26508b-074d-4da4-bf17-2ad6972f53d6
 langcode: en
 status: true
 dependencies:
@@ -18,6 +19,7 @@ dependencies:
     - field.field.node.talk.field_talk_keywords
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
+    - field.field.node.talk.field_talk_slideshow
     - field.field.node.talk.field_talk_source_event
     - field.field.node.talk.field_talk_source_repository
     - field.field.node.talk.field_talk_speaker_profile
@@ -51,13 +53,13 @@ third_party_settings:
         - group_source_info
       label: Talk
       region: content
-      parent_name: ""
+      parent_name: ''
       weight: 0
       format_type: tabs
       format_settings:
-        classes: ""
+        classes: ''
         show_empty_fields: false
-        id: ""
+        id: ''
         direction: horizontal
         width_breakpoint: 640
     group_talk_info:
@@ -74,11 +76,11 @@ third_party_settings:
       weight: 13
       format_type: tab
       format_settings:
-        classes: ""
+        classes: ''
         show_empty_fields: false
-        id: ""
+        id: ''
         formatter: open
-        description: ""
+        description: ''
         required_fields: true
     group_metadata:
       children:
@@ -92,11 +94,11 @@ third_party_settings:
       weight: 17
       format_type: tab
       format_settings:
-        classes: ""
+        classes: ''
         show_empty_fields: false
-        id: ""
+        id: ''
         formatter: closed
-        description: ""
+        description: ''
         required_fields: true
     group_source_info:
       children:
@@ -104,34 +106,35 @@ third_party_settings:
         - field_talk_source_repository
         - field_talk_source_event
         - field_talk_location
-      label: "Source info"
+      label: 'Source info'
       region: content
       parent_name: group_talk_fields
       weight: 18
       format_type: tab
       format_settings:
-        classes: ""
+        classes: ''
         show_empty_fields: false
-        id: ""
+        id: ''
         formatter: closed
-        description: ""
+        description: ''
         required_fields: true
     group_media:
       children:
         - field_talk_thumbnail
         - field_talk_transcripts
         - field_talk_attachments
-      label: "Other Media"
+        - field_talk_slideshow
+      label: 'Other Media'
       region: content
       parent_name: group_talk_fields
       weight: 16
       format_type: tab
       format_settings:
-        classes: ""
+        classes: ''
         show_empty_fields: false
-        id: ""
+        id: ''
         formatter: closed
-        description: ""
+        description: ''
         required_fields: true
     group_speakers:
       children:
@@ -143,11 +146,11 @@ third_party_settings:
       weight: 14
       format_type: tab
       format_settings:
-        classes: ""
+        classes: ''
         show_empty_fields: false
-        id: ""
+        id: ''
         formatter: closed
-        description: ""
+        description: ''
         required_fields: true
     group_video:
       children:
@@ -161,12 +164,14 @@ third_party_settings:
       weight: 15
       format_type: tab
       format_settings:
-        classes: ""
+        classes: ''
         show_empty_fields: false
-        id: ""
+        id: ''
         formatter: closed
-        description: ""
+        description: ''
         required_fields: true
+_core:
+  default_config_hash: Cf8MgtM8nR13QGtWZbXsGERQsBUcFVf23im-aYuSYSY
 id: node.talk.default
 targetEntityType: node
 bundle: talk
@@ -176,20 +181,20 @@ content:
     type: datetime_timestamp
     weight: 4
     region: content
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
   field_academic_year:
     type: options_select
     weight: 11
     region: content
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
   field_scientific_area:
     type: options_select
     weight: 8
     region: content
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
   field_subtitle_upload_file:
     type: inline_entity_form_complex
     weight: 14
@@ -197,8 +202,8 @@ content:
     settings:
       form_mode: default
       override_labels: false
-      label_singular: ""
-      label_plural: ""
+      label_singular: ''
+      label_plural: ''
       allow_new: true
       allow_existing: false
       match_operator: CONTAINS
@@ -207,7 +212,7 @@ content:
       collapsed: false
       revision: false
       removed_reference: optional
-    third_party_settings: {}
+    third_party_settings: {  }
   field_subtitle_url:
     type: inline_entity_form_complex
     weight: 12
@@ -215,8 +220,8 @@ content:
     settings:
       form_mode: default
       override_labels: false
-      label_singular: ""
-      label_plural: ""
+      label_singular: ''
+      label_plural: ''
       allow_new: true
       allow_existing: false
       match_operator: CONTAINS
@@ -225,15 +230,15 @@ content:
       collapsed: false
       revision: false
       removed_reference: optional
-    third_party_settings: {}
+    third_party_settings: {  }
   field_talk_abstract:
     type: text_textarea
     weight: 12
     region: content
     settings:
       rows: 5
-      placeholder: ""
-    third_party_settings: {}
+      placeholder: ''
+    third_party_settings: {  }
   field_talk_attachments:
     type: inline_entity_form_complex
     weight: 16
@@ -251,27 +256,27 @@ content:
       collapsed: false
       revision: false
       removed_reference: optional
-    third_party_settings: {}
+    third_party_settings: {  }
   field_talk_collection:
     type: options_select
     weight: 4
     region: content
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
   field_talk_date:
     type: datetime_default
     weight: 10
     region: content
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
   field_talk_doi:
     type: string_textfield
     weight: 13
     region: content
     settings:
       size: 60
-      placeholder: ""
-    third_party_settings: {}
+      placeholder: ''
+    third_party_settings: {  }
   field_talk_keywords:
     type: entity_reference_autocomplete
     weight: 10
@@ -280,38 +285,56 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ""
-    third_party_settings: {}
+      placeholder: ''
+    third_party_settings: {  }
   field_talk_location:
     type: string_textfield
     weight: 8
     region: content
     settings:
       size: 60
-      placeholder: ""
-    third_party_settings: {}
+      placeholder: ''
+    third_party_settings: {  }
   field_talk_number:
     type: string_textfield
     weight: 7
     region: content
     settings:
       size: 15
-      placeholder: ""
-    third_party_settings: {}
+      placeholder: ''
+    third_party_settings: {  }
+  field_talk_slideshow:
+    type: inline_entity_form_complex
+    weight: 17
+    region: content
+    settings:
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      allow_duplicate: false
+      collapsible: false
+      collapsed: false
+      revision: false
+      removed_reference: optional
+    third_party_settings: {  }
   field_talk_source_event:
     type: link_default
     weight: 7
     region: content
     settings:
-      placeholder_url: ""
-      placeholder_title: ""
-    third_party_settings: {}
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
   field_talk_source_repository:
     type: options_select
     weight: 5
     region: content
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
   field_talk_speaker_profile:
     type: inline_entity_form_complex
     weight: 12
@@ -329,21 +352,21 @@ content:
       collapsed: false
       revision: false
       removed_reference: optional
-    third_party_settings: {}
+    third_party_settings: {  }
   field_talk_speakers_text:
     type: string_textfield
     weight: 14
     region: content
     settings:
       size: 60
-      placeholder: ""
-    third_party_settings: {}
+      placeholder: ''
+    third_party_settings: {  }
   field_talk_subject:
     type: options_select
     weight: 9
     region: content
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
   field_talk_thumbnail:
     type: image_image
     weight: 14
@@ -351,7 +374,7 @@ content:
     settings:
       progress_indicator: throbber
       preview_image_style: thumbnail
-    third_party_settings: {}
+    third_party_settings: {  }
   field_talk_transcripts:
     type: inline_entity_form_complex
     weight: 15
@@ -369,13 +392,13 @@ content:
       collapsed: false
       revision: false
       removed_reference: optional
-    third_party_settings: {}
+    third_party_settings: {  }
   field_talk_type:
     type: options_select
     weight: 7
     region: content
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
   field_talk_video:
     type: inline_entity_form_complex
     weight: 10
@@ -393,43 +416,43 @@ content:
       collapsed: false
       revision: false
       removed_reference: optional
-    third_party_settings: {}
+    third_party_settings: {  }
   field_talk_video_url:
     type: link_default
     weight: 11
     region: content
     settings:
-      placeholder_url: ""
-      placeholder_title: ""
-    third_party_settings: {}
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
   langcode:
     type: language_select
     weight: 2
     region: content
     settings:
       include_locked: true
-    third_party_settings: {}
+    third_party_settings: {  }
   path:
     type: path
     weight: 5
     region: content
-    settings: {}
-    third_party_settings: {}
+    settings: {  }
+    third_party_settings: {  }
   status:
     type: boolean_checkbox
     weight: 6
     region: content
     settings:
       display_label: true
-    third_party_settings: {}
+    third_party_settings: {  }
   title:
     type: string_textfield
     weight: 9
     region: content
     settings:
       size: 60
-      placeholder: ""
-    third_party_settings: {}
+      placeholder: ''
+    third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
     weight: 3
@@ -438,8 +461,8 @@ content:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
-      placeholder: ""
-    third_party_settings: {}
+      placeholder: ''
+    third_party_settings: {  }
 hidden:
   field_embargo_date: true
   field_scivideos_uuid: true

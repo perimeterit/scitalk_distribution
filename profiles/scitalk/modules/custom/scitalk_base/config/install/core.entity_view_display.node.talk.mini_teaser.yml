@@ -1,3 +1,4 @@
+uuid: 89e75307-98b5-4340-8f5d-341ce8ce9d89
 langcode: en
 status: true
 dependencies:
@@ -7,6 +8,8 @@ dependencies:
     - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
     - field.field.node.talk.field_scivideos_uuid
+    - field.field.node.talk.field_subtitle_upload_file
+    - field.field.node.talk.field_subtitle_url
     - field.field.node.talk.field_talk_abstract
     - field.field.node.talk.field_talk_attachments
     - field.field.node.talk.field_talk_collection
@@ -16,12 +19,14 @@ dependencies:
     - field.field.node.talk.field_talk_keywords
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
+    - field.field.node.talk.field_talk_slideshow
     - field.field.node.talk.field_talk_source_event
     - field.field.node.talk.field_talk_source_repository
     - field.field.node.talk.field_talk_speaker_profile
     - field.field.node.talk.field_talk_speakers_text
     - field.field.node.talk.field_talk_subject
     - field.field.node.talk.field_talk_thumbnail
+    - field.field.node.talk.field_talk_transcripts
     - field.field.node.talk.field_talk_type
     - field.field.node.talk.field_talk_video
     - field.field.node.talk.field_talk_video_url
@@ -76,6 +81,8 @@ third_party_settings:
         attributes: ''
         effect: none
         speed: fast
+_core:
+  default_config_hash: x0tw1BZCkYQbmdNwhLKzqehrbSotUVXsjxRaHqsXRl4
 id: node.talk.mini_teaser
 targetEntityType: node
 bundle: talk
@@ -130,6 +137,8 @@ hidden:
   field_embargo_date: true
   field_scientific_area: true
   field_scivideos_uuid: true
+  field_subtitle_upload_file: true
+  field_subtitle_url: true
   field_talk_abstract: true
   field_talk_attachments: true
   field_talk_doi: true
@@ -137,11 +146,13 @@ hidden:
   field_talk_keywords: true
   field_talk_location: true
   field_talk_number: true
+  field_talk_slideshow: true
   field_talk_source_event: true
   field_talk_source_repository: true
   field_talk_speakers_text: true
   field_talk_subject: true
   field_talk_thumbnail: true
+  field_talk_transcripts: true
   field_talk_type: true
   field_talk_video: true
   field_talk_video_url: true
