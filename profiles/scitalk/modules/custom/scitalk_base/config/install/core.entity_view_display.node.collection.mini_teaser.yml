@@ -1,9 +1,11 @@
+uuid: f20b10a6-7aef-4e52-8ae1-34a9e90035b2
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.mini_teaser
     - field.field.node.collection.field_academic_year
+    - field.field.node.collection.field_background_image
     - field.field.node.collection.field_collection_date
     - field.field.node.collection.field_collection_description
     - field.field.node.collection.field_collection_event_url
@@ -29,6 +31,8 @@ third_party_settings:
   layout_builder:
     enabled: false
     allow_custom: false
+_core:
+  default_config_hash: 1kt1XMhwwHcsfhawOGGq3VzbDI6SsOjMBYSlDI4ixNs
 id: node.collection.mini_teaser
 targetEntityType: node
 bundle: collection
@@ -77,8 +81,17 @@ content:
         fences_label_classes: ''
     weight: 0
     region: content
+  field_collection_type:
+    type: entity_reference_label
+    label: hidden
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 3
+    region: content
 hidden:
   field_academic_year: true
+  field_background_image: true
   field_collection_date: true
   field_collection_description: true
   field_collection_event_url: true
@@ -88,7 +101,6 @@ hidden:
   field_collection_public_viewable: true
   field_collection_source_repo: true
   field_collection_subject: true
-  field_collection_type: true
   field_parent_collection: true
   field_scivideos_uuid: true
   langcode: true
