@@ -1,20 +1,19 @@
-uuid: 1cd3579f-c140-42f0-9de3-f387fdf02608
+uuid: 039de235-b43d-45a6-89b2-668ff3f11c25
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.speaker_profile
   module:
     - node
-_core:
-  default_config_hash: nAJ9qf3MRiN_HJAp3SkZUeZp719dPhQsUAd02dcyU2c
 id: speaker
 label: Speaker
 type: 'canonical_entities:node'
-pattern: 'speaker/[node:field_sp_display_name]'
+pattern: '/speaker/[node:field_sp_display_name]'
 selection_criteria:
   59ec63c4-0299-4a0a-94fa-9a36fe276964:
     id: 'entity_bundle:node'
     negate: false
-    uuid: 59ec63c4-0299-4a0a-94fa-9a36fe276964
     context_mapping:
       node: node
     bundles:

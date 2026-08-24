@@ -1,23 +1,24 @@
-uuid: 096a4bb0-ff0e-42de-bc6a-a8d01d958a62
+uuid: 302c9184-7938-4310-aa3c-466bb325bc54
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.talk
   module:
     - node
   enforced:
     module:
       - scitalk_base
 _core:
-  default_config_hash: f_Vqwgw3ZmdIsuZ7MCpy7yL8ohOXJLxgOSEayTWltM8
+  default_config_hash: avZ-IqsHKfPSmbQtm9t9P-2H8poswtiEitCH8659hks
 id: talk_alias
 label: 'Talk alias'
 type: 'canonical_entities:node'
-pattern: '[node:field_talk_source_repository:entity:title]/[node:field_talk_number]'
+pattern: '/[node:field_talk_source_repository:entity:title]/[node:field_talk_number]'
 selection_criteria:
   417d3adb-d9df-48c0-a7f2-4bd99795b3a9:
     id: 'entity_bundle:node'
     negate: false
-    uuid: 417d3adb-d9df-48c0-a7f2-4bd99795b3a9
     context_mapping:
       node: node
     bundles:

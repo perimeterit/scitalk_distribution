@@ -1,20 +1,19 @@
-uuid: fd37e6e8-94c3-4732-87b0-d455b01a9847
+uuid: 82654b3c-21ed-41ed-aa9d-ed946072e3ce
 langcode: en
 status: true
 dependencies:
+  config:
+    - node.type.collection
   module:
     - node
-_core:
-  default_config_hash: 7Z7soxhlVYp8C8VAMUzncxuUdZb9IL7lQBSOjfdmwRU
 id: collections
 label: Collections
 type: 'canonical_entities:node'
-pattern: '[node:field_collection_source_repo:entity:title]/[node:field_collection_number:value]'
+pattern: '/[node:field_collection_source_repo:entity:title]/[node:field_collection_number:value]'
 selection_criteria:
   161b4bda-9c63-4c13-9294-ee56cc830df6:
     id: 'entity_bundle:node'
     negate: false
-    uuid: 161b4bda-9c63-4c13-9294-ee56cc830df6
     context_mapping:
       node: node
     bundles:

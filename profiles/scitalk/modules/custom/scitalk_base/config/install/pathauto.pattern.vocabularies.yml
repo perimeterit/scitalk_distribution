@@ -1,17 +1,25 @@
+uuid: 277ee05a-7c11-4189-af98-996cf01a1550
 langcode: en
 status: true
 dependencies:
+  config:
+    - taxonomy.vocabulary.academic_year
+    - taxonomy.vocabulary.collection_type
+    - taxonomy.vocabulary.scientific_area
+    - taxonomy.vocabulary.subjects
+    - taxonomy.vocabulary.tags
+    - taxonomy.vocabulary.talk_keywords
+    - taxonomy.vocabulary.talk_type
   module:
     - taxonomy
 id: vocabularies
 label: Vocabularies
 type: 'canonical_entities:taxonomy_term'
-pattern: '[term:vocabulary:name]/[term:name]'
+pattern: '/[term:vocabulary:name]/[term:name]'
 selection_criteria:
   6c6f62b4-c8a9-4dfb-bdb8-21345f7ef542:
     id: 'entity_bundle:taxonomy_term'
     negate: false
-    uuid: 6c6f62b4-c8a9-4dfb-bdb8-21345f7ef542
     context_mapping:
       taxonomy_term: taxonomy_term
     bundles:
