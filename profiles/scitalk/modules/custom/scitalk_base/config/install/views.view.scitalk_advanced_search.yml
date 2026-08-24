@@ -1,3 +1,4 @@
+uuid: 40757c74-ec73-4bcd-ad93-811e2a3177f8
 langcode: en
 status: true
 dependencies:
@@ -1264,7 +1265,7 @@ display:
             operator: field_talk_subject_op
             operator_limit_selection: false
             operator_list: {  }
-            identifier: field_talk_subject
+            identifier: subject
             required: false
             remember: false
             multiple: true
@@ -1274,6 +1275,7 @@ display:
               administrator: '0'
               scitalk_oauth: '0'
               talk_editor: '0'
+              av_services_manager: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -1323,6 +1325,7 @@ display:
               administrator: '0'
               scitalk_oauth: '0'
               talk_editor: '0'
+              av_services_manager: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -1495,12 +1498,12 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-        - 'url.query_args:field_talk_subject'
         - 'url.query_args:from'
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
         - 'url.query_args:source'
         - 'url.query_args:speaker'
+        - 'url.query_args:subject'
         - 'url.query_args:text'
         - 'url.query_args:to'
         - 'url.query_args:type'
@@ -1646,12 +1649,12 @@ display:
       contexts:
         - 'languages:language_interface'
         - url.query_args
-        - 'url.query_args:field_talk_subject'
         - 'url.query_args:from'
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
         - 'url.query_args:source'
         - 'url.query_args:speaker'
+        - 'url.query_args:subject'
         - 'url.query_args:text'
         - 'url.query_args:to'
         - 'url.query_args:type'
@@ -2324,12 +2327,12 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-        - 'url.query_args:field_talk_subject'
         - 'url.query_args:from'
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
         - 'url.query_args:source'
         - 'url.query_args:speaker'
+        - 'url.query_args:subject'
         - 'url.query_args:text'
         - 'url.query_args:to'
         - 'url.query_args:type'
@@ -3176,12 +3179,12 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - url.query_args
-        - 'url.query_args:field_talk_subject'
         - 'url.query_args:from'
         - 'url.query_args:sort_by'
         - 'url.query_args:sort_order'
         - 'url.query_args:source'
         - 'url.query_args:speaker'
+        - 'url.query_args:subject'
         - 'url.query_args:text'
         - 'url.query_args:to'
         - 'url.query_args:type'
@@ -3617,10 +3620,10 @@ display:
       contexts:
         - 'languages:language_interface'
         - url.query_args
-        - 'url.query_args:field_talk_subject'
         - 'url.query_args:from'
         - 'url.query_args:source'
         - 'url.query_args:speaker'
+        - 'url.query_args:subject'
         - 'url.query_args:text'
         - 'url.query_args:to'
         - 'url.query_args:type'
