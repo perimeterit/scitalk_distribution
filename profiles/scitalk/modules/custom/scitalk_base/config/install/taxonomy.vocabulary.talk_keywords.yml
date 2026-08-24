@@ -1,4 +1,4 @@
-uuid: 452ff9f4-c62d-4aea-a45c-a7bed3d6d1d4
+uuid: 6d353821-0d5e-4897-80cf-2bda281b5456
 langcode: en
 status: true
 dependencies:
@@ -9,5 +9,6 @@ _core:
   default_config_hash: pByVVCs0nBGJ8LbpYFro4IascxuSfuBPXeLPq46hrfM
 name: 'Talk Keywords'
 vid: talk_keywords
-description: ''
+description: null
 weight: 0
+new_revision: false

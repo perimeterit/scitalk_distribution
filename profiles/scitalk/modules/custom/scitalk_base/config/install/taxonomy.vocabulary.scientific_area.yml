@@ -1,4 +1,4 @@
-uuid: 9462cdb6-620a-4d0f-9554-6f14dc62d10c
+uuid: c8f67df2-24b8-454a-bf8e-f9a1a6f824fe
 langcode: en
 status: true
 dependencies:
@@ -11,3 +11,4 @@ name: 'Scientific Area'
 vid: scientific_area
 description: 'The scientific area of a Talk'
 weight: 0
+new_revision: false

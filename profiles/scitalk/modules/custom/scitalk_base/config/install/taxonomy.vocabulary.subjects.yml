@@ -1,10 +1,14 @@
+uuid: 5680d522-54da-43b0-8316-e560a1b1cbc8
 langcode: en
 status: true
 dependencies:
   enforced:
     module:
       - scitalk_base
+_core:
+  default_config_hash: EB7auSNCzX6qUi8oUkshaNjPXrMCQotAFtybBgoLzpY
 name: Subjects
 vid: subjects
 description: 'Branches of Science'
 weight: 0
+new_revision: false

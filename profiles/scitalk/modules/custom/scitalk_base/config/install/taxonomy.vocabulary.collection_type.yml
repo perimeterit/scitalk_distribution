@@ -1,4 +1,4 @@
-uuid: 56eef9e2-7ea4-4406-a998-b470f95b2c51
+uuid: af9376c7-331f-4593-8d8e-5b2093c0870d
 langcode: en
 status: true
 dependencies:
@@ -11,3 +11,4 @@ name: 'Collection Type'
 vid: collection_type
 description: 'Type of Collection'
 weight: 0
+new_revision: false

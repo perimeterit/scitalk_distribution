@@ -1,3 +1,4 @@
+uuid: 2066df89-0bf7-482e-aef2-26de750812de
 langcode: en
 status: true
 dependencies:
@@ -7,6 +8,8 @@ dependencies:
   module:
     - path
     - text
+_core:
+  default_config_hash: rrw_z6Udfl2me8JuFxZ5io2ukFSoX3AyV-LbgLByvZk
 id: taxonomy_term.collection_type.default
 targetEntityType: taxonomy_term
 bundle: collection_type

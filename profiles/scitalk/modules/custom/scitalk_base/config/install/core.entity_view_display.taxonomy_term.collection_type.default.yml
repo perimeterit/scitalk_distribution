@@ -1,7 +1,9 @@
+uuid: cc179d83-248b-4522-8992-a96e90c5d247
 langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.collection_type.field_background_image
     - field.field.taxonomy_term.collection_type.field_sort_order
     - taxonomy.vocabulary.collection_type
   module:
@@ -12,13 +14,14 @@ bundle: collection_type
 mode: default
 content:
   description:
-    label: hidden
     type: text_default
-    weight: 0
-    region: content
+    label: hidden
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
+  field_background_image: true
   field_sort_order: true
   langcode: true
   search_api_excerpt: true
