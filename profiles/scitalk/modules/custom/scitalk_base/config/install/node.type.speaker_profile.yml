@@ -1,20 +1,23 @@
+uuid: 3114230a-3c35-44bc-b192-2baf5fd48283
 langcode: en
 status: true
 dependencies:
+  module:
+    - menu_ui
   enforced:
     module:
       - scitalk_base
-  module:
-    - menu_ui
 third_party_settings:
   menu_ui:
     available_menus:
       - main
     parent: 'main:'
+_core:
+  default_config_hash: vEerhimpcrfyVEn6W4K_e9QJyeb9eB38AOCZYRnCzqc
 name: 'Speaker Profile'
 type: speaker_profile
 description: 'The profile associated to a speaker.'
-help: ''
+help: null
 new_revision: true
 preview_mode: 1
 display_submitted: false

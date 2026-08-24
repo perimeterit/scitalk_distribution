@@ -1,3 +1,4 @@
+uuid: aeb92818-c854-4ca6-8b85-109805c41687
 langcode: en
 status: true
 dependencies:
@@ -8,10 +9,12 @@ third_party_settings:
     available_menus:
       - main
     parent: 'main:'
+_core:
+  default_config_hash: G7xO5JJwMv4zT1TseZnnj7iWrLvKR6WXwRj4Q1erEpM
 name: Collection
 type: collection
 description: 'A collection of Talks.'
-help: ''
+help: null
 new_revision: true
 preview_mode: 1
 display_submitted: true

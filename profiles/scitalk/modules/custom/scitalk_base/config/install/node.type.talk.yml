@@ -1,19 +1,22 @@
+uuid: 2888e1a1-7e99-42cf-ae27-201935085cd9
 langcode: en
 status: true
 dependencies:
+  module:
+    - menu_ui
   enforced:
     module:
       - scitalk_base
-  module:
-    - menu_ui
 third_party_settings:
   menu_ui:
     available_menus: {  }
     parent: ''
+_core:
+  default_config_hash: ia4R3qQOKEGaNx187iqyq3nhuqxP3mQhcn1SB09eEl0
 name: Talk
 type: talk
 description: 'The videos stored and shared on the site.'
-help: ''
+help: null
 new_revision: true
 preview_mode: 1
 display_submitted: true
