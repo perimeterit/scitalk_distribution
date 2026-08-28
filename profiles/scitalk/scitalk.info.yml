@@ -100,4 +100,4 @@ install:
   - openapi_ui_redoc
 themes:
   - claro
-  - scitalk_theme
+  - cosmos
