@@ -1,4 +1,4 @@
-uuid: a76fb5f3-2e0e-4b53-a1e7-0da84389ae72
+uuid: f66a2a43-0fe4-4340-b001-6e19e81cf6ab
 langcode: en
 status: true
 dependencies:
@@ -6,12 +6,10 @@ dependencies:
     - system
   theme:
     - cosmos
-_core:
-  default_config_hash: a1_zprdl_t6lPjj-CasN2IQHMMQ8pVGyE78STo-YH7M
-id: cosmos_content
+id: cosmos_mainpagecontent
 theme: cosmos
 region: content
-weight: -7
+weight: 0
 provider: null
 plugin: system_main_block
 settings:

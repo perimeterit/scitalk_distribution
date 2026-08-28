@@ -1,4 +1,4 @@
-uuid: 51b2d7d1-7ad7-47d5-a0ed-b494073836f5
+uuid: 6ffff0fd-37c0-4c7f-b68e-3022fd54195a
 langcode: en
 status: true
 dependencies:
@@ -8,12 +8,10 @@ dependencies:
     - system
   theme:
     - cosmos
-_core:
-  default_config_hash: 20BazBS44TwnFXqvCRK_C_x56Mr6fBitOEOEg5vcYac
 id: cosmos_useraccountmenu
 theme: cosmos
 region: footer
-weight: -5
+weight: -4
 provider: null
 plugin: 'system_menu_block:account'
 settings:

@@ -1,4 +1,4 @@
-uuid: dcc677c4-6e0a-4b13-8e52-1c9fd92e5986
+uuid: e7acebf7-25e1-4c81-bf4b-5f74fd18e3b1
 langcode: en
 status: true
 dependencies:
@@ -8,17 +8,15 @@ dependencies:
     - system
   theme:
     - cosmos
-_core:
-  default_config_hash: oKg4-b65FwpMYTpFjvnGRZUKFhyS447g189f-OyBFmI
 id: cosmos_footer
 theme: cosmos
 region: footer
-weight: -8
+weight: -5
 provider: null
 plugin: 'system_menu_block:footer'
 settings:
   id: 'system_menu_block:footer'
-  label: 'Footer menu'
+  label: Footer
   label_display: '0'
   provider: system
   level: 1

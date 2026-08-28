@@ -1,4 +1,4 @@
-uuid: deeb6079-abf1-4034-a63c-f540b036efc2
+uuid: bd86264e-413e-4670-81fb-02aca5c0a6b9
 langcode: en
 status: true
 dependencies:
@@ -6,12 +6,10 @@ dependencies:
     - system
   theme:
     - cosmos
-_core:
-  default_config_hash: XJ-nilGsBMKuutM3awIuWdKtCAUzeru0C-qQZVtbHFE
-id: cosmos_branding
+id: cosmos_sitebranding
 theme: cosmos
 region: header
-weight: -5
+weight: 0
 provider: null
 plugin: system_branding_block
 settings:
@@ -19,7 +17,7 @@ settings:
   label: 'Site branding'
   label_display: '0'
   provider: system
-  use_site_logo: false
+  use_site_logo: true
   use_site_name: true
   use_site_slogan: true
 visibility: {  }

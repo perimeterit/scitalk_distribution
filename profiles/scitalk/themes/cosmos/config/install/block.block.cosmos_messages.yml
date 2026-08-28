@@ -1,4 +1,4 @@
-uuid: d6357485-88bf-4f97-8e39-39dba73b5bfe
+uuid: 2cc42635-dd2d-4063-9570-a64dee1de607
 langcode: en
 status: true
 dependencies:
@@ -6,17 +6,15 @@ dependencies:
     - system
   theme:
     - cosmos
-_core:
-  default_config_hash: wsbwKHMJZp47t6pPJyqCkmGOedYGJzhgdVAyx7cZJe0
 id: cosmos_messages
 theme: cosmos
 region: admin
-weight: -4
+weight: 0
 provider: null
 plugin: system_messages_block
 settings:
   id: system_messages_block
-  label: 'Status messages'
+  label: Messages
   label_display: '0'
   provider: system
 visibility: {  }

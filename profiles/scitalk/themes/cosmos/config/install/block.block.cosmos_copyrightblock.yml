@@ -1,4 +1,4 @@
-uuid: 0ed4b650-fa4f-4642-805a-92289eaf6512
+uuid: 290182a8-f3c5-4a48-8c0d-e3733ab9c39f
 langcode: en
 status: true
 dependencies:
@@ -6,12 +6,10 @@ dependencies:
     - copyright_block
   theme:
     - cosmos
-_core:
-  default_config_hash: Eq9fpKMSSoSDBSiS_HFz-ZfxbAMKPZvquTZ7KhCZktQ
 id: cosmos_copyrightblock
 theme: cosmos
-region: footer
-weight: -6
+region: footer_bottom
+weight: -4
 provider: null
 plugin: copyright_block
 settings:
@@ -19,10 +17,9 @@ settings:
   label: 'Copyright block'
   label_display: '0'
   provider: copyright_block
-  start_year: '2020'
+  start_year: '2026'
   separator: '-'
   text:
-    value: "<p>© Copyright [copyright_statement:dates] [site:name]</p>\r\n"
+    value: Copyright
     format: basic_html
-  seperator: '-'
 visibility: {  }

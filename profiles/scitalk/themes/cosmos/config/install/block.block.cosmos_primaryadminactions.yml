@@ -1,15 +1,13 @@
-uuid: 9bc403a5-11dc-45c8-a70e-fbba5f014d09
+uuid: 1e62b327-e62a-44d1-a9b9-01af92777c2a
 langcode: en
 status: true
 dependencies:
   theme:
     - cosmos
-_core:
-  default_config_hash: UgL8hzN6K3PiLFecq6PkUxq4ubonGNd5BKNkmf4U2hY
-id: cosmos_local_actions
+id: cosmos_primaryadminactions
 theme: cosmos
 region: admin
-weight: -2
+weight: 0
 provider: null
 plugin: local_actions_block
 settings:

@@ -1,15 +1,13 @@
-uuid: c6bed88c-64d4-4990-b200-133803f43df4
+uuid: 59940802-db2b-447c-a2b9-8e2b039a6d3c
 langcode: en
 status: true
 dependencies:
   theme:
     - cosmos
-_core:
-  default_config_hash: 9_XvHL3Zjc4pgh0nczwAPFVWgSnry2ySkA37SVlIopQ
-id: cosmos_local_tasks
+id: cosmos_tabs
 theme: cosmos
 region: admin
-weight: -5
+weight: 0
 provider: null
 plugin: local_tasks_block
 settings:
