@@ -6,6 +6,8 @@ dependencies:
     - system
   theme:
     - cosmos
+_core:
+  default_config_hash: zwZyIOPlgAtoFI4zd88LVm9K5HlPrwHLDCXDx1qRa_A
 id: cosmos_mainpagecontent
 theme: cosmos
 region: content

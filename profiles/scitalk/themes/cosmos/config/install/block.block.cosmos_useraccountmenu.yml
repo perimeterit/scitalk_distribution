@@ -8,6 +8,8 @@ dependencies:
     - system
   theme:
     - cosmos
+_core:
+  default_config_hash: WgGxPefr8H8zvkRVRDqDpv5WHVWio-YymjRLJZkDa_o
 id: cosmos_useraccountmenu
 theme: cosmos
 region: footer

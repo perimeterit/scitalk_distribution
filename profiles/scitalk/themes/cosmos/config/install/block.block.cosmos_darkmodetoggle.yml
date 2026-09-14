@@ -1,0 +1,20 @@
+uuid: 56e799e7-e0c9-4a19-8de4-24a67c06c8ef
+langcode: en
+status: true
+dependencies:
+  module:
+    - dark_mode_toggle
+  theme:
+    - cosmos
+id: cosmos_darkmodetoggle
+theme: cosmos
+region: header
+weight: -3
+provider: null
+plugin: dark_mode_toggle
+settings:
+  id: dark_mode_toggle
+  label: 'Dark Mode Toggle'
+  label_display: '0'
+  provider: dark_mode_toggle
+visibility: {  }

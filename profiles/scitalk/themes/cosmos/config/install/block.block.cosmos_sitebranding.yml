@@ -6,10 +6,12 @@ dependencies:
     - system
   theme:
     - cosmos
+_core:
+  default_config_hash: f8XpseFApvB8-4DMgokbdKLxoqSoLa8WZWT1t-AxeTY
 id: cosmos_sitebranding
 theme: cosmos
 region: header
-weight: 0
+weight: -5
 provider: null
 plugin: system_branding_block
 settings:

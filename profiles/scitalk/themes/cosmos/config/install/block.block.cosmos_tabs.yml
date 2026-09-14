@@ -4,6 +4,8 @@ status: true
 dependencies:
   theme:
     - cosmos
+_core:
+  default_config_hash: 743JB_Kkf3uOHCUI5frDj4U4CaNxKfg1-9dF_lGyqjM
 id: cosmos_tabs
 theme: cosmos
 region: admin

@@ -4,6 +4,8 @@ status: true
 dependencies:
   theme:
     - cosmos
+_core:
+  default_config_hash: DyZzMMkE0GlOQxJhpn-xnxdmmjdUMH3WnnU9FjeZ31I
 id: cosmos_pagetitle
 theme: cosmos
 region: banner

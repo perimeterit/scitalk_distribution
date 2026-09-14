@@ -6,6 +6,8 @@ dependencies:
     - copyright_block
   theme:
     - cosmos
+_core:
+  default_config_hash: x7xCQnT_8YOAinbzfUOU60FononSANRt_epIWQrSj-E
 id: cosmos_copyrightblock
 theme: cosmos
 region: footer_bottom
@@ -20,6 +22,6 @@ settings:
   start_year: '2026'
   separator: '-'
   text:
-    value: Copyright
+    value: 'Copyright [copyright_statement:dates] [site:name]'
     format: basic_html
 visibility: {  }

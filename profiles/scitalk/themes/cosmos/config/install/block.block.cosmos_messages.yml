@@ -6,6 +6,8 @@ dependencies:
     - system
   theme:
     - cosmos
+_core:
+  default_config_hash: 1oyDzsd64QlZZjXKUN3D5xW3KiVVTYFU6Eg9ZafwT6g
 id: cosmos_messages
 theme: cosmos
 region: admin
