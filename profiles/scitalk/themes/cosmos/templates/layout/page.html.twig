@@ -36,13 +36,12 @@
   {% set page_title = site_title %}
 {% endif %}
 
-
-
 {% embed "cosmos:page_layout" %}
+
 
   {# Use set here because nested blocks & embeds don't work #}
   {% set site_branding %}
-    {{ page.header[active_theme() ~ '_branding'] }}
+    {{ page.header[active_theme() ~ '_sitebranding'] }}
   {% endset %}
 
   {% set site_search %}
@@ -51,7 +50,7 @@
   {% endset %}
 
   {% set supplementary_nav %}
-    {{ page.header|without(active_theme() ~ '_branding',active_theme() ~ '_searchform', active_theme() ~ '_exposedformscitalk_advanced_searchbasic_search') }}
+    {{ page.header|without(active_theme() ~ '_sitebranding',active_theme() ~ '_searchform', active_theme() ~ '_exposedformscitalk_advanced_searchbasic_search') }}
   {% endset %}
 
   {% set banner %}
@@ -63,14 +62,11 @@
   {% endblock %}
 
   {% block main_content %}
-    {# In the Talks content type the page title is rendered in the node template #}
     {{ page.admin }}
     {{ page.content }}
   {% endblock %}
 
-
   {% set site_footer_main %}
-    {# Using twig tweak here will remove the region wrappers #}
     {{ page.footer }}
   {% endset %}
 

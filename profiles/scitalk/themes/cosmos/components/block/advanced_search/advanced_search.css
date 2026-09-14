@@ -28,20 +28,13 @@
     }
   }
 
- .form-submit {
-    font-size: .9rem;
-    font-weight: 500;
-    & + .form-submit {
-      background: none;
-      color: var(--color-links);
-      cursor: pointer;
-      font-size: .8em;
-      padding: 0;
+  .form-actions {
+    display: flex;
+  }
 
-      &:is(:hover,:focus) {
-        text-decoration: underline;
-      }
-    }
+ .form-submit {
+    font-weight: 500;
+    font-size: .8rem;
   }
 }
 

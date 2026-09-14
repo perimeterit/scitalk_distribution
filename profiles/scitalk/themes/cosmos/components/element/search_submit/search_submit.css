@@ -1,0 +1,39 @@
+.search-submit {
+  --icon-height: calc(var(--search-form-height) * .7);
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto auto;
+
+  /* By default icon will show to the right of the text */
+  .form-submit {
+    padding-right: var(--search-form-height, 1.8rem);
+  }
+
+  svg {
+    fill: currentColor;
+    height: var(--icon-height, 1rem);
+    width: var(--icon-height, 1rem);
+    margin-left: calc(-.8 * var(--search-form-height, 1.8rem));
+    pointer-events: none;
+  }
+
+  /* On exposed form when submit button is hidden */
+
+  .form-submit.js-hide + svg {
+    display: none;
+  }
+
+  /* Hide text and only display the icon */
+
+  @container style(--search-submit-icon-only: true) {
+    .form-submit {
+      padding: 0;
+      height: var(--search-form-height, auto);
+      width: var(--search-form-height, auto);
+      text-indent: -9999px;
+      overflow: hidden;
+    }
+
+  }
+
+}

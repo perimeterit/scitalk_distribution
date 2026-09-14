@@ -74,7 +74,8 @@ input[type='submit'],
   opacity: .8;
 }
 
-button.button-unstyled {
+button.button-unstyled,
+input.button-unstyled {
   background: transparent;
   border: none;
   color: inherit;
@@ -83,5 +84,6 @@ button.button-unstyled {
   &:is(:hover,:focus) {
     background: transparent;
     color: inherit;
+    text-decoration: underline;
   }
 }
