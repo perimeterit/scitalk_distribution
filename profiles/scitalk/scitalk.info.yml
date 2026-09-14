@@ -21,6 +21,7 @@ install:
   - contextual
   - ctools
   - ctools_block
+  - dark_mode_toggle
   - datetime
   - dblog
   - dynamic_page_cache
