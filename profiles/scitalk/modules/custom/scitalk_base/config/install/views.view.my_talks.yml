@@ -1,16 +1,17 @@
-uuid: 537e9ad4-65c5-4737-a62a-21858984bb02
+uuid: 79e3dc26-224a-46d3-ab8b-52c9f88bc999
 langcode: en
 status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - node.type.talk
+    - user.role.administrator
     - user.role.talk_editor
   module:
     - node
     - user
 _core:
-  default_config_hash: k-lV0eaV6xqtUFP_eIwEWX0atWW5-czHVglAFlt9p5M
+  default_config_hash: AMmg_WDrbe1jTNOIyY5aZ5Bvp3lNkLNj23IIveX3zLk
 id: my_talks
 label: 'My Talks'
 module: views
@@ -78,6 +79,7 @@ display:
         type: mini
         options:
           offset: 0
+          pagination_heading_level: h4
           items_per_page: 10
           total_pages: null
           id: 0

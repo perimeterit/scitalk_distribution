@@ -1,4 +1,4 @@
-uuid: ad358e39-f20a-4c11-9184-c6b25b31c547
+uuid: 541ed0cb-08ac-480c-bd19-0690ca1f8a23
 langcode: en
 status: true
 dependencies:
@@ -8,6 +8,8 @@ dependencies:
     - field.field.node.talk.field_embargo_date
     - field.field.node.talk.field_scientific_area
     - field.field.node.talk.field_scivideos_uuid
+    - field.field.node.talk.field_subtitle_upload_file
+    - field.field.node.talk.field_subtitle_url
     - field.field.node.talk.field_talk_abstract
     - field.field.node.talk.field_talk_attachments
     - field.field.node.talk.field_talk_collection
@@ -17,12 +19,14 @@ dependencies:
     - field.field.node.talk.field_talk_keywords
     - field.field.node.talk.field_talk_location
     - field.field.node.talk.field_talk_number
+    - field.field.node.talk.field_talk_slideshow
     - field.field.node.talk.field_talk_source_event
     - field.field.node.talk.field_talk_source_repository
     - field.field.node.talk.field_talk_speaker_profile
     - field.field.node.talk.field_talk_speakers_text
     - field.field.node.talk.field_talk_subject
     - field.field.node.talk.field_talk_thumbnail
+    - field.field.node.talk.field_talk_transcripts
     - field.field.node.talk.field_talk_type
     - field.field.node.talk.field_talk_video
     - field.field.node.talk.field_talk_video_url
@@ -45,7 +49,7 @@ third_party_settings:
       label: Resources
       parent_name: ''
       region: hidden
-      weight: 24
+      weight: 31
       format_type: html_element
       format_settings:
         classes: ''
@@ -62,7 +66,7 @@ third_party_settings:
       label: Details
       parent_name: ''
       region: hidden
-      weight: 23
+      weight: 30
       format_type: html_element
       format_settings:
         classes: ''
@@ -78,7 +82,7 @@ third_party_settings:
     enabled: false
     allow_custom: false
 _core:
-  default_config_hash: 2C7eFhroW_vyQzJdJnL_WyfliTcwWJAgy94CMzqM6kA
+  default_config_hash: 462BGMYY4eK-lyWOxGEriFU9XMdahLwW0cu2PtT0PDM
 id: node.talk.thumbnail
 targetEntityType: node
 bundle: talk
@@ -89,13 +93,13 @@ content:
     label: hidden
     settings:
       which_thumb: media
-      which_style: scitalk_preview_medium
+      which_style: scitalk_thumbnail
     third_party_settings:
       fences:
         fences_field_tag: figure
         fences_field_classes: ''
         fences_field_items_wrapper_tag: none
-        fences_field_items_wrapper_classes: ''
+        fences_field_items_wrapper_classes: none
         fences_field_item_tag: none
         fences_field_item_classes: ''
         fences_label_tag: div
@@ -107,6 +111,8 @@ hidden:
   field_embargo_date: true
   field_scientific_area: true
   field_scivideos_uuid: true
+  field_subtitle_upload_file: true
+  field_subtitle_url: true
   field_talk_abstract: true
   field_talk_attachments: true
   field_talk_collection: true
@@ -116,11 +122,13 @@ hidden:
   field_talk_keywords: true
   field_talk_location: true
   field_talk_number: true
+  field_talk_slideshow: true
   field_talk_source_event: true
   field_talk_source_repository: true
   field_talk_speaker_profile: true
   field_talk_speakers_text: true
   field_talk_subject: true
+  field_talk_transcripts: true
   field_talk_type: true
   field_talk_video: true
   field_talk_video_url: true
