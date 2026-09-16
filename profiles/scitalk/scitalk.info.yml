@@ -99,6 +99,7 @@ install:
   - openapi_jsonapi
   - openapi_ui
   - openapi_ui_redoc
+  - smart_trim
 themes:
   - claro
   - cosmos
