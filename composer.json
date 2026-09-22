@@ -203,9 +203,6 @@
             },
             "drupal/selective_better_exposed_filters": {
                 "Hide details collapsible if form element is empty": "https://raw.githubusercontent.com/perimeterit/scitalk_distribution/master/patches/3360778-hide-collapsible-details-element.patch"
-            },
-            "drupal/schemata": {
-                "#3523349 PHP 8.4: Implicitly nullable parameter declarations deprecated": "https://git.drupalcode.org/project/schemata/-/merge_requests/17.diff"
             }
         }
     }
