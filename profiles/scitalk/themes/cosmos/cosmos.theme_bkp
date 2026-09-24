@@ -302,134 +302,61 @@ function cosmos_preprocess_media(&$variables) {
     $transcript_lang = $transcript_lang_field[0]['#markup'] ?? '';
     $transcript = [];
 
-    // new: correct deal with timestamps that have no hour, remove the cue ID from the text:
     if (!empty($transcript_text)) {
-      $transcript = _build_transcript_data($transcript_text);
-      $variables['transcript'] = $transcript;
-    }
+      $regex = "/((\d\d:)?\d{2}:\d{2}\.\d{3})\s+-->\s+((\d\d:)?\d{2}:\d{2}\.\d{3})((?:(?!\d\d:).)*|$)/ms";
+      preg_match_all($regex, $transcript_text, $transcript_items, PREG_SET_ORDER);
+      /* In the matches array:
+        0 = full text
+        1 = start time
+        3 = end time
+        5 = text
+      */
 
-    // this block below fails when there is no hh in the timestamp, also it includes cue ID's if present in the text.
-    // replaced with function _build_transcript_data.
-    // Keeping the block for now
-    // if (!empty($transcript_text)) {
-    //   $regex = "/((\d\d:)?\d{2}:\d{2}\.\d{3})\s+-->\s+((\d\d:)?\d{2}:\d{2}\.\d{3})((?:(?!\d\d:).)*|$)/ms";
-    //   preg_match_all($regex, $transcript_text, $transcript_items, PREG_SET_ORDER);
-    //   /* In the matches array:
-    //     0 = full text
-    //     1 = start time
-    //     3 = end time
-    //     5 = text
-    //   */
-
-    //   foreach ($transcript_items as $key => $item) {
-    //     // Create link for start time
-    //     $start_time = trim($item[1]);
-    //     $start_time_parts = explode(':', $start_time);
+      foreach ($transcript_items as $key => $item) {
+        // Create link for start time
+        $start_time = trim($item[1]);
+        $start_time_parts = explode(':', $start_time);
 
 
-    //     // Trim the milliseconds from $start_time_parts[2]
-    //     $start_time_parts[2] = strtok($start_time_parts[2], '.');
-
-    //     // Convert this time to seconds and set a display time
-    //     // If there are three parts, it's hh:mm:ss
-    //     if (count($start_time_parts) == 3) {
-    //       $seconds = ($start_time_parts[0] * 3600) + ($start_time_parts[1] * 60) + floatval($start_time_parts[2]);
-
-    //       if ($start_time_parts[0] == 0) {
-    //         // If hours is 0, display as mm:ss
-    //         $display_time = $start_time_parts[1] . ':' . $start_time_parts[2];
-    //       }
-    //       else {
-    //         // Otherwise display as hh:mm:ss
-    //         $display_time = $start_time_parts[0] . ':' . $start_time_parts[1] . ':' . $start_time_parts[2];
-    //       }
-
-    //     }
-    //     // Otherwise it's mm:ss
-    //     else {
-    //       $seconds = ($start_time_parts[0] * 60) + floatval($start_time_parts[1]);
-    //       $display_time = $start_time_parts[1] . ':' . $start_time_parts[2];
-    //     }
-
-    //     $text = trim($item[5]);
-    //     $transcript[$key] = [
-    //       'seconds' => intval($seconds),
-    //       'display_time' => $display_time,
-    //       'text' => $text
-    //     ];
-    //   }
-    //   // Pass this array to the template, then pass that to the component.
-    //   // Component should loop through items to build the mark-up.
-    //   // Luis was doing some weird stuff to check whether there were two or three time sections ?? Check JS
-    //   $variables['transcript'] = $transcript;
-    // }
-  }
-
-
-}
-
-/**
- * Build the Transcript data from the raw VTT text.
- * 
- * It handles timestamps with not hour and removes cue IDs from the text
- * @param string $transcript_text
- * @return array
- */
-function _build_transcript_data(string $transcript_text): array {
-  $regex = "/(?:(?<id>[^\r\n]+)\R)?(?<start>\d{2}:\d{2}(?::\d{2})?\.\d{3})\s+-->\s+(?<end>\d{2}:\d{2}(?::\d{2})?\.\d{3})[^\r\n]*\R(?<text>.*?)(?=\R{2,}|\z)/ms";
-  /*
-      $regex = '/
-          (?:(?<id>[^\r\n]+)\R)?                              # optional cue ID
-          (?<start>\d{2}:\d{2}(?::\d{2})?\.\d{3})             # start timestamp but considers the last 2 digits as optional, i.e. hours are optionals
-          \s+-->\s+
-          (?<end>\d{2}:\d{2}(?::\d{2})?\.\d{3})               # end timestamp
-          [^\r\n]*\R                                          # optional cue settings
-          (?<text>.*?)
-          (?=\R{2,}|\z)                                       # next cue / EOF
-      /ms';
-  */
-
-  $transcript = [];
-  preg_match_all($regex, $transcript_text, $transcript_items, PREG_SET_ORDER);
-  foreach ($transcript_items as $key => $item) {
-    $seconds = $display_time = '';
-
-    // Create link for start time
-    $start_time = trim($item['start']);
-    $start_time_parts = explode(':', $start_time);
-
-    if (count($start_time_parts) == 2) { // mm:ss.milsec (no hr in the time)
-        // Trim the milliseconds from $start_time_parts[1]
-        $start_time_parts[1] = strtok($start_time_parts[1], '.');
-
-        $seconds = ($start_time_parts[0] * 60) + floatval($start_time_parts[1]);
-        $display_time = $start_time_parts[0] . ':' . $start_time_parts[1];
-    }
-    elseif (count($start_time_parts) == 3) { // hh:mm:ss.milsec
         // Trim the milliseconds from $start_time_parts[2]
         $start_time_parts[2] = strtok($start_time_parts[2], '.');
 
-        $seconds = ($start_time_parts[0] * 3600) + ($start_time_parts[1] * 60) + floatval($start_time_parts[2]);
+        // Convert this time to seconds and set a display time
+        // If there are three parts, it's hh:mm:ss
+        if (count($start_time_parts) == 3) {
+          $seconds = ($start_time_parts[0] * 3600) + ($start_time_parts[1] * 60) + floatval($start_time_parts[2]);
 
-        if ($start_time_parts[0] == 0) {
+          if ($start_time_parts[0] == 0) {
             // If hours is 0, display as mm:ss
             $display_time = $start_time_parts[1] . ':' . $start_time_parts[2];
-        }
-        else {
+          }
+          else {
             // Otherwise display as hh:mm:ss
             $display_time = $start_time_parts[0] . ':' . $start_time_parts[1] . ':' . $start_time_parts[2];
-        }
-    }
+          }
 
-    $text = trim($item['text']);
-    $transcript[$key] = [
-      'seconds' => intval($seconds),
-      'display_time' => $display_time,
-      'text' => $text
-    ];
+        }
+        // Otherwise it's mm:ss
+        else {
+          $seconds = ($start_time_parts[0] * 60) + floatval($start_time_parts[1]);
+          $display_time = $start_time_parts[1] . ':' . $start_time_parts[2];
+        }
+
+        $text = trim($item[5]);
+        $transcript[$key] = [
+          'seconds' => intval($seconds),
+          'display_time' => $display_time,
+          'text' => $text
+        ];
+      }
+      // Pass this array to the template, then pass that to the component.
+      // Component should loop through items to build the mark-up.
+      // Luis was doing some weird stuff to check whether there were two or three time sections ?? Check JS
+      $variables['transcript'] = $transcript;
+    }
   }
 
-  return $transcript;
+
 }
 
 /*
@@ -768,3 +695,257 @@ function cosmos_page_attachments_alter(array &$page) {
   }
 }
 
+//find ISO language code
+function _iso_language_code_map($language) {
+  $mapping =  [
+    "afar" => "aa",
+    "abkhazian" => "ab",
+    "avestan" => "ae",
+    "afrikaans" => "af",
+    "akan" => "ak",
+    "amharic" => "am",
+    "aragonese" => "an",
+    "arabic" => "ar",
+    "assamese" => "as",
+    "avaric" => "av",
+    "aymara" => "ay",
+    "azerbaijani" => "az",
+    "bashkir" => "ba",
+    "belarusian" => "be",
+    "bulgarian" => "bg",
+    "bihari languages" => "bh",
+    "bislama" => "bi",
+    "bambara" => "bm",
+    "bengali" => "bn",
+    "tibetan" => "bo",
+    "breton" => "br",
+    "bosnian" => "bs",
+    "catalan; valencian" => "ca",
+    "catalan" => "ca",
+    "valencian" => "ca",
+    "chechen" => "ce",
+    "chamorro" => "ch",
+    "corsican" => "co",
+    "cree" => "cr",
+    "czech" => "cs",
+    "church slavic; old slavonic; church slavonic; old bulgarian; old church slavonic" => "cu",
+    "church slavic" => "cu",
+    "old slavonic" => "cu",
+    "church slavonic" => "cu",
+    "old bulgarian" => "cu",
+    "old church slavonic" => "cu",
+    "chuvash" => "cv",
+    "welsh" => "cy",
+    "danish" => "da",
+    "german" => "de",
+    "divehi; dhivehi; maldivian" => "dv",
+    "divehi" => "dv",
+    "dhivehi" => "dv",
+    "maldivian" => "dv",
+    "dzongkha" => "dz",
+    "ewe" => "ee",
+    "greek, modern (1453-)" => "el",
+    "english" => "en",
+    "esperanto" => "eo",
+    "spanish; castilian" => "es",
+    "spanish" => "es",
+    "castilian" => "es",
+    "estonian" => "et",
+    "basque" => "eu",
+    "persian" => "fa",
+    "fulah" => "ff",
+    "finnish" => "fi",
+    "fijian" => "fj",
+    "faroese" => "fo",
+    "french" => "fr",
+    "western frisian" => "fy",
+    "irish" => "ga",
+    "gaelic; scomttish gaelic" => "gd",
+    "gaelic" => "gd",
+    "scomttish gaelic" => "gd",
+    "galician" => "gl",
+    "guarani" => "gn",
+    "gujarati" => "gu",
+    "manx" => "gv",
+    "hausa" => "ha",
+    "hebrew" => "he",
+    "hindi" => "hi",
+    "hiri motu" => "ho",
+    "croatian" => "hr",
+    "haitian; haitian creole" => "ht",
+    "haitian" => "ht",
+    "haitian creole" => "ht",
+    "hungarian" => "hu",
+    "armenian" => "hy",
+    "herero" => "hz",
+    "interlingua (international auxiliary language association)" => "ia",
+    "indonesian" => "id",
+    "interlingue; occidental" => "ie",
+    "interlingue" => "ie",
+    "occidental" => "ie",
+    "igbo" => "ig",
+    "sichuan yi; nuosu" => "ii",
+    "sichuan yi" => "ii",
+    "nuosu" => "ii",
+    "inupiaq" => "ik",
+    "ido" => "io",
+    "icelandic" => "is",
+    "italian" => "it",
+    "inuktitut" => "iu",
+    "japanese" => "ja",
+    "javanese" => "jv",
+    "georgian" => "ka",
+    "kongo" => "kg",
+    "kikuyu; gikuyu" => "ki",
+    "kikuyu" => "ki",
+    "gikuyu" => "ki",
+    "kuanyama; kwanyama" => "kj",
+    "kuanyama" => "kj",
+    "kwanyama" => "kj",
+    "kazakh" => "kk",
+    "kalaallisut; greenlandic" => "kl",
+    "kalaallisut" => "kl",
+    "greenlandic" => "kl",
+    "central khmer" => "km",
+    "kannada" => "kn",
+    "korean" => "ko",
+    "kanuri" => "kr",
+    "kashmiri" => "ks",
+    "kurdish" => "ku",
+    "komi" => "kv",
+    "cornish" => "kw",
+    "kirghiz; kyrgyz" => "ky",
+    "kirghiz" => "ky",
+    "kyrgyz" => "ky",
+    "latin" => "la",
+    "luxembourgish; letzeburgesch" => "lb",
+    "luxembourgish" => "lb",
+    "letzeburgesch" => "lb",
+    "ganda" => "lg",
+    "limburgan; limburger; limburgish" => "li",
+    "limburgan" => "li",
+    "limburger" => "li",
+    "limburgish" => "li",
+    "lingala" => "ln",
+    "lao" => "lo",
+    "lithuanian" => "lt",
+    "luba-katanga" => "lu",
+    "latvian" => "lv",
+    "malagasy" => "mg",
+    "marshallese" => "mh",
+    "maori" => "mi",
+    "macedonian" => "mk",
+    "malayalam" => "ml",
+    "mongolian" => "mn",
+    "marathi" => "mr",
+    "malay" => "ms",
+    "maltese" => "mt",
+    "burmese" => "my",
+    "nauru" => "na",
+    "bokmål, norwegian; norwegian bokmål" => "nb",
+    "bokmål, norwegian" => "nb",
+    "norwegian bokmål" => "nb",
+    "ndebele, north; north ndebele" => "nd",
+    "ndebele, north" => "nd",
+    "north ndebele" => "nd",
+    "nepali" => "ne",
+    "ndonga" => "ng",
+    "dutch; flemish" => "nl",
+    "dutch" => "nl",
+    "flemish" => "nl",
+    "norwegian nynorsk; nynorsk, norwegian" => "nn",
+    "norwegian nynorsk" => "nn",
+    "nynorsk, norwegian" => "nn",
+    "norwegian" => "no",
+    "ndebele, south; south ndebele" => "nr",
+    "ndebele, south" => "nr",
+    "south ndebele" => "nr",
+    "navajo; navaho" => "nv",
+    "navajo" => "nv",
+    "navaho" => "nv",
+    "chichewa; chewa; nyanja" => "ny",
+    "chichewa" => "ny",
+    "chewa" => "ny",
+    "nyanja" => "ny",
+    "occitan (post 1500)" => "oc",
+    "ojibwa" => "oj",
+    "oromo" => "om",
+    "oriya" => "or",
+    "ossetian; ossetic" => "os",
+    "ossetian" => "os",
+    "ossetic" => "os",
+    "panjabi; punjabi" => "pa",
+    "panjabi" => "pa",
+    "punjabi" => "pa",
+    "pali" => "pi",
+    "polish" => "pl",
+    "pushto; pashto" => "ps",
+    "pushto" => "ps",
+    "pashto" => "ps",
+    "portuguese" => "pt",
+    "quechua" => "qu",
+    "romansh" => "rm",
+    "rundi" => "rn",
+    "romanian; moldavian; moldovan" => "ro",
+    "romanian" => "ro",
+    "moldavian" => "ro",
+    "moldovan" => "ro",
+    "russian" => "ru",
+    "kinyarwanda" => "rw",
+    "sanskrit" => "sa",
+    "sardinian" => "sc",
+    "sindhi" => "sd",
+    "northern sami" => "se",
+    "sango" => "sg",
+    "sinhala; sinhalese" => "si",
+    "sinhala" => "si",
+    "sinhalese" => "si",
+    "slovak" => "sk",
+    "slovenian" => "sl",
+    "samoan" => "sm",
+    "shona" => "sn",
+    "somali" => "so",
+    "albanian" => "sq",
+    "serbian" => "sr",
+    "swati" => "ss",
+    "sotho, southern" => "st",
+    "sundanese" => "su",
+    "swedish" => "sv",
+    "swahili" => "sw",
+    "tamil" => "ta",
+    "telugu" => "te",
+    "tajik" => "tg",
+    "thai" => "th",
+    "tigrinya" => "ti",
+    "turkmen" => "tk",
+    "tagalog" => "tl",
+    "tswana" => "tn",
+    "tonga (tonga islands)" => "to",
+    "turkish" => "tr",
+    "tsonga" => "ts",
+    "tatar" => "tt",
+    "twi" => "tw",
+    "tahitian" => "ty",
+    "uighur; uyghur" => "ug",
+    "uighur" => "ug",
+    "uyghur" => "ug",
+    "ukrainian" => "uk",
+    "urdu" => "ur",
+    "uzbek" => "uz",
+    "venda" => "ve",
+    "vietnamese" => "vi",
+    "volapük" => "vo",
+    "walloon" => "wa",
+    "wolof" => "wo",
+    "xhosa" => "xh",
+    "yiddish" => "yi",
+    "yoruba" => "yo",
+    "zhuang; chuang" => "za",
+    "zhuang" => "za",
+    "chuang" => "za",
+    "chinese" => "zh",
+    "zulu" => "zu"
+  ];
+
+  return $mapping[strtolower($language)] ?? "";
+}
