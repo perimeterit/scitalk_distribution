@@ -1,6 +1,6 @@
 /* Some default styling for menus */
 .menu {
-  --menu-link-color: var(--color-grey-dark);
+  --menu-link-color: var(--color-neutral-dark);
   list-style: none;
   margin: 0;
   padding: 0;
