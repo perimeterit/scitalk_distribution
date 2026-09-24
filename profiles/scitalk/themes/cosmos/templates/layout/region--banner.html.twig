@@ -22,12 +22,12 @@
   }) %}
 
     {% block page_title %}
-      {{ content.cosmos_pagetitle }}
+      {{ drupal_block('page_title_block', {label: 'test', label_display: flase}) }}
     {% endblock %}
 
     {% block banner_content %}
       {% if speakers %}
-        {{ include('cosmos:speakers')}}
+        {{ include('cosmos:speakers') }}
       {% endif %}
       {% if speaker_institution %}
         {{ speaker_institution }}

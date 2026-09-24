@@ -4,16 +4,16 @@
   {# Section label #}
   {% if section_label %}
     {% if section_label_link %}
-      <a href="{{ section_label_link}}" class="banner--section-label">
+      <a href="{{ section_label_link }}" class="banner--section-label">
     {% else %}
       <span class="banner--section-label">
     {% endif %}
 
-     {{ section_label }}
+      {{ section_label }}
 
-    {% if section_label_link %}
+      {% if section_label_link %}
       </a>
-    {% else %}
+      {% else %}
       </span>
     {% endif %}
   {% endif %}
