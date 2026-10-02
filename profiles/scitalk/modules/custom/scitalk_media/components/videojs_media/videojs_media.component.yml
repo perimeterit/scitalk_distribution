@@ -30,3 +30,20 @@ slots:
   video_sources:
     title: Video source slot
     description: Video source slot listing all video sources
+
+libraryOverrides:
+  css:
+    component:
+      videojs-preroll.css: {}
+    theme:
+      videojs_media.css: {}
+  js:
+    videojs-preroll-v2.js: {}
+    scitalk_preroll_init.js: {}
+    videojs_media.js: {}
+    videojs-analytics.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/once
+    - cosmos/video-player
