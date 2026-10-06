@@ -3,19 +3,12 @@
 namespace Drupal\scitalk_media\Plugin\Field\FieldFormatter;
 
 use Drupal\Core\Field\FieldItemListInterface;
-use Drupal\media\Entity\MediaType;
 use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\FieldDefinitionInterface;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\scitalk_media\Plugin\media\Source\SciTalkVideo;
-use Drupal\scitalk_media\Plugin\media\Source\SciTalkArXiv;
 use Drupal\file\Entity\File;
 use Drupal\image\Entity\ImageStyle;
 use Drupal\Core\File\FileExists;
-// use Drupal\Core\File\FileSystemInterface;
-
-use Drupal\Core\Link;
-use Drupal\Core\Url;
 
 /**
  * Plugin implementation of the 'scitalk_thumbnail_formatter' formatter.
@@ -30,24 +23,15 @@ use Drupal\Core\Url;
  */
 class SciTalkThumbnailFormatter extends FormatterBase {
 
-  
-   /**
-   * {@inheritdoc}
-   */
-  public function prepareView(array $entities_items) { 
-    //placeholder if we need to generate any meta-data for the display
-  }
-  
   /**
    * {@inheritdoc}
    */
   public function view(FieldItemListInterface $items, $langcode = NULL) {
-    //not overriding anything here, so we'll just call the parent.
+    // Not overriding anything here, so we'll just call the parent.
     $elements = parent::view($items, $langcode);
     return $elements;
   }
-  
-   
+
   /**
    * {@inheritdoc}
    */
@@ -56,113 +40,76 @@ class SciTalkThumbnailFormatter extends FormatterBase {
     $node = $items->getEntity();
     $thumb_to_use = $this->getSetting('which_thumb');
     $style_to_use = $this->getSetting('which_style');
-    switch($thumb_to_use) {
-      case 'field':  //use the field_talk_thumbnail field for the thumb
-        //this is an image field.  Let's display it via the display mechanisms available.
-        $field = $node->get('field_talk_thumbnail')->getValue();
-        if(isset($field[0])) {
-          $file = File::load($field[0]['target_id']);
-          //$image_uri = ImageStyle::load('thumbnail')->buildUrl($file->getFileUri());
-          // $element = [
-          //   '#theme' => 'image_style',
-          //   '#style_name' => 'thumbnail',
-          //   '#uri' => $file->getFileUri(),
-          // ];
 
-          //make images clickable
-          $img_rendered_array = [
-            '#theme' => 'image_style',
-            '#style_name' => 'thumbnail',
-            '#uri' => $file->getFileUri(),
-          ];
+    switch ($thumb_to_use) {
+      // Use the field_talk_thumbnail field for the thumb.
+      case 'field':
+        $field = $node->get('field_talk_thumbnail')->getValue();
+        if (isset($field[0])) {
+          $file = File::load($field[0]['target_id']);
 
           $element = [
-            '#type' => 'link',
-            '#title' => $img_rendered_array,
-            '#url' => Url::fromUri("entity:node/{$node->get('nid')->value}"),
+            '#theme' => 'image_style',
+            '#style_name' => $style_to_use,
+            '#uri' => $file->getFileUri(),
           ];
         }
         break;
-        
-        
-      case 'media':  //use the field_talk_video field, find the first instance of a ScitalkVideo thumb
-        $field = $node->get('field_talk_video')->getValue();
-        $media_entity = NULL;
-        if(isset($field[0])) {
-          //we'll pick off the first one and use that as our thumbnail.
-          foreach($field as $key => $arr) {
-            //$media_entity = entity_load('media', $field[$key]['target_id']);
-            $media_entity = \Drupal::entityTypeManager()->getStorage('media')->load($field[$key]['target_id']);
-            if ($media_entity && (method_exists($media_entity, 'getSource')) && ($source = $media_entity->getSource()) && $source instanceof SciTalkVideo) {  //only care if this is the SciTalk media type
-              break;
-            }
-          }
+
+      case 'media':
+        $video_field = $node->get('field_talk_video')->getValue();
+        if (!empty($video_field[0])) {
+          $media_entity = \Drupal::entityTypeManager()->getStorage('media')->load($video_field[0]['target_id']);
         }
-        
+
         $thumbnail_uri = '';
-        if($media_entity) {
-          // $default_thumbnail_filename = $media_entity->getSource()->getPluginDefinition()['default_thumbnail_filename'];
-          // $thumbnail_uri = \Drupal::service('config.factory')->get('media.settings')->get('icon_base_uri') . '/' . $default_thumbnail_filename;
-
-          //luis: replaced the above 2 lines with the code below
-          //the above was always displaying the default thumbnail. This change will grab the thumbnail attached to the ScitalkVideo 
-
-          //grab the thumbnail of the video
+        if (!empty($media_entity)) {
+          // Get the thumbnail attached to the video.
           $file = File::load($media_entity->thumbnail->target_id);
-          //if the file exists then use it as the thumbnail otherwise use the default
           $media_thumb = $file->getFileUri() ?? '';
-          // if (! \Drupal::service('file_system')->getDestinationFilename($media_thumb, FileSystemInterface::EXISTS_ERROR)) {
-          if (! \Drupal::service('file_system')->getDestinationFilename($media_thumb, FileExists::Error)) {
+
+          // If the file exists then use it as the thumbnail otherwise use the default.
+          if (!\Drupal::service('file_system')->getDestinationFilename($media_thumb, FileExists::Error)) {
             $thumbnail_uri = $media_thumb;
           }
-          else {
-            $default_thumbnail_filename = $media_entity->getSource()->getPluginDefinition()['default_thumbnail_filename'];
-            \Drupal::logger('scitalk_media')->notice('default thumb is '.$default_thumbnail_filename);
-            $thumbnail_uri = \Drupal::service('config.factory')->get('media.settings')->get('icon_base_uri') . '/' . $default_thumbnail_filename;
-          }
-
         }
-        // $element = [
-        //   '#theme' => 'image_style',
-        //   '#style_name' => $style_to_use,
-        //   '#uri' => $thumbnail_uri,
-        // ];
-
-        //make images clickable
-        $img_rendered_array = [
-          '#theme' => 'image_style',
-          '#style_name' => $style_to_use,
-          '#uri' => $thumbnail_uri,
-        ];
-
-        $element = [
-          '#type' => 'link',
-          '#title' => $img_rendered_array,
-          '#url' => Url::fromUri("entity:node/{$node->get('nid')->value}"),
-        ];
 
         break;
-        
-      default:  //no output.  Show broken thumb image?
-        
-        break;
-        
+    }
+
+    // If no thumbnail is set , use the default.
+    if (empty($thumbnail_uri)) {
+      // Set the default thumbnail.
+      $modulePath = \Drupal::service('extension.path.resolver')
+        ->getPath('module', 'scitalk_media');
+
+      $default_thumbnail_element = [
+        '#theme' => 'image',
+        '#uri' => '/' . $modulePath . '/images/scitalk-default-thumbnail.png',
+        '#alt' => t(' '),
+      ];
+      return $default_thumbnail_element;
+    }
+    else {
+      $element = [
+        '#theme' => 'image_style',
+        '#style_name' => $style_to_use,
+        '#uri' => $thumbnail_uri,
+      ];
     }
     return $element;
   }
-  
+
   /**
    * {@inheritdoc}
    */
   public static function isApplicable(FieldDefinitionInterface $field_definition) {
-    
-    //we only target the 'talk' content type for the talk thumbnail.
-    if($field_definition->getTargetBundle() == 'talk' &&  $field_definition->getName() == 'field_talk_thumbnail') {
-      return TRUE;    
+    // Use the 'talk' content type for the talk thumbnail.
+    if ($field_definition->getTargetBundle() == 'talk' && $field_definition->getName() == 'field_talk_thumbnail') {
+      return TRUE;
     }
-   
   }
-  
+
   /**
    * {@inheritdoc}
    */
@@ -170,58 +117,60 @@ class SciTalkThumbnailFormatter extends FormatterBase {
     $options = parent::defaultSettings();
     $options['which_thumb'] = 'field';
     $options['which_style'] = 'thumbnail';
-    
+
     return $options;
   }
-  
+
   /**
    * {@inheritdoc}
    */
   public function settingsForm(array $form, FormStateInterface $form_state) {
     $form = parent::settingsForm($form, $form_state);
-    
+
     $chosen = $this->getSetting('which_thumb');
-    $form['which_thumb'] = array(
+    $form['which_thumb'] = [
       '#title' => $this->t('Thumbnail source to use'),
       '#type' => 'select',
-      '#options' => [ 'field' => $this->t('Use thumbnail field'),
-        'media' => $this->t('Use first SciTalk Media thumbnail'),],
-      '#default_value' => isset($chosen) ? $chosen : 'field',
-    );
-    
+      '#options' => [
+        'field' => $this->t('Use thumbnail field'),
+        'media' => $this->t('Use first SciTalk Media thumbnail'),
+      ],
+      '#default_value' => $chosen ?? 'field',
+    ];
+
     $chosen = $this->getSetting('which_style');
 
     $styles = ImageStyle::loadMultiple();
     $available_styles = [];
-    foreach($styles as $key => $obj) {
+    foreach ($styles as $key => $obj) {
       $available_styles[$key] = $obj->label();
     }
-    $form['which_style'] = array(
+    $form['which_style'] = [
       '#title' => $this->t('Choose a Style'),
       '#type' => 'select',
       '#options' => $available_styles,
-      '#default_value' => isset($chosen) ? $chosen : 'thumbnail',
-    );
-    
+      '#default_value' => $chosen ?? 'thumbnail',
+    ];
+
     return $form;
   }
-  
+
   /**
    * {@inheritdoc}
    */
   public function settingsSummary() {
     $summary = parent::settingsSummary();
-    $options = [ 
+    $options = [
       'field' => $this->t('Use thumbnail field'),
       'media' => $this->t('Use first SciTalk Media thumbnail'),
     ];
-    
+
     $which_thumb = $this->getSetting('which_thumb');
     $summary[] = $this->t('Thumbnail setting') . ':' . $options[$which_thumb];
-   
+
     $which_style = $this->getSetting('which_style');
     $summary[] = $this->t('Style setting') . ':' . $which_style;
     return $summary;
   }
-  
+
 }
