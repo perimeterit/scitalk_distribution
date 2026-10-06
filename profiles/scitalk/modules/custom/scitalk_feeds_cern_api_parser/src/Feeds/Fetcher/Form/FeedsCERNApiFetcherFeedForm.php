@@ -65,7 +65,7 @@ class FeedsCERNApiFetcherFeedForm extends ExternalPluginFormBase implements Cont
     $form['source'] = [
       '#title' => $this->t('CERN API URL'),
       '#type' => 'url',
-      '#default_value' => $feed->getSource(),
+      '#default_value' => $feed->getSource() ?? '',
       '#maxlength' => 2048,
       '#required' => TRUE,
     ];
