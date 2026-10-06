@@ -161,6 +161,7 @@ class SciTalkThumbnailFormatter extends FormatterBase {
       return TRUE;    
     }
    
+    return FALSE;
   }
   
   /**

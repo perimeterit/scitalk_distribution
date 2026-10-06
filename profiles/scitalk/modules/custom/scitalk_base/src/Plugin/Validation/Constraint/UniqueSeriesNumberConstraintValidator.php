@@ -73,7 +73,7 @@ class UniqueSeriesNumberConstraintValidator extends ConstraintValidator {
    *
    * @param string $value
    */
-  private function isUnique($value, $source_name, $id = '', $entityType) {
+  private function isUnique($value, $source_name, $id, $entityType) {
     if($entityType == 'taxonomy') {
       $query_count = \Drupal::entityQuery('taxonomy_term')
       ->condition('vid', $this->vocabulary_name)

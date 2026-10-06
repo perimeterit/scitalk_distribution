@@ -2,9 +2,9 @@ name: Scitalk Feeds
 type: module
 description: Provides functionality to import content via Feeds
 package: SciTalk
-core_version_requirement: ^9 || ^10
+core_version_requirement: ^9 || ^10 || ^11
 dependencies:
-  - scitalk_groups
+  - scitalk:scitalk_groups
   - feeds_log:feeds_log
   - feeds:feeds
   - feeds_ex:feeds_ex
