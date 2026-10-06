@@ -43,25 +43,6 @@ admin:
 hoverintent:
   js:
     //cdn.jsdelivr.net/npm/sv-hover-intent@1.0.1/src/sv-hover-intent.min.js: { type: external, minified: true }
-video-player:
-  css:
-    component:
-      /libraries/video.js/dist/video-js.min.css: { preprocess: false }
-      /libraries/videojs-mobile-ui/dist/videojs-mobile-ui.css: {}
-      /libraries/videojs-contrib-ads/dist/videojs-contrib-ads.css: {}
-      /libraries/videojs-quality-selector-hls/dist/videojs-quality-selector-hls.css: {}
-  js:
-    /libraries/video.js/dist/video.min.js: { preprocess: false }
-    /libraries/videojs-contrib-ads/dist/videojs.ads.min.js: {}
-    /libraries/videojs-youtube/dist/Youtube.min.js: {}
-    /libraries/videojs-quality-selector-hls/dist/videojs-quality-selector-hls.min.js: {}
-    /libraries/videojs-hotkeys/videojs.hotkeys.min.js: {}
-    /libraries/videojs-mobile-ui/dist/videojs-mobile-ui.min.js: {}
-    /libraries/videojs-sprite-thumbnails/dist/videojs-sprite-thumbnails.min.js: {}
-  dependencies:
-    - core/drupal
-    - core/jquery
-    - core/once
 scitalk-tiny-slider:
   css:
     component:

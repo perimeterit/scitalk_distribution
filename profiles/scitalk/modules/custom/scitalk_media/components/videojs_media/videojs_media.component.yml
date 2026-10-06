@@ -46,4 +46,4 @@ libraryOverrides:
     - core/drupal
     - core/jquery
     - core/once
-    - cosmos/video-player
+    - scitalk_media/video-player

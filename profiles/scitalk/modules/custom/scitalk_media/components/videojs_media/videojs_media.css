@@ -114,10 +114,7 @@
   height: 100% !important;
 }
 
-.video-js
-  .vjs-volume-menu-button.vjs-volume-menu-button-horizontal:hover
-  .vjs-menu
-  .vjs-menu-content {
+.video-js .vjs-volume-menu-button.vjs-volume-menu-button-horizontal:hover .vjs-menu .vjs-menu-content {
   height: 3em;
   width: 6.35em;
 }
@@ -192,14 +189,10 @@
 
 /* Smaller when controls are in active */
 
-.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-active
-  .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-inactive
-  .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-active
-  .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-inactive
-  .vjs-progress-control,
+.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-active .vjs-progress-control,
+.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-inactive .vjs-progress-control,
+.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-active .vjs-progress-control,
+.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-inactive .vjs-progress-control,
 .video-js.vjs-has-started.vjs-playing.vjs-user-inactive .vjs-progress-control {
   height: 0.25em;
   top: -0.25em;
@@ -211,16 +204,11 @@
 
 /* Fullscreen */
 
-.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-active.vjs-fullscreen
-  .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-inactive.vjs-fullscreen
-  .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-active.vjs-fullscreen
-  .vjs-progress-control,
-.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-inactive.vjs-fullscreen
-  .vjs-progress-control,
-.video-js.vjs-has-started.vjs-playing.vjs-user-inactive.vjs-fullscreen
-  .vjs-progress-control {
+.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-active.vjs-fullscreen .vjs-progress-control,
+.video-js.not-hover.vjs-has-started.vjs-paused.vjs-user-inactive.vjs-fullscreen .vjs-progress-control,
+.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-active.vjs-fullscreen .vjs-progress-control,
+.video-js.not-hover.vjs-has-started.vjs-playing.vjs-user-inactive.vjs-fullscreen .vjs-progress-control,
+.video-js.vjs-has-started.vjs-playing.vjs-user-inactive.vjs-fullscreen .vjs-progress-control {
   opacity: 0;
   transition: opacity 1s ease 1s;
 }
@@ -320,8 +308,7 @@
 .video-js .vjs-icon-copy-url .vjs-icon-placeholder:before,
 .vjs-icon-icon-copy-url-enter:before {
   content: "";
-  background: url("../../images/icons/link_copy_white.svg") no-repeat center
-    center;
+  background: url("../../images/icons/link_copy_white.svg") no-repeat center center;
   background-size: 28px 28px;
 }
 
