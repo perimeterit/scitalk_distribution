@@ -27,14 +27,14 @@
         "drupal/admin_toolbar": "^3.4",
         "drupal/auto_entitylabel": "^3.0",
         "drupal/backup_migrate": "^5.0",
-        "drupal/better_exposed_filters": "^6.0",
+        "drupal/better_exposed_filters": "^7.1",
         "drupal/config_ignore": "^3.1",
         "drupal/config_update": "^2.0@alpha",
         "drupal/consumers": "^1.17",
         "drupal/copyright_block": "^2.0",
-        "drupal/core-composer-scaffold": "^10",
-        "drupal/core-project-message": "^10",
-        "drupal/core-recommended": "^10",
+        "drupal/core-composer-scaffold": "^11",
+        "drupal/core-project-message": "^11",
+        "drupal/core-recommended": "^11",
         "drupal/dark_mode_toggle": "^1.0",
         "drupal/date_all_day": "^2.0",
         "drupal/date_popup": "^2.0",
@@ -45,7 +45,6 @@
         "drupal/feeds": "^3.0@beta",
         "drupal/feeds_ex": "^1.0@beta",
         "drupal/feeds_tamper": "^2.0@beta",
-        "drupal/feeds_youtube_api_parser": "2.0.x-dev@dev",
         "drupal/fences": "^3.0",
         "drupal/field_group": "^4.0",
         "drupal/field_permissions": "^1.2",
@@ -62,11 +61,11 @@
         "drupal/openapi_ui": "^1.0@RC",
         "drupal/openapi_ui_redoc": "^1.0@RC",
         "drupal/pathauto": "^1.12",
-        "drupal/rdf": "^2.1",
+        "drupal/rdf": "^3.0@beta",
         "drupal/recaptcha": "^3.2",
         "drupal/recaptcha_v3": "^2.0",
         "drupal/restui": "^1.21",
-        "drupal/search_api": "^1.31",
+        "drupal/search_api": "^1.36",
         "drupal/search_api_solr": "^4.3",
         "drupal/selective_better_exposed_filters": "^3.0",
         "drupal/simple_oauth": "^6.0",
@@ -75,10 +74,11 @@
         "drupal/stable": "^2.0",
         "drupal/twig_tweak": "^3.2",
         "drupal/unused_media_cleaner": "^1.0",
+        "drupal/upgrade_status": "^4.3",
         "drupal/views_ajax_history": "^1.7",
         "drupal/views_contextual_filters_or": "^1.4",
         "drupal/views_field_view": "^1.0@beta",
-        "drush/drush": "^13.0",
+        "drush/drush": "^13.8",
         "kint-php/kint": "^6.0",
         "levmyshkin/tiny-slider": "^2.9",
         "mrmysql/youtube-transcript": "^0.0.5",
@@ -92,13 +92,13 @@
         "npm-asset/videojs-youtube": "^3.0",
         "oomphinc/composer-installers-extender": "^2.0",
         "symfony/debug": "^4.4",
-        "symfony/event-dispatcher": "^6.3",
+        "symfony/event-dispatcher": "^7.0",
         "vlucas/phpdotenv": "^5.6",
         "webflo/drupal-finder": "^1.2",
         "webmozart/path-util": "^2.3"
     },
     "require-dev": {
-        "drupal/core-dev": "^10"
+        "drupal/core-dev": "^11"
     },
     "conflict": {
         "drupal/drupal": "*"
@@ -118,7 +118,8 @@
             "drupal/core-project-message": true,
             "phpstan/extension-installer": true,
             "php-http/discovery": true,
-            "tbachert/spi": true
+            "tbachert/spi": true,
+            "symfony/runtime": true
         }
     },
     "autoload": {
@@ -191,15 +192,11 @@
                 "fix aliased fields constraints validation issues when using JSON API Extras": "https://raw.githubusercontent.com/perimeterit/scitalk/f6ed0b64fe78903c40009be5e2712eeb5ad18067/patches/fix-aliased-fields-constraint-validations-3059720-9.patch",
                 "patch to support bundle computed field in Layout builder": "https://www.drupal.org/files/issues/2024-07-02/layoutbuilder-bundlecomputedfieldsfix-3034979-21-11.x.patch",
                 "Issue #3023924: Cannot create references to/from string offsets": "https://www.drupal.org/files/issues/2022-12-23/references_to_from_string-3023924-36.patch",
-                "Issue #3336312: TypeError: Cannot access offset of type string on string": "https://www.drupal.org/files/issues/2023-06-14/3336312.patch",
                 "Issue #2928639: Set the expiration of a key/value pair from the PrivateTempStore": "https://www.drupal.org/files/issues/2021-07-27/2928639-26.patch",
-                "Issue #3178202: Render blocks later, so they can be placed individually in a region template": "https://www.drupal.org/files/issues/2023-11-20/core-render-blocks-later-3178202-65.patch"
+                "Issue #3178202: Render blocks later, so they can be placed individually in a region template": "https://www.drupal.org/files/issues/2026-01-26/render-region-blocks-later-3178202_79.patch"
             },
             "drupal/openapi": {
                 "Issue #3523346: PHP 8.4: Implicitly nullable parameter declarations deprecated": "https://www.drupal.org/files/issues/2025-05-08/3523346-php-84-2.patch"
-            },
-            "drupal/search_api": {
-                "Issue #3454939: Fatal error in solr backend (wakeup)": "https://www.drupal.org/files/issues/2024-06-17/3454939-search-api-solr-core-10.patch"
             },
             "drupal/selective_better_exposed_filters": {
                 "Hide details collapsible if form element is empty": "https://raw.githubusercontent.com/perimeterit/scitalk_distribution/master/patches/3360778-hide-collapsible-details-element.patch"

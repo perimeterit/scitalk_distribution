@@ -1,19 +1,19 @@
 name: Scitalk common theme
 type: theme
-description: 'Common theme for the Scitalk distro'
+description: "Common theme for the Scitalk distro"
 core: 8.x
 base theme: stable
-core_version_requirement: ^8 || ^9 || ^10
+core_version_requirement: ^8 || ^9 || ^10 || ^11
 
 libraries:
- - scitalk_theme/global
- - scitalk_theme/video-player
+  - scitalk_theme/global
+  - scitalk_theme/video-player
 
 regions:
-  header: 'Header'
-  left_nav: 'Left side navbar'
-  admin: 'Admin tools'
-  page_title: 'Page Title'
-  content: 'Content'
-  content_bottom: 'Content bottom'
-  footer: 'Footer'
+  header: "Header"
+  left_nav: "Left side navbar"
+  admin: "Admin tools"
+  page_title: "Page Title"
+  content: "Content"
+  content_bottom: "Content bottom"
+  footer: "Footer"
