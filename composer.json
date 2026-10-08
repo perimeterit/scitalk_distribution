@@ -11,6 +11,10 @@
     ],
     "repositories": [
         {
+            "type": "vcs",
+            "url": "https://github.com/perimeterit/feeds_youtube_api_parser"
+        },
+        {
             "type": "composer",
             "url": "https://packages.drupal.org/8"
         },
@@ -45,7 +49,7 @@
         "drupal/feeds": "^3.0@beta",
         "drupal/feeds_ex": "^1.0@beta",
         "drupal/feeds_tamper": "^2.0@beta",
-        "drupal/feeds_youtube_api_parser": "2.0.x-dev@dev",
+        "drupal/feeds_youtube_api_parser": "2.0.1",
         "drupal/fences": "^3.0",
         "drupal/field_group": "^4.0",
         "drupal/field_permissions": "^1.2",
@@ -82,7 +86,6 @@
         "drush/drush": "^13.8",
         "kint-php/kint": "^6.0",
         "levmyshkin/tiny-slider": "^2.9",
-        "mglaman/composer-drupal-lenient": "^2.0",
         "mrmysql/youtube-transcript": "^0.0.5",
         "npm-asset/history.js": "^1.8",
         "npm-asset/video.js": "^8.21",
@@ -117,7 +120,6 @@
             "drupal/console-extend-plugin": true,
             "drupal/core-composer-scaffold": true,
             "drupal/core-project-message": true,
-            "mglaman/composer-drupal-lenient": true,
             "oomphinc/composer-installers-extender": true,
             "php-http/discovery": true,
             "phpstan/extension-installer": true,
@@ -203,13 +205,7 @@
             },
             "drupal/selective_better_exposed_filters": {
                 "Hide details collapsible if form element is empty": "https://raw.githubusercontent.com/perimeterit/scitalk_distribution/master/patches/3360778-hide-collapsible-details-element.patch"
-            },
-            "drupal/feeds_youtube_api_parser": {
-                "Drupal 11 compatabilty": "https://www.drupal.org/files/issues/2024-03-17/feeds_youtube_api_parser.2.0.x-dev.rector.patch"
             }
-        },
-        "drupal-lenient": {
-            "allowed-list": ["drupal/feeds_youtube_api_parser"]
         }
     }
 }
