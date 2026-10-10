@@ -5,7 +5,7 @@ dependencies:
     - gnode
     - group
     - node
-id: Scitalk group_nodes
+id: 'scitalk_group_nodes'
 label: 'Scitalk Group nodes'
 module: gnode
 description: 'Lists all of the nodes that have been added to a group. Overrides Group module default to change page title to "Content" instead of "Nodes" '
@@ -727,9 +727,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              group_admin: '0'
           is_grouped: true
           group_info:
             label: 'Published status'
@@ -776,9 +773,6 @@ display:
             multiple: false
             remember_roles:
               authenticated: authenticated
-              anonymous: '0'
-              administrator: '0'
-              group_admin: '0'
             reduce: false
           is_grouped: false
           group_info:
@@ -887,6 +881,7 @@ display:
           empty_table: true
           caption: ''
           description: ''
+          class: ''
       row:
         type: fields
         options:
@@ -957,3 +952,4 @@ display:
         - user.group_permissions
         - 'user.node_grants:view'
       tags: {  }
+

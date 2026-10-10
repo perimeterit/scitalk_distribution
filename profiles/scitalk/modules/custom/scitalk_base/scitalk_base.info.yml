@@ -9,7 +9,7 @@ dependencies:
   - image:image
   - path:path
   - pathauto:pathauto
-  - text:text
+  - drupal:text
   - fences:fences
   - field_group:field_group
   - scitalk_groups:scitalk_groups
@@ -18,11 +18,11 @@ dependencies:
   - search_api:search_api
   - search_api:search_api_db
   - search_api_solr:search_api_solr
-  - date_all_day
-  - jsonapi_extras
+  - date_all_day:date_all_day
+  - drupal:jsonapi_extras
   - field_persmission:field_permissions
   - group:group
   - group:gnode
   - better_exposed_filters:better_exposed_filters
-  - views_field_view
-  - smart_trim
+  - views_field_view:views_field_view
+  - smart_trim:smart_trim
