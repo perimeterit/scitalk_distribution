@@ -61,11 +61,11 @@ class FeedsCERNApiFetcherFeedForm extends ExternalPluginFormBase implements Cont
   /**
    * {@inheritdoc}
    */
-  public function buildConfigurationForm(array $form, FormStateInterface $form_state, FeedInterface $feed = NULL) {
+  public function buildConfigurationForm(array $form, FormStateInterface $form_state, ?FeedInterface $feed = NULL) {
     $form['source'] = [
       '#title' => $this->t('CERN API URL'),
       '#type' => 'url',
-      '#default_value' => $feed->getSource(),
+      '#default_value' => $feed->getSource() ?? '',
       '#maxlength' => 2048,
       '#required' => TRUE,
     ];
@@ -76,7 +76,7 @@ class FeedsCERNApiFetcherFeedForm extends ExternalPluginFormBase implements Cont
   /**
    * {@inheritdoc}
    */
-  public function validateConfigurationForm(array &$form, FormStateInterface $form_state, FeedInterface $feed = NULL) {
+  public function validateConfigurationForm(array &$form, FormStateInterface $form_state, ?FeedInterface $feed = NULL) {
     // $source = $form_state->getValue('source');
 
     try {
@@ -109,7 +109,7 @@ class FeedsCERNApiFetcherFeedForm extends ExternalPluginFormBase implements Cont
   /**
    * {@inheritdoc}
    */
-  public function submitConfigurationForm(array &$form, FormStateInterface $form_state, FeedInterface $feed = NULL) {
+  public function submitConfigurationForm(array &$form, FormStateInterface $form_state, ?FeedInterface $feed = NULL) {
     $feed->setSource($form_state->getValue('source'));
   }
 

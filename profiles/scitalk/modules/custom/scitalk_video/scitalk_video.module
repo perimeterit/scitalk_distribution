@@ -63,29 +63,35 @@ function pirsa_video_generate_pirsa_number($type = 'video', $year = NULL, $month
   switch($type) {
     case 'video':
       //array is in the form of [YY][mm][next incremental number]
-      $pirsa_list = variable_get('pirsa_number_list', array());
+      // $pirsa_list = variable_get('pirsa_number_list', array());
+      $pirsa_list = \Drupal::config('scitalk.settings')->get('pirsa_number_list') ?? [];
       $last_number = $pirsa_list[$year][$month];
       $last_number +=1;
       $pirsa_list[$year][$month] = $last_number;
-      variable_set('pirsa_number_list', $pirsa_list);
+      // variable_set('pirsa_number_list', $pirsa_list);
+      \Drupal::config('scitalk.settings')->set('pirsa_number_list', $pirsa_list);
       $return_number = str_pad($year, 2, "0", STR_PAD_LEFT) . str_pad($month, 2, "0", STR_PAD_LEFT) . str_pad($last_number, 4, "0", STR_PAD_LEFT);
       break;
       
     case 'series':
       //return is in the form of SXXX where XXX is the next incremental number
-      $last_number = variable_get('series_number_list', 0);  //simple integer cached value
+      // $last_number = variable_get('series_number_list', 0);  //simple integer cached value
+      $last_number = \Drupal::config('scitalk.settings')->get('series_number_list') ?? 0;  //simple integer cached value
       $last_number +=1;
-      variable_set('series_number_list', $last_number);
+      // variable_set('series_number_list', $last_number);
+      \Drupal::config('scitalk.settings')->set('series_number_list', $last_number);
       $return_number = 'S' . str_pad($last_number, 3, "0", STR_PAD_LEFT);
       break;
       
     case 'collection':
       //array is in the form of [YY][next incremental number]
-      $collection_list = variable_get('collection_number_list', array());
+      // $collection_list = variable_get('collection_number_list', array());
+      $collection_list = \Drupal::config('scitalk.settings')->get('collection_number_list') ?? [];
       $last_number = $collection_list[$year];
       $last_number +=1;
       $collection_list[$year] = $last_number;
-      variable_set('collection_number_list', $collection_list);
+      // variable_set('collection_number_list', $collection_list);
+      \Drupal::config('scitalk.settings')->set('collection_number_list', $collection_list);
       $return_number = 'C' . str_pad($year, 2, "0", STR_PAD_LEFT) . str_pad($last_number, 3, "0", STR_PAD_LEFT);
       break;
   }

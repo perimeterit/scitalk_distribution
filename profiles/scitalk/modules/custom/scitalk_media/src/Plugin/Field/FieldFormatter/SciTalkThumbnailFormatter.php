@@ -108,6 +108,8 @@ class SciTalkThumbnailFormatter extends FormatterBase {
     if ($field_definition->getTargetBundle() == 'talk' && $field_definition->getName() == 'field_talk_thumbnail') {
       return TRUE;
     }
+   
+    return FALSE;
   }
 
   /**

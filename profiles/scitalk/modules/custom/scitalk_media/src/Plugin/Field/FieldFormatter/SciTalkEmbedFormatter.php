@@ -106,7 +106,7 @@ class SciTalkEmbedFormatter extends FormatterBase {
         //   'filemime' => 'video/mp4',
         // ],
         '#attached' => [
-          'library' => ['scitalk_media/scitalk_video_js'],
+          'library' => ['scitalk_media/video-player'],
         ],
         '#player_attributes' => [
           // 'width' => '854',    //not using these

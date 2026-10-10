@@ -151,14 +151,17 @@
 
           this.mobileUi();
 
-          // this.spriteThumbnails({
-          //   interval: 60,
-          //   url: "https://static.perimeterinstitute.ca/pirsa-timelines/23100117_timeline.jpg",
-          //   columns: 10,
-          //   // rows: 5,
-          //   width: 100,
-          //   height: 56,
-          // });
+          const videoTimelineSprite = drupalSettings.timeline_sprite || "";
+          if (videoTimelineSprite) {
+            this.spriteThumbnails({
+              interval: 60,
+              url: videoTimelineSprite,
+              columns: 10,
+              // rows: 5,
+              width: 100,
+              height: 56,
+            });
+          }
         });
 
         //disable context menu on right click

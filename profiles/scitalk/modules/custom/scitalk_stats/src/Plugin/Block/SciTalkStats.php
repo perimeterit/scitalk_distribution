@@ -22,6 +22,7 @@ class SciTalkStats extends BlockBase implements ContainerFactoryPluginInterface 
 
     protected $request;
     protected $route;
+    protected $currentUser;
 
     /**
    * Constructs a new SciTalkStats object.

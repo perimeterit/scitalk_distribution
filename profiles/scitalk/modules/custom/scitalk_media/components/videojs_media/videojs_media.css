@@ -308,7 +308,7 @@
 .video-js .vjs-icon-copy-url .vjs-icon-placeholder:before,
 .vjs-icon-icon-copy-url-enter:before {
   content: "";
-  background: url("../../../images/icons/link_copy_white.svg") no-repeat center center;
+  background: url("../../images/icons/link_copy_white.svg") no-repeat center center;
   background-size: 28px 28px;
 }
 

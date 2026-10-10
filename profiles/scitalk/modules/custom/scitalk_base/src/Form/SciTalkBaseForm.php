@@ -175,6 +175,8 @@ class SciTalkBaseForm extends EntityForm {
  
     $url = Url::fromRoute('scitalk_base.scitalk_base_fields_mapping', ['mapping_type' => $this->entity->id()]);
     $form_state->setRedirectUrl($url);
+
+    return $status;
   }
 
   /**
