@@ -8,6 +8,7 @@
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\media\Entity\Media;
+use Drupal\file\Entity\File;
 
 /**
  * Implements hook_help().
@@ -25,66 +26,80 @@ function scitalk_media_help($route_name, RouteMatchInterface $route_match) {
   }
 }
 
-
 /**
  * Implements hook_theme().
+ *
+ * Provide template suggestions for custom configuration, So Drupal will get them
+ * from this module rather than looking in the default theme directory.
  */
 function scitalk_media_theme() {
-  //Add any other video theme display templates here as you need them.
   return [
     'scitalk_media_wowza' => [
-      'variables' => ['path' => NULL, 'source' => 'interimHD', 'html_id'=> '', 'width' => 350, 'height' => 250, 'file_url' => '', 'file_mime' => 'video/avi', 'attributes' => []]
+      'variables' => ['path' => NULL, 'source' => 'interimHD', 'html_id' => '', 'width' => 350, 'height' => 250, 'file_url' => '', 'file_mime' => 'video/avi', 'attributes' => []],
     ],
     'scitalk_media_interimhd' => [
-      'variables' => ['path' => NULL, 'source' => 'interimHD', 'html_id'=> '', 'width' => 350, 'height' => 250, 'file_url' => '', 'file_mime' => 'video/avi', 'attributes' => []]
+      'variables' => ['path' => NULL, 'source' => 'interimHD', 'html_id' => '', 'width' => 350, 'height' => 250, 'file_url' => '', 'file_mime' => 'video/avi', 'attributes' => []],
     ],
     'scitalk_media_videojs' => [
-      'variables' => ['file_url' => '', 'file_mime' => 'video/mp4', 'player_attributes' => NULL]
+      'variables' => ['file_url' => '', 'file_mime' => 'video/mp4', 'player_attributes' => NULL],
+    ],
+    'field__field_talk_transcripts' => [
+      'base hook' => 'field',
+    ],
+    'media__scitalk_transcription' => [
+      'base hook' => 'field',
     ],
   ];
 }
 
-
 /**
- * Implements hook_entity_insert
+ * Implements hook_entity_insert.
+ *
  * @param \Drupal\Core\Entity\EntityInterface $entity
  */
 function scitalk_media_entity_insert(EntityInterface $entity) {
   $entity_type = $entity->getEntityTypeId();
 
-  if($entity_type == 'media') {
-    // prevent slideshow images to be downloaded and created twice, this happens when generating the slideshow programmatically from Slideshow.php
-    // "suppress_insert_hook" attribute is created there for this purpuse
+  if ($entity_type == 'media') {
+    // Prevent slideshow images to be downloaded and created twice, this happens when generating the slideshow programmatically from Slideshow.php
+    // "suppress_insert_hook" attribute is created there for this purpuse.
     if (!empty($entity->suppress_insert_hook)) {
-        // \Drupal::logger('scitalk_media')->notice('Supressing!');
-        return;
+      // \Drupal::logger('scitalk_media')->notice('Supressing!');
+      return;
     }
 
     $scitalk_plugin = scitalk_media_get_plugin_by_config($entity);
-    if($scitalk_plugin) $scitalk_plugin->entityInsert();
+    if ($scitalk_plugin) {
+      $scitalk_plugin->entityInsert();
+    }
   }
 }
 
-
 /**
- * Implements hook_entity_update
+ * Implements hook_entity_update.
+ *
  * @param Drupal\Core\Entity\EntityInterface $entity
  */
 function scitalk_media_entity_update(EntityInterface $entity) {
   $entity_type = $entity->getEntityTypeId();
   $scitalk_update_done = &drupal_static(__FUNCTION__);
-  if($entity_type == 'media' && (!isset($scitalk_update_done) && $scitalk_update_done != TRUE)) {  //avoids nesting issues due to our entity save routine firing
+  // Avoids nesting issues due to our entity save routine firing.
+  if ($entity_type == 'media' && (!isset($scitalk_update_done) && $scitalk_update_done != TRUE)) {
     $scitalk_update_done = TRUE;
     $scitalk_plugin = scitalk_media_get_plugin_by_config($entity);
-    if($scitalk_plugin) $scitalk_plugin->entityMetaDataUpdate();
+    if ($scitalk_plugin) {
+      $scitalk_plugin->entityMetaDataUpdate();
+    }
   }
 }
 
-
+/**
+ *
+ */
 function scitalk_media_get_plugin_by_config(EntityInterface $entity) {
   $scitalk_plugin = FALSE;
   $entity_type = $entity->getEntityTypeId();
-  if($entity_type == 'media') {
+  if ($entity_type == 'media') {
     $manager = \Drupal::service('plugin.manager.scitalk_media_types');
     $plugins = $manager->getDefinitions();
     $scitalk_plugin = NULL;
@@ -92,39 +107,38 @@ function scitalk_media_get_plugin_by_config(EntityInterface $entity) {
     $source_plugin_id = $source->getPluginId();
     $configuration = $source->getConfiguration();
 
-    foreach($plugins as $plugin => $plugin_config) {
-      if($plugin_config['media_type'] == $source_plugin_id &&
+    foreach ($plugins as $plugin => $plugin_config) {
+      if ($plugin_config['media_type'] == $source_plugin_id &&
         array_key_exists('scitalk_video_source', $configuration) &&
         $plugin_config['media_source'] == $configuration['scitalk_video_source']) {
 
-          $scitalk_plugin = $manager->createInstance($plugin, array($entity));
+        $scitalk_plugin = $manager->createInstance($plugin, [$entity]);
 
-        }
-        elseif($plugin_config['media_type'] == $source_plugin_id) {
-          $scitalk_plugin = $manager->createInstance($plugin, array($entity));
-        }
+      }
+      elseif ($plugin_config['media_type'] == $source_plugin_id) {
+        $scitalk_plugin = $manager->createInstance($plugin, [$entity]);
+      }
     }
 
   }
   return $scitalk_plugin;
 }
 
-
 /**
  * Implements hook_ENTITY_TYPE_presave()
  */
 function scitalk_media_media_presave(EntityInterface $entity) {
   $plugin_id = $entity->getSource()->getPluginId() ?? '';
-  //since we are hiding the required Name field from the forms then make sure that we
-  //set this Name field to the value from these media types source fields
+  // Since we are hiding the required Name field from the forms then make sure that we
+  // set this Name field to the value from these media types source fields.
   switch ($plugin_id) {
     case 'scitalk_doi':
       $doi_reference = $entity->field_media_scitalk_doi->value ?? '';
       $entity->set('name', $doi_reference);
 
-      // update the search field for db/solr search
+      // Update the search field for db/solr search.
       $searchable = [
-        (string) $doi_reference, 
+        (string) $doi_reference,
         $entity->field_doi_title->value,
         $entity->field_doi_description->value,
       ];
@@ -136,9 +150,9 @@ function scitalk_media_media_presave(EntityInterface $entity) {
       $arxiv_id = $entity->field_media_scitalk_arxiv->value ?? '';
       $entity->set('name', $arxiv_id);
 
-      // update the search field for db/solr search
+      // Update the search field for db/solr search.
       $searchable = [
-        (string) $arxiv_id, 
+        (string) $arxiv_id,
         $entity->field_arxiv_title->value,
         $entity->field_arxiv_summary->value,
       ];
@@ -164,47 +178,49 @@ function scitalk_media_page_attachments(array &$page) {
   $icon = 'link.svg';
   $page['#attached']['drupalSettings']['url_copy_icon'] = $icon;
   $page['#attached']['drupalSettings']['icon_path'] = $icon_path;
-  
+
   $config = \Drupal::config('scitalk_media.settings');
   $preroll_video = $config->get('preroll_media_url');
   $page['#attached']['drupalSettings']['preroll_video_url'] = $preroll_video;
 
-  // this could be overwritten by other modules to specify whether to show a preroll for a specific video media type
+  // This could be overwritten by other modules to specify whether to show a preroll for a specific video media type
   // here we are allowing it to all video types:
-  $page['#attached']['drupalSettings']['show_preroll'] = true;
+  $page['#attached']['drupalSettings']['show_preroll'] = TRUE;
 
 }
 
-// return TRUE if the video media on an entity is a YouTube media and it has no VTT's media
+/**
+ * Return TRUE if the video media on an entity is a YouTube media and it has no VTT's media.
+ */
 function _is_youtube_video_without_transcripts(EntityInterface $entity) {
   if ($entity->getType() == 'talk') {
     $target_id = $entity?->field_talk_video?->target_id ?? 0;
     $video = \Drupal::entityTypeManager()->getStorage('media')->load($target_id);
     if (!empty($video) && $video->bundle() == 'scitalk_youtube_video') {
-      // check if the talk has vtts (file or  url). Having either will trigger the code to create transcripts
+      // Check if the talk has vtts (file or  url). Having either will trigger the code to create transcripts.
       $file_vtt = $entity->get('field_subtitle_upload_file')->getValue() ?? [];
       $url_vtt = $entity->get('field_subtitle_url')->getValue() ?? [];
       return empty($file_vtt) && empty($url_vtt);
     }
   }
-  return false;
+  return FALSE;
 }
-
 
 /**
  * Implements hook_ENTITY_TYPE_presave()
  */
 function scitalk_media_node_presave(EntityInterface $entity) {
-  // check if a new VTT/Subtitles media was CREATED (not updated) for a Talk and if so then create a new Trasncript media
-  // need to check both VTT fields: Uploaded file or URL to file
+  // Check if a new VTT/Subtitles media was CREATED (not updated) for a Talk and if so then create a new Trasncript media
+  // need to check both VTT fields: Uploaded file or URL to file.
   $node_type = $entity->getType();
   if ($node_type == 'talk') {
-    // if this is a youtube video, download any vtts later on when cron runs
+    // If this is a youtube video, download any vtts later on when cron runs.
     if (_is_youtube_video_without_transcripts($entity)) {
-      // only add new talks to the queue to have cron pull their vtts from utube
+      // Only add new talks to the queue to have cron pull their vtts from utube.
       if ($entity->isNew()) {
         $queue = \Drupal::queue('youtube_transcripts_queue');
-        $queue->createItem($entity->uuid->value);  // need to store the uuid since new nodes don't have nid's yet
+        // Need to store the uuid since new nodes don't have nid's yet.
+        $queue->createItem($entity->uuid->value);
       }
     }
     else {
@@ -214,13 +230,12 @@ function scitalk_media_node_presave(EntityInterface $entity) {
   }
 }
 
-
 /**
  * Implements hook_ENTITY_TYPE_predelete() for media entities.
  */
 function scitalk_media_media_delete(EntityInterface $entity) {
   if ($entity->getEntityTypeId() === 'media') {
-    // if deleting a subtitle then find and delete its corresponding transcript
+    // If deleting a subtitle then find and delete its corresponding transcript.
     $bundles = ['subtitles_uploaded_file', 'subtitles_url'];
     $bundle = $entity->bundle();
     if (in_array($bundle, $bundles)) {
@@ -230,7 +245,7 @@ function scitalk_media_media_delete(EntityInterface $entity) {
       if ($bundle == 'subtitles_url') {
         $field = 'field_subtitle_url';
       }
-     
+
       $parent_node = \Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
         $field => $entity->id(),
       ]);
@@ -249,28 +264,30 @@ function scitalk_media_media_delete(EntityInterface $entity) {
         $talk->save();
       }
     }
-    elseif ($bundle == 'scitalk_slideshow') { //delete scitalk_slideshow_item under the slideshow
+    // Delete scitalk_slideshow_item under the slideshow.
+    elseif ($bundle == 'scitalk_slideshow') {
       $slideshow_items = $entity->get('field_slideshow_items')->getValue() ?? [];
       foreach ($slideshow_items as $item) {
-          $target_id = $item['target_id'] ?? 0;
-          $attached_media = \Drupal::entityTypeManager()->getStorage('media')->load($target_id);
-          $attached_media?->delete();
+        $target_id = $item['target_id'] ?? 0;
+        $attached_media = \Drupal::entityTypeManager()->getStorage('media')->load($target_id);
+        $attached_media?->delete();
       }
     }
-    elseif ($bundle == 'scitalk_slideshow_item') { //delete files attached to slideshow items
+    // Delete files attached to slideshow items.
+    elseif ($bundle == 'scitalk_slideshow_item') {
       $file = $entity->get('field_slideshow_item_image')->entity;
       if ($file) {
-          try {
-            $file_usage = \Drupal::service('file.usage');
-            $usage = $file_usage->listUsage($file);
-            // if not used anywhere else then delete the file
-            if (empty($usage) ) {
-              $file->delete();
-            }
+        try {
+          $file_usage = \Drupal::service('file.usage');
+          $usage = $file_usage->listUsage($file);
+          // If not used anywhere else then delete the file.
+          if (empty($usage)) {
+            $file->delete();
           }
-          catch (\Exception $file_error) {
-            \Drupal::logger('scitalk_media')->error('Error deleting slideshow item file: @message', ['@message' => $file_error->getMessage()]);
-          }
+        }
+        catch (\Exception $file_error) {
+          \Drupal::logger('scitalk_media')->error('Error deleting slideshow item file: @message', ['@message' => $file_error->getMessage()]);
+        }
       }
     }
   }
@@ -282,4 +299,149 @@ function scitalk_media_media_delete(EntityInterface $entity) {
 function scitalk_media_queue_info_alter(&$queues) {
   // Turn off the cron processing for the youtube_transcripts_queue queue.
   unset($queues['youtube_transcripts_queue']['cron']);
+}
+
+/**
+ * Implements hook_preprocess_HOOK() for media entities.
+ */
+function scitalk_media_preprocess_media(&$variables) {
+  $bundle = $variables['media']->bundle();
+  $variables['bundle'] = $bundle;
+
+  // Add subtitles for video media types if available.
+  $video_media_bundles = ['scitalk_adaptive_streaming', 'scitalk_youtube_video', 'video'];
+  if (in_array($bundle, $video_media_bundles)) {
+    $media = $variables['elements']['#media'];
+    $entity = Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
+      'field_talk_video' => $media->id(),
+    ]);
+
+    $entity = !empty($entity) ? current($entity) : NULL;
+    $field_vtt_urls = $entity?->field_subtitle_url?->getValue() ?? [];
+
+    // If there is a vtt url set then use it, else check if a vtt file was uploaded instead.
+    if (!empty($field_vtt_urls)) {
+      foreach ($field_vtt_urls as $field_vtt_url) {
+        $media = Media::load($field_vtt_url['target_id']);
+        $vtt_url = $media->field_media_scitalk_remote_file->value ?? "";
+
+        $lang_key = $media->field_subtitles_language->value ?? "";
+        $langService = \Drupal::service('scitalk_media.subtitle_languages');
+        $lang_label = $langService->getLanguageLabel($lang_key);
+
+        $variables['vtts'][] = ["src" => $vtt_url, "lang" => $lang_key, "label" => $lang_label];
+      }
+    }
+    else {
+      $field_vtt_files = $entity?->field_subtitle_upload_file?->getValue() ?? [];
+
+      foreach ($field_vtt_files as $field_vtt_file) {
+        $media = Media::load($field_vtt_file['target_id']);
+        $fid = $media->field_media_file?->target_id ?? 0;
+        $file = File::load($fid);
+        $vtt_url = $file?->createFileUrl();
+        $lang_key = $media->field_subtitles_language->value ?? "";
+
+        $langService = \Drupal::service('scitalk_media.subtitle_languages');
+        $lang_label = $langService->getLanguageLabel($lang_key);
+
+        $variables['vtts'][] = ["src" => $vtt_url, "lang" => $lang_key, "label" => $lang_label];
+      }
+    }
+  }
+
+  // Pass the video mime types to theme for adaptive videos:
+  if ($bundle == 'scitalk_adaptive_streaming') {
+    // For now we have these adaptive video mime types:
+    $adpative_video_mime_mapping = [
+      'm3u8' => 'application/x-mpegURL',
+      'mpd' => 'application/dash+xml',
+    ];
+
+    $variables['adpative_video_mime_mapping'] = $adpative_video_mime_mapping;
+  }
+
+  // Reformat transcript fields, create an array of times and text so we can
+  // Format them as links to the timestamp in the video.
+  if ($bundle == 'scitalk_transcription') {
+    $transcript_field = $variables['elements']['field_media_scitalk_transcript'] ?? [];
+    $transcript_text = $transcript_field[0]['#text'] ?? '';
+    $transcript_lang_field = $variables['elements']['field_subtitles_language'] ?? [];
+    $transcript_lang = $transcript_lang_field[0]['#markup'] ?? '';
+    $transcript = [];
+
+    // Deal with timestamps that have no hour, remove the cue ID from the text:
+    if (!empty($transcript_text)) {
+      $transcript = scitalk_media_build_transcript_data($transcript_text);
+      $variables['transcript'] = $transcript;
+    }
+  }
+}
+
+/**
+ * Build the Transcript data from the raw VTT text.
+ *
+ * It handles timestamps with not hour and removes cue IDs from the text.
+ *
+ * @param string $transcript_text
+ *
+ * @return array
+ */
+function scitalk_media_build_transcript_data(string $transcript_text): array {
+  $regex = "/(?:(?<id>[^\r\n]+)\R)?(?<start>\d{2}:\d{2}(?::\d{2})?\.\d{3})\s+-->\s+(?<end>\d{2}:\d{2}(?::\d{2})?\.\d{3})[^\r\n]*\R(?<text>.*?)(?=\R{2,}|\z)/ms";
+  /*
+  $regex = '/
+  (?:(?<id>[^\r\n]+)\R)?                              # optional cue ID
+  (?<start>\d{2}:\d{2}(?::\d{2})?\.\d{3})             # start timestamp but considers the last 2 digits as optional, i.e. hours are optionals
+  \s+-->\s+
+  (?<end>\d{2}:\d{2}(?::\d{2})?\.\d{3})               # end timestamp
+  [^\r\n]*\R                                          # optional cue settings
+  (?<text>.*?)
+  (?=\R{2,}|\z)                                       # next cue / EOF
+  /ms';
+   */
+
+  $transcript = [];
+  preg_match_all($regex, $transcript_text, $transcript_items, PREG_SET_ORDER);
+  foreach ($transcript_items as $key => $item) {
+    $seconds = $display_time = '';
+
+    // Create link for start time.
+    $start_time = trim($item['start']);
+    $start_time_parts = explode(':', $start_time);
+
+    // mm:ss.milsec (no hr in the time)
+    if (count($start_time_parts) == 2) {
+      // Trim the milliseconds from $start_time_parts[1].
+      $start_time_parts[1] = strtok($start_time_parts[1], '.');
+
+      $seconds = ($start_time_parts[0] * 60) + floatval($start_time_parts[1]);
+      $display_time = $start_time_parts[0] . ':' . $start_time_parts[1];
+    }
+    // hh:mm:ss.milsec.
+    elseif (count($start_time_parts) == 3) {
+      // Trim the milliseconds from $start_time_parts[2].
+      $start_time_parts[2] = strtok($start_time_parts[2], '.');
+
+      $seconds = ($start_time_parts[0] * 3600) + ($start_time_parts[1] * 60) + floatval($start_time_parts[2]);
+
+      if ($start_time_parts[0] == 0) {
+        // If hours is 0, display as mm:ss.
+        $display_time = $start_time_parts[1] . ':' . $start_time_parts[2];
+      }
+      else {
+        // Otherwise display as hh:mm:ss.
+        $display_time = $start_time_parts[0] . ':' . $start_time_parts[1] . ':' . $start_time_parts[2];
+      }
+    }
+
+    $text = trim($item['text']);
+    $transcript[$key] = [
+      'seconds' => intval($seconds),
+      'display_time' => $display_time,
+      'text' => $text,
+    ];
+  }
+
+  return $transcript;
 }

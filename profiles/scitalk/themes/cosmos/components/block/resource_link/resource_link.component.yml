@@ -1,4 +1,4 @@
-'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json"
 name: Resource link
 status: stable
 props:
@@ -13,21 +13,21 @@ props:
       title: Resource title
       description: Title to be displayed as a link; may be a file name as fallback
     title_prefix:
-      type: ['string', 'null']
+      type: ["string", "null"]
       title: Title prefix
       description: Small print title prefix, used for arxiv and doi resources
     title_suffix:
-      type: ['string', 'null']
+      type: ["string", "null"]
       title: Title suffix
       description: Suffix to appear after the title; used for file size on local files
     icon_label:
-      type: string
+      type: ["string", "null"]
       title: Resource icon label
       description: Icon label, if it should be rendered by the component
     link:
       type: string
       title: Resource link
     link_attributes:
-      type: ['string','object']
+      type: ["string", "object"]
       title: Link attributes
       description: Additional attributes to pass to the link (e.g. target="_blank")

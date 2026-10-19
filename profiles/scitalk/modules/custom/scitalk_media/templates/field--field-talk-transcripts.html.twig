@@ -12,7 +12,7 @@
 {% endfor %}
 
 {# Need an array of transcript items with language and media id #}
-{{ include ("cosmos:transcripts", {
+{{ include ("scitalk_media:transcripts", {
   transcripts: transcript_items,
 }, with_context=false )}}
 

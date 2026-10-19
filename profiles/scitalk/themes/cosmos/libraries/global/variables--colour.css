@@ -1,24 +1,33 @@
- /* Primary font family */
+/* Primary font family */
 
- @import url('https://fonts.googleapis.com/css?family=Ubuntu:300,400,500&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Ubuntu:300,400,500&display=swap");
 
- :root {
+:root {
   /* This declares that we support light and dark modes */
   --color-white: light-dark(#fff, #fffbf5);
   --color-black: hsl(0 0% 2%);
   --color-primary-light: #6fd4ee;
-  --color-primary-medium: #2A7E93;
+  --color-primary-medium: #2a7e93;
   --color-primary-dark: #004252;
   --color-secondary-light: #8c9bff;
-  --color-secondary-medium: #4759CB;
+  --color-secondary-medium: #4759cb;
   --color-secondary-dark: #243184;
 
-  --color-primary: light-dark(var(--color-primary-medium), var(--color-primary-dark));
+  --color-primary: light-dark(
+    var(--color-primary-medium),
+    var(--color-primary-dark)
+  );
   --color-primary--foreground: var(--color-white);
-  --color-primary--accent: light-dark(var(--color-primary-dark), var(--color-primary-medium));
+  --color-primary--accent: light-dark(
+    var(--color-primary-dark),
+    var(--color-primary-medium)
+  );
 
   /* Secondary colours */
-  --color-secondary: light-dark(var(--color-secondary-medium), var(--color-secondary-dark));
+  --color-secondary: light-dark(
+    var(--color-secondary-medium),
+    var(--color-secondary-dark)
+  );
   --color-secondary--foreground: var(--color-white);
 
   /* Greys go in shades from the background colour from less contrast to more contrast */
@@ -37,9 +46,12 @@
   --color-default-text: light-dark(var(--color-black), var(--color-white));
 
   --color-links: light-dark(var(--color-primary), var(--color-primary-light));
-  --color-link-hovers: light-dark(var(--color-secondary), var(--color-secondary-light));
+  --color-link-hovers: light-dark(
+    var(--color-secondary),
+    var(--color-secondary-light)
+  );
 
-  --font-family-primary: 'Ubuntu', Helvetica, sans-serif;
+  --font-family-primary: "Ubuntu", Helvetica, sans-serif;
 }
 
 /*
@@ -53,13 +65,6 @@
   toggle
 */
 
-/* Set the values based on the user's preferred colours scheme */
-@media (prefers-color-scheme: dark) {
-  html {
-    --theme: dark;
-  }
-}
-
 /* Set the values using the .dark class provided by Dark Mode Toggle module */
 html.dark {
   --theme: dark;
@@ -67,7 +72,7 @@ html.dark {
 }
 
 @media (prefers-color-scheme: dark) {
-  html[data-dark-mode-source='system'] {
+  html[data-dark-mode-source="system"] {
     --theme: dark;
   }
 }
@@ -80,5 +85,4 @@ body {
 /* How to modify dark mode styles using the --theme value.
   Currently not supported in Firefox */
 @container style(--theme: dark) {
-
 }
