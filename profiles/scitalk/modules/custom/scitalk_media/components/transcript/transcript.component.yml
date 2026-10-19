@@ -1,0 +1,32 @@
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json"
+name: Transcripts
+status: stable
+libraryOverrides:
+  dependencies:
+    - core/once
+    - core/jquery
+    - cosmos/jquery-resize
+props:
+  type: object
+  properties:
+    language:
+      type: string
+      title: Language
+      description: Language code for the transcript (e.g., "en" for English)
+    transcript:
+      type: ["array", "null"]
+      title: Transcript
+      description: Array of transcript items with timestamp and transcript text
+      properties:
+        seconds:
+          type: integer
+          title: Time in seconds
+          description: Timestamp in seconds; will be used to sync with video player
+        display_time:
+          type: string
+          title: Display time
+          description: Display time for this transcript item (MM:SS or HH:MM:SS)
+        text:
+          type: string
+          title: Text
+          description: Transcript text
