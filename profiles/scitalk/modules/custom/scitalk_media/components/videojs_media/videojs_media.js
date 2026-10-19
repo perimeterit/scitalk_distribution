@@ -154,7 +154,7 @@
           const videoTimelineSprite = drupalSettings.timeline_sprite || "";
           if (videoTimelineSprite) {
             this.spriteThumbnails({
-              interval: 60,
+              interval: 30,
               url: videoTimelineSprite,
               columns: 10,
               // rows: 5,
