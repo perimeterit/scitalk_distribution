@@ -1,19 +1,12 @@
 <?php
+
 /**
  * @file
- * Functions to support theming
+ * Functions to support theming.
  */
 
-use Drupal\Component\Utility\SafeMarkup;
-use Drupal\Component\Utility\Xss;
-use Drupal\Core\Template\Attribute;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
-use Drupal\Core\Url;
-use Drupal\Core\Link;
-use Drupal\media\Entity\Media;
-use Drupal\file\Entity\File;
-use Drupal\node\NodeInterface;
+use Drupal\views\ViewExecutable;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\node\Entity\Node;
 use Drupal\views\Views;
@@ -24,22 +17,22 @@ use Drupal\views\Views;
  */
 function cosmos_preprocess_page(&$variables) {
 
-  // Get the route to find out what type of page this is
+  // Get the route to find out what type of page this is.
   $route = \Drupal::routeMatch();
   $routename = $route->getRouteName();
   $route_parts = explode('.', $routename);
 
-  // For nodes, Get the node object
+  // For nodes, Get the node object.
   if (($routename == 'entity.node.canonical') || ($routename == 'entity.node.preview')) {
     if ($routename == 'entity.node.canonical') {
       $node = \Drupal::routeMatch()->getParameter('node');
     }
-    else if ($routename == 'entity.node.preview') {
+    elseif ($routename == 'entity.node.preview') {
       $node = \Drupal::routeMatch()->getParameter('node_preview');
     }
   }
 
-  // Negotiate the page type or section, to set the search mode
+  // Negotiate the page type or section, to set the search mode.
   if (($route_parts[1] == 'node') and (!empty($node))) {
     $nodetype = $node->getType();
     if ($nodetype == 'collection') {
@@ -49,7 +42,7 @@ function cosmos_preprocess_page(&$variables) {
       $variables['search_section'] = 'talks';
     }
   }
-  else if ($route_parts[0] == 'view') {
+  elseif ($route_parts[0] == 'view') {
     $view_name = explode('_', $route_parts[1]);
     if (($view_name[1] == 'collections') ||
       (isset($view_name[2]) && ($view_name[2] == 'collections'))) {
@@ -88,7 +81,7 @@ function cosmos_preprocess_page_title(&$variables) {
   }
 }
 
-/*
+/**
  * Utility function to get speakers information for a talk node
  * Merges speakers from speaker profile field and speaker text field
  */
@@ -96,12 +89,12 @@ function _cosmos_get_speakers(&$node) {
 
   if ($node->getType() == 'talk') {
 
-    // Loop through speakers and get array of name, institution, link
+    // Loop through speakers and get array of name, institution, link.
     $speakers_field = $node->get('field_talk_speaker_profile')->getValue();
 
     foreach ($speakers_field as $key => $speaker) {
       $speaker_entity = Node::load($speaker['target_id']);
-      // Get link to this node
+      // Get link to this node.
       $speaker_link = $speaker_entity->toUrl()->toString();
       $speaker_name = $speaker_entity->get('field_sp_display_name')->value;
       $speaker_org = $speaker_entity->get('field_sp_institution_name')->value;
@@ -109,7 +102,7 @@ function _cosmos_get_speakers(&$node) {
       $speaker = [
         'name' => $speaker_name,
         'institution' => $speaker_org,
-        'link' => $speaker_link
+        'link' => $speaker_link,
       ];
       $speakers[] = $speaker;
     }
@@ -118,12 +111,12 @@ function _cosmos_get_speakers(&$node) {
     $speaker_text_field = $node->get('field_talk_speakers_text')->getValue();
     if (!empty($speaker_text_field[0])) {
       $speaker_text_speakers = explode(', ', $speaker_text_field[0]['value']);
-      // Merge the speakers array with the speakers_text_speakers array
+      // Merge the speakers array with the speakers_text_speakers array.
       foreach ($speaker_text_speakers as $speaker_name) {
         $speaker = [
           'name' => $speaker_name,
           'institution' => '',
-          'link' => ''
+          'link' => '',
         ];
         $speakers[] = $speaker;
       }
@@ -145,13 +138,13 @@ function cosmos_preprocess_region(&$variables) {
   $route = \Drupal::routeMatch();
   $routename = $route->getRouteName();
 
-  // For talk nodes, get the speakers
+  // For talk nodes, get the speakers.
   if (($variables['region'] == 'banner') && ($routename == 'entity.node.canonical')) {
     $node = \Drupal::routeMatch()->getParameter('node');
     if ($node->getType() == 'talk') {
-      $variables['speakers'] =  _cosmos_get_speakers($node);
+      $variables['speakers'] = _cosmos_get_speakers($node);
     }
-    // For speaker nodes, get the institution
+    // For speaker nodes, get the institution.
     if ($node->getType() == 'speaker_profile') {
       $variables['speaker_institution'] = $node->get('field_sp_institution_name')->value;
     }
@@ -164,7 +157,7 @@ function cosmos_preprocess_region(&$variables) {
  */
 function cosmos_preprocess_node(&$variables) {
   $node = $variables['node'];
-  // Get the speakers
+  // Get the speakers.
   $variables['speakers'] = _cosmos_get_speakers($node);
 }
 
@@ -175,13 +168,13 @@ function cosmos_preprocess_block(&$variables) {
 
   $base_plugin_id = $variables['elements']['#base_plugin_id'];
   $plugin_id = $variables['elements']['#plugin_id'];
-  // Put a slightly less insane class on the views exposed form block
+  // Put a slightly less insane class on the views exposed form block.
   if ($base_plugin_id == 'views_exposed_filter_block') {
     $plugin_parts = explode(':', $plugin_id);
     $variables['attributes']['class'][] = 'block--' . str_replace('_', '-', $plugin_parts[1]);
   }
 
-  // Add search form classes to search exposed form, for default search view & solr search view
+  // Add search form classes to search exposed form, for default search view & solr search view.
   if (($variables['derivative_plugin_id'] == 'default_search_content-page_2') ||
     ($variables['derivative_plugin_id'] == 'scitalk_advanced_search-basic_search')) {
     $variables['attributes']['class'][] = 'search-block-form';
@@ -189,7 +182,7 @@ function cosmos_preprocess_block(&$variables) {
   }
 
   // views_block:scitalk_taxonomy-collection_type_by_source
-  // On Source home page taxonomy views, hide the view if there is only 1 result
+  // On Source home page taxonomy views, hide the view if there is only 1 result.
   if (($plugin_id == 'views_block:scitalk_taxonomy-subjects_by_source') &&
     (isset($variables['content']['#view']))) {
     $view = $variables['content']['#view'];
@@ -207,13 +200,13 @@ function cosmos_preprocess_block(&$variables) {
   }
 }
 
-/*
+/**
  * Implements hook_preprocess_HOOK() for fields.
  */
 function cosmos_preprocess_field(&$variables) {
   $field_name = $variables['field_name'];
 
-  // Change label on Prefixed talk number field
+  // Change label on Prefixed talk number field.
   if ($field_name == 'scitalk_prefixed_talk_number') {
     $variables['label'] = t('Talk number');
   }
@@ -233,206 +226,7 @@ function cosmos_preprocess_field(&$variables) {
 
 }
 
-/*
- * Implements hook_preprocess_HOOK() for media entities.
- */
-function cosmos_preprocess_media(&$variables) {
-  $bundle = $variables['media']->bundle();
-  $variables['bundle'] = $bundle;
-
-  // Add subtitles for video media types if available
-  $video_media_bundles = ['scitalk_adaptive_streaming', 'scitalk_youtube_video', 'video'];
-  if (in_array($bundle, $video_media_bundles)) {
-    $media = $variables['elements']['#media'];
-    $entity = Drupal::entityTypeManager()->getStorage('node')->loadByProperties([
-      'field_talk_video' => $media->id()
-    ]);
-
-    $entity = !empty($entity) ? current($entity) : null;
-    $field_vtt_urls = $entity?->field_subtitle_url?->getValue() ?? [];
-
-    //if there is a vtt url set then use it, else check if a vtt file was uploaded instead
-    if (!empty($field_vtt_urls)) {
-      foreach ($field_vtt_urls as $field_vtt_url) {
-        $media = Media::load($field_vtt_url['target_id']);
-        $vtt_url = $media->field_media_scitalk_remote_file->value ?? "";
-
-        $lang_key = $media->field_subtitles_language->value ?? "";
-        $langService = \Drupal::service('scitalk_media.subtitle_languages');
-        $lang_label = $langService->getLanguageLabel($lang_key);
-
-        $variables['vtts'][] = ["src" => $vtt_url, "lang" => $lang_key, "label" => $lang_label];
-      }
-    }
-    else {
-      $field_vtt_files = $entity?->field_subtitle_upload_file?->getValue() ?? [];
-
-      foreach ($field_vtt_files as $field_vtt_file) {
-        $media = Media::load($field_vtt_file['target_id']);
-        $fid = $media->field_media_file?->target_id ?? 0;
-        $file = File::load($fid);
-        $vtt_url = $file?->createFileUrl();
-        $lang_key = $media->field_subtitles_language->value ?? "";
-
-        $langService = \Drupal::service('scitalk_media.subtitle_languages');
-        $lang_label = $langService->getLanguageLabel($lang_key);
-
-        $variables['vtts'][] = ["src" => $vtt_url, "lang" => $lang_key, "label" => $lang_label];
-      }
-    }
-  }
-
-  //pass the video mime types to theme for adaptive videos:
-  if ($bundle == 'scitalk_adaptive_streaming') {
-    // for now we have these adaptive video mime types:
-    $adpative_video_mime_mapping = [
-      'm3u8' => 'application/x-mpegURL',
-      'mpd' => 'application/dash+xml'
-    ];
-
-    $variables['adpative_video_mime_mapping'] = $adpative_video_mime_mapping;
-  }
-
-  // Reformat transcript fields, create an array of times and text so we can
-  // Format them as links to the timestamp in the video
-  if ($bundle == 'scitalk_transcription') {
-    $transcript_field = $variables['elements']['field_media_scitalk_transcript'] ?? [];
-    $transcript_text = $transcript_field[0]['#text'] ?? '';
-    $transcript_lang_field = $variables['elements']['field_subtitles_language'] ?? [];
-    $transcript_lang = $transcript_lang_field[0]['#markup'] ?? '';
-    $transcript = [];
-
-    // new: correct deal with timestamps that have no hour, remove the cue ID from the text:
-    if (!empty($transcript_text)) {
-      $transcript = _build_transcript_data($transcript_text);
-      $variables['transcript'] = $transcript;
-    }
-
-    // this block below fails when there is no hh in the timestamp, also it includes cue ID's if present in the text.
-    // replaced with function _build_transcript_data.
-    // Keeping the block for now
-    // if (!empty($transcript_text)) {
-    //   $regex = "/((\d\d:)?\d{2}:\d{2}\.\d{3})\s+-->\s+((\d\d:)?\d{2}:\d{2}\.\d{3})((?:(?!\d\d:).)*|$)/ms";
-    //   preg_match_all($regex, $transcript_text, $transcript_items, PREG_SET_ORDER);
-    //   /* In the matches array:
-    //     0 = full text
-    //     1 = start time
-    //     3 = end time
-    //     5 = text
-    //   */
-
-    //   foreach ($transcript_items as $key => $item) {
-    //     // Create link for start time
-    //     $start_time = trim($item[1]);
-    //     $start_time_parts = explode(':', $start_time);
-
-
-    //     // Trim the milliseconds from $start_time_parts[2]
-    //     $start_time_parts[2] = strtok($start_time_parts[2], '.');
-
-    //     // Convert this time to seconds and set a display time
-    //     // If there are three parts, it's hh:mm:ss
-    //     if (count($start_time_parts) == 3) {
-    //       $seconds = ($start_time_parts[0] * 3600) + ($start_time_parts[1] * 60) + floatval($start_time_parts[2]);
-
-    //       if ($start_time_parts[0] == 0) {
-    //         // If hours is 0, display as mm:ss
-    //         $display_time = $start_time_parts[1] . ':' . $start_time_parts[2];
-    //       }
-    //       else {
-    //         // Otherwise display as hh:mm:ss
-    //         $display_time = $start_time_parts[0] . ':' . $start_time_parts[1] . ':' . $start_time_parts[2];
-    //       }
-
-    //     }
-    //     // Otherwise it's mm:ss
-    //     else {
-    //       $seconds = ($start_time_parts[0] * 60) + floatval($start_time_parts[1]);
-    //       $display_time = $start_time_parts[1] . ':' . $start_time_parts[2];
-    //     }
-
-    //     $text = trim($item[5]);
-    //     $transcript[$key] = [
-    //       'seconds' => intval($seconds),
-    //       'display_time' => $display_time,
-    //       'text' => $text
-    //     ];
-    //   }
-    //   // Pass this array to the template, then pass that to the component.
-    //   // Component should loop through items to build the mark-up.
-    //   // Luis was doing some weird stuff to check whether there were two or three time sections ?? Check JS
-    //   $variables['transcript'] = $transcript;
-    // }
-  }
-
-
-}
-
 /**
- * Build the Transcript data from the raw VTT text.
- * 
- * It handles timestamps with not hour and removes cue IDs from the text
- * @param string $transcript_text
- * @return array
- */
-function _build_transcript_data(string $transcript_text): array {
-  $regex = "/(?:(?<id>[^\r\n]+)\R)?(?<start>\d{2}:\d{2}(?::\d{2})?\.\d{3})\s+-->\s+(?<end>\d{2}:\d{2}(?::\d{2})?\.\d{3})[^\r\n]*\R(?<text>.*?)(?=\R{2,}|\z)/ms";
-  /*
-      $regex = '/
-          (?:(?<id>[^\r\n]+)\R)?                              # optional cue ID
-          (?<start>\d{2}:\d{2}(?::\d{2})?\.\d{3})             # start timestamp but considers the last 2 digits as optional, i.e. hours are optionals
-          \s+-->\s+
-          (?<end>\d{2}:\d{2}(?::\d{2})?\.\d{3})               # end timestamp
-          [^\r\n]*\R                                          # optional cue settings
-          (?<text>.*?)
-          (?=\R{2,}|\z)                                       # next cue / EOF
-      /ms';
-  */
-
-  $transcript = [];
-  preg_match_all($regex, $transcript_text, $transcript_items, PREG_SET_ORDER);
-  foreach ($transcript_items as $key => $item) {
-    $seconds = $display_time = '';
-
-    // Create link for start time
-    $start_time = trim($item['start']);
-    $start_time_parts = explode(':', $start_time);
-
-    if (count($start_time_parts) == 2) { // mm:ss.milsec (no hr in the time)
-        // Trim the milliseconds from $start_time_parts[1]
-        $start_time_parts[1] = strtok($start_time_parts[1], '.');
-
-        $seconds = ($start_time_parts[0] * 60) + floatval($start_time_parts[1]);
-        $display_time = $start_time_parts[0] . ':' . $start_time_parts[1];
-    }
-    elseif (count($start_time_parts) == 3) { // hh:mm:ss.milsec
-        // Trim the milliseconds from $start_time_parts[2]
-        $start_time_parts[2] = strtok($start_time_parts[2], '.');
-
-        $seconds = ($start_time_parts[0] * 3600) + ($start_time_parts[1] * 60) + floatval($start_time_parts[2]);
-
-        if ($start_time_parts[0] == 0) {
-            // If hours is 0, display as mm:ss
-            $display_time = $start_time_parts[1] . ':' . $start_time_parts[2];
-        }
-        else {
-            // Otherwise display as hh:mm:ss
-            $display_time = $start_time_parts[0] . ':' . $start_time_parts[1] . ':' . $start_time_parts[2];
-        }
-    }
-
-    $text = trim($item['text']);
-    $transcript[$key] = [
-      'seconds' => intval($seconds),
-      'display_time' => $display_time,
-      'text' => $text
-    ];
-  }
-
-  return $transcript;
-}
-
-/*
  * Implements hook_preprocess_HOOK() for group entities.
  */
 function cosmos_preprocess_group(&$variables) {
@@ -441,9 +235,9 @@ function cosmos_preprocess_group(&$variables) {
   $group_type = $group->type->getValue();
   $group_id = $group->id->getValue();
 
-  // For Source Repositories, get the Talks and Collections by source views
+  // For Source Repositories, get the Talks and Collections by source views.
   if (($group_type[0]['target_id'] == 'source_repository') && (!empty($group_id))) {
-    // Get count of talks in view
+    // Get count of talks in view.
     $talks_view = Views::getView('scitalk_talks_by_source_repo');
     $talks_view->setArguments([(int) $group_id[0]['value']]);
     $talks_view->get_total_rows = TRUE;
@@ -452,7 +246,7 @@ function cosmos_preprocess_group(&$variables) {
     $talks_count = $talks_view->total_rows;
     $variables['talks_view_count'] = $talks_count;
 
-    // Get count of collections in view
+    // Get count of collections in view.
     $collections_view = Views::getView('scitalk_talks_by_source_repo');
     $collections_view->setArguments([(int) $group_id[0]['value']]);
     $collections_view->get_total_rows = TRUE;
@@ -477,13 +271,13 @@ function cosmos_preprocess_views_view(&$variables) {
   $view_id = $view->id();
   $view_display = $view->current_display;
 
-  // For search view, get exposed input and make it available in the template
+  // For search view, get exposed input and make it available in the template.
   if (($view_id == 'scitalk_advanced_search') || ($view_id == 'scitalk_search_collections')) {
     $variables['exposed_input'] = $view->getExposedInput();
   }
 
   // Set a variable to determine if this is an attachment
-  // Used to make the pagers render differently in the views displays
+  // Used to make the pagers render differently in the views displays.
   if ($view->display_handler->getPluginId() == 'attachment') {
     $variables['is_attachment'] = TRUE;
   }
@@ -493,8 +287,8 @@ function cosmos_preprocess_views_view(&$variables) {
  * Implements hook_views_pre_render().
  * Alters views before render
  */
-function cosmos_views_pre_render(\Drupal\views\ViewExecutable $view) {
-  // On source talks view, rewrite more link for talks display
+function cosmos_views_pre_render(ViewExecutable $view) {
+  // On source talks view, rewrite more link for talks display.
   if (($view->id() == 'scitalk_talks_by_source_repo') &&
     (($view->current_display == 'talks') || ($view->current_display == 'collections'))
   ) {
@@ -523,18 +317,18 @@ function cosmos_preprocess_bef_links(&$variables) {
 
   // Make sure all items have the taxonomy term id so we can get the background
   // Image in the image button component.
-  // Otherwise this can't be accessed for active links
+  // Otherwise this can't be accessed for active links.
   if ($variables['element']['#name'] == 'field_collection_subject_target_id') {
     foreach ($variables['children'] as $key => $child) {
       $term = Term::load($child);
       if (!empty($term)) {
-      $variables['element'][$child]['#image_mid'] = $term->get('field_background_image')->getValue()[0]['target_id'] ?? '';
+        $variables['element'][$child]['#image_mid'] = $term->get('field_background_image')->getValue()[0]['target_id'] ?? '';
       }
     }
   }
 
   // For collection type, get count of results for this term so it can be used
-  // To show the result count in the counter button component
+  // To show the result count in the counter button component.
   if ($variables['element']['#name'] == 'field_collection_type_target_id') {
     foreach ($variables['children'] as $key => $child) {
       $view = Views::getView('scitalk_collections');
@@ -558,18 +352,23 @@ function cosmos_preprocess_fieldset(&$variables) {
   }
 }
 
+/**
+ *
+ */
 function cosmos_preprocess_details(&$variables) {
   if (isset($variables['element']['#title'])) {
     $variables['attributes']['class'][] = 'details--' . str_replace('_', '-', strtolower($variables['element']['#title']));
   }
 }
 
-// Add a template suggestion for taxonomy terms based on view mode
+/**
+ * Add a template suggestion for taxonomy terms based on view mode.
+ */
 function cosmos_theme_suggestions_taxonomy_term_alter(array &$suggestions, array &$variables, $hook) {
   $suggestions = [];
   $view_mode = $variables['elements']['#view_mode'];
 
-  // Add a template suggestion based on the view mode
+  // Add a template suggestion based on the view mode.
   if (isset($view_mode)) {
     $suggestions[] = 'taxonomy_term__' . $view_mode;
   }
@@ -577,24 +376,24 @@ function cosmos_theme_suggestions_taxonomy_term_alter(array &$suggestions, array
   return $suggestions;
 }
 
-/*
+/**
  * Implements hook_preprocess_HOOK() for forms.
  */
 function cosmos_preprocess_form(&$variables) {
   $form_id = $variables['element']['#id'];
 
-  // Add form-inline class to the catch-up form
+  // Add form-inline class to the catch-up form.
   if ($form_id == 'views-exposed-form-scitalk-catch-up-form-block') {
     $variables['attributes']['class'][] = 'form-inline';
   }
 }
 
-/*
-  Implements hook_form_alter()
+/**
+ * Implements hook_form_alter()
  */
-function cosmos_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
+function cosmos_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
-  // For catch-up form add some classes
+  // For catch-up form add some classes.
   if ($form['#id'] == 'views-exposed-form-scitalk-catch-up-form-block') {
     $form['#attributes']['class'][] = 'form-container';
   }
@@ -606,7 +405,7 @@ function cosmos_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_st
     $form['keys']['#attributes']['placeholder'] = t('Search');
     $form['keys']['#size'] = 20;
 
-    // Or Solr search
+    // Or Solr search.
     $form['text']['#title_display'] = 'invisible';
     $form['text']['#attributes']['placeholder'] = t('Search');
     $form['text']['#size'] = 20;
@@ -629,18 +428,17 @@ function cosmos_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_st
     $form['sort_bef_combine']['#title_display'] = 'invisible';
   }
 
-  // Hide the label on the bef sort exposed form
+  // Hide the label on the bef sort exposed form.
   $form['sort_bef_combine']['#title_display'] = 'invisible';
 
-  // Add a class to the clear search data button
+  // Add a class to the clear search data button.
   $form['actions']['reset']['#attributes']['class'][] = 'button-unstyled';
 
-  // For advanced Talks search
+  // For advanced Talks search.
   if ($form['#id'] == 'views-exposed-form-scitalk-advanced-search-form-block') {
-    // Change the placeholder text on the search terms field
+    // Change the placeholder text on the search terms field.
     $form['search_api_fulltext']['#attributes']['placeholder'] = t('Search');
     $form['text']['#attributes']['placeholder'] = t('Search');
-
 
     // Add a wrapper div around the date fields.
     $form['from']['#prefix'] = '<div class="date-search-wrap">';
@@ -674,7 +472,7 @@ function cosmos_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_st
         '#default_value' => t('All Repositories'),
         '#validated' => TRUE,
         '#empty_option' => t('All Repositories'),
-        '#options' => $options
+        '#options' => $options,
       ];
     }
   }
@@ -689,7 +487,7 @@ function cosmos_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_st
 
     // Add a wrapper div around the date fields.
     $form['collection_from']['#prefix'] = '<div class="date-search-wrap">';
-    //  This closes the content-search-wrap as well.
+    // This closes the content-search-wrap as well.
     $form['collection_to']['#suffix'] = '</div>';
     if (!empty($form['talk_subject']['#options'])) {
       foreach ($form['talk_subject']['#options'] as $key => &$option) {
@@ -701,9 +499,9 @@ function cosmos_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_st
     }
   }
 
-  //new default search
+  // New default search.
   if ($form['#id'] == 'views-exposed-form-scitalk-default-advanced-search2-talks-search') {
-    $form['actions']['submit']['#attributes'] = array('class' => array('do-advanced-search'));
+    $form['actions']['submit']['#attributes'] = ['class' => ['do-advanced-search']];
 
     if (!empty($form['talk_subject']['#options'])) {
       foreach ($form['talk_subject']['#options'] as $key => &$option) {
@@ -716,7 +514,7 @@ function cosmos_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_st
   }
 }
 
-/*
+/**
  * Add form element template suggestions
  * For form id and field id ?
  */
@@ -727,8 +525,7 @@ function cosmos_theme_suggestions_form_element_alter(array &$suggestions, array 
   }
 }
 
-
-/*
+/**
  * Add form element template suggestions
  * For form id and field id ?
  */
@@ -748,23 +545,22 @@ function cosmos_page_attachments_alter(array &$page) {
   $route = \Drupal::routeMatch();
   $routename = $route->getRouteName();
 
-  // Add the admin library if user is logged in
+  // Add the admin library if user is logged in.
   $current_user = \Drupal::currentUser();
   if ($current_user->isAuthenticated()) {
     $page['#attached']['library'][] = 'cosmos/admin';
   }
 
-  // Find out if this is a search page so we can affect the advanced search form
+  // Find out if this is a search page so we can affect the advanced search form.
   $page['#attached']['drupalSettings']['cosmos']['is_search_page'] = 'false';
   $route_parts = explode('.', $routename);
 
   $search_view_machine_names = [
     'scitalk_advanced_search',
-    'scitalk_search_collections'
+    'scitalk_search_collections',
   ];
 
   if (in_array($route_parts[1], $search_view_machine_names)) {
     $page['#attached']['drupalSettings']['cosmos']['is_search_page'] = 'true';
   }
 }
-
