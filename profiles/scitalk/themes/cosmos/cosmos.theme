@@ -94,9 +94,8 @@ function _cosmos_get_speakers(&$node) {
 
     foreach ($speakers_field as $key => $speaker) {
       $speaker_entity = Node::load($speaker['target_id']);
-      // Get link to this node.
       $speaker_link = $speaker_entity->toUrl()->toString();
-      $speaker_name = $speaker_entity->get('field_sp_display_name')->value;
+      $speaker_name = $speaker_entity->get('title')->value;
       $speaker_org = $speaker_entity->get('field_sp_institution_name')->value;
 
       $speaker = [
