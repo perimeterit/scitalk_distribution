@@ -6,18 +6,11 @@
 <div class="page-layout">
 
   {% embed "cosmos:site_header" %}
-    {% block site_branding %}
-      {{ site_branding }}
-    {% endblock %}
-
-    {% block site_search %}
-      {{ site_search }}
-    {% endblock %}
-
-    {% block supplementary_nav %}
-      {{ supplementary_nav }}
+    {% block site_header_blocks %}
+      {{ site_header_blocks }}
     {% endblock %}
   {% endembed %}
+
 
   <aside class="main-nav" id="main-nav">
 
