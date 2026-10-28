@@ -7,3 +7,4 @@ core_version_requirement: ^8 || ^9 || ^10 || ^11
 
 dependencies:
   - scitalk:scitalk_base
+  - drupal:single_content_sync
