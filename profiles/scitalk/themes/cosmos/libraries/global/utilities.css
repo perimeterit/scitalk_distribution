@@ -15,7 +15,7 @@
   list-style: none;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem;
+  gap: .4rem;
   & > li {
     display: inline-flex;
     margin-right: 0.4em;
@@ -35,21 +35,18 @@
  */
 
 .caret-link::after,
-summary::after,
-select::picker-icon {
-  content: "";
+summary::after {
+  content: '';
   display: inline-block;
   height: var(--caret-size, 1rem);
   width: var(--caret-size, 1rem);
-  border-right: var(--caret-weight, 2px) solid
-    var(--caret-color, var(--color-links));
-  border-bottom: var(--caret-weight, 2px) solid
-    var(--caret-color, var(--color-links));
+  border-right: var(--caret-weight, 2px) solid var(--caret-color, var(--color-links));
+  border-bottom: var(--caret-weight, 2px) solid var(--caret-color, var(--color-links));
   transform: rotate(var(--caret-rotate, 45deg));
 }
 
 .tag {
-  background-color: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+  background-color: light-dark( rgba(0,0,0,0.1), rgba(255,255,255,0.1));
   color: var(--color-default-text);
   display: inline-block;
   line-height: 1.6rem;
@@ -58,9 +55,9 @@ select::picker-icon {
 }
 
 a.tag {
-  background-color: light-dark(rgba(0, 0, 0, 0.2), rgba(255, 255, 255, 0.2));
+  background-color: light-dark( rgba(0,0,0,0.2), rgba(255,255,255,0.2));
 
-  &:is(:hover, :focus) {
+  &:is(:hover,:focus) {
     background-color: var(--color-primary);
     color: var(--color-primary--foreground);
     text-decoration: none;
@@ -90,10 +87,7 @@ a.tag {
 
 .bg-color--primary {
   --color-links: var(--color-primary--foreground);
-  --color-link-hovers: light-dark(
-    var(--color-primary-dark),
-    var(--color-primary-light)
-  );
+  --color-link-hovers: light-dark(var(--color-primary-dark), var(--color-primary-light));
   --color-default-text: var(--color-primary--foreground);
 
   background-color: var(--color-primary);
