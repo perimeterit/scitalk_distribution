@@ -1,14 +1,14 @@
 
 <header role="banner" class="site-header bg-color--primary">
 
-  {% block site_header %}
+  {% block site_header_blocks %}
     {# Header blocks are here. Assume this is branding + search #}
   {% endblock %}
 
   <div class="dark-mode-toggle">
     {{ drupal_block('dark_mode_toggle') }}
   </div>
-  
+
   <div class="menu-toggle-wrapper">
     {{ include('cosmos:toggle_button', {
       name: 'Menu',
