@@ -9,19 +9,23 @@
   icon_name ? 'with-icon'
 ] %}
 
-<button {{ attributes.addClass(classes)}} aria-controls="{{ controls }}"
-  aria-expanded="false" data-hide-text="{{ hide_text|default('Hide '|t ~ name)  }}">
+<button
+  {{ attributes.addClass(classes) }}
+  aria-controls="{{ controls }}"
+  aria-expanded="false"
+  data-hide-text="{{ hide_text|default('Hide '|t ~ name) }}"
+>
   {% if icon_name %}
     {{ include('cosmos:icon', {icon_name: icon_name}) }}
   {% endif %}
 
   {% if display_label == false %}
-    <span class="{{ display_label == false  ? 'visually-hidden' }} ">
+    <span class="{{ display_label == false ? 'visually-hidden' }} ">
   {% endif %}
 
-    {{ name }}
+    {{ label|default(name) }}
 
-  {% if display_label == false %}
+    {% if display_label == false %}
     </span>
   {% endif %}
 

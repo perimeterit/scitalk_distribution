@@ -14,10 +14,11 @@
   <aside class="main-nav" id="main-nav">
 
     {{ include('cosmos:toggle_button', {
-      name: 'Close Menu',
+      name: 'menu',
+      label: 'Close Menu',
       controls: 'main-nav',
       icon_name: 'chevron-right'
-    }) }}
+    }, with_context = false) }}
 
     <div class="main-nav-container">
       {# Show search button #}

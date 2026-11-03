@@ -1,4 +1,4 @@
-'$schema': 'https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json'
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json"
 name: Toggle button
 status: stable
 description: Button that controls another element; just creates a button with the aria-controls mark-up
@@ -8,10 +8,14 @@ props:
     name:
       type: string
       title: Name
-      description: What this toggles (e.g. menu, search), used for classes
+      description: What this toggles (e.g. menu, search), used for classes.
+    label:
+      type: string
+      title: Label
+      description: Text label, for screen readers, if different from name
     hide_text:
       type: string
-      title: 'Hide text'
+      title: "Hide text"
       description: string to use for the hide state text; will default to "Hide {name}"
     controls:
       type: string
@@ -19,12 +23,12 @@ props:
       description: Id of the element this controls
     display_label:
       type: boolean
-      title: 'Label display'
+      title: "Label display"
       description: Whether to show the button label (show text)
     icon_name:
       type: string
       title: Icon
     button_style:
-      type: ['string','null']
+      type: ["string", "null"]
       title: Button style
       description: Button style class (e.g. default, secondary, unstyled). Unstyled is default
