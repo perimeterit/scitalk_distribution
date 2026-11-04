@@ -31,6 +31,7 @@
   {% set link_attributes = {target: '_blank'} %}
   {% set icon_label = 'ArXiv' %}
   {% set title_prefix = content.field_media_scitalk_arxiv %}
+  {% set title = media.field_arxiv_title.0.value %}
 
 {% elseif resource_type == 'file' %}
   {% set file_name = content.field_media_file.0['#file'].getFileName() %}
@@ -40,7 +41,7 @@
   {# Get file size  #}
   {% set file_bytes = content.field_media_file.0['#file'].getSize() %}
   {% if file_bytes > 1024 %}
-    {% set filesize = (file_bytes / 1024)|number_format(1, '.') ~ 'mb'  %}
+    {% set filesize = (file_bytes / 1024)|number_format(1, '.') ~ 'mb' %}
   {% else %}
     {% set filesize = file_bytes ~ 'kb' %}
   {% endif %}
@@ -49,7 +50,7 @@
 
 {% elseif resource_type == 'image' %}
   {% set image_uri = content.field_media_image['#items'].0.entity.getFileUri() %}
-  {% set link =  file_url(image_uri) %}
+  {% set link = file_url(image_uri) %}
   {% set title = name %}
 
 {% elseif resource_type == 'remote_file' %}
@@ -63,6 +64,9 @@
   {% set link = 'http://doi.org/' ~ content.field_media_scitalk_doi['#items'].0.value %}
   {% set icon_label = resource_type %}
   {% set title_prefix = 'DOI: ' ~ content.field_media_scitalk_doi['#items'].0.value %}
+  {% set title = media.field_doi_title.value %}
+  {% set title_suffix = media.field_doi_journal_name.value %}
+
 {% else %}
   {% set icon_label = bundle %}
 {% endif %}
