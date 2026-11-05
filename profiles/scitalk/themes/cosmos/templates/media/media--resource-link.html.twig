@@ -21,6 +21,7 @@
 
 {% set title_prefix = null %}
 {% set title_suffix = null %}
+{% set link_attributes = "" %}
 
 {# set the component prop values for each resource type #}
 {% set resource_type = bundle %}
@@ -66,6 +67,7 @@
   {% set title_prefix = 'DOI: ' ~ content.field_media_scitalk_doi['#items'].0.value %}
   {% set title = media.field_doi_title.value %}
   {% set title_suffix = media.field_doi_journal_name.value %}
+  {% set link_attributes = {target: '_blank'} %}
 
 {% else %}
   {% set icon_label = bundle %}
