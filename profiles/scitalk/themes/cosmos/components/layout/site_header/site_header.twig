@@ -1,16 +1,12 @@
 
 <header role="banner" class="site-header bg-color--primary">
 
-  {% block site_branding %}
+  {% block site_header_blocks %}
+    {# Header blocks are here. Assume this is branding + search #}
   {% endblock %}
 
-  {% block site_search %}
-  {% endblock %}
-
-  <div class="supplementary-nav">
-    {# Additional header nav, including dark mode buttons #}
-    {% block supplementary_nav %}
-    {% endblock %}
+  <div class="dark-mode-toggle">
+    {{ drupal_block('dark_mode_toggle') }}
   </div>
 
   <div class="menu-toggle-wrapper">

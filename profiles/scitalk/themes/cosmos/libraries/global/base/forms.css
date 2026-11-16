@@ -185,11 +185,16 @@ label.option + .description {
 
 .form-inline {
   display: flex;
+  flex-wrap: wrap;
   gap: 0.5rem;
   align-items: end;
 
   .form-item {
     margin: 0;
+  }
+
+  .form-actions {
+    margin-top: 0;
   }
 }
 

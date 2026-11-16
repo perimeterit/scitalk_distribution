@@ -1,12 +1,19 @@
 <?php
-
 /**
  * @file
- * Functions to support theming.
+ * Functions to support theming
  */
 
+use Drupal\Component\Utility\SafeMarkup;
+use Drupal\Component\Utility\Xss;
+use Drupal\Core\Template\Attribute;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\views\ViewExecutable;
+use Drupal\Core\StringTranslation\PluralTranslatableMarkup;
+use Drupal\Core\Url;
+use Drupal\Core\Link;
+use Drupal\media\Entity\Media;
+use Drupal\file\Entity\File;
+use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\node\Entity\Node;
 use Drupal\views\Views;
@@ -17,22 +24,22 @@ use Drupal\views\Views;
  */
 function cosmos_preprocess_page(&$variables) {
 
-  // Get the route to find out what type of page this is.
+  // Get the route to find out what type of page this is
   $route = \Drupal::routeMatch();
   $routename = $route->getRouteName();
   $route_parts = explode('.', $routename);
 
-  // For nodes, Get the node object.
+  // For nodes, Get the node object
   if (($routename == 'entity.node.canonical') || ($routename == 'entity.node.preview')) {
     if ($routename == 'entity.node.canonical') {
       $node = \Drupal::routeMatch()->getParameter('node');
     }
-    elseif ($routename == 'entity.node.preview') {
+    else if ($routename == 'entity.node.preview') {
       $node = \Drupal::routeMatch()->getParameter('node_preview');
     }
   }
 
-  // Negotiate the page type or section, to set the search mode.
+  // Negotiate the page type or section, to set the search mode
   if (($route_parts[1] == 'node') and (!empty($node))) {
     $nodetype = $node->getType();
     if ($nodetype == 'collection') {
@@ -42,7 +49,7 @@ function cosmos_preprocess_page(&$variables) {
       $variables['search_section'] = 'talks';
     }
   }
-  elseif ($route_parts[0] == 'view') {
+  else if ($route_parts[0] == 'view') {
     $view_name = explode('_', $route_parts[1]);
     if (($view_name[1] == 'collections') ||
       (isset($view_name[2]) && ($view_name[2] == 'collections'))) {
@@ -81,7 +88,7 @@ function cosmos_preprocess_page_title(&$variables) {
   }
 }
 
-/**
+/*
  * Utility function to get speakers information for a talk node
  * Merges speakers from speaker profile field and speaker text field
  */
@@ -89,12 +96,12 @@ function _cosmos_get_speakers(&$node) {
 
   if ($node->getType() == 'talk') {
 
-    // Loop through speakers and get array of name, institution, link.
+    // Loop through speakers and get array of name, institution, link
     $speakers_field = $node->get('field_talk_speaker_profile')->getValue();
 
     foreach ($speakers_field as $key => $speaker) {
       $speaker_entity = Node::load($speaker['target_id']);
-      // Get link to this node.
+      // Get link to this node
       $speaker_link = $speaker_entity->toUrl()->toString();
       $speaker_name = $speaker_entity->get('field_sp_display_name')->value;
       $speaker_org = $speaker_entity->get('field_sp_institution_name')->value;
@@ -102,7 +109,7 @@ function _cosmos_get_speakers(&$node) {
       $speaker = [
         'name' => $speaker_name,
         'institution' => $speaker_org,
-        'link' => $speaker_link,
+        'link' => $speaker_link
       ];
       $speakers[] = $speaker;
     }
@@ -111,12 +118,12 @@ function _cosmos_get_speakers(&$node) {
     $speaker_text_field = $node->get('field_talk_speakers_text')->getValue();
     if (!empty($speaker_text_field[0])) {
       $speaker_text_speakers = explode(', ', $speaker_text_field[0]['value']);
-      // Merge the speakers array with the speakers_text_speakers array.
+      // Merge the speakers array with the speakers_text_speakers array
       foreach ($speaker_text_speakers as $speaker_name) {
         $speaker = [
           'name' => $speaker_name,
           'institution' => '',
-          'link' => '',
+          'link' => ''
         ];
         $speakers[] = $speaker;
       }
@@ -138,13 +145,13 @@ function cosmos_preprocess_region(&$variables) {
   $route = \Drupal::routeMatch();
   $routename = $route->getRouteName();
 
-  // For talk nodes, get the speakers.
+  // For talk nodes, get the speakers
   if (($variables['region'] == 'banner') && ($routename == 'entity.node.canonical')) {
     $node = \Drupal::routeMatch()->getParameter('node');
     if ($node->getType() == 'talk') {
-      $variables['speakers'] = _cosmos_get_speakers($node);
+      $variables['speakers'] =  _cosmos_get_speakers($node);
     }
-    // For speaker nodes, get the institution.
+    // For speaker nodes, get the institution
     if ($node->getType() == 'speaker_profile') {
       $variables['speaker_institution'] = $node->get('field_sp_institution_name')->value;
     }
@@ -157,7 +164,7 @@ function cosmos_preprocess_region(&$variables) {
  */
 function cosmos_preprocess_node(&$variables) {
   $node = $variables['node'];
-  // Get the speakers.
+  // Get the speakers
   $variables['speakers'] = _cosmos_get_speakers($node);
 }
 
@@ -168,13 +175,13 @@ function cosmos_preprocess_block(&$variables) {
 
   $base_plugin_id = $variables['elements']['#base_plugin_id'];
   $plugin_id = $variables['elements']['#plugin_id'];
-  // Put a slightly less insane class on the views exposed form block.
+  // Put a slightly less insane class on the views exposed form block
   if ($base_plugin_id == 'views_exposed_filter_block') {
     $plugin_parts = explode(':', $plugin_id);
     $variables['attributes']['class'][] = 'block--' . str_replace('_', '-', $plugin_parts[1]);
   }
 
-  // Add search form classes to search exposed form, for default search view & solr search view.
+  // Add search form classes to search exposed form, for default search view & solr search view
   if (($variables['derivative_plugin_id'] == 'default_search_content-page_2') ||
     ($variables['derivative_plugin_id'] == 'scitalk_advanced_search-basic_search')) {
     $variables['attributes']['class'][] = 'search-block-form';
@@ -182,7 +189,7 @@ function cosmos_preprocess_block(&$variables) {
   }
 
   // views_block:scitalk_taxonomy-collection_type_by_source
-  // On Source home page taxonomy views, hide the view if there is only 1 result.
+  // On Source home page taxonomy views, hide the view if there is only 1 result
   if (($plugin_id == 'views_block:scitalk_taxonomy-subjects_by_source') &&
     (isset($variables['content']['#view']))) {
     $view = $variables['content']['#view'];
@@ -200,13 +207,13 @@ function cosmos_preprocess_block(&$variables) {
   }
 }
 
-/**
+/*
  * Implements hook_preprocess_HOOK() for fields.
  */
 function cosmos_preprocess_field(&$variables) {
   $field_name = $variables['field_name'];
 
-  // Change label on Prefixed talk number field.
+  // Change label on Prefixed talk number field
   if ($field_name == 'scitalk_prefixed_talk_number') {
     $variables['label'] = t('Talk number');
   }
@@ -226,7 +233,8 @@ function cosmos_preprocess_field(&$variables) {
 
 }
 
-/**
+
+/*
  * Implements hook_preprocess_HOOK() for group entities.
  */
 function cosmos_preprocess_group(&$variables) {
@@ -235,9 +243,9 @@ function cosmos_preprocess_group(&$variables) {
   $group_type = $group->type->getValue();
   $group_id = $group->id->getValue();
 
-  // For Source Repositories, get the Talks and Collections by source views.
+  // For Source Repositories, get the Talks and Collections by source views
   if (($group_type[0]['target_id'] == 'source_repository') && (!empty($group_id))) {
-    // Get count of talks in view.
+    // Get count of talks in view
     $talks_view = Views::getView('scitalk_talks_by_source_repo');
     $talks_view->setArguments([(int) $group_id[0]['value']]);
     $talks_view->get_total_rows = TRUE;
@@ -246,7 +254,7 @@ function cosmos_preprocess_group(&$variables) {
     $talks_count = $talks_view->total_rows;
     $variables['talks_view_count'] = $talks_count;
 
-    // Get count of collections in view.
+    // Get count of collections in view
     $collections_view = Views::getView('scitalk_talks_by_source_repo');
     $collections_view->setArguments([(int) $group_id[0]['value']]);
     $collections_view->get_total_rows = TRUE;
@@ -271,13 +279,13 @@ function cosmos_preprocess_views_view(&$variables) {
   $view_id = $view->id();
   $view_display = $view->current_display;
 
-  // For search view, get exposed input and make it available in the template.
+  // For search view, get exposed input and make it available in the template
   if (($view_id == 'scitalk_advanced_search') || ($view_id == 'scitalk_search_collections')) {
     $variables['exposed_input'] = $view->getExposedInput();
   }
 
   // Set a variable to determine if this is an attachment
-  // Used to make the pagers render differently in the views displays.
+  // Used to make the pagers render differently in the views displays
   if ($view->display_handler->getPluginId() == 'attachment') {
     $variables['is_attachment'] = TRUE;
   }
@@ -287,8 +295,8 @@ function cosmos_preprocess_views_view(&$variables) {
  * Implements hook_views_pre_render().
  * Alters views before render
  */
-function cosmos_views_pre_render(ViewExecutable $view) {
-  // On source talks view, rewrite more link for talks display.
+function cosmos_views_pre_render(\Drupal\views\ViewExecutable $view) {
+  // On source talks view, rewrite more link for talks display
   if (($view->id() == 'scitalk_talks_by_source_repo') &&
     (($view->current_display == 'talks') || ($view->current_display == 'collections'))
   ) {
@@ -317,18 +325,18 @@ function cosmos_preprocess_bef_links(&$variables) {
 
   // Make sure all items have the taxonomy term id so we can get the background
   // Image in the image button component.
-  // Otherwise this can't be accessed for active links.
+  // Otherwise this can't be accessed for active links
   if ($variables['element']['#name'] == 'field_collection_subject_target_id') {
     foreach ($variables['children'] as $key => $child) {
       $term = Term::load($child);
       if (!empty($term)) {
-        $variables['element'][$child]['#image_mid'] = $term->get('field_background_image')->getValue()[0]['target_id'] ?? '';
+      $variables['element'][$child]['#image_mid'] = $term->get('field_background_image')->getValue()[0]['target_id'] ?? '';
       }
     }
   }
 
   // For collection type, get count of results for this term so it can be used
-  // To show the result count in the counter button component.
+  // To show the result count in the counter button component
   if ($variables['element']['#name'] == 'field_collection_type_target_id') {
     foreach ($variables['children'] as $key => $child) {
       $view = Views::getView('scitalk_collections');
@@ -352,23 +360,18 @@ function cosmos_preprocess_fieldset(&$variables) {
   }
 }
 
-/**
- *
- */
 function cosmos_preprocess_details(&$variables) {
   if (isset($variables['element']['#title'])) {
     $variables['attributes']['class'][] = 'details--' . str_replace('_', '-', strtolower($variables['element']['#title']));
   }
 }
 
-/**
- * Add a template suggestion for taxonomy terms based on view mode.
- */
+// Add a template suggestion for taxonomy terms based on view mode
 function cosmos_theme_suggestions_taxonomy_term_alter(array &$suggestions, array &$variables, $hook) {
   $suggestions = [];
   $view_mode = $variables['elements']['#view_mode'];
 
-  // Add a template suggestion based on the view mode.
+  // Add a template suggestion based on the view mode
   if (isset($view_mode)) {
     $suggestions[] = 'taxonomy_term__' . $view_mode;
   }
@@ -376,24 +379,24 @@ function cosmos_theme_suggestions_taxonomy_term_alter(array &$suggestions, array
   return $suggestions;
 }
 
-/**
+/*
  * Implements hook_preprocess_HOOK() for forms.
  */
 function cosmos_preprocess_form(&$variables) {
   $form_id = $variables['element']['#id'];
 
-  // Add form-inline class to the catch-up form.
+  // Add form-inline class to the catch-up form
   if ($form_id == 'views-exposed-form-scitalk-catch-up-form-block') {
     $variables['attributes']['class'][] = 'form-inline';
   }
 }
 
-/**
- * Implements hook_form_alter()
+/*
+  Implements hook_form_alter()
  */
-function cosmos_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+function cosmos_form_alter(&$form, \Drupal\Core\Form\FormStateInterface $form_state, $form_id) {
 
-  // For catch-up form add some classes.
+  // For catch-up form add some classes
   if ($form['#id'] == 'views-exposed-form-scitalk-catch-up-form-block') {
     $form['#attributes']['class'][] = 'form-container';
   }
@@ -405,7 +408,7 @@ function cosmos_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     $form['keys']['#attributes']['placeholder'] = t('Search');
     $form['keys']['#size'] = 20;
 
-    // Or Solr search.
+    // Or Solr search
     $form['text']['#title_display'] = 'invisible';
     $form['text']['#attributes']['placeholder'] = t('Search');
     $form['text']['#size'] = 20;
@@ -428,17 +431,18 @@ function cosmos_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     $form['sort_bef_combine']['#title_display'] = 'invisible';
   }
 
-  // Hide the label on the bef sort exposed form.
+  // Hide the label on the bef sort exposed form
   $form['sort_bef_combine']['#title_display'] = 'invisible';
 
-  // Add a class to the clear search data button.
+  // Add a class to the clear search data button
   $form['actions']['reset']['#attributes']['class'][] = 'button-unstyled';
 
-  // For advanced Talks search.
+  // For advanced Talks search
   if ($form['#id'] == 'views-exposed-form-scitalk-advanced-search-form-block') {
-    // Change the placeholder text on the search terms field.
+    // Change the placeholder text on the search terms field
     $form['search_api_fulltext']['#attributes']['placeholder'] = t('Search');
     $form['text']['#attributes']['placeholder'] = t('Search');
+
 
     // Add a wrapper div around the date fields.
     $form['from']['#prefix'] = '<div class="date-search-wrap">';
@@ -472,7 +476,7 @@ function cosmos_form_alter(&$form, FormStateInterface $form_state, $form_id) {
         '#default_value' => t('All Repositories'),
         '#validated' => TRUE,
         '#empty_option' => t('All Repositories'),
-        '#options' => $options,
+        '#options' => $options
       ];
     }
   }
@@ -487,7 +491,7 @@ function cosmos_form_alter(&$form, FormStateInterface $form_state, $form_id) {
 
     // Add a wrapper div around the date fields.
     $form['collection_from']['#prefix'] = '<div class="date-search-wrap">';
-    // This closes the content-search-wrap as well.
+    //  This closes the content-search-wrap as well.
     $form['collection_to']['#suffix'] = '</div>';
     if (!empty($form['talk_subject']['#options'])) {
       foreach ($form['talk_subject']['#options'] as $key => &$option) {
@@ -499,9 +503,9 @@ function cosmos_form_alter(&$form, FormStateInterface $form_state, $form_id) {
     }
   }
 
-  // New default search.
+  //new default search
   if ($form['#id'] == 'views-exposed-form-scitalk-default-advanced-search2-talks-search') {
-    $form['actions']['submit']['#attributes'] = ['class' => ['do-advanced-search']];
+    $form['actions']['submit']['#attributes'] = array('class' => array('do-advanced-search'));
 
     if (!empty($form['talk_subject']['#options'])) {
       foreach ($form['talk_subject']['#options'] as $key => &$option) {
@@ -514,7 +518,7 @@ function cosmos_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   }
 }
 
-/**
+/*
  * Add form element template suggestions
  * For form id and field id ?
  */
@@ -525,7 +529,8 @@ function cosmos_theme_suggestions_form_element_alter(array &$suggestions, array 
   }
 }
 
-/**
+
+/*
  * Add form element template suggestions
  * For form id and field id ?
  */
@@ -545,19 +550,19 @@ function cosmos_page_attachments_alter(array &$page) {
   $route = \Drupal::routeMatch();
   $routename = $route->getRouteName();
 
-  // Add the admin library if user is logged in.
+  // Add the admin library if user is logged in
   $current_user = \Drupal::currentUser();
   if ($current_user->isAuthenticated()) {
     $page['#attached']['library'][] = 'cosmos/admin';
   }
 
-  // Find out if this is a search page so we can affect the advanced search form.
+  // Find out if this is a search page so we can affect the advanced search form
   $page['#attached']['drupalSettings']['cosmos']['is_search_page'] = 'false';
   $route_parts = explode('.', $routename);
 
   $search_view_machine_names = [
     'scitalk_advanced_search',
-    'scitalk_search_collections',
+    'scitalk_search_collections'
   ];
 
   if (in_array($route_parts[1], $search_view_machine_names)) {

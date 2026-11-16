@@ -6,26 +6,19 @@
 <div class="page-layout">
 
   {% embed "cosmos:site_header" %}
-    {% block site_branding %}
-      {{ site_branding }}
-    {% endblock %}
-
-    {% block site_search %}
-      {{ site_search }}
-    {% endblock %}
-
-    {% block supplementary_nav %}
-      {{ supplementary_nav }}
+    {% block site_header_blocks %}
+      {{ page.header }}
     {% endblock %}
   {% endembed %}
 
   <aside class="main-nav" id="main-nav">
 
     {{ include('cosmos:toggle_button', {
-      name: 'Close Menu',
+      name: 'menu',
+      label: 'Close Menu',
       controls: 'main-nav',
       icon_name: 'chevron-right'
-    }) }}
+    }, with_context = false) }}
 
     <div class="main-nav-container">
       {# Show search button #}
@@ -47,14 +40,14 @@
       {{ include("cosmos:advanced_search") }}
 
       {# Main menu #}
-      {{ drupal_menu('main', expand=true) }}
+      {{ drupal_menu('main', expand = true) }}
 
     </div>
 
     {# Sidebar region #}
     <div class="main-nav-blocks">
       {% block sidebar_region %}
-        {{ drupal_region('sidebar')}}
+        {{ drupal_region('sidebar') }}
       {% endblock %}
     </div>
 
@@ -88,4 +81,4 @@
   {% endembed %}
 
 </div>
-{{ include( base_path ~ '/' ~ directory ~ '/components/element/icon/icons.svg')}}
+{{ include(base_path ~ '/' ~ directory ~ '/components/element/icon/icons.svg') }}

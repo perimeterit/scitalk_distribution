@@ -28,37 +28,10 @@
   }
 }
 
-/* Fallback for just the class @nostylequery */
-html.dark {
-  .site-branding {
-    .logo-dark {
-      display: block;
-    }
-
-    .logo-light {
-      display: none;
-    }
-  }
-}
-
-html:not(.dark) {
-  .site-branding {
-    .logo-light {
-      display: block;
-    }
-
-    .logo-dark {
-      display: none;
-    }
-  }
-}
-
-
 .site-name {
   font-size: 1.5rem;
   font-weight: 600;
   line-height: 1em;
   letter-spacing: 0.07rem;
   text-decoration: none;
-
 }

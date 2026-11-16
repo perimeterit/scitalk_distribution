@@ -13,7 +13,7 @@
             {% set slide_number = key + 1 %}
             <div class="talk-slideshow-item">
                 <div class="talk-slideshow-card">
-                  {{ drupal_image(slide.target_id, 'slideshow_thumbnail', { alt: slide_number ~ '/' ~ slides_cnt}) }}
+                  {{ drupal_image(slide.target_id, 'slideshow_thumbnail', { alt: slide_number ~ '/' ~ slides_cnt, 'data-thumbnail-path': slide|file_url }) }}
                 </div>
                 <p class="talk-slideshow-caption">
                   {{ slide_number }}/{{ slides_cnt }}

@@ -40,17 +40,8 @@
 
 
   {# Use set here because nested blocks & embeds don't work #}
-  {% set site_branding %}
-    {{ page.header[active_theme() ~ '_sitebranding'] }}
-  {% endset %}
-
-  {% set site_search %}
-    {{ page.header[active_theme() ~ '_searchform'] }}
-    {{ page.header[active_theme() ~ '_exposedformscitalk_advanced_searchbasic_search'] }}
-  {% endset %}
-
-  {% set supplementary_nav %}
-    {{ page.header|without(active_theme() ~ '_sitebranding',active_theme() ~ '_searchform', active_theme() ~ '_exposedformscitalk_advanced_searchbasic_search') }}
+  {% set site_header_blocks %}
+    {{ page.header }}
   {% endset %}
 
   {% set banner %}
