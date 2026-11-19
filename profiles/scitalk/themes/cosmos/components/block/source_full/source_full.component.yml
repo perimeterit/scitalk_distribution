@@ -1,0 +1,31 @@
+"$schema": "https://git.drupalcode.org/project/drupal/-/raw/10.1.x/core/modules/sdc/src/metadata.schema.json"
+name: Source full
+status: stable
+description: Source repository (group) full page
+libraryOverrides:
+  dependencies:
+    - core/drupal
+    - core/once
+props:
+  type: object
+  properties:
+    title:
+      type: string
+      title: Title
+    source_full_name:
+      type: ["string", "null"]
+      title: Full name
+    insitution_name:
+      type: ["string", "null"]
+      title: Insitution name
+    url:
+      type: ["string", "null"]
+      title: Url
+      description: External website URL
+    description:
+      type: ["object", "null"]
+      title: Description
+    has_logo:
+      type: ["boolean"]
+      title: Has logo
+      description: If there is a logo; Layout will be adjusted if there is no logo

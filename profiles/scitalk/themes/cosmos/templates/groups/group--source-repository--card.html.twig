@@ -39,26 +39,12 @@
  * @ingroup themeable
  */
 #}
-<div{{ attributes }}>
-  {{ title_prefix }}
-    <a href="{{ url }}" rel="bookmark" class="logo-title">
-      {% if content.field_source_repo_logo.0 %}
-        {{ content.field_source_repo_logo}}
-      {% else %}
-        {{ label }}
-      {% endif %}
-    </a>
-  {{ title_suffix }}
-
-    <div{{ content_attributes.addClass('group-content') }}>
-      {{ content|without('field_source_repo_logo','field_source_repo_url') }}
-      <ul class="display-list inline-list no-talks-collections">
-        {% if talks_view_count > 0 %}
-          <li>{{ talks_view_count }} {{ 'Talks'|t }}</li>
-        {% endif %}
-        {% if collections_view_count > 0 %}
-          <li>{{ collections_view_count }} {{ 'Collections'|t }}</li>
-        {% endif %}
-      </ul>
-    </div>
-</div>
+{% embed "cosmos:source_card" %}
+  {% block source_logo %}
+    {% if content.field_source_repo_logo.0 %}
+      {{ content.field_source_repo_logo }}
+    {% else %}
+      {{ label }}
+    {% endif %}
+  {% endblock %}
+{% endembed %}

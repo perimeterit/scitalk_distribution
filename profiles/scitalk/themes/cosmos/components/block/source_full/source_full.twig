@@ -1,0 +1,29 @@
+{% set classes = [
+  'source-full',
+  'source--' ~ has_logo ? 'has-logo' : 'no-logo'
+] %}
+
+<div {{ attributes.addClass(classes) }}>
+
+  {# If there is a logo, the page title will be visually hidden via
+    cosmos_preprocess_page_title()
+  #}
+  {% block source_logo %}
+  {% endblock %}
+
+  <div class="source-full--content">
+
+    <div class="source-description">
+      {% block source_full_content %}
+        {{ description }}
+      {% endblock %}
+    </div>
+
+    {% if url %}
+      <a class="button visit-repo-button caret-link" href="{{ url }}">
+        <strong>{{ 'Visit ' }} {{ repo_name|default(title) }}</strong>
+      </a>
+    {% endif %}
+
+  </div>
+</div>
