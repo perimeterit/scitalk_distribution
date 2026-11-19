@@ -181,7 +181,7 @@ label.option + .description {
   }
 }
 
-/* utilitiy classes */
+/* Utilitiy classes */
 
 .form-inline {
   display: flex;
@@ -213,6 +213,14 @@ label.option + .description {
 }
 
 /* Specific Forms */
+
+/* Source Catch-up Form */
+
+.block--scitalk-source-catch-up-form-block {
+  & .form-item-catch-up-source {
+    display: none;
+  }
+}
 
 /* Node/Edit preview top toolbar */
 .node-preview-container {
