@@ -280,8 +280,15 @@ function cosmos_preprocess_views_view(&$variables) {
   $view = $variables['view'];
   $view_id = $view->id();
 
+  $search_views = [
+    'scitalk_source_catch_up',
+    'scitalk_catch_up',
+    'scitalk_advanced_search',
+    'scitalk_search_collections',
+  ];
+
   // For search view, get exposed input and make it available in the template.
-  if (($view_id == 'scitalk_advanced_search') || ($view_id == 'scitalk_search_collections')) {
+  if (in_array($view_id, $search_views)) {
     $variables['exposed_input'] = $view->getExposedInput();
   }
 

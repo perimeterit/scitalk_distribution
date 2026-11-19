@@ -1,5 +1,10 @@
 {# Exposed search input string - for Talks or Collections #}
 
+{# Map the catch up subject to subject #}
+{% if exposed_input.catch_up_subject %}
+  {% set exposed_input = exposed_input|merge({subject: [exposed_input.catch_up_subject]}) %}
+{% endif %}
+
 <p class="search-summary">
   {{ 'Search results'|t }}
   {# rewrite for collections #}
@@ -50,19 +55,19 @@
     {{ 'by'|t }} <em>{{ exposed_input.speaker }}</em>
   {% endif %}
 
-  {% if exposed_input.field_talk_subject is not empty and
-    exposed_input.field_talk_subject != "All" %}
+  {% if exposed_input.subject is not empty and
+    exposed_input.subject != "All" %}
     {{ 'in'|t }}
-    {% set num_terms = exposed_input.field_talk_subject|length %}
+    {% set num_terms = exposed_input.subject|length %}
     {% set sa_terms = [] %}
     {% set count = 1 %}
 
-    {% for key, tid in exposed_input.field_talk_subject %}
+    {% for key, tid in exposed_input.subject %}
       {# add some connecting text for multiple values #}
       {% if (count == num_terms) and (count != 1) %}
         {{ 'and'|t }}
-      {% elseif (num_terms > 2) and (count < num_terms ) and (count != 1) %}
-      {{ ',' }}
+      {% elseif (num_terms > 2) and (count < num_terms) and (count != 1) %}
+        {{ ',' }}
       {% endif %}
 
       {% set sa_term = drupal_entity('taxonomy_term', tid) %}
@@ -81,7 +86,7 @@
       {# add some connecting text for multiple values #}
       {% if (count == num_terms) and (count != 1) %}
         {{ 'and'|t }}
-      {% elseif (num_terms > 2) and (count < num_terms ) and (count != 1) %}
+      {% elseif (num_terms > 2) and (count < num_terms) and (count != 1) %}
         {{ ',' }}
       {% endif %}
 
@@ -96,13 +101,13 @@
   {% if exposed_input.source is not empty and
     exposed_input.source != "All" %}
     {{ 'from'|t }}
-    <em>{{ exposed_input.source}}</em>
+    <em>{{ exposed_input.source }}</em>
   {% endif %}
 
   {# Source (collections) #}
   {% if exposed_input.collection_source is not empty and
     exposed_input.collection_source != "All" %}
     {{ 'from'|t }}
-    <em>{{ exposed_input.collection_source}}</em>
+    <em>{{ exposed_input.collection_source }}</em>
   {% endif %}
 </p>

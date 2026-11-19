@@ -19,8 +19,8 @@
 {# Add the views display library to views that need those classes
 but don't otherwise use that component  #}
 
-{% if (id in ['scitalk_recent_content'] ) %}
-    {{ attach_library('core/components.cosmos--views_display') }}
+{% if (id in ['scitalk_recent_content']) %}
+  {{ attach_library('core/components.cosmos--views_display') }}
 {% endif %}
 
 {# Add conditional for views that use the card/table switcher #}
@@ -45,9 +45,9 @@ but don't otherwise use that component  #}
 
 {# These views should have the filters split - for Talks and Collections views #}
 
-{% if (id in ['scitalk_collections','scitalk_latest_talks']) %}
+{% if (id in ['scitalk_collections', 'scitalk_latest_talks']) %}
   {% set filter_placement = 'split' %}
-{% elseif (id in ['scitalk_catch_up','scitalk_source_catch_up']) %}
+{% elseif (id in ['scitalk_catch_up', 'scitalk_source_catch_up']) %}
   {% set filter_placement = 'above' %}
   {% set filter_heading = 'Catch up'|t %}
 {% endif %}
@@ -58,10 +58,10 @@ but don't otherwise use that component  #}
 
 {% if (id in card_view_views and (display_id == 'card_view')) or
       ((id == 'scitalk_advanced_search') and (display_id == 'advanced_search')) %}
-    {{ include ("cosmos:views_display", {
+  {{ include ("cosmos:views_display", {
         filter_placement: filter_placement|default('views_header'),
         filter_heading,
-        show_exposed_input
+        is_search_page
     }) }}
 {% else %}
   {# The default views template #}
