@@ -36,6 +36,8 @@
 
 {% elseif resource_type == 'file' %}
   {% set file_name = content.field_media_file.0['#file'].getFileName() %}
+  {% set link = file_url(content.field_media_file.0['#file'].uri.value) %}
+
   {% set file_extension = file_name|split('.')|last %}
   {% set icon_label = file_extension %}
 
@@ -46,7 +48,6 @@
   {% else %}
     {% set filesize = file_bytes ~ 'kb' %}
   {% endif %}
-
   {% set title_suffix = filesize %}
 
 {% elseif resource_type == 'image' %}
