@@ -44,9 +44,13 @@
     {{ page.header }}
   {% endset %}
 
-  {% set banner %}
+  {# Render the banner from the page array rather than the page_layout
+  default (drupal_region), so the page title block gets the title from the
+  main content (e.g. view titles altered in hook_views_pre_render) instead
+  of re-resolving it from the route. #}
+  {% block page_title_region %}
     {{ page.banner }}
-  {% endset %}
+  {% endblock %}
 
   {% block sidebar_region %}
     {{ page.sidebar }}
