@@ -1,0 +1,88 @@
+/* Full view mode */
+.source-full {
+  margin-bottom: 4em;
+}
+
+@container main-canvas (width < 25rem) {
+  .source-full.has-logo .field--name-field-source-repo-logo img {
+    display: block;
+    margin: 0 auto;
+    max-width: 80%;
+    margin-bottom: 1.5em;
+  }
+}
+
+@container main-canvas (width >= 30rem) {
+  .source-full.has-logo {
+    display: grid;
+    grid-template-columns: 30% auto;
+    grid-gap: 1rem;
+  }
+  .source-full .field--name-field-source-repo-logo {
+    flex: 1 0 auto;
+    max-width: 20em;
+  }
+}
+
+@container main-canvas (width > 50rem) {
+  .source-full.has-logo {
+    grid-template-columns: 20em auto;
+    grid-gap: 2rem;
+  }
+}
+
+/* Description overflow */
+.source-show-more {
+  --caret-size: 0.5rem;
+  cursor: pointer;
+  display: block;
+  margin-bottom: 0.5rem;
+
+  &:after {
+    margin: 0.1rem 0 0 0.5rem;
+    vertical-align: top;
+    transition:
+      rotate 0.3s,
+      margin 0.3s;
+  }
+}
+
+.source-desc-overflow {
+  height: 10rem;
+  overflow: hidden;
+  position: relative;
+
+  &.open {
+    height: auto;
+  }
+
+  &:after {
+    content: "";
+    background: linear-gradient(
+      rgba(255, 255, 255, 0) 0%,
+      rgb(255, 255, 255) 50%
+    );
+    height: 2rem;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+  &.open:after {
+    background: transparent;
+  }
+
+  &.open + .source-show-more:after {
+    transform: rotate(-135deg);
+    margin-top: 0.4rem;
+  }
+}
+
+.visit-repo-button {
+  --caret-color: var(--color-neutral-00);
+  margin-top: 1em;
+  & strong:after {
+    vertical-align: text-top;
+  }
+}

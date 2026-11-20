@@ -19,10 +19,9 @@ global:
       libraries/global/layout/layout-utilities.css: {}
       libraries/global/layout/maintenance-page.css: {}
       libraries/global/layout/layout-builder.css: {}
-    component:
-      libraries/global/components/source-repos.css: {}
   js:
-    libraries/js/van11y-accessible-tab-panel-aria/dist/van11y-accessible-tab-panel-aria.min.js: {}
+    libraries/js/van11y-accessible-tab-panel-aria/dist/van11y-accessible-tab-panel-aria.min.js:
+      {}
     libraries/js/jquery-responsive-tables/js/jquery.responsive-tables.js: {}
     libraries/js/global.js: {}
   dependencies:
@@ -35,14 +34,16 @@ modals:
     component:
       libraries/modals/modals.css: {}
   js:
-    libraries/modals/van11y-accessible-modal-window-aria/dist/van11y-accessible-modal-window-aria.min.js: {}
+    libraries/modals/van11y-accessible-modal-window-aria/dist/van11y-accessible-modal-window-aria.min.js:
+      {}
 admin:
   css:
     component:
       libraries/admin/layout-builder.css: {}
 hoverintent:
   js:
-    //cdn.jsdelivr.net/npm/sv-hover-intent@1.0.1/src/sv-hover-intent.min.js: { type: external, minified: true }
+    //cdn.jsdelivr.net/npm/sv-hover-intent@1.0.1/src/sv-hover-intent.min.js:
+      { type: external, minified: true }
 scitalk-tiny-slider:
   css:
     component:

@@ -1,0 +1,17 @@
+<div {{ attributes.addClass("source-card") }}>
+  <a href="{{ url }}" rel="bookmark" class="logo-title">
+    {% block source_logo %}
+    {% endblock %}
+  </a>
+  <div class="source-info">
+    {% if talks_view_count > 0 %}
+      {{ talks_view_count }} {{ 'Talks'|t }}
+    {% endif %}
+    {% if talks_view_count and collections_view_count %}
+      |
+    {% endif %}
+    {% if collections_view_count > 0 %}
+      {{ collections_view_count }} {{ 'Collections'|t }}
+    {% endif %}
+  </div>
+</div>
