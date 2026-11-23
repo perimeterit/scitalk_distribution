@@ -94,8 +94,7 @@
         "drupal/core-dev": "^10"
     },
     "conflict": {
-        "drupal/drupal": "*",
-        "consolidation/robo": ">=5.2.0"
+        "drupal/drupal": "*"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
