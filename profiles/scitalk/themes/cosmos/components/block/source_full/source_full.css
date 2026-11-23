@@ -81,6 +81,8 @@
 
 .visit-repo-button {
   --caret-color: var(--color-neutral-00);
+  --caret-size: 0.5rem;
+  --caret-rotate: -45deg;
   margin-top: 1em;
   & strong:after {
     vertical-align: text-top;
