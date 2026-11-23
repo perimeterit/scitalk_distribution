@@ -17,9 +17,15 @@ use Drupal\Core\File\FileExists;
  */
 function scitalk_demo_install() {
   // Override the single_content_sync default configuration so demo content
-  // exported from another site can be imported.
-  \Drupal::configFactory()->getEditable('single_content_sync.settings')
+  // exported from another site can be imported, including VTT subtitle files.
+  $config = \Drupal::configFactory()->getEditable('single_content_sync.settings');
+  $extensions = preg_split('/\s+/', trim($config->get('allowed_file_extensions') ?? ''), -1, PREG_SPLIT_NO_EMPTY);
+  if (!in_array('vtt', $extensions, TRUE)) {
+    $extensions[] = 'vtt';
+  }
+  $config
     ->set('site_uuid_check', FALSE)
+    ->set('allowed_file_extensions', implode(' ', $extensions))
     ->save();
 
   scitalk_demo_create_demo_talks();
