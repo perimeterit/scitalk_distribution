@@ -77,27 +77,34 @@ class SciTalkThumbnailFormatter extends FormatterBase {
         break;
     }
 
-    // If no thumbnail is set , use the default.
+    // If no thumbnail is set, use the default. It is copied into the media
+    // icons directory on install so it can be rendered through the image style.
     if (empty($thumbnail_uri)) {
-      // Set the default thumbnail.
+      $default_uri = \Drupal::config('media.settings')->get('icon_base_uri') . '/scitalk-default-thumbnail.png';
+      if (file_exists($default_uri)) {
+        return [
+          '#theme' => 'image_style',
+          '#style_name' => $style_to_use,
+          '#uri' => $default_uri,
+          '#alt' => '',
+        ];
+      }
+
+      // Fall back to the module copy if the icon hasn't been copied yet.
       $modulePath = \Drupal::service('extension.path.resolver')
         ->getPath('module', 'scitalk_media');
-
-      $default_thumbnail_element = [
+      return [
         '#theme' => 'image',
-        '#uri' => '/' . $modulePath . '/images/scitalk-default-thumbnail.png',
-        '#alt' => t(' '),
-      ];
-      return $default_thumbnail_element;
-    }
-    else {
-      $element = [
-        '#theme' => 'image_style',
-        '#style_name' => $style_to_use,
-        '#uri' => $thumbnail_uri,
+        '#uri' => '/' . $modulePath . '/images/icons/scitalk-default-thumbnail.png',
+        '#alt' => '',
       ];
     }
-    return $element;
+
+    return [
+      '#theme' => 'image_style',
+      '#style_name' => $style_to_use,
+      '#uri' => $thumbnail_uri,
+    ];
   }
 
   /**
@@ -108,7 +115,7 @@ class SciTalkThumbnailFormatter extends FormatterBase {
     if ($field_definition->getTargetBundle() == 'talk' && $field_definition->getName() == 'field_talk_thumbnail') {
       return TRUE;
     }
-   
+
     return FALSE;
   }
 
