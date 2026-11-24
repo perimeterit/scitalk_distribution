@@ -6,7 +6,6 @@ core: 8.x
 core_version_requirement: ^9 || ^10 || ^11
 install:
   - node
-  - history
   - automated_cron
   - big_pipe
   - block
