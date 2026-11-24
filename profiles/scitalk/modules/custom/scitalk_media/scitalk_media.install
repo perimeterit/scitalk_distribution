@@ -656,3 +656,19 @@ function scitalk_media_update_8106() {
       \Drupal::logger('scitalk_media')->notice('Created Scitalk Slideshow media scitalk slideshow entity view display');
   }
 }
+/**
+ * Copy the default talk thumbnail into the media icons directory.
+ *
+ * The thumbnail formatter renders it through an image style, which needs the
+ * source file to be in a stream wrapper rather than the module directory.
+ */
+function scitalk_media_update_8107() {
+  $filename = 'scitalk-default-thumbnail.png';
+  $source = \Drupal::service('extension.path.resolver')->getPath('module', 'scitalk_media') . '/images/icons/' . $filename;
+  $destination = \Drupal::config('media.settings')->get('icon_base_uri');
+  $file_system = \Drupal::service('file_system');
+  $file_system->prepareDirectory($destination, FileSystemInterface::CREATE_DIRECTORY | FileSystemInterface::MODIFY_PERMISSIONS);
+  if (!file_exists($destination . '/' . $filename)) {
+    $file_system->copy($source, $destination, FileExists::Error);
+  }
+}

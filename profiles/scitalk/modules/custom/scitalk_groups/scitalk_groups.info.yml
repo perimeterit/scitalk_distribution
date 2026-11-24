@@ -7,3 +7,4 @@ dependencies:
   - group
   - gnode
   - node
+  - scitalk_base:scitalk_base

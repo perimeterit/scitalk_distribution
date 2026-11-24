@@ -1,3 +1,4 @@
+uuid: 5c0f3220-26cb-43ae-9ed1-1afa8bc70ecb
 langcode: en
 status: true
 dependencies:
@@ -14,7 +15,7 @@ dependencies:
     - group.type.source_repository
     - views.view.scitalk_source_catch_up
     - views.view.scitalk_talks_by_source_repo
-    - views.view.scitalk_taxonomy
+    - views.view.scitalk_taxonomy_by_source
   module:
     - ctools
     - fences
@@ -46,7 +47,7 @@ third_party_settings:
               view_mode: page_header
               context_mapping:
                 entity: layout_builder.entity
-            weight: 0
+            weight: 1
             additional: {  }
         third_party_settings: {  }
       -
@@ -67,24 +68,11 @@ third_party_settings:
               views_label: 'Catch Up'
             weight: 2
             additional: {  }
-          c326862f-916b-49de-8f0d-9bd14a1c9e20:
-            uuid: c326862f-916b-49de-8f0d-9bd14a1c9e20
+          0af39a0a-8d68-4116-b57f-3dccfaa5d17b:
+            uuid: 0af39a0a-8d68-4116-b57f-3dccfaa5d17b
             region: content
             configuration:
-              id: 'views_block:scitalk_taxonomy-subjects_by_source'
-              label: ''
-              label_display: visible
-              provider: views
-              context_mapping: {  }
-              views_label: ''
-              items_per_page: none
-            weight: 3
-            additional: {  }
-          d2c4c37a-3f1f-4fc3-b55e-c23c4903853e:
-            uuid: d2c4c37a-3f1f-4fc3-b55e-c23c4903853e
-            region: content
-            configuration:
-              id: 'views_block:scitalk_taxonomy-collection_type_by_source'
+              id: 'views_block:scitalk_taxonomy_by_source-collection_type_by_source'
               label: ''
               label_display: visible
               provider: views
@@ -92,6 +80,19 @@ third_party_settings:
               views_label: ''
               items_per_page: none
             weight: 4
+            additional: {  }
+          280b540d-111d-4086-a43b-94f02e6814c5:
+            uuid: 280b540d-111d-4086-a43b-94f02e6814c5
+            region: content
+            configuration:
+              id: 'views_block:scitalk_taxonomy_by_source-subjects_by_source'
+              label: ''
+              label_display: visible
+              provider: views
+              context_mapping: {  }
+              views_label: ''
+              items_per_page: none
+            weight: 3
             additional: {  }
         third_party_settings: {  }
       -
@@ -128,6 +129,8 @@ third_party_settings:
             weight: 0
             additional: {  }
         third_party_settings: {  }
+_core:
+  default_config_hash: r7sHM32sftGDF9wjFQH79L7at32_p8guGvywvuSBUhg
 id: group.source_repository.full
 targetEntityType: group
 bundle: source_repository

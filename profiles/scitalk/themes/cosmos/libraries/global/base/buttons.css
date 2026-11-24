@@ -27,10 +27,6 @@ input[type="submit"],
     outline: 1px solid var(--color-accent);
   }
 
-  &.caret-link::after {
-    transform: rotate(var(--caret-rotate, 45deg)) translate(1px, -6px);
-  }
-
   &.with-icon {
     --icon-size: 2em;
     display: grid;

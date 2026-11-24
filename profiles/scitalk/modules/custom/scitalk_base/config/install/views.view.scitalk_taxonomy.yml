@@ -4,8 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.taxonomy_term.image_button
-    - field.storage.node.field_collection_source_repo
-    - field.storage.node.field_talk_source_repository
     - taxonomy.vocabulary.collection_type
     - taxonomy.vocabulary.subjects
   module:

@@ -1,7 +1,10 @@
 /* Horizontal card variant */
 
 .card {
-  background-color: light-dark(var(--color-neutral-00), var(--color-neutral-10));
+  background-color: light-dark(
+    var(--color-neutral-00),
+    var(--color-neutral-10)
+  );
   color: var(--color-default-text);
   padding: 1rem;
   margin-bottom: 1rem;
@@ -11,8 +14,8 @@
   display: grid;
   position: relative;
   .card-heading a::after {
-    content: '';
-    /* display: grid; */
+    content: "";
+    display: grid;
     height: 100%;
     width: 100%;
     position: absolute;
@@ -21,34 +24,34 @@
   }
 
   /* In dark mode, this is a fallback if the style query isn't supported  */
-  &:is(:hover,:focus) {
-    box-shadow:  0 0 4px light-dark(rgba(0,0,0,0.2), rgba(0,0,0));
+  &:is(:hover, :focus) {
+    box-shadow: 0 0 4px light-dark(rgba(0, 0, 0, 0.2), rgba(0, 0, 0));
   }
 }
 
 /* Box shadow didn't work well on dark mode, use border instead */
 
 @container style(--theme: dark) {
-  .card-full-link:is(:hover,:focus) {
+  .card-full-link:is(:hover, :focus) {
     outline: 1px solid var(--color-neutral-30);
   }
 }
 
 @container main-content (max-width: 35rem) {
   .card {
-    font-size: .9em;
+    font-size: 0.9em;
   }
 }
 
 .card-heading {
   font-size: 1rem;
   line-height: 1.3;
-  margin: 0 0 .5rem;
+  margin: 0 0 0.5rem;
 }
 
 .card-content {
-  font-size: .85rem;
-  margin: .5rem 0;
+  font-size: 0.85rem;
+  margin: 0.5rem 0;
 }
 
 /* Foreground image */
@@ -106,7 +109,7 @@
 .card--teaser.collapse-abstract {
   .card-content {
     position: relative;
-    transition: max-height .3s;
+    transition: max-height 0.3s;
     margin-bottom: 1rem;
 
     max-height: 5.5rem;
@@ -120,15 +123,19 @@
     }
 
     &::after {
-      background: linear-gradient(to bottom, light-dark(rgba(255,255,255,0), rgba(0,0,0,0)) 0%,light-dark(rgba(255,255,255,1), rgba(0,0,0,1)) 100%);
-      content: '';
+      background: linear-gradient(
+        to bottom,
+        light-dark(rgba(255, 255, 255, 0), rgba(0, 0, 0, 0)) 0%,
+        light-dark(rgba(255, 255, 255, 1), rgba(0, 0, 0, 1)) 100%
+      );
+      content: "";
       display: block;
       width: 100%;
       height: 3rem;
       position: absolute;
       bottom: 0;
       opacity: 1;
-      transition: opacity .2s;
+      transition: opacity 0.2s;
     }
   }
 
@@ -143,32 +150,31 @@
   button.show-more {
     background: transparent;
     color: var(--color-primary);
-    font-size: .85em;
+    font-size: 0.85em;
     font-weight: 500;
-    margin-left: -.5rem;
+    margin-left: -0.5rem;
     padding: 0.4em 0.5rem;
 
-    &:is(:hover,:focus) {
+    &:is(:hover, :focus) {
       background-color: var(--color-primary);
       color: var(--color-primary--foreground);
-
     }
 
     &::before {
       font-size: 1.2rem;
       display: inline-block;
-      margin-right: .5rem;
+      margin-right: 0.5rem;
       vertical-align: middle;
     }
 
     &.show::before {
-      content: '+';
+      content: "+";
       margin-top: -0.3rem;
     }
 
     &.hide::before {
-      content: '\2013';
-      margin-top: -.5rem;
+      content: "\2013";
+      margin-top: -0.5rem;
     }
   }
 }
