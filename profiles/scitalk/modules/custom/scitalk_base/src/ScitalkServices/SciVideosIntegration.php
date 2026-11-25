@@ -648,7 +648,8 @@ class SciVideosIntegration {
             "type" => "speaker_profile",
             "attributes" => [
                 "title" => $entity->title->value,
-                "display_name" => $entity->field_sp_display_name->value ?? '',
+                // "display_name" => $entity->field_sp_display_name->value ?? '',
+                "display_name" => $entity->title->value ?? $entity->field_sp_display_name?->value ?? '',
                 "external_id" => $entity->field_sp_external_id->value ?? '',
                 "username" => $entity->field_sp_username->value ?? '',
                 "first_name" => $entity->field_sp_first_name->value ?? '',
