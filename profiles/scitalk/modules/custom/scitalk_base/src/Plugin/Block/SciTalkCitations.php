@@ -136,7 +136,7 @@ class SciTalkCitations extends BlockBase implements ContainerFactoryPluginInterf
                     'bibtex_first' => $this->convertSpecialCharactersToLatexEquivalents($sp->field_sp_first_name->value),
                     'bibtex_last' => $this->convertSpecialCharactersToLatexEquivalents($sp->field_sp_last_name->value),
                     'initials' => $initials, 
-                    'display_name' => $sp->field_sp_display_name->value
+                    'display_name' => $sp->title->value ?? $sp->field_sp_display_name?->value ?? '',
                 ];
 
             }, $scitalk->field_talk_speaker_profile->referencedEntities());
